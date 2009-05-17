@@ -21,11 +21,18 @@ libexec_PROGRAMS =							\
 	tumbler
 
 tumbler_SOURCES =							\
-	main.c
+	main.c								\
+	tumbler-manager.c						\
+	tumbler-manager.h						\
+	tumbler-registry.c						\
+	tumbler-registry.h						\
+	tumbler-service.c						\
+	tumbler-service.h
 
 tumbler_CFLAGS =							\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\
 	-DG_LOG_DOMAIN=\"tumbler\"					\
+	-I$(top_srcdir)							\
 	$(DBUS_CFLAGS)							\
 	$(DBUS_GLIB_CFLAGS)						\
 	$(GIO_CFLAGS)							\
