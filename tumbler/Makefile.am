@@ -21,16 +21,24 @@ libexec_PROGRAMS =							\
 	tumbler
 
 tumbler_built_sources =							\
-	tumbler-manager-dbus-bindings.h
+	tumbler-manager-dbus-bindings.h					\
+	tumbler-marshal.c						\
+	tumbler-marshal.h
 
 tumbler_SOURCES =							\
 	main.c								\
+	tumbler-builtin-thumbnailers.c					\
+	tumbler-builtin-thumbnailers.h					\
+	tumbler-builtin-thumbnailer.c					\
+	tumbler-builtin-thumbnailer.h					\
 	tumbler-manager.c						\
 	tumbler-manager.h						\
 	tumbler-registry.c						\
 	tumbler-registry.h						\
 	tumbler-service.c						\
 	tumbler-service.h						\
+	tumbler-thumbnailer.c						\
+	tumbler-thumbnailer.h						\
 	tumbler-utils.h							\
 	$(tumbler_built_sources)
 
@@ -65,15 +73,35 @@ CLEANFILES =								\
 	$(service_DATA)
 
 EXTRA_DIST =								\
-	$(service_in_files)
+	$(service_in_files)						\
+	tumbler-manager-dbus.xml	
 
 if MAINTAINER_MODE
 
 DISTCLEANFILES =							\
+	stamp-tumbler-marshal.h						\
 	$(tumbler_built_sources)
 
 BUILT_SOURCES =								\
 	$(tumbler_built_sources)
+
+tumbler-marshal.h: stamp-tumbler-marshal.h
+	@true
+
+stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
+	( cd $(srcdir) && glib-genmarshal \
+		--prefix=tumbler_marshal \
+		--header tumbler-marshal.list ) >> xgen-emh \
+	&& ( cmp -s xgen-emh tumbler-marshal.h || cp xgen-emh tumbler-marshal.h ) \
+	&& rm -f xgen-emh \
+	&& echo timestamp > $(@F)
+
+tumbler-marshal.c: tumbler-marshal.list Makefile
+	( cd $(srcdir) && glib-genmarshal \
+		--prefix=tumbler_marshal \
+		--body tumbler-marshal.list ) >> xgen-emc \
+	&& cp xgen-emc tumbler-marshal.c \
+	&& rm -f xgen-emc
 
 tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=tumbler_manager $< > $@

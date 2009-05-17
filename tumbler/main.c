@@ -30,9 +30,11 @@
 
 #include <dbus/dbus-glib.h>
 
-#include <tumbler/tumbler-registry.h>
+#include <tumbler/tumbler-builtin-thumbnailers.h>
 #include <tumbler/tumbler-manager.h>
+#include <tumbler/tumbler-registry.h>
 #include <tumbler/tumbler-service.h>
+#include <tumbler/tumbler-thumbnailer.h>
 
 
 
@@ -40,12 +42,13 @@ int
 main (int    argc,
       char **argv)
 {
-  DBusGConnection *connection;
-  TumblerRegistry *registry;
-  TumblerManager  *manager;
-  TumblerService  *service;
-  GMainLoop       *main_loop;
-  GError          *error = NULL;
+  DBusGConnection    *connection;
+  TumblerThumbnailer *thumbnailer;
+  TumblerRegistry    *registry;
+  TumblerManager     *manager;
+  TumblerService     *service;
+  GMainLoop          *main_loop;
+  GError             *error = NULL;
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
@@ -74,6 +77,11 @@ main (int    argc,
 
   /* create the thumbnailer registry */
   registry = tumbler_registry_new ();
+
+  /* register the built-in pixbuf thumbnailer */
+  thumbnailer = tumbler_pixbuf_thumbnailer_new ();
+  tumbler_registry_add (registry, thumbnailer);
+  g_object_unref (thumbnailer);
 
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))

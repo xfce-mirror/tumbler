@@ -194,3 +194,15 @@ tumbler_registry_load (TumblerRegistry *registry,
 
   return TRUE;
 }
+
+
+
+void
+tumbler_registry_add (TumblerRegistry    *registry,
+                      TumblerThumbnailer *thumbnailer)
+{
+  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+
+  /* TODO */
+}

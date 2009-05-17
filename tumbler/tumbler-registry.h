@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_REGISTRY_H__
 #define __TUMBLER_REGISTRY_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler-thumbnailer.h>
 
 G_BEGIN_DECLS;
 
@@ -39,8 +39,10 @@ typedef struct _TumblerRegistry        TumblerRegistry;
 GType            tumbler_registry_get_type (void) G_GNUC_CONST;
 
 TumblerRegistry *tumbler_registry_new      (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean         tumbler_registry_load     (TumblerRegistry *registry,
-                                            GError         **error);
+gboolean         tumbler_registry_load     (TumblerRegistry    *registry,
+                                            GError            **error);
+void             tumbler_registry_add      (TumblerRegistry    *registry,
+                                            TumblerThumbnailer *thumbnailer);
 
 G_END_DECLS;
 

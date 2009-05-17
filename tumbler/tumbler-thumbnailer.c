@@ -1,0 +1,123 @@
+/* vi:set et ai sw=2 sts=2 ts=2: */
+/*-
+ * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ *
+ * This program is free software; you can redistribute it and/or 
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of 
+ * the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public 
+ * License along with this program; if not, write to the Free 
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <tumbler/tumbler-marshal.h>
+#include <tumbler/tumbler-thumbnailer.h>
+
+
+
+/* signal identifiers */
+enum
+{
+  SIGNAL_READY,
+  SIGNAL_ERROR,
+  LAST_SIGNAL,
+};
+
+
+
+static void  tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass);
+
+
+
+static guint tumbler_thumbnailer_signals[LAST_SIGNAL];
+
+
+
+GType
+tumbler_thumbnailer_get_type (void)
+{
+  static GType type = G_TYPE_INVALID;
+  
+  if (G_UNLIKELY (type == G_TYPE_INVALID))
+    {
+      type = g_type_register_static_simple (G_TYPE_INTERFACE,
+                                            "TumblerThumbnailer",
+                                            sizeof (TumblerThumbnailerIface),
+                                            (GClassInitFunc) tumbler_thumbnailer_class_init,
+                                            0,
+                                            NULL,
+                                            0);
+
+      g_type_interface_add_prerequisite (type, G_TYPE_OBJECT);
+    }
+
+  return type;
+}
+
+
+
+static void
+tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
+{
+  g_object_interface_install_property (klass,
+                                       g_param_spec_pointer ("mime-types",
+                                                             "mime-types",
+                                                             "mime-types",
+                                                             G_PARAM_CONSTRUCT_ONLY |
+                                                             G_PARAM_READWRITE));
+
+  tumbler_thumbnailer_signals[SIGNAL_READY] = 
+    g_signal_new ("ready",
+                  TUMBLER_TYPE_THUMBNAILER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerThumbnailerIface, ready),
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__STRING,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_STRING);
+
+  tumbler_thumbnailer_signals[SIGNAL_ERROR] =
+    g_signal_new ("error",
+                  TUMBLER_TYPE_THUMBNAILER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerThumbnailerIface, error),
+                  NULL,
+                  NULL,
+                  tumbler_marshal_VOID__STRING_STRING_INT_STRING,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_STRING,
+                  G_TYPE_STRING,
+                  G_TYPE_INT,
+                  G_TYPE_STRING);
+}
+
+
+
+void
+tumbler_thumbnailer_create (TumblerThumbnailer *thumbnailer,
+                            const gchar        *uri,
+                            const gchar        *mime_hint)
+{
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (uri != NULL);
+  g_return_if_fail (mime_hint != NULL);
+
+  return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
+                                                                 uri, 
+                                                                 mime_hint);
+}
