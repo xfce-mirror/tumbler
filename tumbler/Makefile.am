@@ -20,6 +20,9 @@
 libexec_PROGRAMS =							\
 	tumbler
 
+tumbler_built_sources =							\
+	tumbler-manager-dbus-bindings.h
+
 tumbler_SOURCES =							\
 	main.c								\
 	tumbler-manager.c						\
@@ -27,7 +30,9 @@ tumbler_SOURCES =							\
 	tumbler-registry.c						\
 	tumbler-registry.h						\
 	tumbler-service.c						\
-	tumbler-service.h
+	tumbler-service.h						\
+	tumbler-utils.h							\
+	$(tumbler_built_sources)
 
 tumbler_CFLAGS =							\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\
@@ -61,3 +66,16 @@ CLEANFILES =								\
 
 EXTRA_DIST =								\
 	$(service_in_files)
+
+if MAINTAINER_MODE
+
+DISTCLEANFILES =							\
+	$(tumbler_built_sources)
+
+BUILT_SOURCES =								\
+	$(tumbler_built_sources)
+
+tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
+	dbus-binding-tool --mode=glib-server --prefix=tumbler_manager $< > $@
+
+endif

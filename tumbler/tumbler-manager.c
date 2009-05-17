@@ -24,8 +24,15 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <glib/gi18n.h>
+
+#include <dbus/dbus.h>
+#include <dbus/dbus-glib.h>
+#include <dbus/dbus-glib-lowlevel.h>
 
 #include <tumbler/tumbler-manager.h>
+#include <tumbler/tumbler-manager-dbus-bindings.h>
+#include <tumbler/tumbler-utils.h>
 
 
 
@@ -229,8 +236,74 @@ gboolean
 tumbler_manager_start (TumblerManager *manager,
                        GError        **error)
 {
+  DBusConnection *connection;
+  DBusError       dbus_error;
+  gint            result;
+
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
+  /* initialize the D-Bus error */
+  dbus_error_init (&dbus_error);
+
+  /* get the native D-Bus connection */
+  connection = dbus_g_connection_get_connection (manager->priv->connection);
+
+  /* request ownership for the manager interface */
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnailer.Manager",
+                                  DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
+
+  /* check if that failed */
+  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
+    {
+      /* propagate the D-Bus error */
+      if (dbus_error_is_set (&dbus_error))
+        {
+          if (error != NULL)
+            dbus_set_g_error (error, &dbus_error);
+
+          dbus_error_free (&dbus_error);
+        }
+      else if (error != NULL)
+        {
+          g_set_error (error, DBUS_GERROR, DBUS_GERROR_FAILED,
+                       _("Another thumbnailer manager is already running"));
+        }
+
+      /* i can't work like this! */
+      return FALSE;
+    }
+
+  /* everything's fine, install the manager type D-Bus info */
+  dbus_g_object_type_install_info (G_OBJECT_TYPE (manager), 
+                                   &dbus_glib_tumbler_manager_object_info);
+
+  /* register the manager instance as a handler of the manager interface */
+  dbus_g_connection_register_g_object (manager->priv->connection, "/", 
+                                       G_OBJECT (manager));
+
+  /* this is how I roll */
   return TRUE;
+}
+
+
+
+void
+tumbler_manager_register (TumblerManager        *manager, 
+                          gchar                 *uri_scheme, 
+                          gchar                 *mime_type, 
+                          DBusGMethodInvocation *context)
+{
+  dbus_async_return_if_fail (TUMBLER_IS_MANAGER (manager), context);
+  dbus_async_return_if_fail (uri_scheme != NULL, context);
+  dbus_async_return_if_fail (mime_type != NULL, context);
+}
+
+
+
+void
+tumbler_manager_get_supported (TumblerManager        *manager, 
+                               DBusGMethodInvocation *context)
+{
+  dbus_async_return_if_fail (TUMBLER_IS_MANAGER (manager), context);
 }
