@@ -32,6 +32,7 @@ enum
 {
   SIGNAL_READY,
   SIGNAL_ERROR,
+  SIGNAL_UNREGISTER,
   LAST_SIGNAL,
 };
 
@@ -116,6 +117,17 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                   G_TYPE_STRING,
                   G_TYPE_INT,
                   G_TYPE_STRING);
+
+  tumbler_thumbnailer_signals[SIGNAL_UNREGISTER] =
+    g_signal_new ("unregister",
+                  TUMBLER_TYPE_THUMBNAILER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerThumbnailerIface, unregister),
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE,
+                  0);
 }
 
 

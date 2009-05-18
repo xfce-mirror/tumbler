@@ -25,7 +25,9 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <tumbler/tumbler-builtin-thumbnailer.h>
 #include <tumbler/tumbler-registry.h>
+#include <tumbler/tumbler-specialized-thumbnailer.h>
 
 
 
@@ -52,6 +54,14 @@ static void tumbler_registry_set_property (GObject              *object,
                                            guint                 prop_id,
                                            const GValue         *value,
                                            GParamSpec           *pspec);
+static void tumbler_registry_remove       (const gchar          *key,
+                                           GList               **list,
+                                           TumblerThumbnailer   *thumbnailer);
+static void tumbler_registry_unregister   (TumblerThumbnailer   *thumbnailer,
+                                           TumblerRegistry      *registry);
+static void tumbler_registry_list_free    (gpointer              data);
+static gint tumbler_registry_compare      (TumblerThumbnailer   *a,
+                                           TumblerThumbnailer   *b);
 
 
 
@@ -121,6 +131,9 @@ static void
 tumbler_registry_init (TumblerRegistry *registry)
 {
   registry->priv = TUMBLER_REGISTRY_GET_PRIVATE (registry);
+  registry->priv->thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                                        g_free, 
+                                                        tumbler_registry_list_free);
 }
 
 
@@ -177,6 +190,107 @@ tumbler_registry_set_property (GObject      *object,
 
 
 
+static void
+tumbler_registry_remove (const gchar        *key,
+                         GList             **list,
+                         TumblerThumbnailer *thumbnailer)
+{
+  GList *lp;
+
+  for (lp = *list; lp != NULL; lp = lp->next)
+    {
+      if (lp->data == thumbnailer)
+        *list = g_list_delete_link (*list, lp);
+    }
+}
+
+
+
+static void
+tumbler_registry_unregister (TumblerThumbnailer *thumbnailer,
+                             TumblerRegistry    *registry)
+{
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
+
+  g_hash_table_foreach (registry->priv->thumbnailers, (GHFunc) tumbler_registry_remove, 
+                        thumbnailer);
+}
+
+
+
+static gint
+tumbler_registry_compare (TumblerThumbnailer *a,
+                          TumblerThumbnailer *b)
+{
+  TumblerSpecializedThumbnailer *a_specialized;
+  TumblerSpecializedThumbnailer *b_specialized;
+  gboolean                       insert_a_before_b = FALSE;
+  gboolean                       a_foreign;
+  gboolean                       b_foreign;
+  guint64                        a_modified;
+  guint64                        b_modified;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (a), 0);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (b), 0);
+
+  if (TUMBLER_IS_BUILTIN_THUMBNAILER (b))
+    {
+      /* built-in thumbnailers are always overriden */
+      insert_a_before_b = TRUE;
+    }
+  else if (TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))
+    {
+      a_specialized = TUMBLER_SPECIALIZED_THUMBNAILER (a);
+      b_specialized = TUMBLER_SPECIALIZED_THUMBNAILER (b);
+
+      a_foreign = tumbler_specialized_thumbnailer_get_foreign (a_specialized);
+      b_foreign = tumbler_specialized_thumbnailer_get_foreign (b_specialized);
+
+      if (a_foreign || b_foreign)
+        {
+          /* both thumbnailers were registered dynamically over D-Bus but
+           * whoever goes last wins */
+          insert_a_before_b = TRUE;
+        }
+      else
+        {
+          b_modified = tumbler_specialized_thumbnailer_get_modified (a_specialized);
+          a_modified = tumbler_specialized_thumbnailer_get_modified (a_specialized);
+
+          if (a_modified > b_modified)
+            {
+              /* a and b are both specialized thumbnailers but a was installed
+               * on the system last, so it wins */
+              insert_a_before_b = TRUE;
+            }
+        }
+    }
+  else
+    {
+      /* we have no other thumbnailer types at the moment */
+      g_assert_not_reached ();
+    }
+
+  return insert_a_before_b ? -1 : 1;
+}
+
+
+
+static void tumbler_registry_list_free (gpointer data)
+{
+  GList **list = data;
+
+  /* make sure to release all thumbnailers */
+  g_list_foreach (*list, (GFunc) g_object_unref, NULL);
+
+  /* free the list and the pointer to it */
+  g_list_free (*list);
+  g_free (list);
+}
+
+
+
 TumblerRegistry *
 tumbler_registry_new (void)
 {
@@ -192,6 +306,8 @@ tumbler_registry_load (TumblerRegistry *registry,
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
+  /* TODO */
+
   return TRUE;
 }
 
@@ -201,8 +317,46 @@ void
 tumbler_registry_add (TumblerRegistry    *registry,
                       TumblerThumbnailer *thumbnailer)
 {
+  GList **list;
+  GStrv   hash_keys;
+  gint    n;
+
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
 
-  /* TODO */
+  /* determine the hash keys (all combinations of URI schemes and MIME types)
+   * for this thumbnailer */
+  hash_keys = tumbler_thumbnailer_get_hash_keys (thumbnailer);
+
+  /* iterate over all of them */
+  for (n = 0; hash_keys != NULL && hash_keys[n] != NULL; ++n)
+    {
+      /* fetch the thumbnailer list for this URI scheme/MIME type combination */
+      list = g_hash_table_lookup (registry->priv->thumbnailers, hash_keys[n]);
+
+      if (list != NULL)
+        {
+          /* we already have thumbnailers for this combination. insert the new 
+           * one at the right position in the list */
+          *list = g_list_insert_sorted (*list, g_object_ref (thumbnailer),
+                                        (GCompareFunc) tumbler_registry_compare);
+        }
+      else
+        {
+          /* allocate a new list */
+          list = g_new0 (GList *, 1);
+
+          /* insert the thumbnailer into the list */
+          *list = g_list_prepend (*list, g_object_ref (thumbnailer));
+
+          /* insert the pointer to the list in the hash table */
+          g_hash_table_insert (registry->priv->thumbnailers, hash_keys[n], list);
+        }
+
+      /* connect to the unregister signal of the thumbnailer */
+      g_signal_connect (thumbnailer, "unregister", 
+                        G_CALLBACK (tumbler_registry_unregister), registry);
+    }
+
+  g_strfreev (hash_keys);
 }

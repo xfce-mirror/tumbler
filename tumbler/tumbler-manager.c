@@ -319,8 +319,9 @@ tumbler_manager_register (TumblerManager        *manager,
 
   sender_name = dbus_g_method_get_sender (context);
 
-  thumbnailer = tumbler_specialized_thumbnailer_new (manager->priv->connection,
-                                                     sender_name, uri_scheme, mime_type);
+  thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->priv->connection,
+                                                             sender_name, uri_scheme, 
+                                                             mime_type);
 
   tumbler_registry_add (manager->priv->registry, thumbnailer);
 

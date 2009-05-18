@@ -38,13 +38,19 @@ typedef struct _TumblerSpecializedThumbnailerPrivate TumblerSpecializedThumbnail
 typedef struct _TumblerSpecializedThumbnailerClass   TumblerSpecializedThumbnailerClass;
 typedef struct _TumblerSpecializedThumbnailer        TumblerSpecializedThumbnailer;
 
-GType               tumbler_specialized_thumbnailer_get_type (void) G_GNUC_CONST;
+GType               tumbler_specialized_thumbnailer_get_type     (void) G_GNUC_CONST;
 
-TumblerThumbnailer *tumbler_specialized_thumbnailer_new      (DBusGConnection               *connection,
-                                                              const gchar                   *name,
-                                                              const gchar                   *uri_scheme,
-                                                              const gchar                   *mime_type) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean            tumbler_specialized_thumbnailer_connect  (TumblerSpecializedThumbnailer *thumbnailer);
+TumblerThumbnailer *tumbler_specialized_thumbnailer_new          (DBusGConnection               *connection,
+                                                                  const gchar                   *name,
+                                                                  const GStrv                   *uri_schemes,
+                                                                  const GStrv                   *mime_types,
+                                                                  guint64                        modified) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailer *tumbler_specialized_thumbnailer_new_foreign  (DBusGConnection               *connection,
+                                                                  const gchar                   *name,
+                                                                  const gchar                   *uri_scheme,
+                                                                  const gchar                   *mime_type) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean            tumbler_specialized_thumbnailer_get_foreign  (TumblerSpecializedThumbnailer *thumbnailer);
+guint64             tumbler_specialized_thumbnailer_get_modified (TumblerSpecializedThumbnailer *thumbnailer);
 
 G_END_DECLS
 

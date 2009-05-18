@@ -38,12 +38,13 @@ struct _TumblerThumbnailerIface
   GTypeInterface __parent__;
 
   /* signals */
-  void (*ready)  (TumblerThumbnailer *thumbnailer,
-                  const gchar        *uri);
-  void (*error)  (TumblerThumbnailer *thumbnailer,
-                  const gchar        *failed_uri,
-                  gint                error_code,
-                  const gchar        *message);
+  void (*ready)      (TumblerThumbnailer *thumbnailer,
+                      const gchar        *uri);
+  void (*error)      (TumblerThumbnailer *thumbnailer,
+                      const gchar        *failed_uri,
+                      gint                error_code,
+                      const gchar        *message);
+  void (*unregister) (TumblerThumbnailer *thumbnailer);
 
   /* virtual methods */
   void (*create) (TumblerThumbnailer *thumbnailer,
