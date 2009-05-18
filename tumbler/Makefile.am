@@ -37,6 +37,8 @@ tumbler_SOURCES =							\
 	tumbler-registry.h						\
 	tumbler-service.c						\
 	tumbler-service.h						\
+	tumbler-specialized-thumbnailer.c				\
+	tumbler-specialized-thumbnailer.h				\
 	tumbler-thumbnailer.c						\
 	tumbler-thumbnailer.h						\
 	tumbler-utils.h							\

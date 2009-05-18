@@ -78,6 +78,19 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                                                              G_PARAM_CONSTRUCT_ONLY |
                                                              G_PARAM_READWRITE));
 
+  g_object_interface_install_property (klass,
+                                       g_param_spec_pointer ("uri-schemes",
+                                                             "uri-schemes",
+                                                             "uri-schemes",
+                                                             G_PARAM_CONSTRUCT_ONLY |
+                                                             G_PARAM_READWRITE));
+
+  g_object_interface_install_property (klass,
+                                       g_param_spec_pointer ("hash-keys",
+                                                             "hash-keys",
+                                                             "hash-keys",
+                                                             G_PARAM_READABLE));
+
   tumbler_thumbnailer_signals[SIGNAL_READY] = 
     g_signal_new ("ready",
                   TUMBLER_TYPE_THUMBNAILER,
@@ -97,10 +110,9 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                   G_STRUCT_OFFSET (TumblerThumbnailerIface, error),
                   NULL,
                   NULL,
-                  tumbler_marshal_VOID__STRING_STRING_INT_STRING,
+                  tumbler_marshal_VOID__STRING_INT_STRING,
                   G_TYPE_NONE,
                   1,
-                  G_TYPE_STRING,
                   G_TYPE_STRING,
                   G_TYPE_INT,
                   G_TYPE_STRING);
@@ -120,4 +132,43 @@ tumbler_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
                                                                  uri, 
                                                                  mime_hint);
+}
+
+
+
+GStrv
+tumbler_thumbnailer_get_hash_keys (TumblerThumbnailer *thumbnailer)
+{
+  GStrv hash_keys;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), NULL);
+
+  g_object_get (thumbnailer, "hash-keys", &hash_keys, NULL);
+  return hash_keys;
+}
+
+
+
+GStrv
+tumbler_thumbnailer_get_mime_types (TumblerThumbnailer *thumbnailer)
+{
+  GStrv mime_types;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), NULL);
+
+  g_object_get (thumbnailer, "mime-types", &mime_types, NULL);
+  return mime_types;
+}
+
+
+
+GStrv
+tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
+{
+  GStrv uri_schemes;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), NULL);
+
+  g_object_get (thumbnailer, "uri-schemes", &uri_schemes, NULL);
+  return uri_schemes;
 }

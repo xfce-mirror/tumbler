@@ -44,7 +44,8 @@ typedef gboolean (*TumblerBuiltinThumbnailerFunc) (TumblerBuiltinThumbnailer *th
 GType               tumbler_builtin_thumbnailer_get_type (void) G_GNUC_CONST;
 
 TumblerThumbnailer *tumbler_builtin_thumbnailer_new      (TumblerBuiltinThumbnailerFunc func,
-                                                          const GStrv                   mime_types) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+                                                          const GStrv                   mime_types,
+                                                          const GStrv                   uri_schemes) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
 

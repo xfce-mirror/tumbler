@@ -39,6 +39,8 @@ enum
 {
   PROP_0,
   PROP_MIME_TYPES,
+  PROP_URI_SCHEMES,
+  PROP_HASH_KEYS,
 };
 
 
@@ -78,6 +80,8 @@ struct _TumblerBuiltinThumbnailerPrivate
 {
   TumblerBuiltinThumbnailerFunc func;
   GStrv                         mime_types;
+  GStrv                         uri_schemes;
+  GStrv                         hash_keys;
 };
 
 
@@ -126,11 +130,14 @@ tumbler_builtin_thumbnailer_class_init (TumblerBuiltinThumbnailerClass *klass)
   tumbler_builtin_thumbnailer_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
+  gobject_class->constructed = tumbler_builtin_thumbnailer_constructed;
   gobject_class->finalize = tumbler_builtin_thumbnailer_finalize; 
   gobject_class->get_property = tumbler_builtin_thumbnailer_get_property;
   gobject_class->set_property = tumbler_builtin_thumbnailer_set_property;
 
   g_object_class_override_property (gobject_class, PROP_MIME_TYPES, "mime-types");
+  g_object_class_override_property (gobject_class, PROP_URI_SCHEMES, "uri-schemes");
+  g_object_class_override_property (gobject_class, PROP_HASH_KEYS, "hash-keys");
 }
 
 
@@ -153,11 +160,48 @@ tumbler_builtin_thumbnailer_init (TumblerBuiltinThumbnailer *thumbnailer)
 
 
 static void
+tumbler_builtin_thumbnailer_constructed (GObject *object)
+{
+  TumblerBuiltinThumbnailer *thumbnailer = TUMBLER_BUILTIN_THUMBNAILER (object);
+  gchar                     *hash_key;
+  gint                       num_hash_keys;
+  gint                       num_mime_types;
+  gint                       num_uri_schemes;
+  gint                       i;
+  gint                       j;
+
+  g_return_if_fail (TUMBLER_IS_BUILTIN_THUMBNAILER (thumbnailer));
+  g_return_if_fail (thumbnailer->priv->mime_types != NULL);
+  g_return_if_fail (thumbnailer->priv->uri_schemes != NULL);
+
+  num_uri_schemes = g_strv_length (thumbnailer->priv->uri_schemes);
+  num_mime_types = g_strv_length (thumbnailer->priv->mime_types);
+  num_hash_keys = num_uri_schemes * num_mime_types;
+
+  thumbnailer->priv->hash_keys = g_new0 (gchar *, num_hash_keys + 1);
+  thumbnailer->priv->hash_keys[num_hash_keys] = NULL;
+
+  for (i = 0; thumbnailer->priv->uri_schemes[i] != NULL; ++i)
+    for (j = 0; thumbnailer->priv->mime_types[j] != NULL; ++j)
+      {
+        hash_key =  g_strdup_printf ("%s-%s", 
+                                     thumbnailer->priv->uri_schemes[i],
+                                     thumbnailer->priv->mime_types[j]);
+
+        thumbnailer->priv->hash_keys[(j*num_uri_schemes)+i] = hash_key;
+      }
+}
+
+
+
+static void
 tumbler_builtin_thumbnailer_finalize (GObject *object)
 {
   TumblerBuiltinThumbnailer *thumbnailer = TUMBLER_BUILTIN_THUMBNAILER (object);
 
+  g_strfreev (thumbnailer->priv->hash_keys);
   g_strfreev (thumbnailer->priv->mime_types);
+  g_strfreev (thumbnailer->priv->uri_schemes);
 
   (*G_OBJECT_CLASS (tumbler_builtin_thumbnailer_parent_class)->finalize) (object);
 }
@@ -175,7 +219,13 @@ tumbler_builtin_thumbnailer_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_MIME_TYPES:
-      g_value_set_pointer (value, thumbnailer->priv->mime_types);
+      g_value_set_pointer (value, g_strdupv (thumbnailer->priv->mime_types));
+      break;
+    case PROP_URI_SCHEMES:
+      g_value_set_pointer (value, g_strdupv (thumbnailer->priv->uri_schemes));
+      break;
+    case PROP_HASH_KEYS:
+      g_value_set_pointer (value, g_strdupv (thumbnailer->priv->hash_keys));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -196,8 +246,13 @@ tumbler_builtin_thumbnailer_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_MIME_TYPES:
-      if (g_value_get_pointer (value) != NULL)
-        thumbnailer->priv->mime_types = g_strdupv (g_value_get_pointer (value));
+      thumbnailer->priv->mime_types = g_strdupv (g_value_get_pointer (value));
+      break;
+    case PROP_URI_SCHEMES:
+      thumbnailer->priv->uri_schemes = g_strdupv (g_value_get_pointer (value));
+      break;
+    case PROP_HASH_KEYS:
+      thumbnailer->priv->hash_keys = g_strdupv (g_value_get_pointer (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -219,16 +274,19 @@ tumbler_builtin_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 
 TumblerThumbnailer *
 tumbler_builtin_thumbnailer_new (TumblerBuiltinThumbnailerFunc func,
-                                 const GStrv                   mime_types)
+                                 const GStrv                   mime_types,
+                                 const GStrv                   uri_schemes)
 {
   TumblerBuiltinThumbnailer *thumbnailer;
 
   g_return_val_if_fail (func != NULL, NULL);
   g_return_val_if_fail (mime_types != NULL, NULL);
+  g_return_val_if_fail (uri_schemes != NULL, NULL);
 
   /* create the built-in thumbnailer */
   thumbnailer = g_object_new (TUMBLER_TYPE_BUILTIN_THUMBNAILER, 
-                              "mime-types", mime_types, NULL);
+                              "mime-types", mime_types, 
+                              "uri-schemes", uri_schemes, NULL);
 
   /* set the thumbnailer function */
   thumbnailer->priv->func = func;

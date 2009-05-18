@@ -32,6 +32,7 @@
 
 #include <tumbler/tumbler-manager.h>
 #include <tumbler/tumbler-manager-dbus-bindings.h>
+#include <tumbler/tumbler-specialized-thumbnailer.h>
 #include <tumbler/tumbler-utils.h>
 
 
@@ -81,6 +82,8 @@ struct _TumblerManagerPrivate
 {
   DBusGConnection *connection;
   TumblerRegistry *registry;
+
+  GMutex          *mutex;
 };
 
 
@@ -148,6 +151,7 @@ static void
 tumbler_manager_init (TumblerManager *manager)
 {
   manager->priv = TUMBLER_MANAGER_GET_PRIVATE (manager);
+  manager->priv->mutex = g_mutex_new ();
 }
 
 
@@ -165,9 +169,13 @@ tumbler_manager_constructed (GObject *object)
 static void
 tumbler_manager_finalize (GObject *object)
 {
-#if 0
   TumblerManager *manager = TUMBLER_MANAGER (object);
-#endif
+
+  g_object_unref (manager->priv->registry);
+
+  dbus_g_connection_unref (manager->priv->connection);
+
+  g_mutex_free (manager->priv->mutex);
 
   (*G_OBJECT_CLASS (tumbler_manager_parent_class)->finalize) (object);
 }
@@ -243,6 +251,8 @@ tumbler_manager_start (TumblerManager *manager,
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
+  g_mutex_lock (manager->priv->mutex);
+
   /* initialize the D-Bus error */
   dbus_error_init (&dbus_error);
 
@@ -270,6 +280,8 @@ tumbler_manager_start (TumblerManager *manager,
                        _("Another thumbnailer manager is already running"));
         }
 
+      g_mutex_unlock (manager->priv->mutex);
+
       /* i can't work like this! */
       return FALSE;
     }
@@ -281,6 +293,8 @@ tumbler_manager_start (TumblerManager *manager,
   /* register the manager instance as a handler of the manager interface */
   dbus_g_connection_register_g_object (manager->priv->connection, "/", 
                                        G_OBJECT (manager));
+
+  g_mutex_unlock (manager->priv->mutex);
 
   /* this is how I roll */
   return TRUE;
@@ -294,9 +308,29 @@ tumbler_manager_register (TumblerManager        *manager,
                           gchar                 *mime_type, 
                           DBusGMethodInvocation *context)
 {
+  TumblerThumbnailer *thumbnailer;
+  gchar              *sender_name;
+
   dbus_async_return_if_fail (TUMBLER_IS_MANAGER (manager), context);
   dbus_async_return_if_fail (uri_scheme != NULL, context);
   dbus_async_return_if_fail (mime_type != NULL, context);
+
+  g_mutex_lock (manager->priv->mutex);
+
+  sender_name = dbus_g_method_get_sender (context);
+
+  thumbnailer = tumbler_specialized_thumbnailer_new (manager->priv->connection,
+                                                     sender_name, uri_scheme, mime_type);
+
+  tumbler_registry_add (manager->priv->registry, thumbnailer);
+
+  g_object_unref (thumbnailer);
+
+  g_free (sender_name);
+
+  g_mutex_unlock (manager->priv->mutex);
+
+  dbus_g_method_return (context);
 }
 
 
@@ -306,4 +340,12 @@ tumbler_manager_get_supported (TumblerManager        *manager,
                                DBusGMethodInvocation *context)
 {
   dbus_async_return_if_fail (TUMBLER_IS_MANAGER (manager), context);
+
+  g_mutex_lock (manager->priv->mutex);
+
+  /* TODO */
+
+  g_mutex_unlock (manager->priv->mutex);
+
+  dbus_g_method_return (context);
 }

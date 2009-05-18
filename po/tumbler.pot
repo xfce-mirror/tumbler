@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-17 04:30+0200\n"
+"POT-Creation-Date: 2009-05-18 05:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumbler/main.c:54
+#: ../tumbler/main.c:57
 msgid "Tumbler Thumbnailing Service"
 msgstr ""
 
-#: ../tumbler/main.c:69
+#: ../tumbler/main.c:72
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr ""
 
-#: ../tumbler/main.c:81
+#: ../tumbler/main.c:89
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 
-#: ../tumbler/main.c:98
+#: ../tumbler/main.c:106
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr ""
 
-#: ../tumbler/main.c:115
+#: ../tumbler/main.c:123
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr ""

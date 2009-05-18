@@ -45,6 +45,14 @@ tumbler_pixbuf_thumbnailer_new (void)
     "image/png",
     NULL,
   };
+  static const gchar *uri_schemes[] = {
+    "file", 
+    "sftp",
+    "http",
+    NULL,
+  };
 
-  return tumbler_builtin_thumbnailer_new (_tumbler_pixbuf_thumbnailer, (const GStrv) mime_types);
+  return tumbler_builtin_thumbnailer_new (_tumbler_pixbuf_thumbnailer, 
+                                          (const GStrv) mime_types,
+                                          (const GStrv) uri_schemes);
 }
