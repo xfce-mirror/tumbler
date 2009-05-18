@@ -80,6 +80,7 @@ struct _TumblerRegistry
 struct _TumblerRegistryPrivate
 {
   GHashTable *thumbnailers;
+  GMutex     *mutex;
 };
 
 
@@ -131,6 +132,7 @@ static void
 tumbler_registry_init (TumblerRegistry *registry)
 {
   registry->priv = TUMBLER_REGISTRY_GET_PRIVATE (registry);
+  registry->priv->mutex = g_mutex_new ();
   registry->priv->thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                         g_free, 
                                                         tumbler_registry_list_free);
@@ -141,9 +143,10 @@ tumbler_registry_init (TumblerRegistry *registry)
 static void
 tumbler_registry_finalize (GObject *object)
 {
-#if 0
   TumblerRegistry *registry = TUMBLER_REGISTRY (object);
-#endif
+
+  g_hash_table_unref (registry->priv->thumbnailers);
+  g_mutex_free (registry->priv->mutex);
 
   (*G_OBJECT_CLASS (tumbler_registry_parent_class)->finalize) (object);
 }
@@ -213,8 +216,12 @@ tumbler_registry_unregister (TumblerThumbnailer *thumbnailer,
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
 
+  g_mutex_lock (registry->priv->mutex);
+
   g_hash_table_foreach (registry->priv->thumbnailers, (GHFunc) tumbler_registry_remove, 
                         thumbnailer);
+
+  g_mutex_unlock (registry->priv->mutex);
 }
 
 
@@ -324,6 +331,8 @@ tumbler_registry_add (TumblerRegistry    *registry,
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
 
+  g_mutex_lock (registry->priv->mutex);
+
   /* determine the hash keys (all combinations of URI schemes and MIME types)
    * for this thumbnailer */
   hash_keys = tumbler_thumbnailer_get_hash_keys (thumbnailer);
@@ -359,4 +368,6 @@ tumbler_registry_add (TumblerRegistry    *registry,
     }
 
   g_strfreev (hash_keys);
+
+  g_mutex_unlock (registry->priv->mutex);
 }
