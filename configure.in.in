@@ -145,6 +145,12 @@ XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [2.16.0])
 XDT_CHECK_PACKAGE([DBUS], [dbus-1], [1.0.0])
 XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [0.72])
 
+dnl *****************************************************
+dnl *** Check for built-in pixbuf thumbnailer support ***
+dnl *****************************************************
+XDT_CHECK_OPTIONAL_PACKAGE([GDK_PIXBUF], [gdk-pixbuf-2.0], [2.14],
+                           [gdk-pixbuf], [Built-in thumbnailer based on GdkPixbuf])
+
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
@@ -213,6 +219,12 @@ tumbler/Makefile
 dnl ***************************
 dnl *** Print configuration ***
 dnl ***************************
-dnl echo
-dnl echo "Build Configuration:"
-dnl echo
+echo
+echo "Build Configuration:"
+echo
+if test x"$GDK_PIXBUF_FOUND" = x"yes"; then
+echo "* Built-in pixbuf thumbnailer: yes"
+else
+echo "* Built-in pixbuf thumbnailer: no"
+fi
+echo

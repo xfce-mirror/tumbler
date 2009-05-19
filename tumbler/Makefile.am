@@ -50,6 +50,7 @@ tumbler_CFLAGS =							\
 	-I$(top_srcdir)							\
 	$(DBUS_CFLAGS)							\
 	$(DBUS_GLIB_CFLAGS)						\
+	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(GTHREAD_CFLAGS)
@@ -60,6 +61,7 @@ tumbler_LDFLAGS =							\
 tumbler_LDADD =								\
 	$(DBUS_LIBS)							\
 	$(DBUS_GLIB_LIBS)						\
+	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(GTHREAD_LIBS)
