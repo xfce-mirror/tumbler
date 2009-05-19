@@ -359,7 +359,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
           *list = g_list_prepend (*list, g_object_ref (thumbnailer));
 
           /* insert the pointer to the list in the hash table */
-          g_hash_table_insert (registry->priv->thumbnailers, hash_keys[n], list);
+          g_hash_table_insert (registry->priv->thumbnailers, g_strdup (hash_keys[n]), list);
         }
 
       /* connect to the unregister signal of the thumbnailer */

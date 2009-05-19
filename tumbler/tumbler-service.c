@@ -25,6 +25,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <tumbler/tumbler-threshold-scheduler.h>
+#include <tumbler/tumbler-scheduler.h>
 #include <tumbler/tumbler-service.h>
 
 
@@ -72,8 +74,9 @@ struct _TumblerService
 
 struct _TumblerServicePrivate
 {
-  DBusGConnection *connection;
-  TumblerRegistry *registry;
+  DBusGConnection  *connection;
+  TumblerRegistry  *registry;
+  TumblerScheduler *scheduler;
 };
 
 
@@ -148,9 +151,8 @@ tumbler_service_init (TumblerService *service)
 static void
 tumbler_service_constructed (GObject *object)
 {
-#if 0
   TumblerService *service = TUMBLER_SERVICE (object);
-#endif
+  service->priv->scheduler = tumbler_threshold_scheduler_new ();
 }
 
 
@@ -158,9 +160,12 @@ tumbler_service_constructed (GObject *object)
 static void
 tumbler_service_finalize (GObject *object)
 {
-#if 0
   TumblerService *service = TUMBLER_SERVICE (object);
-#endif
+
+  g_object_unref (service->priv->scheduler);
+  g_object_unref (service->priv->registry);
+
+  dbus_g_connection_unref (service->priv->connection);
 
   (*G_OBJECT_CLASS (tumbler_service_parent_class)->finalize) (object);
 }

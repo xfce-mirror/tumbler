@@ -35,10 +35,14 @@ tumbler_SOURCES =							\
 	tumbler-manager.h						\
 	tumbler-registry.c						\
 	tumbler-registry.h						\
+	tumbler-scheduler.c						\
+	tumbler-scheduler.h						\
 	tumbler-service.c						\
 	tumbler-service.h						\
 	tumbler-specialized-thumbnailer.c				\
 	tumbler-specialized-thumbnailer.h				\
+	tumbler-threshold-scheduler.c					\
+	tumbler-threshold-scheduler.h					\
 	tumbler-thumbnailer.c						\
 	tumbler-thumbnailer.h						\
 	tumbler-utils.h							\
