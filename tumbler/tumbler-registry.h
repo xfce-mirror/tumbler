@@ -36,13 +36,14 @@ typedef struct _TumblerRegistryPrivate TumblerRegistryPrivate;
 typedef struct _TumblerRegistryClass   TumblerRegistryClass;
 typedef struct _TumblerRegistry        TumblerRegistry;
 
-GType            tumbler_registry_get_type (void) G_GNUC_CONST;
+GType            tumbler_registry_get_type         (void) G_GNUC_CONST;
 
-TumblerRegistry *tumbler_registry_new      (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean         tumbler_registry_load     (TumblerRegistry    *registry,
-                                            GError            **error);
-void             tumbler_registry_add      (TumblerRegistry    *registry,
-                                            TumblerThumbnailer *thumbnailer);
+TumblerRegistry *tumbler_registry_new              (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean         tumbler_registry_load             (TumblerRegistry    *registry,
+                                                    GError            **error);
+void             tumbler_registry_add              (TumblerRegistry    *registry,
+                                                    TumblerThumbnailer *thumbnailer);
+GList           *tumbler_registry_get_thumbnailers (TumblerRegistry    *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS;
 

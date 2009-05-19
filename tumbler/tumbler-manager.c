@@ -315,9 +315,9 @@ tumbler_manager_register (TumblerManager        *manager,
   dbus_async_return_if_fail (uri_scheme != NULL, context);
   dbus_async_return_if_fail (mime_type != NULL, context);
 
-  g_mutex_lock (manager->priv->mutex);
-
   sender_name = dbus_g_method_get_sender (context);
+
+  g_mutex_lock (manager->priv->mutex);
 
   thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->priv->connection,
                                                              sender_name, uri_scheme, 
@@ -327,9 +327,9 @@ tumbler_manager_register (TumblerManager        *manager,
 
   g_object_unref (thumbnailer);
 
-  g_free (sender_name);
-
   g_mutex_unlock (manager->priv->mutex);
+
+  g_free (sender_name);
 
   dbus_g_method_return (context);
 }
@@ -340,13 +340,58 @@ void
 tumbler_manager_get_supported (TumblerManager        *manager, 
                                DBusGMethodInvocation *context)
 {
+  GHashTable *types;
+  GList      *thumbnailers;
+  GList      *keys;
+  GList      *lp;
+  GStrv       supported_types;
+  GStrv       mime_types;
+  gint        n;
+
   dbus_async_return_if_fail (TUMBLER_IS_MANAGER (manager), context);
+
+  /* create a hash table to collect unique MIME types */
+  types = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   g_mutex_lock (manager->priv->mutex);
 
-  /* TODO */
+  /* get a list of all active thumbnailers */
+  thumbnailers = tumbler_registry_get_thumbnailers (manager->priv->registry);
 
+  /* iterate over all of them */
+  for (lp = thumbnailers; lp != NULL; lp = lp->next)
+    {
+      /* determine the MIME types supported by the current thumbnailer */
+      mime_types = tumbler_thumbnailer_get_mime_types (lp->data);
+
+      /* insert all MIME types into the hash table */
+      for (n = 0; mime_types != NULL && mime_types[n] != NULL; ++n)
+        g_hash_table_replace (types, g_strdup (mime_types[n]), NULL);
+    }
+
+  /* relase the thumbnailer list */
+  g_list_free (thumbnailers);
+  
   g_mutex_unlock (manager->priv->mutex);
 
-  dbus_g_method_return (context);
+  /* determine all suported MIME types */
+  keys = g_hash_table_get_keys (types);
+
+  /* allocate a string array for them */
+  supported_types = g_new0 (gchar *, g_list_length (keys) + 1);
+
+  /* insert all MIME types into the array */
+  for (lp = keys, n = 0; lp != NULL; lp = lp->next, ++n)
+    supported_types[n] = g_strdup (lp->data);
+
+  /* NULL-terminate the array */
+  supported_types[n] = NULL;
+
+  /* release the list of supported MIME types */
+  g_list_free (keys);
+
+  /* destroy the hash table we used */
+  g_hash_table_unref (types);
+
+  dbus_g_method_return (context, supported_types);
 }

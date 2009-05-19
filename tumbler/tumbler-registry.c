@@ -371,3 +371,38 @@ tumbler_registry_add (TumblerRegistry    *registry,
 
   g_mutex_unlock (registry->priv->mutex);
 }
+
+
+
+GList *
+tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
+{
+  GList **list;
+  GList  *thumbnailers = NULL;
+  GList  *lists;
+  GList  *lp;
+
+  g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
+
+  g_mutex_lock (registry->priv->mutex);
+
+  /* get the thumbnailer lists */
+  lists = g_hash_table_get_values (registry->priv->thumbnailers);
+
+  for (lp = lists; lp != NULL; lp = lp->next)
+    {
+      list = lp->data;
+
+      /* add the first thumbnailer of each list to the output list */
+      if (list != NULL && *list != NULL)
+        thumbnailers = g_list_prepend (thumbnailers, (*list)->data);
+    }
+
+  /* release the thumbnailer list */
+  g_list_free (lists);
+
+  g_mutex_unlock (registry->priv->mutex);
+
+  /* return all active thumbnailers */
+  return thumbnailers;
+}
