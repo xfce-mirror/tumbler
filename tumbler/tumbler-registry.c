@@ -43,25 +43,27 @@ enum
 
 
 
-static void tumbler_registry_class_init   (TumblerRegistryClass *klass);
-static void tumbler_registry_init         (TumblerRegistry      *registry);
-static void tumbler_registry_finalize     (GObject              *object);
-static void tumbler_registry_get_property (GObject              *object,
-                                           guint                 prop_id,
-                                           GValue               *value,
-                                           GParamSpec           *pspec);
-static void tumbler_registry_set_property (GObject              *object,
-                                           guint                 prop_id,
-                                           const GValue         *value,
-                                           GParamSpec           *pspec);
-static void tumbler_registry_remove       (const gchar          *key,
-                                           GList               **list,
-                                           TumblerThumbnailer   *thumbnailer);
-static void tumbler_registry_unregister   (TumblerThumbnailer   *thumbnailer,
-                                           TumblerRegistry      *registry);
-static void tumbler_registry_list_free    (gpointer              data);
-static gint tumbler_registry_compare      (TumblerThumbnailer   *a,
-                                           TumblerThumbnailer   *b);
+static void         tumbler_registry_class_init   (TumblerRegistryClass *klass);
+static void         tumbler_registry_init         (TumblerRegistry      *registry);
+static void         tumbler_registry_finalize     (GObject              *object);
+static void         tumbler_registry_get_property (GObject              *object,
+                                                   guint                 prop_id,
+                                                   GValue               *value,
+                                                   GParamSpec           *pspec);
+static void         tumbler_registry_set_property (GObject              *object,
+                                                   guint                 prop_id,
+                                                   const GValue         *value,
+                                                   GParamSpec           *pspec);
+static void         tumbler_registry_remove       (const gchar          *key,
+                                                   GList               **list,
+                                                   TumblerThumbnailer   *thumbnailer);
+static void         tumbler_registry_unregister   (TumblerThumbnailer   *thumbnailer,
+                                                   TumblerRegistry      *registry);
+static void         tumbler_registry_list_free    (gpointer              data);
+static gint         tumbler_registry_compare      (TumblerThumbnailer   *a,
+                                                   TumblerThumbnailer   *b);
+TumblerThumbnailer *tumbler_registry_lookup       (TumblerRegistry      *registry,
+                                                   const gchar          *hash_key);
 
 
 
@@ -298,6 +300,32 @@ static void tumbler_registry_list_free (gpointer data)
 
 
 
+TumblerThumbnailer *
+tumbler_registry_lookup (TumblerRegistry *registry,
+                         const gchar     *hash_key)
+{
+  TumblerThumbnailer *thumbnailer = NULL;
+  GList             **list;
+  GList              *first;
+
+  g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
+  g_return_val_if_fail (hash_key != NULL, NULL);
+
+  list = g_hash_table_lookup (registry->priv->thumbnailers, hash_key);
+
+  if (list != NULL)
+    {
+      first = g_list_first (*list);
+
+      if (first != NULL)
+        thumbnailer = g_object_ref (first->data);
+    }
+
+  return thumbnailer;
+}
+
+
+
 TumblerRegistry *
 tumbler_registry_new (void)
 {
@@ -404,5 +432,50 @@ tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
   g_mutex_unlock (registry->priv->mutex);
 
   /* return all active thumbnailers */
+  return thumbnailers;
+}
+
+
+
+TumblerThumbnailer **
+tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
+                                        const GStrv      uris,
+                                        const GStrv      mime_hints)
+{
+  TumblerThumbnailer **thumbnailers = NULL;
+  gchar               *hash_key;
+  gchar               *scheme;
+  gint                 num_mime_hints;
+  gint                 num_thumbnailers;
+  gint                 num_uris;
+  gint                 n;
+
+  g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
+  g_return_val_if_fail (uris != NULL, NULL);
+  g_return_val_if_fail (mime_hints != NULL, NULL);
+
+  num_uris = g_strv_length (uris);
+  num_mime_hints = g_strv_length (mime_hints);
+
+  /* we handle situations silently where num_uris != num_mime_hints */
+  num_thumbnailers = MAX (0, MIN (num_uris, num_mime_hints));
+
+  thumbnailers = g_new0 (TumblerThumbnailer *, num_thumbnailers + 1);
+
+  for (n = 0; n < num_thumbnailers; ++n)
+    {
+      g_mutex_lock (registry->priv->mutex);
+
+      scheme = g_uri_parse_scheme (uris[n]);
+      hash_key = g_strdup_printf ("%s-%s", scheme, mime_hints[n]);
+      thumbnailers[n] = g_object_ref (tumbler_registry_lookup (registry, hash_key));
+      g_free (hash_key);
+      g_free (scheme);
+
+      g_mutex_unlock (registry->priv->mutex);
+    }
+
+  thumbnailers[n] = NULL;
+
   return thumbnailers;
 }

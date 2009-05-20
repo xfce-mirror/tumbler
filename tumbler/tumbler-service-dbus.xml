@@ -2,7 +2,6 @@
 <node name="/">
   <interface name="org.freedesktop.thumbnailer.Generic">
 
-    <!--
     <method name="Queue">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="as" name="uris" direction="in" />
@@ -11,6 +10,7 @@
       <arg type="u" name="handle" direction="out" />
     </method>
 
+    <!--
     <method name="Unqueue">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="u" name="handle" direction="in" />

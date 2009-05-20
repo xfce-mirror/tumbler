@@ -32,8 +32,9 @@
 
 #include <tumbler/tumbler-threshold-scheduler.h>
 #include <tumbler/tumbler-scheduler.h>
-#include <tumbler/tumbler-service-dbus-bindings.h>
 #include <tumbler/tumbler-service.h>
+#include <tumbler/tumbler-service-dbus-bindings.h>
+#include <tumbler/tumbler-utils.h>
 
 
 
@@ -296,4 +297,39 @@ tumbler_service_start (TumblerService *service,
   g_mutex_unlock (service->priv->mutex);
 
   return TRUE;
+}
+
+
+
+void
+tumbler_service_queue (TumblerService        *service,
+                       const GStrv            uris,
+                       const GStrv            mime_hints,
+                       guint                  handle_to_unqueue,
+                       DBusGMethodInvocation *context)
+{
+  TumblerSchedulerRequest *scheduler_request;
+  TumblerThumbnailer     **thumbnailers;
+  guint                    handle;
+
+  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
+  dbus_async_return_if_fail (uris != NULL, context);
+  dbus_async_return_if_fail (mime_hints != NULL, context);
+
+  /* TODO deal with the unqueue handle */
+
+  g_mutex_lock (service->priv->mutex);
+
+  thumbnailers = tumbler_registry_get_thumbnailer_array (service->priv->registry,
+                                                         uris, mime_hints);
+
+  scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers);
+
+  handle = tumbler_scheduler_push (service->priv->scheduler, scheduler_request);
+  
+  tumbler_thumbnailer_array_free (thumbnailers);
+
+  g_mutex_unlock (service->priv->mutex);
+
+  dbus_g_method_return (context, handle);
 }

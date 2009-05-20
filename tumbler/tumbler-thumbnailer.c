@@ -184,3 +184,41 @@ tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
   g_object_get (thumbnailer, "uri-schemes", &uri_schemes, NULL);
   return uri_schemes;
 }
+
+
+
+TumblerThumbnailer **
+tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers)
+{
+  TumblerThumbnailer **copy;
+  gint                 length;
+  gint                 n;
+
+  g_return_val_if_fail (thumbnailers != NULL, NULL);
+
+  for (length = 0; thumbnailers[length] != NULL; ++length);
+
+  copy = g_new0 (TumblerThumbnailer *, length);
+
+  for (n = 0; n < length-1; ++n)
+    if (thumbnailers[n] != NULL)
+      copy[n] = g_object_ref (thumbnailers[n]);
+
+  copy[length-1] = NULL;
+
+  return copy;
+}
+
+
+
+void
+tumbler_thumbnailer_array_free (TumblerThumbnailer **thumbnailers)
+{
+  gint n;
+
+  for (n = 0; thumbnailers != NULL && thumbnailers[n] != NULL; ++n)
+    if (thumbnailers[n] != NULL)
+      g_object_unref (thumbnailers[n]);
+
+  g_free (thumbnailers);
+}

@@ -52,15 +52,18 @@ struct _TumblerThumbnailerIface
                   const gchar        *mime_hint);
 };
 
-GType tumbler_thumbnailer_get_type        (void) G_GNUC_CONST;
+GType                tumbler_thumbnailer_get_type        (void) G_GNUC_CONST;
 
-void  tumbler_thumbnailer_create          (TumblerThumbnailer *thumbnailer,
-                                           const gchar        *uri,
-                                           const gchar        *mime_hint);
+void                 tumbler_thumbnailer_create          (TumblerThumbnailer  *thumbnailer,
+                                                          const gchar         *uri,
+                                                          const gchar         *mime_hint);
 
-GStrv tumbler_thumbnailer_get_hash_keys   (TumblerThumbnailer *thumbnailer);
-GStrv tumbler_thumbnailer_get_mime_types  (TumblerThumbnailer *thumbnailer);
-GStrv tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer);
+GStrv                tumbler_thumbnailer_get_hash_keys   (TumblerThumbnailer  *thumbnailer);
+GStrv                tumbler_thumbnailer_get_mime_types  (TumblerThumbnailer  *thumbnailer);
+GStrv                tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer  *thumbnailer);
+
+TumblerThumbnailer **tumbler_thumbnailer_array_copy      (TumblerThumbnailer **thumbnailers);
+void                 tumbler_thumbnailer_array_free      (TumblerThumbnailer **thumbnailers);
 
 G_END_DECLS
 

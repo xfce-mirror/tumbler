@@ -21,9 +21,11 @@
 #ifndef __TUMBLER_SCHEDULER_H__
 #define __TUMBLER_SCHEDULER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler-thumbnailer.h>
 
 G_BEGIN_DECLS
+
+typedef struct _TumblerSchedulerRequest TumblerSchedulerRequest;
 
 #define TUMBLER_TYPE_SCHEDULER           (tumbler_scheduler_get_type ())
 #define TUMBLER_SCHEDULER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_SCHEDULER, TumblerScheduler))
@@ -40,9 +42,26 @@ struct _TumblerSchedulerIface
   /* signals */
 
   /* virtual methods */
+  guint (*push) (TumblerScheduler        *scheduler,
+                 TumblerSchedulerRequest *request);
 };
 
-GType tumbler_scheduler_get_type (void) G_GNUC_CONST;
+GType                    tumbler_scheduler_get_type     (void) G_GNUC_CONST;
+
+guint                    tumbler_scheduler_push         (TumblerScheduler        *scheduler,
+                                                         TumblerSchedulerRequest *request);
+
+TumblerSchedulerRequest *tumbler_scheduler_request_new  (const GStrv          uris,
+                                                         const GStrv          mime_hints,
+                                                         TumblerThumbnailer **thumbnailers);
+void                     tumbler_scheduler_request_free (TumblerSchedulerRequest *request);
+
+struct _TumblerSchedulerRequest
+{
+  TumblerThumbnailer **thumbnailers;
+  GStrv                mime_hints;
+  GStrv                uris;
+};
 
 G_END_DECLS
 

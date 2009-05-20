@@ -40,10 +40,15 @@ typedef struct _TumblerService        TumblerService;
 
 GType           tumbler_service_get_type (void) G_GNUC_CONST;
 
-TumblerService *tumbler_service_new      (DBusGConnection *connection,
-                                          TumblerRegistry *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean        tumbler_service_start    (TumblerService  *service,
-                                          GError         **error);
+TumblerService *tumbler_service_new      (DBusGConnection       *connection,
+                                          TumblerRegistry       *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean        tumbler_service_start    (TumblerService        *service,
+                                          GError               **error);
+void            tumbler_service_queue    (TumblerService        *service,
+                                          const GStrv            uris,
+                                          const GStrv            mime_hints,
+                                          guint                  handle_to_unqueue,
+                                          DBusGMethodInvocation *context);
 
 G_END_DECLS;
 

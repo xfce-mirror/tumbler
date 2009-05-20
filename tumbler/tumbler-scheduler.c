@@ -57,3 +57,60 @@ static void
 tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
 {
 }
+
+
+
+guint
+tumbler_scheduler_push (TumblerScheduler        *scheduler,
+                        TumblerSchedulerRequest *request)
+{
+  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (scheduler), 0);
+  g_return_val_if_fail (request != NULL, 0);
+
+  g_debug ("push request");
+
+  gint n;
+
+  for (n = 0; request->uris[n] != NULL; ++n)
+    {
+      g_debug ("  uris[%d]       = %s", n, request->uris[n]);
+      g_debug ("  mime_hints[%d] = %s", n, request->mime_hints[n]);
+    }
+
+  /* TODO */
+
+  return 0;
+}
+
+TumblerSchedulerRequest *
+tumbler_scheduler_request_new (const GStrv          uris,
+                               const GStrv          mime_hints,
+                               TumblerThumbnailer **thumbnailers)
+{
+  TumblerSchedulerRequest *request = NULL;
+
+  g_return_val_if_fail (uris != NULL, NULL);
+  g_return_val_if_fail (mime_hints != NULL, NULL);
+  g_return_val_if_fail (thumbnailers != NULL, NULL);
+
+  request = g_new0 (TumblerSchedulerRequest, 1);
+  request->uris = g_strdupv (uris);
+  request->mime_hints = g_strdupv (mime_hints);
+  request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers);
+
+  return request;
+}
+
+
+
+void
+tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
+{
+  g_return_if_fail (request != NULL);
+
+  g_strfreev (request->uris);
+  g_strfreev (request->mime_hints);
+  tumbler_thumbnailer_array_free (request->thumbnailers);
+
+  g_free (request);
+}
