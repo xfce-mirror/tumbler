@@ -23,7 +23,8 @@ libexec_PROGRAMS =							\
 tumbler_built_sources =							\
 	tumbler-manager-dbus-bindings.h					\
 	tumbler-marshal.c						\
-	tumbler-marshal.h
+	tumbler-marshal.h						\
+	tumbler-service-dbus-bindings.h
 
 tumbler_SOURCES =							\
 	main.c								\
@@ -82,7 +83,8 @@ CLEANFILES =								\
 
 EXTRA_DIST =								\
 	$(service_in_files)						\
-	tumbler-manager-dbus.xml	
+	tumbler-manager-dbus.xml					\
+	tumbler-service-dbus.xml
 
 if MAINTAINER_MODE
 
@@ -113,5 +115,8 @@ tumbler-marshal.c: tumbler-marshal.list Makefile
 
 tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=tumbler_manager $< > $@
+
+tumbler-service-dbus-bindings.h: tumbler-service-dbus.xml Makefile
+	dbus-binding-tool --mode=glib-server --prefix=tumbler_service $< > $@
 
 endif

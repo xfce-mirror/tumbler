@@ -23,10 +23,16 @@
 #endif
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
+
+#include <dbus/dbus.h>
+#include <dbus/dbus-glib.h>
+#include <dbus/dbus-glib-lowlevel.h>
 
 #include <tumbler/tumbler-threshold-scheduler.h>
 #include <tumbler/tumbler-scheduler.h>
+#include <tumbler/tumbler-service-dbus-bindings.h>
 #include <tumbler/tumbler-service.h>
 
 
@@ -77,6 +83,7 @@ struct _TumblerServicePrivate
   DBusGConnection  *connection;
   TumblerRegistry  *registry;
   TumblerScheduler *scheduler;
+  GMutex           *mutex;
 };
 
 
@@ -144,6 +151,7 @@ static void
 tumbler_service_init (TumblerService *service)
 {
   service->priv = TUMBLER_SERVICE_GET_PRIVATE (service);
+  service->priv->mutex = g_mutex_new ();
 }
 
 
@@ -166,6 +174,8 @@ tumbler_service_finalize (GObject *object)
   g_object_unref (service->priv->registry);
 
   dbus_g_connection_unref (service->priv->connection);
+
+  g_mutex_free (service->priv->mutex);
 
   (*G_OBJECT_CLASS (tumbler_service_parent_class)->finalize) (object);
 }
@@ -234,8 +244,56 @@ gboolean
 tumbler_service_start (TumblerService *service,
                        GError        **error)
 {
+  DBusConnection *connection;
+  DBusError       dbus_error;
+  gint            result;
+
   g_return_val_if_fail (TUMBLER_IS_SERVICE (service), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+  g_mutex_lock (service->priv->mutex);
+
+  dbus_error_init (&dbus_error);
+
+  /* get the native D-Bus connection */
+  connection = dbus_g_connection_get_connection (service->priv->connection);
+
+  /* request ownership for the generic thumbnailer interface */
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnailer.Generic",
+                                  DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
+
+  /* check if that failed */
+  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
+    {
+      /* propagate the D-Bus error */
+      if (dbus_error_is_set (&dbus_error))
+        {
+          if (error != NULL)
+            dbus_set_g_error (error, &dbus_error);
+
+          dbus_error_free (&dbus_error);
+        }
+      else if (error != NULL)
+        {
+          g_set_error (error, DBUS_GERROR, DBUS_GERROR_FAILED,
+                       _("Another generic thumbnailer is already running"));
+        }
+
+      g_mutex_unlock (service->priv->mutex);
+
+      return FALSE;
+    }
+
+  /* everything is fine, install the generic thumbnailer D-Bus info */
+  dbus_g_object_type_install_info (G_OBJECT_TYPE (service),
+                                   &dbus_glib_tumbler_service_object_info);
+
+  /* register the service instance as a handler of this interface */
+  dbus_g_connection_register_g_object (service->priv->connection, 
+                                       "/org/freedesktop/Thumbnailer",
+                                       G_OBJECT (service));
+  
+  g_mutex_unlock (service->priv->mutex);
 
   return TRUE;
 }
