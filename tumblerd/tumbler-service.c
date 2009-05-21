@@ -77,6 +77,7 @@ static void tumbler_service_set_property       (GObject             *object,
                                                 const GValue        *value,
                                                 GParamSpec          *pspec);
 static void tumbler_service_scheduler_error    (TumblerScheduler    *scheduler,
+                                                guint                handle,
                                                 const GStrv          failed_uris,
                                                 gint                 error_code,
                                                 const gchar         *message,
@@ -321,12 +322,13 @@ tumbler_service_set_property (GObject      *object,
 
 static void
 tumbler_service_scheduler_error (TumblerScheduler *scheduler,
+                                 guint             handle,
                                  const GStrv       failed_uris,
                                  gint              error_code,
                                  const gchar      *message,
                                  TumblerService   *service)
 {
-  g_signal_emit (service, tumbler_service_signals[SIGNAL_ERROR], 0, failed_uris, 
+  g_signal_emit (service, tumbler_service_signals[SIGNAL_ERROR], 0, handle, failed_uris, 
                  error_code, message);
 }
 

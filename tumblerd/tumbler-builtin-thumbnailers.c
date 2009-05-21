@@ -26,6 +26,10 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #endif
 
+#include <gio/gio.h>
+
+#include <tumbler/tumbler.h>
+
 #include <tumblerd/tumbler-builtin-thumbnailer.h>
 #include <tumblerd/tumbler-thumbnailer.h>
 
@@ -39,7 +43,107 @@ _tumbler_pixbuf_thumbnailer (TumblerBuiltinThumbnailer *thumbnailer,
                              const gchar               *mime_hint,
                              GError                   **error)
 {
-  g_debug ("Hello");
+  TumblerThumbnailFlavor *flavors;
+  GFileOutputStream      *output_stream;
+  GFileInputStream       *input_stream;
+  GdkPixbuf              *pixbuf = NULL;
+  GError                 *err = NULL;
+  GFile                  *input_file;
+  GFile                  *output_file;
+  gchar                  *basename;
+  gchar                  *filename;
+  gint                    size;
+  gint                    n;
+
+  g_return_val_if_fail (TUMBLER_IS_BUILTIN_THUMBNAILER (thumbnailer), FALSE);
+  g_return_val_if_fail (uri != NULL, FALSE);
+  g_return_val_if_fail (mime_hint != NULL, FALSE);
+  g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+  /* try to open the file for reading */
+  input_file = g_file_new_for_uri (uri);
+  input_stream = g_file_read (input_file, NULL, &err);
+  g_object_unref (input_file);
+
+  /* propagate error if opening failed */
+  if (err != NULL)
+    {
+      g_propagate_error (error, err);
+      return FALSE;
+    }
+
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      /* determine the thumbnail file */
+      output_file = tumbler_thumbnail_get_file (uri, flavors[n]);
+      
+      /* skip the file if the thumbnail already exists */
+      if (g_file_query_exists (output_file, NULL))
+        {
+          g_object_unref (output_file);
+          continue;
+        }
+
+      size = tumbler_thumbnail_flavor_get_size (flavors[n]);
+
+      /* try to load the pixbuf from the file */
+      pixbuf = gdk_pixbuf_new_from_stream_at_scale (G_INPUT_STREAM (input_stream), 
+                                                    size, size, TRUE, NULL, &err);
+
+      /* propagate error if loading failed */
+      if (err != NULL)
+        {
+          g_propagate_error (error, err);
+          g_object_unref (input_stream);
+          g_object_unref (output_file);
+          return FALSE;
+        }
+
+      /* try to reset the stream */
+      if (!g_seekable_seek (G_SEEKABLE (input_stream), 0, G_SEEK_SET, NULL, &err))
+        {
+          g_propagate_error (error, err);
+          g_object_unref (input_stream);
+          g_object_unref (output_file);
+          g_object_unref (pixbuf);
+          return FALSE;
+        }
+
+      /* apply optional orientation */
+      pixbuf = gdk_pixbuf_apply_embedded_orientation (pixbuf);
+
+      /* try to create and open the file to write the thumbnail to */
+      output_stream = tumbler_thumbnail_create_and_open_file (output_file, &err);
+      g_object_unref (output_file);
+
+      /* propagate error if preparing for writing failed */
+      if (err != NULL)
+        {
+          g_propagate_error (error, err);
+          g_object_unref (input_stream);
+          g_object_unref (pixbuf);
+          return FALSE;
+        }
+
+      /* write the pixbuf into the file */
+      gdk_pixbuf_save_to_stream (pixbuf, G_OUTPUT_STREAM (output_stream), "png", NULL, &err,
+                                 NULL);
+      g_object_unref (output_stream);
+
+      /* propagate error if writing failed */
+      if (err != NULL)
+        {
+          g_propagate_error (error, err);
+          g_object_unref (input_stream);
+          g_object_unref (pixbuf);
+          return FALSE;
+        }
+
+      /* destroy the pixbuf */
+      g_object_unref (pixbuf);
+    }
 
   return TRUE;
 }

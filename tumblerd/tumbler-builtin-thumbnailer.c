@@ -276,7 +276,7 @@ tumbler_builtin_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 {
   TumblerBuiltinThumbnailer *builtin_thumbnailer = TUMBLER_BUILTIN_THUMBNAILER (thumbnailer);
   gboolean                   success;
-  GError                    *error;
+  GError                    *error = NULL;
 
   g_return_if_fail (TUMBLER_IS_BUILTIN_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);

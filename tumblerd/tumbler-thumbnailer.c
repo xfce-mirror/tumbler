@@ -114,7 +114,7 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                   NULL,
                   tumbler_marshal_VOID__STRING_INT_STRING,
                   G_TYPE_NONE,
-                  1,
+                  3,
                   G_TYPE_STRING,
                   G_TYPE_INT,
                   G_TYPE_STRING);
