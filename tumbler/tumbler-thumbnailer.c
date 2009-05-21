@@ -198,13 +198,13 @@ tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers)
 
   for (length = 0; thumbnailers[length] != NULL; ++length);
 
-  copy = g_new0 (TumblerThumbnailer *, length);
+  copy = g_new0 (TumblerThumbnailer *, length+1);
 
-  for (n = 0; n < length-1; ++n)
+  for (n = 0; n < length; ++n)
     if (thumbnailers[n] != NULL)
       copy[n] = g_object_ref (thumbnailers[n]);
 
-  copy[length-1] = NULL;
+  copy[n] = NULL;
 
   return copy;
 }
