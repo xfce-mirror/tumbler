@@ -456,25 +456,37 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
 
   num_uris = g_strv_length (uris);
   num_mime_hints = g_strv_length (mime_hints);
-
+  
   /* we handle situations silently where num_uris != num_mime_hints */
   num_thumbnailers = MAX (0, MIN (num_uris, num_mime_hints));
 
+  /* allocate the thumbnailer array */
   thumbnailers = g_new0 (TumblerThumbnailer *, num_thumbnailers + 1);
 
+  /* iterate over all URIs */
   for (n = 0; n < num_thumbnailers; ++n)
     {
       g_mutex_lock (registry->priv->mutex);
 
+      /* determine the URI scheme and generate a hash key */
       scheme = g_uri_parse_scheme (uris[n]);
       hash_key = g_strdup_printf ("%s-%s", scheme, mime_hints[n]);
-      thumbnailers[n] = g_object_ref (tumbler_registry_lookup (registry, hash_key));
+
+      /* see if we can find a thumbnailer to handle this URI/MIME type pair */
+      thumbnailers[n] = tumbler_registry_lookup (registry, hash_key);
+      
+      /* if there is one, take a reference on it */
+      if (thumbnailers[n] != NULL)
+        g_object_ref (thumbnailers[n]);
+
+      /* free strings */
       g_free (hash_key);
       g_free (scheme);
 
       g_mutex_unlock (registry->priv->mutex);
     }
 
+  /* NULL-terminate the array */
   thumbnailers[n] = NULL;
 
   return thumbnailers;

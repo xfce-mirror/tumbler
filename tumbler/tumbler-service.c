@@ -30,7 +30,8 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
-#include <tumbler/tumbler-threshold-scheduler.h>
+#include <tumbler/tumbler-marshal.h>
+#include <tumbler/tumbler-naive-scheduler.h>
 #include <tumbler/tumbler-scheduler.h>
 #include <tumbler/tumbler-service.h>
 #include <tumbler/tumbler-service-dbus-bindings.h>
@@ -42,7 +43,17 @@
 
 
 
-/* Property identifiers */
+/* signal identifiers */
+enum
+{
+  SIGNAL_ERROR,
+  SIGNAL_FINISHED,
+  SIGNAL_READY,
+  SIGNAL_STARTED,
+  LAST_SIGNAL,
+};
+
+/* property identifiers */
 enum
 {
   PROP_0,
@@ -52,18 +63,32 @@ enum
 
 
 
-static void tumbler_service_class_init   (TumblerServiceClass *klass);
-static void tumbler_service_init         (TumblerService      *service);
-static void tumbler_service_constructed  (GObject                *object);
-static void tumbler_service_finalize     (GObject                *object);
-static void tumbler_service_get_property (GObject                *object,
-                                          guint                   prop_id,
-                                          GValue                 *value,
-                                          GParamSpec             *pspec);
-static void tumbler_service_set_property (GObject                *object,
-                                          guint                   prop_id,
-                                          const GValue           *value,
-                                          GParamSpec             *pspec);
+static void tumbler_service_class_init         (TumblerServiceClass *klass);
+static void tumbler_service_init               (TumblerService      *service);
+static void tumbler_service_constructed        (GObject             *object);
+static void tumbler_service_finalize           (GObject             *object);
+static void tumbler_service_get_property       (GObject             *object,
+                                                guint                prop_id,
+                                                GValue              *value,
+                                                GParamSpec          *pspec);
+static void tumbler_service_set_property       (GObject             *object,
+                                                guint                prop_id,
+                                                const GValue        *value,
+                                                GParamSpec          *pspec);
+static void tumbler_service_scheduler_error    (TumblerScheduler    *scheduler,
+                                                const GStrv          failed_uris,
+                                                gint                 error_code,
+                                                const gchar         *message,
+                                                TumblerService      *service);
+static void tumbler_service_scheduler_finished (TumblerScheduler    *scheduler,
+                                                guint                handle,
+                                                TumblerService      *service);
+static void tumbler_service_scheduler_ready    (TumblerScheduler    *scheduler,
+                                                const GStrv          uris,
+                                                TumblerService      *service);
+static void tumbler_service_scheduler_started  (TumblerScheduler    *scheduler,
+                                                guint                handle,
+                                                TumblerService      *service);
 
 
 
@@ -90,6 +115,7 @@ struct _TumblerServicePrivate
 
 
 static GObjectClass *tumbler_service_parent_class = NULL;
+static guint         tumbler_service_signals[LAST_SIGNAL];
 
 
 
@@ -144,6 +170,57 @@ tumbler_service_class_init (TumblerServiceClass *klass)
                                                         TUMBLER_TYPE_REGISTRY,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY));
+
+  tumbler_service_signals[SIGNAL_ERROR] =
+    g_signal_new ("error",
+                  TUMBLER_TYPE_SERVICE,
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL,
+                  NULL,
+                  tumbler_marshal_VOID__UINT_POINTER_INT_STRING,
+                  G_TYPE_NONE,
+                  4,
+                  G_TYPE_UINT,
+                  G_TYPE_STRV,
+                  G_TYPE_INT,
+                  G_TYPE_STRING);
+
+  tumbler_service_signals[SIGNAL_FINISHED] =
+    g_signal_new ("finished",
+                  TUMBLER_TYPE_SERVICE,
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__UINT,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
+
+  tumbler_service_signals[SIGNAL_READY] =
+    g_signal_new ("ready",
+                  TUMBLER_TYPE_SERVICE,
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__POINTER,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_STRV);
+
+  tumbler_service_signals[SIGNAL_STARTED] =
+    g_signal_new ("started",
+                  TUMBLER_TYPE_SERVICE,
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__UINT,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
 }
 
 
@@ -161,7 +238,17 @@ static void
 tumbler_service_constructed (GObject *object)
 {
   TumblerService *service = TUMBLER_SERVICE (object);
-  service->priv->scheduler = tumbler_threshold_scheduler_new ();
+
+  service->priv->scheduler = tumbler_naive_scheduler_new ();
+
+  g_signal_connect (service->priv->scheduler, "error",
+                    G_CALLBACK (tumbler_service_scheduler_error), service);
+  g_signal_connect (service->priv->scheduler, "finished", 
+                    G_CALLBACK (tumbler_service_scheduler_finished), service);
+  g_signal_connect (service->priv->scheduler, "ready", 
+                    G_CALLBACK (tumbler_service_scheduler_ready), service);
+  g_signal_connect (service->priv->scheduler, "started", 
+                    G_CALLBACK (tumbler_service_scheduler_started), service);
 }
 
 
@@ -231,6 +318,49 @@ tumbler_service_set_property (GObject      *object,
 
 
 
+static void
+tumbler_service_scheduler_error (TumblerScheduler *scheduler,
+                                 const GStrv       failed_uris,
+                                 gint              error_code,
+                                 const gchar      *message,
+                                 TumblerService   *service)
+{
+  g_signal_emit (service, tumbler_service_signals[SIGNAL_ERROR], 0, failed_uris, 
+                 error_code, message);
+}
+
+
+
+static void
+tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
+                                    guint             handle,
+                                    TumblerService   *service)
+{
+  g_signal_emit (service, tumbler_service_signals[SIGNAL_FINISHED], 0, handle);
+}
+
+
+
+static void
+tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
+                                 const GStrv       uris,
+                                 TumblerService   *service)
+{
+  g_signal_emit (service, tumbler_service_signals[SIGNAL_READY], 0, uris);
+}
+
+
+
+static void
+tumbler_service_scheduler_started (TumblerScheduler *scheduler,
+                                   guint             handle,
+                                   TumblerService   *service)
+{
+  g_signal_emit (service, tumbler_service_signals[SIGNAL_STARTED], 0, handle);
+}
+
+
+
 TumblerService *
 tumbler_service_new (DBusGConnection *connection,
                      TumblerRegistry *registry)
@@ -293,7 +423,7 @@ tumbler_service_start (TumblerService *service,
   dbus_g_connection_register_g_object (service->priv->connection, 
                                        "/org/freedesktop/Thumbnailer",
                                        G_OBJECT (service));
-  
+
   g_mutex_unlock (service->priv->mutex);
 
   return TRUE;
@@ -320,13 +450,20 @@ tumbler_service_queue (TumblerService        *service,
 
   g_mutex_lock (service->priv->mutex);
 
+  /* get an array with one thumbnailer for each URI in the request */
   thumbnailers = tumbler_registry_get_thumbnailer_array (service->priv->registry,
                                                          uris, mime_hints);
 
+  /* allocate a scheduler request */
   scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers);
 
-  handle = tumbler_scheduler_push (service->priv->scheduler, scheduler_request);
+  /* get the request handle */
+  handle = tumbler_scheduler_request_get_handle (scheduler_request);
+
+  /* push the request to the scheduler */
+  tumbler_scheduler_push (service->priv->scheduler, scheduler_request);
   
+  /* free the thumbnailer array */
   tumbler_thumbnailer_array_free (thumbnailers);
 
   g_mutex_unlock (service->priv->mutex);

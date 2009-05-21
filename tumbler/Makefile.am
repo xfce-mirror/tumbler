@@ -34,6 +34,8 @@ tumbler_SOURCES =							\
 	tumbler-builtin-thumbnailer.h					\
 	tumbler-manager.c						\
 	tumbler-manager.h						\
+	tumbler-naive-scheduler.c					\
+	tumbler-naive-scheduler.h					\
 	tumbler-registry.c						\
 	tumbler-registry.h						\
 	tumbler-scheduler.c						\

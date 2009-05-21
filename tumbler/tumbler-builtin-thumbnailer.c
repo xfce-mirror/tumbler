@@ -174,20 +174,27 @@ tumbler_builtin_thumbnailer_constructed (GObject *object)
   g_return_if_fail (thumbnailer->priv->mime_types != NULL);
   g_return_if_fail (thumbnailer->priv->uri_schemes != NULL);
 
+  /* determine the size of both arrays */
   num_uri_schemes = g_strv_length (thumbnailer->priv->uri_schemes);
   num_mime_types = g_strv_length (thumbnailer->priv->mime_types);
+
+  /* compute the number of hash keys to generate */
   num_hash_keys = num_uri_schemes * num_mime_types;
 
+  /* allocate and NULL-terminate the hash key array */
   thumbnailer->priv->hash_keys = g_new0 (gchar *, num_hash_keys + 1);
   thumbnailer->priv->hash_keys[num_hash_keys] = NULL;
 
+  /* iterate over all pairs of URIs and MIME types */
   for (i = 0; thumbnailer->priv->uri_schemes[i] != NULL; ++i)
     for (j = 0; thumbnailer->priv->mime_types[j] != NULL; ++j)
       {
+        /* generate a hash key for the current pair */
         hash_key =  g_strdup_printf ("%s-%s", 
                                      thumbnailer->priv->uri_schemes[i],
                                      thumbnailer->priv->mime_types[j]);
 
+        /* add the key to the array */
         thumbnailer->priv->hash_keys[(j*num_uri_schemes)+i] = hash_key;
       }
 }
@@ -267,7 +274,30 @@ tumbler_builtin_thumbnailer_create (TumblerThumbnailer *thumbnailer,
                                     const gchar        *uri,
                                     const gchar        *mime_hint)
 {
-  /* TODO */
+  TumblerBuiltinThumbnailer *builtin_thumbnailer = TUMBLER_BUILTIN_THUMBNAILER (thumbnailer);
+  gboolean                   success;
+  GError                    *error;
+
+  g_return_if_fail (TUMBLER_IS_BUILTIN_THUMBNAILER (thumbnailer));
+  g_return_if_fail (uri != NULL);
+  g_return_if_fail (mime_hint != NULL);
+  g_return_if_fail (builtin_thumbnailer->priv->func != NULL);
+
+  /* use the specified built-in thumbnailer function to generate the thumbnail */
+  success = (builtin_thumbnailer->priv->func) (builtin_thumbnailer, uri, mime_hint, 
+                                               &error);
+
+  if (G_LIKELY (success))
+    {
+      /* emit the ready signal for this URI */
+      g_signal_emit_by_name (thumbnailer, "ready", uri);
+    }
+  else
+    {
+      /* we're unlucky and need to emit the error signal */
+      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+      g_error_free (error);
+    }
 }
 
 

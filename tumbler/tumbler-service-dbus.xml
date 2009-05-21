@@ -15,6 +15,7 @@
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="u" name="handle" direction="in" />
     </method>
+    -->
 
     <signal name="Started">
       <arg type="u" name="handle" />
@@ -35,6 +36,7 @@
       <arg type="s" name="message" />
     </signal>
 
+    <!--
     <method name="Move">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="as" name="from_uris" direction="in" />

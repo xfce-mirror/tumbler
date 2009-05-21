@@ -22,11 +22,28 @@
 #include <config.h>
 #endif
 
+#include <tumbler/tumbler-marshal.h>
 #include <tumbler/tumbler-scheduler.h>
 
 
 
+/* signal identifiers */
+enum
+{
+  SIGNAL_ERROR,
+  SIGNAL_FINISHED,
+  SIGNAL_READY,
+  SIGNAL_STARTED,
+  LAST_SIGNAL,
+};
+
+
+
 static void tumbler_scheduler_class_init (TumblerSchedulerIface *klass);
+
+
+
+static guint tumbler_scheduler_signals[LAST_SIGNAL];
 
 
 
@@ -56,31 +73,84 @@ tumbler_scheduler_get_type (void)
 static void
 tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
 {
+  tumbler_scheduler_signals[SIGNAL_ERROR] =
+    g_signal_new ("error",
+                  TUMBLER_TYPE_SCHEDULER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerSchedulerIface, error),
+                  NULL,
+                  NULL,
+                  tumbler_marshal_VOID__UINT_POINTER_INT_STRING,
+                  G_TYPE_NONE,
+                  4,
+                  G_TYPE_UINT,
+                  G_TYPE_STRV,
+                  G_TYPE_INT,
+                  G_TYPE_STRING);
+
+  tumbler_scheduler_signals[SIGNAL_FINISHED] =
+    g_signal_new ("finished",
+                  TUMBLER_TYPE_SCHEDULER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerSchedulerIface, finished),
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__UINT,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
+
+  tumbler_scheduler_signals[SIGNAL_READY] =
+    g_signal_new ("ready",
+                  TUMBLER_TYPE_SCHEDULER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerSchedulerIface, ready),
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__POINTER,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_STRV);
+
+  tumbler_scheduler_signals[SIGNAL_STARTED] =
+    g_signal_new ("started",
+                  TUMBLER_TYPE_SCHEDULER,
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (TumblerSchedulerIface, started),
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__UINT,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
 }
 
 
 
-guint
+void
 tumbler_scheduler_push (TumblerScheduler        *scheduler,
                         TumblerSchedulerRequest *request)
 {
-  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (scheduler), 0);
-  g_return_val_if_fail (request != NULL, 0);
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (request != NULL);
+  g_return_if_fail (TUMBLER_SCHEDULER_GET_IFACE (scheduler)->push != NULL);
 
-  g_debug ("push request");
-
-  gint n;
-
-  for (n = 0; request->uris[n] != NULL; ++n)
-    {
-      g_debug ("  uris[%d]       = %s", n, request->uris[n]);
-      g_debug ("  mime_hints[%d] = %s", n, request->mime_hints[n]);
-    }
-
-  /* TODO */
-
-  return 0;
+  TUMBLER_SCHEDULER_GET_IFACE (scheduler)->push (scheduler, request);
 }
+
+
+
+void
+tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
+                                TumblerSchedulerRequest *request)
+{
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (request != NULL);
+
+  request->scheduler = g_object_ref (scheduler);
+}
+
+
 
 TumblerSchedulerRequest *
 tumbler_scheduler_request_new (const GStrv          uris,
@@ -88,12 +158,15 @@ tumbler_scheduler_request_new (const GStrv          uris,
                                TumblerThumbnailer **thumbnailers)
 {
   TumblerSchedulerRequest *request = NULL;
+  static gint              handle  = 0;
 
   g_return_val_if_fail (uris != NULL, NULL);
   g_return_val_if_fail (mime_hints != NULL, NULL);
   g_return_val_if_fail (thumbnailers != NULL, NULL);
 
   request = g_new0 (TumblerSchedulerRequest, 1);
+  request->scheduler = NULL;
+  request->handle = handle++;
   request->uris = g_strdupv (uris);
   request->mime_hints = g_strdupv (mime_hints);
   request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers);
@@ -110,7 +183,20 @@ tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
 
   g_strfreev (request->uris);
   g_strfreev (request->mime_hints);
+
+  if (G_LIKELY (request->scheduler != NULL))
+    g_object_unref (request->scheduler);
+
   tumbler_thumbnailer_array_free (request->thumbnailers);
 
   g_free (request);
+}
+
+
+
+guint
+tumbler_scheduler_request_get_handle (TumblerSchedulerRequest *request)
+{
+  g_return_if_fail (request != NULL);
+  return request->handle;
 }

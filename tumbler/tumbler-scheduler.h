@@ -40,27 +40,43 @@ struct _TumblerSchedulerIface
   GTypeInterface __parent__;
 
   /* signals */
+  void (*error)    (TumblerScheduler        *scheduler,
+                    guint                    handle,
+                    const GStrv              failed_uris,
+                    gint                     error_code,
+                    const gchar             *message);
+  void (*finished) (TumblerScheduler        *scheduler,
+                    guint                    handle);
+  void (*ready)    (TumblerScheduler        *scheduler,
+                    const GStrv              uris);
+  void (*started)  (TumblerScheduler        *scheduler,
+                    guint                    handle);
 
   /* virtual methods */
-  guint (*push) (TumblerScheduler        *scheduler,
-                 TumblerSchedulerRequest *request);
+  void (*push)     (TumblerScheduler        *scheduler,
+                    TumblerSchedulerRequest *request);
 };
 
-GType                    tumbler_scheduler_get_type     (void) G_GNUC_CONST;
+GType                    tumbler_scheduler_get_type           (void) G_GNUC_CONST;
 
-guint                    tumbler_scheduler_push         (TumblerScheduler        *scheduler,
-                                                         TumblerSchedulerRequest *request);
+void                     tumbler_scheduler_push               (TumblerScheduler        *scheduler,
+                                                               TumblerSchedulerRequest *request);
+void                     tumbler_scheduler_take_request       (TumblerScheduler        *scheduler,
+                                                               TumblerSchedulerRequest *request);
 
-TumblerSchedulerRequest *tumbler_scheduler_request_new  (const GStrv          uris,
-                                                         const GStrv          mime_hints,
-                                                         TumblerThumbnailer **thumbnailers);
-void                     tumbler_scheduler_request_free (TumblerSchedulerRequest *request);
+TumblerSchedulerRequest *tumbler_scheduler_request_new        (const GStrv          uris,
+                                                               const GStrv          mime_hints,
+                                                               TumblerThumbnailer **thumbnailers);
+void                     tumbler_scheduler_request_free       (TumblerSchedulerRequest *request);
+guint                    tumbler_scheduler_request_get_handle (TumblerSchedulerRequest *request);
 
 struct _TumblerSchedulerRequest
 {
   TumblerThumbnailer **thumbnailers;
+  TumblerScheduler    *scheduler;
   GStrv                mime_hints;
   GStrv                uris;
+  guint                handle;
 };
 
 G_END_DECLS

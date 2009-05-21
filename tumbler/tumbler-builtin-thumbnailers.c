@@ -39,6 +39,8 @@ _tumbler_pixbuf_thumbnailer (TumblerBuiltinThumbnailer *thumbnailer,
                              const gchar               *mime_hint,
                              GError                   **error)
 {
+  g_debug ("Hello");
+
   return TRUE;
 }
 

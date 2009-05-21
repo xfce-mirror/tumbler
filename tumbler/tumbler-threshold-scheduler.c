@@ -26,6 +26,7 @@
 #include <glib-object.h>
 
 #include <tumbler/tumbler-threshold-scheduler.h>
+#include <tumbler/tumbler-scheduler.h>
 
 
 
@@ -47,13 +48,15 @@ static void tumbler_threshold_scheduler_init         (TumblerThresholdScheduler 
 static void tumbler_threshold_scheduler_constructed  (GObject                       *object);
 static void tumbler_threshold_scheduler_finalize     (GObject                       *object);
 static void tumbler_threshold_scheduler_get_property (GObject                       *object,
-                                                     guint                          prop_id,
-                                                     GValue                        *value,
-                                                     GParamSpec                    *pspec);
+                                                      guint                          prop_id,
+                                                      GValue                        *value,
+                                                      GParamSpec                    *pspec);
 static void tumbler_threshold_scheduler_set_property (GObject                       *object,
-                                                     guint                          prop_id,
-                                                     const GValue                  *value,
-                                                     GParamSpec                    *pspec);
+                                                      guint                          prop_id,
+                                                      const GValue                  *value,
+                                                      GParamSpec                    *pspec);
+static void tumbler_threshold_scheduler_push         (TumblerScheduler              *scheduler,
+                                                      TumblerSchedulerRequest       *request);
 
 
 
@@ -133,6 +136,7 @@ tumbler_threshold_scheduler_class_init (TumblerThresholdSchedulerClass *klass)
 static void
 tumbler_threshold_scheduler_iface_init (TumblerSchedulerIface *iface)
 {
+  iface->push = tumbler_threshold_scheduler_push;
 }
 
 
@@ -195,6 +199,29 @@ tumbler_threshold_scheduler_set_property (GObject      *object,
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
+}
+
+
+
+static void
+tumbler_threshold_scheduler_push (TumblerScheduler        *scheduler,
+                                  TumblerSchedulerRequest *request)
+{
+  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
+  g_return_if_fail (request != NULL);
+
+  g_debug ("push request");
+
+  gint n;
+
+  for (n = 0; request->uris[n] != NULL; ++n)
+    {
+      g_debug ("  uris[%d]       = %s", n, request->uris[n]);
+      g_debug ("  mime_hints[%d] = %s", n, request->mime_hints[n]);
+    }
+
+  /* TODO */
+  tumbler_thumbnailer_create (request->thumbnailers[0], request->uris[0], request->mime_hints[0]);
 }
 
 
