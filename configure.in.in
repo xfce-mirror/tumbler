@@ -111,28 +111,8 @@ AC_CHECK_HEADERS([])
 dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
-AC_FUNC_MMAP()
-AC_CHECK_FUNCS([getfsstat getmntent getvfsstat regexec setfsent setmntent])
-
-dnl ***************************************
-dnl *** Check for strftime() extensions ***
-dnl ***************************************
-AC_TRY_RUN([
-  #include <string.h>
-  #include <time.h>
-  int
-  main (int argc, char **argv)
-  {
-    struct tm tm;
-    char      buffer[16];
-    tm.tm_year = 81;
-    if (strftime (buffer, 16, "%EY", &tm) == 4 && strcmp (buffer, "1981") == 0)
-      return 0;
-    return 1;
-  }
-], [
-  AC_DEFINE([HAVE_STRFTIME_EXTENSION], 1, [Define if strftime supports %E and %O modifiers.])
-])
+#AC_FUNC_MMAP()
+#AC_CHECK_FUNCS([])
 
 dnl ******************************
 dnl *** Check for i18n support ***
@@ -167,8 +147,8 @@ fi
 
 AC_ARG_ENABLE([large-thumbnails], 
               [AC_HELP_STRING([--enable-large-thumbnails], 
-                              [Enable large thumbnails (256 pixels) @<:@default=yes@:>@])],, 
-              [enable_large_thumbnails=yes])
+                              [Enable large thumbnails (256 pixels) @<:@default=no@:>@])],, 
+              [enable_large_thumbnails=no])
 if test x"$enable_large_thumbnails" = x"yes"; then
   AC_DEFINE([ENABLE_LARGE_THUMBNAILS], [1], [Define if built with support for large thumbnails])
 fi
