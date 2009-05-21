@@ -154,6 +154,34 @@ dnl *****************************************************
 XDT_CHECK_OPTIONAL_PACKAGE([GDK_PIXBUF], [gdk-pixbuf-2.0], [2.14],
                            [gdk-pixbuf], [Built-in thumbnailer based on GdkPixbuf])
 
+dnl ************************************************************
+dnl *** Check for thumbnail flavors (normal, large, cropped) ***
+dnl ************************************************************
+AC_ARG_ENABLE([normal-thumbnails], 
+              [AC_HELP_STRING([--enable-normal-thumbnails], 
+                              [Enable normal thumbnails (128 pixels) @<:@default=yes@:>@])],, 
+              [enable_normal_thumbnails=yes])
+if test x"$enable_normal_thumbnails" = x"yes"; then
+  AC_DEFINE([ENABLE_NORMAL_THUMBNAILS], [1], [Define if built with support for normal thumbnails])
+fi
+
+AC_ARG_ENABLE([large-thumbnails], 
+              [AC_HELP_STRING([--enable-large-thumbnails], 
+                              [Enable large thumbnails (256 pixels) @<:@default=yes@:>@])],, 
+              [enable_large_thumbnails=yes])
+if test x"$enable_large_thumbnails" = x"yes"; then
+  AC_DEFINE([ENABLE_LARGE_THUMBNAILS], [1], [Define if built with support for large thumbnails])
+fi
+
+AC_ARG_ENABLE([cropped-thumbnails], 
+              [AC_HELP_STRING([--enable-cropped-thumbnails], 
+                              [Enable cropped thumbnails (124 pixels) @<:@default=no@:>@])],, 
+              [enable_cropped_thumbnails=no])
+if test x"$enable_cropped_thumbnails" = x"yes"; then
+  AC_DEFINE([ENABLE_CROPPED_THUMBNAILS], [1], [Define if built with support for cropped thumbnails])
+fi
+
+
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
@@ -229,8 +257,26 @@ echo
 echo "Build Configuration:"
 echo
 if test x"$GDK_PIXBUF_FOUND" = x"yes"; then
-echo "* Built-in pixbuf thumbnailer: yes"
+echo "  * Built-in pixbuf thumbnailer: yes"
 else
-echo "* Built-in pixbuf thumbnailer: no"
+echo "  * Built-in pixbuf thumbnailer: no"
+fi
+echo
+echo "Supported Thumbnail Flavors:"
+echo
+if test x"$enable_normal_thumbnails" = x"yes"; then
+echo "  * Normal (128 pixels):         yes"
+else
+echo "  * Normal (128 pixels):         no"
+fi
+if test x"$enable_large_thumbnails" = x"yes"; then
+echo "  * Large (256 pixels):          yes"
+else
+echo "  * Large (256 pixels):          no"
+fi
+if test x"$enable_cropped_thumbnails" = x"yes"; then
+echo "  * Cropped (124 pixels):        yes"
+else
+echo "  * Cropped (124 pixels):        no"
 fi
 echo
