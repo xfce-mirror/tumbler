@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-21 13:28+0200\n"
+"POT-Creation-Date: 2009-05-22 01:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,28 @@ msgstr ""
 msgid "Another thumbnailer manager is already running"
 msgstr ""
 
-#: ../tumblerd/tumbler-service.c:411
+#: ../tumblerd/tumbler-service.c:413
 #, c-format
 msgid "Another generic thumbnailer is already running"
+msgstr ""
+
+#: ../tumbler/tumbler-enum-types.c:41
+msgid "Invalid"
+msgstr ""
+
+#: ../tumbler/tumbler-enum-types.c:42
+msgid "Normal"
+msgstr ""
+
+#: ../tumbler/tumbler-enum-types.c:43
+msgid "Large"
+msgstr ""
+
+#: ../tumbler/tumbler-enum-types.c:44
+msgid "Cropped"
+msgstr ""
+
+#: ../tumbler/tumbler-thumbnail.c:174
+#, c-format
+msgid "Invalid cache filename: \"%s\""
 msgstr ""

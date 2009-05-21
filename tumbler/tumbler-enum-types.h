@@ -18,17 +18,29 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TUMBLER_H__
-#define __TUMBLER_H__
+#if !defined (TUMBLER_INSIDE_TUMBLER_H) && !defined (TUMBLER_COMPILATION)
+#error "Only <tumbler/tumbler.h> may be included directly. This file might disappear or change contents."
+#endif
 
-#define TUMBLER_INSIDE_TUMBLER_H
+#ifndef __TUMBLER_ENUM_TYPES_H__
+#define __TUMBLER_ENUM_TYPES_H__
 
-#include <tumbler/tumbler-config.h>
-#include <tumbler/tumbler-enum-types.h>
-#include <tumbler/tumbler-error.h>
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-thumbnail.h>
+#include <glib-object.h>
 
-#undef TUMBLER_INSIDE_TUMBLER_H
+G_BEGIN_DECLS
 
-#endif /* !__TUMBLER_H__ */
+#define TUMBLER_TYPE_THUMBNAIL_FLAVOR (tumbler_thumbnail_flavor_get_type ())
+
+typedef enum /*< enum >*/
+{
+  TUMBLER_THUMBNAIL_FLAVOR_INVALID,
+  TUMBLER_THUMBNAIL_FLAVOR_NORMAL,
+  TUMBLER_THUMBNAIL_FLAVOR_LARGE,
+  TUMBLER_THUMBNAIL_FLAVOR_CROPPED,
+} TumblerThumbnailFlavor;
+
+GType tumbler_thumbnail_flavor_get_type (void);
+
+G_END_DECLS
+
+#endif /* !__TUMBLER_ENUM_TYPES_H__ */

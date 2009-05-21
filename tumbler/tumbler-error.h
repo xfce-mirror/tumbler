@@ -18,17 +18,25 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TUMBLER_H__
-#define __TUMBLER_H__
+#if !defined (TUMBLER_INSIDE_TUMBLER_H) && !defined (TUMBLER_COMPILATION)
+#error "Only <tumbler/tumbler.h> may be included directly. This file might disappear or change contents."
+#endif
 
-#define TUMBLER_INSIDE_TUMBLER_H
+#ifndef __TUMBLER_ERROR_H__
+#define __TUMBLER_ERROR_H__
 
-#include <tumbler/tumbler-config.h>
-#include <tumbler/tumbler-enum-types.h>
-#include <tumbler/tumbler-error.h>
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-thumbnail.h>
+#include <glib-object.h>
 
-#undef TUMBLER_INSIDE_TUMBLER_H
+G_BEGIN_DECLS
 
-#endif /* !__TUMBLER_H__ */
+#define TUMBLER_ERROR_DOMAIN "Tumbler"
+#define TUMBLER_ERROR        (g_quark_from_static_string (TUMBLER_ERROR_DOMAIN))
+
+typedef enum /*< enum >*/
+{
+  TUMBLER_ERROR_FAILED,
+} TumblerErrorEnum;
+
+G_END_DECLS
+
+#endif /* !__TUMBLER_ERROR_H__ */

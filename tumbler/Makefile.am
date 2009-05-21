@@ -29,11 +29,16 @@ libtumbler_built_sources =						\
 
 libtumbler_headers =							\
 	tumbler-config.h						\
-	tumbler-marshal.h
+	tumbler-enum-types.h						\
+	tumbler-error.h							\
+	tumbler-marshal.h						\
+	tumbler-thumbnail.h
 
 libtumbler_sources =							\
 	tumbler-config.c						\
-	tumbler-marshal.c
+	tumbler-enum-types.c						\
+	tumbler-marshal.c						\
+	tumbler-thumbnail.c
 
 libtumblerincludedir = $(includedir)/tumbler-$(TUMBLER_VERSION_API)/tumbler
 

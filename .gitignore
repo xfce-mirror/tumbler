@@ -29,9 +29,13 @@ stamp-h1
 .deps
 .libs
 stamp-*.h
-tumbler
 tumbler-manager-dbus-bindings.h
 tumbler-marshal.c
 tumbler-marshal.h
 *.swp
 commit-msg
+*.lo
+*.pc
+*.*~
+*.la
+tumbler-config.h

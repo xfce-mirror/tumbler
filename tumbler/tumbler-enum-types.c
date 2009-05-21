@@ -18,17 +18,35 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TUMBLER_H__
-#define __TUMBLER_H__
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
-#define TUMBLER_INSIDE_TUMBLER_H
+#include <glib/gi18n.h>
+#include <glib-object.h>
 
-#include <tumbler/tumbler-config.h>
 #include <tumbler/tumbler-enum-types.h>
-#include <tumbler/tumbler-error.h>
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-thumbnail.h>
 
-#undef TUMBLER_INSIDE_TUMBLER_H
 
-#endif /* !__TUMBLER_H__ */
+
+GType
+tumbler_thumbnail_flavor_get_type (void)
+{
+  GType type = G_TYPE_INVALID;
+
+  if (G_UNLIKELY (type == G_TYPE_INVALID))
+    {
+      static const GEnumValue values[] = 
+      {
+        { TUMBLER_THUMBNAIL_FLAVOR_INVALID, "TUMBLER_THUMBNAIL_FLAVOR_INVALID",  N_ ("Invalid"), },
+        { TUMBLER_THUMBNAIL_FLAVOR_NORMAL,  "TUMBLER_THUMBNAIL_FLAVOR_NORMAL",   N_ ("Normal"),  },
+        { TUMBLER_THUMBNAIL_FLAVOR_LARGE,   "TUMBLER_THUMBNAIL_FLAVOR_LARGE",    N_ ("Large"),   },
+        { TUMBLER_THUMBNAIL_FLAVOR_CROPPED, "TUMBLER_THUMBNAIL_FLAVOR_CROPPED",  N_ ("Cropped"), },
+        { 0,                                NULL,                                NULL,           },
+      };
+
+      type = g_enum_register_static ("TumblerThumbnailFlavor", values);
+    }
+
+  return type;
+}
