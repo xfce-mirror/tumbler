@@ -30,11 +30,11 @@
 
 #include <dbus/dbus-glib.h>
 
-#include <tumbler/tumbler-builtin-thumbnailers.h>
-#include <tumbler/tumbler-manager.h>
-#include <tumbler/tumbler-registry.h>
-#include <tumbler/tumbler-service.h>
-#include <tumbler/tumbler-thumbnailer.h>
+#include <tumblerd/tumbler-builtin-thumbnailers.h>
+#include <tumblerd/tumbler-manager.h>
+#include <tumblerd/tumbler-registry.h>
+#include <tumblerd/tumbler-service.h>
+#include <tumblerd/tumbler-thumbnailer.h>
 
 
 

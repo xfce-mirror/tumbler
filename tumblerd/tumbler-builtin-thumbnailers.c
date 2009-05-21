@@ -26,8 +26,8 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #endif
 
-#include <tumbler/tumbler-builtin-thumbnailer.h>
-#include <tumbler/tumbler-thumbnailer.h>
+#include <tumblerd/tumbler-builtin-thumbnailer.h>
+#include <tumblerd/tumbler-thumbnailer.h>
 
 
 

@@ -25,8 +25,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <tumbler/tumbler-naive-scheduler.h>
-#include <tumbler/tumbler-scheduler.h>
+#include <tumblerd/tumbler-naive-scheduler.h>
+#include <tumblerd/tumbler-scheduler.h>
 
 
 

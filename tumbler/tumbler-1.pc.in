@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+tumbler_api_version=@TUMBLER_VERSION_API@
+
+Name: @PACKAGE_TARNAME@
+Description: Supporting library for tumbler
+Requires: glib-2.0 gio-2.0 gthread-2.0 gobject-2.0
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -ltumbler-${tumbler_api_version}
+Cflags: -I${includedir}/tumbler-${tumbler_api_version}

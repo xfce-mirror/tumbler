@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_SCHEDULER_H__
 #define __TUMBLER_SCHEDULER_H__
 
-#include <tumbler/tumbler-thumbnailer.h>
+#include <tumblerd/tumbler-thumbnailer.h>
 
 G_BEGIN_DECLS
 

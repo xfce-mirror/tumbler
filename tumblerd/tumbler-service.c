@@ -30,12 +30,13 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-naive-scheduler.h>
-#include <tumbler/tumbler-scheduler.h>
-#include <tumbler/tumbler-service.h>
-#include <tumbler/tumbler-service-dbus-bindings.h>
-#include <tumbler/tumbler-utils.h>
+#include <tumbler/tumbler.h>
+
+#include <tumblerd/tumbler-naive-scheduler.h>
+#include <tumblerd/tumbler-scheduler.h>
+#include <tumblerd/tumbler-service.h>
+#include <tumblerd/tumbler-service-dbus-bindings.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 

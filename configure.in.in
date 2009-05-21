@@ -21,8 +21,9 @@ dnl ***************************
 dnl *** Version information ***
 dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0]) dnl TODO: Do we need to change this for the first release?
+m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
-m4_define([tumbler_version_minor], [1])
+m4_define([tumbler_version_minor], [0])
 m4_define([tumbler_version_micro], [0])
 m4_define([tumbler_version_build], [r@REVISION@])
 m4_define([tumbler_version_tag], [svn])
@@ -61,10 +62,12 @@ dnl ****************************
 TUMBLER_VERSION_MAJOR=tumbler_version_major()
 TUMBLER_VERSION_MINOR=tumbler_version_minor()
 TUMBLER_VERSION_MICRO=tumbler_version_micro()
-TUMBLER_VERSION_API=$TUMBLER_VERSION_MAJOR.$TUMBLER_VERSION_MINOR
+TUMBLER_VERSION_API_MAJOR=tumbler_version_api_major()
+TUMBLER_VERSION_API=$TUMBLER_VERSION_API_MAJOR
 AC_SUBST([TUMBLER_VERSION_MAJOR])
 AC_SUBST([TUMBLER_VERSION_MINOR])
 AC_SUBST([TUMBLER_VERSION_MICRO])
+AC_SUBST([TUMBLER_VERSION_API_MAJOR])
 AC_SUBST([TUMBLER_VERSION_API])
 
 dnl *******************************
@@ -214,6 +217,9 @@ AC_OUTPUT([
 Makefile
 po/Makefile.in
 tumbler/Makefile
+tumbler/tumbler-config.h
+tumbler/tumbler-$TUMBLER_VERSION_API.pc
+tumblerd/Makefile
 ])
 
 dnl ***************************

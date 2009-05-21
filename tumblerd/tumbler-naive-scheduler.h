@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_NAIVE_SCHEDULER_H__
 #define __TUMBLER_NAIVE_SCHEDULER_H__
 
-#include <tumbler/tumbler-scheduler.h>
+#include <tumblerd/tumbler-scheduler.h>
 
 G_BEGIN_DECLS;
 

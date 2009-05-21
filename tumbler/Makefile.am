@@ -17,82 +17,69 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-libexec_PROGRAMS =							\
-	tumbler
+lib_LTLIBRARIES =							\
+	libtumbler-1.la
 
-tumbler_built_sources =							\
-	tumbler-manager-dbus-bindings.h					\
-	tumbler-marshal.c						\
-	tumbler-marshal.h						\
-	tumbler-service-dbus-bindings.h
+libtumbler_built_public_sources =					\
+	tumbler-marshal.h
 
-tumbler_SOURCES =							\
-	main.c								\
-	tumbler-builtin-thumbnailers.c					\
-	tumbler-builtin-thumbnailers.h					\
-	tumbler-builtin-thumbnailer.c					\
-	tumbler-builtin-thumbnailer.h					\
-	tumbler-manager.c						\
-	tumbler-manager.h						\
-	tumbler-naive-scheduler.c					\
-	tumbler-naive-scheduler.h					\
-	tumbler-registry.c						\
-	tumbler-registry.h						\
-	tumbler-scheduler.c						\
-	tumbler-scheduler.h						\
-	tumbler-service.c						\
-	tumbler-service.h						\
-	tumbler-specialized-thumbnailer.c				\
-	tumbler-specialized-thumbnailer.h				\
-	tumbler-threshold-scheduler.c					\
-	tumbler-threshold-scheduler.h					\
-	tumbler-thumbnailer.c						\
-	tumbler-thumbnailer.h						\
-	tumbler-utils.h							\
-	$(tumbler_built_sources)
+libtumbler_built_sources =						\
+	$(libtumbler_built_public_sources)				\
+	tumbler-marshal.c
 
-tumbler_CFLAGS =							\
+libtumbler_headers =							\
+	tumbler-config.h						\
+	tumbler-marshal.h
+
+libtumbler_sources =							\
+	tumbler-config.c						\
+	tumbler-marshal.c
+
+libtumblerincludedir = $(includedir)/tumbler-$(TUMBLER_VERSION_API)/tumbler
+
+libtumblerinclude_HEADERS =						\
+	$(libtumbler_headers)
+
+libtumbler_1_la_SOURCES =						\
+	$(libtumbler_sources)						\
+	$(libtumbler_headers)
+
+libtumbler_1_la_CFLAGS =						\
+	-DDATADIR=\"$(datadir)\"					\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\
 	-DG_LOG_DOMAIN=\"tumbler\"					\
+	-DTUMBLER_COMPILATION						\
+	-DTUMBLER_VERSION_API=\"$(TUMBLER_VERSION_API)\"		\
 	-I$(top_srcdir)							\
-	$(DBUS_CFLAGS)							\
-	$(DBUS_GLIB_CFLAGS)						\
-	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
-	$(GTHREAD_CFLAGS)
+	$(GTHREAD_CFLAGS)						\
+	$(PLATFORM_CFLAGS)
 
-tumbler_LDFLAGS =							\
-	-no-undefined
+libtumbler_1_la_LDFLAGS =						\
+	-no-undefined							\
+	-export-dynamic							\
+	-version-info $(TUMBLER_VERINFO)				\
+	$(PLATFORM_LDFLAGS)
 
-tumbler_LDADD =								\
-	$(DBUS_LIBS)							\
-	$(DBUS_GLIB_LIBS)						\
-	$(GDK_PIXBUF_LIBS)						\
+libtumbler_1_la_LIBADD =						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(GTHREAD_LIBS)
 
-servicedir = $(datadir)/dbus-1/services
-service_in_files = org.xfce.Tumbler.service.in
-service_DATA = $(service_in_files:.service.in=.service)
-
-%.service: %.service.in
-	sed -e "s,\@libexecdir\@,$(libexecdir),g" < $< > $@
-
-CLEANFILES =								\
-	$(service_DATA)
-
 EXTRA_DIST =								\
-	$(service_in_files)						\
-	tumbler-manager-dbus.xml					\
-	tumbler-service-dbus.xml
+	tumbler-config.h.in
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = tumbler-1.pc
 
 if MAINTAINER_MODE
 
 DISTCLEANFILES =							\
 	stamp-tumbler-marshal.h						\
-	$(tumbler_built_sources)
+	tumbler-1.pc							\
+	tumbler-config.h						\
+	$(libtumbler_built_sources)
 
 BUILT_SOURCES =								\
 	$(tumbler_built_sources)
@@ -114,11 +101,5 @@ tumbler-marshal.c: tumbler-marshal.list Makefile
 		--body tumbler-marshal.list ) >> xgen-emc \
 	&& cp xgen-emc tumbler-marshal.c \
 	&& rm -f xgen-emc
-
-tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=tumbler_manager $< > $@
-
-tumbler-service-dbus-bindings.h: tumbler-service-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=tumbler_service $< > $@
 
 endif

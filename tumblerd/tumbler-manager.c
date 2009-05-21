@@ -30,10 +30,10 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
-#include <tumbler/tumbler-manager.h>
-#include <tumbler/tumbler-manager-dbus-bindings.h>
-#include <tumbler/tumbler-specialized-thumbnailer.h>
-#include <tumbler/tumbler-utils.h>
+#include <tumblerd/tumbler-manager.h>
+#include <tumblerd/tumbler-manager-dbus-bindings.h>
+#include <tumblerd/tumbler-specialized-thumbnailer.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 

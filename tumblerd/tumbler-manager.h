@@ -23,7 +23,7 @@
 
 #include <dbus/dbus-glib.h>
 
-#include <tumbler/tumbler-registry.h>
+#include <tumblerd/tumbler-registry.h>
 
 G_BEGIN_DECLS;
 

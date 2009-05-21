@@ -25,8 +25,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <tumbler/tumbler-threshold-scheduler.h>
-#include <tumbler/tumbler-scheduler.h>
+#include <tumblerd/tumbler-threshold-scheduler.h>
+#include <tumblerd/tumbler-scheduler.h>
 
 
 

@@ -23,7 +23,7 @@
 
 #include <dbus/dbus-glib-lowlevel.h>
 
-#include <tumbler/tumbler-thumbnailer.h>
+#include <tumblerd/tumbler-thumbnailer.h>
 
 G_BEGIN_DECLS
 

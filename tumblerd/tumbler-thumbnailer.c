@@ -22,8 +22,9 @@
 #include <config.h>
 #endif
 
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-thumbnailer.h>
+#include <tumbler/tumbler.h>
+
+#include <tumblerd/tumbler-thumbnailer.h>
 
 
 

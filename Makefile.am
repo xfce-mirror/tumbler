@@ -19,4 +19,5 @@
 
 SUBDIRS =								\
 	po								\
-	tumbler
+	tumbler								\
+	tumblerd

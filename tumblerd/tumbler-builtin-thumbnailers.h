@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_BUILTIN_THUMBNAILERS_H__
 #define __TUMBLER_BUILTIN_THUMBNAILERS_H__
 
-#include <tumbler/tumbler-builtin-thumbnailer.h>
+#include <tumblerd/tumbler-builtin-thumbnailer.h>
 
 G_BEGIN_DECLS
 
