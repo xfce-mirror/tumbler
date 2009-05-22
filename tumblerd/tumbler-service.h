@@ -49,6 +49,9 @@ void            tumbler_service_queue    (TumblerService        *service,
                                           const GStrv            mime_hints,
                                           guint                  handle_to_unqueue,
                                           DBusGMethodInvocation *context);
+void            tumbler_service_unqueue (TumblerService         *service,
+                                         guint                   handle,
+                                         DBusGMethodInvocation  *context);
 
 G_END_DECLS;
 

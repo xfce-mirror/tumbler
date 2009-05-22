@@ -10,12 +10,10 @@
       <arg type="u" name="handle" direction="out" />
     </method>
 
-    <!--
     <method name="Unqueue">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="u" name="handle" direction="in" />
     </method>
-    -->
 
     <signal name="Started">
       <arg type="u" name="handle" />

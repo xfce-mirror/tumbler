@@ -55,12 +55,16 @@ struct _TumblerSchedulerIface
   /* virtual methods */
   void (*push)     (TumblerScheduler        *scheduler,
                     TumblerSchedulerRequest *request);
+  void (*unqueue)  (TumblerScheduler        *scheduler,
+                    guint                    handle);
 };
 
 GType                    tumbler_scheduler_get_type              (void) G_GNUC_CONST;
 
 void                     tumbler_scheduler_push                  (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);
+void                     tumbler_scheduler_unqueue               (TumblerScheduler        *scheduler,
+                                                                  guint                    handle);
 void                     tumbler_scheduler_take_request          (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);
 
@@ -68,7 +72,6 @@ TumblerSchedulerRequest *tumbler_scheduler_request_new           (const GStrv   
                                                                   const GStrv              mime_hints,
                                                                   TumblerThumbnailer     **thumbnailers);
 void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
-guint                    tumbler_scheduler_request_get_handle    (TumblerSchedulerRequest *request);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
                                                                   gconstpointer            b,
                                                                   gpointer                 user_data);
@@ -77,6 +80,7 @@ struct _TumblerSchedulerRequest
 {
   TumblerThumbnailer **thumbnailers;
   TumblerScheduler    *scheduler;
+  gboolean             unqueued;
   GStrv                mime_hints;
   GStrv                uris;
   guint                handle;

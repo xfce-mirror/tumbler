@@ -224,8 +224,7 @@ tumbler_naive_scheduler_push (TumblerScheduler        *scheduler,
   tumbler_scheduler_take_request (scheduler, request);
 
   /* tell everybody that we've started processing the request */
-  g_signal_emit_by_name (scheduler, "started", 
-                         tumbler_scheduler_request_get_handle (request));
+  g_signal_emit_by_name (scheduler, "started", request->handle);
 
   /* iterate over all elements in the three arrays, assuming they all have
    * the same size */
@@ -260,8 +259,7 @@ tumbler_naive_scheduler_push (TumblerScheduler        *scheduler,
     }
 
   /* tell everybody that we are done with this request */
-  g_signal_emit_by_name (scheduler, "finished", 
-                         tumbler_scheduler_request_get_handle (request));
+  g_signal_emit_by_name (scheduler, "finished", request->handle);
 
   /* destroy the request */
   tumbler_scheduler_request_free (request);

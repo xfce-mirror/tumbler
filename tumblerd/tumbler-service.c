@@ -454,9 +454,11 @@ tumbler_service_queue (TumblerService        *service,
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
 
-  /* TODO deal with the unqueue handle */
-
   g_mutex_lock (service->priv->mutex);
+
+  /* unqueue the request with the given unqueue handle */
+  if (handle_to_unqueue != 0)
+    tumbler_scheduler_unqueue (service->priv->scheduler, handle_to_unqueue);
 
   /* get an array with one thumbnailer for each URI in the request */
   thumbnailers = tumbler_registry_get_thumbnailer_array (service->priv->registry,
@@ -466,7 +468,7 @@ tumbler_service_queue (TumblerService        *service,
   scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers);
 
   /* get the request handle */
-  handle = tumbler_scheduler_request_get_handle (scheduler_request);
+  handle = scheduler_request->handle;
 
   /* push the request to the scheduler */
   tumbler_scheduler_push (service->priv->scheduler, scheduler_request);
@@ -477,4 +479,24 @@ tumbler_service_queue (TumblerService        *service,
   g_mutex_unlock (service->priv->mutex);
 
   dbus_g_method_return (context, handle);
+}
+
+
+
+void
+tumbler_service_unqueue (TumblerService        *service,
+                         guint                  handle,
+                         DBusGMethodInvocation *context)
+{
+  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
+
+  g_mutex_lock (service->priv->mutex);
+
+  /* unqueue the request with the given unqueue handle */
+  if (handle != 0)
+    tumbler_scheduler_unqueue (service->priv->scheduler, handle);
+
+  g_mutex_unlock (service->priv->mutex);
+
+  dbus_g_method_return (context);
 }
