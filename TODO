@@ -1,0 +1,11 @@
+Tumbler TODO List
+=================
+
+  - convenience function in tumbler/tumbler-thumbnail.{c,h} to save 
+    pixbufs with thumbnail attributes, see
+     
+      http://jens.triq.net/thumbnail-spec/creation.html 
+    
+    for more info.
+
+  - implement TumblerThresholdScheduler.
