@@ -32,12 +32,16 @@ libtumbler_headers =							\
 	tumbler-enum-types.h						\
 	tumbler-error.h							\
 	tumbler-marshal.h						\
+	tumbler-png-thumbnail-info.h					\
+	tumbler-thumbnail-info.h					\
 	tumbler-thumbnail.h
 
 libtumbler_sources =							\
 	tumbler-config.c						\
 	tumbler-enum-types.c						\
 	tumbler-marshal.c						\
+	tumbler-png-thumbnail-info.c					\
+	tumbler-thumbnail-info.c					\
 	tumbler-thumbnail.c
 
 libtumblerincludedir = $(includedir)/tumbler-$(TUMBLER_VERSION_API)/tumbler

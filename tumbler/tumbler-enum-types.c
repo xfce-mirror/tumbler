@@ -46,7 +46,7 @@ tumbler_thumbnail_flavor_get_type (void)
     {
       static const GEnumValue values[] = 
       {
-        { TUMBLER_THUMBNAIL_FLAVOR_INVALID, "TUMBLER_THUMBNAIL_FLAVOR_INVALID",  N_ ("Invalid"), },
+        { TUMBLER_THUMBNAIL_FLAVOR_INVALID, "TUMBLER_THUMBNAIL_FLAVOR_INVALID",  N_ ("Invalid format"), },
         { TUMBLER_THUMBNAIL_FLAVOR_NORMAL,  "TUMBLER_THUMBNAIL_FLAVOR_NORMAL",   N_ ("Normal"),  },
         { TUMBLER_THUMBNAIL_FLAVOR_LARGE,   "TUMBLER_THUMBNAIL_FLAVOR_LARGE",    N_ ("Large"),   },
         { TUMBLER_THUMBNAIL_FLAVOR_CROPPED, "TUMBLER_THUMBNAIL_FLAVOR_CROPPED",  N_ ("Cropped"), },
@@ -54,6 +54,28 @@ tumbler_thumbnail_flavor_get_type (void)
       };
 
       type = g_enum_register_static ("TumblerThumbnailFlavor", values);
+    }
+
+  return type;
+}
+
+
+
+GType
+tumbler_thumbnail_format_get_type (void)
+{
+  GType type = G_TYPE_INVALID;
+
+  if (G_UNLIKELY (type == G_TYPE_INVALID))
+    {
+      static const GEnumValue values[] = 
+      {
+        { TUMBLER_THUMBNAIL_FORMAT_INVALID, "TUMBLER_THUMBNAIL_FORMAT_INVALID",  N_ ("Invalid format"), },
+        { TUMBLER_THUMBNAIL_FORMAT_PNG,     "TUMBLER_THUMBNAIL_FORMAT_PNG",      N_ ("PNG"), },
+        { 0,                                NULL,                                NULL,       },
+      };
+
+      type = g_enum_register_static ("TumblerThumbnailFormat", values);
     }
 
   return type;

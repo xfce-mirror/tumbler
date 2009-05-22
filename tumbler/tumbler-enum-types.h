@@ -41,6 +41,16 @@ typedef enum /*< enum >*/
 
 GType tumbler_thumbnail_flavor_get_type (void);
 
+#define TUMBLER_TYPE_THUMBNAIL_FORMAT (tumbler_thumbnail_format_get_type ())
+
+typedef enum /*< enum >*/
+{
+  TUMBLER_THUMBNAIL_FORMAT_INVALID,
+  TUMBLER_THUMBNAIL_FORMAT_PNG,
+} TumblerThumbnailFormat;
+
+GType tumbler_thumbnail_format_get_type (void);
+
 G_END_DECLS
 
 #endif /* !__TUMBLER_ENUM_TYPES_H__ */
