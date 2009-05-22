@@ -201,3 +201,16 @@ tumbler_scheduler_request_get_handle (TumblerSchedulerRequest *request)
   g_return_if_fail (request != NULL);
   return request->handle;
 }
+
+
+
+gint
+tumbler_scheduler_request_compare (gconstpointer a,
+                                   gconstpointer b,
+                                   gpointer      user_data)
+{
+  const TumblerSchedulerRequest *request_a = a;
+  const TumblerSchedulerRequest *request_b = b;
+
+  return request_b->handle - request_a->handle;
+}

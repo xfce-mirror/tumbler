@@ -36,6 +36,7 @@
 #include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-service.h>
 #include <tumblerd/tumbler-service-dbus-bindings.h>
+#include <tumblerd/tumbler-threshold-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
 
@@ -241,7 +242,11 @@ tumbler_service_constructed (GObject *object)
 {
   TumblerService *service = TUMBLER_SERVICE (object);
 
+#if 0
   service->priv->scheduler = tumbler_naive_scheduler_new ();
+#else
+  service->priv->scheduler = tumbler_threshold_scheduler_new ();
+#endif
 
   g_signal_connect (service->priv->scheduler, "error",
                     G_CALLBACK (tumbler_service_scheduler_error), service);
