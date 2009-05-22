@@ -26,6 +26,14 @@
 
 
 
+/**
+ * SECTION:tumbler-config
+ * @title: Version Information and Compatibility Checks
+ * @include: tumbler/tumbler.h
+ */
+
+
+
 const guint tumbler_major_version = TUMBLER_MAJOR_VERSION;
 const guint tumbler_minor_version = TUMBLER_MINOR_VERSION;
 const guint tumbler_micro_version = TUMBLER_MICRO_VERSION;

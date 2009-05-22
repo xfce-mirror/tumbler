@@ -48,4 +48,7 @@ sed -e "s/@LINGUAS@/${linguas}/g" \
     -e "s/@REVISION@/${revision}/g" \
     < "configure.in.in" > "configure.in"
 
+# initialize GTK-Doc
+gtkdocize || exit 1
+
 exec xdt-autogen $@

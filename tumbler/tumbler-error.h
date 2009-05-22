@@ -29,6 +29,12 @@
 
 G_BEGIN_DECLS
 
+/**
+ * SECTION:tumbler-error
+ * @title:Error Domain and Types
+ * @include: tumbler/tumbler.h
+ */
+
 #define TUMBLER_ERROR_DOMAIN "Tumbler"
 #define TUMBLER_ERROR        (g_quark_from_static_string (TUMBLER_ERROR_DOMAIN))
 

@@ -119,6 +119,11 @@ dnl *** Check for i18n support ***
 dnl ******************************
 XDT_I18N([@LINGUAS@])
 
+dnl *************************
+dnl *** Check for GTK-Doc ***
+dnl *************************
+GTK_DOC_CHECK(1.9)
+
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
@@ -223,6 +228,10 @@ AM_CONDITIONAL([HAVE_GNUC_VISIBILITY], [test x"$have_gnuc_visibility" = x"yes"])
 
 AC_OUTPUT([
 Makefile
+docs/Makefile
+docs/reference/Makefile
+docs/reference/tumbler/Makefile
+docs/reference/tumbler/version.xml
 po/Makefile.in
 tumbler/Makefile
 tumbler/tumbler-config.h

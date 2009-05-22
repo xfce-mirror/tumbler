@@ -8,4 +8,6 @@ Tumbler TODO List
     
     for more info.
 
+  - create thumbnails (and directories) with the correct chmod bits set.
+
   - implement TumblerThresholdScheduler.

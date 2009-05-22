@@ -31,6 +31,15 @@
 
 
 
+/**
+ * SECTION:tumbler-thumbnail
+ * @title:Thumbnail Utility Functions
+ * @short_description: Utility functions for creating thumbnails
+ * @include: tumbler/tumbler.h
+ */
+
+
+
 TumblerThumbnailFlavor *
 tumbler_thumbnail_get_flavors (void)
 {

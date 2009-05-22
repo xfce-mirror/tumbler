@@ -29,6 +29,14 @@
 
 
 
+/**
+ * SECTION:tumbler-enum-types
+ * @title: Various Enumeration Types
+ * @include: tumbler/tumbler.h
+ */
+
+
+
 GType
 tumbler_thumbnail_flavor_get_type (void)
 {
