@@ -41,6 +41,7 @@ G_BEGIN_DECLS
 typedef enum /*< enum >*/
 {
   TUMBLER_ERROR_FAILED,
+  TUMBLER_ERROR_NO_THUMBNAILER,
 } TumblerErrorEnum;
 
 G_END_DECLS
