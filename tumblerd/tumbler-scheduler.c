@@ -166,6 +166,25 @@ tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
 
 
 
+void 
+tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
+                                  TumblerSchedulerRequest *request, 
+                                  const gchar             *uri,
+                                  GError                  *error)
+{
+  const gchar *uris[] = { uri, NULL };
+
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (request != NULL);
+  g_return_if_fail (uri != NULL);
+  g_return_if_fail (error != NULL);
+
+  g_signal_emit (scheduler, tumbler_scheduler_signals[SIGNAL_ERROR], 0, request->handle,
+                 uris, error->code, error->message);
+}
+
+
+
 TumblerSchedulerRequest *
 tumbler_scheduler_request_new (const GStrv          uris,
                                const GStrv          mime_hints,

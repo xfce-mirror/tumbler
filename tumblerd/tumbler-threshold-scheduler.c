@@ -22,8 +22,12 @@
 #include <config.h>
 #endif
 
+#include <float.h>
+
 #include <glib.h>
 #include <glib-object.h>
+
+#include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-threshold-scheduler.h>
 #include <tumblerd/tumbler-scheduler.h>
@@ -43,29 +47,36 @@ enum
 
 
 
-static void tumbler_threshold_scheduler_class_init      (TumblerThresholdSchedulerClass *klass);
-static void tumbler_threshold_scheduler_iface_init      (TumblerSchedulerIface         *iface);
-static void tumbler_threshold_scheduler_init            (TumblerThresholdScheduler      *scheduler);
-static void tumbler_threshold_scheduler_constructed     (GObject                       *object);
-static void tumbler_threshold_scheduler_finalize        (GObject                       *object);
-static void tumbler_threshold_scheduler_get_property    (GObject                       *object,
-                                                         guint                          prop_id,
-                                                         GValue                        *value,
-                                                         GParamSpec                    *pspec);
-static void tumbler_threshold_scheduler_set_property    (GObject                       *object,
-                                                         guint                          prop_id,
-                                                         const GValue                  *value,
-                                                         GParamSpec                    *pspec);
-static void tumbler_threshold_scheduler_push            (TumblerScheduler              *scheduler,
-                                                         TumblerSchedulerRequest       *request);
-static void tumbler_threshold_scheduler_unqueue         (TumblerScheduler              *scheduler,
-                                                         guint                          handle);
-static void tumbler_threshold_scheduler_thread          (gpointer                       data,
-                                                         gpointer                       user_data);
-static void tumbler_threshold_scheduler_finish_request  (TumblerThresholdScheduler     *scheduler,
-                                                         TumblerSchedulerRequest       *request);
-static void tumbler_threshold_scheduler_unqueue_request (TumblerSchedulerRequest       *request,
-                                                         gpointer                       user_data);
+static void tumbler_threshold_scheduler_class_init        (TumblerThresholdSchedulerClass *klass);
+static void tumbler_threshold_scheduler_iface_init        (TumblerSchedulerIface         *iface);
+static void tumbler_threshold_scheduler_init              (TumblerThresholdScheduler      *scheduler);
+static void tumbler_threshold_scheduler_finalize          (GObject                       *object);
+static void tumbler_threshold_scheduler_get_property      (GObject                       *object,
+                                                           guint                          prop_id,
+                                                           GValue                        *value,
+                                                           GParamSpec                    *pspec);
+static void tumbler_threshold_scheduler_set_property      (GObject                       *object,
+                                                           guint                          prop_id,
+                                                           const GValue                  *value,
+                                                           GParamSpec                    *pspec);
+static void tumbler_threshold_scheduler_push              (TumblerScheduler              *scheduler,
+                                                           TumblerSchedulerRequest       *request);
+static void tumbler_threshold_scheduler_unqueue           (TumblerScheduler              *scheduler,
+                                                           guint                          handle);
+static void tumbler_threshold_scheduler_finish_request    (TumblerThresholdScheduler     *scheduler,
+                                                           TumblerSchedulerRequest       *request);
+static void tumbler_threshold_scheduler_unqueue_request   (TumblerSchedulerRequest       *request,
+                                                           gpointer                       user_data);
+static void tumbler_threshold_scheduler_thread            (gpointer                       data,
+                                                           gpointer                       user_data);
+static void tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer            *thumbnailer,
+                                                           const gchar                   *failed_uri,
+                                                           gint                           error_code,
+                                                           const gchar                   *message,
+                                                           TumblerSchedulerRequest       *request);
+static void tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer            *thumbnailer,
+                                                           const gchar                   *uri,
+                                                           TumblerSchedulerRequest       *request);
 
 
 
@@ -137,7 +148,6 @@ tumbler_threshold_scheduler_class_init (TumblerThresholdSchedulerClass *klass)
   tumbler_threshold_scheduler_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = tumbler_threshold_scheduler_constructed; 
   gobject_class->finalize = tumbler_threshold_scheduler_finalize; 
   gobject_class->get_property = tumbler_threshold_scheduler_get_property;
   gobject_class->set_property = tumbler_threshold_scheduler_set_property;
@@ -186,14 +196,6 @@ tumbler_threshold_scheduler_init (TumblerThresholdScheduler *scheduler)
   /* make the thread a LIFO */
   g_thread_pool_set_sort_function (scheduler->priv->small_pool,
                                    tumbler_scheduler_request_compare, NULL);
-}
-
-
-
-static void
-tumbler_threshold_scheduler_constructed (GObject *object)
-{
-  TumblerThresholdScheduler *scheduler = TUMBLER_THRESHOLD_SCHEDULER (object);
 }
 
 
@@ -353,15 +355,22 @@ tumbler_threshold_scheduler_thread (gpointer data,
 {
   TumblerThresholdScheduler *scheduler = user_data;
   TumblerSchedulerRequest   *request = data;
+  TumblerThumbnailInfo      *info;
+  const gchar              **cached_uris;
+  GList                     *cached_uris_list = NULL;
+  GList                     *missing_uris_list = NULL;
+  GList                     *lp;
   gint                       n;
 
   g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
+  /* notify others that we're starting to process this request */
   g_signal_emit_by_name (request->scheduler, "started", request->handle);
 
   g_mutex_lock (scheduler->priv->mutex);
 
+  /* finish the request if it was unqueued */
   if (request->unqueued)
     {
       tumbler_threshold_scheduler_finish_request (scheduler, request);
@@ -370,10 +379,12 @@ tumbler_threshold_scheduler_thread (gpointer data,
 
   g_mutex_unlock (scheduler->priv->mutex);
 
+  /* process URI by URI */
   for (n = 0; request->uris[n] != NULL; ++n)
     {
       g_mutex_lock (scheduler->priv->mutex);
 
+      /* finish the request if it was unqueued */
       if (request->unqueued)
         {
           tumbler_threshold_scheduler_finish_request (scheduler, request);
@@ -381,9 +392,114 @@ tumbler_threshold_scheduler_thread (gpointer data,
         }
 
       g_mutex_unlock (scheduler->priv->mutex);
+
+      if (request->thumbnailers[n] != NULL)
+        {
+          /* query the thumbnail info for the current URI */
+          info = tumbler_thumbnail_info_new (request->uris[n]);
+
+          /* determine if the thumbnail(s) for this URI are up to date */
+          if (tumbler_thumbnail_info_needs_update (info, NULL))
+            missing_uris_list = g_list_prepend (missing_uris_list, GINT_TO_POINTER (n));
+          else
+            cached_uris_list = g_list_prepend (cached_uris_list, request->uris[n]);
+
+          /* destroy the thumbnail info */
+          g_object_unref (info);
+        }
+      else
+        {
+          /* TODO emit error signal: unsupported, no thumbnailer for the URI */
+        }
     }
 
-  g_signal_emit_by_name (request->scheduler, "finished", request->handle);
+  /* check if we have any cached URIs */
+  if (cached_uris_list != NULL)
+    {
+      /* build string array for cached thumbnails */
+      cached_uris = g_new0 (const gchar *, g_list_length (cached_uris_list) + 1);
+      for (n = 0, lp = g_list_last (cached_uris_list); lp != NULL; lp = lp->prev, ++n)
+        cached_uris[n] = lp->data;
+      cached_uris[n] = NULL;
+
+      /* notify others that the cached thumbnails are ready */
+      g_signal_emit_by_name (scheduler, "ready", cached_uris);
+
+      /* free string array and cached list */
+      g_list_free (cached_uris_list);
+      g_free (cached_uris);
+    }
+
+  /* iterate over invalid/missing URI list */
+  for (lp = g_list_last (missing_uris_list); lp != NULL; lp = lp->prev)
+    {
+      n = GPOINTER_TO_UINT (lp->data);
+      
+      /* connect to the error signal of the thumbnailer */
+      g_signal_connect (request->thumbnailers[n], "error", 
+                        G_CALLBACK (tumbler_threshold_scheduler_thumbnailer_error),
+                        request);
+
+      /* connect to the ready signal of the thumbnailer */
+      g_signal_connect (request->thumbnailers[n], "ready",
+                        G_CALLBACK (tumbler_threshold_scheduler_thumbnailer_ready),
+                        request);
+
+      /* tell the thumbnailer to generate the thumbnail */
+      tumbler_thumbnailer_create (request->thumbnailers[n], request->uris[n], 
+                                  request->mime_hints[n]);
+
+      /* disconnect from all signals when we're finished */
+      g_signal_handlers_disconnect_matched (request->thumbnailers[n],
+                                            G_SIGNAL_MATCH_DATA,
+                                            0, 0, NULL, NULL, request);
+    }
+
+  g_mutex_lock (scheduler->priv->mutex);
+
+  /* notify others that we're finished processing the request */
+  tumbler_threshold_scheduler_finish_request (scheduler, request);
+
+  g_mutex_unlock (scheduler->priv->mutex);
+}
+
+
+
+static void
+tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
+                                               const gchar             *failed_uri,
+                                               gint                     error_code,
+                                               const gchar             *message,
+                                               TumblerSchedulerRequest *request)
+{
+  const gchar *failed_uris[] = { failed_uri, NULL };
+
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (failed_uri != NULL);
+  g_return_if_fail (request != NULL);
+  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (request->scheduler));
+
+  /* forward the error signal */
+  g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris, 
+                         error_code, message);
+}
+
+
+
+static void
+tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
+                                               const gchar             *uri,
+                                               TumblerSchedulerRequest *request)
+{
+  const gchar *uris[] = { uri, NULL };
+
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (uri != NULL);
+  g_return_if_fail (request != NULL);
+  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (request->scheduler));
+
+  /* forward the ready signal */
+  g_signal_emit_by_name (request->scheduler, "ready", uris);
 }
 
 

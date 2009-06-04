@@ -33,16 +33,14 @@ libtumbler_headers =							\
 	tumbler-error.h							\
 	tumbler-marshal.h						\
 	tumbler-png-thumbnail-info.h					\
-	tumbler-thumbnail-info.h					\
-	tumbler-thumbnail.h
+	tumbler-thumbnail-info.h
 
 libtumbler_sources =							\
 	tumbler-config.c						\
 	tumbler-enum-types.c						\
 	tumbler-marshal.c						\
 	tumbler-png-thumbnail-info.c					\
-	tumbler-thumbnail-info.c					\
-	tumbler-thumbnail.c
+	tumbler-thumbnail-info.c
 
 libtumblerincludedir = $(includedir)/tumbler-$(TUMBLER_VERSION_API)/tumbler
 
@@ -60,10 +58,12 @@ libtumbler_1_la_CFLAGS =						\
 	-DTUMBLER_COMPILATION						\
 	-DTUMBLER_VERSION_API=\"$(TUMBLER_VERSION_API)\"		\
 	-I$(top_srcdir)							\
+	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(GTHREAD_CFLAGS)						\
-	$(PLATFORM_CFLAGS)
+	$(PLATFORM_CFLAGS)						\
+	$(PNG_CFLAGS)
 
 libtumbler_1_la_LDFLAGS =						\
 	-no-undefined							\
@@ -72,9 +72,11 @@ libtumbler_1_la_LDFLAGS =						\
 	$(PLATFORM_LDFLAGS)
 
 libtumbler_1_la_LIBADD =						\
+	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
-	$(GTHREAD_LIBS)
+	$(GTHREAD_LIBS)							\
+	$(PNG_LIBS)
 
 EXTRA_DIST =								\
 	tumbler-config.h.in
@@ -91,21 +93,28 @@ DISTCLEANFILES =							\
 	$(libtumbler_built_sources)
 
 BUILT_SOURCES =								\
-	$(tumbler_built_sources)
+	$(libtumbler_built_sources)
 
 tumbler-marshal.h: stamp-tumbler-marshal.h
 	@true
 
 stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
-	( cd $(srcdir) && glib-genmarshal \
+	cd $(srcdir) \
+	&& echo "#ifndef __TUMBLER_MARSHAL_H__" > xgen-emh \
+	&& echo "#define __TUMBLER_MARSHAL_H__" >> xgen-emh \
+	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
 		--header tumbler-marshal.list ) >> xgen-emh \
-	&& ( cmp -s xgen-emh tumbler-marshal.h || cp xgen-emh tumbler-marshal.h ) \
+	&& echo "#endif /* !__TUMBLER_MARSHAL_H__ */" >> xgen-emh \
+	&& ( cmp -s xgen-emh tumbler-marshal.h \
+		|| cp xgen-emh tumbler-marshal.h ) \
 	&& rm -f xgen-emh \
 	&& echo timestamp > $(@F)
 
 tumbler-marshal.c: tumbler-marshal.list Makefile
-	( cd $(srcdir) && glib-genmarshal \
+	cd $(srcdir) \
+	&& echo "#include <tumbler/tumbler-marshal.h>" > xgen-emc \
+	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
 		--body tumbler-marshal.list ) >> xgen-emc \
 	&& cp xgen-emc tumbler-marshal.c \

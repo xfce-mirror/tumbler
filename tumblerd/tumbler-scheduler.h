@@ -67,7 +67,10 @@ void                     tumbler_scheduler_unqueue               (TumblerSchedul
                                                                   guint                    handle);
 void                     tumbler_scheduler_take_request          (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);
-
+void                     tumbler_scheduler_emit_uri_error        (TumblerScheduler        *scheduler,
+                                                                  TumblerSchedulerRequest *request, 
+                                                                  const gchar             *uri,
+                                                                  GError                  *error);
 TumblerSchedulerRequest *tumbler_scheduler_request_new           (const GStrv              uris,
                                                                   const GStrv              mime_hints,
                                                                   TumblerThumbnailer     **thumbnailers);

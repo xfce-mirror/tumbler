@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-#ifdef HAVE_GDK_PIXBUF
+#ifdef ENABLE_PIXBUF_THUMBNAILER
 TumblerThumbnailer *tumbler_pixbuf_thumbnailer_new (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 #endif
 

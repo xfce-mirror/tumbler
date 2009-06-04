@@ -220,7 +220,7 @@ tumbler_manager_set_property (GObject      *object,
       manager->priv->connection = dbus_g_connection_ref (g_value_get_pointer (value));
       break;
     case PROP_REGISTRY:
-      value, manager->priv->registry = g_value_dup_object (value);
+      manager->priv->registry = g_value_dup_object (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);

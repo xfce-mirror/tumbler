@@ -79,7 +79,7 @@ main (int    argc,
   registry = tumbler_registry_new ();
 
   /* register the built-in pixbuf thumbnailer */
-#ifdef HAVE_GDK_PIXBUF
+#ifdef ENABLE_PIXBUF_THUMBNAILER
   thumbnailer = tumbler_pixbuf_thumbnailer_new ();
   tumbler_registry_add (registry, thumbnailer);
   g_object_unref (thumbnailer);

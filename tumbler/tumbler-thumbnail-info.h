@@ -21,7 +21,9 @@
 #ifndef __TUMBLER_THUMBNAIL_INFO_H__
 #define __TUMBLER_THUMBNAIL_INFO_H__
 
-#include <glib-object.h>
+#include <gio/gio.h>
+
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <tumbler/tumbler-enum-types.h>
 
@@ -42,19 +44,55 @@ struct _TumblerThumbnailInfoIface
   /* signals */
 
   /* virtual methods */
-  TumblerThumbnailFormat (*get_format) (TumblerThumbnailInfo *info);
-  const gchar           *(*get_uri)    (TumblerThumbnailInfo *info);
+  gboolean                (*generate_flavor)     (TumblerThumbnailInfo  *info,
+                                                  TumblerThumbnailFlavor flavor,
+                                                  GdkPixbuf             *pixbuf,
+                                                  GCancellable          *cancellable,
+                                                  GError               **error);
+  void                    (*generate_fail)       (TumblerThumbnailInfo  *info,
+                                                  GCancellable          *cancellable);
+  gboolean                (*needs_update)        (TumblerThumbnailInfo  *info,
+                                                  GCancellable          *cancellable);
+  TumblerThumbnailFlavor *(*get_invalid_flavors) (TumblerThumbnailInfo  *info,
+                                                  GCancellable          *cancellable);
 };
 
-GType                  tumbler_thumbnail_info_get_type           (void) G_GNUC_CONST;
-TumblerThumbnailInfo  *tumbler_thumbnail_info_new                (const gchar            *uri) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-TumblerThumbnailInfo  *tumbler_thumbnail_info_new_for_format     (const gchar            *uri,
-                                                                  TumblerThumbnailFormat  format) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-TumblerThumbnailFormat tumbler_thumbnail_info_get_format         (TumblerThumbnailInfo   *info);
+GType                   tumbler_thumbnail_info_get_type             (void) G_GNUC_CONST;
+TumblerThumbnailInfo   *tumbler_thumbnail_info_new                  (const gchar            *uri) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailInfo   *tumbler_thumbnail_info_new_for_format       (const gchar            *uri,
+                                                                     TumblerThumbnailFormat  format) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailFormat  tumbler_thumbnail_info_get_format           (TumblerThumbnailInfo   *info);
+gchar                  *tumbler_thumbnail_info_get_uri              (TumblerThumbnailInfo   *info);
+guint64                 tumbler_thumbnail_info_get_mtime            (TumblerThumbnailInfo   *info);
+gboolean                tumbler_thumbnail_info_needs_update         (TumblerThumbnailInfo   *info,
+                                                                     GCancellable           *cancellable);
+TumblerThumbnailFlavor *tumbler_thumbnail_info_get_invalid_flavors  (TumblerThumbnailInfo   *info,
+                                                                     GCancellable           *cancellable);
+gboolean                tumbler_thumbnail_info_load                 (TumblerThumbnailInfo   *info,
+                                                                     GCancellable           *cancellable,
+                                                                     GError                **error);
+gboolean                tumbler_thumbnail_info_generate_flavor      (TumblerThumbnailInfo   *info,
+                                                                     TumblerThumbnailFlavor  flavor,
+                                                                     GdkPixbuf              *pixbuf,
+                                                                     GCancellable           *cancellable,
+                                                                     GError                **error);
+void                    tumbler_thumbnail_info_generate_fail        (TumblerThumbnailInfo   *info,
+                                                                     GCancellable           *cancellable);
 
-TumblerThumbnailFormat tumbler_thumbnail_info_get_default_format (void);
-void                   tumbler_thumbnail_info_set_default_format (TumblerThumbnailFormat format);
+GFile                  *tumbler_thumbnail_info_temp_fail_file_new   (TumblerThumbnailInfo   *info) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GFile                  *tumbler_thumbnail_info_fail_file_new        (TumblerThumbnailInfo   *info) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GFile                  *tumbler_thumbnail_info_flavor_file_new      (TumblerThumbnailInfo   *info,
+                                                                     TumblerThumbnailFlavor  flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GFile                  *tumbler_thumbnail_info_temp_flavor_file_new (TumblerThumbnailInfo  *info,
+                                                                     TumblerThumbnailFlavor flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gint                    tumbler_thumbnail_info_get_flavor_size      (TumblerThumbnailFlavor  flavor);
+gboolean                tumbler_thumbnail_info_load_mtime           (TumblerThumbnailInfo   *info,
+                                                                     GCancellable           *cancellable);
 
+TumblerThumbnailFlavor *tumbler_thumbnail_info_get_flavors          (void);
+
+TumblerThumbnailFormat  tumbler_thumbnail_info_get_default_format   (void);
+void                    tumbler_thumbnail_info_set_default_format   (TumblerThumbnailFormat format);
 
 G_END_DECLS
 

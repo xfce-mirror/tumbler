@@ -45,16 +45,7 @@ enum
 static void tumbler_naive_scheduler_class_init        (TumblerNaiveSchedulerClass *klass);
 static void tumbler_naive_scheduler_iface_init        (TumblerSchedulerIface      *iface);
 static void tumbler_naive_scheduler_init              (TumblerNaiveScheduler      *scheduler);
-static void tumbler_naive_scheduler_constructed       (GObject                    *object);
 static void tumbler_naive_scheduler_finalize          (GObject                    *object);
-static void tumbler_naive_scheduler_get_property      (GObject                    *object,
-                                                       guint                       prop_id,
-                                                       GValue                     *value,
-                                                       GParamSpec                 *pspec);
-static void tumbler_naive_scheduler_set_property      (GObject                    *object,
-                                                       guint                       prop_id,
-                                                       const GValue               *value,
-                                                       GParamSpec                 *pspec);
 static void tumbler_naive_scheduler_push              (TumblerScheduler           *scheduler,
                                                        TumblerSchedulerRequest    *request);
 static void tumbler_naive_scheduler_thumbnailer_error (TumblerThumbnailer         *thumbnailer,
@@ -82,8 +73,7 @@ struct _TumblerNaiveScheduler
 
 struct _TumblerNaiveSchedulerPrivate
 {
-  GThreadPool *large_pool;
-  GThreadPool *small_pool;
+  guint dummy;
 };
 
 
@@ -133,10 +123,7 @@ tumbler_naive_scheduler_class_init (TumblerNaiveSchedulerClass *klass)
   tumbler_naive_scheduler_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = tumbler_naive_scheduler_constructed; 
   gobject_class->finalize = tumbler_naive_scheduler_finalize; 
-  gobject_class->get_property = tumbler_naive_scheduler_get_property;
-  gobject_class->set_property = tumbler_naive_scheduler_set_property;
 }
 
 
@@ -158,55 +145,9 @@ tumbler_naive_scheduler_init (TumblerNaiveScheduler *scheduler)
 
 
 static void
-tumbler_naive_scheduler_constructed (GObject *object)
-{
-  TumblerNaiveScheduler *scheduler = TUMBLER_NAIVE_SCHEDULER (object);
-}
-
-
-
-static void
 tumbler_naive_scheduler_finalize (GObject *object)
 {
-  TumblerNaiveScheduler *scheduler = TUMBLER_NAIVE_SCHEDULER (object);
-
   (*G_OBJECT_CLASS (tumbler_naive_scheduler_parent_class)->finalize) (object);
-}
-
-
-
-static void
-tumbler_naive_scheduler_get_property (GObject    *object,
-                                      guint       prop_id,
-                                      GValue     *value,
-                                      GParamSpec *pspec)
-{
-  TumblerNaiveScheduler *scheduler = TUMBLER_NAIVE_SCHEDULER (object);
-
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
-}
-
-
-
-static void
-tumbler_naive_scheduler_set_property (GObject      *object,
-                                      guint         prop_id,
-                                      const GValue *value,
-                                      GParamSpec   *pspec)
-{
-  TumblerNaiveScheduler *scheduler = TUMBLER_NAIVE_SCHEDULER (object);
-
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
 }
 
 

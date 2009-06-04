@@ -256,7 +256,7 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
                                G_CALLBACK (tumbler_specialized_thumbnailer_proxy_error),
                                thumbnailer, NULL);
 
-  g_object_connect (thumbnailer->priv->proxy, "destroy",
+  g_signal_connect (thumbnailer->priv->proxy, "destroy",
                     G_CALLBACK (tumbler_specialized_thumbnailer_proxy_destroyed),
                     thumbnailer);
 }

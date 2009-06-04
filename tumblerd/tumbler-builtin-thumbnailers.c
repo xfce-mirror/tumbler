@@ -22,20 +22,21 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_GDK_PIXBUF
+#include <math.h>
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#endif
 
 #include <gio/gio.h>
 
 #include <tumbler/tumbler.h>
 
+#include <tumblerd/tumbler-builtin-thumbnailers.h>
 #include <tumblerd/tumbler-builtin-thumbnailer.h>
 #include <tumblerd/tumbler-thumbnailer.h>
 
 
 
-#ifdef HAVE_GDK_PIXBUF
+#ifdef ENABLE_PIXBUF_THUMBNAILER
 
 static gboolean
 _tumbler_pixbuf_thumbnailer (TumblerBuiltinThumbnailer *thumbnailer,
@@ -44,14 +45,17 @@ _tumbler_pixbuf_thumbnailer (TumblerBuiltinThumbnailer *thumbnailer,
                              GError                   **error)
 {
   TumblerThumbnailFlavor *flavors;
-  GFileOutputStream      *output_stream;
-  GFileInputStream       *input_stream;
-  GdkPixbuf              *pixbuf = NULL;
+  TumblerThumbnailInfo   *info;
+  GFileInputStream       *stream;
+  GdkPixbuf              *pixbuf;
+  GdkPixbuf              *source_pixbuf;
+  gdouble                 factor;
   GError                 *err = NULL;
-  GFile                  *input_file;
-  GFile                  *output_file;
-  gchar                  *basename;
-  gchar                  *filename;
+  GFile                  *file;
+  gint                    dest_width;
+  gint                    dest_height;
+  gint                    height;
+  gint                    width;
   gint                    size;
   gint                    n;
 
@@ -60,92 +64,114 @@ _tumbler_pixbuf_thumbnailer (TumblerBuiltinThumbnailer *thumbnailer,
   g_return_val_if_fail (mime_hint != NULL, FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  /* try to open the file for reading */
-  input_file = g_file_new_for_uri (uri);
-  input_stream = g_file_read (input_file, NULL, &err);
-  g_object_unref (input_file);
+  /* create the thumbnail info with the URI and modified time */
+  info = tumbler_thumbnail_info_new (uri);
 
-  /* propagate error if opening failed */
+  /* create a GFile for this URI */
+  file = g_file_new_for_uri (uri);
+
+  /* try to open the source file for reading */
+  stream = g_file_read (file, NULL, &err);
+
+  if (stream != NULL)
+    {
+      /* try to load the source image from the stream */
+      source_pixbuf = gdk_pixbuf_new_from_stream (G_INPUT_STREAM (stream), NULL, &err);
+
+      if (source_pixbuf != NULL)
+        {
+          /* determine flavors we need to (re)generate */
+          flavors = tumbler_thumbnail_info_get_invalid_flavors (info, NULL);
+
+          /* iterate over these flavors */
+          for (n = 0; err == NULL && flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+            {
+              /* determine the pixel size of the current flavor */
+              size = tumbler_thumbnail_info_get_flavor_size (flavors[n]);
+
+              if (flavors[n] == TUMBLER_THUMBNAIL_FLAVOR_CROPPED)
+                {
+                  /* TODO unsupported */
+                }
+              else
+                {
+                  /* determine width and height of the source image */
+                  width = gdk_pixbuf_get_width (source_pixbuf);
+                  height = gdk_pixbuf_get_height (source_pixbuf);
+
+                  if (width <= size && height <= size)
+                    {
+                      /* the image is smaller than requested, no resizing required */
+                      dest_width = width;
+                      dest_height = height;
+                    }
+                  else
+                    {
+                      /* the image is larger than the thumbnail should be */
+                      if (width > height)
+                        {
+                          /* width is larger than the height, use size for the width */
+                          dest_width = size;
+                          
+                          /* determine the new height for this width */
+                          factor = (gdouble) size / (gdouble) width;
+                          dest_height = MIN (round (height * factor), size);
+                        }
+                      else
+                        {
+                          /* height is larger than the width, use size for the height */
+                          dest_height = size;
+
+                          /* determine the new width for this height */
+                          factor = (gdouble) size / (gdouble) height;
+                          dest_width = MIN (round (width * factor), size);
+                        }
+                    }
+
+                  /* scale the pixbuf if necessary */
+                  pixbuf = gdk_pixbuf_scale_simple (source_pixbuf, dest_width, 
+                                                    dest_height, GDK_INTERP_BILINEAR);
+
+                  /* try to generate the thumbnail flavor */
+                  if (!tumbler_thumbnail_info_generate_flavor (info, flavors[n],
+                                                               pixbuf, NULL, &err))
+                    {
+                      /* there was an error, abort */
+                      g_object_unref (pixbuf);
+                      break;
+                    }
+
+                  /* destroy the scaled image */
+                  g_object_unref (pixbuf);
+                }
+            }
+
+          /* destroy the source image */
+          g_object_unref (source_pixbuf);
+        }
+
+      /* close and destroy the input stream */
+      g_object_unref (stream);
+    }
+  
+  /* destroy the GFile */
+  g_object_unref (file);
+
   if (err != NULL)
     {
       g_propagate_error (error, err);
+
+      /* try to generate a fail file */
+      tumbler_thumbnail_info_generate_fail (info, NULL);
+
+      g_object_unref (info);
       return FALSE;
     }
-
-  flavors = tumbler_thumbnail_get_flavors ();
-
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  else
     {
-      /* determine the thumbnail file */
-      output_file = tumbler_thumbnail_get_file (uri, flavors[n]);
-      
-      /* skip the file if the thumbnail already exists */
-      if (g_file_query_exists (output_file, NULL))
-        {
-          g_object_unref (output_file);
-          continue;
-        }
-
-      size = tumbler_thumbnail_flavor_get_size (flavors[n]);
-
-      /* try to load the pixbuf from the file */
-      pixbuf = gdk_pixbuf_new_from_stream_at_scale (G_INPUT_STREAM (input_stream), 
-                                                    size, size, TRUE, NULL, &err);
-
-      /* propagate error if loading failed */
-      if (err != NULL)
-        {
-          g_propagate_error (error, err);
-          g_object_unref (input_stream);
-          g_object_unref (output_file);
-          return FALSE;
-        }
-
-      /* try to reset the stream */
-      if (!g_seekable_seek (G_SEEKABLE (input_stream), 0, G_SEEK_SET, NULL, &err))
-        {
-          g_propagate_error (error, err);
-          g_object_unref (input_stream);
-          g_object_unref (output_file);
-          g_object_unref (pixbuf);
-          return FALSE;
-        }
-
-      /* apply optional orientation */
-      pixbuf = gdk_pixbuf_apply_embedded_orientation (pixbuf);
-
-      /* try to create and open the file to write the thumbnail to */
-      output_stream = tumbler_thumbnail_create_and_open_file (output_file, &err);
-      g_object_unref (output_file);
-
-      /* propagate error if preparing for writing failed */
-      if (err != NULL)
-        {
-          g_propagate_error (error, err);
-          g_object_unref (input_stream);
-          g_object_unref (pixbuf);
-          return FALSE;
-        }
-
-      /* write the pixbuf into the file */
-      gdk_pixbuf_save_to_stream (pixbuf, G_OUTPUT_STREAM (output_stream), "png", NULL, &err,
-                                 NULL);
-      g_object_unref (output_stream);
-
-      /* propagate error if writing failed */
-      if (err != NULL)
-        {
-          g_propagate_error (error, err);
-          g_object_unref (input_stream);
-          g_object_unref (pixbuf);
-          return FALSE;
-        }
-
-      /* destroy the pixbuf */
-      g_object_unref (pixbuf);
+      g_object_unref (info);
+      return TRUE;
     }
-
-  return TRUE;
 }
 
 
@@ -221,4 +247,4 @@ tumbler_pixbuf_thumbnailer_new (void)
   return thumbnailer;
 }
 
-#endif /* HAVE_GDK_PIXBUF */
+#endif /* ENABLE_PIXBUF_THUMBNAILER */
