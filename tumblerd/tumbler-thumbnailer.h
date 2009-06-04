@@ -62,8 +62,10 @@ GStrv                tumbler_thumbnailer_get_hash_keys   (TumblerThumbnailer  *t
 GStrv                tumbler_thumbnailer_get_mime_types  (TumblerThumbnailer  *thumbnailer);
 GStrv                tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer  *thumbnailer);
 
-TumblerThumbnailer **tumbler_thumbnailer_array_copy      (TumblerThumbnailer **thumbnailers);
-void                 tumbler_thumbnailer_array_free      (TumblerThumbnailer **thumbnailers);
+TumblerThumbnailer **tumbler_thumbnailer_array_copy      (TumblerThumbnailer **thumbnailers,
+                                                          gint                 length);
+void                 tumbler_thumbnailer_array_free      (TumblerThumbnailer **thumbnailers,
+                                                          gint                 length);
 
 G_END_DECLS
 

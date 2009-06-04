@@ -25,6 +25,7 @@
 #include <float.h>
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 
 #include <tumbler/tumbler.h>
@@ -357,6 +358,7 @@ tumbler_threshold_scheduler_thread (gpointer data,
   TumblerSchedulerRequest   *request = data;
   TumblerThumbnailInfo      *info;
   const gchar              **cached_uris;
+  GError                    *error = NULL;
   GList                     *cached_uris_list = NULL;
   GList                     *missing_uris_list = NULL;
   GList                     *lp;
@@ -409,7 +411,14 @@ tumbler_threshold_scheduler_thread (gpointer data,
         }
       else
         {
-          /* TODO emit error signal: unsupported, no thumbnailer for the URI */
+          g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
+                       _("No thumbnailer available for \"%s\""), request->uris[n]);
+
+          /* emit error signal: no thumbnailer for the URI */
+          tumbler_scheduler_emit_uri_error (TUMBLER_SCHEDULER (scheduler), request,
+                                            request->uris[n], error);
+
+          g_clear_error (&error);
         }
     }
 

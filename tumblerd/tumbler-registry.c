@@ -440,7 +440,8 @@ tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
 TumblerThumbnailer **
 tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
                                         const GStrv      uris,
-                                        const GStrv      mime_hints)
+                                        const GStrv      mime_hints,
+                                        gint            *length)
 {
   TumblerThumbnailer **thumbnailers = NULL;
   gchar               *hash_key;
@@ -460,6 +461,9 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
   /* we handle situations silently where num_uris != num_mime_hints */
   num_thumbnailers = MAX (0, MIN (num_uris, num_mime_hints));
 
+  /* set the length return value */
+  *length = num_thumbnailers;
+
   /* allocate the thumbnailer array */
   thumbnailers = g_new0 (TumblerThumbnailer *, num_thumbnailers + 1);
 
@@ -474,7 +478,7 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
 
       /* see if we can find a thumbnailer to handle this URI/MIME type pair */
       thumbnailers[n] = tumbler_registry_lookup (registry, hash_key);
-      
+
       /* if there is one, take a reference on it */
       if (thumbnailers[n] != NULL)
         g_object_ref (thumbnailers[n]);

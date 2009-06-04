@@ -73,7 +73,8 @@ void                     tumbler_scheduler_emit_uri_error        (TumblerSchedul
                                                                   GError                  *error);
 TumblerSchedulerRequest *tumbler_scheduler_request_new           (const GStrv              uris,
                                                                   const GStrv              mime_hints,
-                                                                  TumblerThumbnailer     **thumbnailers);
+                                                                  TumblerThumbnailer     **thumbnailers,
+                                                                  gint                     length);
 void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
                                                                   gconstpointer            b,
@@ -87,6 +88,7 @@ struct _TumblerSchedulerRequest
   GStrv                mime_hints;
   GStrv                uris;
   guint                handle;
+  gint                 length;
 };
 
 G_END_DECLS

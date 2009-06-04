@@ -188,7 +188,8 @@ tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
 TumblerSchedulerRequest *
 tumbler_scheduler_request_new (const GStrv          uris,
                                const GStrv          mime_hints,
-                               TumblerThumbnailer **thumbnailers)
+                               TumblerThumbnailer **thumbnailers,
+                               gint                 length)
 {
   TumblerSchedulerRequest *request = NULL;
   static gint              handle  = 0;
@@ -203,7 +204,8 @@ tumbler_scheduler_request_new (const GStrv          uris,
   request->handle = handle++;
   request->uris = g_strdupv (uris);
   request->mime_hints = g_strdupv (mime_hints);
-  request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers);
+  request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers, length);
+  request->length = length;
 
   return request;
 }
@@ -221,7 +223,7 @@ tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
   if (G_LIKELY (request->scheduler != NULL))
     g_object_unref (request->scheduler);
 
-  tumbler_thumbnailer_array_free (request->thumbnailers);
+  tumbler_thumbnailer_array_free (request->thumbnailers, request->length);
 
   g_free (request);
 }

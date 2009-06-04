@@ -46,7 +46,8 @@ void                 tumbler_registry_add                   (TumblerRegistry    
 GList               *tumbler_registry_get_thumbnailers      (TumblerRegistry    *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 TumblerThumbnailer **tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
                                                              const GStrv         uris,
-                                                             const GStrv         mime_hints) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+                                                             const GStrv         mime_hints,
+                                                             gint               *length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
 

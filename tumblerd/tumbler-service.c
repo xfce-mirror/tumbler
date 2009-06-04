@@ -448,6 +448,7 @@ tumbler_service_queue (TumblerService        *service,
 {
   TumblerSchedulerRequest *scheduler_request;
   TumblerThumbnailer     **thumbnailers;
+  gint                     num_thumbnailers;
   guint                    handle;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
@@ -462,10 +463,12 @@ tumbler_service_queue (TumblerService        *service,
 
   /* get an array with one thumbnailer for each URI in the request */
   thumbnailers = tumbler_registry_get_thumbnailer_array (service->priv->registry,
-                                                         uris, mime_hints);
+                                                         uris, mime_hints, 
+                                                         &num_thumbnailers);
 
   /* allocate a scheduler request */
-  scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers);
+  scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers,
+                                                     num_thumbnailers);
 
   /* get the request handle */
   handle = scheduler_request->handle;
@@ -474,7 +477,7 @@ tumbler_service_queue (TumblerService        *service,
   tumbler_scheduler_push (service->priv->scheduler, scheduler_request);
   
   /* free the thumbnailer array */
-  tumbler_thumbnailer_array_free (thumbnailers);
+  tumbler_thumbnailer_array_free (thumbnailers, num_thumbnailers);
 
   g_mutex_unlock (service->priv->mutex);
 

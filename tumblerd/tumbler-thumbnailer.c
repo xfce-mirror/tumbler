@@ -189,15 +189,13 @@ tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
 
 
 TumblerThumbnailer **
-tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers)
+tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers,
+                                gint                 length)
 {
   TumblerThumbnailer **copy;
-  gint                 length;
   gint                 n;
 
   g_return_val_if_fail (thumbnailers != NULL, NULL);
-
-  for (length = 0; thumbnailers[length] != NULL; ++length);
 
   copy = g_new0 (TumblerThumbnailer *, length+1);
 
@@ -213,11 +211,12 @@ tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers)
 
 
 void
-tumbler_thumbnailer_array_free (TumblerThumbnailer **thumbnailers)
+tumbler_thumbnailer_array_free (TumblerThumbnailer **thumbnailers,
+                                gint                 length)
 {
   gint n;
 
-  for (n = 0; thumbnailers != NULL && thumbnailers[n] != NULL; ++n)
+  for (n = 0; thumbnailers != NULL && n < length; ++n)
     if (thumbnailers[n] != NULL)
       g_object_unref (thumbnailers[n]);
 
