@@ -40,7 +40,6 @@
 #include <tumbler/tumbler-enum-types.h>
 #include <tumbler/tumbler-png-thumbnail-info.h>
 #include <tumbler/tumbler-thumbnail-info.h>
-#include <tumbler/tumbler-thumbnail.h>
 
 
 

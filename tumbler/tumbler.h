@@ -28,7 +28,6 @@
 #include <tumbler/tumbler-error.h>
 #include <tumbler/tumbler-marshal.h>
 #include <tumbler/tumbler-thumbnail-info.h>
-#include <tumbler/tumbler-thumbnail.h>
 
 #undef TUMBLER_INSIDE_TUMBLER_H
 
