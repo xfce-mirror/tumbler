@@ -398,7 +398,7 @@ tumbler_service_start (TumblerService *service,
   connection = dbus_g_connection_get_connection (service->priv->connection);
 
   /* request ownership for the generic thumbnailer interface */
-  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnailer.Generic",
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer",
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -429,7 +429,7 @@ tumbler_service_start (TumblerService *service,
 
   /* register the service instance as a handler of this interface */
   dbus_g_connection_register_g_object (service->priv->connection, 
-                                       "/org/freedesktop/Thumbnailer",
+                                       "/org/freedesktop/thumbnails/Thumbnailer", 
                                        G_OBJECT (service));
 
   g_mutex_unlock (service->priv->mutex);

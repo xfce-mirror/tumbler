@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/">
-  <interface name="org.freedesktop.thumbnailer.Manager">
+<node name="/org/freedesktop/thumbnails/Manager">
+  <interface name="org.freedesktop.thumbnails.Manager">
     <method name="Register">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="s" name="uri_scheme" direction="in" />

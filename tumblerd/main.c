@@ -31,6 +31,7 @@
 #include <dbus/dbus-glib.h>
 
 #include <tumblerd/tumbler-builtin-thumbnailers.h>
+#include <tumblerd/tumbler-cache.h>
 #include <tumblerd/tumbler-manager.h>
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-service.h>
@@ -47,6 +48,7 @@ main (int    argc,
   TumblerRegistry    *registry;
   TumblerManager     *manager;
   TumblerService     *service;
+  TumblerCache       *cache;
   GMainLoop          *main_loop;
   GError             *error = NULL;
 
@@ -75,6 +77,22 @@ main (int    argc,
       return EXIT_FAILURE;
     }
 
+  /* create the thumbnail cache service */
+  cache = tumbler_cache_new (connection);
+
+  /* try to start the service and exit if that fails */
+  if (!tumbler_cache_start (cache, &error))
+    {
+      g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
+      g_error_free (error);
+
+      g_object_unref (cache);
+
+      dbus_g_connection_unref (connection);
+
+      return EXIT_FAILURE;
+    }
+
   /* create the thumbnailer registry */
   registry = tumbler_registry_new ();
 
@@ -93,6 +111,7 @@ main (int    argc,
       g_error_free (error);
 
       g_object_unref (registry);
+      g_object_unref (cache);
 
       dbus_g_connection_unref (connection);
 
@@ -110,6 +129,7 @@ main (int    argc,
 
       g_object_unref (manager);
       g_object_unref (registry);
+      g_object_unref (cache);
 
       dbus_g_connection_unref (connection);
 
@@ -128,6 +148,7 @@ main (int    argc,
       g_object_unref (service);
       g_object_unref (manager);
       g_object_unref (registry);
+      g_object_unref (cache);
 
       dbus_g_connection_unref (connection);
 
@@ -142,6 +163,7 @@ main (int    argc,
   g_object_unref (service);
   g_object_unref (manager);
   g_object_unref (registry);
+  g_object_unref (cache);
 
   /* disconnect from the D-Bus session bus */
   dbus_g_connection_unref (connection);

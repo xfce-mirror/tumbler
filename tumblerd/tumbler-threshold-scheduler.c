@@ -458,6 +458,9 @@ tumbler_threshold_scheduler_thread (gpointer data,
       tumbler_thumbnailer_create (request->thumbnailers[n], request->uris[n], 
                                   request->mime_hints[n]);
 
+      /* TODO I suppose we have to make sure not to finish the request before
+       * the thumbnailer has emitted an error or ready signal */
+
       /* disconnect from all signals when we're finished */
       g_signal_handlers_disconnect_matched (request->thumbnailers[n],
                                             G_SIGNAL_MATCH_DATA,

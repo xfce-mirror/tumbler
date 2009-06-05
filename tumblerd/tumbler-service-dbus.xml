@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/">
-  <interface name="org.freedesktop.thumbnailer.Generic">
-
+<node name="/org/freedesktop/thumbnails/Thumbnailer">
+  <interface name="org.freedesktop.thumbnails.Thumbnailer">
     <method name="Queue">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="as" name="uris" direction="in" />
@@ -33,31 +32,5 @@
       <arg type="i" name="error_code" />
       <arg type="s" name="message" />
     </signal>
-
-    <!--
-    <method name="Move">
-      <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
-      <arg type="as" name="from_uris" direction="in" />
-      <arg type="as" name="to_uris" direction="in" />
-    </method>
-
-    <method name="Copy">
-      <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
-      <arg type="as" name="from_uris" direction="in" />
-      <arg type="as" name="to_uris" direction="in" />
-    </method>
-
-    <method name="Delete">
-      <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
-      <arg type="as" name="uris" direction="in" />
-    </method>
-
-    <method name="Cleanup">
-      <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
-      <arg type="s" name="uri_prefix" direction="in" />
-      <arg type="u" name="since" direction="in" />
-    </method>
-    -->
-
   </interface>
 </node>

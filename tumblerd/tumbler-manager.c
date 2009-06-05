@@ -138,11 +138,11 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
 
   g_object_class_install_property (gobject_class, PROP_REGISTRY,
                                    g_param_spec_object ("registry",
-                                                         "registry",
-                                                         "registry",
-                                                         TUMBLER_TYPE_REGISTRY,
-                                                         G_PARAM_READWRITE |
-                                                         G_PARAM_CONSTRUCT_ONLY));
+                                                        "registry",
+                                                        "registry",
+                                                        TUMBLER_TYPE_REGISTRY,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY));
 }
 
 
@@ -260,7 +260,7 @@ tumbler_manager_start (TumblerManager *manager,
   connection = dbus_g_connection_get_connection (manager->priv->connection);
 
   /* request ownership for the manager interface */
-  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnailer.Manager",
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Manager",
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -291,7 +291,8 @@ tumbler_manager_start (TumblerManager *manager,
                                    &dbus_glib_tumbler_manager_object_info);
 
   /* register the manager instance as a handler of the manager interface */
-  dbus_g_connection_register_g_object (manager->priv->connection, "/", 
+  dbus_g_connection_register_g_object (manager->priv->connection, 
+                                       "/org/freedesktop/thumbnails/Manager", 
                                        G_OBJECT (manager));
 
   g_mutex_unlock (manager->priv->mutex);
