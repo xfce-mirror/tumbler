@@ -21,18 +21,14 @@ libexec_PROGRAMS =							\
 	tumblerd
 
 tumblerd_built_sources =						\
-	tumbler-cache-dbus-bindings.h					\
+	tumbler-cache-service-dbus-bindings.h				\
 	tumbler-manager-dbus-bindings.h					\
 	tumbler-service-dbus-bindings.h
 
 tumblerd_SOURCES =							\
 	main.c								\
-	tumbler-builtin-thumbnailers.c					\
-	tumbler-builtin-thumbnailers.h					\
-	tumbler-builtin-thumbnailer.c					\
-	tumbler-builtin-thumbnailer.h					\
-	tumbler-cache.c							\
-	tumbler-cache.h							\
+	tumbler-cache-service.c						\
+	tumbler-cache-service.h						\
 	tumbler-manager.c						\
 	tumbler-manager.h						\
 	tumbler-naive-scheduler.c					\
@@ -47,8 +43,6 @@ tumblerd_SOURCES =							\
 	tumbler-specialized-thumbnailer.h				\
 	tumbler-threshold-scheduler.c					\
 	tumbler-threshold-scheduler.h					\
-	tumbler-thumbnailer.c						\
-	tumbler-thumbnailer.h						\
 	tumbler-utils.h							\
 	$(tumbler_built_sources)
 
@@ -90,7 +84,7 @@ CLEANFILES =								\
 
 EXTRA_DIST =								\
 	$(service_in_files)						\
-	tumbler-cache-dbus.xml						\
+	tumbler-cache-service-dbus.xml					\
 	tumbler-manager-dbus.xml					\
 	tumbler-service-dbus.xml
 
@@ -102,8 +96,8 @@ DISTCLEANFILES =							\
 BUILT_SOURCES =								\
 	$(tumblerd_built_sources)
 
-tumbler-cache-dbus-bindings.h: tumbler-cache-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=tumbler_cache $< > $@
+tumbler-cache-service-dbus-bindings.h: tumbler-cache-service-dbus.xml Makefile
+	dbus-binding-tool --mode=glib-server --prefix=tumbler_cache_service $< > $@
 
 tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
 	dbus-binding-tool --mode=glib-server --prefix=tumbler_manager $< > $@

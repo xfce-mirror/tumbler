@@ -22,9 +22,8 @@
 #include <config.h>
 #endif
 
-#include <tumbler/tumbler.h>
-
-#include <tumblerd/tumbler-thumbnailer.h>
+#include <tumbler/tumbler-marshal.h>
+#include <tumbler/tumbler-thumbnailer.h>
 
 
 
@@ -141,6 +140,7 @@ tumbler_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);
   g_return_if_fail (mime_hint != NULL);
+  g_return_if_fail (TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create != NULL);
 
   return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
                                                                  uri, 

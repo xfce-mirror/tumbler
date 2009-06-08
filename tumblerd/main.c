@@ -30,12 +30,12 @@
 
 #include <dbus/dbus-glib.h>
 
-#include <tumblerd/tumbler-builtin-thumbnailers.h>
-#include <tumblerd/tumbler-cache.h>
+#include <tumbler/tumbler.h>
+
+#include <tumblerd/tumbler-cache-service.h>
 #include <tumblerd/tumbler-manager.h>
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-service.h>
-#include <tumblerd/tumbler-thumbnailer.h>
 
 
 
@@ -43,14 +43,18 @@ int
 main (int    argc,
       char **argv)
 {
-  DBusGConnection    *connection;
-  TumblerThumbnailer *thumbnailer;
-  TumblerRegistry    *registry;
-  TumblerManager     *manager;
-  TumblerService     *service;
-  TumblerCache       *cache;
-  GMainLoop          *main_loop;
-  GError             *error = NULL;
+  TumblerProviderFactory *provider_factory;
+  DBusGConnection        *connection;
+  TumblerRegistry        *registry;
+  TumblerManager         *manager;
+  TumblerService         *service;
+  TumblerCacheService    *cache_service;
+  GMainLoop              *main_loop;
+  GError                 *error = NULL;
+  GList                  *providers;
+  GList                  *thumbnailers;
+  GList                  *lp;
+  GList                  *tp;
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
@@ -78,15 +82,15 @@ main (int    argc,
     }
 
   /* create the thumbnail cache service */
-  cache = tumbler_cache_new (connection);
+  cache_service = tumbler_cache_service_new (connection);
 
   /* try to start the service and exit if that fails */
-  if (!tumbler_cache_start (cache, &error))
+  if (!tumbler_cache_service_start (cache_service, &error))
     {
       g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
       g_error_free (error);
 
-      g_object_unref (cache);
+      g_object_unref (cache_service);
 
       dbus_g_connection_unref (connection);
 
@@ -97,11 +101,25 @@ main (int    argc,
   registry = tumbler_registry_new ();
 
   /* register the built-in pixbuf thumbnailer */
-#ifdef ENABLE_PIXBUF_THUMBNAILER
-  thumbnailer = tumbler_pixbuf_thumbnailer_new ();
-  tumbler_registry_add (registry, thumbnailer);
-  g_object_unref (thumbnailer);
-#endif
+  provider_factory = tumbler_provider_factory_get_default ();
+  providers = tumbler_provider_factory_get_providers (provider_factory,
+                                                      TUMBLER_TYPE_THUMBNAILER_PROVIDER);
+
+  for (lp = providers; lp != NULL; lp = lp->next)
+    {
+      thumbnailers = tumbler_thumbnailer_provider_get_thumbnailers (lp->data);
+
+      for (tp = thumbnailers; tp != NULL; tp = tp->next)
+        {
+          tumbler_registry_add (registry, tp->data);
+          g_object_unref (tp->data);
+        }
+
+      g_list_free (thumbnailers);
+    }
+
+  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
+  g_list_free (providers);
 
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))
@@ -111,7 +129,7 @@ main (int    argc,
       g_error_free (error);
 
       g_object_unref (registry);
-      g_object_unref (cache);
+      g_object_unref (cache_service);
 
       dbus_g_connection_unref (connection);
 
@@ -129,7 +147,7 @@ main (int    argc,
 
       g_object_unref (manager);
       g_object_unref (registry);
-      g_object_unref (cache);
+      g_object_unref (cache_service);
 
       dbus_g_connection_unref (connection);
 
@@ -148,7 +166,7 @@ main (int    argc,
       g_object_unref (service);
       g_object_unref (manager);
       g_object_unref (registry);
-      g_object_unref (cache);
+      g_object_unref (cache_service);
 
       dbus_g_connection_unref (connection);
 
@@ -163,7 +181,7 @@ main (int    argc,
   g_object_unref (service);
   g_object_unref (manager);
   g_object_unref (registry);
-  g_object_unref (cache);
+  g_object_unref (cache_service);
 
   /* disconnect from the D-Bus session bus */
   dbus_g_connection_unref (connection);

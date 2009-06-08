@@ -25,7 +25,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <tumblerd/tumbler-thumbnailer.h>
+#include <tumbler/tumbler.h>
+
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
 
 

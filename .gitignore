@@ -41,7 +41,7 @@ commit-msg
 tumbler-config.h
 gtk-doc.make
 tumblerd/tumblerd
-tumbler-service-dbus-bindings.h
+*-dbus-bindings.h
 docs/reference/tumbler/xml/
 version.xml
 *.prerequisites

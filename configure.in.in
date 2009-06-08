@@ -145,6 +145,7 @@ AC_ARG_ENABLE([pixbuf-thumbnailer],
 if test x"$enable_pixbuf_thumbnailer" = x"yes"; then
   AC_DEFINE([ENABLE_PIXBUF_THUMBNAILER], [1], [Define if the built-in pixbuf thumbnailer is enabled])
 fi
+AM_CONDITIONAL([ENABLE_PIXBUF_THUMBNAILER], test x"$enable_pixbuf_thumbnailer" = x"yes")
 
 dnl ************************************************************
 dnl *** Check for thumbnail flavors (normal, large, cropped) ***
@@ -239,6 +240,9 @@ docs/Makefile
 docs/reference/Makefile
 docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
+plugins/Makefile
+plugins/pixbuf-thumbnailer/Makefile
+plugins/xdg-cache/Makefile
 po/Makefile.in
 tumbler/Makefile
 tumbler/tumbler-config.h
@@ -252,6 +256,7 @@ dnl ***************************
 echo
 echo "Build Configuration:"
 echo
+echo "  * Debug:                       $enable_debug"
 if test x"$enable_pixbuf_thumbnailer" = x"yes"; then
 echo "  * Built-in pixbuf thumbnailer: yes"
 else

@@ -25,7 +25,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <tumblerd/tumbler-builtin-thumbnailer.h>
+#include <tumbler/tumbler.h>
+
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
 
@@ -243,9 +244,12 @@ tumbler_registry_compare (TumblerThumbnailer *a,
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (a), 0);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (b), 0);
 
-  if (TUMBLER_IS_BUILTIN_THUMBNAILER (b))
+  /* TODO Rewrite this based on a single get_registered() time function 
+   * for all thumbnailer types */
+
+  if (!TUMBLER_IS_SPECIALIZED_THUMBNAILER (a) || !TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))
     {
-      /* built-in thumbnailers are always overriden */
+      /* plugin thumbnailers are always overriden */
       insert_a_before_b = TRUE;
     }
   else if (TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))

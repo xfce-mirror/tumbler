@@ -356,11 +356,15 @@ tumbler_threshold_scheduler_thread (gpointer data,
 {
   TumblerThresholdScheduler *scheduler = user_data;
   TumblerSchedulerRequest   *request = data;
-  TumblerThumbnailInfo      *info;
-  const gchar              **cached_uris;
+  TumblerFileInfo           *info;
+  const gchar              **uris;
+  gboolean                   outdated;
+  gboolean                   uri_needs_update;
+  guint64                    mtime;
   GError                    *error = NULL;
-  GList                     *cached_uris_list = NULL;
-  GList                     *missing_uris_list = NULL;
+  GList                     *cached_uris = NULL;
+  GList                     *missing_uris = NULL;
+  GList                     *thumbnails;
   GList                     *lp;
   gint                       n;
 
@@ -395,26 +399,49 @@ tumbler_threshold_scheduler_thread (gpointer data,
 
       g_mutex_unlock (scheduler->priv->mutex);
 
+      info = tumbler_file_info_new (request->uris[n]);
+      uri_needs_update = FALSE;
+
       if (request->thumbnailers[n] != NULL)
         {
-          /* query the thumbnail info for the current URI */
-          info = tumbler_thumbnail_info_new (request->uris[n]);
+          if (tumbler_file_info_load (info, NULL, &error))
+            {
+              mtime = tumbler_file_info_get_mtime (info);
 
-          /* determine if the thumbnail(s) for this URI are up to date */
-          if (tumbler_thumbnail_info_needs_update (info, NULL))
-            missing_uris_list = g_list_prepend (missing_uris_list, GINT_TO_POINTER (n));
-          else
-            cached_uris_list = g_list_prepend (cached_uris_list, request->uris[n]);
+              thumbnails = tumbler_file_info_get_thumbnails (info);
 
-          /* destroy the thumbnail info */
-          g_object_unref (info);
+              for (lp = thumbnails; 
+                   error == NULL && lp != NULL; 
+                   lp = lp->next)
+                {
+                  if (tumbler_thumbnail_load (lp->data, NULL, &error))
+                    {
+                      outdated = tumbler_thumbnail_needs_update (lp->data, 
+                                                                 request->uris[n],
+                                                                 mtime);
+
+                      uri_needs_update = uri_needs_update || outdated;
+                    }
+                }
+            }
         }
       else
         {
           g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
                        _("No thumbnailer available for \"%s\""), request->uris[n]);
+        }
 
-          /* emit error signal: no thumbnailer for the URI */
+      g_object_unref (info);
+
+      if (error == NULL)
+        {
+          if (uri_needs_update)
+            missing_uris = g_list_prepend (missing_uris, GINT_TO_POINTER (n));
+          else
+            cached_uris = g_list_prepend (cached_uris, request->uris[n]);
+        }
+      else
+        {
           tumbler_scheduler_emit_uri_error (TUMBLER_SCHEDULER (scheduler), request,
                                             request->uris[n], error);
 
@@ -422,27 +449,26 @@ tumbler_threshold_scheduler_thread (gpointer data,
         }
     }
 
-  /* check if we have any cached URIs */
-  if (cached_uris_list != NULL)
+  /* check if we have any cached files */
+  if (cached_uris != NULL)
     {
-      /* build string array for cached thumbnails */
-      cached_uris = g_new0 (const gchar *, g_list_length (cached_uris_list) + 1);
-      for (n = 0, lp = g_list_last (cached_uris_list); lp != NULL; lp = lp->prev, ++n)
-        cached_uris[n] = lp->data;
-      cached_uris[n] = NULL;
+      uris = g_new0 (const gchar *, g_list_length (cached_uris) + 1);
+      for (n = 0, lp = g_list_last (cached_uris); lp != NULL; lp = lp->prev, ++n)
+        uris[n] = lp->data;
+      uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
-      g_signal_emit_by_name (scheduler, "ready", cached_uris);
+      g_signal_emit_by_name (scheduler, "ready", uris);
 
       /* free string array and cached list */
-      g_list_free (cached_uris_list);
-      g_free (cached_uris);
+      g_list_free (cached_uris);
+      g_free (uris);
     }
 
   /* iterate over invalid/missing URI list */
-  for (lp = g_list_last (missing_uris_list); lp != NULL; lp = lp->prev)
+  for (lp = g_list_last (missing_uris); lp != NULL; lp = lp->prev)
     {
-      n = GPOINTER_TO_UINT (lp->data);
+      n = GPOINTER_TO_INT (lp->data);
       
       /* connect to the error signal of the thumbnailer */
       g_signal_connect (request->thumbnailers[n], "error", 

@@ -28,19 +28,34 @@ libtumbler_built_sources =						\
 	tumbler-marshal.c
 
 libtumbler_headers =							\
+	tumbler-abstract-thumbnailer.h					\
+	tumbler-cache.h							\
+	tumbler-cache-provider.h					\
 	tumbler-config.h						\
 	tumbler-enum-types.h						\
 	tumbler-error.h							\
+	tumbler-file-info.h						\
+	tumbler-glib-extensions.h					\
 	tumbler-marshal.h						\
-	tumbler-png-thumbnail-info.h					\
-	tumbler-thumbnail-info.h
+	tumbler-provider-factory.h					\
+	tumbler-provider-plugin.h					\
+	tumbler-thumbnailer-provider.h					\
+	tumbler-thumbnailer.h						\
+	tumbler-thumbnail.h
 
 libtumbler_sources =							\
+	tumbler-abstract-thumbnailer.c					\
+	tumbler-cache.c							\
+	tumbler-cache-provider.c					\
 	tumbler-config.c						\
 	tumbler-enum-types.c						\
+	tumbler-file-info.c						\
 	tumbler-marshal.c						\
-	tumbler-png-thumbnail-info.c					\
-	tumbler-thumbnail-info.c
+	tumbler-provider-factory.c					\
+	tumbler-provider-plugin.c					\
+	tumbler-thumbnailer-provider.c					\
+	tumbler-thumbnailer.c						\
+	tumbler-thumbnail.c
 
 libtumblerincludedir = $(includedir)/tumbler-$(TUMBLER_VERSION_API)/tumbler
 
@@ -57,6 +72,7 @@ libtumbler_1_la_CFLAGS =						\
 	-DG_LOG_DOMAIN=\"tumbler\"					\
 	-DTUMBLER_COMPILATION						\
 	-DTUMBLER_VERSION_API=\"$(TUMBLER_VERSION_API)\"		\
+	-DTUMBLER_PLUGIN_DIRECTORY=\"$(libdir)/tumbler-$(TUMBLER_VERSION_API)/plugins\" \
 	-I$(top_srcdir)							\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\

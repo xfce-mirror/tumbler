@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_REGISTRY_H__
 #define __TUMBLER_REGISTRY_H__
 
-#include <tumblerd/tumbler-thumbnailer.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
 

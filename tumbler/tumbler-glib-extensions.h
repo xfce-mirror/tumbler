@@ -18,26 +18,25 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TUMBLER_H__
-#define __TUMBLER_H__
+#if !defined (TUMBLER_INSIDE_TUMBLER_H) && !defined (TUMBLER_COMPILATION)
+#error "Only <tumbler/tumbler.h> may be included directly. This file might disappear or change contents."
+#endif
 
-#define TUMBLER_INSIDE_TUMBLER_H
+#ifndef __TUMBLER_GLIB_EXTENSIONS_H__
+#define __TUMBLER_GLIB_EXTENSIONS_H__
 
-#include <tumbler/tumbler-abstract-thumbnailer.h>
-#include <tumbler/tumbler-cache.h>
-#include <tumbler/tumbler-cache-provider.h>
-#include <tumbler/tumbler-config.h>
-#include <tumbler/tumbler-enum-types.h>
-#include <tumbler/tumbler-error.h>
-#include <tumbler/tumbler-file-info.h>
-#include <tumbler/tumbler-glib-extensions.h>
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-provider-factory.h>
-#include <tumbler/tumbler-provider-plugin.h>
-#include <tumbler/tumbler-thumbnailer-provider.h>
-#include <tumbler/tumbler-thumbnailer.h>
-#include <tumbler/tumbler-thumbnail.h>
+#include <glib-object.h>
 
-#undef TUMBLER_INSIDE_TUMBLER_H
+G_BEGIN_DECLS
 
-#endif /* !__TUMBLER_H__ */
+#define TUMBLER_ADD_INTERFACE(TYPE_IFACE, iface_init) \
+{ \
+  static const GInterfaceInfo tumbler_add_interface_info = { \
+    (GInterfaceInitFunc) iface_init, NULL, NULL \
+  }; \
+  g_type_module_add_interface (type_module, g_define_type_id, TYPE_IFACE, &tumbler_add_interface_info); \
+}
+
+G_END_DECLS
+
+#endif /* !__TUMBLER_GLIB_EXTENSIONS_H__ */
