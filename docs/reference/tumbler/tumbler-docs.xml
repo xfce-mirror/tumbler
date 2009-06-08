@@ -69,16 +69,31 @@
     </para>
   </part>
 
-  <part id="tumbler-utils">
-    <title>Utility Functions</title>
+  <part id="miscellaneous">
+    <title>Miscellaneous</title>
     <xi:include href="xml/tumbler-error.xml"/>
-    <xi:include href="xml/tumbler-thumbnail.xml"/>
     <xi:include href="xml/tumbler-enum-types.xml"/>
+    <xi:include href="xml/tumbler-config.xml"/>
   </part>
 
-  <part id="tumbler-miscellaneous">
-    <title>Miscellaneous</title>
-    <xi:include href="xml/tumbler-config.xml"/>
+  <part id="thumbnails">
+    <title>Querying and Generating Thumbnails</title>
+    <xi:include href="xml/tumbler-file-info.xml"/>
+    <xi:include href="xml/tumbler-thumbnail.xml"/>
+    <xi:include href="xml/tumbler-cache.xml"/>
+  </part>
+
+  <part id="extension-api">
+    <title>Extension API</title>
+    <xi:include href="xml/tumbler-provider-factory.xml"/>
+    <xi:include href="xml/tumbler-provider-plugin.xml"/>
+    <xi:include href="xml/tumbler-abstract-thumbnailer.xml"/>
+    <xi:include href="xml/tumbler-cache-provider.xml"/>
+    <xi:include href="xml/tumbler-thumbnailer-provider.xml"/>
+  </part>
+
+  <part id="extension-tutorial">
+    <title>Tutorial: Extending Tumbler</title>
   </part>
 
   <part id="object-tree">
