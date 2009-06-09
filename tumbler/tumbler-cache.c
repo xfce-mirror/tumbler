@@ -56,8 +56,66 @@ tumbler_cache_get_thumbnails (TumblerCache *cache,
                               const gchar  *uri)
 {
   g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
-  g_return_val_if_fail (uri != NULL, NULL);
+  g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
   g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnails != NULL, NULL);
 
   return (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnails) (cache, uri);
+}
+
+
+
+void
+tumbler_cache_cleanup (TumblerCache *cache,
+                       const gchar  *uri_prefix,
+                       guint64       since)
+{
+  g_return_if_fail (TUMBLER_IS_CACHE (cache));
+  g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->cleanup != NULL);
+
+  (TUMBLER_CACHE_GET_IFACE (cache)->cleanup) (cache, uri_prefix, since);
+}
+
+
+
+void
+tumbler_cache_delete (TumblerCache *cache,
+                      const GStrv   uris)
+{
+  g_return_if_fail (TUMBLER_IS_CACHE (cache));
+  g_return_if_fail (uris != NULL);
+  g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->delete != NULL);
+
+  (TUMBLER_CACHE_GET_IFACE (cache)->delete) (cache, uris);
+}
+
+
+
+void
+tumbler_cache_copy (TumblerCache *cache,
+                    const GStrv   from_uris,
+                    const GStrv   to_uris)
+{
+  g_return_if_fail (TUMBLER_IS_CACHE (cache));
+  g_return_if_fail (from_uris != NULL);
+  g_return_if_fail (to_uris != NULL);
+  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
+  g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->copy != NULL);
+
+  (TUMBLER_CACHE_GET_IFACE (cache)->copy) (cache, from_uris, to_uris);
+}
+
+
+
+void
+tumbler_cache_move (TumblerCache *cache,
+                    const GStrv   from_uris,
+                    const GStrv   to_uris)
+{
+  g_return_if_fail (TUMBLER_IS_CACHE (cache));
+  g_return_if_fail (from_uris != NULL);
+  g_return_if_fail (to_uris != NULL);
+  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
+  g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->move != NULL);
+
+  (TUMBLER_CACHE_GET_IFACE (cache)->move) (cache, from_uris, to_uris);
 }

@@ -26,6 +26,10 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
+#include <png.h>
+
 #include <tumbler/tumbler.h>
 
 #include <xdg-cache/xdg-cache-cache.h>
@@ -40,6 +44,17 @@ typedef struct _FlavorInfo FlavorInfo;
 static void   xdg_cache_cache_iface_init     (TumblerCacheIface *iface);
 static GList *xdg_cache_cache_get_thumbnails (TumblerCache      *cache,
                                               const gchar       *uri);
+static void   xdg_cache_cache_cleanup        (TumblerCache      *cache,
+                                              const gchar       *uri_prefix,
+                                              guint64            since);
+static void   xdg_cache_cache_delete         (TumblerCache      *cache,
+                                              const GStrv        uris);
+static void   xdg_cache_cache_copy           (TumblerCache      *cache,
+                                              const GStrv        from_uris,
+                                              const GStrv        to_uris);
+static void   xdg_cache_cache_move           (TumblerCache      *cache,
+                                              const GStrv        from_uris,
+                                              const GStrv        to_uris);
 
 
 
@@ -107,6 +122,10 @@ static void
 xdg_cache_cache_iface_init (TumblerCacheIface *iface)
 {
   iface->get_thumbnails = xdg_cache_cache_get_thumbnails;
+  iface->cleanup = xdg_cache_cache_cleanup;
+  iface->delete = xdg_cache_cache_delete;
+  iface->copy = xdg_cache_cache_copy;
+  iface->move = xdg_cache_cache_move;
 }
 
 
@@ -141,6 +160,249 @@ xdg_cache_cache_get_thumbnails (TumblerCache *cache,
     }
 
   return thumbnails;
+}
+
+
+
+static void
+xdg_cache_cache_cleanup (TumblerCache *cache,
+                         const gchar  *uri_prefix,
+                         guint64       since)
+{
+  TumblerThumbnailFlavor *flavors;
+  const gchar            *basename;
+  guint64                 mtime;
+  GFile                  *dummy_file;
+  GFile                  *parent;
+  gchar                  *dirname;
+  gchar                  *filename;
+  gchar                  *uri;
+  GDir                   *dir;
+  gint                    n;
+
+  g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
+  
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      dummy_file = xdg_cache_cache_get_file ("foo", flavors[n]);
+      parent = g_file_get_parent (dummy_file);
+      dirname = g_file_get_path (parent);
+      g_object_unref (parent);
+      g_object_unref (dummy_file);
+
+      dir = g_dir_open (dirname, 0, NULL);
+
+      if (dir != NULL)
+        {
+          while ((basename = g_dir_read_name (dir)) != NULL)
+            {
+              filename = g_build_filename (dirname, basename, NULL);
+
+              if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime, 
+                                                       NULL, NULL))
+                {
+                  if ((uri_prefix == NULL || uri == NULL) 
+                      || (g_str_has_prefix (uri, uri_prefix) && (mtime <= since)))
+                    {
+                      g_unlink (filename);
+                    }
+                }
+
+              g_free (filename);
+            }
+
+          g_dir_close (dir);
+        }
+
+      g_free (dirname);
+    }
+}
+
+
+
+static void
+xdg_cache_cache_delete (TumblerCache *cache,
+                        const GStrv   uris)
+{
+  TumblerThumbnailFlavor *flavors;
+  GFile                  *file;
+  gint                    n;
+  gint                    i;
+
+  g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
+  g_return_if_fail (uris != NULL);
+
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      for (i = 0; uris[i] != NULL; ++i)
+        {
+          file = xdg_cache_cache_get_file (uris[i], flavors[n]);
+          g_file_delete (file, NULL, NULL);
+          g_object_unref (file);
+        }
+    }
+}
+
+
+
+static void
+xdg_cache_cache_copy (TumblerCache *cache,
+                      const GStrv   from_uris,
+                      const GStrv   to_uris)
+{
+  TumblerThumbnailFlavor *flavors;
+  GFileInfo              *info;
+  guint64                 mtime;
+  GFile                  *dest_file;
+  GFile                  *dest_source_file;
+  GFile                  *from_file;
+  GFile                  *temp_file;
+  gchar                  *temp_path;
+  gchar                  *dest_path;
+  guint                   i;
+  guint                   n;
+
+  g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
+  g_return_if_fail (from_uris != NULL);
+  g_return_if_fail (to_uris != NULL);
+  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
+
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      for (i = 0; i < g_strv_length (from_uris); ++i)
+        {
+          dest_source_file = g_file_new_for_uri (to_uris[i]);
+          info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                                    G_FILE_QUERY_INFO_NONE, NULL, NULL);
+          g_object_unref (dest_source_file);
+
+          if (info == NULL)
+            continue;
+
+          mtime = g_file_info_get_attribute_uint64 (info, 
+                                                    G_FILE_ATTRIBUTE_TIME_MODIFIED);
+          g_object_unref (info);
+
+          from_file = xdg_cache_cache_get_file (from_uris[i], flavors[n]);
+          temp_file = xdg_cache_cache_get_temp_file (to_uris[i], flavors[n]);
+
+          if (g_file_copy (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
+                           NULL, NULL, NULL, NULL))
+            {
+              temp_path = g_file_get_path (temp_file);
+
+              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[i], mtime,
+                                                        NULL, NULL))
+                {
+                  dest_file = xdg_cache_cache_get_file (to_uris[i], flavors[n]);
+                  dest_path = g_file_get_path (dest_file);
+
+                  if (g_rename (temp_path, dest_path) != 0)
+                    g_unlink (temp_path);
+
+                  g_free (dest_path);
+                  g_object_unref (dest_file);
+                }
+              else
+                {
+                  g_unlink (temp_path);
+                }
+
+              g_free (temp_path);
+            }
+
+          g_object_unref (temp_file);
+          g_object_unref (from_file);
+        }
+    }
+}
+
+
+
+
+static void
+xdg_cache_cache_move (TumblerCache *cache,
+                      const GStrv   from_uris,
+                      const GStrv   to_uris)
+{
+  TumblerThumbnailFlavor *flavors;
+  GFileInfo              *info;
+  guint64                 mtime;
+  GFile                  *dest_file;
+  GFile                  *dest_source_file;
+  GFile                  *from_file;
+  GFile                  *temp_file;
+  gchar                  *from_path;
+  gchar                  *temp_path;
+  gchar                  *dest_path;
+  guint                   i;
+  guint                   n;
+
+  g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
+  g_return_if_fail (from_uris != NULL);
+  g_return_if_fail (to_uris != NULL);
+  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
+
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      for (i = 0; i < g_strv_length (from_uris); ++i)
+        {
+          dest_source_file = g_file_new_for_uri (to_uris[i]);
+          info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                                    G_FILE_QUERY_INFO_NONE, NULL, NULL);
+          g_object_unref (dest_source_file);
+
+          if (info == NULL)
+            continue;
+
+          mtime = g_file_info_get_attribute_uint64 (info, 
+                                                    G_FILE_ATTRIBUTE_TIME_MODIFIED);
+          g_object_unref (info);
+
+          from_file = xdg_cache_cache_get_file (from_uris[i], flavors[n]);
+          temp_file = xdg_cache_cache_get_temp_file (to_uris[i], flavors[n]);
+
+          if (g_file_move (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
+                           NULL, NULL, NULL, NULL))
+            {
+              temp_path = g_file_get_path (temp_file);
+
+              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[i], mtime,
+                                                        NULL, NULL))
+                {
+                  dest_file = xdg_cache_cache_get_file (to_uris[i], flavors[n]);
+                  dest_path = g_file_get_path (dest_file);
+
+                  if (g_rename (temp_path, dest_path) != 0)
+                    g_unlink (temp_path);
+
+                  g_free (dest_path);
+                  g_object_unref (dest_file);
+                }
+              else
+                {
+                  g_unlink (temp_path);
+                }
+
+              g_free (temp_path);
+            }
+
+          from_path = g_file_get_path (from_file);
+          g_unlink (from_path);
+          g_free (from_path);
+
+          g_object_unref (temp_file);
+          g_object_unref (from_file);
+        }
+    }
 }
 
 
@@ -233,4 +495,138 @@ xdg_cache_cache_get_temp_file (const gchar           *uri,
   g_free (md5_hash);
 
   return file;
+}
+
+
+
+gboolean
+xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
+                                     gchar       **uri,
+                                     guint64      *mtime,
+                                     GCancellable *cancellable,
+                                     GError      **error)
+{
+  png_structp png_ptr;
+  png_infop   info_ptr;
+  png_textp   text_ptr;
+  gboolean    has_uri = FALSE;
+  gboolean    has_mtime = FALSE;
+  FILE       *png;
+  gint        num_text;
+  gint        i;
+
+  g_return_val_if_fail (filename != NULL, FALSE);
+  g_return_val_if_fail (uri != NULL, FALSE);
+  g_return_val_if_fail (mtime != NULL, FALSE);
+  g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+  g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+  *uri = NULL;
+  *mtime = 0;
+
+  if (g_cancellable_set_error_if_cancelled (cancellable, error))
+    return FALSE;
+
+  if ((png = g_fopen (filename, "r")) != NULL)
+    {
+      /* initialize the PNG reader */
+      png_ptr = png_create_read_struct (PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+      if (png_ptr)
+        {
+          /* initialize the info structure */
+          info_ptr = png_create_info_struct (png_ptr);
+
+          if (info_ptr)
+            {
+              /* initialize reading from the file and read the file info */
+              png_init_io (png_ptr, png);
+              png_read_info (png_ptr, info_ptr);
+
+              /* check if there is embedded text information */
+              if (png_get_text (png_ptr, info_ptr, &text_ptr, &num_text) > 0)
+                {
+                  /* iterate over all text keys */
+                  for (i = 0; !(has_uri && has_mtime) && i < num_text; ++i)
+                    {
+                      if (!text_ptr[i].key)
+                        continue;
+                      else if (g_utf8_collate ("Thumb::URI", text_ptr[i].key) == 0)
+                        {
+                          /* remember the Thumb::URI value */
+                          *uri = g_strdup (text_ptr[i].text);
+                          has_uri = TRUE;
+                        }
+                      else if (g_utf8_collate ("Thumb::MTime", text_ptr[i].key) == 0)
+                        {
+                          /* remember the Thumb::MTime value */
+                          if (text_ptr[i].text != NULL)
+                            {
+                              *mtime = atol (text_ptr[i].text);
+                              has_mtime = TRUE;
+                            }
+                        }
+                    }
+                }
+            }
+
+          /* finalize the PNG reader */
+          png_destroy_read_struct (&png_ptr, &info_ptr, NULL);
+        }
+
+      /* close the PNG file handle */
+      fclose (png);
+    }
+
+  return TRUE;
+}
+
+
+
+gboolean
+xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
+                                      gchar        *uri,
+                                      guint64       mtime,
+                                      GCancellable *cancellable,
+                                      GError      **error)
+{
+  GdkPixbuf *pixbuf;
+  GError    *err = NULL;
+  gchar     *mtime_str;
+
+  g_return_val_if_fail (filename != NULL, FALSE);
+  g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
+  g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+
+  if (g_cancellable_set_error_if_cancelled (cancellable, error))
+    return FALSE;
+
+  pixbuf = gdk_pixbuf_new_from_file (filename, &err);
+
+  if (pixbuf != NULL)
+    {
+      if (!g_cancellable_set_error_if_cancelled (cancellable, &err))
+        {
+          mtime_str = g_strdup_printf ("%lld", mtime);
+
+          gdk_pixbuf_save (pixbuf, filename, "png", &err,
+                           "tEXt::Thumb::URI", uri,
+                           "tEXt::Thumb::MTime", mtime_str,
+                           NULL);
+
+          g_free (mtime_str);
+        }
+
+      g_object_unref (pixbuf);
+    }
+
+  if (err != NULL)
+    {
+      g_propagate_error (error, err);
+      return FALSE;
+    }
+  else
+    {
+      return TRUE;
+    }
 }

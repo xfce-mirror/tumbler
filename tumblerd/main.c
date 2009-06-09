@@ -104,6 +104,7 @@ main (int    argc,
   provider_factory = tumbler_provider_factory_get_default ();
   providers = tumbler_provider_factory_get_providers (provider_factory,
                                                       TUMBLER_TYPE_THUMBNAILER_PROVIDER);
+  g_object_unref (provider_factory);
 
   for (lp = providers; lp != NULL; lp = lp->next)
     {

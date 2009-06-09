@@ -30,8 +30,6 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#include <png.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <tumbler/tumbler.h>
@@ -242,14 +240,9 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
                           GError          **error)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
-  png_structp        png_ptr;
-  png_infop          info_ptr;
-  png_textp          text_ptr;
+  GError            *err = NULL;
   GFile             *file;
-  FILE              *png;
   gchar             *path;
-  gint               num_text;
-  gint               i;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -266,59 +259,23 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
   cache_thumbnail->priv->cached_uri = NULL;
   cache_thumbnail->priv->cached_mtime = 0;
 
-  if ((png = g_fopen (path, "r")) != NULL)
-    {
-      /* initialize the PNG reader */
-      png_ptr = png_create_read_struct (PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-
-      if (png_ptr)
-        {
-          /* initialize the info structure */
-          info_ptr = png_create_info_struct (png_ptr);
-
-          if (info_ptr)
-            {
-              /* initialize reading from the file and read the file info */
-              png_init_io (png_ptr, png);
-              png_read_info (png_ptr, info_ptr);
-
-              /* check if there is embedded text information */
-              if (png_get_text (png_ptr, info_ptr, &text_ptr, &num_text) > 0)
-                {
-                  /* iterate over all text keys */
-                  for (i = 0; i < num_text; ++i)
-                    {
-                      if (!text_ptr[i].key)
-                        continue;
-                      else if (g_utf8_collate ("Thumb::URI", text_ptr[i].key) == 0)
-                        {
-                          /* remember the Thumb::URI value */
-                          cache_thumbnail->priv->cached_uri = 
-                            g_strdup (text_ptr[i].text);
-                        }
-                      else if (g_utf8_collate ("Thumb::MTime", text_ptr[i].key) == 0)
-                        {
-                          /* remember the Thumb::MTime value */
-                          if (text_ptr[i].text != NULL)
-                            cache_thumbnail->priv->cached_mtime = 
-                              atol (text_ptr[i].text);
-                        }
-                    }
-                }
-            }
-
-          /* finalize the PNG reader */
-          png_destroy_read_struct (&png_ptr, &info_ptr, NULL);
-        }
-
-      /* close the PNG file handle */
-      fclose (png);
-    }
+  xdg_cache_cache_read_thumbnail_info (path, 
+                                       &cache_thumbnail->priv->cached_uri,
+                                       &cache_thumbnail->priv->cached_mtime,
+                                       cancellable, &err);
 
   /* free the filename */
   g_free (path);
 
-  return TRUE;
+  if (err != NULL)
+    {
+      g_propagate_error (error, err);
+      return FALSE;
+    }
+  else
+    {
+      return TRUE;
+    }
 }
 
 

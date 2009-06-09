@@ -34,6 +34,7 @@
 
 #include <tumblerd/tumbler-cache-service.h>
 #include <tumblerd/tumbler-cache-service-dbus-bindings.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -100,6 +101,7 @@ struct _TumblerCacheServicePrivate
   GThreadPool     *delete_pool;
   GThreadPool     *cleanup_pool;
   GMutex          *mutex;
+  GList           *caches;
 };
 
 struct _MoveRequest
@@ -190,7 +192,27 @@ tumbler_cache_service_init (TumblerCacheService *service)
 static void
 tumbler_cache_service_constructed (GObject *object)
 {
-  TumblerCacheService *service = TUMBLER_CACHE_SERVICE (object);
+  TumblerProviderFactory *factory;
+  TumblerCacheService    *service = TUMBLER_CACHE_SERVICE (object);
+  GList                  *caches;
+  GList                  *lp;
+  GList                  *providers;
+
+  factory = tumbler_provider_factory_get_default ();
+  providers = tumbler_provider_factory_get_providers (factory, 
+                                                      TUMBLER_TYPE_CACHE_PROVIDER);
+  g_object_unref (factory);
+
+  service->priv->caches = NULL;
+
+  for (lp = providers; lp != NULL; lp = lp->next)
+    {
+      caches = tumbler_cache_provider_get_caches (lp->data);
+      service->priv->caches = g_list_concat (service->priv->caches, caches);
+    }
+
+  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
+  g_list_free (providers);
 
   service->priv->move_pool = g_thread_pool_new (tumbler_cache_service_move_thread, 
                                                 service, 1, TRUE, NULL);
@@ -213,6 +235,9 @@ tumbler_cache_service_finalize (GObject *object)
   g_thread_pool_free (service->priv->copy_pool, TRUE, TRUE);
   g_thread_pool_free (service->priv->delete_pool, TRUE, TRUE);
   g_thread_pool_free (service->priv->cleanup_pool, TRUE, TRUE);
+
+  g_list_foreach (service->priv->caches, (GFunc) g_object_unref, NULL);
+  g_list_free (service->priv->caches);
 
   dbus_g_connection_unref (service->priv->connection);
 
@@ -269,6 +294,23 @@ static void
 tumbler_cache_service_move_thread (gpointer data,
                                    gpointer user_data)
 {
+  TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
+  MoveRequest         *request = data;
+  GList               *lp;
+
+  g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
+  g_return_if_fail (request != NULL);
+
+  g_mutex_lock (service->priv->mutex);
+
+  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+    tumbler_cache_move (lp->data, request->from_uris, request->to_uris);
+
+  g_strfreev (request->from_uris);
+  g_strfreev (request->to_uris);
+  g_slice_free (MoveRequest, request);
+
+  g_mutex_unlock (service->priv->mutex);
 }
 
 
@@ -277,6 +319,23 @@ static void
 tumbler_cache_service_copy_thread (gpointer data,
                                    gpointer user_data)
 {
+  TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
+  CopyRequest         *request = data;
+  GList               *lp;
+
+  g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
+  g_return_if_fail (request != NULL);
+
+  g_mutex_lock (service->priv->mutex);
+
+  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+    tumbler_cache_copy (lp->data, request->from_uris, request->to_uris);
+
+  g_strfreev (request->from_uris);
+  g_strfreev (request->to_uris);
+  g_slice_free (CopyRequest, request);
+
+  g_mutex_unlock (service->priv->mutex);
 }
 
 
@@ -285,6 +344,22 @@ static void
 tumbler_cache_service_delete_thread (gpointer data,
                                      gpointer user_data)
 {
+  TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
+  DeleteRequest       *request = data;
+  GList               *lp;
+
+  g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
+  g_return_if_fail (request != NULL);
+
+  g_mutex_lock (service->priv->mutex);
+
+  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+    tumbler_cache_delete (lp->data, request->uris);
+
+  g_strfreev (request->uris);
+  g_slice_free (DeleteRequest, request);
+
+  g_mutex_unlock (service->priv->mutex);
 }
 
 
@@ -295,12 +370,20 @@ tumbler_cache_service_cleanup_thread (gpointer data,
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
   CleanupRequest      *request = data;
+  GList               *lp;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_debug ("Cleanup everything older than %d", request->since);
-  
+  g_mutex_lock (service->priv->mutex);
+
+  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+    tumbler_cache_cleanup (lp->data, request->uri_prefix, request->since);
+
+  g_free (request->uri_prefix);
+  g_slice_free (CleanupRequest, request);
+
+  g_mutex_unlock (service->priv->mutex);
 }
 
 
@@ -380,6 +463,20 @@ tumbler_cache_service_move (TumblerCacheService   *service,
                             const GStrv            to_uris,
                             DBusGMethodInvocation *context)
 {
+  MoveRequest *request;
+
+  dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
+  dbus_async_return_if_fail (from_uris != NULL, context);
+  dbus_async_return_if_fail (to_uris != NULL, context);
+  dbus_async_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris), context);
+
+  request = g_slice_new0 (MoveRequest);
+  request->from_uris = g_strdupv (from_uris);
+  request->to_uris = g_strdupv (to_uris);
+
+  g_thread_pool_push (service->priv->move_pool, request, NULL);
+
+  dbus_g_method_return (context);
 }
 
 
@@ -390,6 +487,20 @@ tumbler_cache_service_copy (TumblerCacheService   *service,
                             const GStrv            to_uris,
                             DBusGMethodInvocation *context)
 {
+  CopyRequest *request;
+
+  dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
+  dbus_async_return_if_fail (from_uris != NULL, context);
+  dbus_async_return_if_fail (to_uris != NULL, context);
+  dbus_async_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris), context);
+
+  request = g_slice_new0 (CopyRequest);
+  request->from_uris = g_strdupv (from_uris);
+  request->to_uris = g_strdupv (to_uris);
+
+  g_thread_pool_push (service->priv->copy_pool, request, NULL);
+
+  dbus_g_method_return (context);
 }
 
 
@@ -399,6 +510,17 @@ tumbler_cache_service_delete (TumblerCacheService   *service,
                               const GStrv            uris,
                               DBusGMethodInvocation *context)
 {
+  DeleteRequest *request;
+
+  dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
+  dbus_async_return_if_fail (uris != NULL, context);
+
+  request = g_slice_new0 (DeleteRequest);
+  request->uris = g_strdupv (uris);
+
+  g_thread_pool_push (service->priv->delete_pool, request, NULL);
+
+  dbus_g_method_return (context);
 }
 
 
@@ -411,9 +533,13 @@ tumbler_cache_service_cleanup (TumblerCacheService   *service,
 {
   CleanupRequest *request;
 
+  dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
+
   request = g_slice_new0 (CleanupRequest);
   request->uri_prefix = g_strdup (uri_prefix);
   request->since = since;
 
   g_thread_pool_push (service->priv->cleanup_pool, request, NULL);
+
+  dbus_g_method_return (context);
 }
