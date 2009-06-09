@@ -280,7 +280,7 @@ tumbler_cache_service_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      service->priv->connection = g_value_get_pointer (value);
+      service->priv->connection = dbus_g_connection_ref (g_value_get_pointer (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
