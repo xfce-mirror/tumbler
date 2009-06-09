@@ -63,8 +63,8 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
 #endif
 
   /* register the types provided by this plugin */
-  pixbuf_thumbnailer_provider_register (plugin);
   pixbuf_thumbnailer_thumbnailer_register (plugin);
+  pixbuf_thumbnailer_provider_register (plugin);
 
   /* set up the plugin provider type list */
   type_list[0] = PIXBUF_THUMBNAILER_TYPE_PROVIDER;

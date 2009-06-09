@@ -55,7 +55,7 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (PixbufThumbnailerProvider,
                                 pixbuf_thumbnailer_provider,
                                 G_TYPE_OBJECT,
                                 0,
-                                G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_THUMBNAILER_PROVIDER,
+                                TUMBLER_ADD_INTERFACE (TUMBLER_TYPE_THUMBNAILER_PROVIDER,
                                                        pixbuf_thumbnailer_provider_thumbnailer_provider_init));
 
 

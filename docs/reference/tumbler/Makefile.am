@@ -61,17 +61,21 @@ INCLUDES =	 							\
 	-I$(top_builddir) 						\
 	$(DBUS_CFLAGS)							\
 	$(DBUS_GLIB_CFLAGS)						\
+	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
-	$(GTHREAD_CFLAGS)
+	$(GTHREAD_CFLAGS)						\
+	$(PNG_CFLAGS)
 
 GTKDOC_LIBS =								\
 	$(DBUS_LIBS)							\
 	$(DBUS_GLIB_LIBS)						\
+	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(GTHREAD_LIBS)							\
 	$(GLIB_LIBS)							\
+	$(PNG_LIBS)							\
 	$(top_srcdir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
 
 include $(top_srcdir)/gtk-doc.make
