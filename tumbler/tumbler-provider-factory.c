@@ -133,14 +133,17 @@ static void
 tumbler_provider_factory_finalize (GObject *object)
 {
   TumblerProviderFactory *factory = TUMBLER_PROVIDER_FACTORY (object);
+  TumblerProviderInfo    *info;
   guint                   n;
 
   /* release all cached provider infos */
   for (n = 0; n < factory->priv->provider_infos->len; ++n)
     {
+      info = factory->priv->provider_infos->pdata[n];
+
       /* free cached provider objects */
-      if (factory->priv->provider_infos->pdata[n] != NULL)
-        g_object_unref (factory->priv->provider_infos->pdata[n]);
+      if (info != NULL && info->provider != NULL)
+        g_object_unref (info->provider);
       
       /* free cached provider info */
       g_slice_free (TumblerProviderInfo, factory->priv->provider_infos->pdata[n]);
@@ -237,11 +240,12 @@ tumbler_provider_factory_load_plugins (TumblerProviderFactory *factory)
                   plugins = g_list_prepend (plugins, plugin);
 
                   /* we only add types to our cache the first time a module is loaded */
+                  /*
                   if (lp == NULL)
-                    {
+                    {*/
                       /* add the types provided by the plugin */
                       tumbler_provider_factory_add_types (factory, plugin);
-                    }
+                   /* }*/
                 }
             }
         }
