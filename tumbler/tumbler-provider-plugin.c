@@ -195,7 +195,7 @@ tumbler_provider_plugin_unload (GTypeModule *type_module)
 
   /* unload the plugin from memory */
   g_module_close (plugin->priv->library);
-  plugin->priv->library != NULL;
+  plugin->priv->library = NULL;
 
   /* reset plugin state */
   plugin->priv->library = NULL;

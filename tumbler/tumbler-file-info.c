@@ -23,8 +23,10 @@
 #endif
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 
+#include <tumbler/tumbler-error.h>
 #include <tumbler/tumbler-file-info.h>
 #include <tumbler/tumbler-provider-factory.h>
 #include <tumbler/tumbler-cache-provider.h>
@@ -74,8 +76,8 @@ struct _TumblerFileInfo
 
 struct _TumblerFileInfoPrivate
 {
-  GList  *thumbnails;
   guint64 mtime; 
+  GList  *thumbnails;
   gchar  *uri;
 };
 
@@ -286,15 +288,27 @@ tumbler_file_info_load (TumblerFileInfo *info,
       /* iterate over all available cache implementations */
       for (cp = caches; err == NULL && cp != NULL; cp = cp->next)
         {
-          /* query thumbnail infos for this URI from the current cache */
-          thumbnails = tumbler_cache_get_thumbnails (cp->data, info->priv->uri);
+          /* check if the file itself is a thumbnail */
+          if (!tumbler_cache_is_thumbnail (cp->data, info->priv->uri))
+            {
+              /* query thumbnail infos for this URI from the current cache */
+              thumbnails = tumbler_cache_get_thumbnails (cp->data, info->priv->uri);
 
-          /* try to load the thumbnail info. the loop will terminate if that fails */
-          for (tp = thumbnails; err == NULL && tp != NULL; tp = tp->next)
-            tumbler_thumbnail_load (tp->data, cancellable, &err);
+              /* try to load thumbnail infos. the loop will terminate if 
+               * one of them fails */
+              for (tp = thumbnails; err == NULL && tp != NULL; tp = tp->next)
+                tumbler_thumbnail_load (tp->data, cancellable, &err);
 
-          /* add all queried thumbnails to the list */
-          info->priv->thumbnails = g_list_concat (info->priv->thumbnails, thumbnails);
+              /* add all queried thumbnails to the list */
+              info->priv->thumbnails = g_list_concat (info->priv->thumbnails, 
+                                                      thumbnails);
+            }
+          else
+            {
+              /* we don't allow the generation of thumbnails for thumbnails */
+              g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_IS_THUMBNAIL,
+                           _("The file \"%s\" is a thumbnail itself"), info->priv->uri);
+            }
         }
 
       /* release cache references */

@@ -374,37 +374,34 @@ tumbler_threshold_scheduler_thread (gpointer data,
   /* notify others that we're starting to process this request */
   g_signal_emit_by_name (request->scheduler, "started", request->handle);
 
-  g_mutex_lock (scheduler->priv->mutex);
 
   /* finish the request if it was unqueued */
   if (request->unqueued)
     {
+      g_mutex_lock (scheduler->priv->mutex);
       tumbler_threshold_scheduler_finish_request (scheduler, request);
+      g_mutex_unlock (scheduler->priv->mutex);
       return;
     }
-
-  g_mutex_unlock (scheduler->priv->mutex);
 
   /* process URI by URI */
   for (n = 0; request->uris[n] != NULL; ++n)
     {
-      g_mutex_lock (scheduler->priv->mutex);
-
       /* finish the request if it was unqueued */
       if (request->unqueued)
         {
+          g_mutex_lock (scheduler->priv->mutex);
           tumbler_threshold_scheduler_finish_request (scheduler, request);
+          g_mutex_unlock (scheduler->priv->mutex);
           return;
         }
-
-      g_mutex_unlock (scheduler->priv->mutex);
 
       info = tumbler_file_info_new (request->uris[n]);
       uri_needs_update = FALSE;
 
-      if (request->thumbnailers[n] != NULL)
+      if (tumbler_file_info_load (info, NULL, &error))
         {
-          if (tumbler_file_info_load (info, NULL, &error))
+          if (request->thumbnailers[n] != NULL)
             {
               mtime = tumbler_file_info_get_mtime (info);
 
@@ -424,11 +421,12 @@ tumbler_threshold_scheduler_thread (gpointer data,
                     }
                 }
             }
-        }
-      else
-        {
-          g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
-                       _("No thumbnailer available for \"%s\""), request->uris[n]);
+          else
+            {
+              g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
+                           _("No thumbnailer available for \"%s\""), 
+                           request->uris[n]);
+            }
         }
 
       g_object_unref (info);
@@ -469,7 +467,16 @@ tumbler_threshold_scheduler_thread (gpointer data,
   for (lp = g_list_last (missing_uris); lp != NULL; lp = lp->prev)
     {
       n = GPOINTER_TO_INT (lp->data);
-      
+
+      /* finish the request if it was unqueued */
+      if (request->unqueued)
+        {
+          g_mutex_lock (scheduler->priv->mutex);
+          tumbler_threshold_scheduler_finish_request (scheduler, request);
+          g_mutex_unlock (scheduler->priv->mutex);
+          return;
+        }
+
       /* connect to the error signal of the thumbnailer */
       g_signal_connect (request->thumbnailers[n], "error", 
                         G_CALLBACK (tumbler_threshold_scheduler_thumbnailer_error),
@@ -483,9 +490,6 @@ tumbler_threshold_scheduler_thread (gpointer data,
       /* tell the thumbnailer to generate the thumbnail */
       tumbler_thumbnailer_create (request->thumbnailers[n], request->uris[n], 
                                   request->mime_hints[n]);
-
-      /* TODO I suppose we have to make sure not to finish the request before
-       * the thumbnailer has emitted an error or ready signal */
 
       /* disconnect from all signals when we're finished */
       g_signal_handlers_disconnect_matched (request->thumbnailers[n],

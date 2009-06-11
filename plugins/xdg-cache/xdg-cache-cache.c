@@ -22,7 +22,10 @@
 #include <config.h>
 #endif
 
+#include <stdlib.h>
+
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <glib-object.h>
 #include <gio/gio.h>
 
@@ -41,20 +44,24 @@ typedef struct _FlavorInfo FlavorInfo;
 
 
 
-static void   xdg_cache_cache_iface_init     (TumblerCacheIface *iface);
-static GList *xdg_cache_cache_get_thumbnails (TumblerCache      *cache,
-                                              const gchar       *uri);
-static void   xdg_cache_cache_cleanup        (TumblerCache      *cache,
-                                              const gchar       *uri_prefix,
-                                              guint64            since);
-static void   xdg_cache_cache_delete         (TumblerCache      *cache,
-                                              const GStrv        uris);
-static void   xdg_cache_cache_copy           (TumblerCache      *cache,
-                                              const GStrv        from_uris,
-                                              const GStrv        to_uris);
-static void   xdg_cache_cache_move           (TumblerCache      *cache,
-                                              const GStrv        from_uris,
-                                              const GStrv        to_uris);
+static void         xdg_cache_cache_iface_init         (TumblerCacheIface     *iface);
+static GList       *xdg_cache_cache_get_thumbnails     (TumblerCache          *cache,
+                                                        const gchar           *uri);
+static void         xdg_cache_cache_cleanup            (TumblerCache          *cache,
+                                                        const gchar           *uri_prefix,
+                                                        guint64                since);
+static void         xdg_cache_cache_delete             (TumblerCache          *cache,
+                                                        const GStrv            uris);
+static void         xdg_cache_cache_copy               (TumblerCache          *cache,
+                                                        const GStrv            from_uris,
+                                                        const GStrv            to_uris);
+static void         xdg_cache_cache_move               (TumblerCache          *cache,
+                                                        const GStrv            from_uris,
+                                                        const GStrv            to_uris);
+static gboolean     xdg_cache_cache_is_thumbnail       (TumblerCache          *cache,
+                                                        const gchar           *uri);
+static const gchar *xdg_cache_cache_get_flavor_dirname (TumblerThumbnailFlavor flavor);
+static const gchar *xdg_cache_cache_get_home           (void);
 
 
 
@@ -126,6 +133,7 @@ xdg_cache_cache_iface_init (TumblerCacheIface *iface)
   iface->delete = xdg_cache_cache_delete;
   iface->copy = xdg_cache_cache_copy;
   iface->move = xdg_cache_cache_move;
+  iface->is_thumbnail = xdg_cache_cache_is_thumbnail;
 }
 
 
@@ -170,7 +178,7 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
                          guint64       since)
 {
   TumblerThumbnailFlavor *flavors;
-  const gchar            *basename;
+  const gchar            *file_basename;
   guint64                 mtime;
   GFile                  *dummy_file;
   GFile                  *parent;
@@ -196,9 +204,9 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
 
       if (dir != NULL)
         {
-          while ((basename = g_dir_read_name (dir)) != NULL)
+          while ((file_basename = g_dir_read_name (dir)) != NULL)
             {
-              filename = g_build_filename (dirname, basename, NULL);
+              filename = g_build_filename (dirname, file_basename, NULL);
 
               if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime, 
                                                        NULL, NULL))
@@ -403,6 +411,47 @@ xdg_cache_cache_move (TumblerCache *cache,
           g_object_unref (from_file);
         }
     }
+}
+
+
+
+static gboolean
+xdg_cache_cache_is_thumbnail (TumblerCache *cache,
+                              const gchar  *uri)
+{
+  TumblerThumbnailFlavor *flavors;
+  const gchar            *home;
+  const gchar            *dirname;
+  gboolean                is_thumbnail = FALSE;
+  GFile                  *flavor_dir;
+  GFile                  *file;
+  gchar                  *path;
+  guint                   n;
+
+  g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), FALSE);
+  g_return_val_if_fail (uri != NULL, FALSE);
+
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; !is_thumbnail && flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      home = xdg_cache_cache_get_home ();
+      dirname = xdg_cache_cache_get_flavor_dirname (flavors[n]);
+      path = g_build_filename (home, ".thumbnails", dirname, NULL);
+
+      flavor_dir = g_file_new_for_path (path);
+      file = g_file_new_for_uri (uri);
+
+      if (g_file_has_prefix (file, flavor_dir))
+        is_thumbnail = TRUE;
+
+      g_object_unref (file);
+      g_object_unref (flavor_dir);
+
+      g_free (path);
+    }
+
+  return is_thumbnail;
 }
 
 

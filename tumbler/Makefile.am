@@ -41,7 +41,8 @@ libtumbler_headers =							\
 	tumbler-provider-plugin.h					\
 	tumbler-thumbnailer-provider.h					\
 	tumbler-thumbnailer.h						\
-	tumbler-thumbnail.h
+	tumbler-thumbnail.h						\
+	tumbler.h
 
 libtumbler_sources =							\
 	tumbler-abstract-thumbnailer.c					\

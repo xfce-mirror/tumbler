@@ -42,6 +42,7 @@ typedef enum /*< enum >*/
 {
   TUMBLER_ERROR_FAILED,
   TUMBLER_ERROR_NO_THUMBNAILER,
+  TUMBLER_ERROR_IS_THUMBNAIL,
 } TumblerErrorEnum;
 
 G_END_DECLS

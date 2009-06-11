@@ -119,3 +119,16 @@ tumbler_cache_move (TumblerCache *cache,
 
   (TUMBLER_CACHE_GET_IFACE (cache)->move) (cache, from_uris, to_uris);
 }
+
+
+
+gboolean
+tumbler_cache_is_thumbnail (TumblerCache *cache,
+                            const gchar  *uri)
+{
+  g_return_val_if_fail (TUMBLER_IS_CACHE (cache), FALSE);
+  g_return_val_if_fail (uri != NULL, FALSE);
+  g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->is_thumbnail != NULL, FALSE);
+
+  (TUMBLER_CACHE_GET_IFACE (cache)->is_thumbnail) (cache, uri);
+}
