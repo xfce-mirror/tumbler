@@ -34,9 +34,8 @@ G_BEGIN_DECLS
 #define TUMBLER_IS_SPECIALIZED_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER)
 #define TUMBLER_SPECIALIZED_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, TumblerSpecializedThumbnailerClass))
 
-typedef struct _TumblerSpecializedThumbnailerPrivate TumblerSpecializedThumbnailerPrivate;
-typedef struct _TumblerSpecializedThumbnailerClass   TumblerSpecializedThumbnailerClass;
-typedef struct _TumblerSpecializedThumbnailer        TumblerSpecializedThumbnailer;
+typedef struct _TumblerSpecializedThumbnailerClass TumblerSpecializedThumbnailerClass;
+typedef struct _TumblerSpecializedThumbnailer      TumblerSpecializedThumbnailer;
 
 GType               tumbler_specialized_thumbnailer_get_type     (void) G_GNUC_CONST;
 

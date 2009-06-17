@@ -37,10 +37,6 @@
 
 
 
-#define TUMBLER_MANAGER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_MANAGER, TumblerManagerPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -51,18 +47,15 @@ enum
 
 
 
-static void tumbler_manager_class_init   (TumblerManagerClass *klass);
-static void tumbler_manager_init         (TumblerManager      *manager);
-static void tumbler_manager_constructed  (GObject                *object);
-static void tumbler_manager_finalize     (GObject                *object);
-static void tumbler_manager_get_property (GObject                *object,
-                                          guint                   prop_id,
-                                          GValue                 *value,
-                                          GParamSpec             *pspec);
-static void tumbler_manager_set_property (GObject                *object,
-                                          guint                   prop_id,
-                                          const GValue           *value,
-                                          GParamSpec             *pspec);
+static void tumbler_manager_finalize     (GObject      *object);
+static void tumbler_manager_get_property (GObject      *object,
+                                          guint         prop_id,
+                                          GValue       *value,
+                                          GParamSpec   *pspec);
+static void tumbler_manager_set_property (GObject      *object,
+                                          guint         prop_id,
+                                          const GValue *value,
+                                          GParamSpec   *pspec);
 
 
 
@@ -75,11 +68,6 @@ struct _TumblerManager
 {
   GObject __parent__;
 
-  TumblerManagerPrivate *priv;
-};
-
-struct _TumblerManagerPrivate
-{
   DBusGConnection *connection;
   TumblerRegistry *registry;
 
@@ -88,28 +76,7 @@ struct _TumblerManagerPrivate
 
 
 
-static GObjectClass *tumbler_manager_parent_class = NULL;
-
-
-
-GType
-tumbler_manager_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerManager",
-                                            sizeof (TumblerManagerClass),
-                                            (GClassInitFunc) tumbler_manager_class_init,
-                                            sizeof (TumblerManager),
-                                            (GInstanceInitFunc) tumbler_manager_init,
-                                            0);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE (TumblerManager, tumbler_manager, G_TYPE_OBJECT);
 
 
 
@@ -118,13 +85,7 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
 {
   GObjectClass *gobject_class;
 
-  g_type_class_add_private (klass, sizeof (TumblerManagerPrivate));
-
-  /* Determine the parent type class */
-  tumbler_manager_parent_class = g_type_class_peek_parent (klass);
-
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = tumbler_manager_constructed; 
   gobject_class->finalize = tumbler_manager_finalize; 
   gobject_class->get_property = tumbler_manager_get_property;
   gobject_class->set_property = tumbler_manager_set_property;
@@ -150,18 +111,7 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
 static void
 tumbler_manager_init (TumblerManager *manager)
 {
-  manager->priv = TUMBLER_MANAGER_GET_PRIVATE (manager);
-  manager->priv->mutex = g_mutex_new ();
-}
-
-
-
-static void
-tumbler_manager_constructed (GObject *object)
-{
-#if 0
-  TumblerManager *manager = TUMBLER_MANAGER (object);
-#endif
+  manager->mutex = g_mutex_new ();
 }
 
 
@@ -171,11 +121,11 @@ tumbler_manager_finalize (GObject *object)
 {
   TumblerManager *manager = TUMBLER_MANAGER (object);
 
-  g_object_unref (manager->priv->registry);
+  g_object_unref (manager->registry);
 
-  dbus_g_connection_unref (manager->priv->connection);
+  dbus_g_connection_unref (manager->connection);
 
-  g_mutex_free (manager->priv->mutex);
+  g_mutex_free (manager->mutex);
 
   (*G_OBJECT_CLASS (tumbler_manager_parent_class)->finalize) (object);
 }
@@ -193,10 +143,10 @@ tumbler_manager_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      g_value_set_pointer (value, manager->priv->connection);
+      g_value_set_pointer (value, manager->connection);
       break;
     case PROP_REGISTRY:
-      g_value_set_object (value, manager->priv->registry);
+      g_value_set_object (value, manager->registry);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -217,10 +167,10 @@ tumbler_manager_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      manager->priv->connection = dbus_g_connection_ref (g_value_get_pointer (value));
+      manager->connection = dbus_g_connection_ref (g_value_get_pointer (value));
       break;
     case PROP_REGISTRY:
-      manager->priv->registry = g_value_dup_object (value);
+      manager->registry = g_value_dup_object (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -251,13 +201,13 @@ tumbler_manager_start (TumblerManager *manager,
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (manager->priv->mutex);
+  g_mutex_lock (manager->mutex);
 
   /* initialize the D-Bus error */
   dbus_error_init (&dbus_error);
 
   /* get the native D-Bus connection */
-  connection = dbus_g_connection_get_connection (manager->priv->connection);
+  connection = dbus_g_connection_get_connection (manager->connection);
 
   /* request ownership for the manager interface */
   result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Manager",
@@ -280,7 +230,7 @@ tumbler_manager_start (TumblerManager *manager,
                        _("Another thumbnailer manager is already running"));
         }
 
-      g_mutex_unlock (manager->priv->mutex);
+      g_mutex_unlock (manager->mutex);
 
       /* i can't work like this! */
       return FALSE;
@@ -291,11 +241,11 @@ tumbler_manager_start (TumblerManager *manager,
                                    &dbus_glib_tumbler_manager_object_info);
 
   /* register the manager instance as a handler of the manager interface */
-  dbus_g_connection_register_g_object (manager->priv->connection, 
+  dbus_g_connection_register_g_object (manager->connection, 
                                        "/org/freedesktop/thumbnails/Manager", 
                                        G_OBJECT (manager));
 
-  g_mutex_unlock (manager->priv->mutex);
+  g_mutex_unlock (manager->mutex);
 
   /* this is how I roll */
   return TRUE;
@@ -318,17 +268,17 @@ tumbler_manager_register (TumblerManager        *manager,
 
   sender_name = dbus_g_method_get_sender (context);
 
-  g_mutex_lock (manager->priv->mutex);
+  g_mutex_lock (manager->mutex);
 
-  thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->priv->connection,
+  thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->connection,
                                                              sender_name, uri_scheme, 
                                                              mime_type);
 
-  tumbler_registry_add (manager->priv->registry, thumbnailer);
+  tumbler_registry_add (manager->registry, thumbnailer);
 
   g_object_unref (thumbnailer);
 
-  g_mutex_unlock (manager->priv->mutex);
+  g_mutex_unlock (manager->mutex);
 
   g_free (sender_name);
 
@@ -354,10 +304,10 @@ tumbler_manager_get_supported (TumblerManager        *manager,
   /* create a hash table to collect unique MIME types */
   types = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-  g_mutex_lock (manager->priv->mutex);
+  g_mutex_lock (manager->mutex);
 
   /* get a list of all active thumbnailers */
-  thumbnailers = tumbler_registry_get_thumbnailers (manager->priv->registry);
+  thumbnailers = tumbler_registry_get_thumbnailers (manager->registry);
 
   /* iterate over all of them */
   for (lp = thumbnailers; lp != NULL; lp = lp->next)
@@ -373,7 +323,7 @@ tumbler_manager_get_supported (TumblerManager        *manager,
   /* relase the thumbnailer list */
   g_list_free (thumbnailers);
   
-  g_mutex_unlock (manager->priv->mutex);
+  g_mutex_unlock (manager->mutex);
 
   /* determine all suported MIME types */
   keys = g_hash_table_get_keys (types);

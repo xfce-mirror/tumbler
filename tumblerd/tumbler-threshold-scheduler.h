@@ -32,9 +32,8 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_THRESHOLD_SCHEDULER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_THRESHOLD_SCHEDULER)
 #define TUMBLER_THRESHOLD_SCHEDULER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_THRESHOLD_SCHEDULER, TumblerThresholdSchedulerClass))
 
-typedef struct _TumblerThresholdSchedulerPrivate TumblerThresholdSchedulerPrivate;
-typedef struct _TumblerThresholdSchedulerClass   TumblerThresholdSchedulerClass;
-typedef struct _TumblerThresholdScheduler        TumblerThresholdScheduler;
+typedef struct _TumblerThresholdSchedulerClass TumblerThresholdSchedulerClass;
+typedef struct _TumblerThresholdScheduler      TumblerThresholdScheduler;
 
 GType             tumbler_threshold_scheduler_get_type (void) G_GNUC_CONST;
 

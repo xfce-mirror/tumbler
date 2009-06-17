@@ -73,9 +73,6 @@ pixbuf_thumbnailer_provider_class_init (PixbufThumbnailerProviderClass *klass)
 {
   GObjectClass *gobject_class;
 
-  /* Determine the parent type class */
-  pixbuf_thumbnailer_provider_parent_class = g_type_class_peek_parent (klass);
-
   gobject_class = G_OBJECT_CLASS (klass);
 }
 

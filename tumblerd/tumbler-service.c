@@ -41,10 +41,6 @@
 
 
 
-#define TUMBLER_SERVICE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_SERVICE, TumblerServicePrivate))
-
-
-
 /* signal identifiers */
 enum
 {
@@ -65,33 +61,31 @@ enum
 
 
 
-static void tumbler_service_class_init         (TumblerServiceClass *klass);
-static void tumbler_service_init               (TumblerService      *service);
-static void tumbler_service_constructed        (GObject             *object);
-static void tumbler_service_finalize           (GObject             *object);
-static void tumbler_service_get_property       (GObject             *object,
-                                                guint                prop_id,
-                                                GValue              *value,
-                                                GParamSpec          *pspec);
-static void tumbler_service_set_property       (GObject             *object,
-                                                guint                prop_id,
-                                                const GValue        *value,
-                                                GParamSpec          *pspec);
-static void tumbler_service_scheduler_error    (TumblerScheduler    *scheduler,
-                                                guint                handle,
-                                                const GStrv          failed_uris,
-                                                gint                 error_code,
-                                                const gchar         *message,
-                                                TumblerService      *service);
-static void tumbler_service_scheduler_finished (TumblerScheduler    *scheduler,
-                                                guint                handle,
-                                                TumblerService      *service);
-static void tumbler_service_scheduler_ready    (TumblerScheduler    *scheduler,
-                                                const GStrv          uris,
-                                                TumblerService      *service);
-static void tumbler_service_scheduler_started  (TumblerScheduler    *scheduler,
-                                                guint                handle,
-                                                TumblerService      *service);
+static void tumbler_service_constructed        (GObject          *object);
+static void tumbler_service_finalize           (GObject          *object);
+static void tumbler_service_get_property       (GObject          *object,
+                                                guint             prop_id,
+                                                GValue           *value,
+                                                GParamSpec       *pspec);
+static void tumbler_service_set_property       (GObject          *object,
+                                                guint             prop_id,
+                                                const GValue     *value,
+                                                GParamSpec       *pspec);
+static void tumbler_service_scheduler_error    (TumblerScheduler *scheduler,
+                                                guint             handle,
+                                                const GStrv       failed_uris,
+                                                gint              error_code,
+                                                const gchar      *message,
+                                                TumblerService   *service);
+static void tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
+                                                guint             handle,
+                                                TumblerService   *service);
+static void tumbler_service_scheduler_ready    (TumblerScheduler *scheduler,
+                                                const GStrv       uris,
+                                                TumblerService   *service);
+static void tumbler_service_scheduler_started  (TumblerScheduler *scheduler,
+                                                guint             handle,
+                                                TumblerService   *service);
 
 
 
@@ -104,11 +98,6 @@ struct _TumblerService
 {
   GObject __parent__;
 
-  TumblerServicePrivate *priv;
-};
-
-struct _TumblerServicePrivate
-{
   DBusGConnection  *connection;
   TumblerRegistry  *registry;
   TumblerScheduler *scheduler;
@@ -117,29 +106,11 @@ struct _TumblerServicePrivate
 
 
 
-static GObjectClass *tumbler_service_parent_class = NULL;
-static guint         tumbler_service_signals[LAST_SIGNAL];
+static guint tumbler_service_signals[LAST_SIGNAL];
 
 
 
-GType
-tumbler_service_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerService",
-                                            sizeof (TumblerServiceClass),
-                                            (GClassInitFunc) tumbler_service_class_init,
-                                            sizeof (TumblerService),
-                                            (GInstanceInitFunc) tumbler_service_init,
-                                            0);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE (TumblerService, tumbler_service, G_TYPE_OBJECT);
 
 
 
@@ -147,11 +118,6 @@ static void
 tumbler_service_class_init (TumblerServiceClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerServicePrivate));
-
-  /* Determine the parent type class */
-  tumbler_service_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->constructed = tumbler_service_constructed; 
@@ -231,8 +197,7 @@ tumbler_service_class_init (TumblerServiceClass *klass)
 static void
 tumbler_service_init (TumblerService *service)
 {
-  service->priv = TUMBLER_SERVICE_GET_PRIVATE (service);
-  service->priv->mutex = g_mutex_new ();
+  service->mutex = g_mutex_new ();
 }
 
 
@@ -243,18 +208,18 @@ tumbler_service_constructed (GObject *object)
   TumblerService *service = TUMBLER_SERVICE (object);
 
 #if 0
-  service->priv->scheduler = tumbler_naive_scheduler_new ();
+  service->scheduler = tumbler_naive_scheduler_new ();
 #else
-  service->priv->scheduler = tumbler_threshold_scheduler_new ();
+  service->scheduler = tumbler_threshold_scheduler_new ();
 #endif
 
-  g_signal_connect (service->priv->scheduler, "error",
+  g_signal_connect (service->scheduler, "error",
                     G_CALLBACK (tumbler_service_scheduler_error), service);
-  g_signal_connect (service->priv->scheduler, "finished", 
+  g_signal_connect (service->scheduler, "finished", 
                     G_CALLBACK (tumbler_service_scheduler_finished), service);
-  g_signal_connect (service->priv->scheduler, "ready", 
+  g_signal_connect (service->scheduler, "ready", 
                     G_CALLBACK (tumbler_service_scheduler_ready), service);
-  g_signal_connect (service->priv->scheduler, "started", 
+  g_signal_connect (service->scheduler, "started", 
                     G_CALLBACK (tumbler_service_scheduler_started), service);
 }
 
@@ -265,12 +230,12 @@ tumbler_service_finalize (GObject *object)
 {
   TumblerService *service = TUMBLER_SERVICE (object);
 
-  g_object_unref (service->priv->scheduler);
-  g_object_unref (service->priv->registry);
+  g_object_unref (service->scheduler);
+  g_object_unref (service->registry);
 
-  dbus_g_connection_unref (service->priv->connection);
+  dbus_g_connection_unref (service->connection);
 
-  g_mutex_free (service->priv->mutex);
+  g_mutex_free (service->mutex);
 
   (*G_OBJECT_CLASS (tumbler_service_parent_class)->finalize) (object);
 }
@@ -288,10 +253,10 @@ tumbler_service_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      g_value_set_pointer (value, service->priv->connection);
+      g_value_set_pointer (value, service->connection);
       break;
     case PROP_REGISTRY:
-      g_value_set_object (value, service->priv->registry);
+      g_value_set_object (value, service->registry);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -312,10 +277,10 @@ tumbler_service_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      service->priv->connection = dbus_g_connection_ref (g_value_get_pointer (value));
+      service->connection = dbus_g_connection_ref (g_value_get_pointer (value));
       break;
     case PROP_REGISTRY:
-      service->priv->registry = g_value_dup_object (value);
+      service->registry = g_value_dup_object (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -390,12 +355,12 @@ tumbler_service_start (TumblerService *service,
   g_return_val_if_fail (TUMBLER_IS_SERVICE (service), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
   dbus_error_init (&dbus_error);
 
   /* get the native D-Bus connection */
-  connection = dbus_g_connection_get_connection (service->priv->connection);
+  connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the generic thumbnailer interface */
   result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer",
@@ -418,7 +383,7 @@ tumbler_service_start (TumblerService *service,
                        _("Another generic thumbnailer is already running"));
         }
 
-      g_mutex_unlock (service->priv->mutex);
+      g_mutex_unlock (service->mutex);
 
       return FALSE;
     }
@@ -428,11 +393,11 @@ tumbler_service_start (TumblerService *service,
                                    &dbus_glib_tumbler_service_object_info);
 
   /* register the service instance as a handler of this interface */
-  dbus_g_connection_register_g_object (service->priv->connection, 
+  dbus_g_connection_register_g_object (service->connection, 
                                        "/org/freedesktop/thumbnails/Thumbnailer", 
                                        G_OBJECT (service));
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 
   return TRUE;
 }
@@ -455,14 +420,14 @@ tumbler_service_queue (TumblerService        *service,
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
   /* unqueue the request with the given unqueue handle */
   if (handle_to_unqueue != 0)
-    tumbler_scheduler_unqueue (service->priv->scheduler, handle_to_unqueue);
+    tumbler_scheduler_unqueue (service->scheduler, handle_to_unqueue);
 
   /* get an array with one thumbnailer for each URI in the request */
-  thumbnailers = tumbler_registry_get_thumbnailer_array (service->priv->registry,
+  thumbnailers = tumbler_registry_get_thumbnailer_array (service->registry,
                                                          uris, mime_hints, 
                                                          &num_thumbnailers);
 
@@ -474,12 +439,12 @@ tumbler_service_queue (TumblerService        *service,
   handle = scheduler_request->handle;
 
   /* push the request to the scheduler */
-  tumbler_scheduler_push (service->priv->scheduler, scheduler_request);
+  tumbler_scheduler_push (service->scheduler, scheduler_request);
   
   /* free the thumbnailer array */
   tumbler_thumbnailer_array_free (thumbnailers, num_thumbnailers);
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 
   dbus_g_method_return (context, handle);
 }
@@ -493,13 +458,13 @@ tumbler_service_unqueue (TumblerService        *service,
 {
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
   /* unqueue the request with the given unqueue handle */
   if (handle != 0)
-    tumbler_scheduler_unqueue (service->priv->scheduler, handle);
+    tumbler_scheduler_unqueue (service->scheduler, handle);
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 
   dbus_g_method_return (context);
 }

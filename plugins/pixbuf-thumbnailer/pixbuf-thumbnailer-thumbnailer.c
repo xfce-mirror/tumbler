@@ -72,9 +72,6 @@ pixbuf_thumbnailer_thumbnailer_class_init (PixbufThumbnailerThumbnailerClass *kl
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
 
-  /* Determine the parent type class */
-  pixbuf_thumbnailer_thumbnailer_parent_class = g_type_class_peek_parent (klass);
-
   abstractthumbnailer_class = TUMBLER_ABSTRACT_THUMBNAILER_CLASS (klass);
   abstractthumbnailer_class->create = pixbuf_thumbnailer_thumbnailer_create;
 }

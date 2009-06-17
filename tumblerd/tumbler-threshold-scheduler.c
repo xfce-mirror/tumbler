@@ -35,10 +35,6 @@
 
 
 
-#define TUMBLER_THRESHOLD_SCHEDULER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_THRESHOLD_SCHEDULER, TumblerThresholdSchedulerPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -48,36 +44,34 @@ enum
 
 
 
-static void tumbler_threshold_scheduler_class_init        (TumblerThresholdSchedulerClass *klass);
-static void tumbler_threshold_scheduler_iface_init        (TumblerSchedulerIface         *iface);
-static void tumbler_threshold_scheduler_init              (TumblerThresholdScheduler      *scheduler);
-static void tumbler_threshold_scheduler_finalize          (GObject                       *object);
-static void tumbler_threshold_scheduler_get_property      (GObject                       *object,
-                                                           guint                          prop_id,
-                                                           GValue                        *value,
-                                                           GParamSpec                    *pspec);
-static void tumbler_threshold_scheduler_set_property      (GObject                       *object,
-                                                           guint                          prop_id,
-                                                           const GValue                  *value,
-                                                           GParamSpec                    *pspec);
-static void tumbler_threshold_scheduler_push              (TumblerScheduler              *scheduler,
-                                                           TumblerSchedulerRequest       *request);
-static void tumbler_threshold_scheduler_unqueue           (TumblerScheduler              *scheduler,
-                                                           guint                          handle);
-static void tumbler_threshold_scheduler_finish_request    (TumblerThresholdScheduler     *scheduler,
-                                                           TumblerSchedulerRequest       *request);
-static void tumbler_threshold_scheduler_unqueue_request   (TumblerSchedulerRequest       *request,
-                                                           gpointer                       user_data);
-static void tumbler_threshold_scheduler_thread            (gpointer                       data,
-                                                           gpointer                       user_data);
-static void tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer            *thumbnailer,
-                                                           const gchar                   *failed_uri,
-                                                           gint                           error_code,
-                                                           const gchar                   *message,
-                                                           TumblerSchedulerRequest       *request);
-static void tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer            *thumbnailer,
-                                                           const gchar                   *uri,
-                                                           TumblerSchedulerRequest       *request);
+static void tumbler_threshold_scheduler_iface_init        (TumblerSchedulerIface     *iface);
+static void tumbler_threshold_scheduler_finalize          (GObject                   *object);
+static void tumbler_threshold_scheduler_get_property      (GObject                   *object,
+                                                           guint                      prop_id,
+                                                           GValue                    *value,
+                                                           GParamSpec                *pspec);
+static void tumbler_threshold_scheduler_set_property      (GObject                   *object,
+                                                           guint                      prop_id,
+                                                           const GValue              *value,
+                                                           GParamSpec                *pspec);
+static void tumbler_threshold_scheduler_push              (TumblerScheduler          *scheduler,
+                                                           TumblerSchedulerRequest   *request);
+static void tumbler_threshold_scheduler_unqueue           (TumblerScheduler          *scheduler,
+                                                           guint                      handle);
+static void tumbler_threshold_scheduler_finish_request    (TumblerThresholdScheduler *scheduler,
+                                                           TumblerSchedulerRequest   *request);
+static void tumbler_threshold_scheduler_unqueue_request   (TumblerSchedulerRequest   *request,
+                                                           gpointer                   user_data);
+static void tumbler_threshold_scheduler_thread            (gpointer                   data,
+                                                           gpointer                   user_data);
+static void tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
+                                                           const gchar               *failed_uri,
+                                                           gint                       error_code,
+                                                           const gchar               *message,
+                                                           TumblerSchedulerRequest   *request);
+static void tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
+                                                           const gchar               *uri,
+                                                           TumblerSchedulerRequest   *request);
 
 
 
@@ -90,11 +84,6 @@ struct _TumblerThresholdScheduler
 {
   GObject __parent__;
 
-  TumblerThresholdSchedulerPrivate *priv;
-};
-
-struct _TumblerThresholdSchedulerPrivate
-{
   GThreadPool *large_pool;
   GThreadPool *small_pool;
   GMutex      *mutex;
@@ -104,37 +93,15 @@ struct _TumblerThresholdSchedulerPrivate
 
 
 
-static GObjectClass *tumbler_threshold_scheduler_parent_class = NULL;
+G_LOCK_DEFINE (plugin_access_lock);
 
 
 
-GType
-tumbler_threshold_scheduler_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      static const GInterfaceInfo info =
-      {
-        (GInterfaceInitFunc) tumbler_threshold_scheduler_iface_init,
-        NULL,
-        NULL,
-      };
-
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerThresholdScheduler",
-                                            sizeof (TumblerThresholdSchedulerClass),
-                                            (GClassInitFunc) tumbler_threshold_scheduler_class_init,
-                                            sizeof (TumblerThresholdScheduler),
-                                            (GInstanceInitFunc) tumbler_threshold_scheduler_init,
-                                            0);
-
-      g_type_add_interface_static (type, TUMBLER_TYPE_SCHEDULER, &info);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE_WITH_CODE (TumblerThresholdScheduler,
+                         tumbler_threshold_scheduler,
+                         G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
+                                                tumbler_threshold_scheduler_iface_init));
 
 
 
@@ -142,11 +109,6 @@ static void
 tumbler_threshold_scheduler_class_init (TumblerThresholdSchedulerClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerThresholdSchedulerPrivate));
-
-  /* Determine the parent type class */
-  tumbler_threshold_scheduler_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_threshold_scheduler_finalize; 
@@ -177,25 +139,23 @@ tumbler_threshold_scheduler_iface_init (TumblerSchedulerIface *iface)
 static void
 tumbler_threshold_scheduler_init (TumblerThresholdScheduler *scheduler)
 {
-  scheduler->priv = TUMBLER_THRESHOLD_SCHEDULER_GET_PRIVATE (scheduler);
-
-  scheduler->priv->mutex = g_mutex_new ();
-  scheduler->priv->requests = NULL;
+  scheduler->mutex = g_mutex_new ();
+  scheduler->requests = NULL;
 
   /* allocate a pool with max. 2 threads for request with <= threshold URIs */
-  scheduler->priv->small_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
+  scheduler->small_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
                                                    scheduler, 2, TRUE, NULL);
 
   /* make the thread a LIFO */
-  g_thread_pool_set_sort_function (scheduler->priv->small_pool,
+  g_thread_pool_set_sort_function (scheduler->small_pool,
                                    tumbler_scheduler_request_compare, NULL);
 
   /* allocate a pool with max. 2 threads for request with > threshold URIs */
-  scheduler->priv->large_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
+  scheduler->large_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
                                                    scheduler, 2, TRUE, NULL);
 
   /* make the thread a LIFO */
-  g_thread_pool_set_sort_function (scheduler->priv->small_pool,
+  g_thread_pool_set_sort_function (scheduler->small_pool,
                                    tumbler_scheduler_request_compare, NULL);
 }
 
@@ -207,18 +167,18 @@ tumbler_threshold_scheduler_finalize (GObject *object)
   TumblerThresholdScheduler *scheduler = TUMBLER_THRESHOLD_SCHEDULER (object);
 
   /* destroy both thread pools */
-  g_thread_pool_free (scheduler->priv->small_pool, TRUE, TRUE);
-  g_thread_pool_free (scheduler->priv->large_pool, TRUE, TRUE);
+  g_thread_pool_free (scheduler->small_pool, TRUE, TRUE);
+  g_thread_pool_free (scheduler->large_pool, TRUE, TRUE);
 
   /* release all pending requests */
-  g_list_foreach (scheduler->priv->requests, (GFunc) tumbler_scheduler_request_free,
+  g_list_foreach (scheduler->requests, (GFunc) tumbler_scheduler_request_free,
                   NULL);
 
   /* destroy the request list */
-  g_list_free (scheduler->priv->requests);
+  g_list_free (scheduler->requests);
 
   /* destroy the mutex */
-  g_mutex_free (scheduler->priv->mutex);
+  g_mutex_free (scheduler->mutex);
 
   (*G_OBJECT_CLASS (tumbler_threshold_scheduler_parent_class)->finalize) (object);
 }
@@ -236,7 +196,7 @@ tumbler_threshold_scheduler_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_THRESHOLD:
-      g_value_set_uint (value, scheduler->priv->threshold);
+      g_value_set_uint (value, scheduler->threshold);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -257,7 +217,7 @@ tumbler_threshold_scheduler_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_THRESHOLD:
-      scheduler->priv->threshold = g_value_get_uint (value);
+      scheduler->threshold = g_value_get_uint (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -277,22 +237,22 @@ tumbler_threshold_scheduler_push (TumblerScheduler        *scheduler,
   g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (threshold_scheduler->priv->mutex);
+  g_mutex_lock (threshold_scheduler->mutex);
   
   /* gain ownership over the requests (sets request->scheduler) */
   tumbler_scheduler_take_request (scheduler, request);
 
   /* prepend the request to the request list */
-  threshold_scheduler->priv->requests = 
-    g_list_prepend (threshold_scheduler->priv->requests, request);
+  threshold_scheduler->requests = 
+    g_list_prepend (threshold_scheduler->requests, request);
 
   /* enqueue the request in one of the two thread pools depending on its size */
-  if (g_strv_length (request->uris) > threshold_scheduler->priv->threshold)
-    g_thread_pool_push (threshold_scheduler->priv->large_pool, request, NULL);
+  if (g_strv_length (request->uris) > threshold_scheduler->threshold)
+    g_thread_pool_push (threshold_scheduler->large_pool, request, NULL);
   else
-    g_thread_pool_push (threshold_scheduler->priv->small_pool, request, NULL);
+    g_thread_pool_push (threshold_scheduler->small_pool, request, NULL);
 
-  g_mutex_unlock (threshold_scheduler->priv->mutex);
+  g_mutex_unlock (threshold_scheduler->mutex);
 }
 
 
@@ -307,13 +267,13 @@ tumbler_threshold_scheduler_unqueue (TumblerScheduler *scheduler,
   g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
 
-  g_mutex_lock (threshold_scheduler->priv->mutex);
+  g_mutex_lock (threshold_scheduler->mutex);
 
-  g_list_foreach (threshold_scheduler->priv->requests, 
+  g_list_foreach (threshold_scheduler->requests, 
                   (GFunc) tumbler_threshold_scheduler_unqueue_request, 
                   GUINT_TO_POINTER (handle));
 
-  g_mutex_unlock (threshold_scheduler->priv->mutex);
+  g_mutex_unlock (threshold_scheduler->mutex);
 }
 
 
@@ -327,7 +287,7 @@ tumbler_threshold_scheduler_finish_request (TumblerThresholdScheduler *scheduler
 
   g_signal_emit_by_name (scheduler, "finished", request->handle);
 
-  scheduler->priv->requests = g_list_remove (scheduler->priv->requests,
+  scheduler->requests = g_list_remove (scheduler->requests,
                                              request);
 
   tumbler_scheduler_request_free (request);
@@ -378,9 +338,9 @@ tumbler_threshold_scheduler_thread (gpointer data,
   /* finish the request if it was unqueued */
   if (request->unqueued)
     {
-      g_mutex_lock (scheduler->priv->mutex);
+      g_mutex_lock (scheduler->mutex);
       tumbler_threshold_scheduler_finish_request (scheduler, request);
-      g_mutex_unlock (scheduler->priv->mutex);
+      g_mutex_unlock (scheduler->mutex);
       return;
     }
 
@@ -390,14 +350,16 @@ tumbler_threshold_scheduler_thread (gpointer data,
       /* finish the request if it was unqueued */
       if (request->unqueued)
         {
-          g_mutex_lock (scheduler->priv->mutex);
+          g_mutex_lock (scheduler->mutex);
           tumbler_threshold_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->priv->mutex);
+          g_mutex_unlock (scheduler->mutex);
           return;
         }
 
       info = tumbler_file_info_new (request->uris[n]);
       uri_needs_update = FALSE;
+
+      G_LOCK (plugin_access_lock);
 
       if (tumbler_file_info_load (info, NULL, &error))
         {
@@ -430,6 +392,8 @@ tumbler_threshold_scheduler_thread (gpointer data,
         }
 
       g_object_unref (info);
+
+      G_UNLOCK (plugin_access_lock);
 
       if (error == NULL)
         {
@@ -471,9 +435,9 @@ tumbler_threshold_scheduler_thread (gpointer data,
       /* finish the request if it was unqueued */
       if (request->unqueued)
         {
-          g_mutex_lock (scheduler->priv->mutex);
+          g_mutex_lock (scheduler->mutex);
           tumbler_threshold_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->priv->mutex);
+          g_mutex_unlock (scheduler->mutex);
           return;
         }
 
@@ -497,12 +461,12 @@ tumbler_threshold_scheduler_thread (gpointer data,
                                             0, 0, NULL, NULL, request);
     }
 
-  g_mutex_lock (scheduler->priv->mutex);
+  g_mutex_lock (scheduler->mutex);
 
   /* notify others that we're finished processing the request */
   tumbler_threshold_scheduler_finish_request (scheduler, request);
 
-  g_mutex_unlock (scheduler->priv->mutex);
+  g_mutex_unlock (scheduler->mutex);
 }
 
 

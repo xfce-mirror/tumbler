@@ -34,9 +34,8 @@ G_BEGIN_DECLS;
 #define XDG_CACHE_IS_CACHE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), XDG_CACHE_TYPE_CACHE)
 #define XDG_CACHE_CACHE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), XDG_CACHE_TYPE_CACHE, XDGCacheCacheClass))
 
-typedef struct _XDGCacheCachePrivate XDGCacheCachePrivate;
-typedef struct _XDGCacheCacheClass   XDGCacheCacheClass;
-typedef struct _XDGCacheCache        XDGCacheCache;
+typedef struct _XDGCacheCacheClass XDGCacheCacheClass;
+typedef struct _XDGCacheCache      XDGCacheCache;
 
 GType    xdg_cache_cache_get_type             (void) G_GNUC_CONST;
 void     xdg_cache_cache_register             (TumblerProviderPlugin *plugin);

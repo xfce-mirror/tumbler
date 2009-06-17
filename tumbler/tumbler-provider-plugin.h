@@ -36,7 +36,6 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_PROVIDER_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_PROVIDER_PLUGIN)
 #define TUMBLER_PROVIDER_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_PROVIDER_PLUGIN, TumblerProviderPluginClass))
 
-typedef struct _TumblerProviderPluginPrivate TumblerProviderPluginPrivate;
 typedef struct _TumblerProviderPluginClass   TumblerProviderPluginClass;
 typedef struct _TumblerProviderPlugin        TumblerProviderPlugin;
 

@@ -34,9 +34,8 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_MANAGER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_MANAGER)
 #define TUMBLER_MANAGER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_MANAGER, TumblerManagerClass))
 
-typedef struct _TumblerManagerPrivate TumblerManagerPrivate;
-typedef struct _TumblerManagerClass   TumblerManagerClass;
-typedef struct _TumblerManager        TumblerManager;
+typedef struct _TumblerManagerClass TumblerManagerClass;
+typedef struct _TumblerManager      TumblerManager;
 
 GType           tumbler_manager_get_type      (void) G_GNUC_CONST;
 

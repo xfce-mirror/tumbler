@@ -100,27 +100,36 @@ main (int    argc,
   /* create the thumbnailer registry */
   registry = tumbler_registry_new ();
 
-  /* register the built-in pixbuf thumbnailer */
+  /* take a reference on the provider factory */
   provider_factory = tumbler_provider_factory_get_default ();
+
+  /* query all thumbnailer providers from the factory */
   providers = tumbler_provider_factory_get_providers (provider_factory,
                                                       TUMBLER_TYPE_THUMBNAILER_PROVIDER);
-  g_object_unref (provider_factory);
 
+  /* iterate over all providers */
   for (lp = providers; lp != NULL; lp = lp->next)
     {
+      /* query the list of thumbnailers provided by this provider */
       thumbnailers = tumbler_thumbnailer_provider_get_thumbnailers (lp->data);
 
+      /* add all thumbnailers to the registry */
       for (tp = thumbnailers; tp != NULL; tp = tp->next)
         {
           tumbler_registry_add (registry, tp->data);
           g_object_unref (tp->data);
         }
 
+      /* free the thumbnailer list */
       g_list_free (thumbnailers);
     }
 
+  /* release all providers and free the provider list */
   g_list_foreach (providers, (GFunc) g_object_unref, NULL);
   g_list_free (providers);
+
+  /* drop the reference on the provider factory */
+  g_object_unref (provider_factory);
 
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))

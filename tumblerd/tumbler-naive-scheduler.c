@@ -30,10 +30,6 @@
 
 
 
-#define TUMBLER_NAIVE_SCHEDULER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_NAIVE_SCHEDULER, TumblerNaiveSchedulerPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -42,20 +38,18 @@ enum
 
 
 
-static void tumbler_naive_scheduler_class_init        (TumblerNaiveSchedulerClass *klass);
-static void tumbler_naive_scheduler_iface_init        (TumblerSchedulerIface      *iface);
-static void tumbler_naive_scheduler_init              (TumblerNaiveScheduler      *scheduler);
-static void tumbler_naive_scheduler_finalize          (GObject                    *object);
-static void tumbler_naive_scheduler_push              (TumblerScheduler           *scheduler,
-                                                       TumblerSchedulerRequest    *request);
-static void tumbler_naive_scheduler_thumbnailer_error (TumblerThumbnailer         *thumbnailer,
-                                                       const gchar                *failed_uri,
-                                                       gint                        error_code,
-                                                       const gchar                *message,
-                                                       TumblerSchedulerRequest    *request);
-static void tumbler_naive_scheduler_thumbnailer_ready (TumblerThumbnailer         *thumbnailer,
-                                                       const gchar                *uri,
-                                                       TumblerSchedulerRequest    *request);
+static void tumbler_naive_scheduler_iface_init        (TumblerSchedulerIface   *iface);
+static void tumbler_naive_scheduler_finalize          (GObject                 *object);
+static void tumbler_naive_scheduler_push              (TumblerScheduler        *scheduler,
+                                                       TumblerSchedulerRequest *request);
+static void tumbler_naive_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
+                                                       const gchar             *failed_uri,
+                                                       gint                     error_code,
+                                                       const gchar             *message,
+                                                       TumblerSchedulerRequest *request);
+static void tumbler_naive_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
+                                                       const gchar             *uri,
+                                                       TumblerSchedulerRequest *request);
 
 
 
@@ -67,48 +61,13 @@ struct _TumblerNaiveSchedulerClass
 struct _TumblerNaiveScheduler
 {
   GObject __parent__;
-
-  TumblerNaiveSchedulerPrivate *priv;
-};
-
-struct _TumblerNaiveSchedulerPrivate
-{
-  guint dummy;
 };
 
 
 
-static GObjectClass *tumbler_naive_scheduler_parent_class = NULL;
-
-
-
-GType
-tumbler_naive_scheduler_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      static const GInterfaceInfo info =
-      {
-        (GInterfaceInitFunc) tumbler_naive_scheduler_iface_init,
-        NULL,
-        NULL,
-      };
-
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerNaiveScheduler",
-                                            sizeof (TumblerNaiveSchedulerClass),
-                                            (GClassInitFunc) tumbler_naive_scheduler_class_init,
-                                            sizeof (TumblerNaiveScheduler),
-                                            (GInstanceInitFunc) tumbler_naive_scheduler_init,
-                                            0);
-
-      g_type_add_interface_static (type, TUMBLER_TYPE_SCHEDULER, &info);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE_WITH_CODE (TumblerNaiveScheduler, tumbler_naive_scheduler, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
+                                                tumbler_naive_scheduler_iface_init));
 
 
 
@@ -116,11 +75,6 @@ static void
 tumbler_naive_scheduler_class_init (TumblerNaiveSchedulerClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerNaiveSchedulerPrivate));
-
-  /* Determine the parent type class */
-  tumbler_naive_scheduler_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_naive_scheduler_finalize; 
@@ -139,7 +93,6 @@ tumbler_naive_scheduler_iface_init (TumblerSchedulerIface *iface)
 static void
 tumbler_naive_scheduler_init (TumblerNaiveScheduler *scheduler)
 {
-  scheduler->priv = TUMBLER_NAIVE_SCHEDULER_GET_PRIVATE (scheduler);
 }
 
 

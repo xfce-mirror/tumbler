@@ -32,9 +32,8 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_NAIVE_SCHEDULER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_NAIVE_SCHEDULER)
 #define TUMBLER_NAIVE_SCHEDULER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_NAIVE_SCHEDULER, TumblerNaiveSchedulerClass))
 
-typedef struct _TumblerNaiveSchedulerPrivate TumblerNaiveSchedulerPrivate;
-typedef struct _TumblerNaiveSchedulerClass   TumblerNaiveSchedulerClass;
-typedef struct _TumblerNaiveScheduler        TumblerNaiveScheduler;
+typedef struct _TumblerNaiveSchedulerClass TumblerNaiveSchedulerClass;
+typedef struct _TumblerNaiveScheduler      TumblerNaiveScheduler;
 
 GType             tumbler_naive_scheduler_get_type (void) G_GNUC_CONST;
 

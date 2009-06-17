@@ -34,9 +34,8 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_CACHE_SERVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_CACHE_SERVICE)
 #define TUMBLER_CACHE_SERVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_CACHE_SERVICE, TumblerCacheServiceClass))
 
-typedef struct _TumblerCacheServicePrivate TumblerCacheServicePrivate;
-typedef struct _TumblerCacheServiceClass   TumblerCacheServiceClass;
-typedef struct _TumblerCacheService        TumblerCacheService;
+typedef struct _TumblerCacheServiceClass TumblerCacheServiceClass;
+typedef struct _TumblerCacheService      TumblerCacheService;
 
 GType                tumbler_cache_service_get_type   (void) G_GNUC_CONST;
 

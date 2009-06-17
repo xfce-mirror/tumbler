@@ -34,20 +34,6 @@ typedef struct _TumblerProviderInfo TumblerProviderInfo;
 
 
 
-#define TUMBLER_PROVIDER_FACTORY_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_PROVIDER_FACTORY, TumblerProviderFactoryPrivate))
-
-
-
-/* Property identifiers */
-enum
-{
-  PROP_0,
-};
-
-
-
-static void   tumbler_provider_factory_class_init   (TumblerProviderFactoryClass *klass);
-static void   tumbler_provider_factory_init         (TumblerProviderFactory      *factory);
 static void   tumbler_provider_factory_finalize     (GObject                     *object);
 static GList *tumbler_provider_factory_load_plugins (TumblerProviderFactory      *factory);
 
@@ -62,11 +48,6 @@ struct _TumblerProviderFactory
 {
   GObject __parent__;
 
-  TumblerProviderFactoryPrivate *priv;
-};
-
-struct _TumblerProviderFactoryPrivate
-{
   GPtrArray *provider_infos;
 };
 
@@ -78,29 +59,15 @@ struct _TumblerProviderInfo
 
 
 
-static GObjectClass *tumbler_provider_factory_parent_class = NULL;
-static GList        *tumbler_provider_plugins = NULL;
+static GList *tumbler_provider_plugins = NULL;
 
 
 
-GType
-tumbler_provider_factory_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
+G_LOCK_DEFINE_STATIC (factory_lock);
 
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerProviderFactory",
-                                            sizeof (TumblerProviderFactoryClass),
-                                            (GClassInitFunc) tumbler_provider_factory_class_init,
-                                            sizeof (TumblerProviderFactory),
-                                            (GInstanceInitFunc) tumbler_provider_factory_init,
-                                            0);
-    }
 
-  return type;
-}
+
+G_DEFINE_TYPE (TumblerProviderFactory, tumbler_provider_factory, G_TYPE_OBJECT);
 
 
 
@@ -108,11 +75,6 @@ static void
 tumbler_provider_factory_class_init (TumblerProviderFactoryClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerProviderFactoryPrivate));
-
-  /* Determine the parent type class */
-  tumbler_provider_factory_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_provider_factory_finalize; 
@@ -123,8 +85,7 @@ tumbler_provider_factory_class_init (TumblerProviderFactoryClass *klass)
 static void
 tumbler_provider_factory_init (TumblerProviderFactory *factory)
 {
-  factory->priv = TUMBLER_PROVIDER_FACTORY_GET_PRIVATE (factory);
-  factory->priv->provider_infos = g_ptr_array_new ();
+  factory->provider_infos = g_ptr_array_new ();
 }
 
 
@@ -137,20 +98,20 @@ tumbler_provider_factory_finalize (GObject *object)
   guint                   n;
 
   /* release all cached provider infos */
-  for (n = 0; n < factory->priv->provider_infos->len; ++n)
+  for (n = 0; n < factory->provider_infos->len; ++n)
     {
-      info = factory->priv->provider_infos->pdata[n];
+      info = factory->provider_infos->pdata[n];
 
       /* free cached provider objects */
       if (info != NULL && info->provider != NULL)
         g_object_unref (info->provider);
       
       /* free cached provider info */
-      g_slice_free (TumblerProviderInfo, factory->priv->provider_infos->pdata[n]);
+      g_slice_free (TumblerProviderInfo, factory->provider_infos->pdata[n]);
     }
 
   /* free the provider info array */
-  g_ptr_array_free (factory->priv->provider_infos, TRUE);
+  g_ptr_array_free (factory->provider_infos, TRUE);
 
   (*G_OBJECT_CLASS (tumbler_provider_factory_parent_class)->finalize) (object);
 }
@@ -171,8 +132,8 @@ tumbler_provider_factory_add_types (TumblerProviderFactory *factory,
   tumbler_provider_plugin_get_types (plugin, &types, &n_types);
 
   /* resize the provider info array */
-  g_ptr_array_set_size (factory->priv->provider_infos,
-                        factory->priv->provider_infos->len + n_types);
+  g_ptr_array_set_size (factory->provider_infos,
+                        factory->provider_infos->len + n_types);
 
   for (n = 0; n < n_types; ++n)
     {
@@ -182,10 +143,10 @@ tumbler_provider_factory_add_types (TumblerProviderFactory *factory,
       provider_info->provider = NULL;
 
       /* compute the index for this info */
-      index = factory->priv->provider_infos->len - n_types + n;
+      index = factory->provider_infos->len - n_types + n;
 
       /* insert the provider info into the array */
-      factory->priv->provider_infos->pdata[index] = provider_info;
+      factory->provider_infos->pdata[index] = provider_info;
     }
 }
 
@@ -264,6 +225,8 @@ tumbler_provider_factory_get_default (void)
 {
   static TumblerProviderFactory *factory = NULL;
 
+  G_LOCK (factory_lock);
+
   if (factory == NULL)
     {
       factory = g_object_new (TUMBLER_TYPE_PROVIDER_FACTORY, NULL);
@@ -273,6 +236,8 @@ tumbler_provider_factory_get_default (void)
     {
       g_object_ref (factory);
     }
+
+  G_UNLOCK (factory_lock);
 
   return factory;
 }
@@ -289,13 +254,15 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
   GList               *providers = NULL;
   guint                n;
 
+  G_LOCK (factory_lock);
+
   /* load available plugins */
   plugins = tumbler_provider_factory_load_plugins (factory);
 
   /* iterate over all provider infos */
-  for (n = 0; n < factory->priv->provider_infos->len; ++n)
+  for (n = 0; n < factory->provider_infos->len; ++n)
     {
-      info = factory->priv->provider_infos->pdata[n];
+      info = factory->provider_infos->pdata[n];
 
       /* check if the provider type implements the given type */
       if (G_LIKELY (g_type_is_a (info->type, type)))
@@ -313,6 +280,8 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
   for (lp = plugins; lp != NULL; lp = lp->next)
     g_type_module_unuse (G_TYPE_MODULE (lp->data));
   g_list_free (plugins);
+
+  G_UNLOCK (factory_lock);
 
   return providers;
 }

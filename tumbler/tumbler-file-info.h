@@ -36,7 +36,6 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_FILE_INFO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_FILE_INFO)
 #define TUMBLER_FILE_INFO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_FILE_INFO, TumblerFileInfoClass))
 
-typedef struct _TumblerFileInfoPrivate TumblerFileInfoPrivate;
 typedef struct _TumblerFileInfoClass   TumblerFileInfoClass;
 typedef struct _TumblerFileInfo        TumblerFileInfo;
 

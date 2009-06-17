@@ -39,10 +39,6 @@
 
 
 
-#define XDG_CACHE_THUMBNAIL_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), XDG_CACHE_TYPE_THUMBNAIL, XDGCacheThumbnailPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -87,11 +83,6 @@ struct _XDGCacheThumbnail
 {
   GObject __parent__;
 
-  XDGCacheThumbnailPrivate *priv;
-};
-
-struct _XDGCacheThumbnailPrivate
-{
   TumblerThumbnailFlavor flavor;
   XDGCacheCache         *cache;
   gchar                 *uri;
@@ -122,11 +113,6 @@ static void
 xdg_cache_thumbnail_class_init (XDGCacheThumbnailClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (XDGCacheThumbnailPrivate));
-
-  /* Determine the parent type class */
-  xdg_cache_thumbnail_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = xdg_cache_thumbnail_finalize; 
@@ -160,7 +146,6 @@ xdg_cache_thumbnail_thumbnail_init (TumblerThumbnailIface *iface)
 static void
 xdg_cache_thumbnail_init (XDGCacheThumbnail *thumbnail)
 {
-  thumbnail->priv = XDG_CACHE_THUMBNAIL_GET_PRIVATE (thumbnail);
 }
 
 
@@ -170,10 +155,10 @@ xdg_cache_thumbnail_finalize (GObject *object)
 {
   XDGCacheThumbnail *thumbnail = XDG_CACHE_THUMBNAIL (object);
   
-  g_free (thumbnail->priv->uri);
-  g_free (thumbnail->priv->cached_uri);
+  g_free (thumbnail->uri);
+  g_free (thumbnail->cached_uri);
 
-  g_object_unref (thumbnail->priv->cache);
+  g_object_unref (thumbnail->cache);
 
   (*G_OBJECT_CLASS (xdg_cache_thumbnail_parent_class)->finalize) (object);
 }
@@ -191,13 +176,13 @@ xdg_cache_thumbnail_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_CACHE:
-      g_value_set_object (value, TUMBLER_CACHE (thumbnail->priv->cache));
+      g_value_set_object (value, TUMBLER_CACHE (thumbnail->cache));
       break;
     case PROP_URI:
-      g_value_set_string (value, thumbnail->priv->uri);
+      g_value_set_string (value, thumbnail->uri);
       break;
     case PROP_FLAVOR:
-      g_value_set_enum (value, thumbnail->priv->flavor);
+      g_value_set_enum (value, thumbnail->flavor);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -218,13 +203,13 @@ xdg_cache_thumbnail_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CACHE:
-      thumbnail->priv->cache = XDG_CACHE_CACHE (g_value_dup_object (value));
+      thumbnail->cache = XDG_CACHE_CACHE (g_value_dup_object (value));
       break;
     case PROP_URI:
-      thumbnail->priv->uri = g_value_dup_string (value);
+      thumbnail->uri = g_value_dup_string (value);
       break;
     case PROP_FLAVOR:
-      thumbnail->priv->flavor = g_value_get_enum (value);
+      thumbnail->flavor = g_value_get_enum (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -247,21 +232,21 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-  g_return_val_if_fail (cache_thumbnail->priv->uri != NULL, FALSE);
-  g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache_thumbnail->priv->cache), FALSE);
+  g_return_val_if_fail (cache_thumbnail->uri != NULL, FALSE);
+  g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache_thumbnail->cache), FALSE);
 
-  file = xdg_cache_cache_get_file (cache_thumbnail->priv->uri, 
-                                   cache_thumbnail->priv->flavor);
+  file = xdg_cache_cache_get_file (cache_thumbnail->uri, 
+                                   cache_thumbnail->flavor);
   path = g_file_get_path (file);
   g_object_unref (file);
 
-  g_free (cache_thumbnail->priv->cached_uri);
-  cache_thumbnail->priv->cached_uri = NULL;
-  cache_thumbnail->priv->cached_mtime = 0;
+  g_free (cache_thumbnail->cached_uri);
+  cache_thumbnail->cached_uri = NULL;
+  cache_thumbnail->cached_mtime = 0;
 
   xdg_cache_cache_read_thumbnail_info (path, 
-                                       &cache_thumbnail->priv->cached_uri,
-                                       &cache_thumbnail->priv->cached_mtime,
+                                       &cache_thumbnail->cached_uri,
+                                       &cache_thumbnail->cached_mtime,
                                        cancellable, &err);
 
   /* free the filename */
@@ -290,14 +275,14 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (uri != NULL && *uri != '\0', FALSE);
 
-  if (cache_thumbnail->priv->cached_uri == NULL)
+  if (cache_thumbnail->cached_uri == NULL)
     return TRUE;
 
-  if (cache_thumbnail->priv->cached_mtime == 0)
+  if (cache_thumbnail->cached_mtime == 0)
     return TRUE;
 
-  return g_utf8_collate (cache_thumbnail->priv->uri, uri) != 0 
-    || cache_thumbnail->priv->cached_mtime != mtime;
+  return g_utf8_collate (cache_thumbnail->uri, uri) != 0 
+    || cache_thumbnail->cached_mtime != mtime;
 }
 
 
@@ -343,8 +328,8 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
   gdk_pixbuf_copy_area (pixbuf, 0, 0, width, height, dest_pixbuf, 0, 0);
 
   /* determine the URI of the temporary file to write to */
-  temp_file = xdg_cache_cache_get_temp_file (cache_thumbnail->priv->uri,
-                                             cache_thumbnail->priv->flavor);
+  temp_file = xdg_cache_cache_get_temp_file (cache_thumbnail->uri,
+                                             cache_thumbnail->flavor);
   
   /* determine the flavor directory and its path */
   flavor_dir = g_file_get_parent (temp_file);
@@ -369,13 +354,13 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
       /* try to save the pixbuf */
       if (gdk_pixbuf_save_to_stream (dest_pixbuf, G_OUTPUT_STREAM (stream), "png",
                                      cancellable, &err, 
-                                     "tEXt::Thumb::URI", cache_thumbnail->priv->uri,
+                                     "tEXt::Thumb::URI", cache_thumbnail->uri,
                                      "tEXt::Thumb::MTime", mtime_str,
                                      NULL))
         {
           /* saving succeeded, termine the final destination of the thumbnail */
-          dest_file = xdg_cache_cache_get_file (cache_thumbnail->priv->uri, 
-                                                cache_thumbnail->priv->flavor);
+          dest_file = xdg_cache_cache_get_file (cache_thumbnail->uri, 
+                                                cache_thumbnail->flavor);
 
           /* determine temp and destination paths */
           temp_path = g_file_get_path (temp_file);
@@ -414,9 +399,9 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
     }
   else
     {
-      g_free (cache_thumbnail->priv->cached_uri);
-      cache_thumbnail->priv->cached_uri = g_strdup (cache_thumbnail->priv->uri);
-      cache_thumbnail->priv->cached_mtime = mtime;
+      g_free (cache_thumbnail->cached_uri);
+      cache_thumbnail->cached_uri = g_strdup (cache_thumbnail->uri);
+      cache_thumbnail->cached_mtime = mtime;
       return TRUE;
     }
 }

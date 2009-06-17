@@ -34,10 +34,6 @@
 
 
 
-#define TUMBLER_FILE_INFO_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_FILE_INFO, TumblerFileInfoPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -48,8 +44,6 @@ enum
 
 
 
-static void tumbler_file_info_class_init   (TumblerFileInfoClass *klass);
-static void tumbler_file_info_init         (TumblerFileInfo      *info);
 static void tumbler_file_info_finalize     (GObject              *object);
 static void tumbler_file_info_get_property (GObject              *object,
                                             guint                 prop_id,
@@ -71,11 +65,6 @@ struct _TumblerFileInfo
 {
   GObject __parent__;
 
-  TumblerFileInfoPrivate *priv;
-};
-
-struct _TumblerFileInfoPrivate
-{
   guint64 mtime; 
   GList  *thumbnails;
   gchar  *uri;
@@ -83,28 +72,8 @@ struct _TumblerFileInfoPrivate
 
 
 
-static GObjectClass *tumbler_file_info_parent_class = NULL;
 
-
-
-GType
-tumbler_file_info_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerFileInfo",
-                                            sizeof (TumblerFileInfoClass),
-                                            (GClassInitFunc) tumbler_file_info_class_init,
-                                            sizeof (TumblerFileInfo),
-                                            (GInstanceInitFunc) tumbler_file_info_init,
-                                            0);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE (TumblerFileInfo, tumbler_file_info, G_TYPE_OBJECT);
 
 
 
@@ -112,11 +81,6 @@ static void
 tumbler_file_info_class_init (TumblerFileInfoClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerFileInfoPrivate));
-
-  /* Determine the parent type class */
-  tumbler_file_info_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_file_info_finalize; 
@@ -144,10 +108,9 @@ tumbler_file_info_class_init (TumblerFileInfoClass *klass)
 static void
 tumbler_file_info_init (TumblerFileInfo *info)
 {
-  info->priv = TUMBLER_FILE_INFO_GET_PRIVATE (info);
-  info->priv->mtime = 0;
-  info->priv->uri = NULL;
-  info->priv->thumbnails = NULL;
+  info->mtime = 0;
+  info->uri = NULL;
+  info->thumbnails = NULL;
 }
 
 
@@ -157,8 +120,8 @@ tumbler_file_info_finalize (GObject *object)
 {
   TumblerFileInfo *info = TUMBLER_FILE_INFO (object);
 
-  g_list_foreach (info->priv->thumbnails, (GFunc) g_object_unref, NULL);
-  g_list_free (info->priv->thumbnails);
+  g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
+  g_list_free (info->thumbnails);
 
   (*G_OBJECT_CLASS (tumbler_file_info_parent_class)->finalize) (object);
 }
@@ -176,10 +139,10 @@ tumbler_file_info_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_MTIME:
-      g_value_set_uint64 (value, info->priv->mtime);
+      g_value_set_uint64 (value, info->mtime);
       break;
     case PROP_URI:
-      g_value_set_string (value, info->priv->uri);
+      g_value_set_string (value, info->uri);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -200,10 +163,10 @@ tumbler_file_info_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_MTIME:
-      info->priv->mtime = g_value_get_uint64 (value);
+      info->mtime = g_value_get_uint64 (value);
       break;
     case PROP_URI:
-      info->priv->uri = g_value_dup_string (value);
+      info->uri = g_value_dup_string (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -243,7 +206,7 @@ tumbler_file_info_load (TumblerFileInfo *info,
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
   /* create a GFile for the URI */
-  file = g_file_new_for_uri (info->priv->uri);
+  file = g_file_new_for_uri (info->uri);
 
   /* query the modified time from the file */
   file_info = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED, 
@@ -260,7 +223,7 @@ tumbler_file_info_load (TumblerFileInfo *info,
     }
 
   /* read and remember the modified time */
-  info->priv->mtime = g_file_info_get_attribute_uint64 (file_info,
+  info->mtime = g_file_info_get_attribute_uint64 (file_info,
                                                         G_FILE_ATTRIBUTE_TIME_MODIFIED);
 
   /* we no longer need the file information */
@@ -268,9 +231,9 @@ tumbler_file_info_load (TumblerFileInfo *info,
 
   /* make sure to clear the thumbnails list before we load the info, just in
    * case someone decides to load the info twice */
-  g_list_foreach (info->priv->thumbnails, (GFunc) g_object_unref, NULL);
-  g_list_free (info->priv->thumbnails);
-  info->priv->thumbnails = NULL;
+  g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
+  g_list_free (info->thumbnails);
+  info->thumbnails = NULL;
 
   /* get the provider factory */
   provider_factory = tumbler_provider_factory_get_default ();
@@ -289,10 +252,10 @@ tumbler_file_info_load (TumblerFileInfo *info,
       for (cp = caches; err == NULL && cp != NULL; cp = cp->next)
         {
           /* check if the file itself is a thumbnail */
-          if (!tumbler_cache_is_thumbnail (cp->data, info->priv->uri))
+          if (!tumbler_cache_is_thumbnail (cp->data, info->uri))
             {
               /* query thumbnail infos for this URI from the current cache */
-              thumbnails = tumbler_cache_get_thumbnails (cp->data, info->priv->uri);
+              thumbnails = tumbler_cache_get_thumbnails (cp->data, info->uri);
 
               /* try to load thumbnail infos. the loop will terminate if 
                * one of them fails */
@@ -300,14 +263,14 @@ tumbler_file_info_load (TumblerFileInfo *info,
                 tumbler_thumbnail_load (tp->data, cancellable, &err);
 
               /* add all queried thumbnails to the list */
-              info->priv->thumbnails = g_list_concat (info->priv->thumbnails, 
+              info->thumbnails = g_list_concat (info->thumbnails, 
                                                       thumbnails);
             }
           else
             {
               /* we don't allow the generation of thumbnails for thumbnails */
               g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_IS_THUMBNAIL,
-                           _("The file \"%s\" is a thumbnail itself"), info->priv->uri);
+                           _("The file \"%s\" is a thumbnail itself"), info->uri);
             }
         }
 
@@ -329,9 +292,9 @@ tumbler_file_info_load (TumblerFileInfo *info,
       g_propagate_error (error, err);
 
       /* release thumbnails as we assume not to have any on errors */
-      g_list_foreach (info->priv->thumbnails, (GFunc) g_object_unref, NULL);
-      g_list_free (info->priv->thumbnails);
-      info->priv->thumbnails = NULL;
+      g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
+      g_list_free (info->thumbnails);
+      info->thumbnails = NULL;
 
       return FALSE;
     }
@@ -347,7 +310,7 @@ const gchar *
 tumbler_file_info_get_uri (TumblerFileInfo *info)
 {
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), NULL);
-  return info->priv->uri;
+  return info->uri;
 }
 
 
@@ -356,7 +319,7 @@ guint64
 tumbler_file_info_get_mtime (TumblerFileInfo *info)
 {
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), 0);
-  return info->priv->mtime;
+  return info->mtime;
 }
 
 
@@ -370,11 +333,11 @@ tumbler_file_info_needs_update (TumblerFileInfo *info)
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), FALSE);
 
   /* iterate over all thumbnails and check if at least one of them needs an update */
-  for (lp = info->priv->thumbnails; !needs_update && lp != NULL; lp = lp->next)
+  for (lp = info->thumbnails; !needs_update && lp != NULL; lp = lp->next)
     {
       needs_update = needs_update || tumbler_thumbnail_needs_update (lp->data, 
-                                                                     info->priv->uri,
-                                                                     info->priv->mtime);
+                                                                     info->uri,
+                                                                     info->mtime);
     }
 
   return needs_update;
@@ -386,5 +349,5 @@ GList *
 tumbler_file_info_get_thumbnails (TumblerFileInfo *info)
 {
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), NULL);
-  return info->priv->thumbnails;
+  return info->thumbnails;
 }

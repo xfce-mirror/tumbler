@@ -32,9 +32,8 @@ G_BEGIN_DECLS;
 #define PIXBUF_THUMBNAILER_IS_PROVIDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), PIXBUF_THUMBNAILER_TYPE_PROVIDER)
 #define PIXBUF_THUMBNAILER_PROVIDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), PIXBUF_THUMBNAILER_TYPE_PROVIDER, PixbufThumbnailerProviderClass))
 
-typedef struct _PixbufThumbnailerProviderPrivate PixbufThumbnailerProviderPrivate;
-typedef struct _PixbufThumbnailerProviderClass   PixbufThumbnailerProviderClass;
-typedef struct _PixbufThumbnailerProvider        PixbufThumbnailerProvider;
+typedef struct _PixbufThumbnailerProviderClass PixbufThumbnailerProviderClass;
+typedef struct _PixbufThumbnailerProvider      PixbufThumbnailerProvider;
 
 GType pixbuf_thumbnailer_provider_get_type (void) G_GNUC_CONST;
 void  pixbuf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);

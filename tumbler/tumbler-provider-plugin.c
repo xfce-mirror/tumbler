@@ -31,10 +31,6 @@
 
 
 
-#define TUMBLER_PROVIDER_PLUGIN_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_PROVIDER_PLUGIN, TumblerProviderPluginPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -43,8 +39,6 @@ enum
 
 
 
-static void     tumbler_provider_plugin_class_init   (TumblerProviderPluginClass *klass);
-static void     tumbler_provider_plugin_init         (TumblerProviderPlugin      *plugin);
 static void     tumbler_provider_plugin_finalize     (GObject                    *object);
 static gboolean tumbler_provider_plugin_load         (GTypeModule                *type_module);
 static void     tumbler_provider_plugin_unload       (GTypeModule                *type_module);
@@ -60,11 +54,6 @@ struct _TumblerProviderPlugin
 {
   GTypeModule __parent__;
 
-  TumblerProviderPluginPrivate *priv;
-};
-
-struct _TumblerProviderPluginPrivate
-{
   GModule *library;
 
   void (*initialize) (TumblerProviderPlugin *plugin);
@@ -75,28 +64,7 @@ struct _TumblerProviderPluginPrivate
 
 
 
-static GObjectClass *tumbler_provider_plugin_parent_class = NULL;
-
-
-
-GType
-tumbler_provider_plugin_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      type = g_type_register_static_simple (G_TYPE_TYPE_MODULE, 
-                                            "TumblerProviderPlugin",
-                                            sizeof (TumblerProviderPluginClass),
-                                            (GClassInitFunc) tumbler_provider_plugin_class_init,
-                                            sizeof (TumblerProviderPlugin),
-                                            (GInstanceInitFunc) tumbler_provider_plugin_init,
-                                            0);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE (TumblerProviderPlugin, tumbler_provider_plugin, G_TYPE_TYPE_MODULE);
 
 
 
@@ -105,11 +73,6 @@ tumbler_provider_plugin_class_init (TumblerProviderPluginClass *klass)
 {
   GTypeModuleClass *gtype_module_class;
   GObjectClass     *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerProviderPluginPrivate));
-
-  /* Determine the parent type class */
-  tumbler_provider_plugin_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_provider_plugin_finalize; 
@@ -124,7 +87,6 @@ tumbler_provider_plugin_class_init (TumblerProviderPluginClass *klass)
 static void
 tumbler_provider_plugin_init (TumblerProviderPlugin *plugin)
 {
-  plugin->priv = TUMBLER_PROVIDER_PLUGIN_GET_PRIVATE (plugin);
 }
 
 
@@ -134,8 +96,8 @@ tumbler_provider_plugin_finalize (GObject *object)
 {
   TumblerProviderPlugin *plugin = TUMBLER_PROVIDER_PLUGIN (object);
 
-  if (plugin->priv->library != NULL)
-    g_module_close (plugin->priv->library);
+  if (plugin->library != NULL)
+    g_module_close (plugin->library);
 
   (*G_OBJECT_CLASS (tumbler_provider_plugin_parent_class)->finalize) (object);
 }
@@ -150,28 +112,28 @@ tumbler_provider_plugin_load (GTypeModule *type_module)
 
   /* load the module using the runtime link editor */
   path = g_build_filename (TUMBLER_PLUGIN_DIRECTORY, type_module->name, NULL);
-  plugin->priv->library = g_module_open (path, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
+  plugin->library = g_module_open (path, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
   g_free (path);
 
   /* check if the load operation was successful */
-  if (G_UNLIKELY (plugin->priv->library != NULL))
+  if (G_UNLIKELY (plugin->library != NULL))
     {
       /* verify that all required public symbols are present in the plugin */
-      if (g_module_symbol (plugin->priv->library, "tumbler_plugin_initialize", 
-                            (gpointer) &plugin->priv->initialize)
-          && g_module_symbol (plugin->priv->library, "tumbler_plugin_shutdown",
-                              (gpointer) &plugin->priv->shutdown)
-          && g_module_symbol (plugin->priv->library, "tumbler_plugin_get_types",
-                              (gpointer) &plugin->priv->get_types))
+      if (g_module_symbol (plugin->library, "tumbler_plugin_initialize", 
+                            (gpointer) &plugin->initialize)
+          && g_module_symbol (plugin->library, "tumbler_plugin_shutdown",
+                              (gpointer) &plugin->shutdown)
+          && g_module_symbol (plugin->library, "tumbler_plugin_get_types",
+                              (gpointer) &plugin->get_types))
         {
           /* initialize the plugin */
-          (*plugin->priv->initialize) (plugin);
+          (*plugin->initialize) (plugin);
           return TRUE;
         }
       else
         {
           g_warning (_("Plugin \"%s\" lacks required symbols."), type_module->name);
-          g_module_close (plugin->priv->library);
+          g_module_close (plugin->library);
           return FALSE;
         }
     }
@@ -191,17 +153,17 @@ tumbler_provider_plugin_unload (GTypeModule *type_module)
   TumblerProviderPlugin *plugin = TUMBLER_PROVIDER_PLUGIN (type_module);
 
   /* shutdown the plugin */
-  (*plugin->priv->shutdown) ();
+  (*plugin->shutdown) ();
 
   /* unload the plugin from memory */
-  g_module_close (plugin->priv->library);
-  plugin->priv->library = NULL;
+  g_module_close (plugin->library);
+  plugin->library = NULL;
 
   /* reset plugin state */
-  plugin->priv->library = NULL;
-  plugin->priv->initialize = NULL;
-  plugin->priv->shutdown = NULL;
-  plugin->priv->get_types = NULL;
+  plugin->library = NULL;
+  plugin->initialize = NULL;
+  plugin->shutdown = NULL;
+  plugin->get_types = NULL;
 }
 
 
@@ -227,9 +189,9 @@ tumbler_provider_plugin_get_types (const TumblerProviderPlugin *plugin,
                                    gint                        *n_types)
 {
   g_return_if_fail (TUMBLER_IS_PROVIDER_PLUGIN (plugin));
-  g_return_if_fail (plugin->priv->get_types != NULL);
+  g_return_if_fail (plugin->get_types != NULL);
   g_return_if_fail (types != NULL);
   g_return_if_fail (n_types != NULL);
 
-  (*plugin->priv->get_types) (types, n_types);
+  (*plugin->get_types) (types, n_types);
 }

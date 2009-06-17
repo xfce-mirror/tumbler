@@ -112,8 +112,6 @@ xdg_cache_cache_register (TumblerProviderPlugin *plugin)
 static void
 xdg_cache_cache_class_init (XDGCacheCacheClass *klass)
 {
-  /* Determine the parent type class */
-  xdg_cache_cache_parent_class = g_type_class_peek_parent (klass);
 }
 
 

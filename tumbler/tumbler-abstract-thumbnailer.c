@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann<t_ý^> <jannis@xfce.org>
+ * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -86,9 +86,6 @@ tumbler_abstract_thumbnailer_class_init (TumblerAbstractThumbnailerClass *klass)
   GObjectClass *gobject_class;
 
   g_type_class_add_private (klass, sizeof (TumblerAbstractThumbnailerPrivate));
-
-  /* Determine the parent type class */
-  tumbler_abstract_thumbnailer_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->constructed = tumbler_abstract_thumbnailer_constructed; 

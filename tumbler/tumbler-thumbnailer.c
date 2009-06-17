@@ -49,22 +49,25 @@ static guint tumbler_thumbnailer_signals[LAST_SIGNAL];
 GType
 tumbler_thumbnailer_get_type (void)
 {
-  static GType type = G_TYPE_INVALID;
+  static volatile gsize g_define_type_id__volatile = 0;
   
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
+  if (g_once_init_enter (&g_define_type_id__volatile))
     {
-      type = g_type_register_static_simple (G_TYPE_INTERFACE,
-                                            "TumblerThumbnailer",
-                                            sizeof (TumblerThumbnailerIface),
-                                            (GClassInitFunc) tumbler_thumbnailer_class_init,
-                                            0,
-                                            NULL,
-                                            0);
+      GType g_define_type_id =
+        g_type_register_static_simple (G_TYPE_INTERFACE,
+                                       "TumblerThumbnailer",
+                                       sizeof (TumblerThumbnailerIface),
+                                       (GClassInitFunc) tumbler_thumbnailer_class_init,
+                                       0,
+                                       NULL,
+                                       0);
 
-      g_type_interface_add_prerequisite (type, G_TYPE_OBJECT);
+      g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
+
+      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
     }
 
-  return type;
+  return g_define_type_id__volatile;
 }
 
 

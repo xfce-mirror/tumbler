@@ -34,9 +34,8 @@ G_BEGIN_DECLS;
 #define TUMBLER_IS_SERVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_SERVICE)
 #define TUMBLER_SERVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_SERVICE, TumblerServiceClass))
 
-typedef struct _TumblerServicePrivate TumblerServicePrivate;
-typedef struct _TumblerServiceClass   TumblerServiceClass;
-typedef struct _TumblerService        TumblerService;
+typedef struct _TumblerServiceClass TumblerServiceClass;
+typedef struct _TumblerService      TumblerService;
 
 GType           tumbler_service_get_type (void) G_GNUC_CONST;
 

@@ -45,10 +45,6 @@ typedef struct _CleanupRequest CleanupRequest;
 
 
 
-#define TUMBLER_CACHE_SERVICE_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_CACHE_SERVICE, TumblerCacheServicePrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -58,26 +54,24 @@ enum
 
 
 
-static void tumbler_cache_service_class_init     (TumblerCacheServiceClass *klass);
-static void tumbler_cache_service_init           (TumblerCacheService      *service);
-static void tumbler_cache_service_constructed    (GObject                  *object);
-static void tumbler_cache_service_finalize       (GObject                  *object);
-static void tumbler_cache_service_get_property   (GObject                  *object,
-                                                  guint                     prop_id,
-                                                  GValue                   *value,
-                                                  GParamSpec               *pspec);
-static void tumbler_cache_service_set_property   (GObject                  *object,
-                                                  guint                     prop_id,
-                                                  const GValue             *value,
-                                                  GParamSpec               *pspec);
-static void tumbler_cache_service_move_thread    (gpointer                  data,
-                                                  gpointer                  user_data);
-static void tumbler_cache_service_copy_thread    (gpointer                  data,
-                                                  gpointer                  user_data);
-static void tumbler_cache_service_delete_thread  (gpointer                  data,
-                                                  gpointer                  user_data);
-static void tumbler_cache_service_cleanup_thread (gpointer                  data,
-                                                  gpointer                  user_data);
+static void tumbler_cache_service_constructed    (GObject      *object);
+static void tumbler_cache_service_finalize       (GObject      *object);
+static void tumbler_cache_service_get_property   (GObject      *object,
+                                                  guint         prop_id,
+                                                  GValue       *value,
+                                                  GParamSpec   *pspec);
+static void tumbler_cache_service_set_property   (GObject      *object,
+                                                  guint         prop_id,
+                                                  const GValue *value,
+                                                  GParamSpec   *pspec);
+static void tumbler_cache_service_move_thread    (gpointer      data,
+                                                  gpointer      user_data);
+static void tumbler_cache_service_copy_thread    (gpointer      data,
+                                                  gpointer      user_data);
+static void tumbler_cache_service_delete_thread  (gpointer      data,
+                                                  gpointer      user_data);
+static void tumbler_cache_service_cleanup_thread (gpointer      data,
+                                                  gpointer      user_data);
 
 
 
@@ -90,11 +84,6 @@ struct _TumblerCacheService
 {
   GObject __parent__;
 
-  TumblerCacheServicePrivate *priv;
-};
-
-struct _TumblerCacheServicePrivate
-{
   DBusGConnection *connection;
   GThreadPool     *move_pool;
   GThreadPool     *copy_pool;
@@ -129,28 +118,7 @@ struct _CleanupRequest
 
 
 
-static GObjectClass *tumbler_cache_service_parent_class = NULL;
-
-
-
-GType
-tumbler_cache_service_get_type (void)
-{
-  static GType type = G_TYPE_INVALID;
-
-  if (G_UNLIKELY (type == G_TYPE_INVALID))
-    {
-      type = g_type_register_static_simple (G_TYPE_OBJECT, 
-                                            "TumblerCacheService",
-                                            sizeof (TumblerCacheServiceClass),
-                                            (GClassInitFunc) tumbler_cache_service_class_init,
-                                            sizeof (TumblerCacheService),
-                                            (GInstanceInitFunc) tumbler_cache_service_init,
-                                            0);
-    }
-
-  return type;
-}
+G_DEFINE_TYPE (TumblerCacheService, tumbler_cache_service, G_TYPE_OBJECT);
 
 
 
@@ -158,11 +126,6 @@ static void
 tumbler_cache_service_class_init (TumblerCacheServiceClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerCacheServicePrivate));
-
-  /* Determine the parent type class */
-  tumbler_cache_service_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->constructed = tumbler_cache_service_constructed; 
@@ -183,8 +146,7 @@ tumbler_cache_service_class_init (TumblerCacheServiceClass *klass)
 static void
 tumbler_cache_service_init (TumblerCacheService *service)
 {
-  service->priv = TUMBLER_CACHE_SERVICE_GET_PRIVATE (service);
-  service->priv->mutex = g_mutex_new ();
+  service->mutex = g_mutex_new ();
 }
 
 
@@ -203,25 +165,25 @@ tumbler_cache_service_constructed (GObject *object)
                                                       TUMBLER_TYPE_CACHE_PROVIDER);
   g_object_unref (factory);
 
-  service->priv->caches = NULL;
+  service->caches = NULL;
 
   for (lp = providers; lp != NULL; lp = lp->next)
     {
       caches = tumbler_cache_provider_get_caches (lp->data);
-      service->priv->caches = g_list_concat (service->priv->caches, caches);
+      service->caches = g_list_concat (service->caches, caches);
     }
 
   g_list_foreach (providers, (GFunc) g_object_unref, NULL);
   g_list_free (providers);
 
-  service->priv->move_pool = g_thread_pool_new (tumbler_cache_service_move_thread, 
-                                                service, 1, TRUE, NULL);
-  service->priv->copy_pool = g_thread_pool_new (tumbler_cache_service_copy_thread, 
-                                                service, 1, TRUE, NULL);
-  service->priv->delete_pool = g_thread_pool_new (tumbler_cache_service_delete_thread,
-                                                  service, 1, TRUE, NULL);
-  service->priv->cleanup_pool = g_thread_pool_new (tumbler_cache_service_cleanup_thread, 
-                                                   service, 1, TRUE, NULL);
+  service->move_pool = g_thread_pool_new (tumbler_cache_service_move_thread, 
+                                          service, 1, FALSE, NULL);
+  service->copy_pool = g_thread_pool_new (tumbler_cache_service_copy_thread, 
+                                          service, 1, FALSE, NULL);
+  service->delete_pool = g_thread_pool_new (tumbler_cache_service_delete_thread,
+                                            service, 1, FALSE, NULL);
+  service->cleanup_pool = g_thread_pool_new (tumbler_cache_service_cleanup_thread, 
+                                             service, 1, FALSE, NULL);
 }
 
 
@@ -231,17 +193,17 @@ tumbler_cache_service_finalize (GObject *object)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (object);
 
-  g_thread_pool_free (service->priv->move_pool, TRUE, TRUE);
-  g_thread_pool_free (service->priv->copy_pool, TRUE, TRUE);
-  g_thread_pool_free (service->priv->delete_pool, TRUE, TRUE);
-  g_thread_pool_free (service->priv->cleanup_pool, TRUE, TRUE);
+  g_thread_pool_free (service->move_pool, TRUE, TRUE);
+  g_thread_pool_free (service->copy_pool, TRUE, TRUE);
+  g_thread_pool_free (service->delete_pool, TRUE, TRUE);
+  g_thread_pool_free (service->cleanup_pool, TRUE, TRUE);
 
-  g_list_foreach (service->priv->caches, (GFunc) g_object_unref, NULL);
-  g_list_free (service->priv->caches);
+  g_list_foreach (service->caches, (GFunc) g_object_unref, NULL);
+  g_list_free (service->caches);
 
-  dbus_g_connection_unref (service->priv->connection);
+  dbus_g_connection_unref (service->connection);
 
-  g_mutex_free (service->priv->mutex);
+  g_mutex_free (service->mutex);
 
   (*G_OBJECT_CLASS (tumbler_cache_service_parent_class)->finalize) (object);
 }
@@ -259,7 +221,7 @@ tumbler_cache_service_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      g_value_set_pointer (value, service->priv->connection);
+      g_value_set_pointer (value, service->connection);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -280,7 +242,7 @@ tumbler_cache_service_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      service->priv->connection = dbus_g_connection_ref (g_value_get_pointer (value));
+      service->connection = dbus_g_connection_ref (g_value_get_pointer (value));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -301,16 +263,16 @@ tumbler_cache_service_move_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
-  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+  for (lp = service->caches; lp != NULL; lp = lp->next)
     tumbler_cache_move (lp->data, request->from_uris, request->to_uris);
 
   g_strfreev (request->from_uris);
   g_strfreev (request->to_uris);
   g_slice_free (MoveRequest, request);
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 }
 
 
@@ -326,16 +288,16 @@ tumbler_cache_service_copy_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
-  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+  for (lp = service->caches; lp != NULL; lp = lp->next)
     tumbler_cache_copy (lp->data, request->from_uris, request->to_uris);
 
   g_strfreev (request->from_uris);
   g_strfreev (request->to_uris);
   g_slice_free (CopyRequest, request);
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 }
 
 
@@ -351,15 +313,15 @@ tumbler_cache_service_delete_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
-  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+  for (lp = service->caches; lp != NULL; lp = lp->next)
     tumbler_cache_delete (lp->data, request->uris);
 
   g_strfreev (request->uris);
   g_slice_free (DeleteRequest, request);
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 }
 
 
@@ -375,15 +337,15 @@ tumbler_cache_service_cleanup_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
-  for (lp = service->priv->caches; lp != NULL; lp = lp->next)
+  for (lp = service->caches; lp != NULL; lp = lp->next)
     tumbler_cache_cleanup (lp->data, request->uri_prefix, request->since);
 
   g_free (request->uri_prefix);
   g_slice_free (CleanupRequest, request);
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 }
 
 
@@ -407,13 +369,13 @@ tumbler_cache_service_start (TumblerCacheService *service,
   g_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (service->priv->mutex);
+  g_mutex_lock (service->mutex);
 
   /* initialize the D-Bus error */
   dbus_error_init (&dbus_error);
 
   /* get the native D-Bus connection */
-  connection = dbus_g_connection_get_connection (service->priv->connection);
+  connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the cache interface */
   result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Cache", 
@@ -436,7 +398,7 @@ tumbler_cache_service_start (TumblerCacheService *service,
                        _("Another thumbnail cache service is already running"));
         }
 
-      g_mutex_unlock (service->priv->mutex);
+      g_mutex_unlock (service->mutex);
 
       return FALSE;
     }
@@ -446,11 +408,11 @@ tumbler_cache_service_start (TumblerCacheService *service,
                                    &dbus_glib_tumbler_cache_service_object_info);
 
   /* register the cache instance as a handler of the cache interface */
-  dbus_g_connection_register_g_object (service->priv->connection, 
+  dbus_g_connection_register_g_object (service->connection, 
                                        "/org/freedesktop/thumbnails/Cache",
                                        G_OBJECT (service));
 
-  g_mutex_unlock (service->priv->mutex);
+  g_mutex_unlock (service->mutex);
 
   return TRUE;
 }
@@ -474,7 +436,7 @@ tumbler_cache_service_move (TumblerCacheService   *service,
   request->from_uris = g_strdupv (from_uris);
   request->to_uris = g_strdupv (to_uris);
 
-  g_thread_pool_push (service->priv->move_pool, request, NULL);
+  g_thread_pool_push (service->move_pool, request, NULL);
 
   dbus_g_method_return (context);
 }
@@ -498,7 +460,7 @@ tumbler_cache_service_copy (TumblerCacheService   *service,
   request->from_uris = g_strdupv (from_uris);
   request->to_uris = g_strdupv (to_uris);
 
-  g_thread_pool_push (service->priv->copy_pool, request, NULL);
+  g_thread_pool_push (service->copy_pool, request, NULL);
 
   dbus_g_method_return (context);
 }
@@ -518,7 +480,7 @@ tumbler_cache_service_delete (TumblerCacheService   *service,
   request = g_slice_new0 (DeleteRequest);
   request->uris = g_strdupv (uris);
 
-  g_thread_pool_push (service->priv->delete_pool, request, NULL);
+  g_thread_pool_push (service->delete_pool, request, NULL);
 
   dbus_g_method_return (context);
 }
@@ -539,7 +501,7 @@ tumbler_cache_service_cleanup (TumblerCacheService   *service,
   request->uri_prefix = g_strdup (uri_prefix);
   request->since = since;
 
-  g_thread_pool_push (service->priv->cleanup_pool, request, NULL);
+  g_thread_pool_push (service->cleanup_pool, request, NULL);
 
   dbus_g_method_return (context);
 }

@@ -32,9 +32,8 @@ G_BEGIN_DECLS
 #define TUMBLER_IS_REGISTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_REGISTRY)
 #define TUMBLER_REGISTRY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_REGISTRY, TumblerRegistryClass))
 
-typedef struct _TumblerRegistryPrivate TumblerRegistryPrivate;
-typedef struct _TumblerRegistryClass   TumblerRegistryClass;
-typedef struct _TumblerRegistry        TumblerRegistry;
+typedef struct _TumblerRegistryClass TumblerRegistryClass;
+typedef struct _TumblerRegistry      TumblerRegistry;
 
 GType                tumbler_registry_get_type              (void) G_GNUC_CONST;
 
