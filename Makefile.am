@@ -19,9 +19,9 @@
 
 SUBDIRS =								\
 	docs								\
-	plugins								\
 	po								\
 	tumbler								\
+	plugins								\
 	tumblerd
 
 DISTCHECK_CONFIGURE_FLAGS =						\
