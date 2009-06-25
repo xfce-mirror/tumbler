@@ -60,6 +60,11 @@ struct _TumblerThumbnailIface
                             guint64           mtime,
                             GCancellable     *cancellable,
                             GError          **error);
+  gboolean (*save_file)    (TumblerThumbnail *thumbnail,
+                            GFile            *file,
+                            guint64           mtime,
+                            GCancellable     *cancellable,
+                            GError          **error);
 };
 
 GType                   tumbler_thumbnail_get_type        (void) G_GNUC_CONST;
@@ -72,6 +77,11 @@ gboolean                tumbler_thumbnail_needs_update    (TumblerThumbnail     
                                                            guint64                mtime);
 gboolean                tumbler_thumbnail_save_pixbuf     (TumblerThumbnail      *thumbnail,
                                                            GdkPixbuf             *pixbuf,
+                                                           guint64                mtime,
+                                                           GCancellable          *cancellable,
+                                                           GError               **error);
+gboolean                tumbler_thumbnail_save_file       (TumblerThumbnail      *thumbnail,
+                                                           GFile                 *file,
                                                            guint64                mtime,
                                                            GCancellable          *cancellable,
                                                            GError               **error);

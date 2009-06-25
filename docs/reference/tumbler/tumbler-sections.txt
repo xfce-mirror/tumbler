@@ -36,6 +36,7 @@ TumblerThumbnailIface
 tumbler_thumbnail_load
 tumbler_thumbnail_needs_update
 tumbler_thumbnail_save_pixbuf
+tumbler_thumbnail_save_file
 tumbler_thumbnail_get_cache
 tumbler_thumbnail_get_flavor
 tumbler_thumbnail_get_flavors
