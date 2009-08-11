@@ -5,7 +5,7 @@
  xmlns:gnome="http://api.gnome.org/doap-extensions#"
  xmlns="http://usefulinc.com/ns/doap#">
 
- <name xml:lang="en">airconfig</name>
+ <name xml:lang="en">tumbler</name>
  <shortdesc xml:lang="en">Thumbnail service implementing the thumbnail management D-Bus specification</shortdesc>
  <homepage rdf:resource="http://git.xfce.org/apps/tumbler"/>
 
