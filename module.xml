@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:gnome="http://api.gnome.org/doap-extensions#"
+ xmlns="http://usefulinc.com/ns/doap#">
+
+ <name xml:lang="en">airconfig</name>
+ <shortdesc xml:lang="en">Thumbnail service implementing the thumbnail management D-Bus specification</shortdesc>
+ <homepage rdf:resource="http://git.xfce.org/apps/tumbler"/>
+
+ <maintainer>
+  <foaf:Person>
+    <foaf:name>Jannis Pohlmann</foaf:name>
+    <foaf:mbox>mailto:jannis@xfce.org</foaf:mbox>
+    <gnome:userid>jannis</gnome:userid>
+  </foaf:Person>
+ </maintainer>
+</Project>
