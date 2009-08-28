@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Xfce Tumbler Turkish Translation\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-08 20:24+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
+"Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:58
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Sürüm çakışması: %s"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:63
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "Tumbler XDG önbellek eklentisi çalıştırılıyor"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:81
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "Tumbler XDG önbellek eklentisi kapatılıyor"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:431
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Önizleme \"%s\" konumuna kaydedilemedi"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:63
+msgid "Tumbler Thumbnailing Service"
+msgstr "Tumbler Önizleme Servisi"
+
+#: ../tumblerd/main.c:78
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "D-BUS oturum servisine bağlanılamadı: %s"
+
+#: ../tumblerd/main.c:90
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Önizleme önbellek servisi çalıştırılamadı: %s"
+
+#: ../tumblerd/main.c:127
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Özelleştirilmiş önizleyiciler kayıt defterine yüklenemedi: %s"
+
+#: ../tumblerd/main.c:145
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "Önizleyici yöneticisi çalıştırılamadı: %s"
+
+#: ../tumblerd/main.c:163
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "Önizleyici servisi çalıştırılamadı: %s"
+
+#: ../tumblerd/tumbler-cache-service.c:353
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "Başka bir önizleyici servisi zaten çalışıyor"
+
+#: ../tumblerd/tumbler-manager.c:280
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "Başka bir önizleyici yöneticisi zaten çalışıyor"
+
+#: ../tumblerd/tumbler-service.c:418
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "Başka bir önizleyici zaten çalışıyor"
+
+#: ../tumblerd/tumbler-threshold-scheduler.c:431
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "\"%s\" için önizleyici bulunmamaktadır"
+
+#: ../tumbler/tumbler-enum-types.c:49
+#: ../tumbler/tumbler-enum-types.c:73
+msgid "Invalid format"
+msgstr "Geçersiz biçim"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "Normal"
+msgstr "Normal"
+
+#: ../tumbler/tumbler-enum-types.c:51
+msgid "Large"
+msgstr "Büyük"
+
+#: ../tumbler/tumbler-enum-types.c:52
+msgid "Cropped"
+msgstr "Kırpılmış"
+
+#: ../tumbler/tumbler-enum-types.c:74
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-provider-plugin.c:173
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "\"%s\" gerekli sembolleri barındırmamaktadır."
+
+#: ../tumbler/tumbler-provider-plugin.c:180
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "\"%s\" eklentisi yüklenemedi: %s"
+
