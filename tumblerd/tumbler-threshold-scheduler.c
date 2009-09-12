@@ -144,7 +144,7 @@ tumbler_threshold_scheduler_init (TumblerThresholdScheduler *scheduler)
 
   /* allocate a pool with max. 2 threads for request with <= threshold URIs */
   scheduler->small_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
-                                                   scheduler, 2, TRUE, NULL);
+                                             scheduler, 2, TRUE, NULL);
 
   /* make the thread a LIFO */
   g_thread_pool_set_sort_function (scheduler->small_pool,
@@ -152,7 +152,7 @@ tumbler_threshold_scheduler_init (TumblerThresholdScheduler *scheduler)
 
   /* allocate a pool with max. 2 threads for request with > threshold URIs */
   scheduler->large_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
-                                                   scheduler, 2, TRUE, NULL);
+                                             scheduler, 2, TRUE, NULL);
 
   /* make the thread a LIFO */
   g_thread_pool_set_sort_function (scheduler->small_pool,
@@ -171,8 +171,7 @@ tumbler_threshold_scheduler_finalize (GObject *object)
   g_thread_pool_free (scheduler->large_pool, TRUE, TRUE);
 
   /* release all pending requests */
-  g_list_foreach (scheduler->requests, (GFunc) tumbler_scheduler_request_free,
-                  NULL);
+  g_list_foreach (scheduler->requests, (GFunc) tumbler_scheduler_request_free, NULL);
 
   /* destroy the request list */
   g_list_free (scheduler->requests);

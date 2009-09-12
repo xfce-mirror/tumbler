@@ -160,6 +160,9 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
                               "uri-schemes", uri_schemes, "mime-types", mime_types, 
                               NULL);
 
+  /* free MIME types */
+  g_strfreev (mime_types);
+
   /* add the thumbnailer to the list */
   thumbnailers = g_list_append (thumbnailers, thumbnailer);
 

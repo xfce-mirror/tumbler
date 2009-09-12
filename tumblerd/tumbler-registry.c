@@ -99,8 +99,7 @@ tumbler_registry_init (TumblerRegistry *registry)
 {
   registry->mutex = g_mutex_new ();
   registry->thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
-                                                        g_free, 
-                                                        tumbler_registry_list_free);
+                                                  g_free, tumbler_registry_list_free);
 }
 
 

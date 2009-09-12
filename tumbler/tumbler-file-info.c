@@ -123,6 +123,8 @@ tumbler_file_info_finalize (GObject *object)
   g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
   g_list_free (info->thumbnails);
 
+  g_free (info->uri);
+
   (*G_OBJECT_CLASS (tumbler_file_info_parent_class)->finalize) (object);
 }
 
