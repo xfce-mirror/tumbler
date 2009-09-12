@@ -318,6 +318,9 @@ tumbler_manager_get_supported (TumblerManager        *manager,
       /* insert all MIME types into the hash table */
       for (n = 0; mime_types != NULL && mime_types[n] != NULL; ++n)
         g_hash_table_replace (types, g_strdup (mime_types[n]), NULL);
+
+      /* free MIME types array */
+      g_strfreev (mime_types);
     }
 
   /* relase the thumbnailer list */
@@ -345,4 +348,7 @@ tumbler_manager_get_supported (TumblerManager        *manager,
   g_hash_table_unref (types);
 
   dbus_g_method_return (context, supported_types);
+
+  /* free the supported types */
+  g_strfreev (supported_types);
 }
