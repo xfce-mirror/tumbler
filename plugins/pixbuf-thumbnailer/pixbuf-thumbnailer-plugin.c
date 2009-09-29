@@ -29,7 +29,7 @@
 #include <tumbler/tumbler.h>
 
 #include <pixbuf-thumbnailer/pixbuf-thumbnailer-provider.h>
-#include <pixbuf-thumbnailer/pixbuf-thumbnailer-thumbnailer.h>
+#include <pixbuf-thumbnailer/pixbuf-thumbnailer.h>
 
 
 
@@ -63,11 +63,11 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
 #endif
 
   /* register the types provided by this plugin */
-  pixbuf_thumbnailer_thumbnailer_register (plugin);
+  pixbuf_thumbnailer_register (plugin);
   pixbuf_thumbnailer_provider_register (plugin);
 
   /* set up the plugin provider type list */
-  type_list[0] = PIXBUF_THUMBNAILER_TYPE_PROVIDER;
+  type_list[0] = TYPE_PIXBUF_THUMBNAILER_PROVIDER;
 }
 
 

@@ -30,7 +30,7 @@
 #include <tumbler/tumbler.h>
 
 #include <pixbuf-thumbnailer/pixbuf-thumbnailer-provider.h>
-#include <pixbuf-thumbnailer/pixbuf-thumbnailer-thumbnailer.h>
+#include <pixbuf-thumbnailer/pixbuf-thumbnailer.h>
 
 
 
@@ -103,17 +103,17 @@ pixbuf_thumbnailer_provider_init (PixbufThumbnailerProvider *provider)
 static GList *
 pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  PixbufThumbnailerThumbnailer *thumbnailer;
-  static const gchar           *uri_schemes[] = { "file", "sftp", "http", NULL, };
-  GHashTable                   *types;
-  GSList                       *formats;
-  GSList                       *fp;
-  GList                        *keys;
-  GList                        *lp;
-  GList                        *thumbnailers = NULL;
-  GStrv                         format_types;
-  GStrv                         mime_types;
-  gint                          n;
+  PixbufThumbnailer  *thumbnailer;
+  static const gchar *uri_schemes[] = { "file", "sftp", "http", NULL, };
+  GHashTable         *types;
+  GSList             *formats;
+  GSList             *fp;
+  GList              *keys;
+  GList              *lp;
+  GList              *thumbnailers = NULL;
+  GStrv               format_types;
+  GStrv               mime_types;
+  gint                n;
 
   /* create a hash table to collect unique MIME types */
   types = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -156,7 +156,7 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   mime_types[n] = NULL;
 
   /* create the pixbuf thumbnailer */
-  thumbnailer = g_object_new (PIXBUF_THUMBNAILER_TYPE_THUMBNAILER, 
+  thumbnailer = g_object_new (TYPE_PIXBUF_THUMBNAILER, 
                               "uri-schemes", uri_schemes, "mime-types", mime_types, 
                               NULL);
 

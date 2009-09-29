@@ -27,8 +27,8 @@ tumbler_pixbuf_thumbnailer_la_SOURCES =					\
 	pixbuf-thumbnailer-plugin.c					\
 	pixbuf-thumbnailer-provider.c					\
 	pixbuf-thumbnailer-provider.h					\
-	pixbuf-thumbnailer-thumbnailer.c				\
-	pixbuf-thumbnailer-thumbnailer.h
+	pixbuf-thumbnailer.c						\
+	pixbuf-thumbnailer.h
 
 tumbler_pixbuf_thumbnailer_la_CFLAGS =					\
 	-I$(top_builddir)						\

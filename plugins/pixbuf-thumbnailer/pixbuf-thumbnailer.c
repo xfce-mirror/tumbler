@@ -31,62 +31,62 @@
 
 #include <tumbler/tumbler.h>
 
-#include <pixbuf-thumbnailer/pixbuf-thumbnailer-thumbnailer.h>
+#include <pixbuf-thumbnailer/pixbuf-thumbnailer.h>
 
 
 
-static void pixbuf_thumbnailer_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                                   const gchar                *uri,
-                                                   const gchar                *mime_hint);
+static void pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                                       const gchar                *uri,
+                                       const gchar                *mime_hint);
 
 
 
-struct _PixbufThumbnailerThumbnailerClass
+struct _PixbufThumbnailerClass
 {
   TumblerAbstractThumbnailerClass __parent__;
 };
 
-struct _PixbufThumbnailerThumbnailer
+struct _PixbufThumbnailer
 {
   TumblerAbstractThumbnailer __parent__;
 };
 
 
 
-G_DEFINE_DYNAMIC_TYPE (PixbufThumbnailerThumbnailer, 
-                       pixbuf_thumbnailer_thumbnailer,
+G_DEFINE_DYNAMIC_TYPE (PixbufThumbnailer, 
+                       pixbuf_thumbnailer,
                        TUMBLER_TYPE_ABSTRACT_THUMBNAILER);
 
 
 
 void
-pixbuf_thumbnailer_thumbnailer_register (TumblerProviderPlugin *plugin)
+pixbuf_thumbnailer_register (TumblerProviderPlugin *plugin)
 {
-  pixbuf_thumbnailer_thumbnailer_register_type (G_TYPE_MODULE (plugin));
+  pixbuf_thumbnailer_register_type (G_TYPE_MODULE (plugin));
 }
 
 
 
 static void
-pixbuf_thumbnailer_thumbnailer_class_init (PixbufThumbnailerThumbnailerClass *klass)
+pixbuf_thumbnailer_class_init (PixbufThumbnailerClass *klass)
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
 
   abstractthumbnailer_class = TUMBLER_ABSTRACT_THUMBNAILER_CLASS (klass);
-  abstractthumbnailer_class->create = pixbuf_thumbnailer_thumbnailer_create;
+  abstractthumbnailer_class->create = pixbuf_thumbnailer_create;
 }
 
 
 
 static void
-pixbuf_thumbnailer_thumbnailer_class_finalize (PixbufThumbnailerThumbnailerClass *klass)
+pixbuf_thumbnailer_class_finalize (PixbufThumbnailerClass *klass)
 {
 }
 
 
 
 static void
-pixbuf_thumbnailer_thumbnailer_init (PixbufThumbnailerThumbnailer *thumbnailer)
+pixbuf_thumbnailer_init (PixbufThumbnailer *thumbnailer)
 {
 }
 
@@ -139,9 +139,9 @@ generate_pixbuf (GdkPixbuf              *source,
 
 
 static void
-pixbuf_thumbnailer_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                       const gchar                *uri,
-                                       const gchar                *mime_hint)
+pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                           const gchar                *uri,
+                           const gchar                *mime_hint)
 {
   TumblerThumbnailFlavor *flavors;
   TumblerThumbnailFlavor  flavor;
@@ -157,7 +157,7 @@ pixbuf_thumbnailer_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GList                  *thumbnails;
   guint                   n;
 
-  g_return_if_fail (PIXBUF_THUMBNAILER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (IS_PIXBUF_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL && *uri != '\0');
 
   /* create the file info for this URI */
