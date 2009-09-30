@@ -281,8 +281,8 @@ plugins/pixbuf-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
 tumbler/Makefile
+tumbler/tumbler-1.pc
 tumbler/tumbler-config.h
-tumbler/tumbler-$TUMBLER_VERSION_API.pc
 tumblerd/Makefile
 ])
 

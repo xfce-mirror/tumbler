@@ -1,19 +1,17 @@
 <SECTION>
-<FILE>tumbler-thumbnailer</FILE>
-TumblerThumbnailer
-TumblerThumbnailerIface
-tumbler_thumbnailer_create
-tumbler_thumbnailer_get_hash_keys
-tumbler_thumbnailer_get_mime_types
-tumbler_thumbnailer_get_uri_schemes
-tumbler_thumbnailer_array_copy
-tumbler_thumbnailer_array_free
+<FILE>tumbler-provider-plugin</FILE>
+TumblerProviderPluginClass
+TumblerProviderPlugin
+tumbler_provider_plugin_new
+tumbler_provider_plugin_get_types
 <SUBSECTION Standard>
-TUMBLER_THUMBNAILER
-TUMBLER_IS_THUMBNAILER
-TUMBLER_TYPE_THUMBNAILER
-tumbler_thumbnailer_get_type
-TUMBLER_THUMBNAILER_GET_IFACE
+TUMBLER_PROVIDER_PLUGIN
+TUMBLER_IS_PROVIDER_PLUGIN
+TUMBLER_TYPE_PROVIDER_PLUGIN
+tumbler_provider_plugin_get_type
+TUMBLER_PROVIDER_PLUGIN_CLASS
+TUMBLER_IS_PROVIDER_PLUGIN_CLASS
+TUMBLER_PROVIDER_PLUGIN_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -50,25 +48,7 @@ TUMBLER_THUMBNAIL_GET_IFACE
 </SECTION>
 
 <SECTION>
-<FILE>tumbler-provider-plugin</FILE>
-TumblerProviderPluginPrivate
-TumblerProviderPluginClass
-TumblerProviderPlugin
-tumbler_provider_plugin_new
-tumbler_provider_plugin_get_types
-<SUBSECTION Standard>
-TUMBLER_PROVIDER_PLUGIN
-TUMBLER_IS_PROVIDER_PLUGIN
-TUMBLER_TYPE_PROVIDER_PLUGIN
-tumbler_provider_plugin_get_type
-TUMBLER_PROVIDER_PLUGIN_CLASS
-TUMBLER_IS_PROVIDER_PLUGIN_CLASS
-TUMBLER_PROVIDER_PLUGIN_GET_CLASS
-</SECTION>
-
-<SECTION>
 <FILE>tumbler-provider-factory</FILE>
-TumblerProviderFactoryPrivate
 TumblerProviderFactoryClass
 TumblerProviderFactory
 tumbler_provider_factory_get_default
@@ -84,8 +64,71 @@ TUMBLER_PROVIDER_FACTORY_GET_CLASS
 </SECTION>
 
 <SECTION>
+<FILE>tumbler-cache-provider</FILE>
+TumblerCacheProvider
+TumblerCacheProviderIface
+tumbler_cache_provider_get_caches
+<SUBSECTION Standard>
+TUMBLER_CACHE_PROVIDER
+TUMBLER_IS_CACHE_PROVIDER
+TUMBLER_TYPE_CACHE_PROVIDER
+tumbler_cache_provider_get_type
+TUMBLER_CACHE_PROVIDER_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>tumbler-thumbnailer</FILE>
+TumblerThumbnailer
+TumblerThumbnailerIface
+tumbler_thumbnailer_create
+tumbler_thumbnailer_get_hash_keys
+tumbler_thumbnailer_get_mime_types
+tumbler_thumbnailer_get_uri_schemes
+tumbler_thumbnailer_array_copy
+tumbler_thumbnailer_array_free
+<SUBSECTION Standard>
+TUMBLER_THUMBNAILER
+TUMBLER_IS_THUMBNAILER
+TUMBLER_TYPE_THUMBNAILER
+tumbler_thumbnailer_get_type
+TUMBLER_THUMBNAILER_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>tumbler-abstract-thumbnailer</FILE>
+TumblerAbstractThumbnailerPrivate
+<TITLE>TumblerAbstractThumbnailer</TITLE>
+TumblerAbstractThumbnailer
+<SUBSECTION Standard>
+TUMBLER_ABSTRACT_THUMBNAILER
+TUMBLER_IS_ABSTRACT_THUMBNAILER
+TUMBLER_TYPE_ABSTRACT_THUMBNAILER
+tumbler_abstract_thumbnailer_get_type
+TUMBLER_ABSTRACT_THUMBNAILER_CLASS
+TUMBLER_IS_ABSTRACT_THUMBNAILER_CLASS
+TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>tumbler-cache</FILE>
+TumblerCache
+TumblerCacheIface
+tumbler_cache_get_thumbnails
+tumbler_cache_cleanup
+tumbler_cache_delete
+tumbler_cache_copy
+tumbler_cache_move
+tumbler_cache_is_thumbnail
+<SUBSECTION Standard>
+TUMBLER_CACHE
+TUMBLER_IS_CACHE
+TUMBLER_TYPE_CACHE
+tumbler_cache_get_type
+TUMBLER_CACHE_GET_IFACE
+</SECTION>
+
+<SECTION>
 <FILE>tumbler-file-info</FILE>
-TumblerFileInfoPrivate
 TumblerFileInfoClass
 TumblerFileInfo
 tumbler_file_info_new
@@ -105,44 +148,19 @@ TUMBLER_FILE_INFO_GET_CLASS
 </SECTION>
 
 <SECTION>
-<FILE>tumbler-cache</FILE>
-TumblerCache
-TumblerCacheIface
-tumbler_cache_get_thumbnails
-<SUBSECTION Standard>
-TUMBLER_CACHE
-TUMBLER_IS_CACHE
-TUMBLER_TYPE_CACHE
-tumbler_cache_get_type
-TUMBLER_CACHE_GET_IFACE
+<FILE>stamp-tumbler-marshal</FILE>
 </SECTION>
 
 <SECTION>
-<FILE>tumbler-cache-provider</FILE>
-TumblerCacheProvider
-TumblerCacheProviderIface
-tumbler_cache_provider_get_caches
-<SUBSECTION Standard>
-TUMBLER_CACHE_PROVIDER
-TUMBLER_IS_CACHE_PROVIDER
-TUMBLER_TYPE_CACHE_PROVIDER
-tumbler_cache_provider_get_type
-TUMBLER_CACHE_PROVIDER_GET_IFACE
+<FILE>tumbler-glib-extensions</FILE>
+TUMBLER_ADD_INTERFACE
 </SECTION>
 
 <SECTION>
-<FILE>tumbler-abstract-thumbnailer</FILE>
-TumblerAbstractThumbnailerPrivate
-<TITLE>TumblerAbstractThumbnailer</TITLE>
-TumblerAbstractThumbnailer
-<SUBSECTION Standard>
-TUMBLER_ABSTRACT_THUMBNAILER
-TUMBLER_IS_ABSTRACT_THUMBNAILER
-TUMBLER_TYPE_ABSTRACT_THUMBNAILER
-tumbler_abstract_thumbnailer_get_type
-TUMBLER_ABSTRACT_THUMBNAILER_CLASS
-TUMBLER_IS_ABSTRACT_THUMBNAILER_CLASS
-TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS
+<FILE>tumbler-error</FILE>
+TUMBLER_ERROR_DOMAIN
+TUMBLER_ERROR
+TumblerErrorEnum
 </SECTION>
 
 <SECTION>
@@ -160,30 +178,14 @@ G_GNUC_WARN_UNUSED_RESULT
 </SECTION>
 
 <SECTION>
-<FILE>stamp-tumbler-marshal</FILE>
+<FILE>tumbler</FILE>
+TUMBLER_INSIDE_TUMBLER_H
 </SECTION>
 
 <SECTION>
 <FILE>tumbler-marshal</FILE>
 tumbler_marshal_VOID__STRING_INT_STRING
 tumbler_marshal_VOID__UINT_POINTER_INT_STRING
-</SECTION>
-
-<SECTION>
-<FILE>tumbler</FILE>
-TUMBLER_INSIDE_TUMBLER_H
-</SECTION>
-
-<SECTION>
-<FILE>tumbler-glib-extensions</FILE>
-TUMBLER_ADD_INTERFACE
-</SECTION>
-
-<SECTION>
-<FILE>tumbler-error</FILE>
-TUMBLER_ERROR_DOMAIN
-TUMBLER_ERROR
-TumblerErrorEnum
 </SECTION>
 
 <SECTION>

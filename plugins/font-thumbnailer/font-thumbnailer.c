@@ -443,7 +443,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   FontThumbnailer        *font_thumbnailer = FONT_THUMBNAILER (thumbnailer);
   GHashTable             *pixbufs;
   GdkPixbuf              *pixbuf;
-  GdkPixbuf              *font;
   FT_Error                ft_error;
   FT_Face                 face;
   guint64                 mtime;

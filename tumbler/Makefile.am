@@ -105,7 +105,6 @@ if MAINTAINER_MODE
 
 DISTCLEANFILES =							\
 	stamp-tumbler-marshal.h						\
-	tumbler-1.pc							\
 	tumbler-config.h						\
 	$(libtumbler_built_sources)
 

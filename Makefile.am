@@ -18,11 +18,11 @@
 # Boston, MA 02110-1301, USA.
 
 SUBDIRS =								\
-	docs								\
 	po								\
 	tumbler								\
 	plugins								\
-	tumblerd
+	tumblerd							\
+	docs
 
 DISTCHECK_CONFIGURE_FLAGS =						\
 	--enable-gtk-doc

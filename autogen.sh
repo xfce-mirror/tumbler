@@ -29,26 +29,7 @@ EOF
   exit 1
 }
 
-# verify that po/LINGUAS is present
-(test -f po/LINGUAS) >/dev/null 2>&1 || {
-  cat >&2 <<EOF
-autogen.sh: The file po/LINGUAS could not be found. Please check your snapshot
-            or try to checkout again.
-EOF
-  exit 1
-}
+# # initialize GTK-Doc
+# gtkdocize || exit 1
 
-# substitute linguas
-linguas=`sed -e '/^#/d' po/LINGUAS`
-
-# TODO substitute revision
-revision=
-
-sed -e "s/@LINGUAS@/${linguas}/g" \
-    -e "s/@REVISION@/${revision}/g" \
-    < "configure.in.in" > "configure.in"
-
-# initialize GTK-Doc
-gtkdocize || exit 1
-
-exec xdt-autogen $@
+XDT_AUTOGEN_REQUIRED_VERSION="4.7.2" exec xdt-autogen $@

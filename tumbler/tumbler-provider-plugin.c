@@ -64,7 +64,7 @@ struct _TumblerProviderPlugin
 
 
 
-G_DEFINE_TYPE (TumblerProviderPlugin, tumbler_provider_plugin, G_TYPE_TYPE_MODULE);
+G_DEFINE_TYPE (TumblerProviderPlugin, tumbler_provider_plugin, G_TYPE_TYPE_MODULE)
 
 
 

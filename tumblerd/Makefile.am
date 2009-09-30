@@ -44,7 +44,7 @@ tumblerd_SOURCES =							\
 	tumbler-threshold-scheduler.c					\
 	tumbler-threshold-scheduler.h					\
 	tumbler-utils.h							\
-	$(tumbler_built_sources)
+	$(tumblerd_built_sources)
 
 tumblerd_CFLAGS =							\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\

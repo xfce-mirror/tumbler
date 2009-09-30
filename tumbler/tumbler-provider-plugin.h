@@ -39,7 +39,7 @@ G_BEGIN_DECLS;
 typedef struct _TumblerProviderPluginClass   TumblerProviderPluginClass;
 typedef struct _TumblerProviderPlugin        TumblerProviderPlugin;
 
-GType tumbler_provider_plugin_get_type                   (void) G_GNUC_CONST G_GNUC_INTERNAL;
+GType                  tumbler_provider_plugin_get_type  (void) G_GNUC_CONST;
 
 TumblerProviderPlugin *tumbler_provider_plugin_new       (const gchar                 *filename) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT G_GNUC_INTERNAL;
 void                   tumbler_provider_plugin_get_types (const TumblerProviderPlugin *plugin,

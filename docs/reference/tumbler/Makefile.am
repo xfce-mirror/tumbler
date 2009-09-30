@@ -76,7 +76,7 @@ GTKDOC_LIBS =								\
 	$(GTHREAD_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(PNG_LIBS)							\
-	$(top_srcdir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
+	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
 
 include $(top_srcdir)/gtk-doc.make
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-30 02:22+0200\n"
+"POT-Creation-Date: 2009-09-30 02:45+0200\n"
 "PO-Revision-Date: 2009-09-02 16:29+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: en_GB\n"
@@ -126,25 +126,25 @@ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
 msgstr "Apagar el complementu Tumbler Pixbuf Thumbnailer"
 
 #. there was an error in the freetype initialization, abort
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:465
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:464
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr ""
 
 #. the font file could not be loaded, emit an error signal
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:498
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:497
 #, fuzzy, c-format
 msgid "Could not open font file: %s"
 msgstr "Nun puede guardase miniatura en \"%s\""
 
 #. emit an error signal
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:526
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:525
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr ""
 
 #. emit an error signal
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:556
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:555
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr ""

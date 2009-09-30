@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Tumbler Turkish Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-30 02:22+0200\n"
+"POT-Creation-Date: 2009-09-30 02:45+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
@@ -121,25 +121,25 @@ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
 msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
 
 #. there was an error in the freetype initialization, abort
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:465
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:464
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr ""
 
 #. the font file could not be loaded, emit an error signal
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:498
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:497
 #, fuzzy, c-format
 msgid "Could not open font file: %s"
 msgstr "Önizleme \"%s\" konumuna kaydedilemedi"
 
 #. emit an error signal
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:526
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:525
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr ""
 
 #. emit an error signal
-#: .././plugins/font-thumbnailer/font-thumbnailer.c:556
+#: .././plugins/font-thumbnailer/font-thumbnailer.c:555
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr ""
