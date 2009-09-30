@@ -451,7 +451,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GList                  *lp;
   GList                  *thumbnails;
   gchar                  *error_msg;
-  gchar                  *path;
+  gchar                  *font_data;
+  gsize                   length;
   gint                    n;
 
   g_return_if_fail (IS_FONT_THUMBNAILER (thumbnailer));
@@ -480,17 +481,28 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       return;
     }
 
-  /* determine the local path of the file */
+  /* try to read the file into memory */
   file = g_file_new_for_uri (uri);
-  path = g_file_get_path (file);
+  if (!g_file_load_contents (file, NULL, &font_data, &length, NULL, &error))
+    {
+      /* there was an error, emit error signal */
+      error_msg = g_strdup_printf (_("Could not load file contents: %s"), 
+                                    error->message);
+      g_signal_emit_by_name (thumbnailer, "error", uri, 0, error_msg);
+      g_free (error_msg);
+
+      /* clean up */
+      g_error_free (error);
+      g_object_unref (file);
+      g_object_unref (info);
+
+      return;
+    }
   g_object_unref (file);
 
-  /* if the local path is not NULL, then something went wrong, as this thumbnailer
-   * only supports file URIs and all those should also have a local path */
-  g_assert (path != NULL);
-
   /* try to open the font file */
-  ft_error = FT_New_Face (font_thumbnailer->library, path, 0, &face);
+  ft_error = FT_New_Memory_Face (font_thumbnailer->library, font_data, length, 
+                                 0, &face);
   if (G_UNLIKELY (ft_error != 0))
     {
       /* the font file could not be loaded, emit an error signal */
@@ -500,14 +512,10 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_free (error_msg);
 
       /* clean up */
-      g_free (path);
       g_object_unref (info);
 
       return;
     }
-
-  /* free the local path */
-  g_free (path);
 
   /* try to set the character map */
   for (n = 0; n < face->num_charmaps; ++n)

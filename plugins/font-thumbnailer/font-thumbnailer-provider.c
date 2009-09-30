@@ -103,11 +103,6 @@ font_thumbnailer_provider_init (FontThumbnailerProvider *provider)
 static GList *
 font_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  static const gchar *uri_schemes[] = 
-  { 
-    "file", 
-    NULL, 
-  };
   static const gchar *mime_types[] = 
   { 
     "application/x-font-otf",
@@ -116,8 +111,14 @@ font_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider
     "application/x-font-type1",
     NULL,
   };
+  const gchar *const *uri_schemes;
   FontThumbnailer    *thumbnailer;
   GList              *thumbnailers = NULL;
+  GVfs               *vfs;
+
+  /* determine the URI schemes supported by GIO */
+  vfs = g_vfs_get_default ();
+  uri_schemes = g_vfs_get_supported_uri_schemes (vfs);
 
   /* create the pixbuf thumbnailer */
   thumbnailer = g_object_new (TYPE_FONT_THUMBNAILER, 
