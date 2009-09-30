@@ -594,7 +594,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
             /* if an image for this flavor was generated, save it now */
             if (pixbuf != NULL)
-              tumbler_thumbnail_save_pixbuf (lp->data, font, mtime, NULL, &error);
+              tumbler_thumbnail_save_pixbuf (lp->data, pixbuf, mtime, NULL, &error);
           }
     }
 
