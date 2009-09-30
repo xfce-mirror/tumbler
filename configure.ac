@@ -117,7 +117,7 @@ AC_FUNC_MMAP()
 dnl ******************************
 dnl *** Check for i18n support ***
 dnl ******************************
-XDT_I18N([@LINGUAS@])
+dnl XDT_I18N([@LINGUAS@])
 
 dnl *************************
 dnl *** Check for GTK-Doc ***
@@ -127,17 +127,20 @@ GTK_DOC_CHECK(1.9)
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.16.0])
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.16.0])
-XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [2.16.0])
-XDT_CHECK_PACKAGE([DBUS], [dbus-1], [1.0.0])
-XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [0.72])
-XDT_CHECK_PACKAGE([GDK_PIXBUF], [gdk-pixbuf-2.0], [2.14])
-XDT_CHECK_PACKAGE([PNG], [libpng], [1.2.0], [],
-[
+
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.16.0)
+PKG_CHECK_MODULES(GIO, gio-2.0 >= 2.16.0)
+PKG_CHECK_MODULES(GTHREAD, gthread-2.0 >= 2.16.0)
+PKG_CHECK_MODULES(DBUS, dbus-1 >= 1.0.0)
+PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.72)
+
+PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes], [
   dnl libpng.pc not found, try with libpng12.pc
-  XDT_CHECK_PACKAGE([PNG], [libpng12], [1.2.0])
+  PKG_CHECK_MODULES(PNG, libpng12 >= 1.2.0, 
+                    [have_libpng=yes],
+                    [jhave_libpng=no])
 ])
+AM_CONDITIONAL([HAVE_LIBPNG], test x"$have_libpng" = x"yes")
 
 dnl ***********************************************
 dnl *** Check for the pixbuf thumbnailer plugin ***
@@ -146,10 +149,21 @@ AC_ARG_ENABLE([pixbuf-thumbnailer],
               [AC_HELP_STRING([--enable-pixbuf-thumbnailer],
                               [Enable the pixbuf thumbnailer plugin @<:@default=yes@:>@])],,
               [enable_pixbuf_thumbnailer=yes])
+
 if test x"$enable_pixbuf_thumbnailer" = x"yes"; then
-  AC_DEFINE([ENABLE_PIXBUF_THUMBNAILER], [1], [Define if the pixbuf thumbnailer plugin is enabled])
+  PKG_CHECK_MODULES(GDK_PIXBUF, 
+                    gdk-pixbuf-2.0 >= 2.14,
+                    [have_gdkpixbuf=yes], 
+                    [have_gdkpixbuf=no])
+
+  if test "x$have_gdkpixbuf" = "xyes"; then
+    AC_DEFINE([HAVE_PIXBUF], [1], [Define if the pixbuf thumbnailer plugin is enabled])
+  fi
+else
+  have_gdkpixbuf="no  (disabled)"
 fi
-AM_CONDITIONAL([ENABLE_PIXBUF_THUMBNAILER], test x"$enable_pixbuf_thumbnailer" = x"yes")
+
+AM_CONDITIONAL([ENABLE_PIXBUF_THUMBNAILER], test x"$have_gdkpixbuf" = x"yes")
 
 dnl *********************************************
 dnl *** Check for the font thumbnailer plugin ***
@@ -213,7 +227,7 @@ fi
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
-XDT_FEATURE_DEBUG()
+dnl XDT_FEATURE_DEBUG()
 
 dnl **************************************
 dnl *** Check for linker optimizations ***

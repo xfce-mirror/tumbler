@@ -17,6 +17,8 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
+if HAVE_LIBPNG
+
 tumbler_plugindir = $(libdir)/tumbler-$(TUMBLER_VERSION_API)/plugins
 tumbler_plugin_LTLIBRARIES =						\
 	tumbler-xdg-cache.la
@@ -54,3 +56,5 @@ tumbler_xdg_cache_la_LIBADD =						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(PNG_LIBS)
+
+endif
