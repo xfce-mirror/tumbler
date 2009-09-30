@@ -180,7 +180,7 @@ if test x"$enable_font_thumbnailer" = x"yes"; then
   AC_SUBST([FREETYPE_CFLAGS])
   AC_SUBST([FREETYPE_LIBS])
 fi
-AM_CONDITIONAL([ENABLE_FONT_THUMBNAILER], [test x"$enable_font_thumbnailer" != x"no" && test x"$FREETYPE_CONFIG" != x"no"])
+AM_CONDITIONAL([ENABLE_FONT_THUMBNAILER], [test x"$FREETYPE_CONFIG" != x"no"])
 
 dnl ************************************************************
 dnl *** Check for thumbnail flavors (normal, large, cropped) ***
