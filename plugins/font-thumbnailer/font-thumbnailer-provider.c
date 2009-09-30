@@ -111,14 +111,27 @@ font_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider
     "application/x-font-type1",
     NULL,
   };
-  const gchar *const *uri_schemes;
+  const gchar *const *supported_schemes;
   FontThumbnailer    *thumbnailer;
   GList              *thumbnailers = NULL;
+  GStrv               uri_schemes;
+  guint               length;
+  guint               n;
   GVfs               *vfs;
 
   /* determine the URI schemes supported by GIO */
   vfs = g_vfs_get_default ();
-  uri_schemes = g_vfs_get_supported_uri_schemes (vfs);
+  supported_schemes = g_vfs_get_supported_uri_schemes (vfs);
+
+  /* copy the supported schemes array and add the file scheme, which for 
+   * some odd reason is not included by default. Bug filed on
+   * http://bugzilla.gnome.org/show_bug.cgi?id=596867 */
+  length = g_strv_length ((gchar **)supported_schemes);
+  uri_schemes = g_new0 (gchar *, length + 1);
+  uri_schemes[0] = (gchar *)"file";
+  for (n = 0; n < length; ++n)
+    uri_schemes[1+n] = (gchar *)supported_schemes[n];
+  uri_schemes[n] = NULL;
 
   /* create the pixbuf thumbnailer */
   thumbnailer = g_object_new (TYPE_FONT_THUMBNAILER, 
@@ -127,6 +140,9 @@ font_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider
 
   /* add the thumbnailer to the list */
   thumbnailers = g_list_append (thumbnailers, thumbnailer);
+
+  /* free URI schemes array (not its contents) */
+  g_free (uri_schemes);
 
   return thumbnailers;
 }

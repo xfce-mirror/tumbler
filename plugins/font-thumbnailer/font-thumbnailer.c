@@ -501,8 +501,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (file);
 
   /* try to open the font file */
-  ft_error = FT_New_Memory_Face (font_thumbnailer->library, font_data, length, 
-                                 0, &face);
+  ft_error = FT_New_Memory_Face (font_thumbnailer->library, (const FT_Byte *)font_data, 
+                                 length, 0, &face);
   if (G_UNLIKELY (ft_error != 0))
     {
       /* the font file could not be loaded, emit an error signal */
