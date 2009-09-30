@@ -512,6 +512,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_free (error_msg);
 
       /* clean up */
+      g_free (font_data);
       g_object_unref (info);
 
       return;
@@ -536,6 +537,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
               g_free (error_msg);
 
               /* clean up */
+              g_free (font_data);
               FT_Done_Face (face);
               g_object_unref (info);
 
@@ -567,6 +569,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
           /* clean up */
           g_hash_table_unref (pixbufs);
+          g_free (font_data);
           FT_Done_Face (face);
           g_object_unref (info);
 
@@ -619,6 +622,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     }
 
   /* clean up */
+  g_free (font_data);
   g_hash_table_unref (pixbufs);
   g_object_unref (info);
 }
