@@ -42,6 +42,7 @@ libtumbler_headers =							\
 	tumbler-thumbnailer-provider.h					\
 	tumbler-thumbnailer.h						\
 	tumbler-thumbnail.h						\
+	tumbler-util.h							\
 	tumbler.h
 
 libtumbler_sources =							\
@@ -56,7 +57,8 @@ libtumbler_sources =							\
 	tumbler-provider-plugin.c					\
 	tumbler-thumbnailer-provider.c					\
 	tumbler-thumbnailer.c						\
-	tumbler-thumbnail.c
+	tumbler-thumbnail.c						\
+	tumbler-util.c
 
 libtumblerincludedir = $(includedir)/tumbler-$(TUMBLER_VERSION_API)/tumbler
 

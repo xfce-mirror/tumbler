@@ -103,34 +103,20 @@ pixbuf_thumbnailer_provider_init (PixbufThumbnailerProvider *provider)
 static GList *
 pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  PixbufThumbnailer  *thumbnailer;
-  const gchar *const *supported_schemes;
-  GHashTable         *types;
-  GSList             *formats;
-  GSList             *fp;
-  GList              *keys;
-  GList              *lp;
-  GList              *thumbnailers = NULL;
-  GStrv               format_types;
-  GStrv               mime_types;
-  GStrv               uri_schemes;
-  GVfs               *vfs;
-  guint               length;
-  guint               n;
+  PixbufThumbnailer *thumbnailer;
+  GHashTable        *types;
+  GSList            *formats;
+  GSList            *fp;
+  GList             *keys;
+  GList             *lp;
+  GList             *thumbnailers = NULL;
+  GStrv              format_types;
+  GStrv              mime_types;
+  GStrv              uri_schemes;
+  guint              n;
 
   /* determine which URI schemes are supported by GIO */
-  vfs = g_vfs_get_default ();
-  supported_schemes = g_vfs_get_supported_uri_schemes (vfs);
-
-  /* copy the supported schemes array and add the file scheme, which for 
-   * some odd reason is not included by default. Bug filed on
-   * http://bugzilla.gnome.org/show_bug.cgi?id=596867 */
-  length = g_strv_length ((gchar **)supported_schemes);
-  uri_schemes = g_new0 (gchar *, length + 1);
-  uri_schemes[0] = (gchar *)"file";
-  for (n = 0; n < length; ++n)
-    uri_schemes[1+n] = (gchar *)supported_schemes[n];
-  uri_schemes[n] = NULL;
+  uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
   /* create a hash table to collect unique MIME types */
   types = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -177,8 +163,8 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
                               "uri-schemes", uri_schemes, "mime-types", mime_types, 
                               NULL);
 
-  /* free URI schemes array (not its contents) and MIME types */
-  g_free (uri_schemes);
+  /* free URI schemes and MIME types */
+  g_strfreev (uri_schemes);
   g_strfreev (mime_types);
 
   /* add the thumbnailer to the list */

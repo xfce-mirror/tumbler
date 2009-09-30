@@ -18,27 +18,15 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TUMBLER_H__
-#define __TUMBLER_H__
+#ifndef __TUMBLER_UTIL_H__
+#define __TUMBLER_UTIL_H__
 
-#define TUMBLER_INSIDE_TUMBLER_H
+#include <glib.h>
 
-#include <tumbler/tumbler-abstract-thumbnailer.h>
-#include <tumbler/tumbler-cache.h>
-#include <tumbler/tumbler-cache-provider.h>
-#include <tumbler/tumbler-config.h>
-#include <tumbler/tumbler-enum-types.h>
-#include <tumbler/tumbler-error.h>
-#include <tumbler/tumbler-file-info.h>
-#include <tumbler/tumbler-glib-extensions.h>
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-provider-factory.h>
-#include <tumbler/tumbler-provider-plugin.h>
-#include <tumbler/tumbler-thumbnailer-provider.h>
-#include <tumbler/tumbler-thumbnailer.h>
-#include <tumbler/tumbler-thumbnail.h>
-#include <tumbler/tumbler-util.h>
+G_BEGIN_DECLS
 
-#undef TUMBLER_INSIDE_TUMBLER_H
+GStrv tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 
-#endif /* !__TUMBLER_H__ */
+G_END_DECLS
+
+#endif /* !__TUMBLER_UTIL_H__ */
