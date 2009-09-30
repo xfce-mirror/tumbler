@@ -363,7 +363,7 @@ tumbler_service_start (TumblerService *service,
   connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the generic thumbnailer interface */
-  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer",
+  result = dbus_bus_request_name (connection, "org.xfce.thumbnails.Thumbnailer",
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -394,7 +394,7 @@ tumbler_service_start (TumblerService *service,
 
   /* register the service instance as a handler of this interface */
   dbus_g_connection_register_g_object (service->connection, 
-                                       "/org/freedesktop/thumbnails/Thumbnailer", 
+                                       "/org/xfce/thumbnails/Thumbnailer", 
                                        G_OBJECT (service));
 
   g_mutex_unlock (service->mutex);

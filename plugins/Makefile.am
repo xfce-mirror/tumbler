@@ -18,5 +18,6 @@
 # Boston, MA 02110-1301, USA.
 
 SUBDIRS =								\
+	font-thumbnailer						\
 	pixbuf-thumbnailer						\
 	xdg-cache

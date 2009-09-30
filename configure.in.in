@@ -151,6 +151,37 @@ if test x"$enable_pixbuf_thumbnailer" = x"yes"; then
 fi
 AM_CONDITIONAL([ENABLE_PIXBUF_THUMBNAILER], test x"$enable_pixbuf_thumbnailer" = x"yes")
 
+dnl *********************************************
+dnl *** Check for the font thumbnailer plugin ***
+dnl *********************************************
+AC_ARG_ENABLE([font-thumbnailer],
+              [AC_HELP_STRING([--enable-font-thumbnailer],
+                              [Enable the font thumbnailer plugin @<:@default=yes@:>@])],,
+              [enable_font_thumbnailer=yes])
+if test x"$enable_font_thumbnailer" = x"yes"; then
+  dnl ******************************
+  dnl *** Check for FreeType 2.x ***
+  dnl ******************************
+  FREETYPE_LIBS=""
+  FREETYPE_CFLAGS=""
+  AC_PATH_PROG([FREETYPE_CONFIG], [freetype-config], [no])
+  if test x"$FREETYPE_CONFIG" != x"no"; then
+    AC_MSG_CHECKING([FREETYPE_CFLAGS])
+    FREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
+    AC_MSG_RESULT([$FREETYPE_CFLAGS])
+  
+    AC_MSG_CHECKING([FREETYPE_LIBS])
+    FREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
+    AC_MSG_RESULT([$FREETYPE_LIBS])
+
+    AC_DEFINE([ENABLE_FONT_THUMBNAILER], [1], [Define if the font thumbnailer plugin is enabled])
+  fi
+  AM_CONDITIONAL([HAVE_FREETYPE], [test x"$FREETYPE_CONFIG" != x"no"])
+  AC_SUBST([FREETYPE_CFLAGS])
+  AC_SUBST([FREETYPE_LIBS])
+fi
+AM_CONDITIONAL([ENABLE_FONT_THUMBNAILER], [test x"$enable_font_thumbnailer" != x"no" && test x"$FREETYPE_CONFIG" != x"no"])
+
 dnl ************************************************************
 dnl *** Check for thumbnail flavors (normal, large, cropped) ***
 dnl ************************************************************
@@ -245,6 +276,7 @@ docs/reference/Makefile
 docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
 plugins/Makefile
+plugins/font-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
@@ -265,6 +297,11 @@ if test x"$enable_pixbuf_thumbnailer" = x"yes"; then
 echo "  * Pixbuf thumbnailer plugin:   yes"
 else
 echo "  * Pixbuf thumbnailer plugin:   no"
+fi
+if test x"$enable_font_thumbnailer" = x"yes"; then
+echo "  * Font thumbnailer plugin:     yes"
+else
+echo "  * Font thumbnailer plugin:     no"
 fi
 echo
 echo "Supported Thumbnail Flavors:"

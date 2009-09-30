@@ -197,7 +197,7 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
   thumbnailer->proxy = dbus_g_proxy_new_for_name (thumbnailer->connection,
                                                         thumbnailer->name,
                                                         bus_path,
-                                                        "org.freedesktop.thumbnailer.Thumbnailer");
+                                                        "org.xfce.thumbnailer.Thumbnailer");
 
   g_free (bus_path);
 
