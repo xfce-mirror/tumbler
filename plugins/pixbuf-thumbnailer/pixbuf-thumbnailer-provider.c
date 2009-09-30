@@ -104,7 +104,7 @@ static GList *
 pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
   PixbufThumbnailer  *thumbnailer;
-  static const gchar *uri_schemes[] = { "file", "sftp", "http", NULL, };
+  const gchar *const *uri_schemes;
   GHashTable         *types;
   GSList             *formats;
   GSList             *fp;
@@ -113,7 +113,12 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   GList              *thumbnailers = NULL;
   GStrv               format_types;
   GStrv               mime_types;
+  GVfs               *vfs;
   gint                n;
+
+  /* determine which URI schemes are supported by GIO */
+  vfs = g_vfs_get_default ();
+  uri_schemes = g_vfs_get_supported_uri_schemes (vfs);
 
   /* create a hash table to collect unique MIME types */
   types = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
