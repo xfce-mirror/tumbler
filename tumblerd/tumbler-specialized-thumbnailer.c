@@ -192,6 +192,18 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
 
   g_free (bus_path);
 
+  dbus_g_object_register_marshaller (g_cclosure_marshal_VOID__STRING,
+                                     G_TYPE_NONE, 
+                                     G_TYPE_STRING,
+                                     G_TYPE_INVALID);
+  
+  dbus_g_object_register_marshaller (tumbler_marshal_VOID__STRING_INT_STRING,
+                                     G_TYPE_NONE,
+                                     G_TYPE_STRING,
+                                     G_TYPE_INT,
+                                     G_TYPE_STRING,
+                                     G_TYPE_INVALID);
+
   dbus_g_proxy_add_signal (thumbnailer->proxy, "Ready", 
                            G_TYPE_STRING, G_TYPE_INVALID);
 
