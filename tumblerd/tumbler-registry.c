@@ -444,10 +444,6 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
       /* see if we can find a thumbnailer to handle this URI/MIME type pair */
       thumbnailers[n] = tumbler_registry_lookup (registry, hash_key);
 
-      /* if there is one, take a reference on it */
-      if (thumbnailers[n] != NULL)
-        g_object_ref (thumbnailers[n]);
-
       /* free strings */
       g_free (hash_key);
       g_free (scheme);
