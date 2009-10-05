@@ -76,12 +76,12 @@ static void tumbler_specialized_thumbnailer_proxy_destroyed (DBusGProxy         
 
 struct _TumblerSpecializedThumbnailerClass
 {
-  GObjectClass __parent__;
+  TumblerAbstractThumbnailerClass __parent__;
 };
 
 struct _TumblerSpecializedThumbnailer
 {
-  GObject __parent__;
+  TumblerAbstractThumbnailer __parent__;
 
   DBusGConnection *connection;
   DBusGProxy      *proxy;
@@ -90,17 +90,13 @@ struct _TumblerSpecializedThumbnailer
   guint64          modified;
 
   gchar           *name;
-
-  GStrv            uri_schemes;
-  GStrv            hash_keys;
-  GStrv            mime_types;
 };
 
 
 
 G_DEFINE_TYPE_WITH_CODE (TumblerSpecializedThumbnailer, 
                          tumbler_specialized_thumbnailer,
-                         G_TYPE_OBJECT,
+                         TUMBLER_TYPE_ABSTRACT_THUMBNAILER,
                          G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_THUMBNAILER,
                                                 tumbler_specialized_thumbnailer_iface_init));
 
@@ -116,10 +112,6 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
   gobject_class->finalize = tumbler_specialized_thumbnailer_finalize; 
   gobject_class->get_property = tumbler_specialized_thumbnailer_get_property;
   gobject_class->set_property = tumbler_specialized_thumbnailer_set_property;
-
-  g_object_class_override_property (gobject_class, PROP_MIME_TYPES, "mime-types");
-  g_object_class_override_property (gobject_class, PROP_URI_SCHEMES, "uri-schemes");
-  g_object_class_override_property (gobject_class, PROP_HASH_KEYS, "hash-keys");
 
   g_object_class_install_property (gobject_class,
                                    PROP_NAME,
@@ -178,7 +170,6 @@ tumbler_specialized_thumbnailer_iface_init (TumblerThumbnailerIface *iface)
 static void
 tumbler_specialized_thumbnailer_init (TumblerSpecializedThumbnailer *thumbnailer)
 {
-  thumbnailer->mime_types = NULL;
 }
 
 
@@ -195,9 +186,9 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
   bus_path = g_strdelimit (bus_path, ".", '/');
 
   thumbnailer->proxy = dbus_g_proxy_new_for_name (thumbnailer->connection,
-                                                        thumbnailer->name,
-                                                        bus_path,
-                                                        "org.xfce.thumbnailer.Thumbnailer");
+                                                  thumbnailer->name,
+                                                  bus_path,
+                                                  "org.xfce.thumbnailer.Thumbnailer");
 
   g_free (bus_path);
 
@@ -229,10 +220,6 @@ tumbler_specialized_thumbnailer_finalize (GObject *object)
 
   g_free (thumbnailer->name);
 
-  g_strfreev (thumbnailer->hash_keys);
-  g_strfreev (thumbnailer->mime_types);
-  g_strfreev (thumbnailer->uri_schemes);
-
   dbus_g_proxy_disconnect_signal (thumbnailer->proxy, "Ready",
                                   G_CALLBACK (tumbler_specialized_thumbnailer_proxy_ready),
                                   thumbnailer);
@@ -260,12 +247,6 @@ tumbler_specialized_thumbnailer_get_property (GObject    *object,
 
   switch (prop_id)
     {
-    case PROP_MIME_TYPES:
-      g_value_set_pointer (value, g_strdupv (thumbnailer->mime_types));
-      break;
-    case PROP_URI_SCHEMES:
-      g_value_set_pointer (value, g_strdupv (thumbnailer->uri_schemes));
-      break;
     case PROP_CONNECTION:
       g_value_set_pointer (value, dbus_g_connection_ref (thumbnailer->connection));
       break;
@@ -299,13 +280,6 @@ tumbler_specialized_thumbnailer_set_property (GObject      *object,
 
   switch (prop_id)
     {
-    case PROP_MIME_TYPES:
-      if (g_value_get_pointer (value) != NULL)
-        thumbnailer->mime_types = g_strdupv (g_value_get_pointer (value));
-      break;
-    case PROP_URI_SCHEMES:
-      thumbnailer->uri_schemes = g_strdupv (g_value_get_pointer (value));
-      break;
     case PROP_CONNECTION:
       thumbnailer->connection = dbus_g_connection_ref (g_value_get_pointer (value));
       break;
