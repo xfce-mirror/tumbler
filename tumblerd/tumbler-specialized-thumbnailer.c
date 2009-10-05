@@ -182,6 +182,10 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
 
   g_return_if_fail (TUMBLER_SPECIALIZED_THUMBNAILER (thumbnailer));
 
+  /* chain up to parent classes */
+  if (G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->constructed != NULL)
+    (G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->constructed) (object);
+
   bus_path = g_strdup_printf ("/%s", thumbnailer->name);
   bus_path = g_strdelimit (bus_path, ".", '/');
 

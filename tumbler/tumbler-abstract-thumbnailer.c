@@ -132,6 +132,10 @@ tumbler_abstract_thumbnailer_constructed (GObject *object)
   g_return_if_fail (thumbnailer->priv->uri_schemes != NULL);
   g_return_if_fail (thumbnailer->priv->hash_keys == NULL);
 
+  /* chain up to parent classes */
+  if (G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->constructed != NULL)
+    (G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->constructed) (object);
+
   /* determine the size of both arrays */
   num_uri_schemes = g_strv_length (thumbnailer->priv->uri_schemes);
   num_mime_types = g_strv_length (thumbnailer->priv->mime_types);

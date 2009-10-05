@@ -160,6 +160,10 @@ tumbler_cache_service_constructed (GObject *object)
   GList                  *lp;
   GList                  *providers;
 
+  /* chain up to parent classes */
+  if (G_OBJECT_CLASS (tumbler_cache_service_parent_class)->constructed != NULL)
+    (G_OBJECT_CLASS (tumbler_cache_service_parent_class)->constructed) (object);
+
   factory = tumbler_provider_factory_get_default ();
   providers = tumbler_provider_factory_get_providers (factory, 
                                                       TUMBLER_TYPE_CACHE_PROVIDER);

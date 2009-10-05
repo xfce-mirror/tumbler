@@ -207,6 +207,10 @@ tumbler_service_constructed (GObject *object)
 {
   TumblerService *service = TUMBLER_SERVICE (object);
 
+  /* chain up to parent classes */
+  if (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed != NULL)
+    (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed) (object);
+
 #if 0
   service->scheduler = tumbler_naive_scheduler_new ();
 #else
