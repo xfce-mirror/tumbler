@@ -41,8 +41,8 @@ tumblerd_SOURCES =							\
 	tumbler-service.h						\
 	tumbler-specialized-thumbnailer.c				\
 	tumbler-specialized-thumbnailer.h				\
-	tumbler-threshold-scheduler.c					\
-	tumbler-threshold-scheduler.h					\
+	tumbler-lifo-scheduler.c					\
+	tumbler-lifo-scheduler.h					\
 	tumbler-utils.h							\
 	$(tumblerd_built_sources)
 

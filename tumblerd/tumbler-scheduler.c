@@ -168,6 +168,15 @@ tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
 }
 
 
+const gchar*
+tumbler_scheduler_get_kind (TumblerScheduler        *scheduler)
+{
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (TUMBLER_SCHEDULER_GET_IFACE (scheduler)->get_kind != NULL);
+
+  TUMBLER_SCHEDULER_GET_IFACE (scheduler)->get_kind (scheduler);
+}
+
 
 void 
 tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,

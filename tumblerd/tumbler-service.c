@@ -36,7 +36,7 @@
 #include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-service.h>
 #include <tumblerd/tumbler-service-dbus-bindings.h>
-#include <tumblerd/tumbler-threshold-scheduler.h>
+#include <tumblerd/tumbler-lifo-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
 
@@ -214,7 +214,7 @@ tumbler_service_constructed (GObject *object)
 #if 0
   service->scheduler = tumbler_naive_scheduler_new ();
 #else
-  service->scheduler = tumbler_threshold_scheduler_new ();
+  service->scheduler = tumbler_lifo_scheduler_new ("foreground");
 #endif
 
   g_signal_connect (service->scheduler, "error",

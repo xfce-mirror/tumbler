@@ -30,7 +30,7 @@
 
 #include <tumbler/tumbler.h>
 
-#include <tumblerd/tumbler-threshold-scheduler.h>
+#include <tumblerd/tumbler-lifo-scheduler.h>
 #include <tumblerd/tumbler-scheduler.h>
 
 
@@ -39,56 +39,54 @@
 enum
 {
   PROP_0,
-  PROP_THRESHOLD,
+  PROP_KIND,
 };
 
-
-
-static void tumbler_threshold_scheduler_iface_init        (TumblerSchedulerIface     *iface);
-static void tumbler_threshold_scheduler_finalize          (GObject                   *object);
-static void tumbler_threshold_scheduler_get_property      (GObject                   *object,
+static void tumbler_lifo_scheduler_iface_init        (TumblerSchedulerIface     *iface);
+static void tumbler_lifo_scheduler_finalize          (GObject                   *object);
+static void tumbler_lifo_scheduler_get_property      (GObject                   *object,
                                                            guint                      prop_id,
                                                            GValue                    *value,
                                                            GParamSpec                *pspec);
-static void tumbler_threshold_scheduler_set_property      (GObject                   *object,
+static void tumbler_lifo_scheduler_set_property      (GObject                   *object,
                                                            guint                      prop_id,
                                                            const GValue              *value,
                                                            GParamSpec                *pspec);
-static void tumbler_threshold_scheduler_push              (TumblerScheduler          *scheduler,
+static void tumbler_lifo_scheduler_push              (TumblerScheduler          *scheduler,
                                                            TumblerSchedulerRequest   *request);
-static void tumbler_threshold_scheduler_unqueue           (TumblerScheduler          *scheduler,
+static void tumbler_lifo_scheduler_unqueue           (TumblerScheduler          *scheduler,
                                                            guint                      handle);
-static void tumbler_threshold_scheduler_finish_request    (TumblerThresholdScheduler *scheduler,
+static void tumbler_lifo_scheduler_finish_request    (TumblerLifoScheduler *scheduler,
                                                            TumblerSchedulerRequest   *request);
-static void tumbler_threshold_scheduler_unqueue_request   (TumblerSchedulerRequest   *request,
+static void tumbler_lifo_scheduler_unqueue_request   (TumblerSchedulerRequest   *request,
                                                            gpointer                   user_data);
-static void tumbler_threshold_scheduler_thread            (gpointer                   data,
+static void tumbler_lifo_scheduler_thread            (gpointer                   data,
                                                            gpointer                   user_data);
-static void tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
+static void tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
                                                            const gchar               *failed_uri,
                                                            gint                       error_code,
                                                            const gchar               *message,
                                                            TumblerSchedulerRequest   *request);
-static void tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
+static void tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
                                                            const gchar               *uri,
                                                            TumblerSchedulerRequest   *request);
 
 
 
-struct _TumblerThresholdSchedulerClass
+struct _TumblerLifoSchedulerClass
 {
   GObjectClass __parent__;
 };
 
-struct _TumblerThresholdScheduler
+struct _TumblerLifoScheduler
 {
   GObject __parent__;
 
-  GThreadPool *large_pool;
-  GThreadPool *small_pool;
+  GThreadPool *pool;
   GMutex      *mutex;
   GList       *requests;
-  guint        threshold;
+  guint        lifo;
+  gchar       *kind;
 };
 
 
@@ -97,78 +95,75 @@ G_LOCK_DEFINE (plugin_access_lock);
 
 
 
-G_DEFINE_TYPE_WITH_CODE (TumblerThresholdScheduler,
-                         tumbler_threshold_scheduler,
+G_DEFINE_TYPE_WITH_CODE (TumblerLifoScheduler,
+                         tumbler_lifo_scheduler,
                          G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
-                                                tumbler_threshold_scheduler_iface_init));
+                                                tumbler_lifo_scheduler_iface_init));
 
 
 
 static void
-tumbler_threshold_scheduler_class_init (TumblerThresholdSchedulerClass *klass)
+tumbler_lifo_scheduler_class_init (TumblerLifoSchedulerClass *klass)
 {
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_threshold_scheduler_finalize; 
-  gobject_class->get_property = tumbler_threshold_scheduler_get_property;
-  gobject_class->set_property = tumbler_threshold_scheduler_set_property;
+  gobject_class->finalize = tumbler_lifo_scheduler_finalize; 
+  gobject_class->get_property = tumbler_lifo_scheduler_get_property;
+  gobject_class->set_property = tumbler_lifo_scheduler_set_property;
 
   g_object_class_install_property (gobject_class,
-                                   PROP_THRESHOLD,
-                                   g_param_spec_uint ("threshold",
-                                                      "threshold",
-                                                      "threshold",
-                                                      0, G_MAXUINT, 20, 
-                                                      G_PARAM_READWRITE));
-
+                                   PROP_KIND,
+                                   g_param_spec_string ("kind",
+                                                        "kind",
+                                                        "kind",
+                                                        NULL,
+                                                        G_PARAM_CONSTRUCT_ONLY |
+                                                        G_PARAM_READWRITE));
 }
 
-
-
-static void
-tumbler_threshold_scheduler_iface_init (TumblerSchedulerIface *iface)
+static const gchar*
+tumbler_lifo_scheduler_get_kind (TumblerScheduler *scheduler)
 {
-  iface->push = tumbler_threshold_scheduler_push;
-  iface->unqueue = tumbler_threshold_scheduler_unqueue;
+  TumblerLifoScheduler *s = TUMBLER_LIFO_SCHEDULER (scheduler);
+  return s->kind;
+}
+
+static void
+tumbler_lifo_scheduler_iface_init (TumblerSchedulerIface *iface)
+{
+  iface->push = tumbler_lifo_scheduler_push;
+  iface->unqueue = tumbler_lifo_scheduler_unqueue;
+  iface->get_kind = tumbler_lifo_scheduler_get_kind;
 }
 
 
 
 static void
-tumbler_threshold_scheduler_init (TumblerThresholdScheduler *scheduler)
+tumbler_lifo_scheduler_init (TumblerLifoScheduler *scheduler)
 {
   scheduler->mutex = g_mutex_new ();
   scheduler->requests = NULL;
 
-  /* allocate a pool with max. 2 threads for request with <= threshold URIs */
-  scheduler->small_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
-                                             scheduler, 2, TRUE, NULL);
+  /* allocate a pool with max. 2 threads for request with <= lifo URIs */
+  scheduler->pool = g_thread_pool_new (tumbler_lifo_scheduler_thread,
+                                       scheduler, 1, TRUE, NULL);
 
   /* make the thread a LIFO */
-  g_thread_pool_set_sort_function (scheduler->small_pool,
-                                   tumbler_scheduler_request_compare, NULL);
-
-  /* allocate a pool with max. 2 threads for request with > threshold URIs */
-  scheduler->large_pool = g_thread_pool_new (tumbler_threshold_scheduler_thread,
-                                             scheduler, 2, TRUE, NULL);
-
-  /* make the thread a LIFO */
-  g_thread_pool_set_sort_function (scheduler->small_pool,
+  g_thread_pool_set_sort_function (scheduler->pool,
                                    tumbler_scheduler_request_compare, NULL);
 }
 
 
 
 static void
-tumbler_threshold_scheduler_finalize (GObject *object)
+tumbler_lifo_scheduler_finalize (GObject *object)
 {
-  TumblerThresholdScheduler *scheduler = TUMBLER_THRESHOLD_SCHEDULER (object);
+  TumblerLifoScheduler *scheduler = TUMBLER_LIFO_SCHEDULER (object);
 
   /* destroy both thread pools */
-  g_thread_pool_free (scheduler->small_pool, TRUE, TRUE);
-  g_thread_pool_free (scheduler->large_pool, TRUE, TRUE);
+  g_thread_pool_free (scheduler->pool, TRUE, TRUE);
 
   /* release all pending requests */
   g_list_foreach (scheduler->requests, (GFunc) tumbler_scheduler_request_free, NULL);
@@ -179,23 +174,23 @@ tumbler_threshold_scheduler_finalize (GObject *object)
   /* destroy the mutex */
   g_mutex_free (scheduler->mutex);
 
-  (*G_OBJECT_CLASS (tumbler_threshold_scheduler_parent_class)->finalize) (object);
+  (*G_OBJECT_CLASS (tumbler_lifo_scheduler_parent_class)->finalize) (object);
 }
 
 
 
 static void
-tumbler_threshold_scheduler_get_property (GObject    *object,
-                                          guint       prop_id,
-                                          GValue     *value,
-                                          GParamSpec *pspec)
+tumbler_lifo_scheduler_get_property (GObject    *object,
+                                     guint       prop_id,
+                                     GValue     *value,
+                                     GParamSpec *pspec)
 {
-  TumblerThresholdScheduler *scheduler = TUMBLER_THRESHOLD_SCHEDULER (object);
+  TumblerLifoScheduler *scheduler = TUMBLER_LIFO_SCHEDULER (object);
 
   switch (prop_id)
     {
-    case PROP_THRESHOLD:
-      g_value_set_uint (value, scheduler->threshold);
+    case PROP_KIND:
+      g_value_set_string (value, scheduler->kind);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -206,17 +201,17 @@ tumbler_threshold_scheduler_get_property (GObject    *object,
 
 
 static void
-tumbler_threshold_scheduler_set_property (GObject      *object,
-                                          guint         prop_id,
-                                          const GValue *value,
-                                          GParamSpec   *pspec)
+tumbler_lifo_scheduler_set_property (GObject      *object,
+                                     guint         prop_id,
+                                     const GValue *value,
+                                     GParamSpec   *pspec)
 {
-  TumblerThresholdScheduler *scheduler = TUMBLER_THRESHOLD_SCHEDULER (object);
+  TumblerLifoScheduler *scheduler = TUMBLER_LIFO_SCHEDULER (object);
 
   switch (prop_id)
     {
-    case PROP_THRESHOLD:
-      scheduler->threshold = g_value_get_uint (value);
+    case PROP_KIND:
+      scheduler->kind = g_value_dup_string (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -227,67 +222,64 @@ tumbler_threshold_scheduler_set_property (GObject      *object,
 
 
 static void
-tumbler_threshold_scheduler_push (TumblerScheduler        *scheduler,
-                                  TumblerSchedulerRequest *request)
+tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
+                             TumblerSchedulerRequest *request)
 {
-  TumblerThresholdScheduler *threshold_scheduler = 
-    TUMBLER_THRESHOLD_SCHEDULER (scheduler);
+  TumblerLifoScheduler *lifo_scheduler = 
+    TUMBLER_LIFO_SCHEDULER (scheduler);
 
-  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
+  g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (threshold_scheduler->mutex);
+  g_mutex_lock (lifo_scheduler->mutex);
   
   /* gain ownership over the requests (sets request->scheduler) */
   tumbler_scheduler_take_request (scheduler, request);
 
   /* prepend the request to the request list */
-  threshold_scheduler->requests = 
-    g_list_prepend (threshold_scheduler->requests, request);
+  lifo_scheduler->requests = 
+    g_list_prepend (lifo_scheduler->requests, request);
 
-  /* enqueue the request in one of the two thread pools depending on its size */
-  if (g_strv_length (request->uris) > threshold_scheduler->threshold)
-    g_thread_pool_push (threshold_scheduler->large_pool, request, NULL);
-  else
-    g_thread_pool_push (threshold_scheduler->small_pool, request, NULL);
+  /* enqueue the request in the pool */
+  g_thread_pool_push (lifo_scheduler->pool, request, NULL);
 
-  g_mutex_unlock (threshold_scheduler->mutex);
+  g_mutex_unlock (lifo_scheduler->mutex);
 }
 
 
 
 static void
-tumbler_threshold_scheduler_unqueue (TumblerScheduler *scheduler,
-                                     guint             handle)
+tumbler_lifo_scheduler_unqueue (TumblerScheduler *scheduler,
+                                guint             handle)
 {
-  TumblerThresholdScheduler *threshold_scheduler = 
-    TUMBLER_THRESHOLD_SCHEDULER (scheduler);
+  TumblerLifoScheduler *lifo_scheduler = 
+    TUMBLER_LIFO_SCHEDULER (scheduler);
 
-  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
+  g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
 
-  g_mutex_lock (threshold_scheduler->mutex);
+  g_mutex_lock (lifo_scheduler->mutex);
 
-  g_list_foreach (threshold_scheduler->requests, 
-                  (GFunc) tumbler_threshold_scheduler_unqueue_request, 
+  g_list_foreach (lifo_scheduler->requests, 
+                  (GFunc) tumbler_lifo_scheduler_unqueue_request, 
                   GUINT_TO_POINTER (handle));
 
-  g_mutex_unlock (threshold_scheduler->mutex);
+  g_mutex_unlock (lifo_scheduler->mutex);
 }
 
 
 
 static void
-tumbler_threshold_scheduler_finish_request (TumblerThresholdScheduler *scheduler,
-                                            TumblerSchedulerRequest   *request)
+tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler *scheduler,
+                                       TumblerSchedulerRequest   *request)
 {
-  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
+  g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
   g_signal_emit_by_name (scheduler, "finished", request->handle);
 
   scheduler->requests = g_list_remove (scheduler->requests,
-                                             request);
+                                       request);
 
   tumbler_scheduler_request_free (request);
 }
@@ -295,8 +287,8 @@ tumbler_threshold_scheduler_finish_request (TumblerThresholdScheduler *scheduler
 
 
 static void
-tumbler_threshold_scheduler_unqueue_request (TumblerSchedulerRequest *request,
-                                             gpointer                 user_data)
+tumbler_lifo_scheduler_unqueue_request (TumblerSchedulerRequest *request,
+                                        gpointer                 user_data)
 {
   guint handle = GPOINTER_TO_UINT (user_data);
 
@@ -310,10 +302,10 @@ tumbler_threshold_scheduler_unqueue_request (TumblerSchedulerRequest *request,
 
 
 static void
-tumbler_threshold_scheduler_thread (gpointer data,
-                                    gpointer user_data)
+tumbler_lifo_scheduler_thread (gpointer data,
+                               gpointer user_data)
 {
-  TumblerThresholdScheduler *scheduler = user_data;
+  TumblerLifoScheduler *scheduler = user_data;
   TumblerSchedulerRequest   *request = data;
   TumblerFileInfo           *info;
   const gchar              **uris;
@@ -327,7 +319,7 @@ tumbler_threshold_scheduler_thread (gpointer data,
   GList                     *lp;
   gint                       n;
 
-  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (scheduler));
+  g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
   /* notify others that we're starting to process this request */
@@ -338,7 +330,7 @@ tumbler_threshold_scheduler_thread (gpointer data,
   if (request->unqueued)
     {
       g_mutex_lock (scheduler->mutex);
-      tumbler_threshold_scheduler_finish_request (scheduler, request);
+      tumbler_lifo_scheduler_finish_request (scheduler, request);
       g_mutex_unlock (scheduler->mutex);
       return;
     }
@@ -350,7 +342,7 @@ tumbler_threshold_scheduler_thread (gpointer data,
       if (request->unqueued)
         {
           g_mutex_lock (scheduler->mutex);
-          tumbler_threshold_scheduler_finish_request (scheduler, request);
+          tumbler_lifo_scheduler_finish_request (scheduler, request);
           g_mutex_unlock (scheduler->mutex);
           return;
         }
@@ -435,19 +427,23 @@ tumbler_threshold_scheduler_thread (gpointer data,
       if (request->unqueued)
         {
           g_mutex_lock (scheduler->mutex);
-          tumbler_threshold_scheduler_finish_request (scheduler, request);
+          tumbler_lifo_scheduler_finish_request (scheduler, request);
           g_mutex_unlock (scheduler->mutex);
           return;
         }
 
+      /* We immediately forward error and ready so that clients rapidly know
+       * when individual thumbnails are ready. It's a LIFO for better inter-
+       * activity with the clients, so we assume this behaviour to be wanted. */
+
       /* connect to the error signal of the thumbnailer */
       g_signal_connect (request->thumbnailers[n], "error", 
-                        G_CALLBACK (tumbler_threshold_scheduler_thumbnailer_error),
+                        G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_error),
                         request);
 
       /* connect to the ready signal of the thumbnailer */
       g_signal_connect (request->thumbnailers[n], "ready",
-                        G_CALLBACK (tumbler_threshold_scheduler_thumbnailer_ready),
+                        G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_ready),
                         request);
 
       /* tell the thumbnailer to generate the thumbnail */
@@ -463,7 +459,7 @@ tumbler_threshold_scheduler_thread (gpointer data,
   g_mutex_lock (scheduler->mutex);
 
   /* notify others that we're finished processing the request */
-  tumbler_threshold_scheduler_finish_request (scheduler, request);
+  tumbler_lifo_scheduler_finish_request (scheduler, request);
 
   g_mutex_unlock (scheduler->mutex);
 }
@@ -471,18 +467,18 @@ tumbler_threshold_scheduler_thread (gpointer data,
 
 
 static void
-tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
-                                               const gchar             *failed_uri,
-                                               gint                     error_code,
-                                               const gchar             *message,
-                                               TumblerSchedulerRequest *request)
+tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
+                                          const gchar             *failed_uri,
+                                          gint                     error_code,
+                                          const gchar             *message,
+                                          TumblerSchedulerRequest *request)
 {
   const gchar *failed_uris[] = { failed_uri, NULL };
 
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (failed_uri != NULL);
   g_return_if_fail (request != NULL);
-  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (request->scheduler));
+  g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
   /* forward the error signal */
   g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris, 
@@ -492,16 +488,16 @@ tumbler_threshold_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnai
 
 
 static void
-tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
-                                               const gchar             *uri,
-                                               TumblerSchedulerRequest *request)
+tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
+                                          const gchar             *uri,
+                                          TumblerSchedulerRequest *request)
 {
   const gchar *uris[] = { uri, NULL };
 
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);
   g_return_if_fail (request != NULL);
-  g_return_if_fail (TUMBLER_IS_THRESHOLD_SCHEDULER (request->scheduler));
+  g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
   /* forward the ready signal */
   g_signal_emit_by_name (request->scheduler, "ready", uris);
@@ -510,7 +506,7 @@ tumbler_threshold_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnai
 
 
 TumblerScheduler *
-tumbler_threshold_scheduler_new (void)
+tumbler_lifo_scheduler_new (const gchar *kind)
 {
-  return g_object_new (TUMBLER_TYPE_THRESHOLD_SCHEDULER, NULL);
+  return g_object_new (TUMBLER_TYPE_LIFO_SCHEDULER, "kind", kind, NULL);
 }
