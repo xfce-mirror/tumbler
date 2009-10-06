@@ -76,9 +76,9 @@ tumblerd_LDADD =							\
 
 servicedir = $(datadir)/dbus-1/services
 service_in_files = 							\
-	org.xfce.TumblerCache.service.in				\
-	org.xfce.TumblerManager.service.in				\
-	org.xfce.TumblerThumbnailer.service.in
+	org.xfce.Tumbler.Cache1.service.in				\
+	org.xfce.Tumbler.Manager1.service.in				\
+	org.xfce.Tumbler.Thumbnailer1.service.in
 
 service_DATA = $(service_in_files:.service.in=.service)
 
