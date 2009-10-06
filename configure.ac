@@ -40,7 +40,7 @@ dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>])
 AC_INIT([tumbler], [tumbler_version], [http://bugzilla.xfce.org/])
 AC_PREREQ([2.50])
-AC_REVISION([@REVISION@])
+ AC_REVISION([@REVISION@])
 AC_CANONICAL_TARGET()
 
 dnl ***************************
@@ -130,15 +130,15 @@ GTK_DOC_CHECK(1.9)
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.16.0)
-PKG_CHECK_MODULES(GIO, gio-2.0 >= 2.16.0)
-PKG_CHECK_MODULES(GTHREAD, gthread-2.0 >= 2.16.0)
-PKG_CHECK_MODULES(DBUS, dbus-1 >= 1.0.0)
-PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.72)
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.0])
+PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.16.0])
+PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.16.0])
+PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.0.0])
+PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
 
-dnl ***************************
-dnl *** Check PNG libraries ***
-dnl ***************************
+dnl *******************************
+dnl *** Check for PNG libraries ***
+dnl *******************************
 PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes], [
   dnl libpng.pc not found, try with libpng12.pc
   PKG_CHECK_MODULES(PNG, libpng12 >= 1.2.0, 
