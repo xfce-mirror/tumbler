@@ -21,13 +21,14 @@ dnl Boston, MA 02110-1301, USA.
 
 dnl TUMBLER_PIXBUF_THUMBNAILER()
 dnl
-dnl Check whether to build and install the GdkPibuxf thumbnailer
+dnl Check whether to build and install the GdkPibuxf thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_PIXBUF_THUMBNAILER],
 [
 AC_ARG_ENABLE([pixbuf-thumbnailer], [AC_HELP_STRING([--disable-pixbuf-thumbnailer], [Don't build the GdkPixbuf thumbnailer plugin])],
   [ac_tumbler_pixbuf_thumbnailer=$enableval], [ac_tumbler_pixbuf_thumbnailer=yes])
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], [], [ac_tumbler_pixbuf_thumbnailer=no])
 fi
 
@@ -40,34 +41,70 @@ AC_MSG_RESULT([$ac_tumbler_pixbuf_thumbnailer])
 
 dnl TUMBLER_FONT_THUMBNAILER()
 dnl
-dnl Check whether to build and install the GdkPibuxf thumbnailer
+dnl Check whether to build and install the FreeType2 font thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_FONT_THUMBNAILER],
 [
 AC_ARG_ENABLE([font-thumbnailer], [AC_HELP_STRING([--disable-font-thumbnailer], [Don't build the FreeType font thumbnailer plugin])],
   [ac_tumbler_font_thumbnailer=$enableval], [ac_tumbler_font_thumbnailer=yes])
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
-  dnl Check for FreeType 2.x
-  FREETYPE_LIBS=""
-  FREETYPE_CFLAGS=""
-  AC_PATH_PROG([FREETYPE_CONFIG], [freetype-config], [no])
-  if test x"$FREETYPE_CONFIG" != x"no"; then
-    AC_MSG_CHECKING([FREETYPE_CFLAGS])
-    FREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
-    AC_MSG_RESULT([$FREETYPE_CFLAGS])
-  
-    AC_MSG_CHECKING([FREETYPE_LIBS])
-    FREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
-    AC_MSG_RESULT([$FREETYPE_LIBS])
-  else
-    dnl We can only build the font thumbnailer if FreeType 2.x is available
-    ac_tumbler_font_thumbnailer=no
-  fi
-  AC_SUBST([FREETYPE_CFLAGS])
-  AC_SUBST([FREETYPE_LIBS])
+  dnl Check for gdk-pixbuf 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  [
+    dnl Check for FreeType 2.x
+    FREETYPE_LIBS=""
+    FREETYPE_CFLAGS=""
+    AC_PATH_PROG([FREETYPE_CONFIG], [freetype-config], [no])
+    if test x"$FREETYPE_CONFIG" != x"no"; then
+      AC_MSG_CHECKING([FREETYPE_CFLAGS])
+      FREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
+      AC_MSG_RESULT([$FREETYPE_CFLAGS])
+    
+      AC_MSG_CHECKING([FREETYPE_LIBS])
+      FREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
+      AC_MSG_RESULT([$FREETYPE_LIBS])
+    else
+      dnl We can only build the font thumbnailer if FreeType 2.x is available
+      ac_tumbler_font_thumbnailer=no
+    fi
+    AC_SUBST([FREETYPE_CFLAGS])
+    AC_SUBST([FREETYPE_LIBS])
+  ], [ac_tumbler_font_thumbnailer=no])
 fi
 
 AC_MSG_CHECKING([whether to build the FreeType thumbnailer plugin])
 AM_CONDITIONAL([TUMBLER_FONT_THUMBNAILER], [test x"$ac_tumbler_font_thumbnailer" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_font_thumbnailer])
+])
+
+
+
+dnl TUMBLER_XDG_CACHE()
+dnl
+dnl Check whether to build and install the freedesktop.org cache plugin.
+dnl
+AC_DEFUN([TUMBLER_XDG_CACHE],
+[
+AC_ARG_ENABLE([xdg-cache], [AC_HELP_STRING([--disable-xdg-cache], [Don't build the freedesktop.org cache plugin])],
+  [ac_tumbler_xdg_cache=$enableval], [ac_tumbler_xdg_cache=yes])
+if test x"$ac_tumbler_xdg_cache" = x"yes"; then
+  dnl Check for gdk-pixbuf 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  [
+    dnl Check for PNG libraries
+    PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes], 
+    [
+      dnl libpng.pc not found, try with libpng12.pc
+      PKG_CHECK_MODULES(PNG, libpng12 >= 1.2.0, [have_libpng=yes], 
+      [
+        have_libpng=no
+        ac_tumbler_xdg_cache=no
+      ])
+    ])
+  ], [ac_tumbler_xdg_cache=no])
+fi
+
+AC_MSG_CHECKING([whether to build the freedesktop.org cache plugin])
+AM_CONDITIONAL([TUMBLER_XDG_CACHE], [test x"$ac_tumbler_xdg_cache" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_xdg_cache])
 ])
