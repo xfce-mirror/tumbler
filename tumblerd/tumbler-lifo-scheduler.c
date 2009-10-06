@@ -1,6 +1,8 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009 Nokia, 
+ *   written by Philip Van Hoof <philip@codeminded.be>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -44,31 +46,31 @@ enum
 static void tumbler_lifo_scheduler_iface_init        (TumblerSchedulerIface     *iface);
 static void tumbler_lifo_scheduler_finalize          (GObject                   *object);
 static void tumbler_lifo_scheduler_get_property      (GObject                   *object,
-                                                           guint                      prop_id,
-                                                           GValue                    *value,
-                                                           GParamSpec                *pspec);
+                                                      guint                      prop_id,
+                                                      GValue                    *value,
+                                                      GParamSpec                *pspec);
 static void tumbler_lifo_scheduler_set_property      (GObject                   *object,
-                                                           guint                      prop_id,
-                                                           const GValue              *value,
-                                                           GParamSpec                *pspec);
+                                                      guint                      prop_id,
+                                                      const GValue              *value,
+                                                      GParamSpec                *pspec);
 static void tumbler_lifo_scheduler_push              (TumblerScheduler          *scheduler,
-                                                           TumblerSchedulerRequest   *request);
+                                                      TumblerSchedulerRequest   *request);
 static void tumbler_lifo_scheduler_unqueue           (TumblerScheduler          *scheduler,
-                                                           guint                      handle);
+                                                      guint                      handle);
 static void tumbler_lifo_scheduler_finish_request    (TumblerLifoScheduler *scheduler,
-                                                           TumblerSchedulerRequest   *request);
+                                                      TumblerSchedulerRequest   *request);
 static void tumbler_lifo_scheduler_unqueue_request   (TumblerSchedulerRequest   *request,
-                                                           gpointer                   user_data);
+                                                      gpointer                   user_data);
 static void tumbler_lifo_scheduler_thread            (gpointer                   data,
-                                                           gpointer                   user_data);
+                                                      gpointer                   user_data);
 static void tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
-                                                           const gchar               *failed_uri,
-                                                           gint                       error_code,
-                                                           const gchar               *message,
-                                                           TumblerSchedulerRequest   *request);
+                                                      const gchar               *failed_uri,
+                                                      gint                       error_code,
+                                                      const gchar               *message,
+                                                      TumblerSchedulerRequest   *request);
 static void tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
-                                                           const gchar               *uri,
-                                                           TumblerSchedulerRequest   *request);
+                                                      const gchar               *uri,
+                                                      TumblerSchedulerRequest   *request);
 
 
 
@@ -84,7 +86,7 @@ struct _TumblerLifoScheduler
   GThreadPool *pool;
   GMutex      *mutex;
   GList       *requests;
-  guint        lifo;
+
   gchar       *name;
 };
 
@@ -130,12 +132,12 @@ tumbler_lifo_scheduler_init (TumblerLifoScheduler *scheduler)
   scheduler->mutex = g_mutex_new ();
   scheduler->requests = NULL;
 
-  /* allocate a pool with max. 2 threads for request with <= lifo URIs */
+  /* allocate a thread pool with a maximum of one thread */
   scheduler->pool = g_thread_pool_new (tumbler_lifo_scheduler_thread,
                                        scheduler, 1, TRUE, NULL);
 
   /* make the thread a LIFO */
-  g_thread_pool_set_sort_function (scheduler->pool,
+  g_thread_pool_set_sort_function (scheduler->pool, 
                                    tumbler_scheduler_request_compare, NULL);
 }
 
@@ -155,6 +157,7 @@ tumbler_lifo_scheduler_finalize (GObject *object)
   /* destroy the request list */
   g_list_free (scheduler->requests);
 
+  /* free the scheduler name */
   g_free (scheduler->name);
 
   /* destroy the mutex */
@@ -211,8 +214,7 @@ static void
 tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
                              TumblerSchedulerRequest *request)
 {
-  TumblerLifoScheduler *lifo_scheduler = 
-    TUMBLER_LIFO_SCHEDULER (scheduler);
+  TumblerLifoScheduler *lifo_scheduler = TUMBLER_LIFO_SCHEDULER (scheduler);
 
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
@@ -223,8 +225,7 @@ tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
   tumbler_scheduler_take_request (scheduler, request);
 
   /* prepend the request to the request list */
-  lifo_scheduler->requests = 
-    g_list_prepend (lifo_scheduler->requests, request);
+  lifo_scheduler->requests = g_list_prepend (lifo_scheduler->requests, request);
 
   /* enqueue the request in the pool */
   g_thread_pool_push (lifo_scheduler->pool, request, NULL);
@@ -246,6 +247,7 @@ tumbler_lifo_scheduler_unqueue (TumblerScheduler *scheduler,
 
   g_mutex_lock (lifo_scheduler->mutex);
 
+  /* unqueue all requests (usually only one) with this handle */
   g_list_foreach (lifo_scheduler->requests, 
                   (GFunc) tumbler_lifo_scheduler_unqueue_request, 
                   GUINT_TO_POINTER (handle));
@@ -262,11 +264,13 @@ tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler *scheduler,
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
+  /* emit a finished signal for this request */
   g_signal_emit_by_name (scheduler, "finished", request->handle);
 
-  scheduler->requests = g_list_remove (scheduler->requests,
-                                       request);
+  /* remove the request from the list */
+  scheduler->requests = g_list_remove (scheduler->requests, request);
 
+  /* destroy the request since we no longer need it */
   tumbler_scheduler_request_free (request);
 }
 
@@ -281,6 +285,7 @@ tumbler_lifo_scheduler_unqueue_request (TumblerSchedulerRequest *request,
   g_return_if_fail (request != NULL);
   g_return_if_fail (handle != 0);
 
+  /* mark the request as unqueued if the handles match */
   if (request->handle == handle)
     request->unqueued = TRUE;
 }
@@ -291,19 +296,19 @@ static void
 tumbler_lifo_scheduler_thread (gpointer data,
                                gpointer user_data)
 {
-  TumblerLifoScheduler *scheduler = user_data;
-  TumblerSchedulerRequest   *request = data;
-  TumblerFileInfo           *info;
-  const gchar              **uris;
-  gboolean                   outdated;
-  gboolean                   uri_needs_update;
-  guint64                    mtime;
-  GError                    *error = NULL;
-  GList                     *cached_uris = NULL;
-  GList                     *missing_uris = NULL;
-  GList                     *thumbnails;
-  GList                     *lp;
-  gint                       n;
+  TumblerSchedulerRequest *request = data;
+  TumblerLifoScheduler    *scheduler = user_data;
+  TumblerFileInfo         *info;
+  const gchar            **uris;
+  gboolean                 outdated;
+  gboolean                 uri_needs_update;
+  guint64                  mtime;
+  GError                  *error = NULL;
+  GList                   *cached_uris = NULL;
+  GList                   *missing_uris = NULL;
+  GList                   *thumbnails;
+  GList                   *lp;
+  gint                     n;
 
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
@@ -311,8 +316,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
   /* notify others that we're starting to process this request */
   g_signal_emit_by_name (request->scheduler, "started", request->handle);
 
-
-  /* finish the request if it was unqueued */
+  /* finish the request if it was already unqueued */
   if (request->unqueued)
     {
       g_mutex_lock (scheduler->mutex);
@@ -333,47 +337,59 @@ tumbler_lifo_scheduler_thread (gpointer data,
           return;
         }
 
+      /* create a file info for the current URI */
       info = tumbler_file_info_new (request->uris[n]);
       uri_needs_update = FALSE;
 
       G_LOCK (plugin_access_lock);
 
+      /* try to load thumbnail information about the URI */
       if (tumbler_file_info_load (info, NULL, &error))
         {
+          /* check if we have a thumbnailer for the URI */
           if (request->thumbnailers[n] != NULL)
             {
+              /* compute the last modification time of the URI */
               mtime = tumbler_file_info_get_mtime (info);
 
+              /* get a list of all thumbnails for this URI */
               thumbnails = tumbler_file_info_get_thumbnails (info);
 
-              for (lp = thumbnails; 
-                   error == NULL && lp != NULL; 
-                   lp = lp->next)
+              /* iterate over them */
+              for (lp = thumbnails; error == NULL && lp != NULL; lp = lp->next)
                 {
+                  /* try to load the thumbnail information */
                   if (tumbler_thumbnail_load (lp->data, NULL, &error))
                     {
+                      /* check if the thumbnail needs an update */
                       outdated = tumbler_thumbnail_needs_update (lp->data, 
                                                                  request->uris[n],
                                                                  mtime);
 
+                      /* if at least one thumbnail is out of date, we need to 
+                       * regenerate thumbnails for the URI */
                       uri_needs_update = uri_needs_update || outdated;
                     }
                 }
             }
           else
             {
+              /* no thumbnailer for this URI, we need to emit an error */
               g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
                            _("No thumbnailer available for \"%s\""), 
                            request->uris[n]);
             }
         }
 
+      /* release the file info */
       g_object_unref (info);
 
       G_UNLOCK (plugin_access_lock);
 
+      /* check if the URI is supported */
       if (error == NULL)
         {
+          /* put it in the right list depending on its thumbnail status */
           if (uri_needs_update)
             missing_uris = g_list_prepend (missing_uris, GINT_TO_POINTER (n));
           else
@@ -381,9 +397,9 @@ tumbler_lifo_scheduler_thread (gpointer data,
         }
       else
         {
+          /* emit an error for the URI */
           tumbler_scheduler_emit_uri_error (TUMBLER_SCHEDULER (scheduler), request,
                                             request->uris[n], error);
-
           g_clear_error (&error);
         }
     }
@@ -391,6 +407,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
   /* check if we have any cached files */
   if (cached_uris != NULL)
     {
+      /* allocate a URI array and fill it with all cached URIs */
       uris = g_new0 (const gchar *, g_list_length (cached_uris) + 1);
       for (n = 0, lp = g_list_last (cached_uris); lp != NULL; lp = lp->prev, ++n)
         uris[n] = lp->data;
@@ -420,7 +437,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
 
       /* We immediately forward error and ready so that clients rapidly know
        * when individual thumbnails are ready. It's a LIFO for better inter-
-       * activity with the clients, so we assume this behaviour to be wanted. */
+       * activity with the clients, so we assume this behaviour to be desired. */
 
       /* connect to the error signal of the thumbnailer */
       g_signal_connect (request->thumbnailers[n], "error", 
