@@ -167,7 +167,7 @@ tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
 }
 
 
-const gchar*
+gchar*
 tumbler_scheduler_get_name (TumblerScheduler *scheduler)
 {
   const gchar *name;
