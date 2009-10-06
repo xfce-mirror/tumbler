@@ -189,10 +189,11 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
   bus_path = g_strdup_printf ("/%s", thumbnailer->name);
   bus_path = g_strdelimit (bus_path, ".", '/');
 
-  thumbnailer->proxy = dbus_g_proxy_new_for_name (thumbnailer->connection,
-                                                  thumbnailer->name,
-                                                  bus_path,
-                                                  "org.xfce.thumbnailer.Thumbnailer");
+  thumbnailer->proxy = 
+    dbus_g_proxy_new_for_name (thumbnailer->connection,
+                               thumbnailer->name,
+                               bus_path,
+                               "org.freedesktop.thumbnails.SpecializedThumbnailer1");
 
   g_free (bus_path);
 

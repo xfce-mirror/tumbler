@@ -389,7 +389,7 @@ tumbler_service_start (TumblerService *service,
   connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the generic thumbnailer interface */
-  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer",
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer1",
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -420,7 +420,7 @@ tumbler_service_start (TumblerService *service,
 
   /* register the service instance as a handler of this interface */
   dbus_g_connection_register_g_object (service->connection, 
-                                       "/org/freedesktop/thumbnails/Thumbnailer", 
+                                       "/org/freedesktop/thumbnails/Thumbnailer1", 
                                        G_OBJECT (service));
 
   g_mutex_unlock (service->mutex);
@@ -446,8 +446,6 @@ tumbler_service_queue (TumblerService        *service,
   guint                    handle;
   gint                     num_thumbnailers;
 
-  g_debug ("tumbler_service_queue:");
-
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
@@ -455,8 +453,6 @@ tumbler_service_queue (TumblerService        *service,
   /* if the scheduler is not defined, fall back to "default" */
   if (desired_scheduler == NULL || *desired_scheduler == '\0')
     desired_scheduler = "default";
-
-  g_debug ("%s", desired_scheduler);
 
   g_mutex_lock (service->mutex);
 

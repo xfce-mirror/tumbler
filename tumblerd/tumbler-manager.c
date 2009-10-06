@@ -210,7 +210,7 @@ tumbler_manager_start (TumblerManager *manager,
   connection = dbus_g_connection_get_connection (manager->connection);
 
   /* request ownership for the manager interface */
-  result = dbus_bus_request_name (connection, "org.xfce.thumbnails.Manager",
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Manager1",
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -242,7 +242,7 @@ tumbler_manager_start (TumblerManager *manager,
 
   /* register the manager instance as a handler of the manager interface */
   dbus_g_connection_register_g_object (manager->connection, 
-                                       "/org/xfce/thumbnails/Manager", 
+                                       "/org/freedesktop/thumbnails/Manager1", 
                                        G_OBJECT (manager));
 
   g_mutex_unlock (manager->mutex);

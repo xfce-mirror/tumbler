@@ -382,7 +382,7 @@ tumbler_cache_service_start (TumblerCacheService *service,
   connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the cache interface */
-  result = dbus_bus_request_name (connection, "org.xfce.thumbnails.Cache", 
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Cache1", 
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -413,7 +413,7 @@ tumbler_cache_service_start (TumblerCacheService *service,
 
   /* register the cache instance as a handler of the cache interface */
   dbus_g_connection_register_g_object (service->connection, 
-                                       "/org/xfce/thumbnails/Cache",
+                                       "/org/freedesktop/thumbnails/Cache1",
                                        G_OBJECT (service));
 
   g_mutex_unlock (service->mutex);

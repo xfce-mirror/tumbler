@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/org/xfce/thumbnails/Cache">
-  <interface name="org.xfce.thumbnails.Cache">
+<node name="/org/freedesktop/thumbnails/Cache1">
+  <interface name="org.freedesktop.thumbnails.Cache1">
     <method name="Move">
       <annotation name="org.freedesktop.DBus.GLib.Async" value="true"/>
       <arg type="as" name="from_uris" direction="in" />
