@@ -92,8 +92,6 @@ EXTRA_DIST =								\
 	tumbler-manager-dbus.xml					\
 	tumbler-service-dbus.xml
 
-if MAINTAINER_MODE
-
 DISTCLEANFILES =							\
 	$(tumblerd_built_sources)
 
@@ -101,12 +99,10 @@ BUILT_SOURCES =								\
 	$(tumblerd_built_sources)
 
 tumbler-cache-service-dbus-bindings.h: tumbler-cache-service-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=tumbler_cache_service $< > $@
+	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_cache_service $< > $@
 
 tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=tumbler_manager $< > $@
+	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_manager $< > $@
 
 tumbler-service-dbus-bindings.h: tumbler-service-dbus.xml Makefile
-	dbus-binding-tool --mode=glib-server --prefix=tumbler_service $< > $@
-
-endif
+	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_service $< > $@

@@ -25,14 +25,12 @@ m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
 m4_define([tumbler_version_minor], [0])
 m4_define([tumbler_version_micro], [0])
-m4_define([tumbler_version_build], [r@REVISION@])
-m4_define([tumbler_version_tag], [svn])
-m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()ifelse(tumbler_version_tag(), [svn], [tumbler_version_tag()-tumbler_version_build()], [tumbler_version_tag()])])
+m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
 dnl ********************************************
 dnl *** Full debug support for SVN snapshots ***
 dnl ********************************************
-m4_define([tumbler_debug_default], [ifelse(tumbler_version_tag(), [svn], [full], [minimum])])
+m4_define([tumbler_debug_default], [minimum])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
@@ -40,7 +38,6 @@ dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>])
 AC_INIT([tumbler], [tumbler_version], [http://bugzilla.xfce.org/])
 AC_PREREQ([2.50])
- AC_REVISION([@REVISION@])
 AC_CANONICAL_TARGET()
 
 dnl ***************************
@@ -48,7 +45,7 @@ dnl *** Initialize automake ***
 dnl ***************************
 AM_INIT_AUTOMAKE([AC_PACKAGE_TARNAME()], [AC_PACKAGE_VERSION()])
 AC_CONFIG_MACRO_DIR([m4])
-AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_AMFLAGS -I m4")
+AC_SUBST([ACLOCAL_AMFLAGS], ["$ACLOCAL_FLAGS -I m4"])
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
 
@@ -128,6 +125,17 @@ dnl *************************
 GTK_DOC_CHECK(1.9)
 
 dnl ***********************************
+dnl *** Check for dbus-binding-tool ***
+dnl ***********************************
+AC_ARG_VAR([DBUS_BINDING_TOOL], [Tool to generate C bindings from XML D-Bus interface definitions])
+AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool], [no])
+if test x"$DBUS_BINDING_TOOL" = x"no"; then
+  AC_MSG_ERROR([could not find dbus-binding-tool in \$PATH. You can run
+  ./configure DBUS_BINDING_TOOL=/path/to/dbus-binding-tool to define 
+  a custom location for it.])
+fi
+
+dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.0])
@@ -136,22 +144,12 @@ PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.16.0])
 PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.0.0])
 PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
 
-dnl *******************************
-dnl *** Check for PNG libraries ***
-dnl *******************************
-PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes], [
-  dnl libpng.pc not found, try with libpng12.pc
-  PKG_CHECK_MODULES(PNG, libpng12 >= 1.2.0, 
-                    [have_libpng=yes],
-                    [jhave_libpng=no])
-])
-AM_CONDITIONAL([HAVE_LIBPNG], test x"$have_libpng" = x"yes")
-
 dnl *************************
 dnl *** Check for plugins ***
 dnl *************************
 TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_FONT_THUMBNAILER()
+TUMBLER_XDG_CACHE()
 
 dnl ************************************************************
 dnl *** Check for thumbnail flavors (normal, large, cropped) ***
@@ -214,6 +212,9 @@ echo
 echo "Build Configuration:"
 echo
 echo "  * Debug:                            $enable_debug"
+echo
+echo "Plugins:"
+echo
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
 echo "  * GdkPixbuf thumbnailer plugin:     yes"
 else
@@ -223,6 +224,11 @@ if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
 echo "  * FreeType font thumbnailer plugin: yes"
 else
 echo "  * FreeType font thumbnailer plugin: no"
+fi
+if test x"$ac_tumbler_xdg_cache" = x"yes"; then
+echo "  * Freedesktop.org cache plugin:     yes"
+else
+echo "  * Freedesktop.org cache plugin:     no"
 fi
 echo
 echo "Supported Thumbnail Flavors:"

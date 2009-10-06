@@ -81,8 +81,7 @@ libtumbler_1_la_CFLAGS =						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(GTHREAD_CFLAGS)						\
-	$(PLATFORM_CFLAGS)						\
-	$(PNG_CFLAGS)
+	$(PLATFORM_CFLAGS)
 
 libtumbler_1_la_LDFLAGS =						\
 	-no-undefined							\
@@ -94,16 +93,14 @@ libtumbler_1_la_LIBADD =						\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
-	$(GTHREAD_LIBS)							\
-	$(PNG_LIBS)
+	$(GTHREAD_LIBS)
 
 EXTRA_DIST =								\
-	tumbler-config.h.in
+	tumbler-config.h.in						\
+	tumbler-marshal.list
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = tumbler-1.pc
-
-if MAINTAINER_MODE
 
 DISTCLEANFILES =							\
 	stamp-tumbler-marshal.h						\
@@ -117,12 +114,12 @@ tumbler-marshal.h: stamp-tumbler-marshal.h
 	@true
 
 stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
-	cd $(srcdir) \
+	cd $(builddir) \
 	&& echo "#ifndef __TUMBLER_MARSHAL_H__" > xgen-emh \
 	&& echo "#define __TUMBLER_MARSHAL_H__" >> xgen-emh \
 	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
-		--header tumbler-marshal.list ) >> xgen-emh \
+		--header $(srcdir)/tumbler-marshal.list ) >> xgen-emh \
 	&& echo "#endif /* !__TUMBLER_MARSHAL_H__ */" >> xgen-emh \
 	&& ( cmp -s xgen-emh tumbler-marshal.h \
 		|| cp xgen-emh tumbler-marshal.h ) \
@@ -130,12 +127,10 @@ stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
 	&& echo timestamp > $(@F)
 
 tumbler-marshal.c: tumbler-marshal.list Makefile
-	cd $(srcdir) \
+	cd $(builddir) \
 	&& echo "#include <tumbler/tumbler-marshal.h>" > xgen-emc \
 	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
-		--body tumbler-marshal.list ) >> xgen-emc \
+		--body $(srcdir)/tumbler-marshal.list ) >> xgen-emc \
 	&& cp xgen-emc tumbler-marshal.c \
 	&& rm -f xgen-emc
-
-endif
