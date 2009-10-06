@@ -17,7 +17,7 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-if ENABLE_PIXBUF_THUMBNAILER
+if TUMBLER_PIXBUF_THUMBNAILER
 
 tumbler_plugindir = $(libdir)/tumbler-$(TUMBLER_VERSION_API)/plugins
 tumbler_plugin_LTLIBRARIES =						\

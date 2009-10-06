@@ -29,7 +29,4 @@ EOF
   exit 1
 }
 
-# # initialize GTK-Doc
-# gtkdocize || exit 1
-
 XDT_AUTOGEN_REQUIRED_VERSION="4.7.2" exec xdt-autogen $@
