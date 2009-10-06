@@ -46,6 +46,7 @@ gboolean        tumbler_service_start    (TumblerService        *service,
 void            tumbler_service_queue    (TumblerService        *service,
                                           const GStrv            uris,
                                           const GStrv            mime_hints,
+                                          const gchar           *s_scheduler,
                                           guint                  handle_to_unqueue,
                                           DBusGMethodInvocation *context);
 void            tumbler_service_unqueue (TumblerService         *service,

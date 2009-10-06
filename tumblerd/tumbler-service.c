@@ -37,6 +37,7 @@
 #include <tumblerd/tumbler-service.h>
 #include <tumblerd/tumbler-service-dbus-bindings.h>
 #include <tumblerd/tumbler-lifo-scheduler.h>
+#include <tumblerd/tumbler-group-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
 
@@ -100,7 +101,7 @@ struct _TumblerService
 
   DBusGConnection  *connection;
   TumblerRegistry  *registry;
-  TumblerScheduler *scheduler;
+  GPtrArray        *schedulers;
   GMutex           *mutex;
 };
 
@@ -198,9 +199,23 @@ static void
 tumbler_service_init (TumblerService *service)
 {
   service->mutex = g_mutex_new ();
+  service->schedulers = g_ptr_array_sized_new (2);
 }
 
+static void
+tumbler_service_add_scheduler (TumblerService *service, TumblerScheduler *scheduler)
+{
+  g_ptr_array_add (service->schedulers, scheduler);
 
+  g_signal_connect (scheduler, "error",
+                    G_CALLBACK (tumbler_service_scheduler_error), service);
+  g_signal_connect (scheduler, "finished", 
+                    G_CALLBACK (tumbler_service_scheduler_finished), service);
+  g_signal_connect (scheduler, "ready", 
+                    G_CALLBACK (tumbler_service_scheduler_ready), service);
+  g_signal_connect (scheduler, "started", 
+                    G_CALLBACK (tumbler_service_scheduler_started), service);
+}
 
 static void
 tumbler_service_constructed (GObject *object)
@@ -211,20 +226,8 @@ tumbler_service_constructed (GObject *object)
   if (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed) (object);
 
-#if 0
-  service->scheduler = tumbler_naive_scheduler_new ();
-#else
-  service->scheduler = tumbler_lifo_scheduler_new ("foreground");
-#endif
-
-  g_signal_connect (service->scheduler, "error",
-                    G_CALLBACK (tumbler_service_scheduler_error), service);
-  g_signal_connect (service->scheduler, "finished", 
-                    G_CALLBACK (tumbler_service_scheduler_finished), service);
-  g_signal_connect (service->scheduler, "ready", 
-                    G_CALLBACK (tumbler_service_scheduler_ready), service);
-  g_signal_connect (service->scheduler, "started", 
-                    G_CALLBACK (tumbler_service_scheduler_started), service);
+  tumbler_service_add_scheduler (service, tumbler_lifo_scheduler_new ("foreground"));
+  tumbler_service_add_scheduler (service, tumbler_group_scheduler_new ("background"));
 }
 
 
@@ -234,7 +237,9 @@ tumbler_service_finalize (GObject *object)
 {
   TumblerService *service = TUMBLER_SERVICE (object);
 
-  g_object_unref (service->scheduler);
+  g_ptr_array_foreach (service->schedulers, (GFunc) g_object_unref, NULL);
+  g_ptr_array_free (service->schedulers, TRUE);
+
   g_object_unref (service->registry);
 
   dbus_g_connection_unref (service->connection);
@@ -367,7 +372,7 @@ tumbler_service_start (TumblerService *service,
   connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the generic thumbnailer interface */
-  result = dbus_bus_request_name (connection, "org.xfce.thumbnails.Thumbnailer",
+  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer",
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -398,7 +403,7 @@ tumbler_service_start (TumblerService *service,
 
   /* register the service instance as a handler of this interface */
   dbus_g_connection_register_g_object (service->connection, 
-                                       "/org/xfce/thumbnails/Thumbnailer", 
+                                       "/org/freedesktop/thumbnails/Thumbnailer", 
                                        G_OBJECT (service));
 
   g_mutex_unlock (service->mutex);
@@ -412,23 +417,25 @@ void
 tumbler_service_queue (TumblerService        *service,
                        const GStrv            uris,
                        const GStrv            mime_hints,
+                       const gchar           *s_scheduler,
                        guint                  handle_to_unqueue,
                        DBusGMethodInvocation *context)
 {
+  TumblerScheduler        *scheduler = NULL;
   TumblerSchedulerRequest *scheduler_request;
   TumblerThumbnailer     **thumbnailers;
   gint                     num_thumbnailers;
-  guint                    handle;
+  guint                    handle, i;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
 
-  g_mutex_lock (service->mutex);
+  if (!s_scheduler || s_scheduler[0] == '\0') {
+    s_scheduler = "default";
+  }
 
-  /* unqueue the request with the given unqueue handle */
-  if (handle_to_unqueue != 0)
-    tumbler_scheduler_unqueue (service->scheduler, handle_to_unqueue);
+  g_mutex_lock (service->mutex);
 
   /* get an array with one thumbnailer for each URI in the request */
   thumbnailers = tumbler_registry_get_thumbnailer_array (service->registry,
@@ -442,8 +449,25 @@ tumbler_service_queue (TumblerService        *service,
   /* get the request handle */
   handle = scheduler_request->handle;
 
+  for (i = 0; i < service->schedulers->len; i++) {
+    TumblerScheduler *sched = g_ptr_array_index (service->schedulers, i);
+    const gchar *kind = tumbler_scheduler_get_kind (sched);
+
+    /* unqueue the request with the given unqueue handle */
+    if (handle_to_unqueue != 0)
+      tumbler_scheduler_unqueue (sched, handle_to_unqueue);
+
+    if (g_ascii_strcasecmp (kind, s_scheduler) == 0)
+      scheduler = sched;
+
+  }
+
+  if (!scheduler) {
+    scheduler = g_ptr_array_index (service->schedulers, 0);
+  }
+
   /* push the request to the scheduler */
-  tumbler_scheduler_push (service->scheduler, scheduler_request);
+  tumbler_scheduler_push (scheduler, scheduler_request);
   
   /* free the thumbnailer array */
   tumbler_thumbnailer_array_free (thumbnailers, num_thumbnailers);
@@ -460,13 +484,19 @@ tumbler_service_unqueue (TumblerService        *service,
                          guint                  handle,
                          DBusGMethodInvocation *context)
 {
+  guint i;
+
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
   g_mutex_lock (service->mutex);
 
-  /* unqueue the request with the given unqueue handle */
-  if (handle != 0)
-    tumbler_scheduler_unqueue (service->scheduler, handle);
+  if (handle != 0) {
+    for (i = 0; i < service->schedulers->len; i++) {
+      TumblerScheduler *sched = g_ptr_array_index (service->schedulers, i);
+      /* unqueue the request with the given unqueue handle */
+      tumbler_scheduler_unqueue (sched, handle);
+    }
+  }
 
   g_mutex_unlock (service->mutex);
 
