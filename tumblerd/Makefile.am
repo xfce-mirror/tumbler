@@ -43,6 +43,8 @@ tumblerd_SOURCES =							\
 	tumbler-specialized-thumbnailer.h				\
 	tumbler-lifo-scheduler.c					\
 	tumbler-lifo-scheduler.h					\
+	tumbler-group-scheduler.c					\
+	tumbler-group-scheduler.h					\
 	tumbler-utils.h							\
 	$(tumblerd_built_sources)
 
