@@ -29,7 +29,7 @@ fi
 which gnome-autogen.sh
 if test x"$?" = x"0"; then
   echo "Building using the GNOME development environment"
-  ./autogen.gnome.sh $@
+  ./autogen-gnome.sh $@
   exit $?
 fi
 

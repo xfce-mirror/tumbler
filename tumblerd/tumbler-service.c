@@ -451,7 +451,7 @@ tumbler_service_queue (TumblerService        *service,
 
   for (i = 0; i < service->schedulers->len; i++) {
     TumblerScheduler *sched = g_ptr_array_index (service->schedulers, i);
-    const gchar *kind = tumbler_scheduler_get_kind (sched);
+    const gchar *kind = tumbler_scheduler_get_name (sched);
 
     /* unqueue the request with the given unqueue handle */
     if (handle_to_unqueue != 0)

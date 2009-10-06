@@ -26,8 +26,6 @@
 
 #include <tumblerd/tumbler-scheduler.h>
 
-
-
 /* signal identifiers */
 enum
 {
@@ -39,14 +37,8 @@ enum
 };
 
 
-
 static void tumbler_scheduler_class_init (TumblerSchedulerIface *klass);
-
-
-
 static guint tumbler_scheduler_signals[LAST_SIGNAL];
-
-
 
 GType
 tumbler_scheduler_get_type (void)
@@ -73,10 +65,17 @@ tumbler_scheduler_get_type (void)
 }
 
 
-
 static void
 tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
 {
+  g_object_interface_install_property (klass, 
+                                       g_param_spec_string ("name",
+                                                            "name",
+                                                            "name",
+                                                            NULL,
+                                                            G_PARAM_READWRITE |
+                                                            G_PARAM_CONSTRUCT_ONLY));
+
   tumbler_scheduler_signals[SIGNAL_ERROR] =
     g_signal_new ("error",
                   TUMBLER_TYPE_SCHEDULER,
@@ -169,14 +168,15 @@ tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
 
 
 const gchar*
-tumbler_scheduler_get_kind (TumblerScheduler        *scheduler)
+tumbler_scheduler_get_name (TumblerScheduler *scheduler)
 {
+  const gchar *name;
+
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
-  g_return_if_fail (TUMBLER_SCHEDULER_GET_IFACE (scheduler)->get_kind != NULL);
+  g_object_get (scheduler, "name", &name, NULL);
 
-  TUMBLER_SCHEDULER_GET_IFACE (scheduler)->get_kind (scheduler);
+  return name;
 }
-
 
 void 
 tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,

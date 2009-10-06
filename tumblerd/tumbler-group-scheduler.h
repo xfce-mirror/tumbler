@@ -39,7 +39,7 @@ typedef struct _TumblerGroupScheduler      TumblerGroupScheduler;
 
 GType             tumbler_group_scheduler_get_type (void) G_GNUC_CONST;
 
-TumblerScheduler *tumbler_group_scheduler_new      (const gchar *kind) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerScheduler *tumbler_group_scheduler_new      (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS;
 

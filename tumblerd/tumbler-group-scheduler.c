@@ -35,13 +35,11 @@
 #include <tumblerd/tumbler-group-scheduler.h>
 #include <tumblerd/tumbler-scheduler.h>
 
-
-
 /* Property identifiers */
 enum
 {
   PROP_0,
-  PROP_KIND,
+  PROP_NAME,
 };
 
 static void tumbler_group_scheduler_iface_init        (TumblerSchedulerIface     *iface);
@@ -88,7 +86,7 @@ struct _TumblerGroupScheduler
   GMutex      *mutex;
   GList       *requests;
   guint        group;
-  gchar       *kind;
+  gchar       *name;
 };
 
 
@@ -115,29 +113,16 @@ tumbler_group_scheduler_class_init (TumblerGroupSchedulerClass *klass)
   gobject_class->get_property = tumbler_group_scheduler_get_property;
   gobject_class->set_property = tumbler_group_scheduler_set_property;
 
-  g_object_class_install_property (gobject_class,
-                                   PROP_KIND,
-                                   g_param_spec_string ("kind",
-                                                        "kind",
-                                                        "kind",
-                                                        NULL,
-                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                        G_PARAM_READWRITE));
+  g_object_class_override_property (gobject_class, PROP_NAME, "name");
+
 }
 
-static const gchar*
-tumbler_group_scheduler_get_kind (TumblerScheduler *scheduler)
-{
-  TumblerGroupScheduler *s = TUMBLER_GROUP_SCHEDULER (scheduler);
-  return s->kind;
-}
 
 static void
 tumbler_group_scheduler_iface_init (TumblerSchedulerIface *iface)
 {
   iface->push = tumbler_group_scheduler_push;
   iface->unqueue = tumbler_group_scheduler_unqueue;
-  iface->get_kind = tumbler_group_scheduler_get_kind;
 }
 
 
@@ -170,6 +155,8 @@ tumbler_group_scheduler_finalize (GObject *object)
   /* destroy the request list */
   g_list_free (scheduler->requests);
 
+  g_free (scheduler->name);
+
   /* destroy the mutex */
   g_mutex_free (scheduler->mutex);
 
@@ -188,8 +175,8 @@ tumbler_group_scheduler_get_property (GObject    *object,
 
   switch (prop_id)
     {
-    case PROP_KIND:
-      g_value_set_string (value, scheduler->kind);
+    case PROP_NAME:
+      g_value_set_string (value, scheduler->name);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -209,8 +196,8 @@ tumbler_group_scheduler_set_property (GObject      *object,
 
   switch (prop_id)
     {
-    case PROP_KIND:
-      scheduler->kind = g_value_dup_string (value);
+    case PROP_NAME:
+      scheduler->name = g_value_dup_string (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -565,7 +552,7 @@ tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
 
 
 TumblerScheduler *
-tumbler_group_scheduler_new (const gchar *kind)
+tumbler_group_scheduler_new (const gchar *name)
 {
-  return g_object_new (TUMBLER_TYPE_GROUP_SCHEDULER, "kind", kind, NULL);
+  return g_object_new (TUMBLER_TYPE_GROUP_SCHEDULER, "name", name, NULL);
 }

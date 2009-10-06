@@ -37,7 +37,7 @@ typedef struct _TumblerLifoScheduler      TumblerLifoScheduler;
 
 GType             tumbler_lifo_scheduler_get_type (void) G_GNUC_CONST;
 
-TumblerScheduler *tumbler_lifo_scheduler_new      (const gchar *kind) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerScheduler *tumbler_lifo_scheduler_new      (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS;
 

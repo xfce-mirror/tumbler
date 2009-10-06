@@ -57,8 +57,6 @@ struct _TumblerSchedulerIface
                     TumblerSchedulerRequest *request);
   void (*unqueue)  (TumblerScheduler        *scheduler,
                     guint                    handle);
-  const gchar*
-       (*get_kind) (TumblerScheduler        *scheduler);
 };
 
 GType                    tumbler_scheduler_get_type              (void) G_GNUC_CONST;
@@ -67,7 +65,7 @@ void                     tumbler_scheduler_push                  (TumblerSchedul
                                                                   TumblerSchedulerRequest *request);
 void                     tumbler_scheduler_unqueue               (TumblerScheduler        *scheduler,
                                                                   guint                    handle);
-const gchar*             tumbler_scheduler_get_kind              (TumblerScheduler        *scheduler);
+const gchar*             tumbler_scheduler_get_name              (TumblerScheduler        *scheduler);
 void                     tumbler_scheduler_take_request          (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);
 void                     tumbler_scheduler_emit_uri_error        (TumblerScheduler        *scheduler,
