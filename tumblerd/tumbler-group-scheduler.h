@@ -1,6 +1,7 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (C) 2009, Nokia
+ * Copyright (C) 2009 Nokia,
+ *   written by Philip Van Hoof <philip@codeminded.be>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -16,8 +17,6 @@
  * License along with this program; if not, write to the Free 
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- *
- * Author: Philip Van Hoof <philip@codeminded.be>
  */
 
 #ifndef __TUMBLER_GROUP_SCHEDULER_H__
