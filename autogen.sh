@@ -1,24 +1,19 @@
-#!/bin/sh
-# Run this to generate all the initial makefiles, etc.
+which xdt-autogen
 
-srcdir=`dirname $0`
-test -z "$srcdir" && srcdir=.
+if test x$? = x"0"; then
+  echo "Picked XFCE development environment"
+  .  ./autogen-xfce.sh
+  exit 0
+fi
 
-PKG_NAME="tumbler"
-REQUIRED_AUTOMAKE_VERSION=1.9
+which gnome-autogen.sh
 
-(test -f $srcdir/configure.ac \
-  && test -f $srcdir/README) || {
-    echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
-    echo " top-level $PKG_NAME directory"
-    exit 1
-}
+if test x$? = x"0"; then
+  echo "Picked GNOME development environment"
+  .  ./autogen-gnome.sh
+  exit 0
+fi
 
-# Automake requires that ChangeLog exist.
-touch ChangeLog
+echo "You need to install either gnome-common or xfce4-dev-tools"
+exit 1
 
-which gnome-autogen.sh || {
-    echo "You need to install gnome-common from the GNOME CVS"
-    exit 1
-}
-. gnome-autogen.sh

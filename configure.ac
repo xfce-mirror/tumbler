@@ -47,6 +47,8 @@ dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
 AM_INIT_AUTOMAKE([AC_PACKAGE_TARNAME()], [AC_PACKAGE_VERSION()])
+AC_CONFIG_MACRO_DIR([m4])
+AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
 AM_CONFIG_HEADER([config.h])
 AM_MAINTAINER_MODE()
 
@@ -117,7 +119,10 @@ AC_FUNC_MMAP()
 dnl ******************************
 dnl *** Check for i18n support ***
 dnl ******************************
-dnl XDT_I18N([@LINGUAS@])
+
+linguas=`ls po/*.po | sed s/.po//g | sed sApo/AA | xargs`
+
+XDT_I18N([$linguas])
 
 dnl *************************
 dnl *** Check for GTK-Doc ***
@@ -227,7 +232,7 @@ fi
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
-dnl XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG()
 
 dnl **************************************
 dnl *** Check for linker optimizations ***
