@@ -531,3 +531,130 @@ tumbler_service_unqueue (TumblerService        *service,
 
   dbus_g_method_return (context);
 }
+
+
+void
+tumbler_service_get_supported (TumblerService        *service,
+                               DBusGMethodInvocation *context)
+{
+  GHashTable    *types;
+  GHashTableIter iter;
+  gpointer       key;
+  gpointer       value;
+  GList         *thumbnailers;
+  GList         *lp;
+  GStrv          supported_types;
+  GStrv          supported_schemes;
+  GStrv          mime_types;
+  GStrv          uri_schemes;
+  gint           n, u;
+
+  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
+
+  /* create a hash table to collect unique MIME types */
+  types = g_hash_table_new_full (g_str_hash, g_str_equal, 
+                                 (GDestroyNotify) g_free, 
+                                 (GDestroyNotify) g_strfreev);
+
+  g_mutex_lock (service->mutex);
+
+  /* get a list of all active thumbnailers */
+  thumbnailers = tumbler_registry_get_thumbnailers (service->registry);
+
+  /* iterate over all of them */
+  for (lp = thumbnailers; lp != NULL; lp = lp->next)
+    {
+      /* determine the MIME types & URI schemes supported by the current thumbnailer */
+      mime_types = tumbler_thumbnailer_get_mime_types (lp->data);
+      uri_schemes = tumbler_thumbnailer_get_uri_schemes (lp->data);
+
+      /* insert all MIME types & URI schemes into the hash table */
+      for (n = 0; mime_types != NULL && mime_types[n] != NULL; ++n) 
+        {
+         for (u = 0; uri_schemes != NULL && uri_schemes[u] != NULL; ++u)
+           {
+             GStrv registry = g_new0 (gchar *, 3);
+
+             registry[0] = g_strdup (uri_schemes[u]);
+             registry[1] = g_strdup (mime_types[n]);
+
+             g_hash_table_replace (types, 
+                                   g_strdup_printf ("%s-%s", uri_schemes[u],
+                                                    mime_types[n]),
+                                   registry);
+           }
+        }
+
+      /* free MIME types & URI schemes array */
+      g_strfreev (mime_types);
+      g_strfreev (uri_schemes);
+    }
+
+  /* relase the thumbnailer list */
+  g_list_free (thumbnailers);
+  
+  g_mutex_unlock (service->mutex);
+
+  /* allocate a string array for them */
+  u =  g_hash_table_size (types) + 1;
+  supported_types = g_new0 (gchar *, u);
+  supported_schemes = g_new0 (gchar *, u);
+
+  /* insert all MIME types & URI schemes into arrays */
+
+  n = 0;
+  g_hash_table_iter_init (&iter, types);
+  while (g_hash_table_iter_next (&iter, &key, &value)) 
+    {
+      GStrv registry = value;
+
+      supported_schemes[n] = g_strdup (registry[0]);
+      supported_types[n] = g_strdup (registry[1]);
+
+      ++n;
+    }
+
+
+  /* NULL-terminate the arrays */
+  supported_types[n] = NULL;
+  supported_schemes[n] = NULL;
+
+  /* destroy the hash table we used */
+  g_hash_table_unref (types);
+
+  dbus_g_method_return (context, supported_schemes, supported_types);
+
+  /* free the supported types & schemes */
+  g_strfreev (supported_types);
+  g_strfreev (supported_schemes);
+}
+
+
+void
+tumbler_service_get_schedulers (TumblerService        *service,
+                                DBusGMethodInvocation *context)
+{
+  GStrv supported_schedulers;
+  GList *iter;
+  guint n = 0;
+
+  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
+
+  g_mutex_lock (service->mutex);
+
+  supported_schedulers = g_new0 (gchar *, g_list_length (service->schedulers) + 2);
+  supported_schedulers[n++] = g_strdup ("default");
+
+  for (iter = service->schedulers; iter != NULL; iter = iter->next)
+    {
+      supported_schedulers[n++] = tumbler_scheduler_get_name (TUMBLER_SCHEDULER (iter->data));
+    }
+
+  g_mutex_unlock (service->mutex);
+
+  supported_schedulers[n] = NULL;
+
+  dbus_g_method_return (context, supported_schedulers);
+
+  g_strfreev (supported_schedulers);
+}
