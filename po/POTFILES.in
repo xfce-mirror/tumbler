@@ -1,12 +1,12 @@
 tumblerd/tumbler-cache-service.c
+tumblerd/tumbler-group-scheduler.c
+tumblerd/tumbler-lifo-scheduler.c
 tumblerd/tumbler-service.c
 tumblerd/tumbler-specialized-thumbnailer.c
-tumblerd/tumbler-threshold-scheduler.c
 tumblerd/tumbler-manager.c
 tumblerd/tumbler-scheduler.c
 tumblerd/main.c
 tumblerd/tumbler-registry.c
-tumblerd/tumbler-naive-scheduler.c
 tumbler/tumbler-enum-types.c
 tumbler/tumbler-config.c
 tumbler/tumbler-cache-provider.c
