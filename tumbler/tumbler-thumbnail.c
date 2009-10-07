@@ -148,7 +148,7 @@ tumbler_thumbnail_save_file (TumblerThumbnail *thumbnail,
   g_return_val_if_fail (G_IS_FILE (file), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-  g_return_val_if_fail (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_pixbuf != NULL, FALSE);
+  g_return_val_if_fail (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_file != NULL, FALSE);
 
   return (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_file) (thumbnail, file, mtime,
                                                                cancellable, error);
