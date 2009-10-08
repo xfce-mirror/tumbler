@@ -209,7 +209,7 @@ tumbler_service_add_scheduler (TumblerService   *service,
                                TumblerScheduler *scheduler)
 {
   /* add the scheduler to the list */
-  service->schedulers = g_list_prepend (service->schedulers, g_object_ref (scheduler));
+  service->schedulers = g_list_append (service->schedulers, g_object_ref (scheduler));
 
   /* connect to the scheduler signals */
   g_signal_connect (scheduler, "error",
@@ -234,13 +234,13 @@ tumbler_service_constructed (GObject *object)
   if (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed) (object);
 
-  /* create the background scheduler */
-  scheduler = tumbler_group_scheduler_new ("background");
+  /* create the foreground scheduler */
+  scheduler = tumbler_lifo_scheduler_new ("foreground");
   tumbler_service_add_scheduler (service, scheduler);
   g_object_unref (scheduler);
 
-  /* create the foreground scheduler */
-  scheduler = tumbler_lifo_scheduler_new ("foreground");
+  /* create the background scheduler */
+  scheduler = tumbler_group_scheduler_new ("background");
   tumbler_service_add_scheduler (service, scheduler);
   g_object_unref (scheduler);
 }
