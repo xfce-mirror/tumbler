@@ -170,7 +170,7 @@ tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
 gchar*
 tumbler_scheduler_get_name (TumblerScheduler *scheduler)
 {
-  const gchar *name;
+  gchar *name;
 
   g_return_val_if_fail (TUMBLER_IS_SCHEDULER (scheduler), NULL);
   g_object_get (scheduler, "name", &name, NULL);
