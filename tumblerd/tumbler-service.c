@@ -538,115 +538,18 @@ void
 tumbler_service_get_supported (TumblerService        *service,
                                DBusGMethodInvocation *context)
 {
-  GHashTableIter iter;
-  GHashTable    *unique_pairs;
-  GSList        *used_strings = NULL;
-  GList         *thumbnailers;
-  GList         *lp;
-  const gchar  **pair;
-  const gchar  **supported_types;
-  const gchar  **supported_schemes;
-  GStrv          mime_types;
-  GStrv          uri_schemes;
-  gchar         *pair_string;
-  gint           n;
-  gint           u;
+  const gchar *const *uri_schemes;
+  const gchar *const *mime_types;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
-  /* create a hash table to collect unique URI scheme / MIME type pairs */
-  unique_pairs = g_hash_table_new_full (g_str_hash, g_str_equal, 
-                                        (GDestroyNotify) g_free, 
-                                        (GDestroyNotify) g_free);
-
   g_mutex_lock (service->mutex);
 
-  /* get a list of all active thumbnailers */
-  thumbnailers = tumbler_registry_get_thumbnailers (service->registry);
-
-  /* iterate over all of them */
-  for (lp = thumbnailers; lp != NULL; lp = lp->next)
-    {
-      /* determine the MIME types & URI schemes supported by the current thumbnailer */
-      mime_types = tumbler_thumbnailer_get_mime_types (lp->data);
-      uri_schemes = tumbler_thumbnailer_get_uri_schemes (lp->data);
-
-      /* insert all MIME types & URI schemes into the hash table */
-      for (n = 0; 
-           mime_types != NULL && uri_schemes != NULL && mime_types[n] != NULL; 
-           ++n)
-        {
-          /* remember the MIME type so that we can later reuse it without copying */
-          used_strings = g_slist_prepend (used_strings, mime_types[n]);
-
-          for (u = 0; uri_schemes[u] != NULL; ++u)
-            {
-              /* remember the URI scheme for this pair so that we can later reuse it 
-               * without copying. Only remember it once (n==0) to avoid segmentation 
-               * faults when freeing the list */
-              if (n == 0)
-                used_strings = g_slist_prepend (used_strings, uri_schemes[u]);
-
-              /* allocate a pair with the current URI scheme and MIME type */
-              pair = g_new0 (const gchar *, 3);
-
-              /* we can now reuse the strings */
-              pair[0] = uri_schemes[u];
-              pair[1] = mime_types[n];
-              pair[2] = NULL;
-
-              /* combine the two to a unique pair identifier */
-              pair_string = g_strdup_printf ("%s-%s", pair[0], pair[1]);
-
-              /* remember the pair in the hash table */
-              g_hash_table_insert (unique_pairs, pair_string, pair);
-            }
-        }
-
-      /* free MIME types & URI schemes array. Their contents are stored in
-       * used_strings and are freed later */
-      g_free (mime_types);
-      g_free (uri_schemes);
-    }
-
-  /* relase the thumbnailer list */
-  g_list_free (thumbnailers);
+  tumbler_registry_get_supported (service->registry, &uri_schemes, &mime_types);
 
   g_mutex_unlock (service->mutex);
 
-  /* allocate a string array for the URI scheme / MIME type pairs */
-  n =  g_hash_table_size (unique_pairs) + 1;
-  supported_types = g_new0 (const gchar *, n);
-  supported_schemes = g_new0 (const gchar *, n);
-
-  /* insert all unique URI scheme / MIME type pairs into string arrays */
-  n = 0;
-  g_hash_table_iter_init (&iter, unique_pairs);
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer) &pair)) 
-    {
-      /* reuse the strings from the hash table without copying */
-      supported_schemes[n] = pair[0];
-      supported_types[n] = pair[1];
-
-      ++n;
-    }
-
-  /* NULL-terminate the arrays */
-  supported_types[n] = NULL;
-  supported_schemes[n] = NULL;
-
-  dbus_g_method_return (context, supported_schemes, supported_types);
-
-  /* free the supported types & schemes */
-  g_free (supported_types);
-  g_free (supported_schemes);
-
-  /* destroy the hash table we used */
-  g_hash_table_unref (unique_pairs);
-
-  /* free all strings we used but haven't freed yet */
-  g_slist_foreach (used_strings, (GFunc) g_free, NULL);
-  g_slist_free (used_strings);
+  dbus_g_method_return (context, uri_schemes, mime_types);
 }
 
 
@@ -654,9 +557,9 @@ void
 tumbler_service_get_schedulers (TumblerService        *service,
                                 DBusGMethodInvocation *context)
 {
-  GStrv supported_schedulers;
+  GStrv  supported_schedulers;
   GList *iter;
-  guint n = 0;
+  guint  n = 0;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
