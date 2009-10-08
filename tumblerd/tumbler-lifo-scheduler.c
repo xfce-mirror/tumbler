@@ -321,6 +321,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
   if (request->unqueued)
     {
       tumbler_lifo_scheduler_finish_request (scheduler, request);
+      g_mutex_unlock (scheduler->mutex);
       return;
     }
   g_mutex_unlock (scheduler->mutex);
@@ -333,6 +334,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
       if (request->unqueued)
         {
           tumbler_lifo_scheduler_finish_request (scheduler, request);
+          g_mutex_unlock (scheduler->mutex);
           return;
         }
       g_mutex_unlock (scheduler->mutex);

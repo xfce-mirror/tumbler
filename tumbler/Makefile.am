@@ -120,7 +120,7 @@ stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
 	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
 		--header $(srcdir)/tumbler-marshal.list ) >> xgen-emh \
-	&& echo "#endif /*! __TUMBLER_MARSHAL_H__ */" >> xgen-emh \
+	&& echo "#endif /* !__TUMBLER_MARSHAL_H__ */" >> xgen-emh \
 	&& ( cmp -s xgen-emh tumbler-marshal.h \
 		|| cp xgen-emh tumbler-marshal.h ) \
 	&& rm -f xgen-emh \

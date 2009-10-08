@@ -388,6 +388,7 @@ tumbler_group_scheduler_thread (gpointer data,
   if (request->unqueued)
     {
       tumbler_group_scheduler_finish_request (scheduler, request);
+      g_mutex_unlock (scheduler->mutex);
       return;
     }
   g_mutex_unlock (scheduler->mutex);
@@ -400,6 +401,7 @@ tumbler_group_scheduler_thread (gpointer data,
       if (request->unqueued)
         {
           tumbler_group_scheduler_finish_request (scheduler, request);
+          g_mutex_unlock (scheduler->mutex);
           return;
         }
       g_mutex_unlock (scheduler->mutex);
