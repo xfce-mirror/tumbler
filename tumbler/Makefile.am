@@ -114,20 +114,20 @@ tumbler-marshal.h: stamp-tumbler-marshal.h
 	@true
 
 stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
-	cd $(builddir) \
+	cd $(top_builddir)/tumbler \
 	&& echo "#ifndef __TUMBLER_MARSHAL_H__" > xgen-emh \
 	&& echo "#define __TUMBLER_MARSHAL_H__" >> xgen-emh \
 	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
 		--header $(srcdir)/tumbler-marshal.list ) >> xgen-emh \
-	&& echo "#endif /* !__TUMBLER_MARSHAL_H__ */" >> xgen-emh \
+	&& echo "#endif /*! __TUMBLER_MARSHAL_H__ */" >> xgen-emh \
 	&& ( cmp -s xgen-emh tumbler-marshal.h \
 		|| cp xgen-emh tumbler-marshal.h ) \
 	&& rm -f xgen-emh \
 	&& echo timestamp > $(@F)
 
 tumbler-marshal.c: tumbler-marshal.list Makefile
-	cd $(builddir) \
+	cd $(top_builddir)/tumbler \
 	&& echo "#include <tumbler/tumbler-marshal.h>" > xgen-emc \
 	&& ( glib-genmarshal \
 		--prefix=tumbler_marshal \
