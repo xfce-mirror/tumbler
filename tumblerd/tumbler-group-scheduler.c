@@ -309,11 +309,17 @@ tumbler_group_scheduler_unqueue_request (TumblerSchedulerRequest *request,
 
 
 static UriError *
-uri_error_new (void)
+uri_error_new (gint         code,
+               const gchar *uri,
+               const gchar *message)
 {
   UriError *error;
 
   error = g_slice_new0 (UriError);
+  error->error_code = code;
+  error->failed_uri = g_strdup (uri);
+  error->message = g_strdup (message);
+
   return error;
 }
 
@@ -608,10 +614,7 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
   g_return_if_fail (uri_errors != NULL);
 
   /* allocate a new URI error */
-  error = g_slice_new0 (UriError);
-  error->error_code = error_code;
-  error->message = g_strdup (message);
-  error->failed_uri = g_strdup (failed_uri);
+  error = uri_error_new (error_code, failed_uri, message);
 
   /* add the error to the list */
   *uri_errors = g_list_prepend (*uri_errors, error);
