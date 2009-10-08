@@ -317,25 +317,25 @@ tumbler_lifo_scheduler_thread (gpointer data,
   g_signal_emit_by_name (request->scheduler, "started", request->handle);
 
   /* finish the request if it was already unqueued */
+  g_mutex_lock (scheduler->mutex);
   if (request->unqueued)
     {
-      g_mutex_lock (scheduler->mutex);
       tumbler_lifo_scheduler_finish_request (scheduler, request);
-      g_mutex_unlock (scheduler->mutex);
       return;
     }
+  g_mutex_unlock (scheduler->mutex);
 
   /* process URI by URI */
   for (n = 0; request->uris[n] != NULL; ++n)
     {
       /* finish the request if it was unqueued */
+      g_mutex_lock (scheduler->mutex);
       if (request->unqueued)
         {
-          g_mutex_lock (scheduler->mutex);
           tumbler_lifo_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->mutex);
           return;
         }
+      g_mutex_unlock (scheduler->mutex);
 
       /* create a file info for the current URI */
       info = tumbler_file_info_new (request->uris[n]);

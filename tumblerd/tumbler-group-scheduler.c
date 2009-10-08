@@ -370,25 +370,25 @@ tumbler_group_scheduler_thread (gpointer data,
   g_signal_emit_by_name (request->scheduler, "started", request->handle);
 
   /* finish the request if it was unqueued */
+  g_mutex_lock (scheduler->mutex);
   if (request->unqueued)
     {
-      g_mutex_lock (scheduler->mutex);
       tumbler_group_scheduler_finish_request (scheduler, request);
-      g_mutex_unlock (scheduler->mutex);
       return;
     }
+  g_mutex_unlock (scheduler->mutex);
 
   /* process URI by URI */
   for (n = 0; request->uris[n] != NULL; ++n)
     {
       /* finish the request if it was unqueued */
+      g_mutex_lock (scheduler->mutex);
       if (request->unqueued)
         {
-          g_mutex_lock (scheduler->mutex);
           tumbler_group_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->mutex);
           return;
         }
+      g_mutex_unlock (scheduler->mutex);
 
       /* create a file infor for the current URI */
       info = tumbler_file_info_new (request->uris[n]);
@@ -485,13 +485,13 @@ tumbler_group_scheduler_thread (gpointer data,
       n = GPOINTER_TO_INT (lp->data);
 
       /* finish the request if it was unqueued */
+      g_mutex_lock (scheduler->mutex);
       if (request->unqueued)
         {
-          g_mutex_lock (scheduler->mutex);
           tumbler_group_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->mutex);
           return;
         }
+      g_mutex_unlock (scheduler->mutex);
 
       /* connect to the error signal of the thumbnailer */
       g_signal_connect (request->thumbnailers[n], "error", 
