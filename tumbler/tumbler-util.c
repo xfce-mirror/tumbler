@@ -58,10 +58,10 @@ tumbler_util_get_supported_uri_schemes (void)
     {
       /* it is not, so we need to copy the array and add "file" */
       length = g_strv_length ((GStrv) vfs_schemes);
-      uri_schemes = g_new0 (gchar *, length + 1);
+      uri_schemes = g_new0 (gchar *, length + 2);
       uri_schemes[0] = g_strdup ("file");
-      for (n = 0; n < length; ++n)
-        uri_schemes[1+n] = g_strdup (vfs_schemes[n]);
+      for (n = 1; n <= length; ++n)
+        uri_schemes[n] = g_strdup (vfs_schemes[n-1]);
       uri_schemes[n] = NULL;
     }
 
