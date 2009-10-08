@@ -94,6 +94,7 @@ struct _TumblerGroupScheduler
   GMutex      *mutex;
   GList       *requests;
   guint        group;
+  gboolean     prioritized;
 
   gchar       *name;
 };
@@ -149,6 +150,13 @@ tumbler_group_scheduler_init (TumblerGroupScheduler *scheduler)
 {
   scheduler->mutex = g_mutex_new ();
   scheduler->requests = NULL;
+
+  /* Note that unless we convert this boolean to a TLS (thread-local), that
+   * we can only do this 'prioritized' flag with a thread-pool that is set to
+   * exclusive: because then the one thread keeps running until the pool is 
+   * freed. */
+
+  scheduler->prioritized = FALSE;
 
   /* allocate a pool with one thread for all requests */
   scheduler->pool = g_thread_pool_new (tumbler_group_scheduler_thread, 
@@ -360,11 +368,17 @@ tumbler_group_scheduler_thread (gpointer data,
   GList                   *thumbnails;
   GList                   *lp;
   guint                    n;
-  guint                    i;
   gint                     error_code;
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
+
+  /* Set I/O priority for the exclusive ThreadPool's thread */
+  if (!scheduler->prioritized) 
+    {
+      tumbler_scheduler_thread_use_lower_priority ();
+      scheduler->prioritized = TRUE;
+    }
 
   /* notify others that we're starting to process this request */
   g_signal_emit_by_name (request->scheduler, "started", request->handle);

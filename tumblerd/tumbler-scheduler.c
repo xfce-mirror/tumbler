@@ -22,9 +22,45 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_SCHED_H
+#include <sched.h>
+#endif
+#ifdef HAVE_LINUX_SCHED_H 
+#include <linux/sched.h>
+#endif
+#ifdef HAVE_SYSCALL_H
+#include <syscall.h> 
+#endif
+
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-scheduler.h>
+
+
+#define IOPRIO_CLASS_SHIFT 13
+
+#ifndef SCHED_IDLE
+#define SCHED_IDLE 5
+#endif
+
+
+
+enum
+{
+  IOPRIO_CLASS_NONE,
+  IOPRIO_CLASS_RT,
+  IOPRIO_CLASS_BE,
+  IOPRIO_CLASS_IDLE,
+};
+
+
+
+enum 
+{
+  IOPRIO_WHO_PROCESS = 1,
+  IOPRIO_WHO_PGRP,
+  IOPRIO_WHO_USER,
+};
 
 /* signal identifiers */
 enum
@@ -251,4 +287,35 @@ tumbler_scheduler_request_compare (gconstpointer a,
   const TumblerSchedulerRequest *request_b = b;
 
   return request_b->handle - request_a->handle;
+}
+
+static int
+ioprio_set (int which, int who, int ioprio_val)
+{
+#if defined(__NR_ioprio_set) && defined(HAVE_SYS_SYSCALL_H)
+  return syscall (__NR_ioprio_set, which, who, ioprio_val);
+#else
+  return 0;
+#endif
+}
+
+
+void
+tumbler_scheduler_thread_use_lower_priority (void)
+{
+#ifdef HAVE_SCHED_H
+  struct sched_param sp;
+#endif
+  int                ioprio;
+  int                ioclass;
+
+  ioprio = 7; /* priority is ignored with idle class */
+  ioclass = IOPRIO_CLASS_IDLE << IOPRIO_CLASS_SHIFT;
+
+  ioprio_set (IOPRIO_WHO_PROCESS, 0, ioprio | ioclass);
+
+#ifdef HAVE_SCHED_H
+  if (sched_getparam (0, &sp) == 0) 
+    sched_setscheduler (0, SCHED_IDLE, &sp);
+#endif
 }

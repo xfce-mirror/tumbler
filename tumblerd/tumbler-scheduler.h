@@ -81,6 +81,8 @@ gint                     tumbler_scheduler_request_compare       (gconstpointer 
                                                                   gconstpointer            b,
                                                                   gpointer                 user_data);
 
+void                     tumbler_scheduler_thread_use_lower_priority (void);
+
 struct _TumblerSchedulerRequest
 {
   TumblerThumbnailer **thumbnailers;
