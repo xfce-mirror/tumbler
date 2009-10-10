@@ -38,15 +38,18 @@ typedef struct _TumblerRegistry      TumblerRegistry;
 GType                tumbler_registry_get_type              (void) G_GNUC_CONST;
 
 TumblerRegistry     *tumbler_registry_new                   (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean             tumbler_registry_load                  (TumblerRegistry    *registry,
-                                                             GError            **error);
-void                 tumbler_registry_add                   (TumblerRegistry    *registry,
-                                                             TumblerThumbnailer *thumbnailer);
-GList               *tumbler_registry_get_thumbnailers      (TumblerRegistry    *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-TumblerThumbnailer **tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
-                                                             const GStrv         uris,
-                                                             const GStrv         mime_hints,
-                                                             gint               *length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean             tumbler_registry_load                  (TumblerRegistry     *registry,
+                                                             GError             **error);
+void                 tumbler_registry_add                   (TumblerRegistry     *registry,
+                                                             TumblerThumbnailer  *thumbnailer);
+GList               *tumbler_registry_get_thumbnailers      (TumblerRegistry     *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailer **tumbler_registry_get_thumbnailer_array (TumblerRegistry     *registry,
+                                                             const GStrv          uris,
+                                                             const GStrv          mime_hints,
+                                                             gint                *length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+void                 tumbler_registry_get_supported         (TumblerRegistry     *registry,
+                                                             const gchar *const **uri_schemes,
+                                                             const gchar *const **mime_types);
 
 G_END_DECLS
 
