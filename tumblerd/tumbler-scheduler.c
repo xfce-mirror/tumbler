@@ -22,6 +22,9 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
 #ifdef HAVE_SCHED_H
 #include <sched.h>
 #endif
@@ -292,7 +295,7 @@ tumbler_scheduler_request_compare (gconstpointer a,
 static int
 ioprio_set (int which, int who, int ioprio_val)
 {
-#if defined(__NR_ioprio_set) && defined(HAVE_SYSCALL_H)
+#if defined (__NR_ioprio_set) && defined (HAVE_UNISTD_H)
   return syscall (__NR_ioprio_set, which, who, ioprio_val);
 #else
   return 0;
