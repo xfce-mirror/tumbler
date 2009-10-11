@@ -1,0 +1,128 @@
+# Catalan translations for tumbler package
+# Traduccions al català del paquet «tumbler».
+# Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the tumbler package.
+#
+# Carles Muñoz Gorriz <carlesmu@internautas.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-08 20:24+0200\n"
+"PO-Revision-Date: 2009-10-11 15:10+0100\n"
+"Last-Translator: Carles Muñoz Gorriz <carlesmu@internautas.org>\n"
+"Language-Team: Catalan <xfce-i18n@xfce.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Catalan\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:58
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Versió errònia: %s"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "S'està iniciant el connector de Tumbler de miniatures Pixbuf"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "S'està apagant el connector de Tumbler de miniatures Pixbuf"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:63
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "S'està iniciant el connector de Tumbler de memòria cau XDG"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:81
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "S'està apagant el connector de Tumbler de memòria cau XDG"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:431
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "No s'ha pogut desar la miniatura a «%s»"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:63
+msgid "Tumbler Thumbnailing Service"
+msgstr "Servei de miniatures Tumbler"
+
+#: ../tumblerd/main.c:78
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "No s'ha pogut connectar amb la sessió de bus D-Bus: %s"
+
+#: ../tumblerd/main.c:90
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "No s'ha pogut iniciar el servei de memòria cau de miniatures: %s"
+
+#: ../tumblerd/main.c:127
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "No s'ha pogut carregar les miniatures especialitzades al registre: %s"
+
+#: ../tumblerd/main.c:145
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "No s'ha pogut iniciar el gestor de miniatures: %s"
+
+#: ../tumblerd/main.c:163
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "No s'ha pogut iniciar el servei de miniatures: %s"
+
+#: ../tumblerd/tumbler-cache-service.c:353
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "Un altre servei de memòria cau de miniatures ja s'està executant"
+
+#: ../tumblerd/tumbler-manager.c:280
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "Un altre gestor de miniatures ja s'està executant"
+
+#: ../tumblerd/tumbler-service.c:418
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "Un altres sistema genèric de miniatures ja s'està executant"
+
+#: ../tumblerd/tumbler-threshold-scheduler.c:431
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "No hi ha cap miniatura disponible per «%s»"
+
+#: ../tumbler/tumbler-enum-types.c:49 ../tumbler/tumbler-enum-types.c:73
+msgid "Invalid format"
+msgstr "Format invàlid"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "Normal"
+msgstr "Normal"
+
+#: ../tumbler/tumbler-enum-types.c:51
+msgid "Large"
+msgstr "Gran"
+
+#: ../tumbler/tumbler-enum-types.c:52
+msgid "Cropped"
+msgstr "Escapçat"
+
+#: ../tumbler/tumbler-enum-types.c:74
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-provider-plugin.c:173
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Al connector «%s» li manquen els símbols requerits."
+
+#: ../tumbler/tumbler-provider-plugin.c:180
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "No s'ha pogut carregar el connector «%s»: %s"
