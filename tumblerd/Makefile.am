@@ -99,10 +99,10 @@ BUILT_SOURCES =								\
 	$(tumblerd_built_sources)
 
 tumbler-cache-service-dbus-bindings.h: tumbler-cache-service-dbus.xml Makefile
-	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_cache_service $< > $@
+	$(AM_V_GEN) $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_cache_service $< > $@
 
 tumbler-manager-dbus-bindings.h: tumbler-manager-dbus.xml Makefile
-	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_manager $< > $@
+	$(AM_V_GEN) $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_manager $< > $@
 
 tumbler-service-dbus-bindings.h: tumbler-service-dbus.xml Makefile
-	$(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_service $< > $@
+	$(AM_V_GEN) $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_service $< > $@
