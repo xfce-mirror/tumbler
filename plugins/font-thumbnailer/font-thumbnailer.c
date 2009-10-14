@@ -42,6 +42,7 @@
 
 static void font_thumbnailer_finalize (GObject                    *object);
 static void font_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
+                                       GCancellable               *cancellable,
                                        const gchar                *uri,
                                        const gchar                *mime_hint);
 
@@ -434,6 +435,7 @@ generate_pixbuf (FT_Face                face,
 
 static void
 font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                         GCancellable               *cancellable,
                          const gchar                *uri,
                          const gchar                *mime_hint)
 {
@@ -483,7 +485,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* try to read the file into memory */
   file = g_file_new_for_uri (uri);
-  if (!g_file_load_contents (file, NULL, &font_data, &length, NULL, &error))
+  if (!g_file_load_contents (file, cancellable, &font_data, &length, NULL, &error))
     {
       /* there was an error, emit error signal */
       error_msg = g_strdup_printf (_("Could not load file contents: %s"), 
@@ -604,7 +606,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
             /* if an image for this flavor was generated, save it now */
             if (pixbuf != NULL)
-              tumbler_thumbnail_save_pixbuf (lp->data, pixbuf, mtime, NULL, &error);
+              tumbler_thumbnail_save_pixbuf (lp->data, pixbuf, mtime, 
+                                             cancellable, &error);
           }
     }
 

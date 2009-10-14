@@ -138,7 +138,9 @@ tumbler_naive_scheduler_push (TumblerScheduler        *scheduler,
                             request);
 
           /* tell the thumbnailer to generate the thumbnail */
-          tumbler_thumbnailer_create (request->thumbnailers[n], request->uris[n], 
+          tumbler_thumbnailer_create (request->thumbnailers[n], 
+                                      request->cancellables[n],
+                                      request->uris[n], 
                                       request->mime_hints[n]);
 
           /* disconnect from all signals when we're finished */

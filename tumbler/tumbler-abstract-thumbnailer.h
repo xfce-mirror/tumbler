@@ -26,6 +26,7 @@
 #define __TUMBLER_ABSTRACT_THUMBNAILER_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS;
 
@@ -46,6 +47,7 @@ struct _TumblerAbstractThumbnailerClass
 
   /* virtual methods */
   void (*create) (TumblerAbstractThumbnailer *thumbnailer,
+                  GCancellable               *cancellable,
                   const gchar                *uri,
                   const gchar                *mime_hint);
 };

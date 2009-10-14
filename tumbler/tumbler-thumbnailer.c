@@ -136,9 +136,10 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
 
 
 void
-tumbler_thumbnailer_create (TumblerThumbnailer *thumbnailer,
-                            const gchar        *uri,
-                            const gchar        *mime_hint)
+tumbler_thumbnailer_create (TumblerThumbnailer      *thumbnailer,
+                            GCancellable            *cancellable,
+                            const gchar             *uri,
+                            const gchar             *mime_hint)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);
@@ -146,6 +147,7 @@ tumbler_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   g_return_if_fail (TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create != NULL);
 
   return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
+                                                                 cancellable,
                                                                  uri, 
                                                                  mime_hint);
 }

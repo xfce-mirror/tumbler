@@ -26,6 +26,7 @@
 #define __TUMBLER_THUMBNAILER_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -52,6 +53,7 @@ struct _TumblerThumbnailerIface
 
   /* virtual methods */
   void (*create) (TumblerThumbnailer *thumbnailer,
+                  GCancellable       *cancellable,
                   const gchar        *uri,
                   const gchar        *mime_hint);
 };
@@ -59,6 +61,7 @@ struct _TumblerThumbnailerIface
 GType                tumbler_thumbnailer_get_type        (void) G_GNUC_CONST;
 
 void                 tumbler_thumbnailer_create          (TumblerThumbnailer  *thumbnailer,
+                                                          GCancellable        *cancellable,
                                                           const gchar         *uri,
                                                           const gchar         *mime_hint);
 

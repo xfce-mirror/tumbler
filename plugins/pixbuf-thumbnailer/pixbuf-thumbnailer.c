@@ -36,6 +36,7 @@
 
 
 static void pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                                       GCancellable               *cancellable,
                                        const gchar                *uri,
                                        const gchar                *mime_hint);
 
@@ -140,6 +141,7 @@ generate_pixbuf (GdkPixbuf              *source,
 
 static void
 pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                           GCancellable               *cancellable,
                            const gchar                *uri,
                            const gchar                *mime_hint)
 {
@@ -185,7 +187,8 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       return;
     }
 
-  source_pixbuf = gdk_pixbuf_new_from_stream (G_INPUT_STREAM (stream), NULL, &error);
+  source_pixbuf = gdk_pixbuf_new_from_stream (G_INPUT_STREAM (stream), 
+                                              cancellable, &error);
   g_object_unref (stream);
 
   if (source_pixbuf == NULL)
@@ -220,7 +223,8 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
             pixbuf = g_hash_table_lookup (pixbufs, GINT_TO_POINTER (flavor));
 
             if (pixbuf != NULL)
-              tumbler_thumbnail_save_pixbuf (lp->data, pixbuf, mtime, NULL, &error);
+              tumbler_thumbnail_save_pixbuf (lp->data, pixbuf, mtime, 
+                                             cancellable, &error);
           }
     }
 

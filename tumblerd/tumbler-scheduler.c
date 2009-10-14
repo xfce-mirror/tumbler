@@ -244,6 +244,7 @@ tumbler_scheduler_request_new (const GStrv          uris,
 {
   TumblerSchedulerRequest *request = NULL;
   static gint              handle  = 0;
+  gint                     n;
 
   g_return_val_if_fail (uris != NULL, NULL);
   g_return_val_if_fail (mime_hints != NULL, NULL);
@@ -257,6 +258,11 @@ tumbler_scheduler_request_new (const GStrv          uris,
   request->mime_hints = g_strdupv (mime_hints);
   request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers, length);
   request->length = length;
+  request->cancellables = g_new0 (GCancellable *, request->length + 1);
+
+  for (n = 0; n < request->length; ++n)
+    request->cancellables[n] = g_cancellable_new ();
+  request->cancellables[n] = NULL;
 
   return request;
 }
@@ -266,6 +272,8 @@ tumbler_scheduler_request_new (const GStrv          uris,
 void
 tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
 {
+  gint n;
+
   g_return_if_fail (request != NULL);
 
   g_strfreev (request->uris);
@@ -275,6 +283,11 @@ tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
     g_object_unref (request->scheduler);
 
   tumbler_thumbnailer_array_free (request->thumbnailers, request->length);
+
+  for (n = 0; n < request->length; ++n)
+    g_object_unref (request->cancellables[n]);
+
+  g_free (request->cancellables);
 
   g_free (request);
 }

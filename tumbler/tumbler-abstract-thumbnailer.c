@@ -57,6 +57,7 @@ static void tumbler_abstract_thumbnailer_set_property     (GObject              
                                                            const GValue            *value,
                                                            GParamSpec              *pspec);
 static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer      *thumbnailer,
+                                                           GCancellable            *cancellable,
                                                            const gchar             *uri,
                                                            const gchar             *mime_hint);
 
@@ -233,6 +234,7 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
 
 static void
 tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
+                                     GCancellable       *cancellable,
                                      const gchar        *uri,
                                      const gchar        *mime_hint)
 {
@@ -241,5 +243,6 @@ tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   g_return_if_fail (TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create != NULL);
 
   TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer),
-                                                                uri, mime_hint);
+                                                                cancellable, uri, 
+                                                                mime_hint);
 }

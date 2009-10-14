@@ -281,13 +281,20 @@ tumbler_lifo_scheduler_unqueue_request (TumblerSchedulerRequest *request,
                                         gpointer                 user_data)
 {
   guint handle = GPOINTER_TO_UINT (user_data);
+  gint  n;
 
   g_return_if_fail (request != NULL);
   g_return_if_fail (handle != 0);
 
   /* mark the request as unqueued if the handles match */
-  if (request->handle == handle)
-    request->unqueued = TRUE;
+  if (request->handle == handle) 
+    {
+      request->unqueued = TRUE;
+
+      /* cancel all thumbnails that are part of the request */
+      for (n = 0; n < request->length; ++n)
+        g_cancellable_cancel (request->cancellables[n]);
+  }
 }
 
 
@@ -452,7 +459,9 @@ tumbler_lifo_scheduler_thread (gpointer data,
                         request);
 
       /* tell the thumbnailer to generate the thumbnail */
-      tumbler_thumbnailer_create (request->thumbnailers[n], request->uris[n], 
+      tumbler_thumbnailer_create (request->thumbnailers[n], 
+                                  request->cancellables[n],
+                                  request->uris[n], 
                                   request->mime_hints[n]);
 
       /* disconnect from all signals when we're finished */

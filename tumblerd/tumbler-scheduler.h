@@ -21,6 +21,7 @@
 #ifndef __TUMBLER_SCHEDULER_H__
 #define __TUMBLER_SCHEDULER_H__
 
+#include <gio/gio.h>
 #include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
@@ -92,6 +93,7 @@ struct _TumblerSchedulerRequest
   GStrv                uris;
   guint                handle;
   gint                 length;
+  GCancellable       **cancellables;
 };
 
 G_END_DECLS
