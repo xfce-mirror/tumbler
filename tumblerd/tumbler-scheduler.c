@@ -122,12 +122,13 @@ tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
                   G_STRUCT_OFFSET (TumblerSchedulerIface, error),
                   NULL,
                   NULL,
-                  tumbler_marshal_VOID__UINT_POINTER_INT_STRING,
+                  tumbler_marshal_VOID__UINT_POINTER_INT_STRING_STRING,
                   G_TYPE_NONE,
-                  4,
+                  5,
                   G_TYPE_UINT,
                   G_TYPE_STRV,
                   G_TYPE_INT,
+                  G_TYPE_STRING,
                   G_TYPE_STRING);
 
   tumbler_scheduler_signals[SIGNAL_FINISHED] =
@@ -137,10 +138,11 @@ tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
                   G_STRUCT_OFFSET (TumblerSchedulerIface, finished),
                   NULL,
                   NULL,
-                  g_cclosure_marshal_VOID__UINT,
+                  tumbler_marshal_VOID__UINT_STRING,
                   G_TYPE_NONE,
-                  1,
-                  G_TYPE_UINT);
+                  2,
+                  G_TYPE_UINT,
+                  G_TYPE_STRING);
 
   tumbler_scheduler_signals[SIGNAL_READY] =
     g_signal_new ("ready",
@@ -149,10 +151,11 @@ tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
                   G_STRUCT_OFFSET (TumblerSchedulerIface, ready),
                   NULL,
                   NULL,
-                  g_cclosure_marshal_VOID__POINTER,
+                  tumbler_marshal_VOID__POINTER_STRING,
                   G_TYPE_NONE,
-                  1,
-                  G_TYPE_STRV);
+                  2,
+                  G_TYPE_STRV,
+                  G_TYPE_STRING);
 
   tumbler_scheduler_signals[SIGNAL_STARTED] =
     g_signal_new ("started",
@@ -161,10 +164,11 @@ tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
                   G_STRUCT_OFFSET (TumblerSchedulerIface, started),
                   NULL,
                   NULL,
-                  g_cclosure_marshal_VOID__UINT,
+                  tumbler_marshal_VOID__UINT_STRING,
                   G_TYPE_NONE,
-                  1,
-                  G_TYPE_UINT);
+                  2,
+                  G_TYPE_UINT,
+                  G_TYPE_STRING);
 }
 
 
@@ -240,7 +244,8 @@ TumblerSchedulerRequest *
 tumbler_scheduler_request_new (const GStrv          uris,
                                const GStrv          mime_hints,
                                TumblerThumbnailer **thumbnailers,
-                               gint                 length)
+                               gint                 length,
+                               const gchar         *origin)
 {
   TumblerSchedulerRequest *request = NULL;
   static gint              handle  = 0;
@@ -251,6 +256,8 @@ tumbler_scheduler_request_new (const GStrv          uris,
   g_return_val_if_fail (thumbnailers != NULL, NULL);
 
   request = g_new0 (TumblerSchedulerRequest, 1);
+  if (origin)
+    request->origin = g_strdup (origin);
   request->unqueued = FALSE;
   request->scheduler = NULL;
   request->handle = handle++;
@@ -288,6 +295,7 @@ tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
     g_object_unref (request->cancellables[n]);
 
   g_free (request->cancellables);
+  g_free (request->origin);
 
   g_free (request);
 }

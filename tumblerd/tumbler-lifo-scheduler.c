@@ -265,7 +265,8 @@ tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler *scheduler,
   g_return_if_fail (request != NULL);
 
   /* emit a finished signal for this request */
-  g_signal_emit_by_name (scheduler, "finished", request->handle);
+  g_signal_emit_by_name (scheduler, "finished", request->handle, 
+                         request->origin);
 
   /* remove the request from the list */
   scheduler->requests = g_list_remove (scheduler->requests, request);
@@ -321,7 +322,8 @@ tumbler_lifo_scheduler_thread (gpointer data,
   g_return_if_fail (request != NULL);
 
   /* notify others that we're starting to process this request */
-  g_signal_emit_by_name (request->scheduler, "started", request->handle);
+  g_signal_emit_by_name (request->scheduler, "started", request->handle,
+                         request->origin);
 
   /* finish the request if it was already unqueued */
   g_mutex_lock (scheduler->mutex);
@@ -423,7 +425,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
       uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
-      g_signal_emit_by_name (scheduler, "ready", uris);
+      g_signal_emit_by_name (scheduler, "ready", uris, request->origin);
 
       /* free string array and cached list */
       g_list_free (cached_uris);
@@ -496,7 +498,7 @@ tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
 
   /* forward the error signal */
   g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris, 
-                         error_code, message);
+                         error_code, message, request->origin, request->origin);
 }
 
 
@@ -513,8 +515,9 @@ tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
+    
   /* forward the ready signal */
-  g_signal_emit_by_name (request->scheduler, "ready", uris);
+  g_signal_emit_by_name (request->scheduler, "ready", uris, request->origin);
 }
 
 

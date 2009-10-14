@@ -76,7 +76,8 @@ void                     tumbler_scheduler_emit_uri_error        (TumblerSchedul
 TumblerSchedulerRequest *tumbler_scheduler_request_new           (const GStrv              uris,
                                                                   const GStrv              mime_hints,
                                                                   TumblerThumbnailer     **thumbnailers,
-                                                                  gint                     length);
+                                                                  gint                     length,
+                                                                  const gchar             *origin);
 void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
                                                                   gconstpointer            b,
@@ -94,6 +95,7 @@ struct _TumblerSchedulerRequest
   guint                handle;
   gint                 length;
   GCancellable       **cancellables;
+  gchar               *origin;
 };
 
 G_END_DECLS

@@ -288,8 +288,8 @@ tumbler_group_scheduler_finish_request (TumblerGroupScheduler *scheduler,
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
-  /* emit a finished signal */
-  g_signal_emit_by_name (scheduler, "finished", request->handle);
+  /* emit a  signal */
+  g_signal_emit_by_name (scheduler, "finished", request->handle, request->origin);
 
   /* remove the request from the request list */
   scheduler->requests = g_list_remove (scheduler->requests, request);
@@ -388,7 +388,8 @@ tumbler_group_scheduler_thread (gpointer data,
     }
 
   /* notify others that we're starting to process this request */
-  g_signal_emit_by_name (request->scheduler, "started", request->handle);
+  g_signal_emit_by_name (request->scheduler, "started", request->handle, 
+                         request->origin);
 
   /* finish the request if it was unqueued */
   g_mutex_lock (scheduler->mutex);
@@ -490,7 +491,7 @@ tumbler_group_scheduler_thread (gpointer data,
       uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
-      g_signal_emit_by_name (scheduler, "ready", uris);
+      g_signal_emit_by_name (scheduler, "ready", uris, request->origin);
 
       /* free string array and cached list */
       g_list_free (cached_uris);
@@ -579,7 +580,8 @@ tumbler_group_scheduler_thread (gpointer data,
 
       /* forward the error signal */
       g_signal_emit_by_name (request->scheduler, "error", request->handle, 
-                             failed_uris, error_code, message->str);
+                             failed_uris, error_code, message->str, 
+                             request->origin);
 
       /* free the failed URIs array. Its contents are owned by the URI errors */
       g_free (failed_uris);
@@ -606,7 +608,8 @@ tumbler_group_scheduler_thread (gpointer data,
       success_uris[n] = NULL;
 
       /* emit a grouped ready signal */
-      g_signal_emit_by_name (request->scheduler, "ready", success_uris);
+      g_signal_emit_by_name (request->scheduler, "ready", success_uris, 
+                             request->origin);
 
       /* free the success URI array. Its contents are owned by the ready URI list */
       g_free (success_uris);

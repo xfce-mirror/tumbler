@@ -39,7 +39,9 @@
 #include <tumblerd/tumbler-group-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
-
+#define THUMBNAILER_PATH    "/org/freedesktop/thumbnails/Thumbnailer1"
+#define THUMBNAILER_SERVICE "org.freedesktop.thumbnails.Thumbnailer1"
+#define THUMBNAILER_IFACE   "org.freedesktop.thumbnails.Thumbnailer1"
 
 /* signal identifiers */
 enum
@@ -76,15 +78,19 @@ static void tumbler_service_scheduler_error    (TumblerScheduler *scheduler,
                                                 const GStrv       failed_uris,
                                                 gint              error_code,
                                                 const gchar      *message,
+                                                const gchar      *origin,
                                                 TumblerService   *service);
 static void tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
                                                 guint             handle,
+                                                const gchar      *origin,
                                                 TumblerService   *service);
 static void tumbler_service_scheduler_ready    (TumblerScheduler *scheduler,
                                                 const GStrv       uris,
+                                                const gchar      *origin,
                                                 TumblerService   *service);
 static void tumbler_service_scheduler_started  (TumblerScheduler *scheduler,
                                                 guint             handle,
+                                                const gchar      *origin,
                                                 TumblerService   *service);
 
 
@@ -320,11 +326,39 @@ tumbler_service_scheduler_error (TumblerScheduler *scheduler,
                                  guint             handle,
                                  const GStrv       failed_uris,
                                  gint              error_code,
-                                 const gchar      *message,
+                                 const gchar      *message_s,
+                                 const gchar      *origin,
                                  TumblerService   *service)
 {
-  g_signal_emit (service, tumbler_service_signals[SIGNAL_ERROR], 0, 
-                 handle, failed_uris, error_code, message);
+  DBusMessage    *message;
+  DBusMessageIter iter, strv_iter;
+  guint n;
+
+  message = dbus_message_new_signal (THUMBNAILER_PATH,
+                                     THUMBNAILER_IFACE,
+                                     "Error");
+
+  if (origin)
+    dbus_message_set_destination (message, origin);
+
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &handle);
+
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
+                                    DBUS_TYPE_STRING_AS_STRING, &strv_iter);
+
+  for (n = 0; failed_uris[n] != NULL; n++)
+    dbus_message_iter_append_basic (&strv_iter, DBUS_TYPE_STRING, &failed_uris[n]);
+
+  dbus_message_iter_close_container (&iter, &strv_iter);
+
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &error_code);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &message_s);
+
+  dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
+                        message, NULL);
+
+  dbus_message_unref (message);
 }
 
 
@@ -332,9 +366,26 @@ tumbler_service_scheduler_error (TumblerScheduler *scheduler,
 static void
 tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
                                     guint             handle,
+                                    const gchar      *origin,
                                     TumblerService   *service)
 {
-  g_signal_emit (service, tumbler_service_signals[SIGNAL_FINISHED], 0, handle);
+  DBusMessage    *message;
+  DBusMessageIter iter;
+
+  message = dbus_message_new_signal (THUMBNAILER_PATH,
+                                     THUMBNAILER_IFACE,
+                                     "Finished");
+
+  if (origin)
+    dbus_message_set_destination (message, origin);
+
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &handle);
+
+  dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
+                        message, NULL);
+
+  dbus_message_unref (message);
 }
 
 
@@ -342,9 +393,35 @@ tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
 static void
 tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
                                  const GStrv       uris,
+                                 const gchar      *origin,
                                  TumblerService   *service)
 {
-  g_signal_emit (service, tumbler_service_signals[SIGNAL_READY], 0, uris);
+  DBusMessage    *message;
+  DBusMessageIter iter, strv_iter;
+  guint           n;
+
+  message = dbus_message_new_signal (THUMBNAILER_PATH,
+                                     THUMBNAILER_IFACE,
+                                     "Ready");
+
+  if (origin)
+    dbus_message_set_destination (message, origin);
+
+  dbus_message_iter_init_append (message, &iter);
+
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
+                                    DBUS_TYPE_STRING_AS_STRING, &strv_iter);
+
+  for (n = 0; uris[n] != NULL; n++)
+    dbus_message_iter_append_basic (&strv_iter, DBUS_TYPE_STRING, &uris[n]);
+
+  dbus_message_iter_close_container (&iter, &strv_iter);
+
+  dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
+                        message, NULL);
+
+  dbus_message_unref (message);
+
 }
 
 
@@ -352,9 +429,26 @@ tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
 static void
 tumbler_service_scheduler_started (TumblerScheduler *scheduler,
                                    guint             handle,
+                                   const gchar      *origin,
                                    TumblerService   *service)
 {
-  g_signal_emit (service, tumbler_service_signals[SIGNAL_STARTED], 0, handle);
+  DBusMessage    *message;
+  DBusMessageIter iter;
+
+  message = dbus_message_new_signal (THUMBNAILER_PATH,
+                                     THUMBNAILER_IFACE,
+                                     "Started");
+
+  if (origin)
+    dbus_message_set_destination (message, origin);
+
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &handle);
+
+  dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
+                        message, NULL);
+
+  dbus_message_unref (message);
 }
 
 
@@ -388,7 +482,7 @@ tumbler_service_start (TumblerService *service,
   connection = dbus_g_connection_get_connection (service->connection);
 
   /* request ownership for the generic thumbnailer interface */
-  result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Thumbnailer1",
+  result = dbus_bus_request_name (connection, THUMBNAILER_SERVICE,
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
@@ -419,7 +513,7 @@ tumbler_service_start (TumblerService *service,
 
   /* register the service instance as a handler of this interface */
   dbus_g_connection_register_g_object (service->connection, 
-                                       "/org/freedesktop/thumbnails/Thumbnailer1", 
+                                       THUMBNAILER_PATH, 
                                        G_OBJECT (service));
 
   g_mutex_unlock (service->mutex);
@@ -442,6 +536,7 @@ tumbler_service_queue (TumblerService        *service,
   TumblerThumbnailer     **thumbnailers;
   GList                   *iter;
   gchar                   *name;
+  gchar                   *origin;
   guint                    handle;
   gint                     num_thumbnailers;
 
@@ -460,9 +555,13 @@ tumbler_service_queue (TumblerService        *service,
                                                          uris, mime_hints, 
                                                          &num_thumbnailers);
 
+  origin = dbus_g_method_get_sender (context);
+
   /* allocate a scheduler request */
   scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers,
-                                                     num_thumbnailers);
+                                                     num_thumbnailers, origin);
+
+  g_free (origin);
 
   /* get the request handle */
   handle = scheduler_request->handle;
