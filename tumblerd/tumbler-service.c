@@ -32,7 +32,6 @@
 
 #include <tumbler/tumbler.h>
 
-#include <tumblerd/tumbler-naive-scheduler.h>
 #include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-service.h>
 #include <tumblerd/tumbler-service-dbus-bindings.h>
