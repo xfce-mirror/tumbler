@@ -190,6 +190,9 @@ tumbler_util_get_supported_uri_schemes
 <SECTION>
 <FILE>tumbler-marshal</FILE>
 tumbler_marshal_VOID__STRING_INT_STRING
+tumbler_marshal_VOID__UINT_POINTER_INT_STRING_STRING
+tumbler_marshal_VOID__POINTER_STRING
+tumbler_marshal_VOID__UINT_STRING
 tumbler_marshal_VOID__UINT_POINTER_INT_STRING
 </SECTION>
 
