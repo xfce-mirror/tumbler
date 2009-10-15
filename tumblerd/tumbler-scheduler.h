@@ -54,10 +54,12 @@ struct _TumblerSchedulerIface
                     guint                    handle);
 
   /* virtual methods */
-  void (*push)     (TumblerScheduler        *scheduler,
-                    TumblerSchedulerRequest *request);
-  void (*unqueue)  (TumblerScheduler        *scheduler,
-                    guint                    handle);
+  void (*push)            (TumblerScheduler        *scheduler,
+                           TumblerSchedulerRequest *request);
+  void (*unqueue)         (TumblerScheduler        *scheduler,
+                           guint                    handle);
+  void (*cancel_by_mount) (TumblerScheduler        *scheduler,
+                           GMount                  *mount);
 };
 
 GType                    tumbler_scheduler_get_type              (void) G_GNUC_CONST;
@@ -66,6 +68,8 @@ void                     tumbler_scheduler_push                  (TumblerSchedul
                                                                   TumblerSchedulerRequest *request);
 void                     tumbler_scheduler_unqueue               (TumblerScheduler        *scheduler,
                                                                   guint                    handle);
+void                     tumbler_scheduler_cancel_by_mount       (TumblerScheduler        *scheduler,
+                                                                  GMount                  *mount);
 gchar*                   tumbler_scheduler_get_name              (TumblerScheduler        *scheduler);
 void                     tumbler_scheduler_take_request          (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);

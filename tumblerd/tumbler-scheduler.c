@@ -200,6 +200,19 @@ tumbler_scheduler_unqueue (TumblerScheduler *scheduler,
 
 
 void
+tumbler_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
+                                   GMount           *mount)
+{
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (G_IS_MOUNT (mount));
+  g_return_if_fail (TUMBLER_SCHEDULER_GET_IFACE (scheduler)->cancel_by_mount != NULL);
+
+  TUMBLER_SCHEDULER_GET_IFACE (scheduler)->cancel_by_mount (scheduler, mount);
+}
+
+
+
+void
 tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
                                 TumblerSchedulerRequest *request)
 {

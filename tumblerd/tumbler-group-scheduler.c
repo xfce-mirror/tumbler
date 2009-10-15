@@ -64,6 +64,8 @@ static void tumbler_group_scheduler_push              (TumblerScheduler         
                                                        TumblerSchedulerRequest   *request);
 static void tumbler_group_scheduler_unqueue           (TumblerScheduler          *scheduler,
                                                        guint                      handle);
+static void tumbler_group_scheduler_cancel_by_mount   (TumblerScheduler          *scheduler,
+                                                       GMount                    *mount);
 static void tumbler_group_scheduler_finish_request    (TumblerGroupScheduler     *scheduler,
                                                        TumblerSchedulerRequest   *request);
 static void tumbler_group_scheduler_unqueue_request   (TumblerSchedulerRequest   *request,
@@ -141,6 +143,7 @@ tumbler_group_scheduler_iface_init (TumblerSchedulerIface *iface)
 {
   iface->push = tumbler_group_scheduler_push;
   iface->unqueue = tumbler_group_scheduler_unqueue;
+  iface->cancel_by_mount = tumbler_group_scheduler_cancel_by_mount;
 }
 
 
@@ -282,6 +285,53 @@ tumbler_group_scheduler_unqueue (TumblerScheduler *scheduler,
 
 
 static void
+tumbler_group_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
+                                        GMount           *mount)
+{
+  TumblerSchedulerRequest *request;
+  TumblerGroupScheduler   *group_scheduler = TUMBLER_GROUP_SCHEDULER (scheduler);
+  GFile                   *mount_point;
+  GFile                   *file;
+  GList                   *iter;
+  guint                    n;
+
+  g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
+  g_return_if_fail (G_IS_MOUNT (mount));
+
+  /* determine the root mount point */
+  mount_point = g_mount_get_root (mount);
+
+  g_mutex_lock (group_scheduler->mutex);
+
+  /* iterate over all requests */
+  for (iter = group_scheduler->requests; iter != NULL; iter = iter->next)
+    {
+      request = iter->data;
+
+      /* iterate over all request URIs */
+      for (n = 0; request->uris != NULL && request->uris[n] != NULL; ++n)
+        {
+          /* determine the enclosing mount for the file */
+          file = g_file_new_for_uri (request->uris[n]);
+
+          /* cancel the URI if it lies of the mount point */
+          if (g_file_has_prefix (file, mount_point))
+            g_cancellable_cancel (request->cancellables[n]);
+
+          /* release the file object */
+          g_object_unref (file);
+        }
+    }
+
+  g_mutex_unlock (group_scheduler->mutex);
+
+  /* release the mount point */
+  g_object_unref (mount_point);
+}
+
+
+
+static void
 tumbler_group_scheduler_finish_request (TumblerGroupScheduler *scheduler,
                                         TumblerSchedulerRequest   *request)
 {
@@ -413,6 +463,10 @@ tumbler_group_scheduler_thread (gpointer data,
           return;
         }
       g_mutex_unlock (scheduler->mutex);
+
+      /* ignore the the URI if has been cancelled already */
+      if (g_cancellable_is_cancelled (request->cancellables[n]))
+        continue;
 
       /* create a file infor for the current URI */
       info = tumbler_file_info_new (request->uris[n]);

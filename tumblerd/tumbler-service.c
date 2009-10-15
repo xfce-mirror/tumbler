@@ -26,6 +26,8 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 
+#include <gio/gio.h>
+
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
@@ -39,9 +41,13 @@
 #include <tumblerd/tumbler-group-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
+
+
 #define THUMBNAILER_PATH    "/org/freedesktop/thumbnails/Thumbnailer1"
 #define THUMBNAILER_SERVICE "org.freedesktop.thumbnails.Thumbnailer1"
 #define THUMBNAILER_IFACE   "org.freedesktop.thumbnails.Thumbnailer1"
+
+
 
 /* signal identifiers */
 enum
@@ -92,6 +98,9 @@ static void tumbler_service_scheduler_started  (TumblerScheduler *scheduler,
                                                 guint             handle,
                                                 const gchar      *origin,
                                                 TumblerService   *service);
+static void tumbler_service_pre_unmount        (TumblerService   *service,
+                                                GMount           *mount,
+                                                GVolumeMonitor   *monitor);
 
 
 
@@ -108,6 +117,8 @@ struct _TumblerService
   TumblerRegistry  *registry;
   GMutex           *mutex;
   GList            *schedulers;
+
+  GVolumeMonitor   *volume_monitor;
 };
 
 
@@ -205,6 +216,10 @@ tumbler_service_init (TumblerService *service)
 {
   service->mutex = g_mutex_new ();
   service->schedulers = NULL;
+
+  service->volume_monitor = g_volume_monitor_get ();
+  g_signal_connect_swapped (service->volume_monitor, "mount-pre-unmount", 
+                            G_CALLBACK (tumbler_service_pre_unmount), service);
 }
 
 
@@ -256,6 +271,13 @@ static void
 tumbler_service_finalize (GObject *object)
 {
   TumblerService *service = TUMBLER_SERVICE (object);
+
+  /* disconnect from the volume monitor */
+  g_signal_handlers_disconnect_matched (service->volume_monitor, G_SIGNAL_MATCH_DATA,
+                                        0, 0, NULL, NULL, service);
+
+  /* release the volume monitor */
+  g_object_unref (service->volume_monitor);
 
   /* release all schedulers and the scheduler list */
   g_list_foreach (service->schedulers, (GFunc) g_object_unref, NULL);
@@ -473,6 +495,28 @@ tumbler_service_scheduler_started (TumblerScheduler *scheduler,
 
 
 
+static void
+tumbler_service_pre_unmount (TumblerService *service,
+                             GMount         *mount,
+                             GVolumeMonitor *volume_monitor)
+{
+  GList *iter;
+
+  g_return_if_fail (TUMBLER_IS_SERVICE (service));
+  g_return_if_fail (G_IS_MOUNT (mount));
+  g_return_if_fail (volume_monitor == service->volume_monitor);
+
+  g_mutex_lock (service->mutex);
+
+  /* iterate over all schedulers, cancelling URIs belonging to the mount */
+  for (iter = service->schedulers; iter != NULL; iter = iter->next)
+    tumbler_scheduler_cancel_by_mount (iter->data, mount);
+
+  g_mutex_unlock (service->mutex);
+}
+
+
+
 TumblerService *
 tumbler_service_new (DBusGConnection *connection,
                      TumblerRegistry *registry)
@@ -671,6 +715,7 @@ tumbler_service_get_supported (TumblerService        *service,
   /* return the arrays to the caller */
   dbus_g_method_return (context, uri_schemes, mime_types);
 }
+
 
 
 void
