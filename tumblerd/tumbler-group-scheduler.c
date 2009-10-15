@@ -545,7 +545,8 @@ tumbler_group_scheduler_thread (gpointer data,
       uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
-      g_signal_emit_by_name (scheduler, "ready", uris, request->origin);
+      g_signal_emit_by_name (scheduler, "ready", request->handle, uris, 
+                             request->origin);
 
       /* free string array and cached list */
       g_list_free (cached_uris);
@@ -662,8 +663,8 @@ tumbler_group_scheduler_thread (gpointer data,
       success_uris[n] = NULL;
 
       /* emit a grouped ready signal */
-      g_signal_emit_by_name (request->scheduler, "ready", success_uris, 
-                             request->origin);
+      g_signal_emit_by_name (request->scheduler, "ready", request->handle, 
+                             success_uris, request->origin);
 
       /* free the success URI array. Its contents are owned by the ready URI list */
       g_free (success_uris);

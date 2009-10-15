@@ -91,6 +91,7 @@ static void tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
                                                 const gchar      *origin,
                                                 TumblerService   *service);
 static void tumbler_service_scheduler_ready    (TumblerScheduler *scheduler,
+                                                guint             handle,
                                                 const GStrv       uris,
                                                 const gchar      *origin,
                                                 TumblerService   *service);
@@ -425,6 +426,7 @@ tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
 
 static void
 tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
+                                 guint             handle,
                                  const GStrv       uris,
                                  const gchar      *origin,
                                  TumblerService   *service)
@@ -442,6 +444,9 @@ tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
     dbus_message_set_destination (message, origin);
 
   dbus_message_iter_init_append (message, &iter);
+
+  /* append the request handle */
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &handle);
 
   /* start the URI string array */
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,

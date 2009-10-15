@@ -478,7 +478,8 @@ tumbler_lifo_scheduler_thread (gpointer data,
       uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
-      g_signal_emit_by_name (scheduler, "ready", uris, request->origin);
+      g_signal_emit_by_name (scheduler, "ready", request->handle, uris, 
+                             request->origin);
 
       /* free string array and cached list */
       g_list_free (cached_uris);
@@ -570,7 +571,8 @@ tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
 
     
   /* forward the ready signal */
-  g_signal_emit_by_name (request->scheduler, "ready", uris, request->origin);
+  g_signal_emit_by_name (request->scheduler, "ready", request->handle, uris, 
+                         request->origin);
 }
 
 
