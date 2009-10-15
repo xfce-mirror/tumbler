@@ -460,6 +460,10 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_return_if_fail (IS_FONT_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL && *uri != '\0');
 
+  /* do nothing if cancelled */
+  if (g_cancellable_is_cancelled (cancellable)) 
+    return;
+
   /* check if we have a valid freetype library object */
   if (font_thumbnailer->library_error != 0)
     {
