@@ -1,7 +1,11 @@
 # French translation for tumbler.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Jeff Bailes <thepizzaking@gmail.com>
+# Douart Patrick <patrick.2@laspote.net>
+# Mike Massonnet <mmassonnet@xfce.org>
+#
+# Les mentions "de ou pour Tumbler" ont été volotairement omis dans les 
+# traductions des messages de types "Tumbler ... plugin". -- Mike
 #
 msgid ""
 msgstr ""
@@ -26,19 +30,19 @@ msgstr "Incompatibilité de versions: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Initialisation du greffon de vignettes Pixbuf"
+msgstr "Initialisation du greffon de vignettes pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Arrêt du greffon Tumbler Pixbuf Thumbnailer"
+msgstr "Arrêt du greffon de vignettes pixbuf"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:63
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Chargement du cache du greffon Tumbler XDG"
+msgstr "Chargement du greffon de cache XDG"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:81
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Arrêt du cache du greffon Tumbler XDG"
+msgstr "Arrêt du greffon de cache XDG"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:431
 #, c-format
@@ -53,27 +57,27 @@ msgstr "Service de création de vignettes Tumbler"
 #: ../tumblerd/main.c:78
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Impossible de se connecter à la session  D-Bus: %s"
+msgstr "Impossible de se connecter au bus de session D-Bus : %s"
 
 #: ../tumblerd/main.c:90
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Impossible de démarrer le service de cache des vignettes: %s"
+msgstr "Impossible de démarrer le service de cache des vignettes : %s"
 
 #: ../tumblerd/main.c:127
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Impossible de charger dans le registre la création des vignettes: %s"
+msgstr "Impossible de charger des générateurs de vignettes spécifiques dans le registre : %s"
 
 #: ../tumblerd/main.c:145
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Impossible de démarrer le gestionnaire de vignettes: %s"
+msgstr "Impossible de démarrer le gestionnaire de vignettes : %s"
 
 #: ../tumblerd/main.c:163
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "Impossible de démarrer le service des vignettes: %s"
+msgstr "Impossible de démarrer le service des vignettes : %s"
 
 #: ../tumblerd/tumbler-cache-service.c:353
 #, c-format
@@ -83,17 +87,17 @@ msgstr "Un autre service de cache de vignettes est déjà lancé"
 #: ../tumblerd/tumbler-manager.c:280
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Un autre manager de vignettes est déjà lancé"
+msgstr "Un autre gestionnaire de vignettes est déjà lancé"
 
 #: ../tumblerd/tumbler-service.c:418
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Un autre générateur de vignettes est déjà lancé"
+msgstr "Un autre service de vignettes est déjà lancé"
 
 #: ../tumblerd/tumbler-threshold-scheduler.c:431
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Pas de vignettes disponibles pour \"%s\""
+msgstr "Pas de vignette disponible pour \"%s\""
 
 #: ../tumbler/tumbler-enum-types.c:49
 #: ../tumbler/tumbler-enum-types.c:73
@@ -124,5 +128,5 @@ msgstr "Le greffon \"%s\" manque de symboles requis."
 #: ../tumbler/tumbler-provider-plugin.c:180
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Impossible de charger le greffon \"%s\": %s"
+msgstr "Impossible de charger le greffon \"%s\" : %s"
 
