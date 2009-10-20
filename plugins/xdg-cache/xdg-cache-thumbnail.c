@@ -50,27 +50,27 @@ enum
 
 
 
-static void     xdg_cache_thumbnail_thumbnail_init (TumblerThumbnailIface  *iface);
-static void     xdg_cache_thumbnail_finalize       (GObject                *object);
-static void     xdg_cache_thumbnail_get_property   (GObject                *object,
-                                                    guint                   prop_id,
-                                                    GValue                 *value,
-                                                    GParamSpec             *pspec);
-static void     xdg_cache_thumbnail_set_property   (GObject                *object,
-                                                    guint                   prop_id,
-                                                    const GValue           *value,
-                                                    GParamSpec             *pspec);
-static gboolean xdg_cache_thumbnail_load           (TumblerThumbnail       *thumbnail,
-                                                    GCancellable           *cancellable,
-                                                    GError                **error);
-static gboolean xdg_cache_thumbnail_needs_update   (TumblerThumbnail       *thumbnail,
-                                                    const gchar            *uri,
-                                                    guint64                 mtime);
-static gboolean xdg_cache_thumbnail_save_pixbuf    (TumblerThumbnail       *thumbnail,
-                                                    TumblerImageData       *data,
-                                                    guint64                 mtime,
-                                                    GCancellable           *cancellable,
-                                                    GError                **error);
+static void     xdg_cache_thumbnail_thumbnail_init  (TumblerThumbnailIface  *iface);
+static void     xdg_cache_thumbnail_finalize        (GObject                *object);
+static void     xdg_cache_thumbnail_get_property    (GObject                *object,
+                                                     guint                   prop_id,
+                                                     GValue                 *value,
+                                                     GParamSpec             *pspec);
+static void     xdg_cache_thumbnail_set_property    (GObject                *object,
+                                                     guint                   prop_id,
+                                                     const GValue           *value,
+                                                     GParamSpec             *pspec);
+static gboolean xdg_cache_thumbnail_load            (TumblerThumbnail       *thumbnail,
+                                                     GCancellable           *cancellable,
+                                                     GError                **error);
+static gboolean xdg_cache_thumbnail_needs_update    (TumblerThumbnail       *thumbnail,
+                                                     const gchar            *uri,
+                                                     guint64                 mtime);
+static gboolean xdg_cache_thumbnail_save_image_data (TumblerThumbnail       *thumbnail,
+                                                     TumblerImageData       *data,
+                                                     guint64                 mtime,
+                                                     GCancellable           *cancellable,
+                                                     GError                **error);
 
 
 
@@ -138,7 +138,7 @@ xdg_cache_thumbnail_thumbnail_init (TumblerThumbnailIface *iface)
 {
   iface->load = xdg_cache_thumbnail_load;
   iface->needs_update = xdg_cache_thumbnail_needs_update;
-  iface->save_pixbuf = xdg_cache_thumbnail_save_pixbuf;
+  iface->save_image_data = xdg_cache_thumbnail_save_image_data;
 }
 
 
@@ -288,11 +288,11 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 
 
 static gboolean
-xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
-                                 TumblerImageData *data,
-                                 guint64           mtime,
-                                 GCancellable     *cancellable,
-                                 GError          **error)
+xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
+                                     TumblerImageData *data,
+                                     guint64           mtime,
+                                     GCancellable     *cancellable,
+                                     GError          **error)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
   GFileOutputStream *stream;
@@ -317,7 +317,6 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
   if (g_cancellable_set_error_if_cancelled (cancellable, error))
     return FALSE;
 
-  
   /* determine dimensions of the thumbnail pixbuf */
   width = data->width;
   height = data->height;

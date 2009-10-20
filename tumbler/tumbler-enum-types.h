@@ -51,6 +51,15 @@ typedef enum /*< enum >*/
 
 GType tumbler_thumbnail_format_get_type (void);
 
+#define TUMBLER_TYPE_COLORSPACE (tumbler_colorspace_get_type ())
+
+typedef enum /*< enum >*/
+{
+  TUMBLER_COLORSPACE_RGB,
+} TumblerColorspace;
+
+GType tumbler_colorspace_get_type (void);
+
 G_END_DECLS
 
 #endif /* !__TUMBLER_ENUM_TYPES_H__ */

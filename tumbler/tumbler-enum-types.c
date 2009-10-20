@@ -80,3 +80,24 @@ tumbler_thumbnail_format_get_type (void)
 
   return type;
 }
+
+
+
+GType
+tumbler_colorspace_get_type (void)
+{
+  GType type = G_TYPE_INVALID;
+
+  if (G_UNLIKELY (type == G_TYPE_INVALID))
+    {
+      static const GEnumValue values[] = 
+      {
+        { TUMBLER_COLORSPACE_RGB, "TUMBLER_COLORSPACE_RGB", N_ ("RGB Colorspace"), },
+        { 0,                      NULL,                     NULL,                  },
+      };
+
+      type = g_enum_register_static ("TumblerColorspace", values);
+    }
+
+  return type;
+}

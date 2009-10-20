@@ -148,6 +148,7 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnailFlavor *flavors;
   TumblerThumbnailFlavor  flavor;
   GFileInputStream       *stream;
+  TumblerImageData        data;
   TumblerFileInfo        *info;
   GHashTable             *pixbufs;
   GdkPixbuf              *source_pixbuf;
@@ -226,19 +227,18 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
             flavor = tumbler_thumbnail_get_flavor (lp->data);
             pixbuf = g_hash_table_lookup (pixbufs, GINT_TO_POINTER (flavor));
 
-            if (pixbuf != NULL) {
-              TumblerImageData data;
+            if (pixbuf != NULL) 
+              {
+                data.data = gdk_pixbuf_get_pixels (pixbuf);
+                data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+                data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+                data.width = gdk_pixbuf_get_width (pixbuf);
+                data.height = gdk_pixbuf_get_height (pixbuf);
+                data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+                data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-              data.data            = gdk_pixbuf_get_pixels (pixbuf);
-              data.has_alpha       = gdk_pixbuf_get_has_alpha (pixbuf);
-              data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
-              data.width           = gdk_pixbuf_get_width (pixbuf);
-              data.height          = gdk_pixbuf_get_height (pixbuf);
-              data.rowstride       = gdk_pixbuf_get_rowstride (pixbuf);
-              data.colorspace      = (gint) gdk_pixbuf_get_colorspace (pixbuf);
-
-              tumbler_thumbnail_save_pixbuf (lp->data, &data, mtime, NULL, &error);
-            }
+                tumbler_thumbnail_save_image_data (lp->data, &data, mtime, NULL, &error);
+              }
           }
     }
 

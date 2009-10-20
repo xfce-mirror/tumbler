@@ -37,18 +37,20 @@ G_BEGIN_DECLS
 #define TUMBLER_IS_THUMBNAIL(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_THUMBNAIL))
 #define TUMBLER_THUMBNAIL_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_THUMBNAIL, TumblerThumbnailIface))
 
+typedef struct _TumblerImageData      TumblerImageData;
 typedef struct _TumblerThumbnail      TumblerThumbnail;
 typedef struct _TumblerThumbnailIface TumblerThumbnailIface;
 
-typedef struct {
-  const guchar *data;
-  gboolean has_alpha;
-  gint bits_per_sample;
-  gint width;
-  gint height;
-  gint rowstride;
-  gint colorspace;
-} TumblerImageData;
+struct _TumblerImageData
+{
+  TumblerColorspace colorspace;
+  const guchar     *data;
+  gboolean          has_alpha;
+  gint              bits_per_sample;
+  gint              width;
+  gint              height;
+  gint              rowstride;
+};
 
 struct _TumblerThumbnailIface
 {
@@ -57,22 +59,22 @@ struct _TumblerThumbnailIface
   /* signals */
 
   /* virtual methods */
-  gboolean (*load)         (TumblerThumbnail *thumbnail,
-                            GCancellable     *cancellable,
-                            GError          **error);
-  gboolean (*needs_update) (TumblerThumbnail *thumbnail,
-                            const gchar      *uri,
-                            guint64           mtime);
-  gboolean (*save_pixbuf)  (TumblerThumbnail *thumbnail,
-                            TumblerImageData *pixbuf,
-                            guint64           mtime,
-                            GCancellable     *cancellable,
-                            GError          **error);
-  gboolean (*save_file)    (TumblerThumbnail *thumbnail,
-                            GFile            *file,
-                            guint64           mtime,
-                            GCancellable     *cancellable,
-                            GError          **error);
+  gboolean (*load)            (TumblerThumbnail *thumbnail,
+                               GCancellable     *cancellable,
+                               GError          **error);
+  gboolean (*needs_update)    (TumblerThumbnail *thumbnail,
+                               const gchar      *uri,
+                               guint64           mtime);
+  gboolean (*save_image_data) (TumblerThumbnail *thumbnail,
+                               TumblerImageData *data,
+                               guint64           mtime,
+                               GCancellable     *cancellable,
+                               GError          **error);
+  gboolean (*save_file)       (TumblerThumbnail *thumbnail,
+                               GFile            *file,
+                               guint64           mtime,
+                               GCancellable     *cancellable,
+                               GError          **error);
 };
 
 GType                   tumbler_thumbnail_get_type        (void) G_GNUC_CONST;
@@ -83,8 +85,8 @@ gboolean                tumbler_thumbnail_load            (TumblerThumbnail     
 gboolean                tumbler_thumbnail_needs_update    (TumblerThumbnail      *thumbnail,
                                                            const gchar           *uri,
                                                            guint64                mtime);
-gboolean                tumbler_thumbnail_save_pixbuf     (TumblerThumbnail      *thumbnail,
-                                                           TumblerImageData      *pixbuf,
+gboolean                tumbler_thumbnail_save_image_data (TumblerThumbnail      *thumbnail,
+                                                           TumblerImageData      *data,
                                                            guint64                mtime,
                                                            GCancellable          *cancellable,
                                                            GError               **error);

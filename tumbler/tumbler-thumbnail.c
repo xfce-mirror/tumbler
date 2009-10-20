@@ -118,20 +118,20 @@ tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 
 
 gboolean
-tumbler_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
-                               TumblerImageData *pixbuf,
-                               guint64           mtime,
-                               GCancellable     *cancellable,
-                               GError          **error)
+tumbler_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
+                                   TumblerImageData *data,
+                                   guint64           mtime,
+                                   GCancellable     *cancellable,
+                                   GError          **error)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-  g_return_val_if_fail (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_pixbuf != NULL, FALSE);
+  g_return_val_if_fail (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_image_data != NULL, FALSE);
 
-  return (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_pixbuf) (thumbnail, pixbuf, 
-                                                                 mtime, cancellable, 
-                                                                 error);
+  return (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_image_data) (thumbnail, data, 
+                                                                     mtime, cancellable, 
+                                                                     error);
 }
 
 
