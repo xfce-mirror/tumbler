@@ -67,7 +67,7 @@ static gboolean xdg_cache_thumbnail_needs_update   (TumblerThumbnail       *thum
                                                     const gchar            *uri,
                                                     guint64                 mtime);
 static gboolean xdg_cache_thumbnail_save_pixbuf    (TumblerThumbnail       *thumbnail,
-                                                    GdkPixbuf              *pixbuf,
+                                                    TumblerImageData       *data,
                                                     guint64                 mtime,
                                                     GCancellable           *cancellable,
                                                     GError                **error);
@@ -289,7 +289,7 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 
 static gboolean
 xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
-                                 GdkPixbuf        *pixbuf,
+                                 TumblerImageData *data,
                                  guint64           mtime,
                                  GCancellable     *cancellable,
                                  GError          **error)
@@ -297,6 +297,7 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
   GFileOutputStream *stream;
   GdkPixbuf         *dest_pixbuf;
+  GdkPixbuf         *src_pixbuf;
   GError            *err = NULL;
   GFile             *dest_file;
   GFile             *flavor_dir;
@@ -309,7 +310,6 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
   gint               height;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
-  g_return_val_if_fail (GDK_IS_PIXBUF (pixbuf), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
@@ -317,15 +317,25 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
   if (g_cancellable_set_error_if_cancelled (cancellable, error))
     return FALSE;
 
+  
   /* determine dimensions of the thumbnail pixbuf */
-  width = gdk_pixbuf_get_width (pixbuf);
-  height = gdk_pixbuf_get_height (pixbuf);
+  width = data->width;
+  height = data->height;
+
+  src_pixbuf = gdk_pixbuf_new_from_data (data->data,
+                                         (GdkColorspace) data->colorspace,
+                                         data->has_alpha,
+                                         data->bits_per_sample,
+                                         data->width,
+                                         data->height,
+                                         data->rowstride,
+                                         NULL, NULL);
 
   /* generate a new pixbuf that is guranteed to follow the thumbnail spec */
   dest_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
   
   /* copy the thumbnail pixbuf into the destination pixbuf */
-  gdk_pixbuf_copy_area (pixbuf, 0, 0, width, height, dest_pixbuf, 0, 0);
+  gdk_pixbuf_copy_area (src_pixbuf, 0, 0, width, height, dest_pixbuf, 0, 0);
 
   /* determine the URI of the temporary file to write to */
   temp_file = xdg_cache_cache_get_temp_file (cache_thumbnail->uri,
@@ -388,8 +398,9 @@ xdg_cache_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
       g_object_unref (stream);
     }
 
-  /* destroy the destination pixbuf and temporary GFile */
+  /* destroy the source pixbuf, destination pixbuf and temporary GFile */
   g_object_unref (dest_pixbuf);
+  g_object_unref (src_pixbuf);
   g_object_unref (temp_file);
 
   if (err != NULL)

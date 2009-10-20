@@ -609,9 +609,19 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
             pixbuf = g_hash_table_lookup (pixbufs, GINT_TO_POINTER (flavor));
 
             /* if an image for this flavor was generated, save it now */
-            if (pixbuf != NULL)
-              tumbler_thumbnail_save_pixbuf (lp->data, pixbuf, mtime, 
-                                             cancellable, &error);
+            if (pixbuf != NULL) {
+              TumblerImageData data;
+
+              data.data            = gdk_pixbuf_get_pixels (pixbuf);
+              data.has_alpha       = gdk_pixbuf_get_has_alpha (pixbuf);
+              data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+              data.width           = gdk_pixbuf_get_width (pixbuf);
+              data.height          = gdk_pixbuf_get_height (pixbuf);
+              data.rowstride       = gdk_pixbuf_get_rowstride (pixbuf);
+              data.colorspace      = (gint) gdk_pixbuf_get_colorspace (pixbuf);
+
+              tumbler_thumbnail_save_pixbuf (lp->data, &data, mtime, NULL, &error);
+            }
           }
     }
 

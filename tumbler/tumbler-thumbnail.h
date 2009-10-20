@@ -27,8 +27,6 @@
 
 #include <gio/gio.h>
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
 #include <tumbler/tumbler-enum-types.h>
 #include <tumbler/tumbler-cache.h>
 
@@ -41,6 +39,16 @@ G_BEGIN_DECLS
 
 typedef struct _TumblerThumbnail      TumblerThumbnail;
 typedef struct _TumblerThumbnailIface TumblerThumbnailIface;
+
+typedef struct {
+  const guchar *data;
+  gboolean has_alpha;
+  gint bits_per_sample;
+  gint width;
+  gint height;
+  gint rowstride;
+  gint colorspace;
+} TumblerImageData;
 
 struct _TumblerThumbnailIface
 {
@@ -56,7 +64,7 @@ struct _TumblerThumbnailIface
                             const gchar      *uri,
                             guint64           mtime);
   gboolean (*save_pixbuf)  (TumblerThumbnail *thumbnail,
-                            GdkPixbuf        *pixbuf,
+                            TumblerImageData *pixbuf,
                             guint64           mtime,
                             GCancellable     *cancellable,
                             GError          **error);
@@ -76,7 +84,7 @@ gboolean                tumbler_thumbnail_needs_update    (TumblerThumbnail     
                                                            const gchar           *uri,
                                                            guint64                mtime);
 gboolean                tumbler_thumbnail_save_pixbuf     (TumblerThumbnail      *thumbnail,
-                                                           GdkPixbuf             *pixbuf,
+                                                           TumblerImageData      *pixbuf,
                                                            guint64                mtime,
                                                            GCancellable          *cancellable,
                                                            GError               **error);

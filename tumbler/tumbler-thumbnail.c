@@ -119,13 +119,12 @@ tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 
 gboolean
 tumbler_thumbnail_save_pixbuf (TumblerThumbnail *thumbnail,
-                               GdkPixbuf        *pixbuf,
+                               TumblerImageData *pixbuf,
                                guint64           mtime,
                                GCancellable     *cancellable,
                                GError          **error)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
-  g_return_val_if_fail (GDK_IS_PIXBUF (pixbuf), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
   g_return_val_if_fail (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_pixbuf != NULL, FALSE);
