@@ -55,7 +55,6 @@ static void         tumbler_registry_remove                    (const gchar     
 static void         tumbler_registry_unregister                (TumblerThumbnailer *thumbnailer,
                                                                 TumblerRegistry    *registry);
 static void         tumbler_registry_list_free                 (gpointer            data);
-static void         tumbler_registry_update_supported_cache    (TumblerRegistry    *registry);
 static GList       *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
 static gint         tumbler_registry_compare                   (TumblerThumbnailer *a,
                                                                 TumblerThumbnailer *b);
