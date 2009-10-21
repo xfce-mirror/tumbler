@@ -35,10 +35,8 @@
 enum
 {
   PROP_0,
-  PROP_MIME_TYPES,
-  PROP_URI_SCHEMES,
-  PROP_HASH_KEYS,
   PROP_NAME,
+  PROP_OBJECT_PATH,
   PROP_CONNECTION,
   PROP_PROXY,
   PROP_FOREIGN,
@@ -90,6 +88,7 @@ struct _TumblerSpecializedThumbnailer
   guint64          modified;
 
   gchar           *name;
+  gchar           *object_path;
 };
 
 
@@ -118,6 +117,15 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                    g_param_spec_string ("name",
                                                         "name",
                                                         "name",
+                                                        NULL,
+                                                        G_PARAM_CONSTRUCT_ONLY |
+                                                        G_PARAM_READWRITE));
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_OBJECT_PATH,
+                                   g_param_spec_string ("object-path",
+                                                        "object-path",
+                                                        "object-path",
                                                         NULL,
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_READWRITE));
@@ -178,7 +186,6 @@ static void
 tumbler_specialized_thumbnailer_constructed (GObject *object)
 {
   TumblerSpecializedThumbnailer *thumbnailer = TUMBLER_SPECIALIZED_THUMBNAILER (object);
-  gchar                         *bus_path;
 
   g_return_if_fail (TUMBLER_SPECIALIZED_THUMBNAILER (thumbnailer));
 
@@ -186,16 +193,11 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
   if (G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->constructed) (object);
 
-  bus_path = g_strdup_printf ("/%s", thumbnailer->name);
-  bus_path = g_strdelimit (bus_path, ".", '/');
-
   thumbnailer->proxy = 
     dbus_g_proxy_new_for_name (thumbnailer->connection,
                                thumbnailer->name,
-                               bus_path,
+                               thumbnailer->object_path,
                                "org.freedesktop.thumbnails.SpecializedThumbnailer1");
-
-  g_free (bus_path);
 
   dbus_g_object_register_marshaller (g_cclosure_marshal_VOID__STRING,
                                      G_TYPE_NONE, 
@@ -236,6 +238,7 @@ tumbler_specialized_thumbnailer_finalize (GObject *object)
   TumblerSpecializedThumbnailer *thumbnailer = TUMBLER_SPECIALIZED_THUMBNAILER (object);
 
   g_free (thumbnailer->name);
+  g_free (thumbnailer->object_path);
 
   dbus_g_proxy_disconnect_signal (thumbnailer->proxy, "Ready",
                                   G_CALLBACK (tumbler_specialized_thumbnailer_proxy_ready),
@@ -244,6 +247,9 @@ tumbler_specialized_thumbnailer_finalize (GObject *object)
   dbus_g_proxy_disconnect_signal (thumbnailer->proxy, "Error",
                                   G_CALLBACK (tumbler_specialized_thumbnailer_proxy_error),
                                   thumbnailer);
+
+  g_signal_handlers_disconnect_matched (thumbnailer->proxy, G_SIGNAL_MATCH_DATA,
+                                        0, 0, NULL, NULL, thumbnailer);
 
   g_object_unref (thumbnailer->proxy);
 
@@ -269,6 +275,9 @@ tumbler_specialized_thumbnailer_get_property (GObject    *object,
       break;
     case PROP_NAME:
       g_value_set_string (value, thumbnailer->name);
+      break;
+    case PROP_OBJECT_PATH:
+      g_value_set_string (value, thumbnailer->object_path);
       break;
     case PROP_PROXY:
       g_value_set_object (value, thumbnailer->proxy);
@@ -302,6 +311,9 @@ tumbler_specialized_thumbnailer_set_property (GObject      *object,
       break;
     case PROP_NAME:
       thumbnailer->name = g_value_dup_string (value);
+      break;
+    case PROP_OBJECT_PATH:
+      thumbnailer->object_path = g_value_dup_string (value);
       break;
     case PROP_FOREIGN:
       thumbnailer->foreign = g_value_get_boolean (value);
@@ -371,19 +383,44 @@ tumbler_specialized_thumbnailer_proxy_destroyed (DBusGProxy                    *
 
 
 TumblerThumbnailer *
-tumbler_specialized_thumbnailer_new_foreign (DBusGConnection *connection,
-                                             const gchar     *name,
-                                             const gchar     *uri_scheme,
-                                             const gchar     *mime_type)
+tumbler_specialized_thumbnailer_new (DBusGConnection    *connection,
+                                     const gchar        *name,
+                                     const gchar        *object_path,
+                                     const gchar *const *uri_schemes,
+                                     const gchar *const *mime_types,
+                                     guint64             modified)
 {
   TumblerSpecializedThumbnailer *thumbnailer;
-  const gchar                   *uri_schemes[2] = { uri_scheme, NULL };
-  const gchar                   *mime_types[2] = { mime_type, NULL };
+
+  g_return_val_if_fail (connection != NULL, NULL);
+  g_return_val_if_fail (object_path != NULL && *object_path != '\0', NULL);
+  g_return_val_if_fail (name != NULL && *name != '\0', NULL);
+  g_return_val_if_fail (uri_schemes != NULL, NULL);
+  g_return_val_if_fail (mime_types != NULL, NULL);
+
+  thumbnailer = g_object_new (TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, 
+                              "connection", connection, "foreign", FALSE, "name", name, 
+                              "object-path", object_path, "uri-schemes", uri_schemes, 
+                              "mime-types", mime_types,
+                              "modified", modified, NULL);
+
+  return TUMBLER_THUMBNAILER (thumbnailer);
+}
+
+
+
+TumblerThumbnailer *
+tumbler_specialized_thumbnailer_new_foreign (DBusGConnection    *connection,
+                                             const gchar        *name,
+                                             const gchar *const *uri_schemes,
+                                             const gchar *const *mime_types)
+{
+  TumblerSpecializedThumbnailer *thumbnailer;
 
   g_return_val_if_fail (connection != NULL, NULL);
   g_return_val_if_fail (name != NULL, NULL);
-  g_return_val_if_fail (uri_scheme != NULL, NULL);
-  g_return_val_if_fail (mime_type != NULL, NULL);
+  g_return_val_if_fail (uri_schemes != NULL, NULL);
+  g_return_val_if_fail (mime_types != NULL, NULL);
 
   thumbnailer = g_object_new (TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, 
                               "connection", connection, "foreign", TRUE, "name", name, 
@@ -391,6 +428,15 @@ tumbler_specialized_thumbnailer_new_foreign (DBusGConnection *connection,
                               NULL);
 
   return TUMBLER_THUMBNAILER (thumbnailer);
+}
+
+
+
+const gchar *
+tumbler_specialized_thumbnailer_get_name (TumblerSpecializedThumbnailer *thumbnailer)
+{
+  g_return_val_if_fail (TUMBLER_IS_SPECIALIZED_THUMBNAILER (thumbnailer), FALSE);
+  return thumbnailer->name;
 }
 
 

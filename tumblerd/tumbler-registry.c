@@ -32,28 +32,10 @@
 
 
 
-/* Property identifiers */
-enum
-{
-  PROP_0,
-};
-
-
-
 static void         tumbler_registry_finalize                  (GObject            *object);
-static void         tumbler_registry_get_property              (GObject            *object,
-                                                                guint               prop_id,
-                                                                GValue             *value,
-                                                                GParamSpec         *pspec);
-static void         tumbler_registry_set_property              (GObject            *object,
-                                                                guint               prop_id,
-                                                                const GValue       *value,
-                                                                GParamSpec         *pspec);
-static void         tumbler_registry_remove                    (const gchar        *key,
+static void         tumbler_registry_remove_thumbnailer        (const gchar        *key,
                                                                 GList             **list,
                                                                 TumblerThumbnailer *thumbnailer);
-static void         tumbler_registry_unregister                (TumblerThumbnailer *thumbnailer,
-                                                                TumblerRegistry    *registry);
 static void         tumbler_registry_list_free                 (gpointer            data);
 static GList       *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
 static gint         tumbler_registry_compare                   (TumblerThumbnailer *a,
@@ -73,6 +55,7 @@ struct _TumblerRegistry
   GObject       __parent__;
 
   GHashTable   *thumbnailers;
+  GHashTable   *preferred_thumbnailers;
   GMutex       *mutex;
 
   gchar       **uri_schemes;
@@ -92,8 +75,6 @@ tumbler_registry_class_init (TumblerRegistryClass *klass)
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_registry_finalize; 
-  gobject_class->get_property = tumbler_registry_get_property;
-  gobject_class->set_property = tumbler_registry_set_property;
 }
 
 
@@ -104,6 +85,8 @@ tumbler_registry_init (TumblerRegistry *registry)
   registry->mutex = g_mutex_new ();
   registry->thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                   g_free, tumbler_registry_list_free);
+  registry->preferred_thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                                            g_free, g_object_unref);
 }
 
 
@@ -114,6 +97,7 @@ tumbler_registry_finalize (GObject *object)
   TumblerRegistry *registry = TUMBLER_REGISTRY (object);
 
   /* release all thumbnailers */
+  g_hash_table_unref (registry->preferred_thumbnailers);
   g_hash_table_unref (registry->thumbnailers);
 
   /* free the cached URI schemes and MIME types */
@@ -128,76 +112,62 @@ tumbler_registry_finalize (GObject *object)
 
 
 
+#ifdef DEBUG
 static void
-tumbler_registry_get_property (GObject    *object,
-                               guint       prop_id,
-                               GValue     *value,
-                               GParamSpec *pspec)
+dump_registry (TumblerRegistry *registry)
 {
-#if 0
-  TumblerRegistry *registry = TUMBLER_REGISTRY (object);
+  TumblerThumbnailer *thumbnailer;
+  GHashTableIter      iter;
+  const gchar        *hash_key;
+  GList             **thumbnailers;
+  GList              *lp;
+
+  g_print ("Registry:\n");
+
+  g_print ("  Preferred Thumbnailers:\n");
+  g_hash_table_iter_init (&iter, registry->preferred_thumbnailers);
+  while (g_hash_table_iter_next (&iter, (gpointer) &hash_key, (gpointer) &thumbnailer))
+    {
+      g_print ("    %s: %s\n", hash_key,
+               tumbler_specialized_thumbnailer_get_name (TUMBLER_SPECIALIZED_THUMBNAILER (thumbnailer)));
+    }
+
+  g_print ("  Registry Thumbnailers:\n");
+  g_hash_table_iter_init (&iter, registry->thumbnailers);
+  while (g_hash_table_iter_next (&iter, (gpointer) &hash_key, (gpointer) &thumbnailers))
+    {
+      for (lp = *thumbnailers; lp != NULL; lp = lp->next)
+        {
+          if (TUMBLER_IS_SPECIALIZED_THUMBNAILER (lp->data))
+            {
+              g_print ("    %s: %s\n", 
+                       hash_key, tumbler_specialized_thumbnailer_get_name (lp->data));
+            }
+        }
+    }
+
+  g_print ("\n");
+}
 #endif
 
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
-}
-
 
 
 static void
-tumbler_registry_set_property (GObject      *object,
-                               guint         prop_id,
-                               const GValue *value,
-                               GParamSpec   *pspec)
-{
-#if 0
-  TumblerRegistry *registry = TUMBLER_REGISTRY (object);
-#endif
-
-  switch (prop_id)
-    {
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
-}
-
-
-
-static void
-tumbler_registry_remove (const gchar        *key,
-                         GList             **list,
-                         TumblerThumbnailer *thumbnailer)
+tumbler_registry_remove_thumbnailer (const gchar        *key,
+                                     GList             **list,
+                                     TumblerThumbnailer *thumbnailer)
 {
   GList *lp;
 
   for (lp = *list; lp != NULL; lp = lp->next)
     {
       if (lp->data == thumbnailer)
-        *list = g_list_delete_link (*list, lp);
+        {
+          g_object_unref (lp->data);
+          *list = g_list_delete_link (*list, lp);
+          break;
+        }
     }
-}
-
-
-
-static void
-tumbler_registry_unregister (TumblerThumbnailer *thumbnailer,
-                             TumblerRegistry    *registry)
-{
-  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
-
-  g_mutex_lock (registry->mutex);
-
-  /* remove the thumbnailer from all hash key lists */
-  g_hash_table_foreach (registry->thumbnailers, (GHFunc) tumbler_registry_remove,
-                        thumbnailer);
-
-  g_mutex_unlock (registry->mutex);
 }
 
 
@@ -318,6 +288,10 @@ tumbler_registry_lookup (TumblerRegistry *registry,
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (hash_key != NULL, NULL);
 
+  thumbnailer = g_hash_table_lookup (registry->preferred_thumbnailers, hash_key);
+  if (thumbnailer != NULL)
+    return g_object_ref (thumbnailer);
+
   list = g_hash_table_lookup (registry->thumbnailers, hash_key);
 
   if (list != NULL)
@@ -396,13 +370,38 @@ tumbler_registry_add (TumblerRegistry    *registry,
           /* insert the pointer to the list in the hash table */
           g_hash_table_insert (registry->thumbnailers, g_strdup (hash_keys[n]), list);
         }
-
-      /* connect to the unregister signal of the thumbnailer */
-      g_signal_connect (thumbnailer, "unregister", 
-                        G_CALLBACK (tumbler_registry_unregister), registry);
     }
 
+  /* connect to the unregister signal of the thumbnailer */
+  g_signal_connect_swapped (thumbnailer, "unregister", 
+                            G_CALLBACK (tumbler_registry_remove), registry);
+
   g_strfreev (hash_keys);
+
+#ifdef DEBUG
+  dump_registry (registry);
+#endif
+
+  g_mutex_unlock (registry->mutex);
+}
+
+
+
+void
+tumbler_registry_remove (TumblerRegistry    *registry,
+                         TumblerThumbnailer *thumbnailer)
+{
+  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+
+  g_mutex_lock (registry->mutex);
+
+  g_signal_handlers_disconnect_matched (thumbnailer, G_SIGNAL_MATCH_DATA, 
+                                        0, 0, NULL, NULL, registry);
+                                        
+  /* remove the thumbnailer from all hash key lists */
+  g_hash_table_foreach (registry->thumbnailers, 
+                        (GHFunc) tumbler_registry_remove_thumbnailer, thumbnailer);
 
   g_mutex_unlock (registry->mutex);
 }
@@ -624,6 +623,54 @@ tumbler_registry_get_supported (TumblerRegistry     *registry,
 
   if (mime_types != NULL)
     *mime_types = (const gchar *const *)registry->mime_types;
+
+  g_mutex_unlock (registry->mutex);
+}
+
+
+
+TumblerThumbnailer *
+tumbler_registry_get_preferred (TumblerRegistry *registry,
+                                const gchar     *hash_key)
+{
+  TumblerThumbnailer *thumbnailer = NULL;
+
+  g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
+  g_return_val_if_fail (hash_key != NULL && *hash_key != '\0', NULL);
+
+  g_mutex_lock (registry->mutex);
+  thumbnailer = g_hash_table_lookup (registry->preferred_thumbnailers, hash_key);
+  g_mutex_unlock (registry->mutex);
+
+  return thumbnailer != NULL ? g_object_ref (thumbnailer) : NULL;
+}
+
+
+
+void
+tumbler_registry_set_preferred (TumblerRegistry    *registry,
+                                const gchar        *hash_key,
+                                TumblerThumbnailer *thumbnailer)
+{
+  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
+  g_return_if_fail (hash_key != NULL && *hash_key != '\0');
+  g_return_if_fail (thumbnailer == NULL || TUMBLER_IS_THUMBNAILER (thumbnailer));
+
+  g_mutex_lock (registry->mutex);
+  
+  if (thumbnailer == NULL)
+    {
+      g_hash_table_remove (registry->preferred_thumbnailers, hash_key);
+    }
+  else
+    {
+      g_hash_table_insert (registry->preferred_thumbnailers, 
+                           g_strdup (hash_key), g_object_ref (thumbnailer));
+    }
+
+#ifdef DEBUG
+  dump_registry (registry);
+#endif
 
   g_mutex_unlock (registry->mutex);
 }

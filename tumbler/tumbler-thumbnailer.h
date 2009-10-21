@@ -54,25 +54,27 @@ struct _TumblerThumbnailerIface
   void (*unregister) (TumblerThumbnailer *thumbnailer);
 
   /* virtual methods */
-  void (*create) (TumblerThumbnailer     *thumbnailer,
-                  GCancellable           *cancellable,
-                  TumblerFileInfo        *info);
+  void (*create) (TumblerThumbnailer *thumbnailer,
+                  GCancellable       *cancellable,
+                  TumblerFileInfo    *info);
 };
 
-GType                tumbler_thumbnailer_get_type        (void) G_GNUC_CONST;
+GType                tumbler_thumbnailer_get_type          (void) G_GNUC_CONST;
 
-void                 tumbler_thumbnailer_create          (TumblerThumbnailer     *thumbnailer,
-                                                          GCancellable           *cancellable,
-                                                          TumblerFileInfo        *info);
+void                 tumbler_thumbnailer_create            (TumblerThumbnailer     *thumbnailer,
+                                                            GCancellable           *cancellable,
+                                                            TumblerFileInfo        *info);
 
-GStrv                tumbler_thumbnailer_get_hash_keys   (TumblerThumbnailer  *thumbnailer);
-GStrv                tumbler_thumbnailer_get_mime_types  (TumblerThumbnailer  *thumbnailer);
-GStrv                tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer  *thumbnailer);
+GStrv                tumbler_thumbnailer_get_hash_keys     (TumblerThumbnailer  *thumbnailer);
+GStrv                tumbler_thumbnailer_get_mime_types    (TumblerThumbnailer  *thumbnailer);
+GStrv                tumbler_thumbnailer_get_uri_schemes   (TumblerThumbnailer  *thumbnailer);
+gboolean             tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer  *thumbnailer,
+                                                            const gchar         *hash_key);
 
-TumblerThumbnailer **tumbler_thumbnailer_array_copy      (TumblerThumbnailer **thumbnailers,
-                                                          guint                length);
-void                 tumbler_thumbnailer_array_free      (TumblerThumbnailer **thumbnailers,
-                                                          guint                length);
+TumblerThumbnailer **tumbler_thumbnailer_array_copy        (TumblerThumbnailer **thumbnailers,
+                                                            guint                length);
+void                 tumbler_thumbnailer_array_free        (TumblerThumbnailer **thumbnailers,
+                                                            guint                length);
 
 G_END_DECLS
 

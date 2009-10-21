@@ -106,7 +106,7 @@ dnl ***************************************
 dnl *** Check for standard header files ***
 dnl ***************************************
 AC_HEADER_STDC()
-AC_CHECK_HEADERS([unistd.h sched.h linux/sched.h syscall.h])
+AC_CHECK_HEADERS([unistd.h sched.h linux/sched.h syscall.h sys/types.h sys/stat.h])
 
 dnl ************************************
 dnl *** Check for standard functions ***

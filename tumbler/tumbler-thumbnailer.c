@@ -125,7 +125,7 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
   tumbler_thumbnailer_signals[SIGNAL_UNREGISTER] =
     g_signal_new ("unregister",
                   TUMBLER_TYPE_THUMBNAILER,
-                  G_SIGNAL_RUN_LAST,
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_HOOKS,
                   G_STRUCT_OFFSET (TumblerThumbnailerIface, unregister),
                   NULL,
                   NULL,
@@ -187,6 +187,28 @@ tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
 
   g_object_get (thumbnailer, "uri-schemes", &uri_schemes, NULL);
   return uri_schemes;
+}
+
+
+
+gboolean
+tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer *thumbnailer,
+                                       const gchar        *hash_key)
+{
+  gboolean supported = FALSE;
+  GStrv    hash_keys;
+  guint    n;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), FALSE);
+  g_return_val_if_fail (hash_key != NULL && *hash_key != '\0', FALSE);
+
+  hash_keys = tumbler_thumbnailer_get_hash_keys (thumbnailer);
+
+  for (n = 0; !supported && hash_keys != NULL && hash_keys[n] != NULL; ++n)
+    if (g_strcmp0 (hash_keys[n], hash_key) == 0)
+      supported = TRUE;
+
+  return supported;
 }
 
 

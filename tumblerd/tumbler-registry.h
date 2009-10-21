@@ -42,6 +42,8 @@ gboolean             tumbler_registry_load                  (TumblerRegistry    
                                                              GError             **error);
 void                 tumbler_registry_add                   (TumblerRegistry     *registry,
                                                              TumblerThumbnailer  *thumbnailer);
+void                 tumbler_registry_remove                (TumblerRegistry     *registry,
+                                                             TumblerThumbnailer  *thumbnailer);
 GList               *tumbler_registry_get_thumbnailers      (TumblerRegistry     *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 TumblerThumbnailer **tumbler_registry_get_thumbnailer_array (TumblerRegistry     *registry,
                                                              TumblerFileInfo    **infos,
@@ -50,6 +52,11 @@ void                 tumbler_registry_update_supported      (TumblerRegistry    
 void                 tumbler_registry_get_supported         (TumblerRegistry     *registry,
                                                              const gchar *const **uri_schemes,
                                                              const gchar *const **mime_types);
+TumblerThumbnailer  *tumbler_registry_get_preferred         (TumblerRegistry     *registry,
+                                                             const gchar         *hash_key) G_GNUC_WARN_UNUSED_RESULT;
+void                 tumbler_registry_set_preferred         (TumblerRegistry     *registry,
+                                                             const gchar         *hash_key,
+                                                             TumblerThumbnailer  *thumbnailer);
 
 G_END_DECLS
 

@@ -44,8 +44,8 @@ TumblerManager *tumbler_manager_new           (DBusGConnection       *connection
 gboolean        tumbler_manager_start         (TumblerManager        *manager,
                                                GError               **error);
 void            tumbler_manager_register      (TumblerManager        *manager, 
-                                               gchar                 *uri_scheme, 
-                                               gchar                 *mime_type, 
+                                               const gchar *const    *uri_schemes, 
+                                               const gchar *const    *mime_types, 
                                                DBusGMethodInvocation *context);
 void            tumbler_manager_get_supported (TumblerManager        *manager, 
                                                DBusGMethodInvocation *context);
