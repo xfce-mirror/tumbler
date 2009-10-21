@@ -131,6 +131,9 @@ main (int    argc,
   /* drop the reference on the provider factory */
   g_object_unref (provider_factory);
 
+  /* update the URI schemes / MIME types supported information */
+  tumbler_registry_update_supported (registry);
+
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))
     {

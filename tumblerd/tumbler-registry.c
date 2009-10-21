@@ -199,9 +199,6 @@ tumbler_registry_unregister (TumblerThumbnailer *thumbnailer,
                         thumbnailer);
 
   g_mutex_unlock (registry->mutex);
-
-  /* update the cache of supported URI schemes and MIME types */
-  tumbler_registry_update_supported_cache (registry);
 }
 
 
@@ -277,142 +274,6 @@ static void tumbler_registry_list_free (gpointer data)
   /* free the list and the pointer to it */
   g_list_free (*list);
   g_free (list);
-}
-
-
-
-static void
-free_pair (gpointer data)
-{
-  g_slice_free1 (2 * sizeof (const gchar *), data);
-}
-
-
-
-static void
-tumbler_registry_update_supported_cache (TumblerRegistry *registry)
-{
-  GHashTableIter iter;
-  GHashTable    *unique_pairs;
-  GSList        *used_strings = NULL;
-  GList         *thumbnailers;
-  GList         *lp;
-  const gchar  **pair;
-  GString       *pair_string;
-  GStrv          mime_types;
-  GStrv          uri_schemes;
-  gint           n;
-  gint           u;
-
-  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
-
-  g_mutex_lock (registry->mutex);
-
-  /* free the old cache */
-  g_strfreev (registry->uri_schemes);
-  registry->uri_schemes = NULL;
-  g_strfreev (registry->mime_types);
-  registry->mime_types = NULL;
-
-  /* get a list of all active thumbnailers */
-  thumbnailers = tumbler_registry_get_thumbnailers_internal (registry);
-
-  g_mutex_unlock (registry->mutex);
-
-  /* abort if there are no thumbnailers */
-  if (thumbnailers == NULL)
-    return;
-
-  /* create a hash table to collect unique URI scheme / MIME type pairs */
-  unique_pairs = g_hash_table_new_full (g_str_hash, g_str_equal, 
-                                        (GDestroyNotify) g_free, 
-                                        (GDestroyNotify) free_pair);
-
-  /* iterate over all of them */
-  for (lp = thumbnailers; lp != NULL; lp = lp->next)
-    {
-      /* determine the MIME types & URI schemes supported by the current thumbnailer */
-      mime_types = tumbler_thumbnailer_get_mime_types (lp->data);
-      uri_schemes = tumbler_thumbnailer_get_uri_schemes (lp->data);
-
-      /* insert all MIME types & URI schemes into the hash table */
-      for (n = 0; 
-           mime_types != NULL && uri_schemes != NULL && mime_types[n] != NULL; 
-           ++n)
-        {
-          /* remember the MIME type so that we can later reuse it without copying */
-          used_strings = g_slist_prepend (used_strings, mime_types[n]);
-
-          for (u = 0; uri_schemes[u] != NULL; ++u)
-            {
-              /* remember the URI scheme for this pair so that we can later reuse it 
-               * without copying. Only remember it once (n==0) to avoid segmentation 
-               * faults when freeing the list */
-              if (n == 0)
-                used_strings = g_slist_prepend (used_strings, uri_schemes[u]);
-
-              /* allocate a pair with the current URI scheme and MIME type */
-              pair = g_slice_alloc (2 * sizeof (const gchar *));
-
-              /* we can now reuse the strings */
-              pair[0] = uri_schemes[u];
-              pair[1] = mime_types[n];
-
-              /* combine the two to a unique pair identifier */
-              pair_string = g_string_new (pair[0]);
-              g_string_append_c (pair_string, '-');
-              g_string_append (pair_string, pair[1]);
-
-              /* remember the pair in the hash table */
-              g_hash_table_insert (unique_pairs, pair_string->str, pair);
-
-              /* free the pair string */
-              g_string_free (pair_string, FALSE);
-            }
-        }
-
-      /* free MIME types & URI schemes array. Their contents are stored in
-       * used_strings and are freed later */
-      g_free (mime_types);
-      g_free (uri_schemes);
-    }
-
-  /* relase the thumbnailer list */
-  g_list_foreach (thumbnailers, (GFunc) g_object_unref, NULL);
-  g_list_free (thumbnailers);
-
-  n = g_hash_table_size (unique_pairs);
-
-  g_mutex_lock (registry->mutex);
-
-  /* allocate a string array for the URI scheme / MIME type pairs */
-  registry->uri_schemes = g_new0 (gchar *, n+1);
-  registry->mime_types = g_new0 (gchar *, n+1);
-
-  /* insert all unique URI scheme / MIME type pairs into string arrays */
-  n = 0;
-  g_hash_table_iter_init (&iter, unique_pairs);
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer) &pair)) 
-    {
-      /* fill the cache arrays with copied values */
-      registry->uri_schemes[n] = g_strdup (pair[0]);
-      registry->mime_types[n] = g_strdup (pair[1]);
-
-      ++n;
-    }
-
-  /* NULL-terminate the arrays */
-  registry->uri_schemes[n] = NULL;
-  registry->mime_types[n] = NULL;
-
-  g_mutex_unlock (registry->mutex);
-
-  /* destroy the hash table we used */
-  g_hash_table_unref (unique_pairs);
-
-  /* free all strings we used but haven't freed yet */
-  g_slist_foreach (used_strings, (GFunc) g_free, NULL);
-  g_slist_free (used_strings);
 }
 
 
@@ -545,9 +406,6 @@ tumbler_registry_add (TumblerRegistry    *registry,
   g_strfreev (hash_keys);
 
   g_mutex_unlock (registry->mutex);
-
-  /* update the cached URI schemes / MIME types */
-  tumbler_registry_update_supported_cache (registry);
 }
 
 
@@ -624,6 +482,142 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
   thumbnailers[n] = NULL;
 
   return thumbnailers;
+}
+
+
+
+static void
+free_pair (gpointer data)
+{
+  g_slice_free1 (2 * sizeof (const gchar *), data);
+}
+
+
+
+void
+tumbler_registry_update_supported (TumblerRegistry *registry)
+{
+  GHashTableIter iter;
+  GHashTable    *unique_pairs;
+  GSList        *used_strings = NULL;
+  GList         *thumbnailers;
+  GList         *lp;
+  const gchar  **pair;
+  GString       *pair_string;
+  GStrv          mime_types;
+  GStrv          uri_schemes;
+  gint           n;
+  gint           u;
+
+  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
+
+  g_mutex_lock (registry->mutex);
+
+  /* free the old cache */
+  g_strfreev (registry->uri_schemes);
+  registry->uri_schemes = NULL;
+  g_strfreev (registry->mime_types);
+  registry->mime_types = NULL;
+
+  /* get a list of all active thumbnailers */
+  thumbnailers = tumbler_registry_get_thumbnailers_internal (registry);
+
+  g_mutex_unlock (registry->mutex);
+
+  /* abort if there are no thumbnailers */
+  if (thumbnailers == NULL)
+    return;
+
+  /* create a hash table to collect unique URI scheme / MIME type pairs */
+  unique_pairs = g_hash_table_new_full (g_str_hash, g_str_equal, 
+                                        (GDestroyNotify) g_free, 
+                                        (GDestroyNotify) free_pair);
+
+  /* iterate over all of them */
+  for (lp = thumbnailers; lp != NULL; lp = lp->next)
+    {
+      /* determine the MIME types & URI schemes supported by the current thumbnailer */
+      mime_types = tumbler_thumbnailer_get_mime_types (lp->data);
+      uri_schemes = tumbler_thumbnailer_get_uri_schemes (lp->data);
+
+      /* insert all MIME types & URI schemes into the hash table */
+      for (n = 0; 
+           mime_types != NULL && uri_schemes != NULL && mime_types[n] != NULL; 
+           ++n)
+        {
+          /* remember the MIME type so that we can later reuse it without copying */
+          used_strings = g_slist_prepend (used_strings, mime_types[n]);
+
+          for (u = 0; uri_schemes[u] != NULL; ++u)
+            {
+              /* remember the URI scheme for this pair so that we can later reuse it 
+               * without copying. Only remember it once (n==0) to avoid segmentation 
+               * faults when freeing the list */
+              if (n == 0)
+                used_strings = g_slist_prepend (used_strings, uri_schemes[u]);
+
+              /* allocate a pair with the current URI scheme and MIME type */
+              pair = g_slice_alloc (2 * sizeof (const gchar *));
+
+              /* we can now reuse the strings */
+              pair[0] = uri_schemes[u];
+              pair[1] = mime_types[n];
+
+              /* combine the two to a unique pair identifier */
+              pair_string = g_string_new (pair[0]);
+              g_string_append_c (pair_string, '-');
+              g_string_append (pair_string, pair[1]);
+
+              /* remember the pair in the hash table */
+              g_hash_table_insert (unique_pairs, pair_string->str, pair);
+
+              /* free the pair string */
+              g_string_free (pair_string, FALSE);
+            }
+        }
+
+      /* free MIME types & URI schemes array. Their contents are stored in
+       * used_strings and are freed later */
+      g_free (mime_types);
+      g_free (uri_schemes);
+    }
+
+  /* relase the thumbnailer list */
+  g_list_foreach (thumbnailers, (GFunc) g_object_unref, NULL);
+  g_list_free (thumbnailers);
+
+  n = g_hash_table_size (unique_pairs);
+
+  g_mutex_lock (registry->mutex);
+
+  /* allocate a string array for the URI scheme / MIME type pairs */
+  registry->uri_schemes = g_new0 (gchar *, n+1);
+  registry->mime_types = g_new0 (gchar *, n+1);
+
+  /* insert all unique URI scheme / MIME type pairs into string arrays */
+  n = 0;
+  g_hash_table_iter_init (&iter, unique_pairs);
+  while (g_hash_table_iter_next (&iter, NULL, (gpointer) &pair)) 
+    {
+      /* fill the cache arrays with copied values */
+      registry->uri_schemes[n] = g_strdup (pair[0]);
+      registry->mime_types[n] = g_strdup (pair[1]);
+
+      ++n;
+    }
+
+  /* NULL-terminate the arrays */
+  registry->uri_schemes[n] = NULL;
+  registry->mime_types[n] = NULL;
+
+  g_mutex_unlock (registry->mutex);
+
+  /* destroy the hash table we used */
+  g_hash_table_unref (unique_pairs);
+
+  /* free all strings we used but haven't freed yet */
+  g_slist_foreach (used_strings, (GFunc) g_free, NULL);
+  g_slist_free (used_strings);
 }
 
 

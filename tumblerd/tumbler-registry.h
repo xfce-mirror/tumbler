@@ -47,6 +47,7 @@ TumblerThumbnailer **tumbler_registry_get_thumbnailer_array (TumblerRegistry    
                                                              const GStrv          uris,
                                                              const GStrv          mime_hints,
                                                              gint                *length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+void                 tumbler_registry_update_supported      (TumblerRegistry     *registry);
 void                 tumbler_registry_get_supported         (TumblerRegistry     *registry,
                                                              const gchar *const **uri_schemes,
                                                              const gchar *const **mime_types);
