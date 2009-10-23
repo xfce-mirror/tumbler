@@ -138,3 +138,6 @@ tumbler-marshal.c: tumbler-marshal.list Makefile
 	  && cp xgen-emc tumbler-marshal.c \
 	  && rm -f xgen-emc \
 	)
+
+# Required for gtk-doc and make distcheck
+dist-hook: all

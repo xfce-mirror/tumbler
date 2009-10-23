@@ -189,6 +189,12 @@ dnl *** Check for linker optimizations ***
 dnl **************************************
 XDT_FEATURE_LINKER_OPTS()
 
+dnl *************************************
+dnl *** Compensate for broken gtk-doc ***
+dnl *************************************
+XDT_SUPPORTED_FLAGS([GTK_DOC_EXTRA_CFLAGS], [-Wno-sign-compare])
+AC_SUBST([GTK_DOC_EXTRA_CFLAGS])
+
 AC_OUTPUT([
 Makefile
 docs/Makefile

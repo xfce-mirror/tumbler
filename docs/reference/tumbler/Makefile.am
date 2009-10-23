@@ -83,3 +83,6 @@ include $(top_srcdir)/gtk-doc.make
 # Other files to distribute
 EXTRA_DIST +=								\
 	version.xml.in
+
+# Required for make distcheck
+dist-hook: all
