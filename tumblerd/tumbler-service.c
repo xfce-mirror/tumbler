@@ -597,7 +597,7 @@ tumbler_service_queue (TumblerService        *service,
                        const GStrv            uris,
                        const GStrv            mime_hints,
                        const gchar           *desired_scheduler,
-                       guint                  handle_to_unqueue,
+                       guint                  handle_to_dequeue,
                        DBusGMethodInvocation *context)
 {
   TumblerScheduler        *scheduler = NULL;
@@ -638,10 +638,10 @@ tumbler_service_queue (TumblerService        *service,
   /* iterate over all schedulers */
   for (iter = service->schedulers; iter != NULL; iter = iter->next)
     {
-      /* unqueue the request with the given unqueue handle, in case this 
+      /* dequeue the request with the given dequeue handle, in case this 
        * scheduler is responsible for the given handle */
-      if (handle_to_unqueue != 0)
-        tumbler_scheduler_unqueue (TUMBLER_SCHEDULER (iter->data), handle_to_unqueue);
+      if (handle_to_dequeue != 0)
+        tumbler_scheduler_dequeue (TUMBLER_SCHEDULER (iter->data), handle_to_dequeue);
 
       /* determine the scheduler name */
       name = tumbler_scheduler_get_name (TUMBLER_SCHEDULER (iter->data));
@@ -673,7 +673,7 @@ tumbler_service_queue (TumblerService        *service,
 
 
 void
-tumbler_service_unqueue (TumblerService        *service,
+tumbler_service_dequeue (TumblerService        *service,
                          guint                  handle,
                          DBusGMethodInvocation *context)
 {
@@ -688,9 +688,9 @@ tumbler_service_unqueue (TumblerService        *service,
       /* iterate over all available schedulers */
       for (iter = service->schedulers; iter != NULL; iter = iter->next)
         {
-          /* unqueue the request with the given unqueue handle, in case this
+          /* dequeue the request with the given dequeue handle, in case this
            * scheduler is responsible for the given handle */
-          tumbler_scheduler_unqueue (TUMBLER_SCHEDULER (iter->data), handle);
+          tumbler_scheduler_dequeue (TUMBLER_SCHEDULER (iter->data), handle);
         }
     }
 

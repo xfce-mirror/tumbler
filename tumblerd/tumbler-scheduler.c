@@ -188,14 +188,14 @@ tumbler_scheduler_push (TumblerScheduler        *scheduler,
 
 
 void
-tumbler_scheduler_unqueue (TumblerScheduler *scheduler,
+tumbler_scheduler_dequeue (TumblerScheduler *scheduler,
                            guint             handle)
 {
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
-  g_return_if_fail (TUMBLER_SCHEDULER_GET_IFACE (scheduler)->unqueue != NULL);
+  g_return_if_fail (TUMBLER_SCHEDULER_GET_IFACE (scheduler)->dequeue != NULL);
 
-  TUMBLER_SCHEDULER_GET_IFACE (scheduler)->unqueue (scheduler, handle);
+  TUMBLER_SCHEDULER_GET_IFACE (scheduler)->dequeue (scheduler, handle);
 }
 
 
@@ -272,7 +272,7 @@ tumbler_scheduler_request_new (const GStrv          uris,
   request = g_new0 (TumblerSchedulerRequest, 1);
   if (origin)
     request->origin = g_strdup (origin);
-  request->unqueued = FALSE;
+  request->dequeued = FALSE;
   request->scheduler = NULL;
   request->handle = handle++;
   request->uris = g_strdupv (uris);

@@ -47,9 +47,9 @@ void            tumbler_service_queue          (TumblerService        *service,
                                                 const GStrv            uris,
                                                 const GStrv            mime_hints,
                                                 const gchar           *s_scheduler,
-                                                guint                  handle_to_unqueue,
+                                                guint                  handle_to_dequeue,
                                                 DBusGMethodInvocation *context);
-void            tumbler_service_unqueue        (TumblerService         *service,
+void            tumbler_service_dequeue        (TumblerService         *service,
                                                 guint                   handle,
                                                 DBusGMethodInvocation  *context);
 void            tumbler_service_get_schedulers (TumblerService        *service,
