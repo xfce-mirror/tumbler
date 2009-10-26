@@ -44,7 +44,8 @@ static void font_thumbnailer_finalize (GObject                    *object);
 static void font_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
                                        GCancellable               *cancellable,
                                        const gchar                *uri,
-                                       const gchar                *mime_hint);
+                                       const gchar                *mime_hint,
+                                       const gchar                *flavor);
 
 
 
@@ -437,7 +438,8 @@ static void
 font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                          GCancellable               *cancellable,
                          const gchar                *uri,
-                         const gchar                *mime_hint)
+                         const gchar                *mime_hint,
+                         const gchar                *flavor_)
 {
   TumblerThumbnailFlavor *flavors;
   TumblerThumbnailFlavor  flavor;

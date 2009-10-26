@@ -139,7 +139,8 @@ void
 tumbler_thumbnailer_create (TumblerThumbnailer      *thumbnailer,
                             GCancellable            *cancellable,
                             const gchar             *uri,
-                            const gchar             *mime_hint)
+                            const gchar             *mime_hint,
+                            const gchar             *flavor)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);
@@ -149,7 +150,8 @@ tumbler_thumbnailer_create (TumblerThumbnailer      *thumbnailer,
   return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
                                                                  cancellable,
                                                                  uri, 
-                                                                 mime_hint);
+                                                                 mime_hint,
+                                                                 flavor);
 }
 
 

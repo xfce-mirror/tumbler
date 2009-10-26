@@ -61,7 +61,8 @@ static void tumbler_specialized_thumbnailer_set_property    (GObject            
 static void tumbler_specialized_thumbnailer_create          (TumblerThumbnailer            *thumbnailer,
                                                              GCancellable                  *cancellable,
                                                              const gchar                   *uri,
-                                                             const gchar                   *mime_hint);
+                                                             const gchar                   *mime_hint,
+                                                             const gchar                   *flavor);
 static void tumbler_specialized_thumbnailer_proxy_ready     (DBusGProxy                    *proxy,
                                                              const gchar                   *uri,
                                                              TumblerSpecializedThumbnailer *thumbnailer);
@@ -322,7 +323,8 @@ static void
 tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
                                         GCancellable       *cancellable,
                                         const gchar        *uri,
-                                        const gchar        *mime_hint)
+                                        const gchar        *mime_hint,
+                                        const gchar        *flavor)
 {
   /* TODO */
 }

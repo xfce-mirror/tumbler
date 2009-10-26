@@ -59,7 +59,8 @@ static void tumbler_abstract_thumbnailer_set_property     (GObject              
 static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer      *thumbnailer,
                                                            GCancellable            *cancellable,
                                                            const gchar             *uri,
-                                                           const gchar             *mime_hint);
+                                                           const gchar             *mime_hint,
+                                                           const gchar             *flavor);
 
 
 
@@ -236,13 +237,16 @@ static void
 tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
                                      GCancellable       *cancellable,
                                      const gchar        *uri,
-                                     const gchar        *mime_hint)
+                                     const gchar        *mime_hint,
+                                     const gchar        *flavor)
 {
   g_return_if_fail (TUMBLER_IS_ABSTRACT_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL && *uri != '\0');
+  g_return_if_fail (flavor != NULL && *flavor != '\0');
   g_return_if_fail (TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create != NULL);
 
   TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer),
                                                                 cancellable, uri, 
-                                                                mime_hint);
+                                                                mime_hint,
+                                                                flavor);
 }

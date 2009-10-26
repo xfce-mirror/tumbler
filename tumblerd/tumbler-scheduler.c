@@ -259,6 +259,7 @@ tumbler_scheduler_request_new (const GStrv          uris,
                                const GStrv          mime_hints,
                                TumblerThumbnailer **thumbnailers,
                                gint                 length,
+                               const gchar         *flavor,
                                const gchar         *origin)
 {
   TumblerSchedulerRequest *request = NULL;
@@ -273,6 +274,7 @@ tumbler_scheduler_request_new (const GStrv          uris,
   if (origin)
     request->origin = g_strdup (origin);
   request->dequeued = FALSE;
+  request->flavor = g_strdup (flavor);
   request->scheduler = NULL;
   request->handle = handle++;
   request->uris = g_strdupv (uris);
@@ -310,6 +312,7 @@ tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
 
   g_free (request->cancellables);
   g_free (request->origin);
+  g_free (request->flavor);
 
   g_free (request);
 }

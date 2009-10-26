@@ -596,6 +596,7 @@ void
 tumbler_service_queue (TumblerService        *service,
                        const GStrv            uris,
                        const GStrv            mime_hints,
+                       const gchar           *flavor,
                        const gchar           *desired_scheduler,
                        guint                  handle_to_dequeue,
                        DBusGMethodInvocation *context)
@@ -628,7 +629,8 @@ tumbler_service_queue (TumblerService        *service,
 
   /* allocate a scheduler request */
   scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers,
-                                                     num_thumbnailers, origin);
+                                                     num_thumbnailers, flavor, 
+                                                     origin);
 
   g_free (origin);
 
@@ -721,6 +723,46 @@ tumbler_service_get_supported (TumblerService        *service,
   dbus_g_method_return (context, uri_schemes, mime_types);
 }
 
+void 
+tumbler_service_get_flavors (TumblerService        *service,
+                              DBusGMethodInvocation *context)
+{
+  guint                   n;
+  TumblerThumbnailFlavor *flavors;
+  TumblerThumbnailFlavor  flavor;
+  GStrv                   flavors_strv;
+
+  flavors = tumbler_thumbnail_get_flavors ();
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n);
+
+  flavors_strv = g_new0 (gchar *, n + 1);
+
+  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+    {
+      flavor = flavors[n];
+
+      switch (flavor)
+        {
+        case TUMBLER_THUMBNAIL_FLAVOR_NORMAL:
+          flavors_strv[n] = "normal";
+          break;
+        case TUMBLER_THUMBNAIL_FLAVOR_LARGE:
+          flavors_strv[n] = "large";
+          break;
+        case TUMBLER_THUMBNAIL_FLAVOR_CROPPED:
+          flavors_strv[n] = "cropped";
+          break;
+        default:
+          g_assert_not_reached ();
+          break;
+        }
+    }
+
+  dbus_g_method_return (context, flavors_strv);
+
+  g_free (flavors_strv);
+}
 
 
 void

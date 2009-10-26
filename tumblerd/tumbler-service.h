@@ -46,6 +46,7 @@ gboolean        tumbler_service_start          (TumblerService        *service,
 void            tumbler_service_queue          (TumblerService        *service,
                                                 const GStrv            uris,
                                                 const GStrv            mime_hints,
+                                                const gchar           *flavor,
                                                 const gchar           *s_scheduler,
                                                 guint                  handle_to_dequeue,
                                                 DBusGMethodInvocation *context);
@@ -55,6 +56,8 @@ void            tumbler_service_dequeue        (TumblerService         *service,
 void            tumbler_service_get_schedulers (TumblerService        *service,
                                                 DBusGMethodInvocation *context);
 void            tumbler_service_get_supported  (TumblerService        *service,
+                                                DBusGMethodInvocation *context);
+void            tumbler_service_get_flavors    (TumblerService        *service,
                                                 DBusGMethodInvocation *context);
 
 G_END_DECLS;

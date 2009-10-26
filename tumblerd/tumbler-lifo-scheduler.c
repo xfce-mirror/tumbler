@@ -518,7 +518,8 @@ tumbler_lifo_scheduler_thread (gpointer data,
       tumbler_thumbnailer_create (request->thumbnailers[n], 
                                   request->cancellables[n],
                                   request->uris[n], 
-                                  request->mime_hints[n]);
+                                  request->mime_hints[n],
+                                  request->flavor);
 
       /* disconnect from all signals when we're finished */
       g_signal_handlers_disconnect_matched (request->thumbnailers[n],

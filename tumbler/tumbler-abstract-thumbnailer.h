@@ -49,7 +49,8 @@ struct _TumblerAbstractThumbnailerClass
   void (*create) (TumblerAbstractThumbnailer *thumbnailer,
                   GCancellable               *cancellable,
                   const gchar                *uri,
-                  const gchar                *mime_hint);
+                  const gchar                *mime_hint,
+                  const gchar                *flavor);
 };
 
 struct _TumblerAbstractThumbnailer

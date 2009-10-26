@@ -55,7 +55,8 @@ struct _TumblerThumbnailerIface
   void (*create) (TumblerThumbnailer *thumbnailer,
                   GCancellable       *cancellable,
                   const gchar        *uri,
-                  const gchar        *mime_hint);
+                  const gchar        *mime_hint,
+                  const gchar        *flavor);
 };
 
 GType                tumbler_thumbnailer_get_type        (void) G_GNUC_CONST;
@@ -63,7 +64,8 @@ GType                tumbler_thumbnailer_get_type        (void) G_GNUC_CONST;
 void                 tumbler_thumbnailer_create          (TumblerThumbnailer  *thumbnailer,
                                                           GCancellable        *cancellable,
                                                           const gchar         *uri,
-                                                          const gchar         *mime_hint);
+                                                          const gchar         *mime_hint,
+                                                          const gchar         *flavor);
 
 GStrv                tumbler_thumbnailer_get_hash_keys   (TumblerThumbnailer  *thumbnailer);
 GStrv                tumbler_thumbnailer_get_mime_types  (TumblerThumbnailer  *thumbnailer);

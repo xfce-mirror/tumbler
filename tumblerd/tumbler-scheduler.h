@@ -81,6 +81,7 @@ TumblerSchedulerRequest *tumbler_scheduler_request_new           (const GStrv   
                                                                   const GStrv              mime_hints,
                                                                   TumblerThumbnailer     **thumbnailers,
                                                                   gint                     length,
+                                                                  const gchar             *flavor,
                                                                   const gchar             *origin);
 void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
@@ -100,6 +101,7 @@ struct _TumblerSchedulerRequest
   gint                 length;
   GCancellable       **cancellables;
   gchar               *origin;
+  gchar               *flavor;
 };
 
 G_END_DECLS
