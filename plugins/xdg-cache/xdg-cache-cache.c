@@ -102,7 +102,7 @@ static const FlavorInfo flavor_infos[] =
 
 
 void
-xdg_cache_cache_register (TumblerProviderPlugin *plugin)
+xdg_cache_cache_register (TumblerCachePlugin *plugin)
 {
   xdg_cache_cache_register_type (G_TYPE_MODULE (plugin));
 }

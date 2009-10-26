@@ -38,7 +38,7 @@ typedef struct _XDGCacheThumbnailClass XDGCacheThumbnailClass;
 typedef struct _XDGCacheThumbnail      XDGCacheThumbnail;
 
 GType xdg_cache_thumbnail_get_type (void) G_GNUC_CONST;
-void  xdg_cache_thumbnail_register (TumblerProviderPlugin *plugin);
+void  xdg_cache_thumbnail_register (TumblerCachePlugin *plugin);
 
 G_END_DECLS;
 

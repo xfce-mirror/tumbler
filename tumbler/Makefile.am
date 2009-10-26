@@ -30,7 +30,7 @@ libtumbler_built_sources =						\
 libtumbler_headers =							\
 	tumbler-abstract-thumbnailer.h					\
 	tumbler-cache.h							\
-	tumbler-cache-provider.h					\
+	tumbler-cache-plugin.h						\
 	tumbler-config.h						\
 	tumbler-enum-types.h						\
 	tumbler-error.h							\
@@ -48,7 +48,7 @@ libtumbler_headers =							\
 libtumbler_sources =							\
 	tumbler-abstract-thumbnailer.c					\
 	tumbler-cache.c							\
-	tumbler-cache-provider.c					\
+	tumbler-cache-plugin.c						\
 	tumbler-config.c						\
 	tumbler-enum-types.c						\
 	tumbler-file-info.c						\

@@ -29,24 +29,18 @@
 #include <tumbler/tumbler.h>
 
 #include <xdg-cache/xdg-cache-cache.h>
-#include <xdg-cache/xdg-cache-provider.h>
 #include <xdg-cache/xdg-cache-thumbnail.h>
 
 
 
-G_MODULE_EXPORT void tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
-G_MODULE_EXPORT void tumbler_plugin_shutdown   (void);
-G_MODULE_EXPORT void tumbler_plugin_get_types  (const GType          **types,
-                                                gint                  *n_types);
-
-
-
-static GType type_list[1];
+G_MODULE_EXPORT void          tumbler_plugin_initialize (TumblerCachePlugin *plugin);
+G_MODULE_EXPORT void          tumbler_plugin_shutdown   (void);
+G_MODULE_EXPORT TumblerCache *tumbler_plugin_get_types  (void);
 
 
 
 void
-tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
+tumbler_plugin_initialize (TumblerCachePlugin *plugin)
 {
   const gchar *mismatch;
 
@@ -65,11 +59,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
 
   /* register the types provided by this plugin */
   xdg_cache_cache_register (plugin);
-  xdg_cache_provider_register (plugin);
   xdg_cache_thumbnail_register (plugin);
-
-  /* set up the plugin provider type list */
-  type_list[0] = XDG_CACHE_TYPE_PROVIDER;
 }
 
 
@@ -84,10 +74,8 @@ tumbler_plugin_shutdown (void)
 
 
 
-void
-tumbler_plugin_get_types (const GType **types,
-                          gint         *n_types)
+TumblerCache *
+tumbler_plugin_get_cache (void)
 {
-  *types = type_list;
-  *n_types = G_N_ELEMENTS (type_list);
+  return g_object_new (XDG_CACHE_TYPE_CACHE, NULL);
 }

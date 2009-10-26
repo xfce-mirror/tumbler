@@ -19,7 +19,7 @@
 
 if TUMBLER_XDG_CACHE
 
-tumbler_plugindir = $(libdir)/tumbler-$(TUMBLER_VERSION_API)/plugins
+tumbler_plugindir = $(libdir)/tumbler-$(TUMBLER_VERSION_API)/plugins/cache
 tumbler_plugin_LTLIBRARIES =						\
 	tumbler-xdg-cache.la
 
@@ -27,8 +27,6 @@ tumbler_xdg_cache_la_SOURCES =						\
 	xdg-cache-cache.c						\
 	xdg-cache-cache.h						\
 	xdg-cache-plugin.c						\
-	xdg-cache-provider.c						\
-	xdg-cache-provider.h						\
 	xdg-cache-thumbnail.c						\
 	xdg-cache-thumbnail.h
 
@@ -57,4 +55,10 @@ tumbler_xdg_cache_la_LIBADD =						\
 	$(GLIB_LIBS)							\
 	$(PNG_LIBS)
 
+# install symlink to 'tumbler-cache-plugin.so'
+install-data-local:
+	$(mkinstalldirs) $(DESTDIR)$(tumbler_plugindir)
+	-( cd $(DESTDIR)$(tumbler_plugindir) ; \
+		test -x tumbler-xdg-cache.so || \
+		ln -sf tumbler-xdg-cache.so tumbler-cache-plugin.so )
 endif

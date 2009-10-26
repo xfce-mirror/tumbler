@@ -25,7 +25,7 @@
 
 #include <tumbler/tumbler-abstract-thumbnailer.h>
 #include <tumbler/tumbler-cache.h>
-#include <tumbler/tumbler-cache-provider.h>
+#include <tumbler/tumbler-cache-plugin.h>
 #include <tumbler/tumbler-config.h>
 #include <tumbler/tumbler-enum-types.h>
 #include <tumbler/tumbler-error.h>

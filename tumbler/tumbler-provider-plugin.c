@@ -116,7 +116,7 @@ tumbler_provider_plugin_load (GTypeModule *type_module)
   g_free (path);
 
   /* check if the load operation was successful */
-  if (G_UNLIKELY (plugin->library != NULL))
+  if (G_LIKELY (plugin->library != NULL))
     {
       /* verify that all required public symbols are present in the plugin */
       if (g_module_symbol (plugin->library, "tumbler_plugin_initialize", 
@@ -134,6 +134,7 @@ tumbler_provider_plugin_load (GTypeModule *type_module)
         {
           g_warning (_("Plugin \"%s\" lacks required symbols."), type_module->name);
           g_module_close (plugin->library);
+          plugin->library = NULL;
           return FALSE;
         }
     }
@@ -160,7 +161,6 @@ tumbler_provider_plugin_unload (GTypeModule *type_module)
   plugin->library = NULL;
 
   /* reset plugin state */
-  plugin->library = NULL;
   plugin->initialize = NULL;
   plugin->shutdown = NULL;
   plugin->get_types = NULL;

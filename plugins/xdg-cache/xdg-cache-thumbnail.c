@@ -102,7 +102,7 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (XDGCacheThumbnail,
 
 
 void
-xdg_cache_thumbnail_register (TumblerProviderPlugin *plugin)
+xdg_cache_thumbnail_register (TumblerCachePlugin *plugin)
 {
   xdg_cache_thumbnail_register_type (G_TYPE_MODULE (plugin));
 }

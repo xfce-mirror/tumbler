@@ -193,15 +193,14 @@ tumbler_file_info_load (TumblerFileInfo *info,
                         GError         **error)
 {
   TumblerProviderFactory *provider_factory;
-  GFileInfo *file_info;
-  GError    *err = NULL;
-  GFile     *file;
-  GList     *caches;
-  GList     *cp;
-  GList     *lp;
-  GList     *providers;
-  GList     *thumbnails;
-  GList     *tp;
+  TumblerCache           *cache;
+  GFileInfo              *file_info;
+  GError                 *err = NULL;
+  GFile                  *file;
+  GList                  *cp;
+  GList                  *lp;
+  GList                  *thumbnails;
+  GList                  *tp;
 
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -237,56 +236,35 @@ tumbler_file_info_load (TumblerFileInfo *info,
   g_list_free (info->thumbnails);
   info->thumbnails = NULL;
 
-  /* get the provider factory */
-  provider_factory = tumbler_provider_factory_get_default ();
-
-  /* query a list of cache providers */
-  providers = tumbler_provider_factory_get_providers (provider_factory, 
-                                                      TUMBLER_TYPE_CACHE_PROVIDER);
-
-  /* iterate over all available cache providers */
-  for (lp = providers; err == NULL && lp != NULL; lp = lp->next)
+  /* query the default cache implementation */
+  cache = tumbler_cache_get_default ();
+  if (cache != NULL)
     {
-      /* query a list of cache implementations from the current provider */
-      caches = tumbler_cache_provider_get_caches (lp->data);
-
-      /* iterate over all available cache implementations */
-      for (cp = caches; err == NULL && cp != NULL; cp = cp->next)
+      /* check if the file itself is a thumbnail */
+      if (!tumbler_cache_is_thumbnail (cache, info->uri))
         {
-          /* check if the file itself is a thumbnail */
-          if (!tumbler_cache_is_thumbnail (cp->data, info->uri))
-            {
-              /* query thumbnail infos for this URI from the current cache */
-              thumbnails = tumbler_cache_get_thumbnails (cp->data, info->uri);
+          /* query thumbnail infos for this URI from the current cache */
+          thumbnails = tumbler_cache_get_thumbnails (cache, info->uri);
 
-              /* try to load thumbnail infos. the loop will terminate if 
-               * one of them fails */
-              for (tp = thumbnails; err == NULL && tp != NULL; tp = tp->next)
-                tumbler_thumbnail_load (tp->data, cancellable, &err);
+          /* try to load thumbnail infos. the loop will terminate if 
+           * one of them fails */
+          for (tp = thumbnails; err == NULL && tp != NULL; tp = tp->next)
+            tumbler_thumbnail_load (tp->data, cancellable, &err);
 
-              /* add all queried thumbnails to the list */
-              info->thumbnails = g_list_concat (info->thumbnails, 
-                                                      thumbnails);
-            }
-          else
-            {
-              /* we don't allow the generation of thumbnails for thumbnails */
-              g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_IS_THUMBNAIL,
-                           _("The file \"%s\" is a thumbnail itself"), info->uri);
-            }
+          /* add all queried thumbnails to the list */
+          info->thumbnails = g_list_concat (info->thumbnails, 
+                                                  thumbnails);
+        }
+      else
+        {
+          /* we don't allow the generation of thumbnails for thumbnails */
+          g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_IS_THUMBNAIL,
+                       _("The file \"%s\" is a thumbnail itself"), info->uri);
         }
 
-      /* release cache references */
-      g_list_foreach (caches, (GFunc) g_object_unref, NULL);
-      g_list_free (caches);
+      /* release the cache */
+      g_object_unref (cache);
     }
-
-  /* release provider references */
-  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
-  g_list_free (providers);
-
-  /* release the provider factory */
-  g_object_unref (provider_factory);
 
   if (err != NULL)
     {

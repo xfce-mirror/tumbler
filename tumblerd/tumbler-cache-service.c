@@ -85,12 +85,15 @@ struct _TumblerCacheService
   GObject __parent__;
 
   DBusGConnection *connection;
+
+  TumblerCache    *cache;
+
   GThreadPool     *move_pool;
   GThreadPool     *copy_pool;
   GThreadPool     *delete_pool;
   GThreadPool     *cleanup_pool;
+
   GMutex          *mutex;
-  GList           *caches;
 };
 
 struct _MoveRequest
@@ -156,29 +159,13 @@ tumbler_cache_service_constructed (GObject *object)
 {
   TumblerProviderFactory *factory;
   TumblerCacheService    *service = TUMBLER_CACHE_SERVICE (object);
-  GList                  *caches;
   GList                  *lp;
-  GList                  *providers;
 
   /* chain up to parent classes */
   if (G_OBJECT_CLASS (tumbler_cache_service_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_cache_service_parent_class)->constructed) (object);
 
-  factory = tumbler_provider_factory_get_default ();
-  providers = tumbler_provider_factory_get_providers (factory, 
-                                                      TUMBLER_TYPE_CACHE_PROVIDER);
-  g_object_unref (factory);
-
-  service->caches = NULL;
-
-  for (lp = providers; lp != NULL; lp = lp->next)
-    {
-      caches = tumbler_cache_provider_get_caches (lp->data);
-      service->caches = g_list_concat (service->caches, caches);
-    }
-
-  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
-  g_list_free (providers);
+  service->cache = tumbler_cache_get_default ();
 
   service->move_pool = g_thread_pool_new (tumbler_cache_service_move_thread, 
                                           service, 1, FALSE, NULL);
@@ -202,8 +189,8 @@ tumbler_cache_service_finalize (GObject *object)
   g_thread_pool_free (service->delete_pool, TRUE, TRUE);
   g_thread_pool_free (service->cleanup_pool, TRUE, TRUE);
 
-  g_list_foreach (service->caches, (GFunc) g_object_unref, NULL);
-  g_list_free (service->caches);
+  if (service->cache != NULL)
+    g_object_unref (service->cache);
 
   dbus_g_connection_unref (service->connection);
 
@@ -269,8 +256,8 @@ tumbler_cache_service_move_thread (gpointer data,
 
   g_mutex_lock (service->mutex);
 
-  for (lp = service->caches; lp != NULL; lp = lp->next)
-    tumbler_cache_move (lp->data, request->from_uris, request->to_uris);
+  if (service->cache != NULL)
+    tumbler_cache_move (service->cache, request->from_uris, request->to_uris);
 
   g_strfreev (request->from_uris);
   g_strfreev (request->to_uris);
@@ -294,8 +281,8 @@ tumbler_cache_service_copy_thread (gpointer data,
 
   g_mutex_lock (service->mutex);
 
-  for (lp = service->caches; lp != NULL; lp = lp->next)
-    tumbler_cache_copy (lp->data, request->from_uris, request->to_uris);
+  if (service->cache != NULL)
+    tumbler_cache_copy (service->cache, request->from_uris, request->to_uris);
 
   g_strfreev (request->from_uris);
   g_strfreev (request->to_uris);
@@ -319,8 +306,8 @@ tumbler_cache_service_delete_thread (gpointer data,
 
   g_mutex_lock (service->mutex);
 
-  for (lp = service->caches; lp != NULL; lp = lp->next)
-    tumbler_cache_delete (lp->data, request->uris);
+  if (service->cache != NULL)
+    tumbler_cache_delete (service->cache, request->uris);
 
   g_strfreev (request->uris);
   g_slice_free (DeleteRequest, request);
@@ -343,8 +330,8 @@ tumbler_cache_service_cleanup_thread (gpointer data,
 
   g_mutex_lock (service->mutex);
 
-  for (lp = service->caches; lp != NULL; lp = lp->next)
-    tumbler_cache_cleanup (lp->data, request->uri_prefix, request->since);
+  if (service->cache != NULL)
+    tumbler_cache_cleanup (service->cache, request->uri_prefix, request->since);
 
   g_free (request->uri_prefix);
   g_slice_free (CleanupRequest, request);

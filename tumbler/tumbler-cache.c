@@ -25,6 +25,7 @@
 #include <glib-object.h>
 
 #include <tumbler/tumbler-cache.h>
+#include <tumbler/tumbler-cache-plugin.h>
 
 
 
@@ -50,6 +51,33 @@ tumbler_cache_get_type (void)
     }
 
   return g_define_type_id__volatile;
+}
+
+
+
+TumblerCache *
+tumbler_cache_get_default (void)
+{
+  static TumblerCache *cache = NULL;
+  GTypeModule         *plugin;
+
+  if (cache == NULL)
+    {
+      plugin = tumbler_cache_plugin_get_default ();
+
+      if (plugin != NULL)
+        {
+          cache = tumbler_cache_plugin_get_cache (TUMBLER_CACHE_PLUGIN (plugin));
+          g_object_add_weak_pointer (G_OBJECT (cache), (gpointer) &cache);
+          g_type_module_unuse (plugin);
+        }
+    }
+  else
+    {
+      g_object_ref (cache);
+    }
+     
+  return cache;
 }
 
 

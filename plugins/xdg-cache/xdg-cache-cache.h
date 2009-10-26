@@ -38,7 +38,7 @@ typedef struct _XDGCacheCacheClass XDGCacheCacheClass;
 typedef struct _XDGCacheCache      XDGCacheCache;
 
 GType    xdg_cache_cache_get_type             (void) G_GNUC_CONST;
-void     xdg_cache_cache_register             (TumblerProviderPlugin *plugin);
+void     xdg_cache_cache_register             (TumblerCachePlugin    *plugin);
 
 GFile   *xdg_cache_cache_get_file             (const gchar           *uri,
                                                TumblerThumbnailFlavor flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
