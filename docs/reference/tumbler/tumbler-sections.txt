@@ -29,16 +29,14 @@ TUMBLER_THUMBNAILER_PROVIDER_GET_IFACE
 
 <SECTION>
 <FILE>tumbler-thumbnail</FILE>
+TumblerImageData
 TumblerThumbnail
 TumblerThumbnailIface
 tumbler_thumbnail_load
 tumbler_thumbnail_needs_update
-tumbler_thumbnail_save_pixbuf
+tumbler_thumbnail_save_image_data
 tumbler_thumbnail_save_file
-tumbler_thumbnail_get_cache
 tumbler_thumbnail_get_flavor
-tumbler_thumbnail_get_flavors
-tumbler_thumbnail_flavor_get_size
 <SUBSECTION Standard>
 TUMBLER_THUMBNAIL
 TUMBLER_IS_THUMBNAIL
@@ -61,19 +59,6 @@ tumbler_provider_factory_get_type
 TUMBLER_PROVIDER_FACTORY_CLASS
 TUMBLER_IS_PROVIDER_FACTORY_CLASS
 TUMBLER_PROVIDER_FACTORY_GET_CLASS
-</SECTION>
-
-<SECTION>
-<FILE>tumbler-cache-provider</FILE>
-TumblerCacheProvider
-TumblerCacheProviderIface
-tumbler_cache_provider_get_caches
-<SUBSECTION Standard>
-TUMBLER_CACHE_PROVIDER
-TUMBLER_IS_CACHE_PROVIDER
-TUMBLER_TYPE_CACHE_PROVIDER
-tumbler_cache_provider_get_type
-TUMBLER_CACHE_PROVIDER_GET_IFACE
 </SECTION>
 
 <SECTION>
@@ -110,15 +95,38 @@ TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS
 </SECTION>
 
 <SECTION>
+<FILE>tumbler-thumbnail-flavor</FILE>
+TumblerThumbnailFlavorPrivate
+TumblerThumbnailFlavorClass
+TumblerThumbnailFlavor
+tumbler_thumbnail_flavor_new
+tumbler_thumbnail_flavor_new_normal
+tumbler_thumbnail_flavor_new_large
+tumbler_thumbnail_flavor_get_name
+tumbler_thumbnail_flavor_get_size
+<SUBSECTION Standard>
+TUMBLER_THUMBNAIL_FLAVOR
+TUMBLER_IS_THUMBNAIL_FLAVOR
+TUMBLER_TYPE_THUMBNAIL_FLAVOR
+tumbler_thumbnail_flavor_get_type
+TUMBLER_THUMBNAIL_FLAVOR_CLASS
+TUMBLER_IS_THUMBNAIL_FLAVOR_CLASS
+TUMBLER_THUMBNAIL_FLAVOR_GET_CLASS
+</SECTION>
+
+<SECTION>
 <FILE>tumbler-cache</FILE>
 TumblerCache
 TumblerCacheIface
-tumbler_cache_get_thumbnails
+tumbler_cache_get_default
+tumbler_cache_get_thumbnail
 tumbler_cache_cleanup
 tumbler_cache_delete
 tumbler_cache_copy
 tumbler_cache_move
 tumbler_cache_is_thumbnail
+tumbler_cache_get_flavors
+tumbler_cache_get_flavor
 <SUBSECTION Standard>
 TUMBLER_CACHE
 TUMBLER_IS_CACHE
@@ -134,9 +142,13 @@ TumblerFileInfo
 tumbler_file_info_new
 tumbler_file_info_load
 tumbler_file_info_get_uri
+tumbler_file_info_get_mime_type
 tumbler_file_info_get_mtime
 tumbler_file_info_needs_update
-tumbler_file_info_get_thumbnails
+tumbler_file_info_get_thumbnail
+tumbler_file_info_array_new_with_flavor
+tumbler_file_info_array_copy
+tumbler_file_info_array_free
 <SUBSECTION Standard>
 TUMBLER_FILE_INFO
 TUMBLER_IS_FILE_INFO
@@ -145,6 +157,23 @@ tumbler_file_info_get_type
 TUMBLER_FILE_INFO_CLASS
 TUMBLER_IS_FILE_INFO_CLASS
 TUMBLER_FILE_INFO_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>tumbler-cache-plugin</FILE>
+TumblerCachePluginPrivate
+TumblerCachePluginClass
+TumblerCachePlugin
+tumbler_cache_plugin_get_default
+tumbler_cache_plugin_get_cache
+<SUBSECTION Standard>
+TUMBLER_CACHE_PLUGIN
+TUMBLER_IS_CACHE_PLUGIN
+TUMBLER_TYPE_CACHE_PLUGIN
+tumbler_cache_plugin_get_type
+TUMBLER_CACHE_PLUGIN_CLASS
+TUMBLER_IS_CACHE_PLUGIN_CLASS
+TUMBLER_CACHE_PLUGIN_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -191,18 +220,18 @@ tumbler_util_get_supported_uri_schemes
 <FILE>tumbler-marshal</FILE>
 tumbler_marshal_VOID__STRING_INT_STRING
 tumbler_marshal_VOID__UINT_POINTER_INT_STRING_STRING
-tumbler_marshal_VOID__POINTER_STRING
+tumbler_marshal_VOID__UINT_POINTER_STRING
 tumbler_marshal_VOID__UINT_STRING
 tumbler_marshal_VOID__UINT_POINTER_INT_STRING
 </SECTION>
 
 <SECTION>
 <FILE>tumbler-enum-types</FILE>
-TUMBLER_TYPE_THUMBNAIL_FLAVOR
-TumblerThumbnailFlavor
-tumbler_thumbnail_flavor_get_type
 TUMBLER_TYPE_THUMBNAIL_FORMAT
 TumblerThumbnailFormat
 tumbler_thumbnail_format_get_type
+TUMBLER_TYPE_COLORSPACE
+TumblerColorspace
+tumbler_colorspace_get_type
 </SECTION>
 

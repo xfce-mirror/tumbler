@@ -7,5 +7,4 @@ tumbler_file_info_get_type
 tumbler_thumbnail_flavor_get_type
 tumbler_thumbnail_format_get_type
 tumbler_cache_get_type
-tumbler_cache_provider_get_type
 tumbler_abstract_thumbnailer_get_type
