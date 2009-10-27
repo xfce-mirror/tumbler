@@ -118,9 +118,9 @@ tumbler_cache_delete (TumblerCache *cache,
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (uris != NULL);
-  g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->delete != NULL);
+  g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->do_delete != NULL);
 
-  (TUMBLER_CACHE_GET_IFACE (cache)->delete) (cache, uris);
+  (TUMBLER_CACHE_GET_IFACE (cache)->do_delete) (cache, uris);
 }
 
 

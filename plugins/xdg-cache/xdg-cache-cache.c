@@ -117,7 +117,7 @@ xdg_cache_cache_iface_init (TumblerCacheIface *iface)
 {
   iface->get_thumbnail = xdg_cache_cache_get_thumbnail;
   iface->cleanup = xdg_cache_cache_cleanup;
-  iface->delete = xdg_cache_cache_delete;
+  iface->do_delete = xdg_cache_cache_delete;
   iface->copy = xdg_cache_cache_copy;
   iface->move = xdg_cache_cache_move;
   iface->is_thumbnail = xdg_cache_cache_is_thumbnail;

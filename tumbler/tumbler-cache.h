@@ -51,7 +51,7 @@ struct _TumblerCacheIface
   void              (*cleanup)       (TumblerCache           *cache,
                                       const gchar            *uri,
                                       guint64                 since);
-  void              (*delete)        (TumblerCache           *cache,
+  void              (*do_delete)     (TumblerCache           *cache,
                                       const GStrv             uris);
   void              (*copy)          (TumblerCache           *cache,
                                       const GStrv             from_uris,
