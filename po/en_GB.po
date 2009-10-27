@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-07 02:59+0200\n"
+"POT-Creation-Date: 2009-10-27 18:36+0100\n"
 "PO-Revision-Date: 2009-08-18 21:35+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: en_GB\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../tumblerd/tumbler-cache-service.c:402
+#: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Another thumbnail cache service is already running"
 
-#: ../tumblerd/tumbler-group-scheduler.c:426
-#: ../tumblerd/tumbler-lifo-scheduler.c:379
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:418
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "No thumbnailer available for \"%s\""
 
-#: ../tumblerd/tumbler-service.c:409
+#: ../tumblerd/tumbler-service.c:571
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Another generic thumbnailer is already running"
@@ -51,42 +51,44 @@ msgstr "Failed to connect to the D-Bus session bus: %s"
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Failed to start the thumbnail cache service: %s"
 
-#: ../tumblerd/main.c:137
+#: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Failed to load specialised thumbnailers into the registry: %s"
 
-#: ../tumblerd/main.c:155
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Failed to start the thumbnailer manager: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Failed to start the thumbnailer service: %s"
 
-#: ../tumbler/tumbler-enum-types.c:49 ../tumbler/tumbler-enum-types.c:73
+#: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
 msgstr "Invalid format"
 
 #: ../tumbler/tumbler-enum-types.c:50
-msgid "Normal"
-msgstr "Normal"
-
-#: ../tumbler/tumbler-enum-types.c:51
-msgid "Large"
-msgstr "Large"
-
-#: ../tumbler/tumbler-enum-types.c:52
-msgid "Cropped"
-msgstr "Cropped"
-
-#: ../tumbler/tumbler-enum-types.c:74
 msgid "PNG"
 msgstr "PNG"
 
-#: ../tumbler/tumbler-file-info.c:275
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr ""
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, fuzzy, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Plugin \"%s\" lacks required symbols."
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, fuzzy, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Failed to load plugin \"%s\": %s"
+
+#: ../tumbler/tumbler-file-info.c:296
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr ""
@@ -96,14 +98,14 @@ msgstr ""
 msgid "Plugin \"%s\" lacks required symbols."
 msgstr "Plugin \"%s\" lacks required symbols."
 
-#: ../tumbler/tumbler-provider-plugin.c:142
+#: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Failed to load plugin \"%s\": %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:58
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Version mismatch: %s"
@@ -127,44 +129,53 @@ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
 msgstr "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 
 #. there was an error in the freetype initialization, abort
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:465
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr ""
 
 #. there was an error, emit error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:489
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, fuzzy, c-format
 msgid "Could not load file contents: %s"
 msgstr "Could not save thumbnail to \"%s\""
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:509
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:495
 #, fuzzy, c-format
 msgid "Could not open font file: %s"
 msgstr "Could not save thumbnail to \"%s\""
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:534
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:520
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr ""
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:565
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:548
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr ""
 
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:373
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Could not save thumbnail to \"%s\""
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:63
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
 msgstr "Initialising the Tumbler XDG cache plugin"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:81
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Shutting down the Tumbler XDG cache plugin"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Large"
+#~ msgstr "Large"
+
+#~ msgid "Cropped"
+#~ msgstr "Cropped"
