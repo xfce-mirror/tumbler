@@ -594,43 +594,55 @@ tumbler_service_start (TumblerService *service,
 
 void
 tumbler_service_queue (TumblerService        *service,
-                       const GStrv            uris,
-                       const GStrv            mime_hints,
-                       const gchar           *flavor,
-                       const gchar           *desired_scheduler,
+                       const gchar *const    *uris,
+                       const gchar *const    *mime_hints,
+                       const gchar           *flavor_name,
+                       const gchar           *scheduler_name,
                        guint                  handle_to_dequeue,
                        DBusGMethodInvocation *context)
 {
-  TumblerScheduler        *scheduler = NULL;
   TumblerSchedulerRequest *scheduler_request;
+  TumblerThumbnailFlavor  *flavor;
   TumblerThumbnailer     **thumbnailers;
+  TumblerScheduler        *scheduler = NULL;
+  TumblerFileInfo        **infos;
+  TumblerCache            *cache;
   GList                   *iter;
   gchar                   *name;
   gchar                   *origin;
   guint                    handle;
-  gint                     num_thumbnailers;
+  guint                    length;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
 
   /* if the scheduler is not defined, fall back to "default" */
-  if (desired_scheduler == NULL || *desired_scheduler == '\0')
-    desired_scheduler = "default";
+  if (scheduler_name == NULL || *scheduler_name == '\0')
+    scheduler_name = "default";
 
   g_mutex_lock (service->mutex);
 
+  cache = tumbler_cache_get_default ();
+  flavor = tumbler_cache_get_flavor (cache, flavor_name);
+  g_object_unref (cache);
+
+  /* TODO we need to check if the flavor is supported first and otherwise
+   * emit an error signal */
+  g_assert (cache);
+
+  infos = tumbler_file_info_array_new_with_flavor (uris, mime_hints, flavor,
+                                                   &length);
+
   /* get an array with one thumbnailer for each URI in the request */
-  thumbnailers = tumbler_registry_get_thumbnailer_array (service->registry,
-                                                         uris, mime_hints, 
-                                                         &num_thumbnailers);
+  thumbnailers = tumbler_registry_get_thumbnailer_array (service->registry, infos,
+                                                         length);
 
   origin = dbus_g_method_get_sender (context);
 
   /* allocate a scheduler request */
-  scheduler_request = tumbler_scheduler_request_new (uris, mime_hints, thumbnailers,
-                                                     num_thumbnailers, flavor, 
-                                                     origin);
+  scheduler_request = tumbler_scheduler_request_new (infos, thumbnailers, 
+                                                     length, origin);
 
   g_free (origin);
 
@@ -649,7 +661,7 @@ tumbler_service_queue (TumblerService        *service,
       name = tumbler_scheduler_get_name (TUMBLER_SCHEDULER (iter->data));
 
       /* check if this is the scheduler we are looking for */
-      if (g_strcmp0 (name, desired_scheduler) == 0)
+      if (g_strcmp0 (name, scheduler_name) == 0)
         scheduler = TUMBLER_SCHEDULER (iter->data);
 
       /* free the scheduler name */
@@ -665,7 +677,7 @@ tumbler_service_queue (TumblerService        *service,
   tumbler_scheduler_push (scheduler, scheduler_request);
   
   /* free the thumbnailer array */
-  tumbler_thumbnailer_array_free (thumbnailers, num_thumbnailers);
+  tumbler_thumbnailer_array_free (thumbnailers, length);
 
   g_mutex_unlock (service->mutex);
 
@@ -723,45 +735,47 @@ tumbler_service_get_supported (TumblerService        *service,
   dbus_g_method_return (context, uri_schemes, mime_types);
 }
 
+
+
 void 
 tumbler_service_get_flavors (TumblerService        *service,
                               DBusGMethodInvocation *context)
 {
-  guint                   n;
-  TumblerThumbnailFlavor *flavors;
-  TumblerThumbnailFlavor  flavor;
-  GStrv                   flavors_strv;
+  TumblerCache *cache;
+  const gchar **flavor_strings;
+  GList        *flavors;
+  GList        *iter;
+  guint         n;
 
-  flavors = tumbler_thumbnail_get_flavors ();
+  cache = tumbler_cache_get_default ();
 
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n);
-
-  flavors_strv = g_new0 (gchar *, n + 1);
-
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  if (cache != NULL)
     {
-      flavor = flavors[n];
+      flavors = tumbler_cache_get_flavors (cache);
+      flavor_strings = g_new0 (const gchar *, g_list_length (flavors) + 1);
 
-      switch (flavor)
-        {
-        case TUMBLER_THUMBNAIL_FLAVOR_NORMAL:
-          flavors_strv[n] = "normal";
-          break;
-        case TUMBLER_THUMBNAIL_FLAVOR_LARGE:
-          flavors_strv[n] = "large";
-          break;
-        case TUMBLER_THUMBNAIL_FLAVOR_CROPPED:
-          flavors_strv[n] = "cropped";
-          break;
-        default:
-          g_assert_not_reached ();
-          break;
-        }
+      for (iter = flavors, n = 0; iter != NULL; iter = iter->next, ++n)
+        flavor_strings[n] = tumbler_thumbnail_flavor_get_name (iter->data);
+      flavor_strings[n] = NULL;
+    
+      dbus_g_method_return (context, flavor_strings);
+
+      g_free (flavor_strings);
+
+      g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
+      g_list_free (flavors);
+
+      g_object_unref (cache);
     }
+  else
+    {
+      flavor_strings = g_new0 (const gchar *, 1);
+      flavor_strings[0] = NULL;
 
-  dbus_g_method_return (context, flavors_strv);
+      dbus_g_method_return (context, flavor_strings);
 
-  g_free (flavors_strv);
+      g_free (flavor_strings);
+    }
 }
 
 

@@ -22,6 +22,7 @@
 #define __TUMBLER_SCHEDULER_H__
 
 #include <gio/gio.h>
+
 #include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
@@ -77,11 +78,9 @@ void                     tumbler_scheduler_emit_uri_error        (TumblerSchedul
                                                                   TumblerSchedulerRequest *request, 
                                                                   const gchar             *uri,
                                                                   GError                  *error);
-TumblerSchedulerRequest *tumbler_scheduler_request_new           (const GStrv              uris,
-                                                                  const GStrv              mime_hints,
+TumblerSchedulerRequest *tumbler_scheduler_request_new           (TumblerFileInfo        **infos,
                                                                   TumblerThumbnailer     **thumbnailers,
-                                                                  gint                     length,
-                                                                  const gchar             *flavor,
+                                                                  guint                    length,
                                                                   const gchar             *origin);
 void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
@@ -94,14 +93,12 @@ struct _TumblerSchedulerRequest
 {
   TumblerThumbnailer **thumbnailers;
   TumblerScheduler    *scheduler;
-  gboolean             dequeued;
-  GStrv                mime_hints;
-  GStrv                uris;
-  guint                handle;
-  gint                 length;
+  TumblerFileInfo    **infos;
   GCancellable       **cancellables;
+  gboolean             dequeued;
+  guint                handle;
   gchar               *origin;
-  gchar               *flavor;
+  guint                length;
 };
 
 G_END_DECLS

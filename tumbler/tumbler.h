@@ -34,9 +34,10 @@
 #include <tumbler/tumbler-marshal.h>
 #include <tumbler/tumbler-provider-factory.h>
 #include <tumbler/tumbler-provider-plugin.h>
+#include <tumbler/tumbler-thumbnail-flavor.h>
+#include <tumbler/tumbler-thumbnail.h>
 #include <tumbler/tumbler-thumbnailer-provider.h>
 #include <tumbler/tumbler-thumbnailer.h>
-#include <tumbler/tumbler-thumbnail.h>
 #include <tumbler/tumbler-util.h>
 
 #undef TUMBLER_INSIDE_TUMBLER_H

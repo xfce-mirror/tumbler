@@ -255,36 +255,33 @@ tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
 
 
 TumblerSchedulerRequest *
-tumbler_scheduler_request_new (const GStrv          uris,
-                               const GStrv          mime_hints,
+tumbler_scheduler_request_new (TumblerFileInfo    **infos,
                                TumblerThumbnailer **thumbnailers,
-                               gint                 length,
-                               const gchar         *flavor,
+                               guint                length,
                                const gchar         *origin)
 {
   TumblerSchedulerRequest *request = NULL;
   static gint              handle  = 0;
-  gint                     n;
+  guint                    n;
 
-  g_return_val_if_fail (uris != NULL, NULL);
-  g_return_val_if_fail (mime_hints != NULL, NULL);
+  g_return_val_if_fail (infos != NULL, NULL);
   g_return_val_if_fail (thumbnailers != NULL, NULL);
 
   request = g_new0 (TumblerSchedulerRequest, 1);
   if (origin)
     request->origin = g_strdup (origin);
   request->dequeued = FALSE;
-  request->flavor = g_strdup (flavor);
   request->scheduler = NULL;
   request->handle = handle++;
-  request->uris = g_strdupv (uris);
-  request->mime_hints = g_strdupv (mime_hints);
+  request->infos = tumbler_file_info_array_copy (infos, length);
   request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers, length);
   request->length = length;
+
   request->cancellables = g_new0 (GCancellable *, request->length + 1);
 
   for (n = 0; n < request->length; ++n)
     request->cancellables[n] = g_cancellable_new ();
+
   request->cancellables[n] = NULL;
 
   return request;
@@ -299,21 +296,18 @@ tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
 
   g_return_if_fail (request != NULL);
 
-  g_strfreev (request->uris);
-  g_strfreev (request->mime_hints);
+  tumbler_thumbnailer_array_free (request->thumbnailers, request->length);
 
   if (G_LIKELY (request->scheduler != NULL))
     g_object_unref (request->scheduler);
 
-  tumbler_thumbnailer_array_free (request->thumbnailers, request->length);
+  tumbler_file_info_array_free (request->infos);
 
-  for (n = 0; n < request->length; ++n)
+  for (n = 0; request->cancellables != NULL && request->cancellables[n] != NULL; ++n)
     g_object_unref (request->cancellables[n]);
-
   g_free (request->cancellables);
-  g_free (request->origin);
-  g_free (request->flavor);
 
+  g_free (request->origin);
   g_free (request);
 }
 

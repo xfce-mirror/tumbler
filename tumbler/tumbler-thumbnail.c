@@ -77,13 +77,12 @@ tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
                                                             G_PARAM_CONSTRUCT_ONLY));
   
   g_object_interface_install_property (klass,
-                                       g_param_spec_enum ("flavor",
-                                                          "flavor",
-                                                          "flavor",
-                                                          TUMBLER_TYPE_THUMBNAIL_FLAVOR,
-                                                          TUMBLER_THUMBNAIL_FLAVOR_INVALID,
-                                                          G_PARAM_READWRITE |
-                                                          G_PARAM_CONSTRUCT_ONLY));
+                                       g_param_spec_object ("flavor",
+                                                            "flavor",
+                                                            "flavor",
+                                                            TUMBLER_TYPE_THUMBNAIL_FLAVOR,
+                                                            G_PARAM_READWRITE |
+                                                            G_PARAM_CONSTRUCT_ONLY));
 }
 
 
@@ -168,62 +167,13 @@ tumbler_thumbnail_get_cache (TumblerThumbnail *thumbnail)
 
 
 
-TumblerThumbnailFlavor
+TumblerThumbnailFlavor *
 tumbler_thumbnail_get_flavor (TumblerThumbnail *thumbnail)
 {
-  TumblerThumbnailFlavor flavor;
+  TumblerThumbnailFlavor *flavor;
 
-  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), TUMBLER_THUMBNAIL_FLAVOR_INVALID);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
 
   g_object_get (thumbnail, "flavor", &flavor, NULL);
   return flavor;
-}
-
-
-
-TumblerThumbnailFlavor *
-tumbler_thumbnail_get_flavors (void)
-{
-  static TumblerThumbnailFlavor flavors[] = 
-  {
-#ifdef ENABLE_NORMAL_THUMBNAILS
-    TUMBLER_THUMBNAIL_FLAVOR_NORMAL,
-#endif
-#ifdef ENABLE_LARGE_THUMBNAILS
-    TUMBLER_THUMBNAIL_FLAVOR_LARGE,
-#endif
-#ifdef ENABLE_CROPPED_THUMBNAILS
-    TUMBLER_THUMBNAIL_FLAVOR_CROPPED,
-#endif
-    TUMBLER_THUMBNAIL_FLAVOR_INVALID, /* this always has to come last */
-  };
-
-  return flavors;
-}
-
-
-
-void
-tumbler_thumbnail_flavor_get_size (TumblerThumbnailFlavor flavor,
-                                   gint                  *width,
-                                   gint                  *height)
-{
-  switch (flavor)
-    {
-    case TUMBLER_THUMBNAIL_FLAVOR_NORMAL:
-      *width = 128;
-      *height = 128;
-      break;
-    case TUMBLER_THUMBNAIL_FLAVOR_LARGE:
-      *width = 256;
-      *height = 256;
-      break;
-    case TUMBLER_THUMBNAIL_FLAVOR_CROPPED:
-      *width = 124;
-      *height = 124;
-      break;
-    default:
-      g_assert_not_reached ();
-      break;
-    }
 }

@@ -26,6 +26,8 @@
 
 #include <tumbler/tumbler-cache.h>
 #include <tumbler/tumbler-cache-plugin.h>
+#include <tumbler/tumbler-thumbnail.h>
+#include <tumbler/tumbler-thumbnail-flavor.h>
 
 
 
@@ -82,15 +84,17 @@ tumbler_cache_get_default (void)
 
 
 
-GList *
-tumbler_cache_get_thumbnails (TumblerCache *cache,
-                              const gchar  *uri)
+TumblerThumbnail *
+tumbler_cache_get_thumbnail (TumblerCache           *cache,
+                             const gchar            *uri,
+                             TumblerThumbnailFlavor *flavor)
 {
   g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
-  g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnails != NULL, NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
+  g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnail != NULL, NULL);
 
-  return (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnails) (cache, uri);
+  return (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnail) (cache, uri, flavor);
 }
 
 
@@ -162,4 +166,40 @@ tumbler_cache_is_thumbnail (TumblerCache *cache,
   g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->is_thumbnail != NULL, FALSE);
 
   return (TUMBLER_CACHE_GET_IFACE (cache)->is_thumbnail) (cache, uri);
+}
+
+
+
+GList *
+tumbler_cache_get_flavors (TumblerCache *cache)
+{
+  g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
+  g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->get_flavors != NULL, NULL);
+
+  return (TUMBLER_CACHE_GET_IFACE (cache)->get_flavors) (cache);
+}
+
+
+
+TumblerThumbnailFlavor *
+tumbler_cache_get_flavor (TumblerCache *cache,
+                          const gchar  *name)
+{
+  TumblerThumbnailFlavor *flavor = NULL;
+  GList                  *flavors;
+  GList                  *iter;
+
+  g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
+  g_return_val_if_fail (name != NULL && *name != '\0', NULL);
+
+  flavors = tumbler_cache_get_flavors (cache);
+
+  for (iter = flavors; flavor == NULL && iter != NULL; iter = iter->next)
+    if (g_strcmp0 (tumbler_thumbnail_flavor_get_name (iter->data), name) == 0)
+      flavor = g_object_ref (iter->data);
+
+  g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
+  g_list_free (flavors);
+
+  return flavor;
 }

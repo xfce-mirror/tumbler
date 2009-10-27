@@ -309,10 +309,10 @@ tumbler_group_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
       request = iter->data;
 
       /* iterate over all request URIs */
-      for (n = 0; request->uris != NULL && request->uris[n] != NULL; ++n)
+      for (n = 0; n < request->length; ++n)
         {
           /* determine the enclosing mount for the file */
-          file = g_file_new_for_uri (request->uris[n]);
+          file = g_file_new_for_uri (tumbler_file_info_get_uri (request->infos[n]));
 
           /* cancel the URI if it lies of the mount point */
           if (g_file_has_prefix (file, mount_point))
@@ -452,7 +452,7 @@ tumbler_group_scheduler_thread (gpointer data,
   g_mutex_unlock (scheduler->mutex);
 
   /* process URI by URI */
-  for (n = 0; request->uris[n] != NULL; ++n)
+  for (n = 0; n < request->length; ++n)
     {
       /* finish the request if it was dequeued */
       g_mutex_lock (scheduler->mutex);
@@ -469,51 +469,27 @@ tumbler_group_scheduler_thread (gpointer data,
         continue;
 
       /* create a file infor for the current URI */
-      info = tumbler_file_info_new (request->uris[n]);
       uri_needs_update = FALSE;
 
       G_LOCK (group_access_lock);
 
       /* try to load thumbnail information about the URI */
-      if (tumbler_file_info_load (info, NULL, &error))
+      if (tumbler_file_info_load (request->infos[n], NULL, &error))
         {
           /* check if we have a thumbnailer for the URI */
           if (request->thumbnailers[n] != NULL)
             {
-              /* compute the last modification time of the URI */
-              mtime = tumbler_file_info_get_mtime (info);
-
-              /* get a list of all thumbnails for this URI */
-              thumbnails = tumbler_file_info_get_thumbnails (info);
-
-              /* iterate over them */
-              for (lp = thumbnails; error == NULL && lp != NULL; lp = lp->next)
-                {
-                  /* try to load the thumbnail information */
-                  if (tumbler_thumbnail_load (lp->data, NULL, &error))
-                    {
-                      /* check if the thumbnail needs an update */
-                      outdated = tumbler_thumbnail_needs_update (lp->data, 
-                                                                 request->uris[n],
-                                                                 mtime);
-
-                      /* if at least one thumbnail is out of date, we need to 
-                       * regenerate thumbnails for the URI */
-                      uri_needs_update = uri_needs_update || outdated;
-                    }
-                }
+              /* check if the thumbnail needs an update */
+              uri_needs_update = tumbler_file_info_needs_update (request->infos[n]);
             }
           else
             {
               /* no thumbnailer for this URI, we need to emit an error */
               g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
                            _("No thumbnailer available for \"%s\""), 
-                           request->uris[n]);
+                           tumbler_file_info_get_uri (request->infos[n]));
             }
         }
-
-      /* release the file info */
-      g_object_unref (info);
 
       G_UNLOCK (group_access_lock);
 
@@ -524,13 +500,14 @@ tumbler_group_scheduler_thread (gpointer data,
           if (uri_needs_update)
             missing_uris = g_list_prepend (missing_uris, GINT_TO_POINTER (n));
           else
-            cached_uris = g_list_prepend (cached_uris, request->uris[n]);
+            cached_uris = g_list_prepend (cached_uris, request->infos[n]);
         }
       else
         {
           /* emit an error for the URI */
           tumbler_scheduler_emit_uri_error (TUMBLER_SCHEDULER (scheduler), request,
-                                            request->uris[n], error);
+                                            tumbler_file_info_get_uri (request->infos[n]),
+                                            error);
           g_clear_error (&error);
         }
     }
@@ -541,7 +518,7 @@ tumbler_group_scheduler_thread (gpointer data,
       /* allocate a URI array and fill it with all cached URIs */
       uris = g_new0 (const gchar *, g_list_length (cached_uris) + 1);
       for (n = 0, lp = g_list_last (cached_uris); lp != NULL; lp = lp->prev, ++n)
-        uris[n] = lp->data;
+        uris[n] = tumbler_file_info_get_uri (lp->data);
       uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
@@ -585,9 +562,7 @@ tumbler_group_scheduler_thread (gpointer data,
       /* tell the thumbnailer to generate the thumbnail */
       tumbler_thumbnailer_create (request->thumbnailers[n], 
                                   request->cancellables[n],
-                                  request->uris[n], 
-                                  request->mime_hints[n],
-                                  request->flavor);
+                                  request->infos[n]);
 
       /* disconnect from all signals when we're finished */
       g_signal_handlers_disconnect_matched (request->thumbnailers[n],

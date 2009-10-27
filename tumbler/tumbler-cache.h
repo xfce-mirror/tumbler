@@ -25,7 +25,8 @@
 #ifndef __TUMBLER_CACHE_H__
 #define __TUMBLER_CACHE_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler-thumbnail.h>
+#include <tumbler/tumbler-thumbnail-flavor.h>
 
 G_BEGIN_DECLS
 
@@ -44,42 +45,48 @@ struct _TumblerCacheIface
   /* signals */
 
   /* virtual methods */
-  GList   *(*get_thumbnails) (TumblerCache *cache,
-                              const gchar  *uri);
-  void     (*cleanup)        (TumblerCache *cache,
-                              const gchar  *uri,
-                              guint64       since);
-  void     (*delete)         (TumblerCache *cache,
-                              const GStrv   uris);
-  void     (*copy)           (TumblerCache *cache,
-                              const GStrv   from_uris,
-                              const GStrv   to_uris);
-  void     (*move)           (TumblerCache *cache,
-                              const GStrv   from_uris,
-                              const GStrv   to_uris);
-  gboolean (*is_thumbnail)   (TumblerCache *cache,
-                              const gchar  *uri);
+  TumblerThumbnail *(*get_thumbnail) (TumblerCache           *cache,
+                                      const gchar            *uri,
+                                      TumblerThumbnailFlavor *flavor);
+  void              (*cleanup)       (TumblerCache           *cache,
+                                      const gchar            *uri,
+                                      guint64                 since);
+  void              (*delete)        (TumblerCache           *cache,
+                                      const GStrv             uris);
+  void              (*copy)          (TumblerCache           *cache,
+                                      const GStrv             from_uris,
+                                      const GStrv             to_uris);
+  void              (*move)          (TumblerCache           *cache,
+                                      const GStrv             from_uris,
+                                      const GStrv             to_uris);
+  gboolean          (*is_thumbnail)  (TumblerCache           *cache,
+                                      const gchar            *uri);
+  GList            *(*get_flavors)   (TumblerCache           *cache);
 };
 
-GType         tumbler_cache_get_type (void) G_GNUC_CONST;
+GType                   tumbler_cache_get_type (void) G_GNUC_CONST;
 
-TumblerCache *tumbler_cache_get_default    (void) G_GNUC_WARN_UNUSED_RESULT;
+TumblerCache           *tumbler_cache_get_default    (void) G_GNUC_WARN_UNUSED_RESULT;
 
-GList        *tumbler_cache_get_thumbnails (TumblerCache *cache,
-                                            const gchar  *uri) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-void          tumbler_cache_cleanup        (TumblerCache *cache,
-                                            const gchar  *uri_prefix,
-                                            guint64       since);
-void          tumbler_cache_delete         (TumblerCache *cache,
-                                            const GStrv   uris);
-void          tumbler_cache_copy           (TumblerCache *cache,
-                                            const GStrv   from_uris,
-                                            const GStrv   to_uris);
-void          tumbler_cache_move           (TumblerCache *cache,
-                                            const GStrv   from_uris,
-                                            const GStrv   to_uris);
-gboolean      tumbler_cache_is_thumbnail   (TumblerCache *cache,
-                                            const gchar  *uri);
+TumblerThumbnail       *tumbler_cache_get_thumbnail  (TumblerCache           *cache,
+                                                      const gchar            *uri,
+                                                      TumblerThumbnailFlavor *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+void                    tumbler_cache_cleanup        (TumblerCache           *cache,
+                                                      const gchar            *uri_prefix,
+                                                      guint64                 since);
+void                    tumbler_cache_delete         (TumblerCache           *cache,
+                                                      const GStrv             uris);
+void                    tumbler_cache_copy           (TumblerCache           *cache,
+                                                      const GStrv             from_uris,
+                                                      const GStrv             to_uris);
+void                    tumbler_cache_move           (TumblerCache           *cache,
+                                                      const GStrv             from_uris,
+                                                      const GStrv             to_uris);
+gboolean                tumbler_cache_is_thumbnail   (TumblerCache           *cache,
+                                                      const gchar            *uri);
+GList                  *tumbler_cache_get_flavors    (TumblerCache           *cache) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailFlavor *tumbler_cache_get_flavor     (TumblerCache           *cache,
+                                                      const gchar            *name) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
 

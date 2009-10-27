@@ -37,9 +37,7 @@
 
 static void pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                        GCancellable               *cancellable,
-                                       const gchar                *uri,
-                                       const gchar                *mime_hint,
-                                       const gchar                *flavor);
+                                       TumblerFileInfo            *info);
 
 
 
@@ -96,7 +94,7 @@ pixbuf_thumbnailer_init (PixbufThumbnailer *thumbnailer)
 
 static GdkPixbuf *
 generate_pixbuf (GdkPixbuf              *source,
-                 TumblerThumbnailFlavor  flavor)
+                 TumblerThumbnailFlavor *flavor)
 {
   gdouble    hratio;
   gdouble    wratio;
@@ -116,25 +114,19 @@ generate_pixbuf (GdkPixbuf              *source,
   if (source_width <= dest_width && source_height <= dest_height)
     return g_object_ref (source);
 
-  if (flavor == TUMBLER_THUMBNAIL_FLAVOR_CROPPED)
-    {
-      /* TODO unsupported */
-    }
+  /* determine which axis needs to be scaled down more */
+  wratio = (gdouble) source_width / (gdouble) dest_width;
+  hratio = (gdouble) source_height / (gdouble) dest_height;
+
+  /* adjust the other axis */
+  if (hratio > wratio)
+    dest_width = rint (source_width / hratio);
   else
-    {
-      /* determine which axis needs to be scaled down more */
-      wratio = (gdouble) source_width / (gdouble) dest_width;
-      hratio = (gdouble) source_height / (gdouble) dest_height;
-
-      /* adjust the other axis */
-      if (hratio > wratio)
-        dest_width = rint (source_width / hratio);
-      else
-        dest_height = rint (source_height / wratio);
-    }
-
+    dest_height = rint (source_height / wratio);
+  
   /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1), MAX (dest_height, 1), 
+  return gdk_pixbuf_scale_simple (source, 
+                                  MAX (dest_width, 1), MAX (dest_height, 1), 
                                   GDK_INTERP_BILINEAR);
 }
 
@@ -143,15 +135,13 @@ generate_pixbuf (GdkPixbuf              *source,
 static void
 pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                            GCancellable               *cancellable,
-                           const gchar                *uri,
-                           const gchar                *mime_hint,
-                           const gchar                *flavor_)
+                           TumblerFileInfo            *info)
 {
-  TumblerThumbnailFlavor *flavors;
-  TumblerThumbnailFlavor  flavor;
+  TumblerThumbnailFlavor *flavor;
   GFileInputStream       *stream;
   TumblerImageData        data;
-  TumblerFileInfo        *info;
+  TumblerThumbnail       *thumbnail;
+  const gchar            *uri;
   GHashTable             *pixbufs;
   GdkPixbuf              *source_pixbuf;
   GdkPixbuf              *pixbuf;
@@ -163,14 +153,14 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   guint                   n;
 
   g_return_if_fail (IS_PIXBUF_THUMBNAILER (thumbnailer));
-  g_return_if_fail (uri != NULL && *uri != '\0');
+  g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
   if (g_cancellable_is_cancelled (cancellable)) 
     return;
- 
-  /* create the file info for this URI */
-  info = tumbler_file_info_new (uri);
+
+  uri = tumbler_file_info_get_uri (info);
 
   /* try to load the file information */
   if (!tumbler_file_info_load (info, NULL, &error))
@@ -206,43 +196,26 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       return;
     }
 
-  flavors = tumbler_thumbnail_get_flavors ();
-  pixbufs = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
+  thumbnail = tumbler_file_info_get_thumbnail (info);
 
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
-    {
-      pixbuf = generate_pixbuf (source_pixbuf, flavors[n]);
+  g_assert (thumbnail != NULL);
 
-      if (pixbuf != NULL)
-        g_hash_table_insert (pixbufs, GINT_TO_POINTER (flavors[n]), pixbuf);
-    }
+  /* generate a pixbuf for the thumbnail */
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
+  pixbuf = generate_pixbuf (source_pixbuf, flavor);
+  g_object_unref (flavor);
 
-  mtime = tumbler_file_info_get_mtime (info);
+  g_assert (pixbuf != NULL);
 
-  thumbnails = tumbler_file_info_get_thumbnails (info);
+  data.data = gdk_pixbuf_get_pixels (pixbuf);
+  data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+  data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+  data.width = gdk_pixbuf_get_width (pixbuf);
+  data.height = gdk_pixbuf_get_height (pixbuf);
+  data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-  for (lp = thumbnails; error == NULL && lp != NULL; lp = lp->next)
-    {
-      if (tumbler_thumbnail_load (lp->data, NULL, &error))
-        if (tumbler_thumbnail_needs_update (lp->data, uri, mtime))
-          {
-            flavor = tumbler_thumbnail_get_flavor (lp->data);
-            pixbuf = g_hash_table_lookup (pixbufs, GINT_TO_POINTER (flavor));
-
-            if (pixbuf != NULL) 
-              {
-                data.data = gdk_pixbuf_get_pixels (pixbuf);
-                data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
-                data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
-                data.width = gdk_pixbuf_get_width (pixbuf);
-                data.height = gdk_pixbuf_get_height (pixbuf);
-                data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-                data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
-
-                tumbler_thumbnail_save_image_data (lp->data, &data, mtime, NULL, &error);
-              }
-          }
-    }
+  tumbler_thumbnail_save_image_data (thumbnail, &data, mtime, NULL, &error);
 
   if (error != NULL)
     {
@@ -254,7 +227,8 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "ready", uri);
     }
 
-  g_hash_table_unref (pixbufs);
+  g_object_unref (thumbnail);
+  g_object_unref (pixbuf);
   g_object_unref (source_pixbuf);
   g_object_unref (info);
 }

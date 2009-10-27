@@ -28,6 +28,8 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
+#include <tumbler/tumbler-file-info.h>
+
 G_BEGIN_DECLS;
 
 #define TUMBLER_TYPE_ABSTRACT_THUMBNAILER            (tumbler_abstract_thumbnailer_get_type ())
@@ -48,9 +50,7 @@ struct _TumblerAbstractThumbnailerClass
   /* virtual methods */
   void (*create) (TumblerAbstractThumbnailer *thumbnailer,
                   GCancellable               *cancellable,
-                  const gchar                *uri,
-                  const gchar                *mime_hint,
-                  const gchar                *flavor);
+                  TumblerFileInfo            *info);
 };
 
 struct _TumblerAbstractThumbnailer

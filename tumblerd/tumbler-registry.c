@@ -429,43 +429,35 @@ tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
 
 
 TumblerThumbnailer **
-tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
-                                        const GStrv      uris,
-                                        const GStrv      mime_hints,
-                                        gint            *length)
+tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
+                                        TumblerFileInfo   **infos,
+                                        guint               length)
 {
   TumblerThumbnailer **thumbnailers = NULL;
   gchar               *hash_key;
   gchar               *scheme;
-  gint                 num_mime_hints;
-  gint                 num_thumbnailers;
-  gint                 num_uris;
-  gint                 n;
+  guint                num_mime_hints;
+  guint                num_thumbnailers;
+  guint                num_uris;
+  guint                n;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
-  g_return_val_if_fail (uris != NULL, NULL);
-  g_return_val_if_fail (mime_hints != NULL, NULL);
+  g_return_val_if_fail (infos != NULL, NULL);
 
-  num_uris = g_strv_length (uris);
-  num_mime_hints = g_strv_length (mime_hints);
-  
-  /* we handle situations silently where num_uris != num_mime_hints */
-  num_thumbnailers = MAX (0, MIN (num_uris, num_mime_hints));
-
-  /* set the length return value */
-  *length = num_thumbnailers;
+  for (length = 0; infos != NULL && infos[length] != NULL; ++length);
 
   /* allocate the thumbnailer array */
-  thumbnailers = g_new0 (TumblerThumbnailer *, num_thumbnailers + 1);
+  thumbnailers = g_new0 (TumblerThumbnailer *, length + 1);
 
   /* iterate over all URIs */
-  for (n = 0; n < num_thumbnailers; ++n)
+  for (n = 0; n < length; ++n)
     {
       g_mutex_lock (registry->mutex);
 
       /* determine the URI scheme and generate a hash key */
-      scheme = g_uri_parse_scheme (uris[n]);
-      hash_key = g_strdup_printf ("%s-%s", scheme, mime_hints[n]);
+      scheme = g_uri_parse_scheme (tumbler_file_info_get_uri (infos[n]));
+      hash_key = g_strdup_printf ("%s-%s", scheme, 
+                                  tumbler_file_info_get_mime_type (infos[n]));
 
       /* see if we can find a thumbnailer to handle this URI/MIME type pair */
       thumbnailers[n] = tumbler_registry_lookup (registry, hash_key);

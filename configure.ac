@@ -152,33 +152,6 @@ TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_FONT_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
-dnl ************************************************************
-dnl *** Check for thumbnail flavors (normal, large, cropped) ***
-dnl ************************************************************
-AC_ARG_ENABLE([normal-thumbnails], 
-              [AC_HELP_STRING([--enable-normal-thumbnails], 
-                              [Enable normal thumbnails (128 pixels) @<:@default=yes@:>@])],, 
-              [enable_normal_thumbnails=yes])
-if test x"$enable_normal_thumbnails" = x"yes"; then
-  AC_DEFINE([ENABLE_NORMAL_THUMBNAILS], [1], [Define if built with support for normal thumbnails])
-fi
-
-AC_ARG_ENABLE([large-thumbnails], 
-              [AC_HELP_STRING([--enable-large-thumbnails], 
-                              [Enable large thumbnails (256 pixels) @<:@default=no@:>@])],, 
-              [enable_large_thumbnails=no])
-if test x"$enable_large_thumbnails" = x"yes"; then
-  AC_DEFINE([ENABLE_LARGE_THUMBNAILS], [1], [Define if built with support for large thumbnails])
-fi
-
-AC_ARG_ENABLE([cropped-thumbnails], 
-              [AC_HELP_STRING([--enable-cropped-thumbnails], 
-                              [Enable cropped thumbnails (124 pixels) @<:@default=no@:>@])],, 
-              [enable_cropped_thumbnails=no])
-if test x"$enable_cropped_thumbnails" = x"yes"; then
-  AC_DEFINE([ENABLE_CROPPED_THUMBNAILS], [1], [Define if built with support for cropped thumbnails])
-fi
-
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
@@ -236,23 +209,5 @@ if test x"$ac_tumbler_xdg_cache" = x"yes"; then
 echo "  * Freedesktop.org cache plugin:     yes"
 else
 echo "  * Freedesktop.org cache plugin:     no"
-fi
-echo
-echo "Supported Thumbnail Flavors:"
-echo
-if test x"$enable_normal_thumbnails" = x"yes"; then
-echo "  * Normal (128 pixels):              yes"
-else
-echo "  * Normal (128 pixels):              no"
-fi
-if test x"$enable_large_thumbnails" = x"yes"; then
-echo "  * Large (256 pixels):               yes"
-else
-echo "  * Large (256 pixels):               no"
-fi
-if test x"$enable_cropped_thumbnails" = x"yes"; then
-echo "  * Cropped (124 pixels):             yes"
-else
-echo "  * Cropped (124 pixels):             no"
 fi
 echo

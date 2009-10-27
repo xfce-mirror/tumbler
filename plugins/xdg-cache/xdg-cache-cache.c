@@ -40,28 +40,26 @@
 
 
 
-typedef struct _FlavorInfo FlavorInfo;
-
-
-
-static void         xdg_cache_cache_iface_init         (TumblerCacheIface     *iface);
-static GList       *xdg_cache_cache_get_thumbnails     (TumblerCache          *cache,
-                                                        const gchar           *uri);
-static void         xdg_cache_cache_cleanup            (TumblerCache          *cache,
-                                                        const gchar           *uri_prefix,
-                                                        guint64                since);
-static void         xdg_cache_cache_delete             (TumblerCache          *cache,
-                                                        const GStrv            uris);
-static void         xdg_cache_cache_copy               (TumblerCache          *cache,
-                                                        const GStrv            from_uris,
-                                                        const GStrv            to_uris);
-static void         xdg_cache_cache_move               (TumblerCache          *cache,
-                                                        const GStrv            from_uris,
-                                                        const GStrv            to_uris);
-static gboolean     xdg_cache_cache_is_thumbnail       (TumblerCache          *cache,
-                                                        const gchar           *uri);
-static const gchar *xdg_cache_cache_get_flavor_dirname (TumblerThumbnailFlavor flavor);
-static const gchar *xdg_cache_cache_get_home           (void);
+static void              xdg_cache_cache_iface_init         (TumblerCacheIface      *iface);
+static void              xdg_cache_cache_finalize           (GObject                *object);
+static TumblerThumbnail *xdg_cache_cache_get_thumbnail      (TumblerCache           *cache,
+                                                             const gchar            *uri,
+                                                             TumblerThumbnailFlavor *flavor);
+static void              xdg_cache_cache_cleanup            (TumblerCache           *cache,
+                                                             const gchar            *uri_prefix,
+                                                             guint64                 since);
+static void              xdg_cache_cache_delete             (TumblerCache           *cache,
+                                                             const GStrv             uris);
+static void              xdg_cache_cache_copy               (TumblerCache           *cache,
+                                                             const GStrv             from_uris,
+                                                             const GStrv             to_uris);
+static void              xdg_cache_cache_move               (TumblerCache           *cache,
+                                                             const GStrv             from_uris,
+                                                             const GStrv             to_uris);
+static gboolean          xdg_cache_cache_is_thumbnail       (TumblerCache           *cache,
+                                                             const gchar            *uri);
+static GList            *xdg_cache_cache_get_flavors        (TumblerCache           *cache);
+static const gchar      *xdg_cache_cache_get_home           (void);
 
 
 
@@ -73,12 +71,8 @@ struct _XDGCacheCacheClass
 struct _XDGCacheCache
 {
   GObject __parent__;
-};
 
-struct _FlavorInfo
-{
-  TumblerThumbnailFlavor flavor;
-  const gchar           *dirname;
+  GList  *flavors;
 };
 
 
@@ -89,15 +83,6 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (XDGCacheCache,
                                 0,
                                 TUMBLER_ADD_INTERFACE (TUMBLER_TYPE_CACHE,
                                                        xdg_cache_cache_iface_init));
-
-
-
-static const FlavorInfo flavor_infos[] = 
-{
-  { TUMBLER_THUMBNAIL_FLAVOR_NORMAL,  "normal"  },
-  { TUMBLER_THUMBNAIL_FLAVOR_LARGE,   "large"   },
-  { TUMBLER_THUMBNAIL_FLAVOR_CROPPED, "cropped" },
-};
 
 
 
@@ -112,6 +97,10 @@ xdg_cache_cache_register (TumblerCachePlugin *plugin)
 static void
 xdg_cache_cache_class_init (XDGCacheCacheClass *klass)
 {
+  GObjectClass *gobject_class;
+
+  gobject_class = G_OBJECT_CLASS (klass);
+  gobject_class->finalize = xdg_cache_cache_finalize;
 }
 
 
@@ -126,12 +115,13 @@ xdg_cache_cache_class_finalize (XDGCacheCacheClass *klass)
 static void
 xdg_cache_cache_iface_init (TumblerCacheIface *iface)
 {
-  iface->get_thumbnails = xdg_cache_cache_get_thumbnails;
+  iface->get_thumbnail = xdg_cache_cache_get_thumbnail;
   iface->cleanup = xdg_cache_cache_cleanup;
   iface->delete = xdg_cache_cache_delete;
   iface->copy = xdg_cache_cache_copy;
   iface->move = xdg_cache_cache_move;
   iface->is_thumbnail = xdg_cache_cache_is_thumbnail;
+  iface->get_flavors = xdg_cache_cache_get_flavors;
 }
 
 
@@ -139,33 +129,41 @@ xdg_cache_cache_iface_init (TumblerCacheIface *iface)
 static void
 xdg_cache_cache_init (XDGCacheCache *cache)
 {
+  TumblerThumbnailFlavor *flavor;
+
+  flavor = tumbler_thumbnail_flavor_new_normal ();
+  cache->flavors = g_list_prepend (cache->flavors, flavor);
+
+  flavor = tumbler_thumbnail_flavor_new_large ();
+  cache->flavors = g_list_prepend (cache->flavors, flavor);
 }
 
 
 
-static GList *
-xdg_cache_cache_get_thumbnails (TumblerCache *cache,
-                                const gchar  *uri)
+static void
+xdg_cache_cache_finalize (GObject *object)
 {
-  TumblerThumbnailFlavor *flavors;
-  TumblerThumbnail       *thumbnail;
-  GList                  *thumbnails = NULL;
-  gint                    n;
+  XDGCacheCache *cache = XDG_CACHE_CACHE (object);
 
+  g_list_foreach (cache->flavors, (GFunc) g_object_unref, NULL);
+  g_list_free (cache->flavors);
+}
+
+
+
+static TumblerThumbnail *
+xdg_cache_cache_get_thumbnail (TumblerCache           *cache,
+                               const gchar            *uri,
+                               TumblerThumbnailFlavor *flavor)
+{
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), NULL);
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
-  flavors = tumbler_thumbnail_get_flavors ();
+  /* TODO check if the flavor is supported */
 
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
-    {
-      thumbnail = g_object_new (XDG_CACHE_TYPE_THUMBNAIL, "cache", cache,
-                                "uri", uri, "flavor", flavors[n], NULL);
-
-      thumbnails = g_list_append (thumbnails, thumbnail);
-    }
-
-  return thumbnails;
+  return g_object_new (XDG_CACHE_TYPE_THUMBNAIL, "cache", cache,
+                       "uri", uri, "flavor", flavor, NULL);
 }
 
 
@@ -175,24 +173,23 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
                          const gchar  *uri_prefix,
                          guint64       since)
 {
-  TumblerThumbnailFlavor *flavors;
-  const gchar            *file_basename;
-  guint64                 mtime;
-  GFile                  *dummy_file;
-  GFile                  *parent;
-  gchar                  *dirname;
-  gchar                  *filename;
-  gchar                  *uri;
-  GDir                   *dir;
-  gint                    n;
+  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
+  const gchar   *file_basename;
+  guint64        mtime;
+  GFile         *dummy_file;
+  GFile         *parent;
+  GList         *iter;
+  gchar         *dirname;
+  gchar         *filename;
+  gchar         *uri;
+  GDir          *dir;
+  gint           n;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   
-  flavors = tumbler_thumbnail_get_flavors ();
-
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      dummy_file = xdg_cache_cache_get_file ("foo", flavors[n]);
+      dummy_file = xdg_cache_cache_get_file ("foo", iter->data);
       parent = g_file_get_parent (dummy_file);
       dirname = g_file_get_path (parent);
       g_object_unref (parent);
@@ -232,21 +229,19 @@ static void
 xdg_cache_cache_delete (TumblerCache *cache,
                         const GStrv   uris)
 {
-  TumblerThumbnailFlavor *flavors;
-  GFile                  *file;
-  gint                    n;
-  gint                    i;
+  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
+  GList         *iter;
+  GFile         *file;
+  gint           n;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (uris != NULL);
 
-  flavors = tumbler_thumbnail_get_flavors ();
-
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      for (i = 0; uris[i] != NULL; ++i)
+      for (n = 0; uris[n] != NULL; ++n)
         {
-          file = xdg_cache_cache_get_file (uris[i], flavors[n]);
+          file = xdg_cache_cache_get_file (uris[n], iter->data);
           g_file_delete (file, NULL, NULL);
           g_object_unref (file);
         }
@@ -260,30 +255,28 @@ xdg_cache_cache_copy (TumblerCache *cache,
                       const GStrv   from_uris,
                       const GStrv   to_uris)
 {
-  TumblerThumbnailFlavor *flavors;
-  GFileInfo              *info;
-  guint64                 mtime;
-  GFile                  *dest_file;
-  GFile                  *dest_source_file;
-  GFile                  *from_file;
-  GFile                  *temp_file;
-  gchar                  *temp_path;
-  gchar                  *dest_path;
-  guint                   i;
-  guint                   n;
+  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
+  GFileInfo     *info;
+  guint64        mtime;
+  GFile         *dest_file;
+  GFile         *dest_source_file;
+  GFile         *from_file;
+  GFile         *temp_file;
+  GList         *iter;
+  gchar         *temp_path;
+  gchar         *dest_path;
+  guint          n;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
   g_return_if_fail (to_uris != NULL);
   g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
 
-  flavors = tumbler_thumbnail_get_flavors ();
-
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      for (i = 0; i < g_strv_length (from_uris); ++i)
+      for (n = 0; n < g_strv_length (from_uris); ++n)
         {
-          dest_source_file = g_file_new_for_uri (to_uris[i]);
+          dest_source_file = g_file_new_for_uri (to_uris[n]);
           info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                     G_FILE_QUERY_INFO_NONE, NULL, NULL);
           g_object_unref (dest_source_file);
@@ -295,18 +288,18 @@ xdg_cache_cache_copy (TumblerCache *cache,
                                                     G_FILE_ATTRIBUTE_TIME_MODIFIED);
           g_object_unref (info);
 
-          from_file = xdg_cache_cache_get_file (from_uris[i], flavors[n]);
-          temp_file = xdg_cache_cache_get_temp_file (to_uris[i], flavors[n]);
+          from_file = xdg_cache_cache_get_file (from_uris[n], iter->data);
+          temp_file = xdg_cache_cache_get_temp_file (to_uris[n], iter->data);
 
           if (g_file_copy (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
                            NULL, NULL, NULL, NULL))
             {
               temp_path = g_file_get_path (temp_file);
 
-              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[i], mtime,
+              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[n], mtime,
                                                         NULL, NULL))
                 {
-                  dest_file = xdg_cache_cache_get_file (to_uris[i], flavors[n]);
+                  dest_file = xdg_cache_cache_get_file (to_uris[n], iter->data);
                   dest_path = g_file_get_path (dest_file);
 
                   if (g_rename (temp_path, dest_path) != 0)
@@ -337,31 +330,29 @@ xdg_cache_cache_move (TumblerCache *cache,
                       const GStrv   from_uris,
                       const GStrv   to_uris)
 {
-  TumblerThumbnailFlavor *flavors;
-  GFileInfo              *info;
-  guint64                 mtime;
-  GFile                  *dest_file;
-  GFile                  *dest_source_file;
-  GFile                  *from_file;
-  GFile                  *temp_file;
-  gchar                  *from_path;
-  gchar                  *temp_path;
-  gchar                  *dest_path;
-  guint                   i;
-  guint                   n;
+  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
+  GFileInfo     *info;
+  guint64        mtime;
+  GFile         *dest_file;
+  GFile         *dest_source_file;
+  GFile         *from_file;
+  GFile         *temp_file;
+  GList         *iter;
+  gchar         *from_path;
+  gchar         *temp_path;
+  gchar         *dest_path;
+  guint          n;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
   g_return_if_fail (to_uris != NULL);
   g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
 
-  flavors = tumbler_thumbnail_get_flavors ();
-
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      for (i = 0; i < g_strv_length (from_uris); ++i)
+      for (n = 0; n < g_strv_length (from_uris); ++n)
         {
-          dest_source_file = g_file_new_for_uri (to_uris[i]);
+          dest_source_file = g_file_new_for_uri (to_uris[n]);
           info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                     G_FILE_QUERY_INFO_NONE, NULL, NULL);
           g_object_unref (dest_source_file);
@@ -373,18 +364,18 @@ xdg_cache_cache_move (TumblerCache *cache,
                                                     G_FILE_ATTRIBUTE_TIME_MODIFIED);
           g_object_unref (info);
 
-          from_file = xdg_cache_cache_get_file (from_uris[i], flavors[n]);
-          temp_file = xdg_cache_cache_get_temp_file (to_uris[i], flavors[n]);
+          from_file = xdg_cache_cache_get_file (from_uris[n], iter->data);
+          temp_file = xdg_cache_cache_get_temp_file (to_uris[n], iter->data);
 
           if (g_file_move (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
                            NULL, NULL, NULL, NULL))
             {
               temp_path = g_file_get_path (temp_file);
 
-              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[i], mtime,
+              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[n], mtime,
                                                         NULL, NULL))
                 {
-                  dest_file = xdg_cache_cache_get_file (to_uris[i], flavors[n]);
+                  dest_file = xdg_cache_cache_get_file (to_uris[n], iter->data);
                   dest_path = g_file_get_path (dest_file);
 
                   if (g_rename (temp_path, dest_path) != 0)
@@ -417,24 +408,22 @@ static gboolean
 xdg_cache_cache_is_thumbnail (TumblerCache *cache,
                               const gchar  *uri)
 {
-  TumblerThumbnailFlavor *flavors;
-  const gchar            *home;
-  const gchar            *dirname;
-  gboolean                is_thumbnail = FALSE;
-  GFile                  *flavor_dir;
-  GFile                  *file;
-  gchar                  *path;
-  guint                   n;
+  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
+  const gchar   *home;
+  const gchar   *dirname;
+  gboolean       is_thumbnail = FALSE;
+  GList         *iter;
+  GFile         *flavor_dir;
+  GFile         *file;
+  gchar         *path;
 
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
 
-  flavors = tumbler_thumbnail_get_flavors ();
-
-  for (n = 0; !is_thumbnail && flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  for (iter = xdg_cache->flavors; !is_thumbnail && iter != NULL; iter = iter->next)
     {
       home = xdg_cache_cache_get_home ();
-      dirname = xdg_cache_cache_get_flavor_dirname (flavors[n]);
+      dirname = tumbler_thumbnail_flavor_get_name (iter->data);
       path = g_build_filename (home, ".thumbnails", dirname, NULL);
 
       flavor_dir = g_file_new_for_path (path);
@@ -454,18 +443,19 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
 
 
 
-static const gchar *
-xdg_cache_cache_get_flavor_dirname (TumblerThumbnailFlavor flavor)
+static GList *
+xdg_cache_cache_get_flavors (TumblerCache *cache)
 {
-  guint n;
+  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
+  GList         *flavors = NULL;
+  GList         *iter;
 
-  for (n = 0; n < G_N_ELEMENTS (flavor_infos); ++n)
-    if (flavor_infos[n].flavor == flavor)
-      return flavor_infos[n].dirname;
+  g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), NULL);
 
-  g_assert_not_reached ();
+  for (iter = g_list_last (xdg_cache->flavors); iter != NULL; iter = iter->prev)
+    flavors = g_list_prepend (flavors, g_object_ref (iter->data));
 
-  return NULL;
+  return flavors;
 }
 
 
@@ -479,8 +469,8 @@ xdg_cache_cache_get_home (void)
 
 
 GFile *
-xdg_cache_cache_get_file (const gchar           *uri,
-                          TumblerThumbnailFlavor flavor)
+xdg_cache_cache_get_file (const gchar            *uri,
+                          TumblerThumbnailFlavor *flavor)
 {
   const gchar *home;
   const gchar *dirname;
@@ -490,10 +480,10 @@ xdg_cache_cache_get_file (const gchar           *uri,
   gchar       *path;
 
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
-  g_return_val_if_fail (flavor != TUMBLER_THUMBNAIL_FLAVOR_INVALID, NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
   home = xdg_cache_cache_get_home ();
-  dirname = xdg_cache_cache_get_flavor_dirname (flavor);
+  dirname = tumbler_thumbnail_flavor_get_name (flavor);
 
   md5_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, uri, -1);
   filename = g_strdup_printf ("%s.png", md5_hash);
@@ -511,8 +501,8 @@ xdg_cache_cache_get_file (const gchar           *uri,
 
 
 GFile *
-xdg_cache_cache_get_temp_file (const gchar           *uri,
-                               TumblerThumbnailFlavor flavor)
+xdg_cache_cache_get_temp_file (const gchar            *uri,
+                               TumblerThumbnailFlavor *flavor)
 {
   const gchar *home;
   const gchar *dirname;
@@ -523,10 +513,10 @@ xdg_cache_cache_get_temp_file (const gchar           *uri,
   gchar       *path;
 
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
-  g_return_val_if_fail (flavor != TUMBLER_THUMBNAIL_FLAVOR_INVALID, NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
   home = xdg_cache_cache_get_home ();
-  dirname = xdg_cache_cache_get_flavor_dirname (flavor);
+  dirname = tumbler_thumbnail_flavor_get_name (flavor);
 
   g_get_current_time (&current_time);
 

@@ -23,6 +23,7 @@
 #endif
 
 #include <tumbler/tumbler-marshal.h>
+#include <tumbler/tumbler-file-info.h>
 #include <tumbler/tumbler-thumbnailer.h>
 
 
@@ -136,22 +137,17 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
 
 
 void
-tumbler_thumbnailer_create (TumblerThumbnailer      *thumbnailer,
-                            GCancellable            *cancellable,
-                            const gchar             *uri,
-                            const gchar             *mime_hint,
-                            const gchar             *flavor)
+tumbler_thumbnailer_create (TumblerThumbnailer     *thumbnailer,
+                            GCancellable           *cancellable,
+                            TumblerFileInfo        *info)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (uri != NULL);
-  g_return_if_fail (mime_hint != NULL);
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
   g_return_if_fail (TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create != NULL);
 
   return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
                                                                  cancellable,
-                                                                 uri, 
-                                                                 mime_hint,
-                                                                 flavor);
+                                                                 info);
 }
 
 
@@ -197,14 +193,14 @@ tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
 
 TumblerThumbnailer **
 tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers,
-                                gint                 length)
+                                guint                length)
 {
   TumblerThumbnailer **copy;
-  gint                 n;
+  guint                n;
 
   g_return_val_if_fail (thumbnailers != NULL, NULL);
 
-  copy = g_new0 (TumblerThumbnailer *, length+1);
+  copy = g_new0 (TumblerThumbnailer *, length + 1);
 
   for (n = 0; n < length; ++n)
     if (thumbnailers[n] != NULL)
@@ -219,9 +215,9 @@ tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers,
 
 void
 tumbler_thumbnailer_array_free (TumblerThumbnailer **thumbnailers,
-                                gint                 length)
+                                guint                length)
 {
-  gint n;
+  guint n;
 
   for (n = 0; thumbnailers != NULL && n < length; ++n)
     if (thumbnailers[n] != NULL)

@@ -26,11 +26,13 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 
+#include <tumbler/tumbler-cache.h>
 #include <tumbler/tumbler-error.h>
 #include <tumbler/tumbler-file-info.h>
 #include <tumbler/tumbler-provider-factory.h>
 #include <tumbler/tumbler-cache-provider.h>
 #include <tumbler/tumbler-thumbnail.h>
+#include <tumbler/tumbler-thumbnail-flavor.h>
 
 
 
@@ -40,6 +42,8 @@ enum
   PROP_0,
   PROP_MTIME,
   PROP_URI,
+  PROP_MIME_TYPE,
+  PROP_FLAVOR,
 };
 
 
@@ -65,9 +69,12 @@ struct _TumblerFileInfo
 {
   GObject __parent__;
 
-  guint64 mtime; 
-  GList  *thumbnails;
-  gchar  *uri;
+  TumblerThumbnailFlavor *flavor;
+  TumblerThumbnail       *thumbnail;
+
+  guint64                 mtime; 
+  gchar                  *uri;
+  gchar                  *mime_type;
 };
 
 
@@ -101,6 +108,22 @@ tumbler_file_info_class_init (TumblerFileInfoClass *klass)
                                                         NULL,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY));
+
+  g_object_class_install_property (gobject_class, PROP_MIME_TYPE,
+                                   g_param_spec_string ("mime-type",
+                                                        "mime-type",
+                                                        "mime-type",
+                                                        NULL,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY));
+
+  g_object_class_install_property (gobject_class, PROP_FLAVOR,
+                                   g_param_spec_object ("flavor",
+                                                        "flavor",
+                                                        "flavor",
+                                                        TUMBLER_TYPE_THUMBNAIL_FLAVOR,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY));
 }
 
 
@@ -110,7 +133,8 @@ tumbler_file_info_init (TumblerFileInfo *info)
 {
   info->mtime = 0;
   info->uri = NULL;
-  info->thumbnails = NULL;
+  info->mime_type = NULL;
+  info->thumbnail = NULL;
 }
 
 
@@ -120,9 +144,12 @@ tumbler_file_info_finalize (GObject *object)
 {
   TumblerFileInfo *info = TUMBLER_FILE_INFO (object);
 
-  g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
-  g_list_free (info->thumbnails);
+  if (info->thumbnail != NULL)
+    g_object_unref (info->thumbnail);
 
+  g_object_unref (info->flavor);
+
+  g_free (info->mime_type);
   g_free (info->uri);
 
   (*G_OBJECT_CLASS (tumbler_file_info_parent_class)->finalize) (object);
@@ -145,6 +172,12 @@ tumbler_file_info_get_property (GObject    *object,
       break;
     case PROP_URI:
       g_value_set_string (value, info->uri);
+      break;
+    case PROP_MIME_TYPE:
+      g_value_set_string (value, info->mime_type);
+      break;
+    case PROP_FLAVOR:
+      g_value_set_object (value, info->flavor);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -170,6 +203,12 @@ tumbler_file_info_set_property (GObject      *object,
     case PROP_URI:
       info->uri = g_value_dup_string (value);
       break;
+    case PROP_MIME_TYPE:
+      info->mime_type = g_value_dup_string (value);
+      break;
+    case PROP_FLAVOR:
+      info->flavor = g_value_dup_object (value);
+      break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -179,10 +218,16 @@ tumbler_file_info_set_property (GObject      *object,
 
 
 TumblerFileInfo *
-tumbler_file_info_new (const gchar *uri)
+tumbler_file_info_new (const gchar            *uri,
+                       const gchar            *mime_type,
+                       TumblerThumbnailFlavor *flavor)
 {
-  g_return_val_if_fail (uri != NULL, NULL);
-  return g_object_new (TUMBLER_TYPE_FILE_INFO, "uri", uri, NULL);
+  g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
+  g_return_val_if_fail (mime_type != NULL && *mime_type != '\0', NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
+
+  return g_object_new (TUMBLER_TYPE_FILE_INFO, "uri", uri, "mime-type", mime_type,
+                       "flavor", flavor, NULL);
 }
 
 
@@ -230,11 +275,13 @@ tumbler_file_info_load (TumblerFileInfo *info,
   /* we no longer need the file information */
   g_object_unref (file_info);
 
-  /* make sure to clear the thumbnails list before we load the info, just in
-   * case someone decides to load the info twice */
-  g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
-  g_list_free (info->thumbnails);
-  info->thumbnails = NULL;
+  /* make sure to clear the thumbnail before we load the info, just in
+   * case someone decides to load it twice */
+  if (info->thumbnail != NULL)
+    {
+      g_object_unref (info->thumbnail);
+      info->thumbnail = NULL;
+    }
 
   /* query the default cache implementation */
   cache = tumbler_cache_get_default ();
@@ -244,16 +291,10 @@ tumbler_file_info_load (TumblerFileInfo *info,
       if (!tumbler_cache_is_thumbnail (cache, info->uri))
         {
           /* query thumbnail infos for this URI from the current cache */
-          thumbnails = tumbler_cache_get_thumbnails (cache, info->uri);
+          info->thumbnail = tumbler_cache_get_thumbnail (cache, info->uri, info->flavor);
 
-          /* try to load thumbnail infos. the loop will terminate if 
-           * one of them fails */
-          for (tp = thumbnails; err == NULL && tp != NULL; tp = tp->next)
-            tumbler_thumbnail_load (tp->data, cancellable, &err);
-
-          /* add all queried thumbnails to the list */
-          info->thumbnails = g_list_concat (info->thumbnails, 
-                                                  thumbnails);
+          /* try to load thumbnail info */
+          tumbler_thumbnail_load (info->thumbnail, cancellable, &err);
         }
       else
         {
@@ -271,10 +312,9 @@ tumbler_file_info_load (TumblerFileInfo *info,
       /* propagate errors */
       g_propagate_error (error, err);
 
-      /* release thumbnails as we assume not to have any on errors */
-      g_list_foreach (info->thumbnails, (GFunc) g_object_unref, NULL);
-      g_list_free (info->thumbnails);
-      info->thumbnails = NULL;
+      /* release the thumbnail info */
+      g_object_unref (info->thumbnail);
+      info->thumbnail = NULL;
 
       return FALSE;
     }
@@ -295,6 +335,15 @@ tumbler_file_info_get_uri (TumblerFileInfo *info)
 
 
 
+const gchar *
+tumbler_file_info_get_mime_type (TumblerFileInfo *info)
+{
+  g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), NULL);
+  return info->mime_type;
+}
+
+
+
 guint64
 tumbler_file_info_get_mtime (TumblerFileInfo *info)
 {
@@ -308,16 +357,14 @@ gboolean
 tumbler_file_info_needs_update (TumblerFileInfo *info)
 {
   gboolean needs_update = FALSE;
-  GList   *lp;
 
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), FALSE);
 
-  /* iterate over all thumbnails and check if at least one of them needs an update */
-  for (lp = info->thumbnails; !needs_update && lp != NULL; lp = lp->next)
+  if (info->thumbnail != NULL)
     {
-      needs_update = needs_update || tumbler_thumbnail_needs_update (lp->data, 
-                                                                     info->uri,
-                                                                     info->mtime);
+      /* check if the thumbnail for the URI needs an update */
+      needs_update = tumbler_thumbnail_needs_update (info->thumbnail, 
+                                                     info->uri, info->mtime);
     }
 
   return needs_update;
@@ -325,9 +372,74 @@ tumbler_file_info_needs_update (TumblerFileInfo *info)
 
 
 
-GList *
-tumbler_file_info_get_thumbnails (TumblerFileInfo *info)
+TumblerThumbnail *
+tumbler_file_info_get_thumbnail (TumblerFileInfo *info)
 {
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), NULL);
-  return info->thumbnails;
+  return g_object_ref (info->thumbnail);
+}
+
+
+
+TumblerFileInfo **
+tumbler_file_info_array_new_with_flavor (const gchar *const     *uris,
+                                         const gchar *const     *mime_types,
+                                         TumblerThumbnailFlavor *flavor,
+                                         guint                  *length)
+{
+  TumblerFileInfo **infos = NULL;
+  guint             num_uris;
+  guint             num_mime_types;
+  guint             n;
+
+  g_return_val_if_fail (uris != NULL, NULL);
+
+  num_uris = g_strv_length ((GStrv) uris);
+  num_mime_types = g_strv_length ((GStrv) mime_types);
+
+  if (length != NULL)
+    *length = MIN (num_uris, num_mime_types);
+
+  infos = g_new0 (TumblerFileInfo *, MIN (num_uris, num_mime_types) + 1);
+
+  for (n = 0; n < MIN (num_uris, num_mime_types); ++n)
+    infos[n] = tumbler_file_info_new (uris[n], mime_types[n], flavor);
+
+  infos[n] = NULL;
+
+  return infos;
+}
+
+
+
+TumblerFileInfo **
+tumbler_file_info_array_copy (TumblerFileInfo **infos,
+                              guint             length)
+{
+  TumblerFileInfo **copy;
+  gint              n;
+
+  g_return_val_if_fail (infos != NULL, NULL);
+
+  copy = g_new0 (TumblerFileInfo *, length + 1);
+
+  for (n = 0; infos != NULL && infos[n] != NULL && n < length; ++n)
+    copy[n] = g_object_ref (infos[n]);
+
+  copy[n] = NULL;
+
+  return copy;
+}
+
+
+
+void
+tumbler_file_info_array_free (TumblerFileInfo **infos)
+{
+  gint n;
+
+  for (n = 0; infos != NULL && infos[n] != NULL; ++n)
+    g_object_unref (infos[n]);
+
+  g_free (infos);
 }

@@ -83,11 +83,11 @@ struct _XDGCacheThumbnail
 {
   GObject __parent__;
 
-  TumblerThumbnailFlavor flavor;
-  XDGCacheCache         *cache;
-  gchar                 *uri;
-  gchar                 *cached_uri;
-  guint64                cached_mtime;
+  TumblerThumbnailFlavor *flavor;
+  XDGCacheCache          *cache;
+  gchar                  *uri;
+  gchar                  *cached_uri;
+  guint64                 cached_mtime;
 };
 
 
@@ -182,7 +182,7 @@ xdg_cache_thumbnail_get_property (GObject    *object,
       g_value_set_string (value, thumbnail->uri);
       break;
     case PROP_FLAVOR:
-      g_value_set_enum (value, thumbnail->flavor);
+      g_value_set_object (value, thumbnail->flavor);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -209,7 +209,7 @@ xdg_cache_thumbnail_set_property (GObject      *object,
       thumbnail->uri = g_value_dup_string (value);
       break;
     case PROP_FLAVOR:
-      thumbnail->flavor = g_value_get_enum (value);
+      thumbnail->flavor = g_value_dup_object (value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);

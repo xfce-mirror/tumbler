@@ -28,7 +28,7 @@
 #include <gio/gio.h>
 
 #include <tumbler/tumbler-enum-types.h>
-#include <tumbler/tumbler-cache.h>
+#include <tumbler/tumbler-thumbnail-flavor.h>
 
 G_BEGIN_DECLS
 
@@ -95,13 +95,7 @@ gboolean                tumbler_thumbnail_save_file       (TumblerThumbnail     
                                                            guint64                mtime,
                                                            GCancellable          *cancellable,
                                                            GError               **error);
-TumblerCache           *tumbler_thumbnail_get_cache       (TumblerThumbnail      *thumbnail);
-TumblerThumbnailFlavor  tumbler_thumbnail_get_flavor      (TumblerThumbnail      *thumbnail);
-
-TumblerThumbnailFlavor *tumbler_thumbnail_get_flavors     (void);
-void                    tumbler_thumbnail_flavor_get_size (TumblerThumbnailFlavor flavor,
-                                                           gint                  *width,
-                                                           gint                  *height);
+TumblerThumbnailFlavor *tumbler_thumbnail_get_flavor      (TumblerThumbnail      *thumbnail);
 
 G_END_DECLS
 

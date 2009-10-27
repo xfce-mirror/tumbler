@@ -27,6 +27,8 @@
 
 #include <gio/gio.h>
 
+#include <tumbler/tumbler-thumbnail.h>
+
 G_BEGIN_DECLS;
 
 #define TUMBLER_TYPE_FILE_INFO            (tumbler_file_info_get_type ())
@@ -39,16 +41,27 @@ G_BEGIN_DECLS;
 typedef struct _TumblerFileInfoClass   TumblerFileInfoClass;
 typedef struct _TumblerFileInfo        TumblerFileInfo;
 
-GType            tumbler_file_info_get_type       (void) G_GNUC_CONST;
+GType             tumbler_file_info_get_type              (void) G_GNUC_CONST;
 
-TumblerFileInfo *tumbler_file_info_new            (const gchar     *uri) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean         tumbler_file_info_load           (TumblerFileInfo *info,
-                                                   GCancellable    *cancellable,
-                                                   GError         **error);
-const gchar     *tumbler_file_info_get_uri        (TumblerFileInfo *info);
-guint64          tumbler_file_info_get_mtime      (TumblerFileInfo *info);
-gboolean         tumbler_file_info_needs_update   (TumblerFileInfo *info);
-GList           *tumbler_file_info_get_thumbnails (TumblerFileInfo *info);
+TumblerFileInfo  *tumbler_file_info_new                   (const gchar            *uri,
+                                                           const gchar            *mime_type,
+                                                           TumblerThumbnailFlavor *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean          tumbler_file_info_load                  (TumblerFileInfo        *info,
+                                                           GCancellable           *cancellable,
+                                                           GError                **error);
+const gchar      *tumbler_file_info_get_uri               (TumblerFileInfo        *info);
+const gchar      *tumbler_file_info_get_mime_type         (TumblerFileInfo        *info);
+guint64           tumbler_file_info_get_mtime             (TumblerFileInfo        *info);
+gboolean          tumbler_file_info_needs_update          (TumblerFileInfo        *info);
+TumblerThumbnail *tumbler_file_info_get_thumbnail         (TumblerFileInfo        *info) G_GNUC_WARN_UNUSED_RESULT;
+
+TumblerFileInfo **tumbler_file_info_array_new_with_flavor (const gchar *const     *uris,
+                                                           const gchar *const     *mime_types,
+                                                           TumblerThumbnailFlavor *flavor,
+                                                           guint                  *length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerFileInfo **tumbler_file_info_array_copy            (TumblerFileInfo       **infos,
+                                                           guint                   length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+void              tumbler_file_info_array_free            (TumblerFileInfo       **infos);
 
 G_END_DECLS;
 

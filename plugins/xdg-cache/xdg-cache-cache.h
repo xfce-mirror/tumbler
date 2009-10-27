@@ -38,22 +38,22 @@ typedef struct _XDGCacheCacheClass XDGCacheCacheClass;
 typedef struct _XDGCacheCache      XDGCacheCache;
 
 GType    xdg_cache_cache_get_type             (void) G_GNUC_CONST;
-void     xdg_cache_cache_register             (TumblerCachePlugin    *plugin);
+void     xdg_cache_cache_register             (TumblerCachePlugin     *plugin);
 
-GFile   *xdg_cache_cache_get_file             (const gchar           *uri,
-                                               TumblerThumbnailFlavor flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GFile   *xdg_cache_cache_get_temp_file        (const gchar           *uri,
-                                               TumblerThumbnailFlavor flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean xdg_cache_cache_read_thumbnail_info  (const gchar           *filename,
-                                               gchar                **uri,
-                                               guint64               *mtime,
-                                               GCancellable          *cancellable,
-                                               GError               **error);
-gboolean xdg_cache_cache_write_thumbnail_info (const gchar           *filename,
-                                               gchar                 *uri,
-                                               guint64                mtime,
-                                               GCancellable          *cancellable,
-                                               GError               **error);
+GFile   *xdg_cache_cache_get_file             (const gchar            *uri,
+                                               TumblerThumbnailFlavor *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GFile   *xdg_cache_cache_get_temp_file        (const gchar            *uri,
+                                               TumblerThumbnailFlavor  *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean xdg_cache_cache_read_thumbnail_info  (const gchar            *filename,
+                                               gchar                 **uri,
+                                               guint64                *mtime,
+                                               GCancellable           *cancellable,
+                                               GError                **error);
+gboolean xdg_cache_cache_write_thumbnail_info (const gchar            *filename,
+                                               gchar                  *uri,
+                                               guint64                 mtime,
+                                               GCancellable           *cancellable,
+                                               GError                **error);
 
 G_END_DECLS;
 

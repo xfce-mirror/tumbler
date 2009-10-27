@@ -29,18 +29,6 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_THUMBNAIL_FLAVOR (tumbler_thumbnail_flavor_get_type ())
-
-typedef enum /*< enum >*/
-{
-  TUMBLER_THUMBNAIL_FLAVOR_INVALID,
-  TUMBLER_THUMBNAIL_FLAVOR_NORMAL,
-  TUMBLER_THUMBNAIL_FLAVOR_LARGE,
-  TUMBLER_THUMBNAIL_FLAVOR_CROPPED,
-} TumblerThumbnailFlavor;
-
-GType tumbler_thumbnail_flavor_get_type (void);
-
 #define TUMBLER_TYPE_THUMBNAIL_FORMAT (tumbler_thumbnail_format_get_type ())
 
 typedef enum /*< enum >*/

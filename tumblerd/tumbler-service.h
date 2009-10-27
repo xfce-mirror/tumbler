@@ -44,10 +44,10 @@ TumblerService *tumbler_service_new            (DBusGConnection       *connectio
 gboolean        tumbler_service_start          (TumblerService        *service,
                                                 GError               **error);
 void            tumbler_service_queue          (TumblerService        *service,
-                                                const GStrv            uris,
-                                                const GStrv            mime_hints,
-                                                const gchar           *flavor,
-                                                const gchar           *s_scheduler,
+                                                const gchar *const    *uris,
+                                                const gchar *const    *mime_hints,
+                                                const gchar           *flavor_name,
+                                                const gchar           *scheduler_name,
                                                 guint                  handle_to_dequeue,
                                                 DBusGMethodInvocation *context);
 void            tumbler_service_dequeue        (TumblerService         *service,

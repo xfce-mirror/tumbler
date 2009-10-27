@@ -26,6 +26,7 @@
 #include <glib-object.h>
 
 #include <tumbler/tumbler-abstract-thumbnailer.h>
+#include <tumbler/tumbler-file-info.h>
 #include <tumbler/tumbler-thumbnailer.h>
 
 
@@ -58,9 +59,7 @@ static void tumbler_abstract_thumbnailer_set_property     (GObject              
                                                            GParamSpec              *pspec);
 static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer      *thumbnailer,
                                                            GCancellable            *cancellable,
-                                                           const gchar             *uri,
-                                                           const gchar             *mime_hint,
-                                                           const gchar             *flavor);
+                                                           TumblerFileInfo         *info);
 
 
 
@@ -236,17 +235,12 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
 static void
 tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
                                      GCancellable       *cancellable,
-                                     const gchar        *uri,
-                                     const gchar        *mime_hint,
-                                     const gchar        *flavor)
+                                     TumblerFileInfo    *info)
 {
   g_return_if_fail (TUMBLER_IS_ABSTRACT_THUMBNAILER (thumbnailer));
-  g_return_if_fail (uri != NULL && *uri != '\0');
-  g_return_if_fail (flavor != NULL && *flavor != '\0');
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
   g_return_if_fail (TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create != NULL);
 
   TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer),
-                                                                cancellable, uri, 
-                                                                mime_hint,
-                                                                flavor);
+                                                                cancellable, info);
 }

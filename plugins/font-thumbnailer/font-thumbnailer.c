@@ -43,9 +43,7 @@
 static void font_thumbnailer_finalize (GObject                    *object);
 static void font_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
                                        GCancellable               *cancellable,
-                                       const gchar                *uri,
-                                       const gchar                *mime_hint,
-                                       const gchar                *flavor);
+                                       TumblerFileInfo            *info);
 
 
 
@@ -371,9 +369,9 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
 
 
 static GdkPixbuf *
-generate_pixbuf (FT_Face                face,
-                 TumblerThumbnailFlavor flavor,
-                 FT_Error              *error)
+generate_pixbuf (FT_Face                 face,
+                 TumblerThumbnailFlavor *flavor,
+                 FT_Error               *error)
 {
   GdkPixbuf *pixbuf = NULL;
   GdkPixbuf *result = NULL;
@@ -400,34 +398,27 @@ generate_pixbuf (FT_Face                face,
   if (G_UNLIKELY (glyph2 == 0))
     glyph2 = MIN (97, face->num_glyphs - 1);
   
-  if (flavor == TUMBLER_THUMBNAIL_FLAVOR_CROPPED)
-    {
-      /* TODO unsupported */
-    }
-  else
-    {
-      /* allocate the pixbuf to render the glyphs to */
-      pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, width * 3, (height * 3) / 2);
-      gdk_pixbuf_fill (pixbuf, 0xffffffff);
+  /* allocate the pixbuf to render the glyphs to */
+  pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, width * 3, (height * 3) / 2);
+  gdk_pixbuf_fill (pixbuf, 0xffffffff);
 
-      /* initial pen position */
-      pen_x = width / 2;
-      pen_y = height;
+  /* initial pen position */
+  pen_x = width / 2;
+  pen_y = height;
 
-      /* render the first letter to the pixbuf */
-      *error = render_glyph (pixbuf, face, glyph1, &pen_x, &pen_y);
-      if (G_UNLIKELY (*error != 0))
-        return NULL;
+  /* render the first letter to the pixbuf */
+  *error = render_glyph (pixbuf, face, glyph1, &pen_x, &pen_y);
+  if (G_UNLIKELY (*error != 0))
+    return NULL;
 
-      /* render the second letter to the pixbuf */
-      *error = render_glyph (pixbuf, face, glyph2, &pen_x, &pen_y);
-      if (G_UNLIKELY (*error != 0))
-        return NULL;
+  /* render the second letter to the pixbuf */
+  *error = render_glyph (pixbuf, face, glyph2, &pen_x, &pen_y);
+  if (G_UNLIKELY (*error != 0))
+    return NULL;
 
-      /* trim the pixbuf and rescale if necessary */
-      result = trim_and_scale_pixbuf (pixbuf, width, height);
-      g_object_unref (pixbuf);
-    }
+  /* trim the pixbuf and rescale if necessary */
+  result = trim_and_scale_pixbuf (pixbuf, width, height);
+  g_object_unref (pixbuf);
 
   return result;
 }
@@ -437,15 +428,13 @@ generate_pixbuf (FT_Face                face,
 static void
 font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                          GCancellable               *cancellable,
-                         const gchar                *uri,
-                         const gchar                *mime_hint,
-                         const gchar                *flavor_)
+                         TumblerFileInfo            *info)
 {
-  TumblerThumbnailFlavor *flavors;
-  TumblerThumbnailFlavor  flavor;
+  TumblerThumbnailFlavor *flavor;
   TumblerImageData        data;
-  TumblerFileInfo        *info;
+  TumblerThumbnail       *thumbnail;
   FontThumbnailer        *font_thumbnailer = FONT_THUMBNAILER (thumbnailer);
+  const gchar            *uri;
   GHashTable             *pixbufs;
   GdkPixbuf              *pixbuf;
   FT_Error                ft_error;
@@ -461,11 +450,14 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gint                    n;
 
   g_return_if_fail (IS_FONT_THUMBNAILER (thumbnailer));
-  g_return_if_fail (uri != NULL && *uri != '\0');
+  g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
   if (g_cancellable_is_cancelled (cancellable)) 
     return;
+
+  uri = tumbler_file_info_get_uri (info);
 
   /* check if we have a valid freetype library object */
   if (font_thumbnailer->library_error != 0)
@@ -478,25 +470,13 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       return;
     }
 
-  /* create the file info for this URI */
-  info = tumbler_file_info_new (uri);
-
-  /* try to load the file information */
-  if (!tumbler_file_info_load (info, NULL, &error))
-    {
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
-      g_error_free (error);
-      g_object_unref (info);
-      return;
-    }
-
   /* try to read the file into memory */
-  file = g_file_new_for_uri (uri);
+  file = g_file_new_for_uri (tumbler_file_info_get_uri (info));
   if (!g_file_load_contents (file, cancellable, &font_data, &length, NULL, &error))
     {
       /* there was an error, emit error signal */
       error_msg = g_strdup_printf (_("Could not load file contents: %s"), 
-                                    error->message);
+                                   error->message);
       g_signal_emit_by_name (thumbnailer, "error", uri, 0, error_msg);
       g_free (error_msg);
 
@@ -555,40 +535,30 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
         }
     }
 
-  /* determine which flavors we need to generate */
-  flavors = tumbler_thumbnail_get_flavors ();
+  thumbnail = tumbler_file_info_get_thumbnail (info);
 
-  /* allocate a hash table in which to store the flavor pixbufs */
-  pixbufs = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
+  g_assert (thumbnail != NULL);
 
-  /* iterate over all flavors */
-  for (n = 0; flavors[n] != TUMBLER_THUMBNAIL_FLAVOR_INVALID; ++n)
+  /* generate a thumbnail for the flavor */
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
+  pixbuf = generate_pixbuf (face, flavor, &ft_error);
+  g_object_unref (flavor);
+
+  /* abort if there was an error */
+  if (G_UNLIKELY (ft_error != 0))
     {
-      /* generate a thumbnail for the current flavor */
-      pixbuf = generate_pixbuf (face, flavors[n], &ft_error);
+      /* emit an error signal */
+      error_msg = g_strdup_printf (_("Could not render glyphs: %s"),
+                                   ft_strerror (ft_error));
+      g_signal_emit_by_name (thumbnailer, "error", uri, 0, error_msg);
+      g_free (error_msg);
 
-      /* abort if there was an error */
-      if (G_UNLIKELY (ft_error != 0))
-        {
-          /* emit an error signal */
-          error_msg = g_strdup_printf (_("Could not render glyphs: %s"),
-                                       ft_strerror (ft_error));
-          g_signal_emit_by_name (thumbnailer, "error", uri, 0, error_msg);
-          g_free (error_msg);
+      /* clean up */
+      g_free (font_data);
+      FT_Done_Face (face);
+      g_object_unref (info);
 
-          /* clean up */
-          g_hash_table_unref (pixbufs);
-          g_free (font_data);
-          FT_Done_Face (face);
-          g_object_unref (info);
-
-          return;
-        }
-      else
-        {
-          /* add the pixbuf to the hash table if it could be generated */
-          g_hash_table_insert (pixbufs, GINT_TO_POINTER (flavors[n]), pixbuf);
-        }
+      return;
     }
 
   /* release the font face */
@@ -597,35 +567,17 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* determine when the URI was last modified */
   mtime = tumbler_file_info_get_mtime (info);
 
-  /* get all thumbnail infos for this URI */
-  thumbnails = tumbler_file_info_get_thumbnails (info);
+  /* compose the image data */
+  data.data = gdk_pixbuf_get_pixels (pixbuf);
+  data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+  data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+  data.width = gdk_pixbuf_get_width (pixbuf);
+  data.height = gdk_pixbuf_get_height (pixbuf);
+  data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-  /* iterate over all thumbnail infos */
-  for (lp = thumbnails; error == NULL && lp != NULL; lp = lp->next)
-    {
-      /* load the thumbnail information and check if it is possibly outdated */
-      if (tumbler_thumbnail_load (lp->data, NULL, &error))
-        if (tumbler_thumbnail_needs_update (lp->data, uri, mtime))
-          {
-            /* get the pixbuf for the flavor of the thumbnail info */
-            flavor = tumbler_thumbnail_get_flavor (lp->data);
-            pixbuf = g_hash_table_lookup (pixbufs, GINT_TO_POINTER (flavor));
-
-            /* if an image for this flavor was generated, save it now */
-            if (pixbuf != NULL) 
-              {
-                data.data = gdk_pixbuf_get_pixels (pixbuf);
-                data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
-                data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
-                data.width = gdk_pixbuf_get_width (pixbuf);
-                data.height = gdk_pixbuf_get_height (pixbuf);
-                data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-                data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
-
-                tumbler_thumbnail_save_image_data (lp->data, &data, mtime, NULL, &error);
-              }
-          }
-    }
+  /* save the thumbnail */
+  tumbler_thumbnail_save_image_data (thumbnail, &data, mtime, NULL, &error);
 
   /* check if there was an error */
   if (error != NULL)
@@ -641,7 +593,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     }
 
   /* clean up */
+  g_object_unref (pixbuf);
+  g_object_unref (thumbnail);
   g_free (font_data);
-  g_hash_table_unref (pixbufs);
   g_object_unref (info);
 }
