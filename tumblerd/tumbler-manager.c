@@ -544,7 +544,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
       g_free (sections[n]);
     }
 
-  g_free (sections[n]);
+  g_free (sections);
   g_key_file_free (key_file);
   g_free (filename);
 
