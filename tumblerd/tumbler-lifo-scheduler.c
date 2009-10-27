@@ -331,7 +331,7 @@ tumbler_lifo_scheduler_dequeue_request (TumblerSchedulerRequest *request,
                                         gpointer                 user_data)
 {
   guint handle = GPOINTER_TO_UINT (user_data);
-  gint  n;
+  guint n;
 
   g_return_if_fail (request != NULL);
   g_return_if_fail (handle != 0);
@@ -355,17 +355,13 @@ tumbler_lifo_scheduler_thread (gpointer data,
 {
   TumblerSchedulerRequest *request = data;
   TumblerLifoScheduler    *scheduler = user_data;
-  TumblerFileInfo         *info;
   const gchar            **uris;
-  gboolean                 outdated;
   gboolean                 uri_needs_update;
-  guint64                  mtime;
   GError                  *error = NULL;
   GList                   *cached_uris = NULL;
   GList                   *missing_uris = NULL;
-  GList                   *thumbnails;
   GList                   *lp;
-  gint                     n;
+  guint                    n;
 
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);

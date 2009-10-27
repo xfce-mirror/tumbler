@@ -71,11 +71,3 @@ tumbler_plugin_shutdown (void)
   g_message (_("Shutting down the Tumbler XDG cache plugin"));
 #endif
 }
-
-
-
-TumblerCache *
-tumbler_plugin_get_cache (void)
-{
-  return g_object_new (XDG_CACHE_TYPE_CACHE, NULL);
-}

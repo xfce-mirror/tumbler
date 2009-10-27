@@ -183,7 +183,6 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
   gchar         *filename;
   gchar         *uri;
   GDir          *dir;
-  gint           n;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   

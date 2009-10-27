@@ -142,15 +142,10 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerImageData        data;
   TumblerThumbnail       *thumbnail;
   const gchar            *uri;
-  GHashTable             *pixbufs;
   GdkPixbuf              *source_pixbuf;
   GdkPixbuf              *pixbuf;
-  guint64                 mtime;
   GError                 *error = NULL;
   GFile                  *file;
-  GList                  *lp;
-  GList                  *thumbnails;
-  guint                   n;
 
   g_return_if_fail (IS_PIXBUF_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -215,7 +210,9 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
   data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-  tumbler_thumbnail_save_image_data (thumbnail, &data, mtime, NULL, &error);
+  tumbler_thumbnail_save_image_data (thumbnail, &data, 
+                                     tumbler_file_info_get_mtime (info), 
+                                     NULL, &error);
 
   if (error != NULL)
     {

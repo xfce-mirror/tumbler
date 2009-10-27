@@ -436,9 +436,6 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   TumblerThumbnailer **thumbnailers = NULL;
   gchar               *hash_key;
   gchar               *scheme;
-  guint                num_mime_hints;
-  guint                num_thumbnailers;
-  guint                num_uris;
   guint                n;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);

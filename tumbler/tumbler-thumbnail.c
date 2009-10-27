@@ -154,19 +154,6 @@ tumbler_thumbnail_save_file (TumblerThumbnail *thumbnail,
 
 
 
-TumblerCache *
-tumbler_thumbnail_get_cache (TumblerThumbnail *thumbnail)
-{
-  TumblerCache *cache = NULL;
-
-  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
-
-  g_object_get (thumbnail, "cache", &cache, NULL);
-  return cache;
-}
-
-
-
 TumblerThumbnailFlavor *
 tumbler_thumbnail_get_flavor (TumblerThumbnail *thumbnail)
 {

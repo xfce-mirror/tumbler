@@ -355,7 +355,7 @@ tumbler_group_scheduler_dequeue_request (TumblerSchedulerRequest *request,
                                          gpointer                 user_data)
 {
   guint handle = GPOINTER_TO_UINT (user_data);
-  gint  n;
+  guint n;
 
   g_return_if_fail (request != NULL);
   g_return_if_fail (handle != 0);
@@ -407,22 +407,18 @@ tumbler_group_scheduler_thread (gpointer data,
 {
   TumblerSchedulerRequest *request = data;
   TumblerGroupScheduler   *scheduler = user_data;
-  TumblerFileInfo         *info;
   const gchar            **uris;
   const gchar            **failed_uris;
   const gchar            **success_uris;
   UriError                *uri_error;
-  gboolean                 outdated;
   gboolean                 uri_needs_update;
   GString                 *message;
-  guint64                  mtime;
   GError                  *error = NULL;
   GList                   *iter;
   GList                   *uri_errors;
   GList                   *ready_uris;
   GList                   *cached_uris = NULL;
   GList                   *missing_uris = NULL;
-  GList                   *thumbnails;
   GList                   *lp;
   guint                    n;
   gint                     error_code;

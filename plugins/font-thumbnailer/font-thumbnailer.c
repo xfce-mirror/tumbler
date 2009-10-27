@@ -435,15 +435,12 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnail       *thumbnail;
   FontThumbnailer        *font_thumbnailer = FONT_THUMBNAILER (thumbnailer);
   const gchar            *uri;
-  GHashTable             *pixbufs;
   GdkPixbuf              *pixbuf;
   FT_Error                ft_error;
   FT_Face                 face;
   guint64                 mtime;
   GError                 *error = NULL;
   GFile                  *file;
-  GList                  *lp;
-  GList                  *thumbnails;
   gchar                  *error_msg;
   gchar                  *font_data;
   gsize                   length;

@@ -84,13 +84,6 @@ tumbler_cache_plugin_class_init (TumblerCachePluginClass *klass)
 
 
 static void
-tumbler_cache_plugin_cache_init (TumblerCacheIface *iface)
-{
-}
-
-
-
-static void
 tumbler_cache_plugin_init (TumblerCachePlugin *plugin)
 {
 }
@@ -100,7 +93,6 @@ tumbler_cache_plugin_init (TumblerCachePlugin *plugin)
 static void
 tumbler_cache_plugin_constructed (GObject *object)
 {
-  TumblerCachePlugin *plugin = TUMBLER_CACHE_PLUGIN (object);
 }
 
 
@@ -108,8 +100,6 @@ tumbler_cache_plugin_constructed (GObject *object)
 static void
 tumbler_cache_plugin_dispose (GObject *object)
 {
-  TumblerCachePlugin *plugin = TUMBLER_CACHE_PLUGIN (object);
-
   (*G_OBJECT_CLASS (tumbler_cache_plugin_parent_class)->dispose) (object);
 }
 
@@ -118,8 +108,6 @@ tumbler_cache_plugin_dispose (GObject *object)
 static void
 tumbler_cache_plugin_finalize (GObject *object)
 {
-  TumblerCachePlugin *plugin = TUMBLER_CACHE_PLUGIN (object);
-
   (*G_OBJECT_CLASS (tumbler_cache_plugin_parent_class)->finalize) (object);
 }
 

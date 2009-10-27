@@ -239,10 +239,6 @@ tumbler_file_info_load (TumblerFileInfo *info,
   GFileInfo    *file_info;
   GError       *err = NULL;
   GFile        *file;
-  GList        *cp;
-  GList        *lp;
-  GList        *thumbnails;
-  GList        *tp;
 
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -414,7 +410,7 @@ tumbler_file_info_array_copy (TumblerFileInfo **infos,
                               guint             length)
 {
   TumblerFileInfo **copy;
-  gint              n;
+  guint             n;
 
   g_return_val_if_fail (infos != NULL, NULL);
 

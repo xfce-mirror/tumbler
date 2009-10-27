@@ -157,9 +157,7 @@ tumbler_cache_service_init (TumblerCacheService *service)
 static void
 tumbler_cache_service_constructed (GObject *object)
 {
-  TumblerProviderFactory *factory;
-  TumblerCacheService    *service = TUMBLER_CACHE_SERVICE (object);
-  GList                  *lp;
+  TumblerCacheService *service = TUMBLER_CACHE_SERVICE (object);
 
   /* chain up to parent classes */
   if (G_OBJECT_CLASS (tumbler_cache_service_parent_class)->constructed != NULL)
@@ -249,7 +247,6 @@ tumbler_cache_service_move_thread (gpointer data,
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
   MoveRequest         *request = data;
-  GList               *lp;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -274,7 +271,6 @@ tumbler_cache_service_copy_thread (gpointer data,
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
   CopyRequest         *request = data;
-  GList               *lp;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -299,7 +295,6 @@ tumbler_cache_service_delete_thread (gpointer data,
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
   DeleteRequest       *request = data;
-  GList               *lp;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -323,7 +318,6 @@ tumbler_cache_service_cleanup_thread (gpointer data,
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
   CleanupRequest      *request = data;
-  GList               *lp;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
