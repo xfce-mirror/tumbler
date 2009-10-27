@@ -29,8 +29,6 @@
 #include <tumbler/tumbler-cache.h>
 #include <tumbler/tumbler-error.h>
 #include <tumbler/tumbler-file-info.h>
-#include <tumbler/tumbler-provider-factory.h>
-#include <tumbler/tumbler-cache-provider.h>
 #include <tumbler/tumbler-thumbnail.h>
 #include <tumbler/tumbler-thumbnail-flavor.h>
 
@@ -237,15 +235,14 @@ tumbler_file_info_load (TumblerFileInfo *info,
                         GCancellable    *cancellable,
                         GError         **error)
 {
-  TumblerProviderFactory *provider_factory;
-  TumblerCache           *cache;
-  GFileInfo              *file_info;
-  GError                 *err = NULL;
-  GFile                  *file;
-  GList                  *cp;
-  GList                  *lp;
-  GList                  *thumbnails;
-  GList                  *tp;
+  TumblerCache *cache;
+  GFileInfo    *file_info;
+  GError       *err = NULL;
+  GFile        *file;
+  GList        *cp;
+  GList        *lp;
+  GList        *thumbnails;
+  GList        *tp;
 
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
