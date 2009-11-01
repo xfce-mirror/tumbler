@@ -35,7 +35,7 @@
 
 G_MODULE_EXPORT void          tumbler_plugin_initialize (TumblerCachePlugin *plugin);
 G_MODULE_EXPORT void          tumbler_plugin_shutdown   (void);
-G_MODULE_EXPORT TumblerCache *tumbler_plugin_get_types  (void);
+G_MODULE_EXPORT TumblerCache *tumbler_plugin_get_cache  (void);
 
 
 
@@ -70,4 +70,12 @@ tumbler_plugin_shutdown (void)
 #ifdef DEBUG
   g_message (_("Shutting down the Tumbler XDG cache plugin"));
 #endif
+}
+
+
+
+TumblerCache *
+tumbler_plugin_get_cache (void)
+{
+  return g_object_new (XDG_CACHE_TYPE_CACHE, NULL);
 }
