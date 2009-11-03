@@ -416,16 +416,19 @@ tumbler_specialized_thumbnailer_new_foreign (DBusGConnection    *connection,
                                              const gchar *const *mime_types)
 {
   TumblerSpecializedThumbnailer *thumbnailer;
+  GTimeVal                       current_time;
 
   g_return_val_if_fail (connection != NULL, NULL);
   g_return_val_if_fail (name != NULL, NULL);
   g_return_val_if_fail (uri_schemes != NULL, NULL);
   g_return_val_if_fail (mime_types != NULL, NULL);
 
+  g_get_current_time (&current_time);
+
   thumbnailer = g_object_new (TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, 
                               "connection", connection, "foreign", TRUE, "name", name, 
                               "uri-schemes", uri_schemes, "mime-types", mime_types,
-                              NULL);
+                              "modified", current_time.tv_sec, NULL);
 
   return TUMBLER_THUMBNAILER (thumbnailer);
 }
