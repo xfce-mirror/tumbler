@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-27 18:36+0100\n"
-"PO-Revision-Date: 2009-10-18 15:33+0100\n"
+"POT-Creation-Date: 2009-10-07 02:59+0200\n"
+"PO-Revision-Date: 2009-11-04 19:41+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -20,18 +20,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:402
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr ""
+msgstr "Xa se está executando outro servizo de caché de miniaturas"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:418
+#: ../tumblerd/tumbler-group-scheduler.c:426
+#: ../tumblerd/tumbler-lifo-scheduler.c:379
 #, fuzzy, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Non hai novas cancións dispoñibles de {0}."
 
-#: ../tumblerd/tumbler-service.c:571
+#: ../tumblerd/tumbler-service.c:409
 #, fuzzy, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Xa está executando o GIMP."
@@ -52,67 +52,64 @@ msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Produciuse un erro ó conectar co bus de sesión de D-BUS: %s"
 
 #: ../tumblerd/main.c:90
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
-"\n"
-"A conexión VPN '%s' fallou porque houbo un erro no inicio do servizo VPN."
+msgstr "Produciuse un erro ao iniciar o servizo de caché de miniaturas: %s"
 
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:137
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 
-#: ../tumblerd/main.c:158
-#, fuzzy, c-format
+#: ../tumblerd/main.c:155
+#, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Non se conseguiu adquirir a selección do xestor"
+msgstr "Produciuse un erro ao iniciar o xestor de miniaturas: %s"
 
-#: ../tumblerd/main.c:176
-#, fuzzy, c-format
+#: ../tumblerd/main.c:173
+#, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "Fallo ao iniciar o control de volume: %s"
+msgstr "Produciuse un erro ao iniciar o servizo de miniaturas: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
+#: ../tumbler/tumbler-enum-types.c:73
 msgid "Invalid format"
 msgstr "Formato incorrecto"
 
 #: ../tumbler/tumbler-enum-types.c:50
+msgid "Normal"
+msgstr "Normal"
+
+#: ../tumbler/tumbler-enum-types.c:51
+msgid "Large"
+msgstr "Grande"
+
+#: ../tumbler/tumbler-enum-types.c:52
+msgid "Cropped"
+msgstr ""
+
+#: ../tumbler/tumbler-enum-types.c:74
 msgid "PNG"
 msgstr "PNG"
 
-#: ../tumbler/tumbler-enum-types.c:71
-msgid "RGB Colorspace"
-msgstr ""
-
-#: ../tumbler/tumbler-cache-plugin.c:145
+#: ../tumbler/tumbler-file-info.c:275
 #, c-format
-msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
-
-#: ../tumbler/tumbler-cache-plugin.c:153
-#, fuzzy, c-format
-msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Fallo ao cargar o engadido \"%s\": %s"
-
-#: ../tumbler/tumbler-file-info.c:296
-#, fuzzy, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "'%s' non é un ficheiro normal."
+msgstr "O ficheiro \"%s\" xa é unha miniatura"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
 msgstr ""
 
-#: ../tumbler/tumbler-provider-plugin.c:143
+#: ../tumbler/tumbler-provider-plugin.c:142
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Fallo ao cargar o engadido \"%s\": %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:58
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "As versións non coinciden: %s"
@@ -134,50 +131,45 @@ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
 msgstr ""
 
 #. there was an error in the freetype initialization, abort
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:465
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr "Non se puido iniciar freetype: %s"
 
 #. there was an error, emit error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:489
 #, c-format
 msgid "Could not load file contents: %s"
 msgstr "Non foi posible cargar o ficheiro: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:495
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:509
 #, fuzzy, c-format
 msgid "Could not open font file: %s"
 msgstr "Non foi posíbel abrir o ficheiro de gardado automático"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:520
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:534
 #, fuzzy, c-format
 msgid "Could not set the character map: %s"
 msgstr "Non foi posíbel definir a Foto de conta"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:548
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:565
 #, fuzzy, c-format
 msgid "Could not render glyphs: %s"
 msgstr "Non foi posíbel abrir o ficheiro"
 
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:373
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Non se puido gardar a miniatura en \"%s\""
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:63
 msgid "Initializing the Tumbler XDG cache plugin"
 msgstr ""
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:81
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr ""
 
-#~ msgid "Normal"
-#~ msgstr "Normal"
-
-#~ msgid "Large"
-#~ msgstr "Grande"
