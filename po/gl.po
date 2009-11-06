@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-07 02:59+0200\n"
-"PO-Revision-Date: 2009-11-04 19:41+0100\n"
+"PO-Revision-Date: 2009-11-06 13:43+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -27,19 +27,19 @@ msgstr "Xa se está executando outro servizo de caché de miniaturas"
 
 #: ../tumblerd/tumbler-group-scheduler.c:426
 #: ../tumblerd/tumbler-lifo-scheduler.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Non hai novas cancións dispoñibles de {0}."
+msgstr "Non hai ningún miniaturizador dispoñible para \"%s\""
 
 #: ../tumblerd/tumbler-service.c:409
-#, fuzzy, c-format
+#, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Xa está executando o GIMP."
+msgstr "Xa está executando outro miniaturizador xenérico"
 
 #: ../tumblerd/tumbler-manager.c:230
-#, fuzzy, c-format
+#, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Xa está executando outro xestor de enerxía"
+msgstr "Xa está executando outro xestor de miniaturas"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:63
@@ -59,7 +59,7 @@ msgstr "Produciuse un erro ao iniciar o servizo de caché de miniaturas: %s"
 #: ../tumblerd/main.c:137
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
+msgstr "Produciuse un erro ao cargar os miniaturizadores especializados no rexistro: %s"
 
 #: ../tumblerd/main.c:155
 #, c-format
@@ -86,7 +86,7 @@ msgstr "Grande"
 
 #: ../tumbler/tumbler-enum-types.c:52
 msgid "Cropped"
-msgstr ""
+msgstr "Recortado"
 
 #: ../tumbler/tumbler-enum-types.c:74
 msgid "PNG"
@@ -116,11 +116,11 @@ msgstr "As versións non coinciden: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Iniciando o engadido miniaturizador de Pixbuf de Tumbler"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Apagando o engadido miniaturizador de Pixbuf de Tumbler"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
@@ -144,21 +144,21 @@ msgstr "Non foi posible cargar o ficheiro: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:509
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open font file: %s"
-msgstr "Non foi posíbel abrir o ficheiro de gardado automático"
+msgstr ""
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:534
-#, fuzzy, c-format
+#, c-format
 msgid "Could not set the character map: %s"
-msgstr "Non foi posíbel definir a Foto de conta"
+msgstr "Non se puido definir o mapa de caracteres: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:565
-#, fuzzy, c-format
+#, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Non foi posíbel abrir o ficheiro"
+msgstr "Non foi posible debuxar os glifos: %s"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:373
 #, c-format
@@ -167,9 +167,9 @@ msgstr "Non se puido gardar a miniatura en \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:63
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr ""
+msgstr "Iniciando o engadido de caché XDG de Tumbler"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:81
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr ""
+msgstr "Apagando o engadido de caché XDG de Tumbler"
 
