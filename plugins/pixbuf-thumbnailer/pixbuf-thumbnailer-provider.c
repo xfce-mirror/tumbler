@@ -158,6 +158,8 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   /* NULL-terminate the array */
   mime_types[n] = NULL;
 
+  g_list_free (keys);
+
   /* create the pixbuf thumbnailer */
   thumbnailer = g_object_new (TYPE_PIXBUF_THUMBNAILER, 
                               "uri-schemes", uri_schemes, "mime-types", mime_types, 
@@ -166,6 +168,8 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   /* free URI schemes and MIME types */
   g_strfreev (uri_schemes);
   g_strfreev (mime_types);
+
+  g_hash_table_unref (types);
 
   /* add the thumbnailer to the list */
   thumbnailers = g_list_append (thumbnailers, thumbnailer);
