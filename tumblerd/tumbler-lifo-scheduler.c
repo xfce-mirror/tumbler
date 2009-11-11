@@ -497,6 +497,9 @@ tumbler_lifo_scheduler_thread (gpointer data,
                                             0, 0, NULL, NULL, request);
     }
 
+  /* free list */
+  g_list_free (missing_uris);
+
   g_mutex_lock (scheduler->mutex);
 
   /* notify others that we're finished processing the request */
