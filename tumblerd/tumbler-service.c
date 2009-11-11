@@ -246,6 +246,20 @@ tumbler_service_add_scheduler (TumblerService   *service,
 
 
 static void
+tumbler_service_remove_scheduler (TumblerScheduler *scheduler,
+                                  TumblerService   *service)
+{
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (TUMBLER_IS_SERVICE (service));
+
+  g_signal_handlers_disconnect_matched (scheduler, G_SIGNAL_MATCH_DATA,
+                                        0, 0, NULL, NULL, service);
+  g_object_unref (scheduler);
+}
+
+
+
+static void
 tumbler_service_constructed (GObject *object)
 {
   TumblerService   *service = TUMBLER_SERVICE (object);
@@ -281,7 +295,7 @@ tumbler_service_finalize (GObject *object)
   g_object_unref (service->volume_monitor);
 
   /* release all schedulers and the scheduler list */
-  g_list_foreach (service->schedulers, (GFunc) g_object_unref, NULL);
+  g_list_foreach (service->schedulers, (GFunc) tumbler_service_remove_scheduler, service);
   g_list_free (service->schedulers);
 
   /* release the reference on the thumbnailer registry */
