@@ -330,7 +330,7 @@ tumbler_manager_get_dir_index (TumblerManager *manager,
 
   /* return the index of the first thumbnailer directory that matches 
    * the input directory or -1 if there is no such directory */
-  return n;
+  return dir_index;
 }
 
 
@@ -1260,12 +1260,14 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
   /* look up the basename thumbnailer info list for this file */
   base_name = g_file_get_basename (file);
   list = g_hash_table_lookup (manager->thumbnailers, base_name);
-  g_free (base_name);
 
   /* ignore the service file if there is no thumbnailer info for this
    * basename */
   if (list == NULL)
-    return;
+    {
+      g_free (base_name);
+      return;
+    }
 
   /* if we have a list it has to be non-empty, otherwise there is a bug
    * in this program */
@@ -1302,8 +1304,7 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
                   tumbler_registry_add (manager->registry, info2->thumbnailer);
                 }
 
-              /* determine all hash kayes supported by the info we're about to
-               * destroy */
+              /* determine all hash kayes supported by the info we're about to destroy */
               hash_keys = tumbler_thumbnailer_get_hash_keys (info->thumbnailer);
 
               /* update the preferred thumbnailer for all these hash keys */
@@ -1332,6 +1333,13 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
           break;
         }
     }
+
+  /* remove the base name list from the hash table if it is empty now */
+  if (*list == NULL)
+    g_hash_table_remove (manager->thumbnailers, base_name);
+  
+  /* free the base name string */
+  g_free (base_name);
 }
 
 
@@ -1495,16 +1503,15 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
   g_return_if_fail (G_IS_FILE (file));
   g_return_if_fail (G_IS_FILE_MONITOR (monitor));
 
-#ifdef DEBUG
-  g_print ("Directory (contents) changed\n\n");
-#endif
-
   if (event_type == G_FILE_MONITOR_EVENT_DELETED)
     {
       base_name = g_file_get_basename (file);
 
       if (g_strcmp0 (base_name, "overrides") == 0)
         {
+#ifdef DEBUG
+          g_debug ("  %s deleted", g_file_get_path (file));
+#endif
           g_mutex_lock (manager->mutex);
           tumbler_manager_unload_overrides_file (manager, file);
           tumbler_registry_update_supported (manager->registry);
@@ -1515,6 +1522,9 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
         }
       else if (g_str_has_suffix (base_name, ".service"))
         {
+#ifdef DEBUG
+          g_debug ("  %s deleted", g_file_get_path (file));
+#endif
           g_mutex_lock (manager->mutex);
           tumbler_manager_thumbnailer_file_deleted (manager, file);
           tumbler_registry_update_supported (manager->registry);
@@ -1525,6 +1535,9 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
         }
       else
         {
+#ifdef DEBUG
+          g_debug ("  %s deleted", g_file_get_path (file));
+#endif
           g_mutex_lock (manager->mutex);
           dir_index = tumbler_manager_get_dir_index (manager, file);
           g_mutex_unlock (manager->mutex);
@@ -1554,7 +1567,24 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
             {
               if (event_type == G_FILE_MONITOR_EVENT_CREATED)
                 {
+#ifdef DEBUG
+                  g_debug ("  %s created", g_file_get_path (file));
+#endif
                   g_mutex_lock (manager->mutex);
+                  tumbler_manager_load_overrides_file (manager, file);
+                  tumbler_registry_update_supported (manager->registry);
+#ifdef DEBUG
+                  dump_overrides (manager);
+#endif
+                  g_mutex_unlock (manager->mutex);
+                }
+              else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
+                {
+#ifdef DEBUG
+                  g_debug ("  %s changed", g_file_get_path (file));
+#endif
+                  g_mutex_lock (manager->mutex);
+                  tumbler_manager_unload_overrides_file (manager, file);
                   tumbler_manager_load_overrides_file (manager, file);
                   tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
@@ -1567,7 +1597,24 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
             {
               if (event_type == G_FILE_MONITOR_EVENT_CREATED)
                 {
+#ifdef DEBUG
+                  g_debug ("  %s created", g_file_get_path (file));
+#endif
                   g_mutex_lock (manager->mutex);
+                  tumbler_manager_load_thumbnailer (manager, file);
+                  tumbler_registry_update_supported (manager->registry);
+#ifdef DEBUG
+                  dump_thumbnailers (manager);
+#endif
+                  g_mutex_unlock (manager->mutex);
+                }
+              else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
+                {
+#ifdef DEBUG
+                  g_debug ("  %s changed", g_file_get_path (file));
+#endif
+                  g_mutex_lock (manager->mutex);
+                  tumbler_manager_thumbnailer_file_deleted (manager, file);
                   tumbler_manager_load_thumbnailer (manager, file);
                   tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
