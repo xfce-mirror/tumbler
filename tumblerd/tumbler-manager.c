@@ -1394,7 +1394,9 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
   ThumbnailerInfo *info;
   ThumbnailerInfo *info2;
   GHashTableIter   iter;
+  const gchar     *hash_key;
   GFile           *file;
+  GList           *delete_keys;
   GList          **list;
   GList           *lp;
   GStrv            hash_keys;
@@ -1411,7 +1413,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
 
   /* iterate over all thumbnailer info lists */
   g_hash_table_iter_init (&iter, manager->thumbnailers);
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer) &list))
+  while (g_hash_table_iter_next (&iter, (gpointer) &hash_key, (gpointer) &list))
     {
       /* all lists in the hash table should be defined and non-empty */
       g_assert (list != NULL);
@@ -1473,7 +1475,15 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
               thumbnailer_info_free (info);
             }
         }
+
+      if (*list == NULL)
+        delete_keys = g_list_prepend (delete_keys, (gpointer) hash_key);
     }
+
+  for (lp = delete_keys; lp != NULL; lp = lp->next)
+    g_hash_table_remove (manager->thumbnailers, (const gchar *)lp->data);
+
+  g_list_free (delete_keys);
 }
 
 
@@ -1632,6 +1642,10 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
 
           if (dir_index >= 0)
             {
+#ifdef DEBUG
+              g_debug ("  %s created", g_file_get_path (file));
+#endif
+
               g_mutex_lock (manager->mutex);
               tumbler_manager_directory_created (manager, file, dir_index);
               tumbler_registry_update_supported (manager->registry);
