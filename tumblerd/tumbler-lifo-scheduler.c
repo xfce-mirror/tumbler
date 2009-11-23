@@ -36,12 +36,15 @@
 #include <tumblerd/tumbler-scheduler.h>
 
 
+
 /* Property identifiers */
 enum
 {
   PROP_0,
   PROP_NAME,
 };
+
+
 
 static void tumbler_lifo_scheduler_iface_init        (TumblerSchedulerIface     *iface);
 static void tumbler_lifo_scheduler_finalize          (GObject                   *object);

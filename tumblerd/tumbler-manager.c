@@ -625,8 +625,6 @@ tumbler_manager_load_overrides_file (TumblerManager *manager,
         }
       else
         {
-          g_free (hash_key);
-
           first = FALSE;
           inserted = FALSE;
 
@@ -665,6 +663,8 @@ tumbler_manager_load_overrides_file (TumblerManager *manager,
                * have a new info at the very beginning of the list */
               tumbler_manager_update_preferred (manager, hash_key);
             }
+
+          g_free (hash_key);
         }
     }
 
@@ -743,6 +743,7 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
   GFile         *directory;
   GList         *lp;
   GList        **overrides;
+  gchar         *hash_key_copy;
   gint           dir_index;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
@@ -798,6 +799,10 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
             }
         }
 
+      /* we need to copy the hash key here as we'll remove it from
+       * the hash table next */
+      hash_key_copy = g_strdup (hash_key);
+
       /* if there is no element left after removing the matching ones, we
        * need to remove the entire list from the hash table */
       if (*overrides == NULL)
@@ -806,7 +811,10 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
       /* if we removed an info from the list and it was the first one, we
        * need to update the preferred thumbnailer for this hash key now */
       if (first)
-        tumbler_manager_update_preferred (manager, hash_key);
+        tumbler_manager_update_preferred (manager, hash_key_copy);
+
+      /* free the hash key copy */
+      g_free (hash_key_copy);
     }
 }
 

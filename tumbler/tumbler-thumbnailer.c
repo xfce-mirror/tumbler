@@ -208,6 +208,8 @@ tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer *thumbnailer,
     if (g_strcmp0 (hash_keys[n], hash_key) == 0)
       supported = TRUE;
 
+  g_strfreev (hash_keys);
+
   return supported;
 }
 
