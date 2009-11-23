@@ -163,6 +163,18 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         0, G_MAXUINT64, 0,
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_READWRITE));
+
+  dbus_g_object_register_marshaller (g_cclosure_marshal_VOID__STRING,
+                                     G_TYPE_NONE, 
+                                     G_TYPE_STRING,
+                                     G_TYPE_INVALID);
+  
+  dbus_g_object_register_marshaller (tumbler_marshal_VOID__STRING_INT_STRING,
+                                     G_TYPE_NONE,
+                                     G_TYPE_STRING,
+                                     G_TYPE_INT,
+                                     G_TYPE_STRING,
+                                     G_TYPE_INVALID);
 }
 
 
@@ -198,18 +210,6 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
                                thumbnailer->name,
                                thumbnailer->object_path,
                                "org.freedesktop.thumbnails.SpecializedThumbnailer1");
-
-  dbus_g_object_register_marshaller (g_cclosure_marshal_VOID__STRING,
-                                     G_TYPE_NONE, 
-                                     G_TYPE_STRING,
-                                     G_TYPE_INVALID);
-  
-  dbus_g_object_register_marshaller (tumbler_marshal_VOID__STRING_INT_STRING,
-                                     G_TYPE_NONE,
-                                     G_TYPE_STRING,
-                                     G_TYPE_INT,
-                                     G_TYPE_STRING,
-                                     G_TYPE_INVALID);
 
   dbus_g_proxy_add_signal (thumbnailer->proxy, "Ready", 
                            G_TYPE_STRING, G_TYPE_INVALID);
