@@ -741,9 +741,10 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
   const gchar   *hash_key;
   gboolean       first;
   GFile         *directory;
+  GList         *delete_keys = NULL;
+  GList         *update_keys = NULL;
   GList         *lp;
   GList        **overrides;
-  gchar         *hash_key_copy;
   gint           dir_index;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
@@ -799,23 +800,26 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
             }
         }
 
-      /* we need to copy the hash key here as we'll remove it from
-       * the hash table next */
-      hash_key_copy = g_strdup (hash_key);
-
-      /* if there is no element left after removing the matching ones, we
-       * need to remove the entire list from the hash table */
+      /* check and remember the hash key if we need to delete it */
       if (*overrides == NULL)
-        g_hash_table_remove (manager->overrides, hash_key);
+        delete_keys = g_list_prepend (delete_keys, (gpointer) hash_key);
 
       /* if we removed an info from the list and it was the first one, we
        * need to update the preferred thumbnailer for this hash key now */
       if (first)
-        tumbler_manager_update_preferred (manager, hash_key_copy);
-
-      /* free the hash key copy */
-      g_free (hash_key_copy);
+        update_keys = g_list_prepend (update_keys, (gpointer) g_strdup (hash_key));
     }
+
+  for (lp = delete_keys; lp != NULL; lp = lp->next)
+    g_hash_table_remove (manager->overrides, lp->data);
+  g_list_free (delete_keys);
+
+  for (lp = update_keys; lp != NULL; lp = lp->next)
+    {
+      tumbler_manager_update_preferred (manager, lp->data);
+      g_free (lp->data);
+    }
+  g_list_free (update_keys);
 }
 
 
