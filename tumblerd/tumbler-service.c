@@ -69,39 +69,39 @@ enum
 
 
 
-static void tumbler_service_constructed        (GObject          *object);
-static void tumbler_service_finalize           (GObject          *object);
-static void tumbler_service_get_property       (GObject          *object,
-                                                guint             prop_id,
-                                                GValue           *value,
-                                                GParamSpec       *pspec);
-static void tumbler_service_set_property       (GObject          *object,
-                                                guint             prop_id,
-                                                const GValue     *value,
-                                                GParamSpec       *pspec);
-static void tumbler_service_scheduler_error    (TumblerScheduler *scheduler,
-                                                guint             handle,
-                                                const GStrv       failed_uris,
-                                                gint              error_code,
-                                                const gchar      *message,
-                                                const gchar      *origin,
-                                                TumblerService   *service);
-static void tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
-                                                guint             handle,
-                                                const gchar      *origin,
-                                                TumblerService   *service);
-static void tumbler_service_scheduler_ready    (TumblerScheduler *scheduler,
-                                                guint             handle,
-                                                const GStrv       uris,
-                                                const gchar      *origin,
-                                                TumblerService   *service);
-static void tumbler_service_scheduler_started  (TumblerScheduler *scheduler,
-                                                guint             handle,
-                                                const gchar      *origin,
-                                                TumblerService   *service);
-static void tumbler_service_pre_unmount        (TumblerService   *service,
-                                                GMount           *mount,
-                                                GVolumeMonitor   *monitor);
+static void tumbler_service_constructed        (GObject            *object);
+static void tumbler_service_finalize           (GObject            *object);
+static void tumbler_service_get_property       (GObject            *object,
+                                                guint               prop_id,
+                                                GValue             *value,
+                                                GParamSpec         *pspec);
+static void tumbler_service_set_property       (GObject            *object,
+                                                guint               prop_id,
+                                                const GValue       *value,
+                                                GParamSpec         *pspec);
+static void tumbler_service_scheduler_error    (TumblerScheduler   *scheduler,
+                                                guint               handle,
+                                                const gchar *const *failed_uris,
+                                                gint                error_code,
+                                                const gchar        *message,
+                                                const gchar        *origin,
+                                                TumblerService     *service);
+static void tumbler_service_scheduler_finished (TumblerScheduler   *scheduler,
+                                                guint               handle,
+                                                const gchar        *origin,
+                                                TumblerService     *service);
+static void tumbler_service_scheduler_ready    (TumblerScheduler   *scheduler,
+                                                guint               handle,
+                                                const GStrv         uris,
+                                                const gchar        *origin,
+                                                TumblerService     *service);
+static void tumbler_service_scheduler_started  (TumblerScheduler   *scheduler,
+                                                guint               handle,
+                                                const gchar        *origin,
+                                                TumblerService     *service);
+static void tumbler_service_pre_unmount        (TumblerService     *service,
+                                                GMount             *mount,
+                                                GVolumeMonitor     *monitor);
 
 
 
@@ -359,18 +359,24 @@ tumbler_service_set_property (GObject      *object,
 
 
 static void
-tumbler_service_scheduler_error (TumblerScheduler *scheduler,
-                                 guint             handle,
-                                 const GStrv       failed_uris,
-                                 gint              error_code,
-                                 const gchar      *message_s,
-                                 const gchar      *origin,
-                                 TumblerService   *service)
+tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
+                                 guint               handle,
+                                 const gchar *const *failed_uris,
+                                 gint                error_code,
+                                 const gchar        *message_s,
+                                 const gchar        *origin,
+                                 TumblerService     *service)
 {
   DBusMessageIter iter;
   DBusMessageIter strv_iter;
   DBusMessage    *message;
-  guint n;
+  guint           n;
+
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
+  g_return_if_fail (failed_uris != NULL && failed_uris[0] != NULL && *failed_uris[0] != '\0');
+  g_return_if_fail (message_s != NULL && *message_s != '\0');
+  g_return_if_fail (origin != NULL && *origin != '\0');
+  g_return_if_fail (TUMBLER_IS_SERVICE (service));
 
   /* create a D-Bus message for the error signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Error");

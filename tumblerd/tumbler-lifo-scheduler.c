@@ -529,7 +529,7 @@ tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
 
   /* forward the error signal */
   g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris, 
-                         error_code, message, request->origin, request->origin);
+                         error_code, message, request->origin);
 }
 
 
@@ -546,7 +546,6 @@ tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
-    
   /* forward the ready signal */
   g_signal_emit_by_name (request->scheduler, "ready", request->handle, uris, 
                          request->origin);
