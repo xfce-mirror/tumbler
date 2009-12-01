@@ -401,7 +401,7 @@ tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
   dbus_message_iter_close_container (&iter, &strv_iter);
 
   /* append the error code and error message */
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &error_code);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &error_code);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &message_s);
 
   /* send the signal message over D-Bus */
