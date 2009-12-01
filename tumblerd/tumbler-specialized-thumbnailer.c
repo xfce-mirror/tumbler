@@ -430,7 +430,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
                                &sinfo, 
                                NULL);
 
-  dbus_g_proxy_call_with_timeout (s->proxy, "Create", 
+  dbus_g_proxy_call_with_timeout (s->proxy, "Queue", 
                                   100000000, /* 100 seconds worth of timeout */
                                   &error,
                                   G_TYPE_STRING, uri,
