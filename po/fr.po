@@ -4,7 +4,7 @@
 # Douart Patrick <patrick.2@laspote.net>
 # Mike Massonnet <mmassonnet@xfce.org>
 #
-# Les mentions "de ou pour Tumbler" ont été volotairement omis dans les 
+# Les mentions "de ou pour Tumbler" ont été volotairement omis dans les
 # traductions des messages de types "Tumbler ... plugin". -- Mike
 #
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-27 18:36+0100\n"
-"PO-Revision-Date: 2009-10-14 23:16+0100\n"
+"PO-Revision-Date: 2009-12-03 10:19+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "Espace de couleur RGB"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, fuzzy, c-format
@@ -100,7 +100,7 @@ msgstr "Impossible de charger le greffon \"%s\" : %s"
 #: ../tumbler/tumbler-file-info.c:296
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr ""
+msgstr "Le fichier  \"%s\"  est lui-même une vignette"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
@@ -128,9 +128,8 @@ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Arrêt du greffon de vignettes pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Initialisation du greffon de vignettes pixbuf"
+msgstr "Initialisation de la police du plugin de vignettes pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 #, fuzzy
@@ -141,31 +140,31 @@ msgstr "Arrêt du greffon de vignettes pixbuf"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr ""
+msgstr "Impossible d'initialiser freetype: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr ""
+msgstr "Impossible de charger le contenu du fichier: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:495
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open font file: %s"
-msgstr "Impossible d'enregistrer la miniature dans \"%s\""
+msgstr "Impossible d'ouvrir le fichier de la police: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:520
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr ""
+msgstr "Impossible de définir le caractère de la carte: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:548
-#, c-format
+#, fuzzy, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "Ne pouvait rendre glyphs: %s"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
