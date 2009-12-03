@@ -454,8 +454,14 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
       /* we are a thread, so the mainloop will still be
        * be running to receive the error and ready signals */
       if (!sinfo.had_callback)
-         g_cond_timed_wait (sinfo.condition, sinfo.mutex, &timev);
-
+        {
+          if (!g_cond_timed_wait (sinfo.condition, sinfo.mutex, &timev))
+            {
+              message = g_strdup ("Failed to call the specialized thumbnailer: timeout");
+              g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
+              g_free (message);
+            }
+        }
       g_mutex_unlock (sinfo.mutex);
     }
   else
@@ -466,6 +472,18 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
       g_free (message);
       g_clear_error (&error);
     }
+
+  dbus_g_proxy_disconnect_signal (s->proxy, "Finished",
+                               G_CALLBACK (specialized_finished),
+                               &sinfo);
+
+  dbus_g_proxy_disconnect_signal (s->proxy, "Ready",
+                               G_CALLBACK (specialized_ready),
+                               &sinfo);
+
+  dbus_g_proxy_disconnect_signal (s->proxy, "Error",
+                               G_CALLBACK (specialized_error),
+                               &sinfo);
 }
 
 static void
