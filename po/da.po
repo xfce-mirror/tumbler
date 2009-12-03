@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Tumbler 1.0\n"
+"Project-Id-Version: Tumbler 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-27 18:36+0100\n"
-"PO-Revision-Date: 2009-10-13 14:04+0100\n"
+"PO-Revision-Date: 2009-12-03 13:08+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "En anden tjeneste til cache af miniaturer kører allerede"
 #: ../tumblerd/tumbler-lifo-scheduler.c:418
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "ingen miniaturetjeneste tilgængelig for \"%s\""
+msgstr "Ingen miniaturetjeneste tilgængelig for \"%s\""
 
 #: ../tumblerd/tumbler-service.c:571
 #, c-format
@@ -79,17 +79,17 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "RGB-farverum"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Udvidelsesmodul \"%s\" mangler krævede symboler."
+msgstr "Udvidelsesmodul til mellemlager \"%s\" mangler krævede symboler"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Kunne ikke indlæse udvidelsesmodul  \"%s\": %s"
+msgstr "Kunne ikke indlæse udvidelsesmodul  til mellemlager \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:296
 #, c-format
@@ -174,9 +174,8 @@ msgstr "Lukker udvidelsesmodulet Tumbler XDG cache ned"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
-
 #~ msgid "Large"
 #~ msgstr "Stort"
-
 #~ msgid "Cropped"
 #~ msgstr "Beskåret"
+
