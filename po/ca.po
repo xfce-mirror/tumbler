@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-27 18:36+0100\n"
-"PO-Revision-Date: 2009-12-02 15:56+0100\n"
+"PO-Revision-Date: 2009-12-03 18:30+0100\n"
 "Last-Translator: Harald Servat <redcrash@gmail.com>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -159,7 +159,7 @@ msgstr "No s'ha pogut establir el mapa de caràcters: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:548
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "No s'han pogut fer els caràcters: %s"
+msgstr "No s'han pogut representar el glif: %s"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
