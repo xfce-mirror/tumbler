@@ -23,6 +23,7 @@
 #endif
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 
 #include <tumbler/tumbler.h>
@@ -457,7 +458,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
         {
           if (!g_cond_timed_wait (sinfo.condition, sinfo.mutex, &timev))
             {
-              message = g_strdup ("Failed to call the specialized thumbnailer: timeout");
+              message = g_strdup (_("Failed to call the specialized thumbnailer: timeout"));
               g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
               g_free (message);
             }
@@ -466,7 +467,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
     }
   else
     {
-      message = g_strdup_printf ("Failed to call the specialized thumbnailer: %s", 
+      message = g_strdup_printf (_("Failed to call the specialized thumbnailer: %s"),
                                  error->message);
       g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
       g_free (message);
