@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-07 02:59+0200\n"
+"POT-Creation-Date: 2009-12-05 12:41+0100\n"
 "PO-Revision-Date: 2009-11-18 20:37+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -16,23 +16,62 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../tumblerd/tumbler-cache-service.c:402
+#: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "另一个缩略图缓存服务正在运行"
 
-#: ../tumblerd/tumbler-group-scheduler.c:426
-#: ../tumblerd/tumbler-lifo-scheduler.c:379
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "没有缩略图查看器可用于 \"%s\""
 
-#: ../tumblerd/tumbler-service.c:409
+#: ../tumblerd/tumbler-service.c:591
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "另一个通用的缩略图查看器正在运行"
 
-#: ../tumblerd/tumbler-manager.c:230
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#, fuzzy
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "载入指定的缩略图查看器失败: %s"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, fuzzy, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "载入指定的缩略图查看器失败: %s"
+
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#, fuzzy, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "载入插件 \"%s\" 失败: %s"
+
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:513
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:526
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:914
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:940
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:1849
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "另一个缩略图管理器正在运行"
@@ -52,42 +91,44 @@ msgstr "连接至 D-Bus 会话总线失败: %s"
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "启动缩略图缓存服务失败: %s"
 
-#: ../tumblerd/main.c:137
+#: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "载入指定的缩略图查看器失败: %s"
 
-#: ../tumblerd/main.c:155
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "启动缩略图管理器失败: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "启动缩略图管理服务失败: %s"
 
-#: ../tumbler/tumbler-enum-types.c:49 ../tumbler/tumbler-enum-types.c:73
+#: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
 msgstr "无效格式"
 
 #: ../tumbler/tumbler-enum-types.c:50
-msgid "Normal"
-msgstr "正常"
-
-#: ../tumbler/tumbler-enum-types.c:51
-msgid "Large"
-msgstr "大"
-
-#: ../tumbler/tumbler-enum-types.c:52
-msgid "Cropped"
-msgstr "裁剪过的"
-
-#: ../tumbler/tumbler-enum-types.c:74
 msgid "PNG"
 msgstr "PNG"
 
-#: ../tumbler/tumbler-file-info.c:275
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr ""
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, fuzzy, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "插件 \"%s\" 缺少必须符号。"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, fuzzy, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "载入插件 \"%s\" 失败: %s"
+
+#: ../tumbler/tumbler-file-info.c:296
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "文件 \"%s\" 本身是缩略图"
@@ -97,14 +138,14 @@ msgstr "文件 \"%s\" 本身是缩略图"
 msgid "Plugin \"%s\" lacks required symbols."
 msgstr "插件 \"%s\" 缺少必须符号。"
 
-#: ../tumbler/tumbler-provider-plugin.c:142
+#: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "载入插件 \"%s\" 失败: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:58
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "版本不符: %s"
@@ -126,44 +167,53 @@ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
 msgstr "正在关闭 Tumbler 字体缩略图查看插件"
 
 #. there was an error in the freetype initialization, abort
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:465
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr "无法初始化 freetype: %s"
 
 #. there was an error, emit error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:489
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
 msgstr "无法读取文件内容: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:509
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:495
 #, c-format
 msgid "Could not open font file: %s"
 msgstr "无法打开字体文件: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:534
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:520
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr "无法设置字符映射: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:565
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:548
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr "无法渲染字型: %s"
 
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:373
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "无法保存缩略图至 \"%s\""
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:63
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
 msgstr "正在初始化 Tumbler XDG 缓存插件"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:81
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "正在关闭 Tumbler XDG 缓存插件"
+
+#~ msgid "Normal"
+#~ msgstr "正常"
+
+#~ msgid "Large"
+#~ msgstr "大"
+
+#~ msgid "Cropped"
+#~ msgstr "裁剪过的"
