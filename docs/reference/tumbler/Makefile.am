@@ -65,7 +65,8 @@ INCLUDES =	 							\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(GTHREAD_CFLAGS)						\
-	$(PNG_CFLAGS)
+	$(PNG_CFLAGS)							\
+	$(GTK_DOC_EXTRA_CFLAGS)
 
 GTKDOC_LIBS =								\
 	$(DBUS_LIBS)							\
