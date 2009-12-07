@@ -1,0 +1,1505 @@
+commit 2862c9c9275691b05a77c157e920466f0d4db483
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Dec 7 12:33:02 2009 +0100
+
+    Add -Wno-sign-compare to the gtk-doc build.
+
+commit f4595d8c03cc4ada3b40b24cf337c35385f20a7d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Dec 7 12:23:55 2009 +0100
+
+    Add Philip to the authors. Update README.
+
+commit 82716fedd1eaf7312b5f6991d336e3decc2f66a4
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Dec 5 12:42:36 2009 +0100
+
+    Update API docs (sorta).
+
+commit 133d7b7390253ac1546ecd84f5907d4f7b2306d4
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Dec 5 12:42:21 2009 +0100
+
+    Merge new strings.
+
+commit d762f9e9447a2bc893a779403593a929ae0ea562
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Dec 5 12:41:43 2009 +0100
+
+    Make strings translatable.
+
+commit abe6e07d39b503b454614ba9664d2ccfd536f691
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Thu Dec 3 12:02:43 2009 +0200
+
+    Fixed a bug in the specialized thumbnailer support:
+      - Repeating signals
+      - Error reporting on timeout
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 0c91d6c388206b60d071c72aacaf1c9995f82958
+Author: Harald Servat <redcrash@gmail.com>
+Date:   Thu Dec 3 17:30:29 2009 +0000
+
+    l10n: Updates to Catalan (Valencian) (ca) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit b487830142f86697cdf542fc60ad61358e0d4958
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Thu Dec 3 12:09:18 2009 +0000
+
+    l10n: Updates to Danish (da) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit f5d14d9823abe75bfa5dd11bf2bac4802ffe6a81
+Author: douart patrick <patrick.2@laposte.net>
+Date:   Thu Dec 3 09:48:09 2009 +0000
+
+    l10n: Updates to French (fr) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit ae8e003f21a0006571a76671d6ad48c36fa9a4c4
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Dec 1 15:05:04 2009 +0200
+
+    Renamed "Create" to "Queue" in specialized thumbnailer support
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 9af7ee82754f2ed5c19f437cf03c7de633620a3f
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Dec 1 12:25:35 2009 +0200
+
+    The error-code should be int32, not uint32
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 5cf54f0c993907c5c45cbe351f4d87b419a2eb06
+Author: Harald Servat <redcrash@gmail.com>
+Date:   Wed Dec 2 14:56:59 2009 +0000
+
+    l10n: Updates to Catalan (Valencian) (ca) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 60bf5b7a95dcac1905d6db912078edbe03f46a0a
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Tue Dec 1 02:23:50 2009 +0000
+
+    l10n: Added Portuguese translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit dd259c79665efb2cdd2d77500424e9912d8c1003
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Nov 27 17:13:40 2009 +0100
+
+    Add missing marshaller.
+
+commit 6b6d42966827fe7a15fcb0cd5ac5b09489bd5cf4
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Nov 25 16:01:37 2009 +0100
+
+    Fix crash when deleting the last thumbnailer dir/file or overrides file.
+
+commit 6f10acf340d31efab2422de1aefe3dd45c510d13
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Nov 25 16:01:02 2009 +0100
+
+    Reimplementation of specialized after merge with master
+    
+    Conflicts:
+    
+    	tumblerd/tumbler-specialized-thumbnailer.c
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 2a7c1f89884a59a55b76f9cf62fee3671842bfa1
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Nov 23 20:45:01 2009 +0100
+
+    Register D-Bus marshallers in _class_init instead of _init.
+
+commit 4d3d26289217e1b2adfdd1899b36a87561030aff
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Nov 23 20:44:46 2009 +0100
+
+    Fix a few memory leaks.
+
+commit 075c04125bee186bff24cc79d642982e7633f0c6
+Author: Xu Meihong <mhuntxu@gmail.com>
+Date:   Wed Nov 18 12:34:38 2009 +0000
+
+    l10n: add Simplified Chinese translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 55dc1edd234547f6fef7aa09c797e3409a7548c6
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Nov 17 12:34:19 2009 +0100
+
+    Remove empty lists from the hash table when a directory is deleted.
+
+commit 593fd5894e714b1bd46f736a0604bfdafb8603f5
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Nov 17 01:46:57 2009 +0100
+
+    Fix two bugs and change debug output.
+    
+    The bugs were:
+      - empty thumbnailer info lists were not removed from the hash table
+        before this commit.
+      - we need to listen for change events, not created/deleted only.
+        instead of G_FILE_MONITOR_EVENT_CHANGED we use _CHANGED_HINT though.
+    
+    There still are a few issues updating the internal representation of
+    what exists on the disk but I'll try to sort them out tomorrow or later
+    this week.
+
+commit 80070860223d5e2338fec3e078d634abd8125698
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Nov 11 01:48:08 2009 +0100
+
+    Fix memory leak in the LIFO scheduler.
+
+commit d9201e51b823f86d5338cd9dca60548d831348d2
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Nov 11 01:46:58 2009 +0100
+
+    Fix wrong unref in TumblerService. Disconnect from schedulers properly.
+
+commit cfd4bdbcc1c93dda0a42dc8d563545444f04bd48
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Nov 11 01:44:19 2009 +0100
+
+    Fix memory leaks in the pixbuf thumbnailer plugin.
+
+commit 5ee1adb916e8e755e043fd9e048129369544930c
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Nov 3 01:40:17 2009 +0100
+
+    Set "modified" of thumbnailers runtime registered to the current time.
+
+commit 6e38ae21707602947f1ca9dae0315b89ff2ea845
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:46:00 2009 +0100
+
+    Fix wrong free spotted by Philip.
+
+commit 47b8b19d478b6f0846454aeecb25fc67c7113a20
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 21 17:57:20 2009 +0200
+
+    Support specialized thumbnailers and overrides files properly.
+    
+    This required some major changes, most of which are documented in the
+    source code. It still needs to be tested but it should be fine. The
+    mutex locks in TumblerManager could probably be optimized and some other
+    parts are not optimal with regards to speed and memory usage yet.
+    
+    All in all, what's done now is:
+      - overrides files are parsed into override info structs and kept in
+        a (hashkey -> override info list) hash table
+      - each of these override info lists is sorted in the order of the
+        directories the overrides files are located in (with higher priority
+        directories coming first)
+      - the first override info in each list determines which specialized
+        thumbnailer is set as preferred for the corresponding hash key in
+        the registry
+      - thumbnailer service files are parsed into thumbnailer info structs
+        and kept in a (basename -> thumbnailer info list) hash table
+      - each of these thumbnailer info lists is sorted in the order of
+        the directories the thumbnailer service infos come from
+      - the first thumbnailers in each list are added to the registry
+      - whenever something changes on the disk, this internal representation
+        is updated
+
+commit a13a6b37a203cf03937d714a5faa40879d9a696c
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Fri Nov 6 12:43:34 2009 +0000
+
+    l10n: Updates to Galician (gl) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit dcdc03f51b269ba8117628a43bf6bf4521e86933
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Wed Nov 4 18:41:55 2009 +0000
+
+    l10n: Updates to Galician (gl) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 7a0fff90cee7f9d4797ef6d412a198789dae9a0d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun Nov 1 03:39:06 2009 +0100
+
+    Add missing tumbler_plugin_get_cache() function.
+
+commit e4186a2126a27d9eb541e906251cbf6622ac9023
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:36:33 2009 +0100
+
+    Update translation files.
+
+commit afd812d0a71469cb80ec1448382e277a15ce09f4
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:30:53 2009 +0100
+
+    Fix gtk-doc (still not up to date though).
+
+commit 55f77811825155b4e44d92efdf698d8d2bcdb4eb
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:26:01 2009 +0100
+
+    Fix a bunch of compiler warnings.
+
+commit cc05eb7d3cb2292eb959099b47f8cd8a23ca298b
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:13:34 2009 +0100
+
+    Rename the delete member of TumblerCache to do_delete (for C++).
+
+commit 0cd669f2d9236c4ac2ca41aa7bc13958a0a5cb6b
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:09:36 2009 +0100
+
+    Add missing handle parameter to the declaration of "Ready".
+
+commit 58225d511ab19cea99944e496d493b7d3a3b1026
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 18:06:09 2009 +0100
+
+    Remove obsolete provider files. Fix include in tumbler-file-info.c.
+
+commit ae5d1fcdbd406efa945a9ff631991bc08b1fa31e
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 27 03:13:42 2009 +0100
+
+    Massive refactoring to support flavors properly.
+    
+    Refactor the entire code to use TumblerFileInfo instead of separate
+    URI/MIME/flavor arrays. We now support flavors which means that
+    applications can request "normal" and "large" thumbnails and thus have
+    more control over what is created. This simplifies the code in a lot of
+    places. We now use a real GObject class called TumblerThumbnailFlavor
+    instead of a fixed-size enum. Cache backends can return as many flavors
+    as they want, each consisting of a name, a width and a height. As a
+    consequence, we can also get rid of the configure flags to
+    enable/disable normal, large and cropped thumbnails. The default cache
+    plugin shipped with Tumbler only supports "normal" (128x128px) and
+    "large" (256x256px).
+    
+    Optimize the code a little bit. We now load the TunarFileInfo and
+    ThunarThumbnail only *once* for each URI instead of loading them once in
+    the scheduler and again in thumbnailer plugins.
+    
+    This needs careful testing. I might have introduced a few memory leaks
+    here and there, plus new bugs... you never know.
+
+commit 7a1e43d0806ec976eb2872209affb3d8a0dad7d0
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Oct 26 22:36:08 2009 +0100
+
+    Switch to a plugin API that only allows one cache backend at a time.
+    
+    Tumbler will now only check for the file
+    
+      $(libdir)/tumbler-1/plugins/cache/tumbler-cache-plugin.so
+    
+    which is supposed to link to the cache backend that is being used. If
+    the XDG cache is built, tumbler-cache-plugin.so is set up to link to
+    this plugin.
+    
+    The fact that we only have a singleton cache makes things much less
+    ambiguous.
+
+commit 8258763e662bc2345051f230f2afc4b6da699726
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Mon Oct 26 18:17:00 2009 +0200
+
+    Added the DBus API parts for flavor support
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit c4c67778eb43a51f73f2a299edb2b59bc559e06c
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Sun Oct 25 19:22:20 2009 +0100
+
+    Unqueue is not an English word, Dequeue is.
+    
+    The spec has been adapted for this too.
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 82993e2b0540a17dbe1b9b45c0cf61f05d56a049
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Oct 23 16:36:39 2009 +0200
+
+    Prepare the API docs for make distcheck.
+
+commit 49fcc79dd1a393e6e9b4169866cd41209841256e
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 21 13:57:34 2009 +0200
+
+    Remove unused function declaration.
+
+commit a7a1dd4292b87384d7edae6d3f9995df2668fab0
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 21 11:50:07 2009 +0200
+
+    Update cache with tumbler_registry_update_supported() only when needed.
+    
+    We'll probably have to deal with a lot of specialized thumbnailers on
+    Maemo and a lot of thumbnailer plugins on the desktop, and since
+    tumbler_registry_update_supported() is VERY expensive, we should only
+    call it when necessary.
+
+commit 610f0964b759a26944bca705dad5061f1fe0ba04
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 21 00:27:33 2009 +0200
+
+    Add TumblerColorspace enum, rename save_pixbuf() to save_image_data().
+    
+    Also fixed the coding style here and there.
+
+commit be9202b523a1854fa4824cd348ebae4462d7cfa5
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 21 00:31:26 2009 +0200
+
+    Replaced GdkPixbuf APIs with TumblerImageData
+    
+    Conflicts:
+    
+    	plugins/font-thumbnailer/font-thumbnailer.c
+    	plugins/pixbuf-thumbnailer/pixbuf-thumbnailer.c
+
+commit 5c7ce962e7dd4b2de1ce4df8acf68518fe9cc68e
+Author: Iñigo Varela <malditoastur@gmail.com>
+Date:   Tue Oct 20 20:27:39 2009 +0000
+
+    l10n: Updates to Asturian (ast) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit d40ebf9b7f84270de3cd3038585170912714f4bc
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Sun Oct 18 13:35:34 2009 +0000
+
+    l10n: Created Tumbler galician translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 81d45d73c1226c7e5a61a6ec7450a9fa24b8f41e
+Author: Rihards Prieditis <rprieditis@gmail.com>
+Date:   Fri Oct 16 17:19:37 2009 +0000
+
+    l10n: Added Latvian transloation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 90907b595599f1c11f39c724feba2cc25e62039f
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Thu Oct 15 14:27:16 2009 +0200
+
+    Do nothing in case of cancelled before we started
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 97da0eef20a52f9942260dc16a1c751f2a895a20
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Fri Oct 16 11:04:59 2009 +0200
+
+    Bugfix emitting error signal
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit bd3e532015c67ac908340b9654b4208b9f2e4961
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Thu Oct 15 15:57:38 2009 +0200
+
+    Add the handle to the Ready signal
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 8014615d2a684a005d6e276bdc4502263a67c0a0
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 15 16:22:42 2009 +0200
+
+    Cancel all URIs when the GMount they reside in is about to be unmounted.
+    
+    This is done so that people don't have to wait so long until they can
+    take out their removable media while the thumbnailer is busy on the
+    device.
+
+commit 07b85dd85a3039a52ddf23683ba9a5c32bfb7118
+Author: Massonnet Mike <mmassonnet@gmail.com>
+Date:   Thu Oct 15 06:05:47 2009 +0000
+
+    l10n: Updates to French (fr) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit eaff88ce309c00ebc200010f6f88aa515ddff3ed
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 14 23:45:53 2009 +0200
+
+    Add a few comments, minor coding style changes.
+
+commit 37ef4b1b78fbc31b2aa1239a8b1987be261951dd
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Wed Oct 14 18:34:34 2009 +0200
+
+    Added dbus_message_set_destination to the DBus signal emits
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit f4dc40407eeca29ef5a533e2a0a8e060aa588a66
+Author: douart patrick <patrick.2@laposte.net>
+Date:   Wed Oct 14 21:17:32 2009 +0000
+
+    l10n: Updates to French (fr) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 754b1f7ad74eda0ce2cfd130f20b451be4b8d913
+Author: douart patrick <patrick.2@laposte.net>
+Date:   Wed Oct 14 21:08:17 2009 +0000
+
+    l10n: New French Translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit dde5678ffb9e97c0664210e15220e2b25bc1e66b
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 14 14:30:55 2009 +0200
+
+    Use silent build rules if available.
+
+commit 7afa5c9ca5f8718fdbef923e447438f1b8473b65
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 14 12:48:45 2009 +0200
+
+    Remove TumblerNaiveScheduler.
+
+commit b79b1e603cf47232b4fd0f36bb2b2deb1e9f64a6
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Wed Oct 14 11:06:21 2009 +0200
+
+    Add cancel capability to the thumbnail operations.
+
+commit 66f251bbfbf0eb7b5a8e7e12ca0d4dfdcff0e245
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Tue Oct 13 12:04:56 2009 +0000
+
+    l10n: Updates to Danish (da) translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit f1b485a2c3c6ed521accddb8fa655682d8c1156a
+Author: Masato Hashimoto <cabezon.hashimoto@gmail.com>
+Date:   Mon Oct 12 07:26:45 2009 +0000
+
+    l10n: Add Japanese translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit b08afe8949e94d33bde8ae19911ef8934d2b4032
+Author: Carles Muñoz Gorriz <carlesmu@internautas.org>
+Date:   Sun Oct 11 13:13:37 2009 +0000
+
+    l10n: Initial catalan (ca) translation.
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 3ecd2f795674f29e1e3b59489f50a11a4c20ac6d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Oct 10 02:43:13 2009 +0200
+
+    We need to include unistd.h for the syscall() function.
+
+commit 811a1c5aa8e205a2f4b391977d03af6a9197de4d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Oct 10 02:30:40 2009 +0200
+
+    Add missing declaration in tumbler-registry.h.
+
+commit 82556ccd3d9d2a6c847dc1e211ea44e56bef8598
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 19:52:15 2009 +0200
+
+    Cache supported URI schemes and MIME types in the registry.
+    
+    This way, GetSupported() doesn't have to collect the same stuff over and
+    over again. Determine all unique pairs of supported schemes/types is
+    very expensive and should only be done when necessary.
+
+commit 4bb5a7a70e138964f3a5bf3973efe2e57881a989
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 16:38:18 2009 +0200
+
+    Optimize tumbler_service_get_supported() by not duplicating strings.
+    
+    Instead, we remember all strings used in the process of generating URI
+    scheme / MIME type pairs. We don't free them immediately but leave them
+    in memory for reuse in the hash table used to collect unique pairs and
+    in the pair arrays returned by the GetSupported() D-Bus method. We free
+    them at the very end of the function.
+
+commit 0368ed8b88ba63b440d4a370178868de63318e2a
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 16:37:58 2009 +0200
+
+    Fix memory leak in tumbler_util_get_supported_uri_schemes().
+
+commit b71b81fc102c2469af44290db6bd131d29f4ab26
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 15:08:12 2009 +0200
+
+    Fix ifdef. Since we include syscall.h we need to use HAVE_SYSCALL_H.
+
+commit 5bee7fc98468c3788ea3a60f26452a494dade6e1
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Wed Oct 7 11:55:56 2009 +0200
+
+    Moved GetSupported and GetSchedulers to the service
+    
+    GetSupported now returns URI scheme and MIME type pairs. GetSchedulers returns
+    a list of available schedulers plus "default".
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 4f6085ac25592e18ab082b2707d2bffcf2301047
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 13:55:32 2009 +0200
+
+    Make sure to unlock the mutex before returning. Spotted by Philip.
+
+commit 7f6e40bd038bc56fc6b0cb307914b291ab5583d3
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 13:51:22 2009 +0200
+
+    $(builddir) doesn't work in Maemo scratchbox, using $(top_builddir)
+
+commit 48e0e7aea3baa73f37a29bf4c866a0f9aedc2560
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 13:49:01 2009 +0200
+
+    Set background system priority for the group scheduler.
+    
+    Original commit from Philip Van Hoof. I modified it to only include the
+    headers we absolutely need.
+    
+    Conflicts:
+    
+    	tumblerd/tumbler-group-scheduler.c
+
+commit f583df4a3bf353ad577723c5fce538b872fd9e47
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 13:38:39 2009 +0200
+
+    Wrap request unqueued check with the mutex to make the check atomic.
+
+commit f2be883615ab5e226cd0b377ac8a83b3701cb768
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Thu Oct 8 11:00:50 2009 +0200
+
+    Fixed compilation warning
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit bce7182312cc8a88755d4313aded2249501dd2dd
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 13:25:43 2009 +0200
+
+    Fix compiler warning, add parameters to uri_error_new().
+
+commit 63178254dcb82326cbd443e87394deb1c726f3aa
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Wed Oct 7 15:08:24 2009 +0200
+
+    Fixed a glitch, checking for the wrong function pointer
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 6a865c769244360ea6533d0854a08456cb1e45a6
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Oct 8 13:19:55 2009 +0200
+
+    Refactor code a bit to make more obvious which scheduler is the default.
+
+commit 9f2588a3cb6cd9356b58e97d44237124068abe74
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Oct 7 03:02:42 2009 +0200
+
+    Fix make distcheck, update translation files, add pot file back.
+
+commit cf96f1a466d1d002f901c99c069758ca82781a2e
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 21:25:26 2009 +0200
+
+    Update namespace in service files and Makefile.am.
+
+commit abcebdf3a33db65061003f923a0eedbe7be50269
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 21:16:56 2009 +0200
+
+    Back to the org.freedesktop.thumbnails namespace. Use API versioning.
+    
+    This is another in a series of commits aiming at synchronizing the
+    implemented D-Bus API with the changes recently made to the spec on
+    http://live.gnome.org/ThumbnailerSpec.
+    
+    We now append an API version to the D-Bus interface and object path
+    names. We also use org.freedesktop.thumbnails.SpecializedThumbnailer for
+    specialized thumbnailers, as we do not need to use another namespace
+    (previously org.freedesktop.thumbnailer.Thumbnailer was used) for it.
+
+commit bb8928cb7423a1634f444411d7dbc6e4ea0601ef
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 20:51:29 2009 +0200
+
+    Rework the TumblerGroupScheduler code. Use a GList for error/ready URIs.
+
+commit 437b6b40d0fce61358e1a0ed6ae83b1929a550fe
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 20:50:38 2009 +0200
+
+    Update the comments for the LIFO scheduler. Minor coding style changes.
+
+commit 779937857784d4043a6a3023280303efc723c4bf
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 20:49:43 2009 +0200
+
+    Use a GList for managing the schedulers. Rework the service code a bit.
+
+commit aec1c8ac7b4c5089210ff648fd53dba23b172c01
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 20:48:15 2009 +0200
+
+    tumbler_scheduler_get_name() returns a gchar *, not a const gchar *.
+
+commit ade4d2ca8aee0d882366c44f9c9190673391872e
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 20:47:48 2009 +0200
+
+    Small parameter name change in the service dbus XML.
+
+commit 1bd2cc0812be32cbeb0c7adf3a2cdcfa8a5c7a85
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 20:47:23 2009 +0200
+
+    Fix typo in the cache service file.
+
+commit 5cbf191735dcdd2fd248327471d895fa3532add9
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Oct 6 17:26:46 2009 +0200
+
+    Renamed the kind property to name, using GObject properties
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit c8240e613fe2da8d7f4c3ee50b75e6fa1ab8ae67
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Oct 6 16:43:11 2009 +0200
+
+    Added `scheduler` parameter to DBus method Queue
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit bbb9f66d47f0fbb2028439a8eba32ffd794a9dd4
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Oct 6 16:34:14 2009 +0200
+
+    Group scheduler for background thumbnailing
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit b2aa6175031905006c86e3ff749728ac811e1553
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Oct 6 16:32:21 2009 +0200
+
+    LIFO scheduler for interactive thumbnailing
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit 107f638da92c8da10b3b34c8fb5ad81e1690c9cd
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 15:35:10 2009 +0200
+
+    Use xdg cache macro. Drop revision versioning. Drop MAINTAINER_MODE.
+    
+    Don't generate the D-Bus C bindings before creating the dist tarball.
+    Instead, ship the XML infos and generate the bindings at build time.
+    This requires a separate check for dbus-binding-tool.
+
+commit 8daf819c6671a1d261731b169d228cecbb568644
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 15:33:52 2009 +0200
+
+    Add GdkPixbuf check to the font thumbnailer, add xdg cache macro.
+
+commit d45f5f4513054181673326d8be2b2223bc5e70c3
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 15:20:15 2009 +0200
+
+    Remove xfce4-dev-tools specific code from the neutral autogen.sh.
+
+commit 004458939fb81a92f2d307a4a4c1a18a66e1e1c5
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 14:43:18 2009 +0200
+
+    Minor changes in the configure script.
+
+commit d1b62a10f3d8447639430f276e04667494b35c3b
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Oct 6 14:39:02 2009 +0200
+
+    Rework build files. Fix bugs introduced in previous commits.
+    
+    The build checks for plugins were moved into acinclude.m4. autogen.sh
+    now passes command line parameters to its delegates autogen-xfce.sh and
+    autogen-gnome.sh. Removed the ELF visibility stuff from configure.ac and
+    so on.
+
+commit 292fd407ae55590a1d4ec46b0b936c80c5a03384
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Tue Oct 6 11:46:28 2009 +0200
+
+    Put in place dev-tools neutral build environment
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit f13b573199bf3af409d1836e1e2078f97c45cc98
+Author: Philip Van Hoof <philip@codeminded.be>
+Date:   Wed Sep 30 15:44:38 2009 +0200
+
+    Prepare build environment for Maemo compatibility
+    
+    Signed-off-by: Jannis Pohlmann <jannis@xfce.org>
+
+commit f9053a4334e1a8642ae31284c734052d0e206347
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Oct 5 19:46:26 2009 +0200
+
+    Rename D-Bus service file, add others for the cache and the manager.
+    
+    This finally fixes the D-Bus activation issues and starts tumblerd
+    automatically e.g. when Thunar is started.
+
+commit e3995be157cf9c161f09ba24e07ac8ef92ca04ec
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Oct 5 16:19:21 2009 +0200
+
+    Chain constructed up to parent classes. Need to remember this.
+
+commit b5d3d3e7c7578883a6be766a6ec7cdda18b294c5
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Oct 5 15:31:13 2009 +0200
+
+    Register marshallers for specialized thumbnailer signals.
+
+commit 88bd699be2ce252010a93cb2e327d0395b2aaab6
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Oct 5 15:14:17 2009 +0200
+
+    Derive TumblerSpecializedThumbnailer from TumblerAbstractThumbnailer.
+    
+    The abstract thumbnailer already manages the URI schemes, MIME hints and
+    hash keys arrays for us, so we don't have to do this ourselves.
+
+commit 0b556c1738ddcf4737c680061750b5c340b4a0bc
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Oct 5 15:13:34 2009 +0200
+
+    Fix reference counting leak spotted by Philip Van Hoof.
+
+commit fd8d82d61bf59129583dc2dab7edae54be214f31
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 15:09:16 2009 +0200
+
+    Always check for "file" and add it if necessary. Clearly the better way.
+
+commit 7d6875461d59e7b7c558f5586ceb4df92b3c57a9
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 14:48:25 2009 +0200
+
+    Always add "file" to the supported URI schemes. Fix compiler warnings.
+    
+    There's a bug in GIO/GVfs which doesn't include "file" in the URI
+    schemes returned by g_vfs_get_supported_uri_schemes(). Bug filed
+    upstream on http://bugzilla.gnome.org/show_bug.cgi?id=596867.
+
+commit 5162982c8acaaf3b7677e0627e9fc4a757ac9213
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 03:46:23 2009 +0200
+
+    Make sure to free the font file data.
+
+commit 2ce5c9a917a46e2468bc4df48577042cdcd8fa97
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 03:40:27 2009 +0200
+
+    Make the font thumbnailer work with all URI schemes supported by GIO.
+
+commit 8b48e3a585cc4f302665c1c63e0fe2af09e9c35d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 03:30:15 2009 +0200
+
+    Make the pixbuf support all URI schemes supported by GIO.
+
+commit adca19e3bbbd639ed9c197500369594c372bba4d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 03:13:52 2009 +0200
+
+    Simplify the ENABLE_FONT_THUMBNAILER conditional.
+
+commit 75e2cbfa7f2022b2828670ebd445373a57cf142f
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 03:08:40 2009 +0200
+
+    Fix several mistakes and typos, and therewith make distcheck.
+
+commit 37a5fd2ad68a5efa954b1019513d6389882ff967
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 02:30:33 2009 +0200
+
+    Fix typo. The variable is called pixbuf, not font.
+
+commit 9210c7c85d41f2bd3bc6314f0ead393989e82f3a
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 02:22:53 2009 +0200
+
+    Merge strings, update translation files.
+
+commit d94aa4686d02796116ec69a6a6bdf6d9154d2384
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 02:16:40 2009 +0200
+
+    Implement the font thumbnailer, reusing code from ThunarVFS.
+    
+    For now this one only works on local paths but this will soon change. If
+    the FUSE daemon of GVfs is available, even non-local files are
+    supported.
+
+commit bf87845cd35e6db1abe4e497c502993a5296baee
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Sep 30 00:07:28 2009 +0200
+
+    Rename PixbufThumbnailerThumbnailer to PixbufThumbnailer. More renames.
+
+commit 0fdef5f7449026d9d2bb0da25ef7c3c1846609e2
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Sep 29 23:54:41 2009 +0200
+
+    Use org.xfce and /org/xfce prefixes instead of freedesktop ones.
+    
+    The thumbnail management D-Bus specification is not an official
+    freedesktop.org specification yet, so for now we'll stick to our own
+    namespace.
+
+commit 062d22be89e3b4b9ef02f4a30c128f37c0f80f11
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Sep 12 04:12:16 2009 +0200
+
+    Fix two more memory leeks. According to valgrind there are none left.
+
+commit 2ec7c01f9debd21e4f41280d57361acbe29d10e7
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Sep 12 04:02:58 2009 +0200
+
+    Fix two memory leaks. Cleanup indentations.
+
+commit 0d04763d81cc9665fd22eda65944a73828838ac6
+Author: Iñigo Varela <malditoastur@gmail.com>
+Date:   Wed Sep 2 14:31:40 2009 +0000
+
+    l10n: Updates to Asturian translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 439e7bb03d02da74a4a1336ec79b3f40b9b573eb
+Author: Samed Beyribey <beyribey@gmail.com>
+Date:   Fri Aug 28 19:00:10 2009 +0000
+
+    l10n: Initial Turkish translation of tumbler
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 3808cc75d7a39602cc8f1e765fadd8a0c339ef39
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Sat Aug 22 16:26:21 2009 +0000
+
+    l10n: Added Danish translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 971c822519dea3d55b2e0a540ad9c3fac183a8b8
+Author: Jeff Bailes <thepizzaking@gmail.com>
+Date:   Tue Aug 18 11:38:41 2009 +0000
+
+    l10n: Add en_GB translation
+    
+    Transmitted-via: Transifex (translations.xfce.org)
+
+commit 58fa663f4718393cc14ae770f11736dff1464042
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Aug 11 14:52:29 2009 +0200
+
+    Change module name to 'tumbler', not 'airconfig'. Thanks, Nick.
+
+commit ecacbf6c5c34b5ad47e7c9f929a99e24ce9c1ff6
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Aug 11 14:44:03 2009 +0200
+
+    Add module description file.
+
+commit 9c2f482d715f311b462734aabff1a30801927b57
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu Jun 25 14:32:46 2009 +0200
+
+    Add tumbler_thumbnail_save_file() to save thumbnails from source files.
+    
+    This is especially useful for plugins that execute external commands
+    such as "convert". They can just let these commands write to a certain
+    file which they then pass to tumbler_thumbnail_save_file() to make sure
+    it's stored in a way the corresponding cache plugin supports.
+    
+    It is an alternative to tumbler_thumbnail_save_pixbuf().
+
+commit bbbf90193aab5022feaaadff6b073fabf23945e0
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Jun 17 22:25:46 2009 +0200
+
+    Remove deprecated files.
+
+commit a2189196f00ea57d6ee76b3402491a8ca585347b
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Jun 17 22:25:23 2009 +0200
+
+    Build plugins after the library.
+
+commit 91664da08c16f55b29823c554c7fd582f4b901d3
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Jun 17 22:24:23 2009 +0200
+
+    Cleanup, remove private structs and use G_DEFINE_TYPE where possible.
+    
+    This commit also contains a few fixes though.
+
+commit 32eb2981f5d35f835809fc05ddc1800bd62c7675
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jun 12 01:01:42 2009 +0200
+
+    No thumbnails for thumbnails. Allow Unqueue in the middle of requests.
+    
+    There's a new method tumbler_cache_is_thumbnail() now which has to
+    be implemented by plugins. It is used by TumblerFileInfo in
+    tumbler_file_info_load() to check whether the file is a thumbnail
+    itself. In that case, tumbler_file_info_load() will fail with
+    a TUMBLER_ERROR_IS_THUMBNAIL error.
+    
+    Add another check in TumblerThresholdScheduler to make unqueuing
+    requests in the middle of the process work.
+
+commit 4769ddb2dd7c51d8df89f55bbddc91ce7358bfa1
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Jun 9 15:48:05 2009 +0200
+
+    Fix service activation and a DBusGConnection refcount bug.
+
+commit 7c25fc248a8db813512c6c4e75213d1d4827b0f3
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Jun 9 15:34:59 2009 +0200
+
+    Implement Cleanup, Copy, Move and Delete in cache plugin and service.
+
+commit 6f37775b1589f57839e1e62f27154f79a0618aed
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Jun 9 15:34:17 2009 +0200
+
+    Fix bug in deallocation of provider infos in TumblerProviderFactory.
+
+commit 350f07e8f228cd6c2e137a610f81da1ddbd0e6e2
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue Jun 9 15:33:18 2009 +0200
+
+    Minor tweaks. Use TUMBLER_ADD_INTERFACE in pixbuf thumbnailer plugin.
+
+commit 6c3eaab253abd6d1bdab7fe2efd83489897d0c54
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Jun 8 21:05:33 2009 +0200
+
+    Update API docs a little bit.
+
+commit 9d5f1b7b03bd0ad50365fa8186a0d9bce690f31d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon Jun 8 20:31:41 2009 +0200
+
+    Add plugin interface for cache and thumbnailer implementations.
+    
+    This is a major refactoring of the source code. Amongst others, the
+    classes TumblerProviderFactory, TumblerThumbnailer,
+    TumblerAbstractThumbnailer, TumblerThumbnailerProvider, TumblerCache,
+    TumblerCacheProvider and TumblerFileInfo have been added.
+    
+    From now on tumbler supports different storage backends and thumbnailers
+    as plugins. Storage backends have to implement TumblerCache,
+    thumbnailers have to implement TumblerThumbnailer.
+    
+    Plugins have to implement three methods: tumbler_plugin_initialize(),
+    tumbler_plugin_shutdown() and tumbler_plugin_get_types(). The latter
+    is expected to return a list of provider types for cache or thumbnailer
+    implementations.
+    
+    Two example plugins have been added, one for the XDG thumbnail cache
+    and one for a GdkPixbuf based thumbnailer.
+    
+    The code of tumblerd was updated to reflect these changes in libtumbler.
+
+commit 04bb883f2b53aea6f848672ee7dea42cf7a6af86
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jun 5 15:39:25 2009 +0200
+
+    Add TumblerCache service and try to start it at startup of tumblerd.
+    
+    TumblerCache is an implementation of org.freedesktop.thumbnails.Cache,
+    supporting Move(), Copy(), Delete(), Cleanup(). At the moment it's
+    just a skeleton.
+    
+    The service is started together with tumblerd.
+    
+    Change the D-Bus paths of the other services to be unique (otherwise
+    they won't start up).
+
+commit af1fb13deb392df3011d9ccc82dfa841612174bf
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jun 5 01:06:24 2009 +0200
+
+    Always pass the length along with TumblerThumbnailer arrays.
+
+commit 002ae7c711d839af240753cb23b1778d248e5263
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jun 5 01:05:30 2009 +0200
+
+    Remove tumbler-thumbnail.h includes.
+
+commit 6ee889c1913328177462b7d2169a78a4d7410da7
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jun 5 01:05:05 2009 +0200
+
+    Add TUMBLER_ERROR_NO_THUMBNAILER error code.
+
+commit 70e48396705c2a03ff27148c35b09cc2cad03df9
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jun 5 00:20:39 2009 +0200
+
+    Improve threshold scheduler, thumbnail info and builtin thumbnailer.
+    
+    Depend on libpng 1.2 and make gdk-pixbuf a hard dependency.
+    
+    Remove tumbler/tumbler-thumbnail.{c,h}. Move all related functions into
+    TumblerThumbnailInfo.
+    
+    Improve the generation of tumbler-marshal.{c,h}, so that they can be
+    included in the library and be used by others.
+    
+    Improve TumblerThumbnailInfo and TumblerPNGThumbnailInfo. The interface
+    now has functions to save fail thumbnails and pixbufs for all supported
+    thumbnail flavors. It can also check whether there are invalid/outdated
+    flavors. It also knows about the GFile's and sizes of all flavors.
+    Specialized thumbnailers can use TumblerThumbnailInfo to check if they
+    need to do something and if so, what they need to do. Once they have
+    a GdkPixbuf ready, they can just hand it over to the
+    TumblerThumbnailInfo and don't have to worry about saving.
+    
+    Also improve TumblerPNGThumbnailInfo, which is an implementation of
+    TumblerThumbnailInfo that supports the thumbnail cache defined in the
+    Thumbnail Managing Standard.
+    
+    The built-in pixbuf thumbnailer is almost completely implemented now.
+    However, it doesn't support cropped thumbnails yet.
+    
+    This commit also adds a new method tumbler_scheduler_emit_uri_error()
+    which can be used to emit an error for only one URI. Finally, it
+    includes a few code cleanups.
+
+commit 49a294f22e75f117171973e8f701819fa4c5a684
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 21:29:11 2009 +0200
+
+    Implement tumbler_service_unqueue(), add tumbler_scheduler_unqueue().
+    
+    Implement unqueue in TumblerService, TumblerScheduler and also in
+    TumblerThresholdScheduler.
+
+commit aa186ccb54907cada638850637d93b41e119e388
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 21:25:29 2009 +0200
+
+    Add TumblerThumbnailInfo and TumblerThumbnailFormat enum.
+    
+    TumblerThumbnailInfo is an interface for querying thumbnail information
+    for a certain TumblerThumbnailFormat (PNG, JPEG etc.). By default only
+    PNG is supported, via TumblerPNGThumbnailInfo, as required for the
+    Thumbnail Managing Standard.
+    
+    TumblerThumbnailInfo acts as a factory which creates a thumbnail info
+    for an URI (and optionall, a format). The returned thumbnail info
+    provides information about the existence of a certain thumbnail flavor
+    for the URI and other bits defined in the Thumbnail Managing Standard.
+    See http://jens.triq.net/thumbnail-spec/creation.html fore more info.
+    
+    Right now, there's nothing implemented. These are just skeletons.
+
+commit 1be38c8bbcc386fba086b65f63c164dc33214ab4
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 03:56:35 2009 +0200
+
+    Implement the first bits of TumblerThresholdScheduler.
+    
+    Allocate two thread pools, using the new function
+    tumbler_scheduler_request_compare() as a sort function for incoming
+    requests. The scheduler doesn't do any work yet other than pushing
+    requests to one of the thread pools and into a request list.
+    
+    Use TumblerThresholdScheduler in TumblerService for future testing.
+
+commit b45467ee3d9df587668f59e404c9d3317c20868f
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 03:04:43 2009 +0200
+
+    Add more files to .gitignore.
+
+commit 803f5ecc5f265fe9ec8cf973e0a6f9bce4fa066e
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 02:56:31 2009 +0200
+
+    Add API docs for tumbler (not tumblerd) using GTK-Doc.
+
+commit 51447c0cd635cd5309c5d40cdefa339865708650
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 02:07:30 2009 +0200
+
+    Add TODO file.
+
+commit 9f137e1e3b0973786c9ef1363858ba77688ad06f
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 01:55:59 2009 +0200
+
+    Implement the built-in pixbuf thumbnailer (doesn't crop yet), fix bugs.
+    
+    The built-in pixbuf thumbnailer can now generate and save normal and
+    large thumbnails using GdkPixbuf and the new utility functions. It
+    doesn't support cropping yet though.
+    
+    Fix a few typos and bugs across tumblerd which are not really worth
+    mentioning.
+
+commit efab2f56c73c1dec60a14c83a5aff6a5620f7bbc
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 01:48:00 2009 +0200
+
+    Add error domain, TumblerThumbnailFlavor and thumbnail helper functions.
+    
+    This commit adds the TUMBLER_ERROR_DOMAIN and TUMBLER_ERROR defines and
+    a TumblerErrorEnum with currently only containing TUMBLER_ERROR_FAILED.
+    
+    Also new is the TumblerThumbnailFlavor enum type, together with a few
+    utility functions related to creating thumbnails:
+    
+      - tumbler_thumbnail_get_flavors() returns all flavors supported by
+        the current build of tumbler,
+    
+      - tumbler_thumbnail_flavor_get_size() returns the size corresponding
+        to a flavor (e.g. 128 for TUMBLER_THUMBNAIL_FLAVOR_NORMAL),
+    
+      - tumbler_thumbnail_flavor_get_directory() returns a GFile pointing
+        to the flavor directory (e.g. $HOME/.thumbnails/normal/ for
+        TUMBLER_THUMBNAIL_FLAVOR_NORMAL),
+    
+      - tumbler_thumbnail_get_file() returns a GFile pointing to the
+        thumbnail destination file of an URI and a flavor,
+    
+      - tumbler_thumbnail_create_and_open_file() tries to create such a
+        GFile and also tries to open it for writing, returning the
+        GFileOutputStream if possible.
+
+commit 2c9ff27c04812b52b4ba9ed02cd1c4c89da9b851
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 01:35:37 2009 +0200
+
+    Disable large thumbnails by default.
+
+commit c5946e5ef4f338d0a8e37f74f87e7d1283fef0fc
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri May 22 01:31:44 2009 +0200
+
+    Add configure options for thumbnail flavors (normal, large, cropped).
+    
+    The configure options are called --enable-normal-thumbnails,
+    --disable-normal-thumbnails and so on. They can be used to enable or
+    disable support for e.g. thumbnails stored in $HOME/.thumbnails/large/.
+    
+    Normal and large thumbnails are enabled by default, cropped thumbnails
+    are disabled.
+
+commit 28e782dfe7df25e2e41a319d44c32a61644ae44e
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu May 21 13:31:29 2009 +0200
+
+    Add tumbler utility library, rename the service to tumblerd.
+    
+    There's a library called tumbler (or tumbler-1) now which provides
+    utility classes and functions for writing specialized thumbnailers. The
+    libary is LGPL while the D-Bus service itself is GPL.
+    
+    The tumbler service was renamed to tumblerd and the marshallers
+    were moved into the library.
+
+commit 233d958a6630d4972fdd2c24c72bab6b9a7b5d01
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu May 21 03:31:33 2009 +0200
+
+    Implement TumblerNaiveScheduler and add signals to TumblerService.
+    
+    TumblerNaiveScheduler is a very simple scheduler running in the main
+    loop. It processes requests as they come and emits signals per-URI. It
+    is mainly useful for testing purposes.
+    
+    With the first scheduler being available, implement "started",
+    "finished", "error" and "ready" signals in TumblerThumbnailer,
+    TumblerBuiltinThumbnailer, TumblerScheduler, TumblerNaiveScheduler and
+    TumblerService.
+    
+    Also implement tumbler_builtin_scheduler_create() based on the
+    TumblerBuiltinThumbnailerFunc specified in the constructor. We now have
+    an environment to implement and test the built-in pixbuf thumbnailer.
+
+commit df5098a4173fbc8fba0988169ed949c5b8df90a1
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Thu May 21 03:12:28 2009 +0200
+
+    Fix last element not being copied in tumbler_thumbnailer_array_copy().
+
+commit 872604a7f03e626883915bda32c4d879a5753e98
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed May 20 14:33:46 2009 +0200
+
+    Implement tumbler_service_queue() based on TumblerSchedulerRequest.
+    
+    When an org.freedesktop.thumbnailer.Generic.Queue request is sent to
+    TumblerService, it does three things:
+    
+      1. It requests a TumblerThumbnailer array from its TumblerRegistry.
+         This array has the same length as the URIs and mime hints arrays
+         passed to org.freedesktop.thumbnailer.Generic.Queue. The Nth
+         thumbnailer in the array is responsible for generating the
+         thumbnailer for the Nth URI.
+    
+      2. It allocates a TumblerSchedulerRequest.
+    
+      3. It asks the TumblerScheduler to push the request.
+    
+    Amongst others, the following functions were added in this commit:
+    
+      - tumbler_registry_get_thumbnailer_array()
+      - tumbler_registry_lookup() (private function)
+      - tumbler_scheduler_request_new()
+      - tumbler_schedulre_request_free()
+      - tumbler_thumbnailer_array_copy()
+      - tumbler_thumbnailer_array_free()
+
+commit 56a8413db94ca274405750d60e1076d4cc27ccce
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed May 20 02:08:18 2009 +0200
+
+    Implement tumbler_service_start(), add D-Bus bindings for the service.
+    
+    Try to claim ownership for the generic thumbnailer interface name and
+    fail from tumbler_service_start() on errors. Add a GMutex to
+    TumblerService.
+    
+    Also add tumbler-service-dbus.xml and modify Makefile.am to generate
+    D-Bus bindings for the generic thumbnailer service. Install type info
+    and register the service object in tumbler_service_start().
+
+commit e737024ca23de8e549bc4d9ab547420b8c990eee
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed May 20 01:28:26 2009 +0200
+
+    Add TumblerScheduler and TumblerThresholdScheduler skeletons.
+    
+    Thumbnail requests need to be scheduled in some way. Let's say the
+    service receives a request for 1000 thumbnails and one for 5 after the
+    first one. How should these be scheduled?
+    
+    TumblerScheduler provides an interface for different schedulers, one of
+    which is TumblerThresholdScheduler. TumblerThresholdScheduler is
+    inspired by the thumbnailer in hildon-thumbnail. It uses two thread
+    pools, one for large and one for small requests. Requests are managed
+    using a LIFO and inserted into one of the pools depending on the number
+    of requested thumbnails (the threshold).
+    
+    However, for the moment these are just skeletons.
+    
+    This commit also makes sure to copy hash keys before inserting
+    thumbnailers into the registry hash table.
+
+commit 4b7a4c0d14310b17e4c9f6597b7edc18421063fc
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue May 19 02:39:47 2009 +0200
+
+    Use GdkPixbuf to get MIME types for the (optional) pixbuf thumbnailer.
+    
+    Add an optional dependency on gdk-pixbuf-2.0 >= 2.14 for the pixbuf
+    thumbnailer created with tumbler_pixbuf_thumbnailer_new(). Use
+    gdk_pixbuf_get_formats() to get a list of formats and MIME types
+    supported by GdkPixbuf. Pass these to the constructor of the
+    thumbnailer.
+
+commit f35dd94216a946fe82dc9328dfaf6fdaca98d883
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue May 19 02:10:55 2009 +0200
+
+    Implement tumbler_manager_get_supported() based on the registry.
+    
+    TumblerRegistry has a new function called
+    tumbler_registry_get_thumbnailers() which returns all active
+    thumbnailers in random order. TumblerManager uses this list to generate
+    a string array with unique MIME types to be returned to the caller of
+    org.freedesktop.thumbnailer.Manager.GetSupported().
+
+commit 2e38d59b4a5ce0452511a82addb17cb508b9ca77
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue May 19 01:21:41 2009 +0200
+
+    Make the registry thread-safe using a GMutex.
+
+commit c22081e3281b587fbeb920030705ed4ef58e960b
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Tue May 19 01:15:44 2009 +0200
+
+    Implement thumbnailer management in TumblerRegistry.
+    
+    Use a (gchar *) to (GList **) hash table for managing thumbnailers in
+    TumblerRegistry. For each so-called hash key (a combination of an URI
+    scheme and a MIME type, e.g. "file-image/png") we store a list of
+    registered thumbnailers. Only the first thumbnailer in this list will
+    ever be used. The others can move forward in the list when a thumbnailer
+    is unregistered.
+    
+    The order in which thumbnailers are inserted into a list is defined as
+    follows:
+    
+      - thumbnailers registered dynamically over D-Bus go before anything
+        else. The thumbnailer registered latest goes first.
+      - specialized thumbnailers with most recent service files go first.
+      - built-in thumbnailers are always at the end of the list in the
+        order they were added to the registry.
+    
+    Connect to the new "unregister" signal of all TumblerThumbnailers to
+    remove them when required. The signal is only emitted by
+    TumblerSpecializedThumbnailers when their proxy is destroyed.
+    
+    TumblerSpecializedThumbnailer has two new properties: "foreign" and
+    "modified". Foreign thumbnailers are those registered dynamically over
+    D-Bus (using org.freedesktop.thumbnailer.Manager.Register()). The
+    "modified" property represents the timestamp of when the thumbnailer's
+    .service file was last modified. It is 0 for foreign thumbnailers.
+
+commit a66781a82678305cee2566f72cb0ea2c34667871
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Mon May 18 05:12:38 2009 +0200
+
+    Improve TumblerThumbnailer and add TumblerSpecializedThumbnailer.
+    
+    Add new properties "uri-schemes" and "hash-keys" to TumblerThumbnailer
+    and add getter functions for all TumblerThumbnailer properties.
+    
+    Add URI schemes parameter to the TumblerBuiltinThumbnailer constructor
+    and compute hash keys for built-in thumbnailers based on the provided
+    URI schemes and mime types.
+    
+    Adds TumblerSpecializedThumbnailer which is created for each thumbnailer
+    either found in $XDG_DATA_DIRS/thumbnailers/ or registered dynamically
+    via org.freedesktop.thumbnailer.Manager.Register(). Internally it uses a
+    DBusGProxy to talk to the specialized thumbnailer service.
+    
+    Add a GMutex to TumblerManager and lock all functions for now. Implement
+    the Register() method which creates a new TumblerSpecializedThumbnailer
+    and adds it to the registry.
+
+commit 74dfcce3515f3e9852570a1a01faa5d997c63f6d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun May 17 22:10:57 2009 +0200
+
+    Introduce interfaces and classes for built-in thumbnailers.
+    
+    This commit introduces the TumblerThumbnailer interface which is
+    supposed to be implemented twice, once for built-in thumbnailers that
+    run in the same process as tumbler itself, and once for specialized
+    thumbnailers which talk to tumbler over D-Bus. TumblerThumbnailer
+    provides a function for creating a thumbnail plus "ready" and "error"
+    signals. Their signatures may still change though.
+    
+    TumblerBuiltinThumbnailer is a new class for built-in thumbnailers. It
+    is a little similar to ExoSimpleJob in that it allows built-in
+    thumbnailers to be created by defining a create function and a list of
+    mime types.
+    
+    Also new is tumbler_pixbuf_thumbnailer_new() which creates a pixbuf
+    thumbnailer. It's just a skeleton for now.
+    
+    TumblerRegistry now has a method tumbler_registry_add() for adding a
+    new TumblerThumbnailer to the registry.
+    
+    Last but not least, there's tumbler-marshal.list for custom marshallers
+    now.
+
+commit abdd96f4ac9e04da0d58b2dfd144d661fdd02095
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun May 17 19:10:52 2009 +0200
+
+    Implement manager D-Bus interface in TumblerManager.
+    
+    This adds XML description of the D-Bus interface for
+    org.freedesktop.thumbnailer.Manager. tumbler_manager_start() is now
+    implemented. Also new is tumbler-utils.h which adds the
+    dbus_async_return_if_fail() macro.
+
+commit ec7943e8de68cda4ab16bc0ba7a2e6677194556d
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun May 17 04:31:20 2009 +0200
+
+    Add tumbler class skeletons and .pot file.
+    
+    The added skeletons are:
+      - TumblerRegistry, which loads specialized thumbnailers and supports
+        monitoring the thumbnailer directories for changes.
+      - TumblerManager, which implements org.freedesktop.thumbnailer.Manager
+        and uses the registry to determine the MIME types supported by
+        tumbler. It also adds new specialized thumbnailers to the registry
+        when the org.freedesktop.thumbnailer.Manager.Register() method is
+        called over D-Bus.
+      - TumblerService, which implements org.freedesktop.thumbnailer.Generic
+        and uses the specialized thumbnailers to delegate thumbnail
+        requests.
+    
+    These classes don't do anything useful yet. They just exist.
+
+commit f46395f8446a568681ef4b8d61bd2d390a6acc61
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun May 17 03:22:34 2009 +0200
+
+    Initial import. Nothing useful yet.
+
+commit 90f017638e119185bf17a373d7d565eaebb8903c
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun May 17 02:38:46 2009 +0200
+
+    Add AUTHORS file.

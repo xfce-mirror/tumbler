@@ -20,10 +20,10 @@
 dnl ***************************
 dnl *** Version information ***
 dnl ***************************
-m4_define([tumbler_verinfo], [0:0:0]) dnl TODO: Do we need to change this for the first release?
+m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
-m4_define([tumbler_version_minor], [0])
+m4_define([tumbler_version_minor], [1])
 m4_define([tumbler_version_micro], [0])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
