@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-05 12:41+0100\n"
-"PO-Revision-Date: 2009-10-12 16:20+0900\n"
+"POT-Creation-Date: 2009-12-07 23:41+0900\n"
+"PO-Revision-Date: 2009-12-07 23:40+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -34,25 +34,24 @@ msgid "Another generic thumbnailer is already running"
 msgstr "他の一般サムネイラが既に動作しています"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
-#, fuzzy
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "特殊サムネイラのレジストリへの読み込みに失敗しました: %s"
+msgstr "特殊サムネイラの呼び出しに失敗しました: タイムアウト"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "特殊サムネイラのレジストリへの読み込みに失敗しました: %s"
+msgstr "特殊サムネイラの呼び出しに失敗しました: %s"
 
 #: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
+msgstr "ファイル \"%s\" の読み込みに失敗しました: %s"
 
 #: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr ""
+msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: %3$s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
@@ -60,17 +59,19 @@ msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
+"ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: セクション名と "
+"UriScheme/MimeType が一致しません"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "ファイル \"%s\" は不正な形式です: %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "\"%s\" の最終変更日時の決定に失敗しました"
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
@@ -117,17 +118,17 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "RGB 色空間"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "プラグイン \"%s\" には必要なシンボルが不足しています。"
+msgstr "キャッシュプラグイン \"%s\" に必要なシンボルが不足しています。"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
+msgstr "キャッシュプラグイン \"%s\" の読み込みに失敗しました: %s"
 
 #: ../tumbler/tumbler-file-info.c:296
 #, c-format
