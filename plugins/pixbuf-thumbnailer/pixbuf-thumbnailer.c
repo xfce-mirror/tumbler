@@ -157,15 +157,6 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   uri = tumbler_file_info_get_uri (info);
 
-  /* try to load the file information */
-  if (!tumbler_file_info_load (info, NULL, &error))
-    {
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
-      g_error_free (error);
-      g_object_unref (info);
-      return;
-    }
-
   /* try to open the source file for reading */
   file = g_file_new_for_uri (uri);
   stream = g_file_read (file, NULL, &error);
