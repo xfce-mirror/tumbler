@@ -166,7 +166,6 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     {
       g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
-      g_object_unref (info);
       return;
     }
 
@@ -178,7 +177,6 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     {
       g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
-      g_object_unref (info);
       return;
     }
 
@@ -218,5 +216,4 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (thumbnail);
   g_object_unref (pixbuf);
   g_object_unref (source_pixbuf);
-  g_object_unref (info);
 }
