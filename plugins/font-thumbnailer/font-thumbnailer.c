@@ -480,7 +480,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* clean up */
       g_error_free (error);
       g_object_unref (file);
-      g_object_unref (info);
 
       return;
     }
@@ -499,7 +498,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       /* clean up */
       g_free (font_data);
-      g_object_unref (info);
 
       return;
     }
@@ -525,7 +523,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
               /* clean up */
               g_free (font_data);
               FT_Done_Face (face);
-              g_object_unref (info);
 
               return;
             }
@@ -553,7 +550,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* clean up */
       g_free (font_data);
       FT_Done_Face (face);
-      g_object_unref (info);
 
       return;
     }
@@ -593,5 +589,4 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (pixbuf);
   g_object_unref (thumbnail);
   g_free (font_data);
-  g_object_unref (info);
 }
