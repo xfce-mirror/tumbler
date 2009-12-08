@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-05 12:41+0100\n"
+"POT-Creation-Date: 2009-12-08 23:18+0100\n"
 "PO-Revision-Date: 2009-12-03 10:19+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
@@ -157,16 +157,19 @@ msgstr "Impossible de charger le greffon \"%s\" : %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Incompatibilité de versions: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Initialisation du greffon de vignettes pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Arrêt du greffon de vignettes pixbuf"
 
@@ -192,22 +195,28 @@ msgid "Could not load file contents: %s"
 msgstr "Impossible de charger le contenu du fichier: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:495
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
 msgstr "Impossible d'ouvrir le fichier de la police: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:520
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr "Impossible de définir le caractère de la carte: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:548
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, fuzzy, c-format
 msgid "Could not render glyphs: %s"
 msgstr "Ne pouvait rendre glyphs: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format

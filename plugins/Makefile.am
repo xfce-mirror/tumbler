@@ -19,5 +19,6 @@
 
 SUBDIRS =								\
 	font-thumbnailer						\
+	jpeg-thumbnailer						\
 	pixbuf-thumbnailer						\
 	xdg-cache

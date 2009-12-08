@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-05 12:41+0100\n"
+"POT-Creation-Date: 2009-12-08 23:18+0100\n"
 "PO-Revision-Date: 2009-11-06 13:43+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -155,16 +155,19 @@ msgstr "Fallo ao cargar o engadido \"%s\": %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "As versións non coinciden: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Iniciando o engadido miniaturizador de Pixbuf de Tumbler"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Apagando o engadido miniaturizador de Pixbuf de Tumbler"
 
@@ -189,22 +192,28 @@ msgid "Could not load file contents: %s"
 msgstr "Non foi posible cargar o ficheiro: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:495
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
 msgstr ""
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:520
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr "Non se puido definir o mapa de caracteres: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:548
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr "Non foi posible debuxar os glifos: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format

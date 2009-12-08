@@ -106,7 +106,9 @@ dnl ***************************************
 dnl *** Check for standard header files ***
 dnl ***************************************
 AC_HEADER_STDC()
-AC_CHECK_HEADERS([unistd.h sched.h linux/sched.h syscall.h sys/types.h sys/stat.h])
+AC_CHECK_HEADERS([fcntl.h linux/sched.h memory.h sched.h setjmp.h stdio.h \
+                  stdlib.h string.h syscall.h sys/mman.h sys/types.h \
+                  sys/stat.h unistd.h])
 
 dnl ************************************
 dnl *** Check for standard functions ***
@@ -148,8 +150,9 @@ PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
 dnl *************************
 dnl *** Check for plugins ***
 dnl *************************
-TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_FONT_THUMBNAILER()
+TUMBLER_JPEG_THUMBNAILER()
+TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
 dnl ***********************************
@@ -176,6 +179,7 @@ docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
 plugins/Makefile
 plugins/font-thumbnailer/Makefile
+plugins/jpeg-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
@@ -191,23 +195,28 @@ dnl ***************************
 echo
 echo "Build Configuration:"
 echo
-echo "  * Debug:                            $enable_debug"
+echo "  * Debug:                                     $enable_debug"
 echo
 echo "Plugins:"
 echo
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
-echo "  * GdkPixbuf thumbnailer plugin:     yes"
+echo "  * GdkPixbuf thumbnailer plugin:              yes"
 else
-echo "  * GdkPixbuf thumbnailer plugin:     no"
+echo "  * GdkPixbuf thumbnailer plugin:              no"
 fi
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
-echo "  * FreeType font thumbnailer plugin: yes"
+echo "  * FreeType font thumbnailer plugin:          yes"
 else
-echo "  * FreeType font thumbnailer plugin: no"
+echo "  * FreeType font thumbnailer plugin:          no"
+fi
+if test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"; then
+echo "  * JPEG thumbnailer plugin with EXIF support: yes"
+else
+echo "  * JPEG thumbnailer plugin with EXIF support: no"
 fi
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
-echo "  * Freedesktop.org cache plugin:     yes"
+echo "  * Freedesktop.org cache plugin:              yes"
 else
-echo "  * Freedesktop.org cache plugin:     no"
+echo "  * Freedesktop.org cache plugin:              no"
 fi
 echo

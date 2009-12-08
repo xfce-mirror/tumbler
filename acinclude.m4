@@ -79,6 +79,49 @@ AC_MSG_RESULT([$ac_tumbler_font_thumbnailer])
 
 
 
+dnl TUMBLER_JPEG_THUMBNAILER()
+dnl
+dnl Check whether to build and install the JPEG thumbnailer plugin with 
+dnl EXIF support.
+dnl
+AC_DEFUN([TUMBLER_JPEG_THUMBNAILER],
+[
+AC_ARG_ENABLE([jpeg-thumbnailer], [AC_HELP_STRING([--disable-jpeg-thumbnailer], [Don't build the JPEG thumbnailer plugin with EXIF support])],
+  [ac_tumbler_jpeg_thumbnailer=$enableval], [ac_tumbler_jpeg_thumbnailer=yes])
+if test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  [
+    dnl Check for libjpeg
+    LIBJPEG_LIBS=""
+    LIBJPEG_CFLAGS=""
+    AC_CHECK_LIB([jpeg], [jpeg_start_decompress],
+    [
+      AC_CHECK_HEADER([jpeglib.h],
+      [
+        LIBJPEG_LIBS="-ljpeg -lm"
+      ],
+      [
+        dnl We can only build the JPEG thumbnailer if the JPEG headers are available
+        ac_tumbler_jpeg_thumbnailer=no
+      ])
+    ],
+    [
+      dnl We can only build the JPEG thumbnailer if libjpeg is available
+      ac_tumbler_jpeg_thumbnailer=no
+    ])
+    AC_SUBST([LIBJPEG_CFLAGS])
+    AC_SUBST([LIBJPEG_LIBS])
+  ], [ac_tumbler_jpeg_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the JPEG thumbnailer plugin with EXIF support])
+AM_CONDITIONAL([TUMBLER_JPEG_THUMBNAILER], [test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_jpeg_thumbnailer])
+])
+
+
+
 dnl TUMBLER_XDG_CACHE()
 dnl
 dnl Check whether to build and install the freedesktop.org cache plugin.
