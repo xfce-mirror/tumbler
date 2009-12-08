@@ -378,7 +378,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
           /* try to rename the thumbnail */
           if (g_rename (temp_path, dest_path) == -1)
             {
-              g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_FAILED,
+              g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_SAVE_FAILED,
                            _("Could not save thumbnail to \"%s\""), dest_path);
             }
 

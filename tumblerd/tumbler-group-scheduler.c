@@ -481,7 +481,7 @@ tumbler_group_scheduler_thread (gpointer data,
           else
             {
               /* no thumbnailer for this URI, we need to emit an error */
-              g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_THUMBNAILER,
+              g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_UNSUPPORTED,
                            _("No thumbnailer available for \"%s\""), 
                            tumbler_file_info_get_uri (request->infos[n]));
             }
