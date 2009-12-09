@@ -10,4 +10,6 @@ Tumbler TODO List
 
   - create thumbnails (and directories) with the correct chmod bits set.
 
-  - implement TumblerThresholdScheduler.
+  - make it possible for thumbnailer plugins to notify the registry
+    that their supported URI schemes and MIME types have changed (this
+    is required for the ThunarVFS thumbnailer plugin to work).
