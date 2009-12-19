@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Tumbler 1.0.0\n"
+"Project-Id-Version: Tumbler 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-08 23:18+0100\n"
-"PO-Revision-Date: 2009-12-03 13:08+0100\n"
+"PO-Revision-Date: 2009-12-19 22:24+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -35,43 +35,43 @@ msgid "Another generic thumbnailer is already running"
 msgstr "En anden generisk miniaturetjeneste kører allerede"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
-#, fuzzy
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Kunne ikke indlæse specialiserede miniaturer ind i registret: %s"
+msgstr "Kunne ikke kalde den specialiserede miniature: tidsudløb"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Kunne ikke indlæse specialiserede miniaturer ind i registret: %s"
+msgstr "Kunne ikke kalde den specialiserede miniature: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
-#, fuzzy, c-format
+#: ../tumblerd/tumbler-manager.c:467
+#: ../tumblerd/tumbler-manager.c:873
+#, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Kunne ikke indlæse udvidelsesmodul  \"%s\": %s"
+msgstr "Kunne ikke indlæse filen  \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485
+#: ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr ""
+msgstr "Misdannet sektion \"%s\" i filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886
+#: ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "Misdannet fil \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "Kunne ikke bestemme sidste tid for ændring af \"%s\""
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
@@ -205,7 +205,7 @@ msgstr "Kunne ikke rendere glyphs: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
+msgstr "Miniature kunne ikke blive bestemt ud fra filindholdet"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -222,9 +222,8 @@ msgstr "Lukker udvidelsesmodulet Tumbler XDG cache ned"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
-
 #~ msgid "Large"
 #~ msgstr "Stort"
-
 #~ msgid "Cropped"
 #~ msgstr "Beskåret"
+
