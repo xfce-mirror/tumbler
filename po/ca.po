@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-08 23:18+0100\n"
-"PO-Revision-Date: 2009-12-03 18:30+0100\n"
+"POT-Creation-Date: 2009-12-20 10:58+0000\n"
+"PO-Revision-Date: 2009-12-20 12:51+0100\n"
 "Last-Translator: Harald Servat <redcrash@gmail.com>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,6 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
-#, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Un altre servei de memòria cau de miniatures ja s'està executant"
 
@@ -32,51 +31,49 @@ msgid "No thumbnailer available for \"%s\""
 msgstr "No hi ha cap miniatura disponible per «%s»"
 
 #: ../tumblerd/tumbler-service.c:591
-#, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Un altres sistema genèric de miniatures ja s'està executant"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
-#, fuzzy
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "No s'ha pogut carregar les miniatures especialitzades al registre: %s"
+msgstr "Ha fallat la crida al generador de miniatures: ha expirat el temps"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "No s'ha pogut carregar les miniatures especialitzades al registre: %s"
+msgstr "Ha fallat la crida al generador de miniatures: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
-#, fuzzy, c-format
+#: ../tumblerd/tumbler-manager.c:467
+#: ../tumblerd/tumbler-manager.c:873
+#, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "No s'ha pogut carregar el connector «%s»: %s"
+msgstr "No s'ha pogut carregar el fitxer «%s»: %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485
+#: ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr ""
+msgstr "Secció mal formada «%s» en el fitxer «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Secció mal formada «%s» en el fitxer «%s»: diferències entre el nom de la secció i el UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886
+#: ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "Fitxer amb format erroni «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "No s'ha pogut determinar quan ha succeït la darrera modificació de «%s»"
 
 #: ../tumblerd/tumbler-manager.c:1849
-#, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Un altre gestor de miniatures ja s'està executant"
 
@@ -205,9 +202,8 @@ msgstr "No s'han pogut representar el glif: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
-#, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
+msgstr "La miniatura no s'ha pogut inferir a partir del contingut del fitxer"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -224,9 +220,8 @@ msgstr "S'està apagant el connector de Tumbler de memòria cau XDG"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
-
 #~ msgid "Large"
 #~ msgstr "Gran"
-
 #~ msgid "Cropped"
 #~ msgstr "Escapçat"
+
