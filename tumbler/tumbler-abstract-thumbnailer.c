@@ -46,20 +46,21 @@ enum
 
 
 
-static void tumbler_abstract_thumbnailer_thumbnailer_init (TumblerThumbnailerIface *iface);
-static void tumbler_abstract_thumbnailer_constructed      (GObject                 *object);
-static void tumbler_abstract_thumbnailer_finalize         (GObject                 *object);
-static void tumbler_abstract_thumbnailer_get_property     (GObject                 *object,
-                                                           guint                    prop_id,
-                                                           GValue                  *value,
-                                                           GParamSpec              *pspec);
-static void tumbler_abstract_thumbnailer_set_property     (GObject                 *object,
-                                                           guint                    prop_id,
-                                                           const GValue            *value,
-                                                           GParamSpec              *pspec);
-static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer      *thumbnailer,
-                                                           GCancellable            *cancellable,
-                                                           TumblerFileInfo         *info);
+static void tumbler_abstract_thumbnailer_thumbnailer_init (TumblerThumbnailerIface    *iface);
+static void tumbler_abstract_thumbnailer_constructed      (GObject                    *object);
+static void tumbler_abstract_thumbnailer_finalize         (GObject                    *object);
+static void tumbler_abstract_thumbnailer_get_property     (GObject                    *object,
+                                                           guint                       prop_id,
+                                                           GValue                     *value,
+                                                           GParamSpec                 *pspec);
+static void tumbler_abstract_thumbnailer_set_property     (GObject                    *object,
+                                                           guint                       prop_id,
+                                                           const GValue               *value,
+                                                           GParamSpec                 *pspec);
+static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer         *thumbnailer,
+                                                           GCancellable               *cancellable,
+                                                           TumblerFileInfo            *info);
+static void tumbler_abstract_thumbnailer_update_hash_keys (TumblerAbstractThumbnailer *thumbnailer);
 
 
 
@@ -121,45 +122,16 @@ static void
 tumbler_abstract_thumbnailer_constructed (GObject *object)
 {
   TumblerAbstractThumbnailer *thumbnailer = TUMBLER_ABSTRACT_THUMBNAILER (object);
-  gchar                       *hash_key;
-  guint                        num_hash_keys;
-  guint                        num_mime_types;
-  guint                        num_uri_schemes;
-  guint                        i;
-  guint                        j;
 
   g_return_if_fail (TUMBLER_IS_ABSTRACT_THUMBNAILER (thumbnailer));
   g_return_if_fail (thumbnailer->priv->mime_types != NULL);
   g_return_if_fail (thumbnailer->priv->uri_schemes != NULL);
-  g_return_if_fail (thumbnailer->priv->hash_keys == NULL);
 
   /* chain up to parent classes */
   if (G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->constructed) (object);
 
-  /* determine the size of both arrays */
-  num_uri_schemes = g_strv_length (thumbnailer->priv->uri_schemes);
-  num_mime_types = g_strv_length (thumbnailer->priv->mime_types);
-
-  /* compute the number of hash keys to generate */
-  num_hash_keys = num_uri_schemes * num_mime_types;
-
-  /* allocate and NULL-terminate the hash key array */
-  thumbnailer->priv->hash_keys = g_new0 (gchar *, num_hash_keys + 1);
-  thumbnailer->priv->hash_keys[num_hash_keys] = NULL;
-
-  /* iterate over all pairs of URIs and MIME types */
-  for (i = 0; thumbnailer->priv->uri_schemes[i] != NULL; ++i)
-    for (j = 0; thumbnailer->priv->mime_types[j] != NULL; ++j)
-      {
-        /* generate a hash key for the current pair */
-        hash_key =  g_strdup_printf ("%s-%s", 
-                                     thumbnailer->priv->uri_schemes[i],
-                                     thumbnailer->priv->mime_types[j]);
-
-        /* add the key to the array */
-        thumbnailer->priv->hash_keys[(j*num_uri_schemes)+i] = hash_key;
-      }
+  tumbler_abstract_thumbnailer_update_hash_keys (thumbnailer);
 }
 
 
@@ -217,9 +189,19 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
     {
     case PROP_MIME_TYPES:
       thumbnailer->priv->mime_types = g_strdupv (g_value_get_pointer (value));
+      if (thumbnailer->priv->mime_types != NULL 
+          && thumbnailer->priv->uri_schemes != NULL)
+        {
+          tumbler_abstract_thumbnailer_update_hash_keys (thumbnailer);
+        }
       break;
     case PROP_URI_SCHEMES:
       thumbnailer->priv->uri_schemes = g_strdupv (g_value_get_pointer (value));
+      if (thumbnailer->priv->mime_types != NULL 
+          && thumbnailer->priv->uri_schemes != NULL)
+        {
+          tumbler_abstract_thumbnailer_update_hash_keys (thumbnailer);
+        }
       break;
     case PROP_HASH_KEYS:
       thumbnailer->priv->hash_keys = g_strdupv (g_value_get_pointer (value));
@@ -244,3 +226,53 @@ tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer),
                                                                 cancellable, info);
 }
+
+
+
+static void
+tumbler_abstract_thumbnailer_update_hash_keys (TumblerAbstractThumbnailer *thumbnailer)
+{
+  gchar *hash_key;
+  guint  num_hash_keys;
+  guint  num_mime_types;
+  guint  num_uri_schemes;
+  guint  i;
+  guint  j;
+
+  g_return_if_fail (TUMBLER_IS_ABSTRACT_THUMBNAILER (thumbnailer));
+
+  if (thumbnailer->priv->hash_keys != NULL)
+    {
+      g_strfreev (thumbnailer->priv->hash_keys);
+      thumbnailer->priv->hash_keys = NULL;
+    }
+
+  /* determine the size of both arrays */
+  num_uri_schemes = g_strv_length (thumbnailer->priv->uri_schemes);
+  num_mime_types = g_strv_length (thumbnailer->priv->mime_types);
+
+  /* compute the number of hash keys to generate */
+  num_hash_keys = num_uri_schemes * num_mime_types;
+
+  /* allocate and NULL-terminate the hash key array */
+  thumbnailer->priv->hash_keys = g_new0 (gchar *, num_hash_keys + 1);
+  thumbnailer->priv->hash_keys[num_hash_keys] = NULL;
+
+  /* iterate over all pairs of URIs and MIME types */
+  for (i = 0; thumbnailer->priv->uri_schemes[i] != NULL; ++i)
+    for (j = 0; thumbnailer->priv->mime_types[j] != NULL; ++j)
+      {
+        /* generate a hash key for the current pair */
+        hash_key =  g_strdup_printf ("%s-%s", 
+                                     thumbnailer->priv->uri_schemes[i],
+                                     thumbnailer->priv->mime_types[j]);
+
+        /* add the key to the array */
+        thumbnailer->priv->hash_keys[(j*num_uri_schemes)+i] = hash_key;
+      }
+
+  g_object_notify (G_OBJECT (thumbnailer), "hash-keys");
+}
+
+
+

@@ -32,16 +32,18 @@
 
 
 
-static void         tumbler_registry_finalize                  (GObject            *object);
-static void         tumbler_registry_remove_thumbnailer        (const gchar        *key,
-                                                                GList             **list,
-                                                                TumblerThumbnailer *thumbnailer);
-static void         tumbler_registry_list_free                 (gpointer            data);
-static GList       *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
-static gint         tumbler_registry_compare                   (TumblerThumbnailer *a,
-                                                                TumblerThumbnailer *b);
-TumblerThumbnailer *tumbler_registry_lookup                    (TumblerRegistry    *registry,
-                                                                const gchar        *hash_key);
+static void                tumbler_registry_finalize                      (GObject             *object);
+static void                tumbler_registry_remove_thumbnailer            (const gchar         *key,
+                                                                           GList              **list,
+                                                                           TumblerThumbnailer  *thumbnailer);
+static void                tumbler_registry_list_free                     (gpointer             data);
+static GList              *tumbler_registry_get_thumbnailers_internal     (TumblerRegistry     *registry);
+static gint                tumbler_registry_compare                       (TumblerThumbnailer  *a,
+                                                                           TumblerThumbnailer  *b);
+static TumblerThumbnailer *tumbler_registry_lookup                        (TumblerRegistry     *registry,
+                                                                           const gchar         *hash_key);
+static void                tumbler_registry_thumbnailer_supported_changed (TumblerRegistry     *registry,
+                                                                           TumblerThumbnailer  *thumbnailer);
 
 
 
@@ -277,7 +279,7 @@ tumbler_registry_get_thumbnailers_internal (TumblerRegistry *registry)
 
 
 
-TumblerThumbnailer *
+static TumblerThumbnailer *
 tumbler_registry_lookup (TumblerRegistry *registry,
                          const gchar     *hash_key)
 {
@@ -303,6 +305,22 @@ tumbler_registry_lookup (TumblerRegistry *registry,
     }
 
   return thumbnailer;
+}
+
+
+
+static void
+tumbler_registry_thumbnailer_supported_changed (TumblerRegistry     *registry,
+                                                TumblerThumbnailer  *thumbnailer)
+{
+  g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+
+  g_debug ("supported of %s changed\n", G_OBJECT_TYPE_NAME (thumbnailer));
+
+  tumbler_registry_remove (registry, thumbnailer);
+  tumbler_registry_add (registry, thumbnailer);
+  tumbler_registry_update_supported (registry);
 }
 
 
@@ -375,6 +393,9 @@ tumbler_registry_add (TumblerRegistry    *registry,
   /* connect to the unregister signal of the thumbnailer */
   g_signal_connect_swapped (thumbnailer, "unregister", 
                             G_CALLBACK (tumbler_registry_remove), registry);
+  g_signal_connect_swapped (thumbnailer, "supported-changed",
+                            G_CALLBACK (tumbler_registry_thumbnailer_supported_changed),
+                            registry);
 
   g_strfreev (hash_keys);
 

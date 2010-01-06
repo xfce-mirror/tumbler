@@ -45,13 +45,14 @@ struct _TumblerThumbnailerIface
   GTypeInterface __parent__;
 
   /* signals */
-  void (*ready)      (TumblerThumbnailer *thumbnailer,
-                      const gchar        *uri);
-  void (*error)      (TumblerThumbnailer *thumbnailer,
-                      const gchar        *failed_uri,
-                      gint                error_code,
-                      const gchar        *message);
-  void (*unregister) (TumblerThumbnailer *thumbnailer);
+  void (*ready)             (TumblerThumbnailer *thumbnailer,
+                             const gchar        *uri);
+  void (*error)             (TumblerThumbnailer *thumbnailer,
+                             const gchar        *failed_uri,
+                             gint                error_code,
+                             const gchar        *message);
+  void (*unregister)        (TumblerThumbnailer *thumbnailer);
+  void (*supported_changed) (TumblerThumbnailer *thumbnailer);
 
   /* virtual methods */
   void (*create) (TumblerThumbnailer *thumbnailer,
@@ -67,6 +68,8 @@ void                 tumbler_thumbnailer_create            (TumblerThumbnailer  
 
 GStrv                tumbler_thumbnailer_get_hash_keys     (TumblerThumbnailer  *thumbnailer);
 GStrv                tumbler_thumbnailer_get_mime_types    (TumblerThumbnailer  *thumbnailer);
+void                 tumbler_thumbnailer_set_mime_types    (TumblerThumbnailer  *thumbnailer,
+                                                            const gchar *const  *mime_types);
 GStrv                tumbler_thumbnailer_get_uri_schemes   (TumblerThumbnailer  *thumbnailer);
 gboolean             tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer  *thumbnailer,
                                                             const gchar         *hash_key);

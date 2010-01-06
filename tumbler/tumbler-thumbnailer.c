@@ -34,6 +34,7 @@ enum
   SIGNAL_READY,
   SIGNAL_ERROR,
   SIGNAL_UNREGISTER,
+  SIGNAL_SUPPORTED_CHANGED,
   LAST_SIGNAL,
 };
 
@@ -132,6 +133,17 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                   g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+
+  tumbler_thumbnailer_signals[SIGNAL_SUPPORTED_CHANGED] = 
+    g_signal_new ("supported-changed",
+                  TUMBLER_TYPE_THUMBNAILER,
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_NO_HOOKS,
+                  G_STRUCT_OFFSET (TumblerThumbnailerIface, supported_changed),
+                  NULL,
+                  NULL,
+                  g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE,
+                  0);
 }
 
 
@@ -174,6 +186,18 @@ tumbler_thumbnailer_get_mime_types (TumblerThumbnailer *thumbnailer)
 
   g_object_get (thumbnailer, "mime-types", &mime_types, NULL);
   return mime_types;
+}
+
+
+
+void
+tumbler_thumbnailer_set_mime_types (TumblerThumbnailer *thumbnailer,
+                                    const gchar *const *mime_types)
+{
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (mime_types != NULL);
+
+  g_object_set (thumbnailer, "mime-types", mime_types, NULL);
 }
 
 
