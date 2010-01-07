@@ -2,12 +2,12 @@
 # Copyright (C) 2009 Jannis Pohlmann <jannis@xfce.org>
 # This file is distributed under the same license as the Tumbler package.
 # Per Kongstad <p_kongstad@op.pl>, 2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 1.0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-07 14:45+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.xfce.org\n"
+"POT-Creation-Date: 2010-01-07 11:00+0000\n"
 "PO-Revision-Date: 2009-12-19 22:24+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Danish\n"
-"X-Poedit-Country: Denmark\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: Denmark\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
@@ -33,10 +33,6 @@ msgstr "Ingen miniaturetjeneste tilgængelig for \"%s\""
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "En anden generisk miniaturetjeneste kører allerede"
-
-#: ../tumblerd/tumbler-service.c:704
-msgid "Unsupported thumbnail flavor requested"
-msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -60,12 +56,8 @@ msgstr "Misdannet sektion \"%s\" i filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn "
-"og Uri-skema/MIME-type"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -206,8 +198,8 @@ msgstr "Kunne ikke indstille til tegntilknytningen: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Kunne ikke rendere glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Miniature kunne ikke blive bestemt ud fra filindholdet"
@@ -224,6 +216,10 @@ msgstr "Initialiserer udvidelsesmodulet Tumbler XDG cache"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Lukker udvidelsesmodulet Tumbler XDG cache ned"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Anmodet ikke understøttet miniature"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
