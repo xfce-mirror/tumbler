@@ -71,6 +71,7 @@
 
 
 
+static void fatal_error_handler     (j_common_ptr                cinfo) G_GNUC_NORETURN;
 static void jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                      GCancellable               *cancellable,
                                      TumblerFileInfo            *info);
@@ -661,17 +662,6 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
     }
 
   return NULL;
-}
-
-
-
-static void
-free_image_data (TumblerImageData *data)
-{
-  if (data == NULL)
-    return;
-
-  /* TODO */
 }
 
 
