@@ -91,8 +91,11 @@ tumbler_cache_get_thumbnail (TumblerCache           *cache,
 {
   g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
-  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
+  g_return_val_if_fail (flavor == NULL || TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
   g_return_val_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnail != NULL, NULL);
+
+  if (flavor == NULL)
+    return NULL;
 
   return (TUMBLER_CACHE_GET_IFACE (cache)->get_thumbnail) (cache, uri, flavor);
 }

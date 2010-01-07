@@ -145,7 +145,8 @@ tumbler_file_info_finalize (GObject *object)
   if (info->thumbnail != NULL)
     g_object_unref (info->thumbnail);
 
-  g_object_unref (info->flavor);
+  if (info->flavor != NULL)
+    g_object_unref (info->flavor);
 
   g_free (info->mime_type);
   g_free (info->uri);
@@ -222,7 +223,7 @@ tumbler_file_info_new (const gchar            *uri,
 {
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
   g_return_val_if_fail (mime_type != NULL && *mime_type != '\0', NULL);
-  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
+  g_return_val_if_fail (flavor == NULL || TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
   return g_object_new (TUMBLER_TYPE_FILE_INFO, "uri", uri, "mime-type", mime_type,
                        "flavor", flavor, NULL);

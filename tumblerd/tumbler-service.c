@@ -647,9 +647,7 @@ tumbler_service_queue (TumblerService        *service,
   flavor = tumbler_cache_get_flavor (cache, flavor_name);
   g_object_unref (cache);
 
-  /* TODO we need to check if the flavor is supported first and otherwise
-   * emit an error signal */
-  g_assert (cache);
+  g_assert (TUMBLER_IS_CACHE (cache));
 
   infos = tumbler_file_info_array_new_with_flavor (uris, mime_hints, flavor,
                                                    &length);
@@ -693,8 +691,32 @@ tumbler_service_queue (TumblerService        *service,
   if (scheduler == NULL) 
     scheduler = TUMBLER_SCHEDULER (service->schedulers->data);
 
-  /* let the scheduler take it from here */
-  tumbler_scheduler_push (scheduler, scheduler_request);
+  /* report unsupported flavors back to the client */
+  if (flavor == NULL)
+    {
+      /* fake a started signal */
+      tumbler_service_scheduler_started (scheduler, handle, scheduler_request->origin,
+                                         service);
+
+      /* emit an error signal */
+      tumbler_service_scheduler_error (scheduler, handle, uris, 
+                                       TUMBLER_ERROR_UNSUPPORTED_FLAVOR, 
+                                       _("Unsupported thumbnail flavor requested"),
+                                       scheduler_request->origin,
+                                       service);
+
+      /* fake a finished signal */
+      tumbler_service_scheduler_finished (scheduler, handle, scheduler_request->origin,
+                                          service);
+
+      /* release the request */
+      tumbler_scheduler_request_free (scheduler_request);
+    }
+  else
+    {
+      /* let the scheduler take it from here */
+      tumbler_scheduler_push (scheduler, scheduler_request);
+    }
   
   /* free the thumbnailer array */
   tumbler_thumbnailer_array_free (thumbnailers, length);
