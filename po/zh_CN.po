@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-20 10:58+0000\n"
+"POT-Creation-Date: 2010-01-07 14:45+0100\n"
 "PO-Revision-Date: 2009-12-22 22:52+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
+#, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "另一个缩略图缓存服务正在运行"
 
@@ -27,8 +28,13 @@ msgid "No thumbnailer available for \"%s\""
 msgstr "没有缩略图查看器可用于 \"%s\""
 
 #: ../tumblerd/tumbler-service.c:591
+#, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "另一个通用的缩略图查看器正在运行"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -70,6 +76,7 @@ msgid "Failed to determine last modified time of \"%s\""
 msgstr "检测 \"%s\" 上次修改的时间失败"
 
 #: ../tumblerd/tumbler-manager.c:1849
+#, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "另一个缩略图管理器正在运行"
 
@@ -125,7 +132,7 @@ msgstr "缓存插件 \"%s\" 缺少必须符号"
 msgid "Failed to load the cache plugin \"%s\": %s"
 msgstr "载入缓存插件 \"%s\" 失败: %s"
 
-#: ../tumbler/tumbler-file-info.c:296
+#: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "文件 \"%s\" 本身是缩略图"
@@ -196,8 +203,9 @@ msgstr "无法设置字符映射: %s"
 msgid "Could not render glyphs: %s"
 msgstr "无法渲染字型: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "缩略图无法从文件内容中获得"
 

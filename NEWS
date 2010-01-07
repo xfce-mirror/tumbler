@@ -1,0 +1,10 @@
+0.1.1
+=====
+- New fast JPEG thumbnailer with EXIF support
+- Report unsupported flavors back to clients via error signals
+- Translation updates: Swedish, Catalan, Galician, Japanese, Danish,
+  Portuguese, Chinese
+
+0.1.0
+=====
+- Initial release

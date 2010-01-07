@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-08 23:18+0100\n"
+"POT-Creation-Date: 2010-01-07 14:45+0100\n"
 "PO-Revision-Date: 2009-10-20 22:26+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: en_GB\n"
@@ -30,6 +30,10 @@ msgstr "Nun hai miniatures disponibles pa \"%s\""
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Ta executándose otru xestor de miniatures xenéricu"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 #, fuzzy
@@ -127,7 +131,7 @@ msgstr "Plugin \"%s\" carez de los símbolos necesarios."
 msgid "Failed to load the cache plugin \"%s\": %s"
 msgstr "Falló al cargar plugin \"%s\": %s"
 
-#: ../tumbler/tumbler-file-info.c:296
+#: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "El ficheru \"%s\" ye una miniatura"
@@ -198,8 +202,8 @@ msgstr "Nun puede afitase'l mapa de carauter: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nun pueden renderizase glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""

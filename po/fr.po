@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-08 23:18+0100\n"
+"POT-Creation-Date: 2010-01-07 14:45+0100\n"
 "PO-Revision-Date: 2009-12-03 10:19+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
@@ -37,6 +37,10 @@ msgstr "Pas de vignette disponible pour \"%s\""
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Un autre service de vignettes est déjà lancé"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 #, fuzzy
@@ -140,7 +144,7 @@ msgstr "Le greffon \"%s\" manque de symboles requis."
 msgid "Failed to load the cache plugin \"%s\": %s"
 msgstr "Impossible de charger le greffon \"%s\" : %s"
 
-#: ../tumbler/tumbler-file-info.c:296
+#: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "Le fichier  \"%s\"  est lui-même une vignette"
@@ -212,8 +216,8 @@ msgstr "Impossible de définir le caractère de la carte: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Ne pouvait rendre glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""

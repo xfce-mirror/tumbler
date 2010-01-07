@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Tumbler Turkish Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-08 23:18+0100\n"
+"POT-Creation-Date: 2010-01-07 14:45+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
@@ -25,6 +25,10 @@ msgstr "\"%s\" için önizleyici bulunmamaktadır"
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Başka bir önizleyici zaten çalışıyor"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 #, fuzzy
@@ -122,7 +126,7 @@ msgstr "\"%s\" gerekli sembolleri barındırmamaktadır."
 msgid "Failed to load the cache plugin \"%s\": %s"
 msgstr "\"%s\" eklentisi yüklenemedi: %s"
 
-#: ../tumbler/tumbler-file-info.c:296
+#: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr ""
@@ -195,8 +199,8 @@ msgstr ""
 msgid "Could not render glyphs: %s"
 msgstr ""
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""

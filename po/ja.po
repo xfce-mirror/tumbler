@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-19 22:24+0900\n"
+"POT-Creation-Date: 2010-01-07 14:45+0100\n"
 "PO-Revision-Date: 2009-12-19 22:23+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -32,6 +32,10 @@ msgstr "\"%s\" 用のサムネイラはありません"
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "他の一般サムネイラが既に動作しています"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -130,7 +134,7 @@ msgstr "キャッシュプラグイン \"%s\" に必要なシンボルが不足�
 msgid "Failed to load the cache plugin \"%s\": %s"
 msgstr "キャッシュプラグイン \"%s\" の読み込みに失敗しました: %s"
 
-#: ../tumbler/tumbler-file-info.c:296
+#: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "ファイル \"%s\" はサムネイル自身です"
@@ -205,8 +209,8 @@ msgstr "キャラクタマップを設定できませんでした: %s"
 msgid "Could not render glyphs: %s"
 msgstr "グリフをレンダリングできませんでした: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ファイル内容からサムネイルを推測できませんでした"

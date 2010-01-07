@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-27 18:36+0100\n"
+"POT-Creation-Date: 2010-01-07 14:45+0100\n"
 "PO-Revision-Date: 2009-12-16 14:24+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -22,17 +22,59 @@ msgid "Another thumbnail cache service is already running"
 msgstr ""
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:418
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr ""
 
-#: ../tumblerd/tumbler-service.c:571
+#: ../tumblerd/tumbler-service.c:591
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:230
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr ""
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr ""
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:513
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:526
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:914
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:940
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr ""
+
+#: ../tumblerd/tumbler-manager.c:1849
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr ""
@@ -89,7 +131,7 @@ msgstr ""
 msgid "Failed to load the cache plugin \"%s\": %s"
 msgstr ""
 
-#: ../tumbler/tumbler-file-info.c:296
+#: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "Filen \"%s\" är en miniatyrbild själv"
@@ -106,16 +148,19 @@ msgstr ""
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr ""
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr ""
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr ""
 
@@ -140,21 +185,27 @@ msgid "Could not load file contents: %s"
 msgstr ""
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:495
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
 msgstr ""
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:520
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr ""
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:548
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
+msgstr ""
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
 msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
@@ -169,4 +220,3 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr ""
-
