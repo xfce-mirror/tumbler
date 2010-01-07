@@ -643,7 +643,7 @@ xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
     {
       if (!g_cancellable_set_error_if_cancelled (cancellable, &err))
         {
-          mtime_str = g_strdup_printf ("%lld", mtime);
+          mtime_str = g_strdup_printf ("%llu", mtime);
 
           gdk_pixbuf_save (pixbuf, filename, "png", &err,
                            "tEXt::Thumb::URI", uri,
