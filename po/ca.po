@@ -2,14 +2,14 @@
 # Traduccions al català del paquet «tumbler».
 # Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
-#
+# 
 # Carles Muñoz Gorriz <carlesmu@internautas.org>, 2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-07 14:45+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.xfce.org\n"
+"POT-Creation-Date: 2010-01-08 05:00+0000\n"
 "PO-Revision-Date: 2009-12-20 12:51+0100\n"
 "Last-Translator: Harald Servat <redcrash@gmail.com>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
@@ -36,10 +36,6 @@ msgstr "No hi ha cap miniatura disponible per «%s»"
 msgid "Another generic thumbnailer is already running"
 msgstr "Un altres sistema genèric de miniatures ja s'està executant"
 
-#: ../tumblerd/tumbler-service.c:704
-msgid "Unsupported thumbnail flavor requested"
-msgstr ""
-
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Ha fallat la crida al generador de miniatures: ha expirat el temps"
@@ -62,12 +58,8 @@ msgstr "Secció mal formada «%s» en el fitxer «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Secció mal formada «%s» en el fitxer «%s»: diferències entre el nom de la "
-"secció i el UriScheme/MimeType"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Secció mal formada «%s» en el fitxer «%s»: diferències entre el nom de la secció i el UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -226,6 +218,10 @@ msgstr "S'està iniciant el connector de Tumbler de memòria cau XDG"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "S'està apagant el connector de Tumbler de memòria cau XDG"
+
+#: ../tumblerd/tumbler-service.c:704
+msgid "Unsupported thumbnail flavor requested"
+msgstr "La variant de la miniatura requerida no està suportada"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
