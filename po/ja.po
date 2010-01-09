@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-07 14:45+0100\n"
-"PO-Revision-Date: 2009-12-19 22:23+0900\n"
+"POT-Creation-Date: 2010-01-09 17:43+0900\n"
+"PO-Revision-Date: 2010-01-09 17:42+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "他の一般サムネイラが既に動作しています"
 
 #: ../tumblerd/tumbler-service.c:704
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "サポートしていないサムネイルフレーバーが要求されました"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
