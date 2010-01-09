@@ -124,7 +124,7 @@ tumbler_provider_factory_add_types (TumblerProviderFactory *factory,
 {
   TumblerProviderInfo *provider_info;
   const GType         *types;
-  guint                index;
+  guint                idx;
   gint                 n_types;
   gint                 n;
 
@@ -142,11 +142,11 @@ tumbler_provider_factory_add_types (TumblerProviderFactory *factory,
       provider_info->type = types[n];
       provider_info->provider = NULL;
 
-      /* compute the index for this info */
-      index = factory->provider_infos->len - n_types + n;
+      /* compute the idx for this info */
+      idx = factory->provider_infos->len - n_types + n;
 
       /* insert the provider info into the array */
-      factory->provider_infos->pdata[index] = provider_info;
+      factory->provider_infos->pdata[idx] = provider_info;
     }
 }
 
