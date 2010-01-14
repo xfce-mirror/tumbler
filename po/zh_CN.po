@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-07 14:45+0100\n"
-"PO-Revision-Date: 2009-12-22 22:52+0800\n"
+"POT-Creation-Date: 2010-01-14 12:00+0100\n"
+"PO-Revision-Date: 2010-01-14 22:21+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "另一个通用的缩略图查看器正在运行"
 
 #: ../tumblerd/tumbler-service.c:704
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "请求了一个不支持的缩略图风格"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
