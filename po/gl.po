@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-20 12:00+0100\n"
+"POT-Creation-Date: 2010-01-20 18:00+0100\n"
 "PO-Revision-Date: 2009-12-18 13:46+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -58,23 +58,23 @@ msgstr "Produciuse un erro ao cargar o ficheiro \"%s\": %s"
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr ""
+msgstr "Sección malformada \"%s\" no ficheiro \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr ""
+msgstr "Sección malformada \"%s\" no ficheiro \"%s\": O nome da sección e UriScheme/MimeType non coinciden"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
-#, c-format, fuzzy
+#, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Ficheiro deformado/defectuoso/malformado/mal formado/formado incorrectamente/mal escrito/non válido/en mal estado/inválido/erróneo/incorrecto"
+msgstr "Ficheiro malformado \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "Produciuse un erro ao determinar a hora da última modificación de \"%s\""
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
@@ -121,7 +121,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "Espazo de cores RGB"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
