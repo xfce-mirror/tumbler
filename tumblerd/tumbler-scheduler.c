@@ -122,11 +122,11 @@ tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
                   G_STRUCT_OFFSET (TumblerSchedulerIface, error),
                   NULL,
                   NULL,
-                  tumbler_marshal_VOID__UINT_POINTER_INT_STRING_STRING,
+                  tumbler_marshal_VOID__UINT_BOXED_INT_STRING_STRING,
                   G_TYPE_NONE,
                   5,
                   G_TYPE_UINT,
-                  G_TYPE_POINTER,
+                  G_TYPE_STRV,
                   G_TYPE_INT,
                   G_TYPE_STRING,
                   G_TYPE_STRING);
@@ -151,11 +151,11 @@ tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
                   G_STRUCT_OFFSET (TumblerSchedulerIface, ready),
                   NULL,
                   NULL,
-                  tumbler_marshal_VOID__UINT_POINTER_STRING,
+                  tumbler_marshal_VOID__UINT_BOXED_STRING,
                   G_TYPE_NONE,
                   3,
                   G_TYPE_UINT,
-                  G_TYPE_POINTER,
+                  G_TYPE_STRV,
                   G_TYPE_STRING);
 
   tumbler_scheduler_signals[SIGNAL_STARTED] =
