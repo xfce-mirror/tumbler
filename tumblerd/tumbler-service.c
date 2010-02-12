@@ -357,20 +357,33 @@ tumbler_service_set_property (GObject      *object,
 }
 
 
+typedef struct {
+  TumblerScheduler *scheduler;
+  guint handle;
+  GStrv uris;
+  gint error_code;
+  gchar *message_s;
+  gchar *origin;
+  TumblerService *service;
+} MainLoopInfo;
 
-static void
-tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
-                                 guint               handle,
-                                 const gchar *const *failed_uris,
-                                 gint                error_code,
-                                 const gchar        *message_s,
-                                 const gchar        *origin,
-                                 TumblerService     *service)
+static gboolean
+error_in_idle (gpointer user_data)
 {
+  MainLoopInfo   *info = user_data;
   DBusMessageIter iter;
   DBusMessageIter strv_iter;
   DBusMessage    *message;
   guint           n;
+  dbus_uint32_t   ser;
+
+  TumblerScheduler *scheduler = info->scheduler;
+  guint handle = info->handle;
+  GStrv failed_uris = info->uris;
+  gint error_code = info->error_code;
+  gchar *message_s = info->message_s;
+  gchar *origin = info->origin;
+  TumblerService *service = info->service;
 
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (failed_uris != NULL && failed_uris[0] != NULL && *failed_uris[0] != '\0');
@@ -406,22 +419,57 @@ tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
 
   /* send the signal message over D-Bus */
   dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
-                        message, NULL);
+                        message, &ser);
 
   /* free the allocated D-Bus message */
   dbus_message_unref (message);
+
+
+  g_free (info->message_s);
+  g_free (info->origin);
+  g_strfreev (info->uris);
+  g_object_unref (info->scheduler);
+  g_object_unref (info->service);
+  g_slice_free (MainLoopInfo, info);
+
+  return FALSE;
+}
+
+static void
+tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
+                                 guint               handle,
+                                 const gchar *const *failed_uris,
+                                 gint                error_code,
+                                 const gchar        *message_s,
+                                 const gchar        *origin,
+                                 TumblerService     *service)
+{
+  MainLoopInfo *info = g_slice_new (MainLoopInfo);
+
+  info->scheduler = g_object_ref (scheduler);
+  info->handle = handle;
+  info->uris = g_strdupv ((GStrv) failed_uris);
+  info->error_code = error_code;
+  info->message_s = g_strdup (message_s);
+  info->origin = g_strdup (origin);
+  info->service = g_object_ref (service);
+
+  g_idle_add (error_in_idle, info);
 }
 
 
-
-static void
-tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
-                                    guint             handle,
-                                    const gchar      *origin,
-                                    TumblerService   *service)
+static gboolean
+finished_in_idle (gpointer user_data)
 {
+  MainLoopInfo *info = user_data;
   DBusMessageIter iter;
   DBusMessage    *message;
+  dbus_uint32_t   ser;
+
+  TumblerScheduler *scheduler = info->scheduler;
+  guint handle = info->handle;
+  gchar *origin = info->origin;
+  TumblerService *service = info->service;
 
   /* create a D-Bus message for the finished signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Finished");
@@ -436,25 +484,51 @@ tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
 
   /* send the signal message over D-Bus */
   dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
-                        message, NULL);
+                        message, &ser);
 
   /* free the allocated D-Bus message */
   dbus_message_unref (message);
+
+  g_free (info->origin);
+  g_object_unref (info->scheduler);
+  g_object_unref (info->service);
+  g_slice_free (MainLoopInfo, info);
+
+  return FALSE;
+}
+
+static void
+tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
+                                    guint             handle,
+                                    const gchar      *origin,
+                                    TumblerService   *service)
+{
+  MainLoopInfo *info = g_slice_new (MainLoopInfo);
+
+  info->scheduler = g_object_ref (scheduler);
+  info->handle = handle;
+  info->origin = g_strdup (origin);
+  info->service = g_object_ref (service);
+
+  g_idle_add (finished_in_idle, info);
 }
 
 
-
-static void
-tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
-                                 guint             handle,
-                                 const GStrv       uris,
-                                 const gchar      *origin,
-                                 TumblerService   *service)
+static gboolean 
+ready_in_idle (gpointer user_data)
 {
+  MainLoopInfo *info = user_data;
   DBusMessageIter iter;
   DBusMessageIter strv_iter;
   DBusMessage    *message;
   guint           n;
+  dbus_uint32_t   ser;
+
+  TumblerScheduler *scheduler = info->scheduler;
+  GStrv uris = info->uris;
+  guint handle = info->handle;
+  gchar *origin = info->origin;
+  TumblerService *service = info->service;
 
   /* create a D-Bus message for the ready signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Ready");
@@ -481,23 +555,53 @@ tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
 
   /* send the signal message over D-Bus */
   dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
-                        message, NULL);
+                        message, &ser);
 
   /* free the allocated D-Bus message */
   dbus_message_unref (message);
+  
 
+  g_free (info->origin);
+  g_strfreev (info->uris);
+  g_object_unref (info->scheduler);
+  g_object_unref (info->service);
+  g_slice_free (MainLoopInfo, info);
+
+  return FALSE;
+}
+
+static void
+tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
+                                 guint             handle,
+                                 const GStrv       uris,
+                                 const gchar      *origin,
+                                 TumblerService   *service)
+{
+  MainLoopInfo *info = g_slice_new (MainLoopInfo);
+
+  info->scheduler = g_object_ref (scheduler);
+  info->handle = handle;
+  info->uris = g_strdupv ((GStrv) uris);
+  info->origin = g_strdup (origin);
+  info->service = g_object_ref (service);
+
+  g_idle_add (ready_in_idle, info);
 }
 
 
 
-static void
-tumbler_service_scheduler_started (TumblerScheduler *scheduler,
-                                   guint             handle,
-                                   const gchar      *origin,
-                                   TumblerService   *service)
+static gboolean
+started_in_idle (gpointer user_data)
 {
+  MainLoopInfo *info = user_data;
   DBusMessageIter iter;
   DBusMessage    *message;
+  dbus_uint32_t   ser;
+
+  TumblerScheduler *scheduler = info->scheduler;
+  guint handle = info->handle;
+  gchar *origin = info->origin;
+  TumblerService *service = info->service;
 
   /* create a D-Bus message for the started signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Started");
@@ -512,10 +616,33 @@ tumbler_service_scheduler_started (TumblerScheduler *scheduler,
 
   /* send the signal message over D-Bus */
   dbus_connection_send (dbus_g_connection_get_connection (service->connection), 
-                        message, NULL);
+                        message, &ser);
 
   /* free the allocated D-Bus message */
   dbus_message_unref (message);
+
+  g_free (info->origin);
+  g_object_unref (info->scheduler);
+  g_object_unref (info->service);
+  g_slice_free (MainLoopInfo, info);
+
+  return FALSE;
+}
+
+static void
+tumbler_service_scheduler_started (TumblerScheduler *scheduler,
+                                   guint             handle,
+                                   const gchar      *origin,
+                                   TumblerService   *service)
+{
+  MainLoopInfo *info = g_slice_new (MainLoopInfo);
+
+  info->scheduler = g_object_ref (scheduler);
+  info->handle = handle;
+  info->origin = g_strdup (origin);
+  info->service = g_object_ref (service);
+
+  g_idle_add (started_in_idle, info);
 }
 
 
