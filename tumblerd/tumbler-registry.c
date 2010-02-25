@@ -68,10 +68,18 @@ G_DEFINE_TYPE (TumblerRegistry, tumbler_registry, G_TYPE_OBJECT);
 
 
 
+GQuark tumbler_registry_visited_quark;
+
+
+
 static void
 tumbler_registry_class_init (TumblerRegistryClass *klass)
 {
   GObjectClass *gobject_class;
+
+  /* pre-allocate the required quarks */
+  tumbler_registry_visited_quark = 
+    g_quark_from_static_string ("tumbler-registry-visited-quark");
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_registry_finalize; 
@@ -515,6 +523,10 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   if (thumbnailers == NULL)
     return;
 
+  /* clear visited flag of all thumbnailers */
+  for (lp = thumbnailers; lp != NULL; lp = lp->next)
+    g_object_set_qdata (lp->data, tumbler_registry_visited_quark, NULL);
+
   /* create a hash table to collect unique URI scheme / MIME type pairs */
   unique_pairs = g_hash_table_new_full (g_str_hash, g_str_equal, 
                                         (GDestroyNotify) g_free, 
@@ -523,6 +535,9 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   /* iterate over all of them */
   for (lp = thumbnailers; lp != NULL; lp = lp->next)
     {
+      if (g_object_get_qdata (lp->data, tumbler_registry_visited_quark) != NULL)
+        continue;
+
       /* determine the MIME types & URI schemes supported by the current thumbnailer */
       mime_types = tumbler_thumbnailer_get_mime_types (lp->data);
       uri_schemes = tumbler_thumbnailer_get_uri_schemes (lp->data);
@@ -567,6 +582,11 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
        * used_strings and are freed later */
       g_free (mime_types);
       g_free (uri_schemes);
+
+      /* mark the thumbnailer as visited so we don't generate its 
+       * MIME type & URI scheme pairs multiple times */
+      g_object_set_qdata (lp->data, tumbler_registry_visited_quark, 
+                          GUINT_TO_POINTER (1));
     }
 
   /* relase the thumbnailer list */
