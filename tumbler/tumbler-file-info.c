@@ -221,8 +221,8 @@ tumbler_file_info_new (const gchar            *uri,
                        const gchar            *mime_type,
                        TumblerThumbnailFlavor *flavor)
 {
-  g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
-  g_return_val_if_fail (mime_type != NULL && *mime_type != '\0', NULL);
+  g_return_val_if_fail (uri != NULL, NULL);
+  g_return_val_if_fail (mime_type != NULL, NULL);
   g_return_val_if_fail (flavor == NULL || TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
   return g_object_new (TUMBLER_TYPE_FILE_INFO, "uri", uri, "mime-type", mime_type,
