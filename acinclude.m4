@@ -121,6 +121,29 @@ AC_MSG_RESULT([$ac_tumbler_jpeg_thumbnailer])
 ])
 
 
+dnl TUMBLER_FFMPEG_THUMBNAILER()
+dnl
+dnl Check whether to build and install the ffmpeg video thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_FFMPEG_THUMBNAILER],
+[
+AC_ARG_ENABLE([ffmpeg-thumbnailer], [AC_HELP_STRING([--disable-ffmpeg-thumbnailer], [Don't build the ffmpeg video thumbnailer plugin])],
+  [ac_tumbler_ffmpeg_thumbnailer=$enableval], [ac_tumbler_ffmpeg_thumbnailer=yes])
+if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  [
+    dnl Check for libffmpegthumbnailer
+    PKG_CHECK_MODULES([FFMPEGTHUMBNAILER], [libffmpegthumbnailer >= 2.0.0], [], [ac_tumbler_ffmpeg_thumbnailer=no])
+  ], [ac_tumbler_ffmpeg_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the ffmpeg video thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_FFMPEG_THUMBNAILER], [test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_ffmpeg_thumbnailer])
+])
+
+
 
 dnl TUMBLER_XDG_CACHE()
 dnl

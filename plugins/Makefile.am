@@ -21,4 +21,5 @@ SUBDIRS =								\
 	font-thumbnailer						\
 	jpeg-thumbnailer						\
 	pixbuf-thumbnailer						\
+	ffmpeg-thumbnailer						\
 	xdg-cache

@@ -153,6 +153,7 @@ dnl *************************
 TUMBLER_FONT_THUMBNAILER()
 TUMBLER_JPEG_THUMBNAILER()
 TUMBLER_PIXBUF_THUMBNAILER()
+TUMBLER_FFMPEG_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
 dnl ***********************************
@@ -181,6 +182,7 @@ plugins/Makefile
 plugins/font-thumbnailer/Makefile
 plugins/jpeg-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
+plugins/ffmpeg-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
 tumbler/Makefile
@@ -200,23 +202,28 @@ echo
 echo "Plugins:"
 echo
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
-echo "  * GdkPixbuf thumbnailer plugin:              yes"
+echo "  * GdkPixbuf thumbnailer plugin:                     yes"
 else
-echo "  * GdkPixbuf thumbnailer plugin:              no"
+echo "  * GdkPixbuf thumbnailer plugin:                     no"
 fi
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
-echo "  * FreeType font thumbnailer plugin:          yes"
+echo "  * FreeType font thumbnailer plugin:                 yes"
 else
-echo "  * FreeType font thumbnailer plugin:          no"
+echo "  * FreeType font thumbnailer plugin:                 no"
 fi
 if test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"; then
-echo "  * JPEG thumbnailer plugin with EXIF support: yes"
+echo "  * JPEG thumbnailer plugin with EXIF support:        yes"
 else
-echo "  * JPEG thumbnailer plugin with EXIF support: no"
+echo "  * JPEG thumbnailer plugin with EXIF support:        no"
+fi
+if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
+echo "  * Video thumbnailer plugin using ffmpegthumbnailer: yes"
+else
+echo "  * Video thumbnailer plugin using ffmpegthumbnailer: no"
 fi
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
-echo "  * Freedesktop.org cache plugin:              yes"
+echo "  * Freedesktop.org cache plugin:                     yes"
 else
-echo "  * Freedesktop.org cache plugin:              no"
+echo "  * Freedesktop.org cache plugin:                     no"
 fi
 echo

@@ -27,6 +27,9 @@ plugins/font-thumbnailer/font-thumbnailer-provider.c
 plugins/jpeg-thumbnailer/jpeg-thumbnailer.c
 plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c
 plugins/jpeg-thumbnailer/jpeg-thumbnailer-provider.c
+plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c
+plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c
+plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-provider.c
 plugins/xdg-cache/xdg-cache-thumbnail.c
 plugins/xdg-cache/xdg-cache-plugin.c
 plugins/xdg-cache/xdg-cache-cache.c
