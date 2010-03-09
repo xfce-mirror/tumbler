@@ -1,7 +1,7 @@
 # Ukrainian translation of tumbler.
 # Copyright (C) 2010 Dmitry Nikitin
 # This file is distributed under the same license as the tumbler package.
-#
+# 
 # Dmitry Nikitin <luckas_fb@mail.ru>, 2010.
 msgid ""
 msgstr ""
@@ -15,27 +15,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr ""
+msgstr "Інший сервіс кешування мініатюр вже працює"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr ""
+msgstr "Не доступно перегляд мініатюр для \"%s\""
 
 #: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr ""
+msgstr "Інший переглядач мініатюр вже працює"
 
 #: ../tumblerd/tumbler-service.c:864
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "Непідтримуваний запит переглядача мініатюр"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -49,7 +49,7 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr ""
+msgstr "Не вдалось завантажити файл \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
@@ -59,9 +59,7 @@ msgstr ""
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
 msgstr ""
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
@@ -73,17 +71,17 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "Не вдалось визначити останню модифікацію часу для \"%s\""
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr ""
+msgstr "Інший менеджер перегляду мініатюр вже працює"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:63
 msgid "Tumbler Thumbnailing Service"
-msgstr ""
+msgstr "Сервіс перегляду мініатюр Tumbler"
 
 #: ../tumblerd/main.c:78
 #, c-format
@@ -112,11 +110,12 @@ msgstr ""
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
-msgstr ""
+msgstr "Неправильний формат"
 
 #: ../tumbler/tumbler-enum-types.c:50
+#, fuzzy
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
@@ -177,19 +176,19 @@ msgstr ""
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr ""
+msgstr "Не вдалось ініціалізувати freetype: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr ""
+msgstr "Не вдалось завантажити вміст файлу: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr ""
+msgstr "Не вдалось відкрити файл шрифта: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
@@ -201,7 +200,7 @@ msgstr ""
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "Не вдалось відобразити гліфи: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
@@ -212,13 +211,12 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr ""
+msgstr "Не вдалось зберегти мініатюри в \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr ""
+msgstr "Ініціалізація розширення Tumbler XDG cache"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr ""
-
+msgstr "Вимкнути розширення Tumbler XDG cache"
