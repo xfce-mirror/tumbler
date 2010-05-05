@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 18:00+0100\n"
+"POT-Creation-Date: 2010-05-05 04:00+0000\n"
 "PO-Revision-Date: 2010-01-29 22:59+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Basque <debian-l10n-eu@debian.lists.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -27,12 +27,12 @@ msgstr "Beste argazkitxo katxe zerbitzu bat dagoeneko martxan dago."
 msgid "No thumbnailer available for \"%s\""
 msgstr "Ez dago argazkitxo sortzaile erabilgarririk \"%s\"-rentzat"
 
-#: ../tumblerd/tumbler-service.c:591
+#: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Beste argazkitxo sortzaile generiko bat martxan dago dagoeneko"
 
-#: ../tumblerd/tumbler-service.c:704
+#: ../tumblerd/tumbler-service.c:864
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Onartzen ez den argazkitxo zaporea eskatua"
 
@@ -58,12 +58,8 @@ msgstr "Oker eratutako \"%s\" atala \"%s\" fitxategian: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Oker eratutako \"%s\" atala \"%s\" fitxategian: Atal izen eta UriScheme/MimeType "
-"ez datoz bat."
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Oker eratutako \"%s\" atala \"%s\" fitxategian: Atal izen eta UriScheme/MimeType ez datoz bat."
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -202,13 +198,13 @@ msgstr "Ezin da karaktere-mapa ezarri: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "Ezin dira glifoak errendatu: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
+msgstr "Argazkitxoak ezin da eskuratu fitxategi edukitik"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -222,4 +218,3 @@ msgstr "Tumbler XDG katxe plugina abiarazten"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Tumbler XDG katxe plugina itzaltzen"
-
