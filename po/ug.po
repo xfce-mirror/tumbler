@@ -19,18 +19,18 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr ""
+msgstr "باشقا بىر thumbnail غەملەك مۇلازىمىتى ئىجرا بۆلۈۋېتىپتۇ"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr ""
+msgstr "\"%s\" نىڭ thumbnailer نى ئىشلەتكىلى بولمايدۇ"
 
 #: ../tumblerd/tumbler-service.c:591
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr ""
+msgstr "باشقا بىر ئادەتتىكى thumbnailer ئىجرا بۆلۈۋېتىپتۇ"
 
 #: ../tumblerd/tumbler-service.c:704
 msgid "Unsupported thumbnail flavor requested"
@@ -38,61 +38,61 @@ msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "ئالاھىدە thumbnailer نى چاقىرىش مەغلۇپ بولدى: ۋاقىت ئېشىپ كەتتى"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "ئالاھىدە thumbnailer نى چاقىرىش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr ""
+msgstr "ھۆججەت \"%s\" نى ئوقۇش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr ""
+msgstr "ھۆججەت \"%2$s\" دىكى بۆلەك \"%1$s\" نىڭ فورماتى توغرا ئەمەس: %3$s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
+msgstr "ھۆججەت \"%2$s\" دىكى بۆلەك \"%1$s\" نىڭ فورماتى توغرا ئەمەس: بۆلەك ئاتى بىلەن UriScheme/MimeType ماسلاشمىدى"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "ھۆججەت  \"%s\" نىڭ فورماتى توغرا ئەمەس: %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "\"%s\" نىڭ ئەڭ ئاخىرقى ئۆزگەرتىلگەن ۋاقتىنى ئېنىقلاش مەغلۇپ بولدى"
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr ""
+msgstr "باشقا بىر thumbnailer باشقۇرغۇ بۆلۈۋېتىپتۇ"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:63
 msgid "Tumbler Thumbnailing Service"
-msgstr ""
+msgstr "Tumbler Thumbnailing مۇلازىمىتى"
 
 #: ../tumblerd/main.c:78
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr ""
+msgstr "D-Bus session باش لىنىيىسىگە باشلىنىش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/main.c:90
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
+msgstr "thumbnail غەملەك مۇلازىمىتىنى ئىجرا قىلىش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/main.c:140
 #, c-format
@@ -102,49 +102,49 @@ msgstr ""
 #: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr ""
+msgstr "thumbnailer باشقۇرغۇنى ئىجرا قىلىش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr ""
+msgstr "thumbnailer مۇلازىمىتىنى ئىجرا قىلىش مەغلۇپ بولدى: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
-msgstr ""
+msgstr "ئىناۋەتسىز فورمات"
 
 #: ../tumbler/tumbler-enum-types.c:50
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "RGB رەڭ بوشلۇقى"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
+msgstr "غەملەك قىستۇرما \"%s\" دا symbol لار يېتەرلىك ئەمەس"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr ""
+msgstr "غەملەك قىستۇرما \"%s\" نى ئوقۇش مەغلۇپ بولدى: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr ""
+msgstr "\"%s\" نىڭ ئۆزى thumbnail ھۆججىتى "
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr ""
+msgstr "قىستۇرما \"%s\" دا symbol لار يېتەرلىك ئەمەس."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr ""
+msgstr "قىستۇرما \"%s\" نى ئوقۇش مەغلۇپ بولدى: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -152,59 +152,59 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
-msgstr ""
+msgstr "نەشرى ماس كەلمىدى: %s"
 
 # DEBUG message
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
 
 # DEBUG message
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى توختىتىۋاتىدۇ"
 
 # DEBUG message
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr ""
+msgstr "Tumbler Font Thumbnailer قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
 
 # DEBUG message
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr ""
+msgstr "Tumbler Font Thumbnailer قىستۇرمىسىنى توختىتىۋاتىدۇ"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr ""
+msgstr "freetype نى دەسلەپلەشتۈرگىلى بولمىدى: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr ""
+msgstr "ھۆججەت مەزمۇنى ئوقۇغىلى بولمىدى: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr ""
+msgstr "فونت ھۆججىتىنى ئاچقىلى بولمىدى: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr ""
+msgstr "character map نى تەڭشىگىلى بولمىدى: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "glyphs نى render قىلغىلى بولمىدى: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
@@ -215,23 +215,14 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr ""
+msgstr "thumbnail نى \"%s\" غا ساقلىغىلى بولمىدى."
 
 # DEBUG message
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr ""
+msgstr "Tumbler XDG غەملەك قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
 
 # DEBUG message
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr ""
-
-#~ msgid "Normal"
-#~ msgstr "普通"
-
-#~ msgid "Large"
-#~ msgstr "大"
-
-#~ msgid "Cropped"
-#~ msgstr "切り抜き"
+msgstr "Tumbler XDG  غەملەك قىستۇرمىسىنى توختىتىۋاتىدۇ"
