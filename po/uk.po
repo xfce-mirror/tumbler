@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-29 10:01+0000\n"
+"POT-Creation-Date: 2010-05-29 22:01+0000\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -86,27 +86,27 @@ msgstr "Сервіс перегляду мініатюр Tumbler"
 #: ../tumblerd/main.c:78
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr ""
+msgstr "Не вдалося з’єднатися буфером сесії D-Bus: %s"
 
 #: ../tumblerd/main.c:90
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
+msgstr "Не вдалося почати сервіс кешування іконок: %s"
 
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
+msgstr "Не вдалося завантажити спеціалізовані іконізатори до регістру: %s"
 
 #: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr ""
+msgstr "Не вдалося запустити менеджер "
 
 #: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr ""
+msgstr "Не вдалося запустити сервіс іконізатора: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -118,7 +118,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "RGB кольори"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
@@ -128,7 +128,7 @@ msgstr ""
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr ""
+msgstr "Не вдалося завантажити додаток кешування \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -193,7 +193,7 @@ msgstr "Не вдалось відкрити файл шрифта: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr ""
+msgstr "Не можу встановити розкладку символів: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
