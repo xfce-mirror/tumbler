@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-09 12:00+0100\n"
+"POT-Creation-Date: 2010-05-29 10:01+0000\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
@@ -39,12 +39,12 @@ msgstr "Непідтримуваний запит переглядача мін�
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "Не можу викликати визначений створювач мініатюр: задовгий час очікування"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "Не можу викликати визначений створювач мініатюр: %s"
 
 #: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
@@ -55,18 +55,18 @@ msgstr "Не вдалось завантажити файл \"%s\": %s"
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr ""
+msgstr "Неправильна секція \"%s\" у файлі \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr ""
+msgstr "Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "Неправильний файл \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
@@ -113,7 +113,6 @@ msgid "Invalid format"
 msgstr "Неправильний формат"
 
 #: ../tumbler/tumbler-enum-types.c:50
-#, fuzzy
 msgid "PNG"
 msgstr "PNG"
 
@@ -144,7 +143,7 @@ msgstr ""
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr ""
+msgstr "Не вдалося завантажити додаток \"%s\": %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -152,7 +151,7 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
-msgstr ""
+msgstr "Версія не збігаються: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
