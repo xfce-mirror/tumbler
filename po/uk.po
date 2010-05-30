@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-29 22:01+0000\n"
+"POT-Creation-Date: 2010-05-30 10:01+0000\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -123,7 +123,7 @@ msgstr "RGB кольори"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
+msgstr "Додатку кешування \"%s\" бракує необхідних символів"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
@@ -133,12 +133,12 @@ msgstr "Не вдалося завантажити додаток кешуван
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr ""
+msgstr "Файл \"%s\" є вже іконкою"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr ""
+msgstr "Додатку \"%s\" бракує необхідних символів."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
@@ -156,20 +156,20 @@ msgstr "Версія не збігаються: %s"
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Ініціалізація додатку Tumbler Pixbuf Thumbnailer "
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Вихід з додатку Tumbler Pixbuf Thumbnailer"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr ""
+msgstr "Ініціалізація додатку Tumbler Font Thumbnailer"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr ""
+msgstr "Вихід з додатку Tumbler Font Thumbnailer"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -205,7 +205,7 @@ msgstr "Не вдалось відобразити гліфи: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
+msgstr "Неможливо створити іконку з  вмісту файлу"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
