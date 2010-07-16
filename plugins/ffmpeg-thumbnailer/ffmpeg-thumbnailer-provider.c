@@ -118,6 +118,7 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
     "application/x-flash-video",
     "video/3gpp",
     "video/x-matroska",
+    "video/ogg",
     NULL
   };
   FfmpegThumbnailer  *thumbnailer;
