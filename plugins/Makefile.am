@@ -22,4 +22,5 @@ SUBDIRS =								\
 	jpeg-thumbnailer						\
 	pixbuf-thumbnailer						\
 	ffmpeg-thumbnailer						\
+	poppler-thumbnailer						\
 	xdg-cache

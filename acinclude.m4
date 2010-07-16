@@ -145,6 +145,30 @@ AC_MSG_RESULT([$ac_tumbler_ffmpeg_thumbnailer])
 
 
 
+dnl TUMBLER_POPPLER_THUMBNAILER()
+dnl
+dnl Check whether to build and install the poppler PDF/PS thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_POPPLER_THUMBNAILER],
+[
+AC_ARG_ENABLE([poppler-thumbnailer], [AC_HELP_STRING([--disable-poppler-thumbnailer], [Don't build the poppler PDF/PS thumbnailer plugin])],
+  [ac_tumbler_poppler_thumbnailer=$enableval], [ac_tumbler_poppler_thumbnailer=yes])
+if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  [
+    dnl Check for poppler-glib
+    PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.12.0], [], [ac_tumbler_poppler_thumbnailer=no])
+  ], [ac_tumbler_poppler_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the poppler PDF/PS thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_POPPLER_THUMBNAILER], [test x"$ac_tumbler_poppler_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_poppler_thumbnailer])
+])
+
+
+
 dnl TUMBLER_XDG_CACHE()
 dnl
 dnl Check whether to build and install the freedesktop.org cache plugin.

@@ -154,6 +154,7 @@ TUMBLER_FONT_THUMBNAILER()
 TUMBLER_JPEG_THUMBNAILER()
 TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_FFMPEG_THUMBNAILER()
+TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
 dnl ***********************************
@@ -183,6 +184,7 @@ plugins/font-thumbnailer/Makefile
 plugins/jpeg-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
 plugins/ffmpeg-thumbnailer/Makefile
+plugins/poppler-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
 tumbler/Makefile
@@ -220,6 +222,11 @@ if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
 echo "  * Video thumbnailer plugin using ffmpegthumbnailer: yes"
 else
 echo "  * Video thumbnailer plugin using ffmpegthumbnailer: no"
+fi
+if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
+echo "  * PDF/PS thumbnailer plugin using poppler:          yes"
+else
+echo "  * PDF/PS thumbnailer plugin using poppler:          no"
 fi
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
 echo "  * Freedesktop.org cache plugin:                     yes"
