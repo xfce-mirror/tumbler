@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-07 14:45+0100\n"
+"POT-Creation-Date: 2010-07-16 17:09+0200\n"
 "PO-Revision-Date: 2009-12-16 14:24+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,12 +28,12 @@ msgstr ""
 msgid "No thumbnailer available for \"%s\""
 msgstr ""
 
-#: ../tumblerd/tumbler-service.c:591
+#: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr ""
 
-#: ../tumblerd/tumbler-service.c:704
+#: ../tumblerd/tumbler-service.c:864
 msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
@@ -149,6 +150,8 @@ msgstr ""
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -161,6 +164,7 @@ msgstr ""
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr ""
 
@@ -204,8 +208,30 @@ msgstr ""
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
+msgstr ""
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr ""
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+msgid "The document is empty"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+msgid "First page of the document could not be read"
 msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-07 14:45+0100\n"
+"POT-Creation-Date: 2010-07-16 17:09+0200\n"
 "PO-Revision-Date: 2009-10-20 22:26+0100\n"
 "Last-Translator: astur <malditoastur@gmail.com>\n"
 "Language-Team: en_GB\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,12 +27,12 @@ msgstr "Ta executándose otru serviciu caché de miniatures"
 msgid "No thumbnailer available for \"%s\""
 msgstr "Nun hai miniatures disponibles pa \"%s\""
 
-#: ../tumblerd/tumbler-service.c:591
+#: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Ta executándose otru xestor de miniatures xenéricu"
 
-#: ../tumblerd/tumbler-service.c:704
+#: ../tumblerd/tumbler-service.c:864
 msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
@@ -149,6 +150,8 @@ msgstr "Falló al cargar plugin \"%s\": %s"
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -161,6 +164,7 @@ msgstr "Aniciar el complementu Tumbler Pixbuf Thumbnailer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Apagar el complementu Tumbler Pixbuf Thumbnailer"
 
@@ -204,8 +208,33 @@ msgstr "Nun pueden renderizase glyphs: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
+msgstr ""
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+#, fuzzy
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Aniciando'l complementu Tumbler Font Thumbnailer"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+#, fuzzy
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Apagando'l complementu Tumbler Font Thumbnailer"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Aniciando'l complementu Tumbler Font Thumbnailer"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+msgid "The document is empty"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+msgid "First page of the document could not be read"
 msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382

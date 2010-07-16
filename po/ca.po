@@ -2,17 +2,18 @@
 # Traduccions al català del paquet «tumbler».
 # Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
-# 
+#
 # Carles Muñoz Gorriz <carlesmu@internautas.org>, 2009.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
-"Report-Msgid-Bugs-To: http://bugzilla.xfce.org\n"
-"POT-Creation-Date: 2010-01-08 05:00+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-16 17:09+0200\n"
 "PO-Revision-Date: 2009-12-20 12:51+0100\n"
 "Last-Translator: Harald Servat <redcrash@gmail.com>\n"
 "Language-Team: Catalan <xfce-i18n@xfce.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,10 +32,14 @@ msgstr "Un altre servei de memòria cau de miniatures ja s'està executant"
 msgid "No thumbnailer available for \"%s\""
 msgstr "No hi ha cap miniatura disponible per «%s»"
 
-#: ../tumblerd/tumbler-service.c:591
+#: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Un altres sistema genèric de miniatures ja s'està executant"
+
+#: ../tumblerd/tumbler-service.c:864
+msgid "Unsupported thumbnail flavor requested"
+msgstr "La variant de la miniatura requerida no està suportada"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -58,8 +63,12 @@ msgstr "Secció mal formada «%s» en el fitxer «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Secció mal formada «%s» en el fitxer «%s»: diferències entre el nom de la secció i el UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Secció mal formada «%s» en el fitxer «%s»: diferències entre el nom de la "
+"secció i el UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -70,7 +79,8 @@ msgstr "Fitxer amb format erroni «%s»: %s"
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "No s'ha pogut determinar quan ha succeït la darrera modificació de «%s»"
+msgstr ""
+"No s'ha pogut determinar quan ha succeït la darrera modificació de «%s»"
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
@@ -147,6 +157,8 @@ msgstr "No s'ha pogut carregar el connector «%s»: %s"
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -159,6 +171,7 @@ msgstr "S'està iniciant el connector de Tumbler de miniatures Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "S'està apagant el connector de Tumbler de miniatures Pixbuf"
 
@@ -202,9 +215,34 @@ msgstr "No s'han pogut representar el glif: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "La miniatura no s'ha pogut inferir a partir del contingut del fitxer"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+#, fuzzy
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "S'està iniciant el connector de Tumbler de miniatures de fonts"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+#, fuzzy
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "S'està apagant el connector de Tumbler de miniatures de fonts"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "S'està iniciant el connector de Tumbler de miniatures de fonts"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+msgid "The document is empty"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+msgid "First page of the document could not be read"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -218,10 +256,6 @@ msgstr "S'està iniciant el connector de Tumbler de memòria cau XDG"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "S'està apagant el connector de Tumbler de memòria cau XDG"
-
-#: ../tumblerd/tumbler-service.c:704
-msgid "Unsupported thumbnail flavor requested"
-msgstr "La variant de la miniatura requerida no està suportada"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"

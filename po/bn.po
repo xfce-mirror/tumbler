@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-30 16:00+0000\n"
+"POT-Creation-Date: 2010-07-16 17:09+0200\n"
 "PO-Revision-Date: 2010-03-31 17:05+0600\n"
 "Last-Translator: Sadia Afroz <sadia@ankur.org.bd>\n"
 "Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
+"Language: bn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -61,8 +62,8 @@ msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
-"\"%2$s\" ফাইলের \"%1$s\" অংশটি বিকৃত: অংশের নাম ও UriScheme/MimeType-র মধ্যে মিল "
-"পাওয়া যায়নি "
+"\"%2$s\" ফাইলের \"%1$s\" অংশটি বিকৃত: অংশের নাম ও UriScheme/MimeType-র মধ্যে "
+"মিল পাওয়া যায়নি "
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -150,6 +151,8 @@ msgstr "\"%s\" প্লাগইন লোড করতে ব্যর্থ: 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -162,6 +165,7 @@ msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন �
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
 
@@ -205,9 +209,34 @@ msgstr "glyphs রেন্ডার করা যায়নি: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ফাইলের বিষয়বস্তু থেকে থাম্বনেইল অনুমান করা যায়নি"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+#, fuzzy
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+#, fuzzy
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+msgid "The document is empty"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+msgid "First page of the document could not be read"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format

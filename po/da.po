@@ -2,15 +2,16 @@
 # Copyright (C) 2009 Jannis Pohlmann <jannis@xfce.org>
 # This file is distributed under the same license as the Tumbler package.
 # Per Kongstad <p_kongstad@op.pl>, 2009.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 1.0.1\n"
-"Report-Msgid-Bugs-To: http://bugzilla.xfce.org\n"
-"POT-Creation-Date: 2010-01-07 11:00+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-16 17:09+0200\n"
 "PO-Revision-Date: 2009-12-19 22:24+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,10 +30,14 @@ msgstr "En anden tjeneste til cache af miniaturer kører allerede"
 msgid "No thumbnailer available for \"%s\""
 msgstr "Ingen miniaturetjeneste tilgængelig for \"%s\""
 
-#: ../tumblerd/tumbler-service.c:591
+#: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "En anden generisk miniaturetjeneste kører allerede"
+
+#: ../tumblerd/tumbler-service.c:864
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Anmodet ikke understøttet miniature"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -56,8 +61,12 @@ msgstr "Misdannet sektion \"%s\" i filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn "
+"og Uri-skema/MIME-type"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -145,6 +154,8 @@ msgstr "Kunne ikke indlæse udvidelsesmodul  \"%s\": %s"
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -157,6 +168,7 @@ msgstr "Initialiserer udvidelsesmodulet Tumbler Pixbuf Thumbnailer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Lukker udvidelsesmodulet Tumbler Pixbuf Thumbnailer ned"
 
@@ -198,11 +210,36 @@ msgstr "Kunne ikke indstille til tegntilknytningen: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Kunne ikke rendere glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:753
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:791
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Miniature kunne ikke blive bestemt ud fra filindholdet"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+#, fuzzy
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Initialiserer udvidelsesmodulet Tumbler Font Thumbnailer"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+#, fuzzy
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Lukker udvidelsesmodulet Tumbler Font Thumbnailer ned"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Initialiserer udvidelsesmodulet Tumbler Font Thumbnailer"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+msgid "The document is empty"
+msgstr ""
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+msgid "First page of the document could not be read"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -216,10 +253,6 @@ msgstr "Initialiserer udvidelsesmodulet Tumbler XDG cache"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Lukker udvidelsesmodulet Tumbler XDG cache ned"
-
-#: ../tumblerd/tumbler-service.c:704
-msgid "Unsupported thumbnail flavor requested"
-msgstr "Anmodet ikke understøttet miniature"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
