@@ -155,6 +155,8 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GFile                  *file;
   gint                    width;
   gint                    height;
+  gchar                  *contents = NULL;
+  gsize                   length;
 
   g_return_if_fail (IS_POPPLER_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -164,23 +166,52 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_cancellable_is_cancelled (cancellable)) 
     return;
 
-  /* try to load the poppler document */
+  /* try to load the PDF/PS file based on the URI */
   uri = tumbler_file_info_get_uri (info);
   document = poppler_document_new_from_file (uri, NULL, &error);
 
+  /* check if that failed */
   if (document == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_UNSUPPORTED, error->message);
+      /* make sure to free error data */
+      g_clear_error (&error);
+
+      file = g_file_new_for_uri (uri);
+
+      /* try to load the file contents using GIO */
+      if (!g_file_load_contents (file, cancellable, &contents, &length, NULL, &error))
+        {
+          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_UNSUPPORTED, 
+                                 error->message);
+          g_error_free (error);
+          g_object_unref (file);
+          return;
+        }
+
+      /* release the file */
+      g_object_unref (file);
+
+      /* try to create a poppler document based on the file contents */
+      document = poppler_document_new_from_data (contents, length, NULL, &error);
+    }
+
+  /* emit an error if both ways to load the document failed */
+  if (document == NULL)
+    {
+      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_INVALID_FORMAT, 
+                             error->message);
       g_error_free (error);
+      g_free (contents);
       return;
     }
 
-  /* check if the document has content */
+  /* check if the document has content (= at least one page) */
   if (poppler_document_get_n_pages (document) <= 0)
     {
       g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT, 
                              _("The document is empty"));
       g_object_unref (document);
+      g_free (contents);
       return;
     }
 
@@ -192,6 +223,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
                              _("First page of the document could not be read"));
       g_object_unref (document);
+      g_free (contents);
       return;
     }
 
@@ -248,4 +280,5 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (thumbnail);
   g_object_unref (pixbuf);
   g_object_unref (source_pixbuf);
+  g_free (contents);
 }
