@@ -822,6 +822,9 @@ tumbler_service_queue (TumblerService        *service,
   scheduler_request = tumbler_scheduler_request_new (infos, thumbnailers, 
                                                      length, origin);
 
+  /* release the file info array */
+  tumbler_file_info_array_free (infos);
+
   g_free (origin);
 
   /* get the request handle */
