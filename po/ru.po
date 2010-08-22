@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-08-22 10:01+0000\n"
 "PO-Revision-Date: 2010-01-13 04:56+0600\n"
 "Last-Translator: Алекс <dwqwt3i02@sneakemail.com>\n"
 "Language-Team: ru <->\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: binary\n"
+"Language: \n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
@@ -31,7 +31,7 @@ msgstr "Отсутствует модуль миниатюр для \"%s\""
 msgid "Another generic thumbnailer is already running"
 msgstr "Уже запущен другой общий модуль миниатюр"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Запрошен неподдерживаемый тип миниатюры"
 
@@ -57,12 +57,8 @@ msgstr "Неверная секция \"%s\" в файле \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Неверная секция \"%s\" в файле \"%s\": Несовпадение названия секции и "
-"UriScheme/MimeType"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Неверная секция \"%s\" в файле \"%s\": Несовпадение названия секции и UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -215,27 +211,25 @@ msgid "Thumbnail could not be inferred from file contents"
 msgstr "Не удалось создать основанную на содержимом файла миниатюру"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-#, fuzzy
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Запуск модуля миниатюр шрифтов Tumbler"
+msgstr "Запуск модуля видео-миниатюр Tumbler"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-#, fuzzy
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Завершение работы модуля миниатюр шрифтов Tumbler"
+msgstr "Завершение работы модуля видео-миниатюр Tumbler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 #, fuzzy
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Запуск модуля миниатюр шрифтов Tumbler"
+msgstr "Запуск модуля миниатюр Tumbler"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:212
 msgid "The document is empty"
-msgstr ""
+msgstr "Документ пуст"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:224
 msgid "First page of the document could not be read"
-msgstr ""
+msgstr "Невозможно прочитать первую страницу документа"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
