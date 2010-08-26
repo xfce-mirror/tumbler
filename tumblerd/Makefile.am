@@ -17,7 +17,10 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-libexec_PROGRAMS =							\
+tumblerddir =								\
+	$(libdir)/tumbler-$(TUMBLER_VERSION_API)
+
+tumblerd_PROGRAMS =							\
 	tumblerd
 
 tumblerd_built_sources =						\
@@ -81,7 +84,8 @@ service_in_files = 							\
 service_DATA = $(service_in_files:.service.in=.service)
 
 %.service: %.service.in
-	sed -e "s,\@libexecdir\@,$(libexecdir),g" < $< > $@
+	sed -e "s,\@libdir\@,$(libdir),g"				\
+	    -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" < $< > $@
 
 CLEANFILES =								\
 	$(service_DATA)

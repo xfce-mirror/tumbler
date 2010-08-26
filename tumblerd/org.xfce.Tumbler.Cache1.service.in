@@ -1,3 +1,3 @@
 [D-BUS Service]
 Name=org.freedesktop.thumbnails.Cache1
-Exec=@libexecdir@/tumblerd
+Exec=@libdir@/tumbler-@TUMBLER_VERSION_API@/tumblerd
