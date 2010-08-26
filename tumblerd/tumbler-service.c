@@ -383,12 +383,12 @@ tumbler_service_error_idle (gpointer user_data)
   DBusMessage       *message;
   guint              n;
 
-  g_return_if_fail (info != NULL);
-  g_return_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler));
-  g_return_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0');
-  g_return_if_fail (info->message != NULL && *info->message != '\0');
-  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
-  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
+  g_return_val_if_fail (info != NULL, FALSE);
+  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
+  g_return_val_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0', FALSE);
+  g_return_val_if_fail (info->message != NULL && *info->message != '\0', FALSE);
+  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
+  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
   /* create a D-Bus message for the error signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Error");
@@ -531,11 +531,11 @@ tumbler_service_ready_idle (gpointer user_data)
   DBusMessage       *message;
   guint              n;
 
-  g_return_if_fail (info != NULL);
-  g_return_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler));
-  g_return_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0');
-  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
-  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
+  g_return_val_if_fail (info != NULL, FALSE);
+  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
+  g_return_val_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0', FALSE);
+  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
+  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
   /* create a D-Bus message for the ready signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Ready");
@@ -608,10 +608,10 @@ tumbler_service_started_idle (gpointer user_data)
   DBusMessageIter   iter;
   DBusMessage      *message;
 
-  g_return_if_fail (info != NULL);
-  g_return_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler));
-  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
-  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
+  g_return_val_if_fail (info != NULL, FALSE);
+  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
+  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
+  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
   /* create a D-Bus message for the started signal */
   message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Started");
