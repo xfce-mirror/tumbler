@@ -358,7 +358,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
   if (stream != NULL)
     {
       /* convert the modified time of the source URI to a string */
-      mtime_str = g_strdup_printf ("%lld", mtime);
+      mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT, mtime);
 
       /* try to save the pixbuf */
       if (gdk_pixbuf_save_to_stream (dest_pixbuf, G_OUTPUT_STREAM (stream), "png",

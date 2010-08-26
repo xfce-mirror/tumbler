@@ -112,7 +112,6 @@ poppler_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
     NULL
   };
   GStrv               uri_schemes;
-  guint               n;
 
   /* determine which URI schemes are supported by GIO */
   uri_schemes = tumbler_util_get_supported_uri_schemes ();

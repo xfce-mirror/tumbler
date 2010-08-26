@@ -141,7 +141,6 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                             TumblerFileInfo            *info)
 {
   TumblerThumbnailFlavor *flavor;
-  GFileInputStream       *stream;
   TumblerImageData        data;
   TumblerThumbnail       *thumbnail;
   PopplerDocument        *document;
@@ -153,8 +152,6 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gdouble                 page_width;
   gdouble                 page_height;
   GFile                  *file;
-  gint                    width;
-  gint                    height;
   gchar                  *contents = NULL;
   gsize                   length;
 
