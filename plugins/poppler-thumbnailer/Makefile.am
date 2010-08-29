@@ -50,9 +50,13 @@ tumbler_poppler_thumbnailer_la_LDFLAGS =				\
 	$(PLATFORM_LDFLAGS)
 
 tumbler_poppler_thumbnailer_la_LIBADD =					\
+	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la	\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(POPPLER_GLIB_LIBS)
+
+tumbler_poppler_thumbnailer_la_DEPENDENCIES =				\
+	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
 
 endif
