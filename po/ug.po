@@ -31,7 +31,7 @@ msgstr "\"%s\" نىڭ thumbnailer نى ئىشلەتكىلى بولمايدۇ"
 #: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "باشقا بىر ئادەتتىكى thumbnailer ئىجرا بۆلۈۋېتىپتۇ"
+msgstr "باشقا بىر ئادەتتىكى thumbnailer ئىجرا بولۇۋېتىپتۇ"
 
 #: ../tumblerd/tumbler-service.c:864
 msgid "Unsupported thumbnail flavor requested"
@@ -90,7 +90,7 @@ msgstr "Tumbler Thumbnailing مۇلازىمىتى"
 #: ../tumblerd/main.c:78
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "D-Bus session باش لىنىيىسىگە باشلىنىش مەغلۇپ بولدى: %s"
+msgstr "D-Bus ئەڭگىمە باش لىنىيىسىگە باشلىنىش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/main.c:90
 #, c-format
@@ -100,7 +100,7 @@ msgstr "thumbnail غەملەك مۇلازىمىتىنى ئىجرا قىلىش م
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
+msgstr "مەخسۇسلاشتۇرۇلغان thumbnail نى رويخەتكە ئوقۇش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/main.c:158
 #, c-format
@@ -210,7 +210,7 @@ msgstr "character map نى تەڭشىگىلى بولمىدى: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "glyphs نى render قىلغىلى بولمىدى: %s"
+msgstr "glyphs نى سىزغىلى بولمىدى: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
@@ -240,11 +240,11 @@ msgstr "Tumbler Font Thumbnailer قىستۇرمىسىنى دەسلەپلەشتۈ
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
 msgid "The document is empty"
-msgstr ""
+msgstr "پۈتۈك قۇرۇق ئىكەن"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
 msgid "First page of the document could not be read"
-msgstr ""
+msgstr "پۈتۈكنىڭ تۇنجى بېتىنى ئوقۇغىلى بولمىدى"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
