@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-22 10:01+0000\n"
+"POT-Creation-Date: 2010-09-14 04:01+0000\n"
 "PO-Revision-Date: 2010-01-13 04:56+0600\n"
 "Last-Translator: Алекс <dwqwt3i02@sneakemail.com>\n"
 "Language-Team: ru <->\n"
@@ -219,15 +219,14 @@ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Завершение работы модуля видео-миниатюр Tumbler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Запуск модуля миниатюр Tumbler"
+msgstr "Запуск модуля миниатюр PDF/PS Tumbler"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:212
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr "Документ пуст"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:224
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr "Невозможно прочитать первую страницу документа"
 
