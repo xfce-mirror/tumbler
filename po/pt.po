@@ -2,20 +2,20 @@
 # Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Sérgio Marques <smarquespt@gmail.com>
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 16:01+0000\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-01-07 14:31-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: PORTUGAL\n"
-"Language: \n"
 "X-Poedit-Language: Portuguese\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
@@ -34,7 +34,7 @@ msgstr "Não existem miniaturas disponíveis para \"%s\""
 msgid "Another generic thumbnailer is already running"
 msgstr "Outro serviço genérico de miniaturas já está em execução"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Requisitado um tipo de miniatura não suportado"
 
@@ -60,8 +60,12 @@ msgstr "Secção inválida \"%s\" no ficheiro \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Secção inválida \"%s\" no ficheiro \"%s\": Diferenças entre o nome da secção e o esquema Uri/Tipo mime"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Secção inválida \"%s\" no ficheiro \"%s\": Diferenças entre o nome da secção "
+"e o esquema Uri/Tipo mime"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -225,11 +229,11 @@ msgstr "Desligando o plugin de miniaturas Tumbler ffmpeg video"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Iniciando o plugin de miniaturas Tumbler Poppler PDF/PS"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr "O documento está vazio"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr "A primeira página do documento não pôde ser lida"
 

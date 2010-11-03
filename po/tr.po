@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Tumbler Turkish Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
@@ -27,7 +27,7 @@ msgstr "\"%s\" için önizleyici bulunmamaktadır"
 msgid "Another generic thumbnailer is already running"
 msgstr "Başka bir önizleyici zaten çalışıyor"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
@@ -226,11 +226,11 @@ msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr ""
 

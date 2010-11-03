@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-01-14 22:21+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -33,7 +33,7 @@ msgstr "没有缩略图查看器可用于 \"%s\""
 msgid "Another generic thumbnailer is already running"
 msgstr "另一个通用的缩略图查看器正在运行"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "请求了一个不支持的缩略图风格"
 
@@ -230,11 +230,11 @@ msgstr "正在关闭 Tumbler 字体缩略图查看插件"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "正在初始化 Tumbler 字体缩略图查看插件"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr ""
 

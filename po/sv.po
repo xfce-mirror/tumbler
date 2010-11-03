@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-16 10:01+0000\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-10-17 18:03+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
@@ -46,14 +46,12 @@ msgstr ""
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:467
-#: ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Misslyckades med att läsa in filen \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:485
-#: ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -61,11 +59,12 @@ msgstr "Felformulerat avsnitt \"%s\" i filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:886
-#: ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -247,4 +246,3 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr ""
-

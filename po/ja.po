@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-19 14:20+0900\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-07-19 14:19+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
@@ -236,11 +236,11 @@ msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Initializing the Tumbler Font Thumbnailer plugin"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:212
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr "ドキュメントは空です"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:224
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr "ドキュメントの最初のページを読み込めませんでした"
 

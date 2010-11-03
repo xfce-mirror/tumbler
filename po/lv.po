@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2009-10-16 18:19+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -34,7 +34,7 @@ msgstr "Neviens sīktēlotājs nav pieejams priekš \"%s\""
 msgid "Another generic thumbnailer is already running"
 msgstr "Vēl viens autentisks sīktēlotājs jau skrien"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
@@ -231,11 +231,11 @@ msgstr "Izslēdz Tumbler Fonta sīktēlotāja spraudni"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Inicializē Tumbler Fonta sīktēlotāja spraudni"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr ""
 

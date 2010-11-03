@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2009-08-18 21:35+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: en_GB\n"
@@ -32,7 +32,7 @@ msgstr "No thumbnailer available for \"%s\""
 msgid "Another generic thumbnailer is already running"
 msgstr "Another generic thumbnailer is already running"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
@@ -231,11 +231,11 @@ msgstr "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Initialising the Tumbler Pixbuf Thumbnailer plugin"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr ""
 

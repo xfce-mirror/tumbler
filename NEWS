@@ -1,3 +1,27 @@
+0.1.3
+=====
+- Link plugins against libtumbler-1. Should fix builds with 
+  --as-needed.
+- Move tumblerd into $libdir/tumbler-1.
+- Add support for arbitrary URI shemes in the poppler plugin.
+- Translation updates: Basque, Indonesian, Swedish, German, Russian,
+  Galician, Uyghur, Chinese (Taiwan), Ukrainian, Finnish, Catalan
+  (Valencian), Danish, Japanese, Kazakh, Italian, Portuguese, 
+
+0.1.2
+=====
+- Add a new PDF/PostScript thumbnailer plugin based on poppler.
+- Add a new video thumbnailer plugin using libffmpegthumbnailer.
+- Handle missing URIs/MIME types in thumbnailer requests by reporting
+  them back to the client application as an error.
+- Don't use dbus_connection_send from threads. Use g_idle_add() 
+  instead.
+- Improve tumblerd's startup significantly by optimizing the code
+  dealing with updating the supported URI schemes and MIME types.
+- Avoid compiler warnings due to global name shadowing.
+- Translation updates: Traditional Chinese, Punjabi, Bengali, Sinhala,
+  French, Chinese (China) and more.
+
 0.1.1
 =====
 - New fast JPEG thumbnailer with EXIF support

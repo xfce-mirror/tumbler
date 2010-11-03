@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-03-31 17:05+0600\n"
 "Last-Translator: Sadia Afroz <sadia@ankur.org.bd>\n"
 "Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
@@ -32,7 +32,7 @@ msgstr "\"%s\"-র জন্য কোনো থাম্বনেইলার �
 msgid "Another generic thumbnailer is already running"
 msgstr "অন্য একটি সাধারণ থাম্বনেইলার ইতিমধ্যেই চলছে"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "অসমর্থিত ধরনের থাম্বনেইল অনুরোধ করা হয়েছে"
 
@@ -230,11 +230,11 @@ msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগ�
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr ""
 

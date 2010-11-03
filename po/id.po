@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler (Xfce)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-31 11:01+0000\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-06-01 14:35+0700\n"
 "Last-Translator: Δrdjuna <ard_12_hr@rocketmail.com>\n"
 "Language-Team: Bahasa Indonesia\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Poedit-Language: Indonesian\n"
 "X-Poedit-Country: INDONESIA\n"
 
@@ -60,8 +60,12 @@ msgstr "Terdapat bagian cacat \"%s\" pada berkas \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Terdapat bagian cacat \"%s\" pada berkas \"%s\": Ketidakcocokan antara nama bagian dengan UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Terdapat bagian cacat \"%s\" pada berkas \"%s\": Ketidakcocokan antara nama "
+"bagian dengan UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914

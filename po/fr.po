@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-02-09 22:34+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
@@ -39,7 +39,7 @@ msgstr "Pas de vignette disponible pour \"%s\""
 msgid "Another generic thumbnailer is already running"
 msgstr "Un autre service de vignettes est déjà lancé"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 #, fuzzy
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Requette du générateur de vignette non supporté"
@@ -246,11 +246,11 @@ msgstr "Arrêt du greffon de vignettes pixbuf"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Initialisation de la police du plugin de vignettes pixbuf"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr ""
 

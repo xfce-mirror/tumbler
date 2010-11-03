@@ -1,21 +1,22 @@
 # Ukrainian translation of tumbler.
 # Copyright (C) 2010 Dmitry Nikitin
 # This file is distributed under the same license as the tumbler package.
-# 
+#
 # Dmitry Nikitin <luckas_fb@mail.ru>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-13 10:01+0000\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
@@ -40,7 +41,8 @@ msgstr "Непідтримуваний запит переглядача мін�
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Не можу викликати визначений створювач мініатюр: задовгий час очікування"
+msgstr ""
+"Не можу викликати визначений створювач мініатюр: задовгий час очікування"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
@@ -60,8 +62,12 @@ msgstr "Неправильна секція \"%s\" у файлі \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і "
+"UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -215,21 +221,24 @@ msgstr "Неможливо створити іконку з  вмісту фай
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою ffmpeg"
+msgstr ""
+"Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою "
+"ffmpeg"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою ffmpeg"
+msgstr ""
+"Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою ffmpeg"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Ініціалізація додатку Tumbler Poppler PDF/PS Thumbnailer"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:212
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr "Документ порожній"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:224
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr "Не можу прочитати першу сторінку документу"
 

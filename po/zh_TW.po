@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-16 17:09+0200\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-08-28 16:25+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
@@ -33,7 +33,7 @@ msgstr "「%s」沒有可用的縮圖製作程式"
 msgid "Another generic thumbnailer is already running"
 msgstr "另一個通用縮圖製作程式已經在執行中"
 
-#: ../tumblerd/tumbler-service.c:864
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "要求的縮圖風格未支援"
 
@@ -46,14 +46,12 @@ msgstr "無法呼叫特定的縮圖製作程式：逾時"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "無法呼叫特定的縮圖製作程式：%s"
 
-#: ../tumblerd/tumbler-manager.c:467
-#: ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "無法載入檔案「%s」：%s"
 
-#: ../tumblerd/tumbler-manager.c:485
-#: ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -61,11 +59,13 @@ msgstr "檔案「%s」的「%s」區段格式不良：%s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
 
-#: ../tumblerd/tumbler-manager.c:886
-#: ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -227,11 +227,11 @@ msgstr "正在關閉 Tumbler ffmpeg 視訊縮圖製作插件"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "正在初始化 Tumbler Poppler PDF/PS 縮圖製作插件"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:182
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr "該文件是空的"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:193
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr "文件的第一頁無法讀取"
 
@@ -247,4 +247,3 @@ msgstr "正在初始化 Tumbler XDG 快取插件"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "正在關閉 Tumbler XDG 快取插件"
-

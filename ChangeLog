@@ -1,3 +1,256 @@
+commit 9607301042e04275e16de6116ecb3c7c643bd161
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Wed Nov 3 19:37:15 2010 +0100
+
+    Update API doc sections.
+
+commit 8c95120fe39849193f6f3ea5c28f0672120f8b00
+Author: Piarres Beobide <pi@beobide.net>
+Date:   Wed Nov 3 09:36:14 2010 +0100
+
+    l10n: Updated Basque (eu) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 442628be141d457d92cc67512303ff85ddfaddee
+Author: Ardjuna <ard_h_r@yahoo.com>
+Date:   Sun Oct 31 14:42:02 2010 +0100
+
+    l10n: Updated Indonesian (id) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 64918a15e92b85ea88985d8d18faafdfb52673fc
+Author: Daniel Nylander <po@danielnylander.se>
+Date:   Sun Oct 17 18:03:44 2010 +0200
+
+    l10n: Updated Swedish (sv) translation to 51%
+    
+    New status: 23 messages complete with 0 fuzzies and 22 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit a1a103d37cdfbb0972425a3b4a1b584fe7c26e86
+Author: Fabian Nowak <timystery@arcor.de>
+Date:   Tue Sep 14 12:33:04 2010 +0200
+
+    l10n: First German translation, 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e499eb0b9ab221469f8a7eef78963a2fbb1df553
+Author: Denis Koryavov <dkoryavov@yandex.ru>
+Date:   Tue Sep 14 10:22:19 2010 +0200
+
+    l10n: Updated Russian (ru) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e9c4d1f37a09cd576b420aee37bea321bade7e7f
+Author: Leandro Regueiro <leandro.regueiro@gmail.com>
+Date:   Thu Sep 9 13:28:35 2010 +0200
+
+    l10n: Updated Galician (gl) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit c8f1c113ce5c8f1b91242637bc9229924bbab76f
+Author: Gheyret Kenji <gheyret@yahoo.com>
+Date:   Tue Sep 7 04:57:43 2010 +0200
+
+    l10n: Updated Uyghur (ug) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit a6843c66168fbd537d565ef3dee1c04cd06a9514
+Author: Gheyret Kenji <gheyret@yahoo.com>
+Date:   Tue Sep 7 04:52:46 2010 +0200
+
+    l10n: Updated Uyghur (ug) translation to 95%
+    
+    New status: 43 messages complete with 0 fuzzies and 2 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 57a3c52eefcbc4f76114ceb80ec588d072ae9166
+Author: Gheyret Kenji <gheyret@yahoo.com>
+Date:   Tue Sep 7 04:51:35 2010 +0200
+
+    l10n: Updated Uyghur (ug) translation to 88%
+    
+    New status: 40 messages complete with 3 fuzzies and 2 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit c6f35999bd4be21ae431325180410fa481f83533
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sun Aug 29 12:55:23 2010 +0200
+
+    Link plugins against libtumbler-1. Should fix builds with --as-needed.
+
+commit 6a0db26c79637a053b85b1bc10f4b45dd52a3c6d
+Author: Cheng-Chia Tseng <pswo10680@gmail.com>
+Date:   Sat Aug 28 10:26:25 2010 +0200
+
+    l10n: Updated Chinese (Taiwan) (zh_TW) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 29b13cff9f741f52af6f25528020f3d307fb7ccc
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Aug 26 20:59:03 2010 +0200
+
+    Fix compiler warnings in tumbler-service.
+
+commit b8a4d8b76c631032d0f3d3ea1e2a56da1a05a0ba
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Aug 26 20:52:55 2010 +0200
+
+    Fix compiler warnings in the poppler and xdg plugins.
+
+commit aa56247bf15c3166a69ed114ca3349b7209a03cd
+Author: Nick Schermer <nick@xfce.org>
+Date:   Thu Aug 26 20:52:35 2010 +0200
+
+    Move tumblerd to $libdir/tumbler-1.
+
+commit a2170318f8c1f60a8a009b57337118cd0031765d
+Author: Dmitrij Smirnov <arch@cnc-parts.info>
+Date:   Sun Aug 22 15:10:17 2010 +0200
+
+    l10n: Updated Russian (ru) translation to 97%
+    
+    New status: 44 messages complete with 1 fuzzy and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 28a93a15bd95971908e051ba7c71cd223b8a6c9e
+Author: Yarema aka Knedlyk <yupadmin@gmail.com>
+Date:   Fri Aug 13 15:07:57 2010 +0200
+
+    l10n: Updated Ukrainian (uk) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit e10cf35bf4eee0ed2159cf0d97052e41274b8a58
+Author: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>
+Date:   Tue Aug 3 09:53:08 2010 +0200
+
+    l10n: Updated Finnish (fi) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 7e7e9e55bd9579c46f6df854f813d973afdcabd4
+Author: Harald Servat <redcrash@gmail.com>
+Date:   Tue Jul 27 15:27:49 2010 +0200
+
+    l10n: Updated Catalan (Valencian) (ca) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit c2c350be1536e951a27829127d651bd08b6f809c
+Author: Per Kongstad <p_kongstad@op.pl>
+Date:   Tue Jul 20 20:45:40 2010 +0200
+
+    l10n: Updated Danish (da) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 3e494db02417ba0d03f98a4b43babb2ce928b963
+Author: Masato Hashimoto <cabezon.hashimoto@gmail.com>
+Date:   Mon Jul 19 08:00:36 2010 +0200
+
+    l10n: Updated Japanese (ja) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 011e061acecd3481dd1a6dcb06c5daa84f08ef32
+Author: Bauzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Mon Jul 19 06:09:14 2010 +0200
+
+    l10n: Updated Kazakh (kk) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 99ab35b3a892065041f9e7abcda3675559f23196
+Author: Cristian Marchi <cri.penta@gmail.com>
+Date:   Sun Jul 18 17:22:02 2010 +0200
+
+    l10n: Updated Italian (it) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit 3d3f5245e1a4e00c9a83ed0cd1495f0a5461261f
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Jul 17 12:48:00 2010 +0200
+
+    Fix a memory leak.
+
+commit 2dc366aa5e594739dfd85a98e8793ee49b12478c
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Sat Jul 17 12:24:08 2010 +0200
+
+    Make the poppler thumbnailer work with arbitrary URIs, not just file://.
+    
+    This works by first creating the poppler document based on the URI (only
+    file is supported here) and then loading the entire document into a
+    buffer with GIO as a fallback. Poppler is then able to parse the
+    document from the buffer.
+
+commit b673227a8146ddd45a06ba2bdeac41feaf48c49b
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Fri Jul 16 20:26:14 2010 +0200
+
+    l10n: Updated Portuguese (pt) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit a93c9485fa90cffb0b45cecf4886a1d05326068a
+Author: Sergio Marques <smarquespt@gmail.com>
+Date:   Fri Jul 16 20:22:43 2010 +0200
+
+    l10n: Updated Portuguese (pt) translation to 100%
+    
+    New status: 45 messages complete with 0 fuzzies and 0 untranslated.
+    
+    Transmitted-via: Transifex (translations.xfce.org).
+
+commit f0624345bdb26a09d9f6db010ec2fcd7939dcc0a
+Author: Jannis Pohlmann <jannis@xfce.org>
+Date:   Fri Jul 16 17:11:04 2010 +0200
+
+    Release 0.1.2!
+
 commit 7285f9ef7882c2b531464fa3f7b4b3bed09d3c2c
 Author: Jannis Pohlmann <jannis@xfce.org>
 Date:   Fri Jul 16 16:19:46 2010 +0200

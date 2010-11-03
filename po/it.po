@@ -2,19 +2,20 @@
 # Copyright (C) YEAR THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 #  Cristian Marchi <cri.penta@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-18 10:01+0000\n"
+"POT-Creation-Date: 2010-11-03 19:48+0100\n"
 "PO-Revision-Date: 2010-06-26 08:57+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
-"Language-Team: Italian Translation Team <xfce-it-translators@googlegroups.com>\n"
+"Language-Team: Italian Translation Team <xfce-it-translators@googlegroups."
+"com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
@@ -38,7 +39,8 @@ msgstr "Richiesta di tipo di miniatura non valida"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Chiamata del creatore di miniature specializzato non riuscita: tempo scaduto"
+msgstr ""
+"Chiamata del creatore di miniature specializzato non riuscita: tempo scaduto"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
@@ -58,8 +60,12 @@ msgstr "Sezione malformata \"%s\" nel file «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il nome della sezione e UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il nome "
+"della sezione e UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -95,7 +101,9 @@ msgstr "Avvio del servizio di cache per le miniature non riuscito: %s"
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Caricamento del creatore di miniature specializzato nel registro non riuscito:%s"
+msgstr ""
+"Caricamento del creatore di miniature specializzato nel registro non "
+"riuscito:%s"
 
 #: ../tumblerd/main.c:158
 #, c-format
@@ -167,11 +175,14 @@ msgstr "Chiusura del plugin di Tumbler Pixbuf Thumbnailer in corso..."
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Inizializzazione del plugin di Tumbler per la creazione delle miniature del carattere"
+msgstr ""
+"Inizializzazione del plugin di Tumbler per la creazione delle miniature del "
+"carattere"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Chiusura del plugin di Tumbler per la creazione delle miniature del carattere"
+msgstr ""
+"Chiusura del plugin di Tumbler per la creazione delle miniature del carattere"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -213,21 +224,27 @@ msgstr "La miniatura non può essere creata dal contenuto di un file"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Inizializzazione del plugin ffmpeg di Tumbler per la creazione delle miniature del video"
+msgstr ""
+"Inizializzazione del plugin ffmpeg di Tumbler per la creazione delle "
+"miniature del video"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Chiusura del plugin ffmpeg di Tumbler per la creazione delle miniature del video"
+msgstr ""
+"Chiusura del plugin ffmpeg di Tumbler per la creazione delle miniature del "
+"video"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Inizializzazione del plugin Poppler di Tumbler per la creazione delle miniature dei file PDF/PS"
+msgstr ""
+"Inizializzazione del plugin Poppler di Tumbler per la creazione delle "
+"miniature dei file PDF/PS"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:212
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
 msgstr "Il documento è vuoto"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:224
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
 msgstr "La prima pagina del documento non può essere letta"
 
