@@ -114,7 +114,7 @@ dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
 AC_FUNC_MMAP()
-#AC_CHECK_FUNCS([])
+AC_CHECK_FUNCS([sched_getparam sched_setscheduler])
 
 dnl ******************************
 dnl *** Check for i18n support ***
