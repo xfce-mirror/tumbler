@@ -1408,7 +1408,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
   GHashTableIter   iter;
   const gchar     *hash_key;
   GFile           *file;
-  GList           *delete_keys;
+  GList           *delete_keys = NULL;
   GList          **list;
   GList           *lp;
   GStrv            hash_keys;
