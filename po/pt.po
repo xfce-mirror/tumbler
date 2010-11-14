@@ -2,26 +2,26 @@
 # Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Sérgio Marques <smarquespt@gmail.com>
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-11-13 23:01+0000\n"
 "PO-Revision-Date: 2010-01-07 14:31-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: PORTUGAL\n"
+"Language: \n"
 "X-Poedit-Language: Portuguese\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "Outro serviço de miniaturas em cache já está em execução"
+msgstr "Já está em execução outro serviço de miniaturas em cache"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
@@ -32,7 +32,7 @@ msgstr "Não existem miniaturas disponíveis para \"%s\""
 #: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Outro serviço genérico de miniaturas já está em execução"
+msgstr "Já está em execução outro serviço genérico de miniaturas"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -60,12 +60,8 @@ msgstr "Secção inválida \"%s\" no ficheiro \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Secção inválida \"%s\" no ficheiro \"%s\": Diferenças entre o nome da secção "
-"e o esquema Uri/Tipo mime"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Secção inválida \"%s\" no ficheiro \"%s\": Diferenças entre o nome da secção e o esquema Uri/Tipo mime"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -81,12 +77,12 @@ msgstr "Falha ao determinar a data de modificação de \"%s\" "
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Outro gestor de miniaturas já está em execução"
+msgstr "Já está em execução outro gestor de miniaturas"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:63
 msgid "Tumbler Thumbnailing Service"
-msgstr "Serviço de Miniaturas Tumbler"
+msgstr "Serviço de miniaturas Tumbler"
 
 #: ../tumblerd/main.c:78
 #, c-format
@@ -128,12 +124,12 @@ msgstr "Espaço de cores RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "O plugin \"%s\" tem em falta os símbolos necessários"
+msgstr "O \"plug-in\" \"%s\" tem em falta os símbolos necessários"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Falha ao carregar o plugin de cache \"%s\": %s"
+msgstr "Falha ao carregar o \"plug-in\" de cache \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -143,12 +139,12 @@ msgstr "O ficheiro \"%s\" é uma miniatura"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "O plugin \"%s\" tem em falta os símbolos necessários."
+msgstr "O \"plug-in\" \"%s\" tem em falta os símbolos necessários."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Falha ao carregar o plugin \"%s\": %s"
+msgstr "Falha ao carregar o \"plug-in\" \"%s\": %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -161,23 +157,21 @@ msgid "Version mismatch: %s"
 msgstr "Conflito de versão: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Iniciando o plugin de miniaturas Tumbler Pixbuf"
+msgstr "Iniciando o \"plug-in\" de miniaturas Tumbler Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Desligando o plugin de miniaturas Tumbler Pixbuf"
+msgstr "Desligando o \"plug-in\" de miniaturas Tumbler Pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Iniciando o plugin de miniaturas Tumbler Font"
+msgstr "Iniciando o \"plug-in\" de miniaturas Tumbler Font"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Desligando o plugin de miniaturas Tumbler Font"
+msgstr "Desligando o \"plug-in\" de miniaturas Tumbler Font"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -209,25 +203,33 @@ msgstr "Não foi possível definir o mapa de caracteres: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Não foi possível processar o símbolo: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Não foi possível inferir o conteúdo do ficheiro"
 
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Iniciando o \"plug-in\" de miniaturas Tumbler JPEG"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Desligando o \"plug-in\" de miniaturas Tumbler JPEG"
+
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Iniciando o plugin de miniaturas Tumbler ffmpeg video"
+msgstr "Iniciando o \"plug-in\" de miniaturas Tumbler ffmpeg video"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Desligando o plugin de miniaturas Tumbler ffmpeg video"
+msgstr "Desligando o \"plug-in\" de miniaturas Tumbler ffmpeg video"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Iniciando o plugin de miniaturas Tumbler Poppler PDF/PS"
+msgstr "Iniciando o \"plug-in\" de miniaturas Tumbler Poppler PDF/PS"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
@@ -244,11 +246,11 @@ msgstr "Não foi possível gravar a miniatura em \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Iniciando o plugin de cache Tumbler XDG"
+msgstr "Iniciando o \"plug-in\" de cache Tumbler XDG"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Desligando o plugin de cache Tumbler XDG"
+msgstr "Desligando o \"plug-in\" de cache Tumbler XDG"
 
 #~ msgid "Normal"
 #~ msgstr "Normal"
