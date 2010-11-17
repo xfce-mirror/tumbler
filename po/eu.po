@@ -5,14 +5,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-11-17 17:01+0000\n"
 "PO-Revision-Date: 2010-01-29 22:59+0100\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Basque <debian-l10n-eu@debian.lists.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -58,12 +58,8 @@ msgstr "Oker eratutako \"%s\" atala \"%s\" fitxategian: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Oker eratutako \"%s\" atala \"%s\" fitxategian: Atal izen eta UriScheme/"
-"MimeType ez datoz bat."
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Oker eratutako \"%s\" atala \"%s\" fitxategian: Atal izen eta UriScheme/MimeType ez datoz bat."
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -159,12 +155,10 @@ msgid "Version mismatch: %s"
 msgstr "Bertsio elkar-jotzea: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf argazkitxo sortze plugina abiarazten"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf argazkitxo sortze plugina itzaltzen"
@@ -207,13 +201,21 @@ msgstr "Ezin da karaktere-mapa ezarri: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Ezin dira glifoak errendatu: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Argazkitxoak ezin da eskuratu fitxategi edukitik"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Tumbler JPEG argazkitxo sortze plugina abiarazten"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Tumbler JPEG argazkitxo sortze plugina itzaltzen"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
