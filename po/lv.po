@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2009-10-16 18:19+0100\n"
 "Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
@@ -160,12 +160,10 @@ msgid "Version mismatch: %s"
 msgstr "Versiju nesakritība: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Inicializē Tumble Pixbuf sīktēlotāja spraudni"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Izslēdz Tumble Pixbuf sīktēlotāja spraudni"
@@ -208,13 +206,23 @@ msgstr "Neizdevās uzstādīt rakstzīmju karti: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Neizdevās vizualizēt glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Inicializē Tumble Pixbuf sīktēlotāja spraudni"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Izslēdz Tumble Pixbuf sīktēlotāja spraudni"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 #, fuzzy

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -163,12 +163,10 @@ msgid "Version mismatch: %s"
 msgstr "Версія не збігаються: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Ініціалізація додатку Tumbler Pixbuf Thumbnailer "
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Вихід з додатку Tumbler Pixbuf Thumbnailer"
@@ -211,13 +209,23 @@ msgstr "Не можу встановити розкладку символів: 
 msgid "Could not render glyphs: %s"
 msgstr "Не вдалось відобразити гліфи: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Неможливо створити іконку з  вмісту файлу"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Ініціалізація додатку Tumbler Pixbuf Thumbnailer "
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Вихід з додатку Tumbler Pixbuf Thumbnailer"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"

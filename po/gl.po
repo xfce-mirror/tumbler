@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2009-12-18 13:46+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -169,12 +169,10 @@ msgid "Version mismatch: %s"
 msgstr "As versións non coinciden: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Iniciando o engadido miniaturizador de Pixbuf de Tumbler"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Apagando o engadido miniaturizador de Pixbuf de Tumbler"
@@ -217,13 +215,23 @@ msgstr "Non se puido definir o mapa de caracteres: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Non foi posible debuxar os glifos: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Non se puido obter a miniatura a partir do contido do ficheiro"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Iniciando o engadido miniaturizador de Pixbuf de Tumbler"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Apagando o engadido miniaturizador de Pixbuf de Tumbler"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"

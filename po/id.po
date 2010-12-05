@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler (Xfce)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2010-06-01 14:35+0700\n"
 "Last-Translator: Δrdjuna <ard_12_hr@rocketmail.com>\n"
 "Language-Team: Bahasa Indonesia\n"
@@ -161,12 +161,10 @@ msgid "Version mismatch: %s"
 msgstr "Versi tidak sama: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Menginisialisasi plugin \"Tumbler Pixbuf Thumbnailer\""
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Mematikan plugin \"Tumbler Pixbuf Thumbnailer\""
@@ -209,13 +207,23 @@ msgstr "Tidak dapat menyetel map karakter: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Tidak dapat membentuk: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Tidak dapat membentuk thumbnail dari isi berkas"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Menginisialisasi plugin \"Tumbler Pixbuf Thumbnailer\""
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Mematikan plugin \"Tumbler Pixbuf Thumbnailer\""
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"

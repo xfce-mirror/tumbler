@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2010-03-31 17:05+0600\n"
 "Last-Translator: Sadia Afroz <sadia@ankur.org.bd>\n"
 "Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
@@ -159,12 +159,10 @@ msgid "Version mismatch: %s"
 msgstr "সংস্করণে মিল পাওয়া যায়নি: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
@@ -207,13 +205,23 @@ msgstr "অক্ষরের মানচিত্র নির্ধারণ 
 msgid "Could not render glyphs: %s"
 msgstr "glyphs রেন্ডার করা যায়নি: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ফাইলের বিষয়বস্তু থেকে থাম্বনেইল অনুমান করা যায়নি"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 #, fuzzy

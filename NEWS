@@ -1,7 +1,12 @@
-0.1.x
+0.1.5
 =====
 - Fix a segmentation fault when one of the thumbnailer directories is
   deleted (bug #6134).
+- Fix sched_getparam/sched_setscheduler code on OpenBSD (bug #6061).
+- Fix init/shutdown debug message in the JPEG thumbnailer plugin.
+- Translation updates: Hungarian, Portuguese (Brazilian), German,
+  Chinese (China), Catalan (Valencian), Italian, Basque, Kazakh,
+  Portuguese, Danish.
 
 0.1.4
 =====

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-07 14:22+0100\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2010-01-09 17:42+0900\n"
 "Last-Translator: Gheyret T.Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -161,13 +161,11 @@ msgstr "نەشرى ماس كەلمىدى: %s"
 
 # DEBUG message
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
 
 # DEBUG message
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى توختىتىۋاتىدۇ"
@@ -212,13 +210,25 @@ msgstr "character map نى تەڭشىگىلى بولمىدى: %s"
 msgid "Could not render glyphs: %s"
 msgstr "glyphs نى سىزغىلى بولمىدى: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:743
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:781
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Thumbnail نى ھۆججەت مەزمۇنىدىن كەلتۈرۈپ چىقارغىلى بولمىدى"
+
+# DEBUG message
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
+
+# DEBUG message
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى توختىتىۋاتىدۇ"
 
 # DEBUG message
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63

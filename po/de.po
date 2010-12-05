@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-23 23:01+0000\n"
+"POT-Creation-Date: 2010-12-05 16:31+0100\n"
 "PO-Revision-Date: 2010-11-24 01:36+0100\n"
 "Last-Translator: Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>\n"
 "Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
@@ -41,21 +41,20 @@ msgstr "Nicht unterstützte Vorschaubildart angefordert"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Konnte den spezialisierten Vorschaubildersteller nicht aufrufen: Timeout"
+msgstr ""
+"Konnte den spezialisierten Vorschaubildersteller nicht aufrufen: Timeout"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Konnte den spezialisierten Vorschaubildersteller nicht aufrufen: %s"
 
-#: ../tumblerd/tumbler-manager.c:467
-#: ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Konnte die Datei »%s« nicht laden: %s"
 
-#: ../tumblerd/tumbler-manager.c:485
-#: ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -63,11 +62,14 @@ msgstr "Kaputter Abschnitt »%s« in Datei »%s«: %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Kaputter Abschnitt »%s« in Datei »%s«: Keine Übereinstimmung zwischen Name des Abschnitts und dem URI-Schema/MIME-Typ"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Kaputter Abschnitt »%s« in Datei »%s«: Keine Übereinstimmung zwischen Name "
+"des Abschnitts und dem URI-Schema/MIME-Typ"
 
-#: ../tumblerd/tumbler-manager.c:886
-#: ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -101,7 +103,9 @@ msgstr "Konnte den Vorschaubilddienst nicht starten: %s"
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Konnte besondere Vorschaubildersteller nicht in die Registrierung eintragen: %s"
+msgstr ""
+"Konnte besondere Vorschaubildersteller nicht in die Registrierung eintragen: "
+"%s"
 
 #: ../tumblerd/main.c:158
 #, c-format
@@ -255,4 +259,3 @@ msgstr "Starte das Tumbler XDG-Cache-Plugin"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Beende das Tumbler XDG-Cache-Plugin"
-
