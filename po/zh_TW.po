@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-05 16:31+0100\n"
-"PO-Revision-Date: 2010-08-28 16:25+0800\n"
+"POT-Creation-Date: 2010-12-06 17:01+0000\n"
+"PO-Revision-Date: 2010-12-07 01:36+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n>1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
@@ -46,12 +46,14 @@ msgstr "無法呼叫特定的縮圖製作程式：逾時"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "無法呼叫特定的縮圖製作程式：%s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:467
+#: ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "無法載入檔案「%s」：%s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485
+#: ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -59,13 +61,11 @@ msgstr "檔案「%s」的「%s」區段格式不良：%s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886
+#: ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -214,14 +214,12 @@ msgid "Thumbnail could not be inferred from file contents"
 msgstr "縮圖無法從檔案內容推算"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在初始化 Tumbler Pixbuf 縮圖製作插件"
+msgstr "正在初始化 Tumbler JPEG 縮圖製作插件"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在關閉 Tumbler Pixbuf 縮圖製作插件"
+msgstr "正在關閉 Tumbler JPEG 縮圖製作插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
@@ -255,3 +253,4 @@ msgstr "正在初始化 Tumbler XDG 快取插件"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "正在關閉 Tumbler XDG 快取插件"
+
