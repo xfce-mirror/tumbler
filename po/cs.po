@@ -1,0 +1,258 @@
+# Czech translations for tumbler package.
+# Copyright (C) 2010 THE tumbler'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the tumbler package.
+# Michal Várady <miko.vaji@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-06 23:01+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\\n\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../tumblerd/tumbler-cache-service.c:383
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "Již je spuštěna jiná služba mezipaměti náhledů"
+
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Pro položku \"%s\" není dostupný žádný nástroj pro vytváření náhledů"
+
+#: ../tumblerd/tumbler-service.c:751
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "Již je spuštěn jiný nástroj pro vytváření náhledů"
+
+#: ../tumblerd/tumbler-service.c:867
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Byla vyžádána nepodporovaná metoda náhledu"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: Časový limit vypršel."
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
+
+#: ../tumblerd/tumbler-manager.c:467
+#: ../tumblerd/tumbler-manager.c:873
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "Načtení souboru \"%s\" se nezdařilo: %s"
+
+#: ../tumblerd/tumbler-manager.c:485
+#: ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:513
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:526
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje se schématem URI nebo typem MIME"
+
+#: ../tumblerd/tumbler-manager.c:886
+#: ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:914
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "Poškozený soubor \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:940
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "Zjištění času poslední změny položky \"%s\" se nezdařilo"
+
+#: ../tumblerd/tumbler-manager.c:1849
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "Již je spuštěn jiný správce nástroje pro vytváření náhledů"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:63
+msgid "Tumbler Thumbnailing Service"
+msgstr "Služba vytváření náhledů Tumbler"
+
+#: ../tumblerd/main.c:78
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "Připojení k relaci sběrnice D-Bus se nezdařilo: %s"
+
+#: ../tumblerd/main.c:90
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Spuštění služby mezipaměti náhledů se nezdařilo: %s"
+
+#: ../tumblerd/main.c:140
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Načtení specializovaných nástrojů pro vytváření náhledů do registru se nezdařilo: %s"
+
+#: ../tumblerd/main.c:158
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "Spuštění správce nástroje pro vytváření náhledů se nezdařilo: %s"
+
+#: ../tumblerd/main.c:176
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "Spuštění služby nástroj pro vytváření náhledů se nezdařilo: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Neplatný formát"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "Barevný prostor RGB"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Zásuvný modul pro mezipaměť \"%s\" postrádá požadované symboly"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Načtení zásuvného modulu pro mezipaměť se nezdařilo \"%s\": %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Soubor \"%s\" je již náhledem"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Zásuvný modul \"%s\" postrádá požadované symboly."
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "Načtení zásuvného modulu \"%s\" se nezdařilo: %s"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Verze se neshodují: %s"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Inicializace zásuvného modulu nástroje pro vytváření náhledů Tumbler Pixbuf"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Vypínání zásuvného modulu nástroje pro vytváření náhledů Tumbler Pixbuf"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů písem"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů písem"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Nelze inicializovat modul freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Nelze načíst obsah souboru: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Nelze otevřít soubor s písmem: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Nelze nastavit mapu znaků: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Nelze vykreslit piktogramy: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Odvození náhledu z obsahu souboru nelze provést"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů obrázků JPEG"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů obrázků JPEG"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů videí ffmpeg"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů videí ffmpeg"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Inicializace zásuvného modulu nástroje pro vytváření náhledů Tumbler PDF/PS Poppler"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+msgid "The document is empty"
+msgstr "Dokument je prázdný"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+msgid "First page of the document could not be read"
+msgstr "Nelze načíst první stranu dokumentu"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Nelze uložit náhled do \"%s\""
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "Inicializace zásuvného modulu mezipaměti XDG pro službu Tumbler"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "Vypínání zásuvného modulu mezipaměti XDG pro službu Tumbler "
+
