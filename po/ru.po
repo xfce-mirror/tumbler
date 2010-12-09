@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-05 16:31+0100\n"
+"POT-Creation-Date: 2010-12-09 17:01+0000\n"
 "PO-Revision-Date: 2010-01-13 04:56+0600\n"
 "Last-Translator: Алекс <dwqwt3i02@sneakemail.com>\n"
 "Language-Team: ru <->\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: binary\n"
+"Language: \n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
@@ -57,12 +57,8 @@ msgstr "Неверная секция \"%s\" в файле \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Неверная секция \"%s\" в файле \"%s\": Несовпадение названия секции и "
-"UriScheme/MimeType"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Неверная секция \"%s\" в файле \"%s\": Несовпадение названия секции и UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -213,14 +209,12 @@ msgid "Thumbnail could not be inferred from file contents"
 msgstr "Не удалось создать основанную на содержимом файла миниатюру"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Запуск модуля миниатюр Pixbuf Tumbler"
+msgstr "Запуск модуля миниатюр JPEG"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Завершение работы модуля миниатюр Pixbuf Tumbler"
+msgstr "Завершение работы модуля миниатюр JPEG"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
