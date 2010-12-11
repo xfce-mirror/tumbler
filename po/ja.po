@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-05 16:31+0100\n"
-"PO-Revision-Date: 2010-07-19 14:19+0900\n"
+"POT-Creation-Date: 2010-12-11 23:09+0900\n"
+"PO-Revision-Date: 2010-12-11 23:09+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: \n"
@@ -221,15 +221,13 @@ msgstr "ファイル内容からサムネイルを推測できませんでした
 
 # DEBUG message
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Initializing the Tumbler JPEG Thumbnailer plugin"
 
 # DEBUG message
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Shutting down the Tumbler JPEG Thumbnailer plugin"
 
 # DEBUG message
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
