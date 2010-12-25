@@ -1,0 +1,256 @@
+# Norwegian bokmaal translation of Tumbler.
+# Copyright (C) 2009 Jannis Pohlmann <jannis@xfce.org>
+# This file is distributed under the same license as the PACKAGE package.
+# Terje Uriansrud <terje@uriansrud.net>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler 1.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-25 17:01+0000\n"
+"PO-Revision-Date: 2009-12-19 22:24+0100\n"
+"Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
+"Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../tumblerd/tumbler-cache-service.c:383
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "En annen tjeneste for hurtiglager av miniatyrer kjører allerede"
+
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Ingen miniatyrtjeneste tilgjengelig for \"%s\""
+
+#: ../tumblerd/tumbler-service.c:751
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "En annen generisk miniatyrtjeneste kjører allerede"
+
+#: ../tumblerd/tumbler-service.c:867
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Ikke støttet miniatyrtjeneste etterspurt"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Kunne ikke kalle spesialisert miniatyr: tidsavbrudd"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Kunne ikke kalle spesialisert miniatyr: %s"
+
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "Klarte ikke lese filen \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:513
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "Uglydig seksjon \"%s\" i fil \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:526
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Ugyldig seksjon \"%s\" i fil\"%s\": Misforhold mellom seksjonsnavn og "
+"Uri-skjema/Mime-type"
+
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:914
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "Ugyldig fil \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:940
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "Klarte ikke finne sist modifisert tidspunkt for \"%s\""
+
+#: ../tumblerd/tumbler-manager.c:1849
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "En annen miniatyrbehandler kjører allerede"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:63
+msgid "Tumbler Thumbnailing tjeneste"
+msgstr ""
+
+#: ../tumblerd/main.c:78
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "Klarte ikke koble til D-Bus økt: %s"
+
+#: ../tumblerd/main.c:90
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Klarte ikke starte miniatyrtjeneste: %s"
+
+#: ../tumblerd/main.c:140
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Klarte ikke lese inn spesialiserte miniatyrer til registret: %s"
+
+#: ../tumblerd/main.c:158
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "Klarte ikke starte miniatyrbehandling: %s"
+
+#: ../tumblerd/main.c:176
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "Klarte ikke starte miniatyrtjenesten: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Ugyldig format"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "RGB fargerom"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Hurtiglagermodul \"%s\" mangler obligatoriske symboler"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Klarte ikke laste hurtiglagermodul \"%s\": %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Filen \"%s\" er selv en miniatyr"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Utvidelsesmodul \"%s\" mangler obligatoriske symboler."
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "Klarte ikke laste utvidelsesmodul \"%s\": %s"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Versjoner stemmer ikke: %s"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Initialiserer utvidelsesmodul Tumbler Pixbuf Thumbnailer"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Lukker utvidelsesmodul Tumbler Pixbuf Thumbnailer"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Initialiserer utvidelsesmodul Tumbler Font Thumbnailer"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "Lukker utvidelsesmodul Tumbler Font Thumbnailer"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Klarte ikke initialisere freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Klarte ikke laste filinnhold: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Klarte ikke åpne skrifttypefil: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Klarte ikke sette tegnsett: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Klarte ikke tegne glyffer: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Miniatyr kunne ikke bestemmes fra filinnholdet"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Initialiserer utvidelsesmodul Tumbler JPEG Thumbnailer"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Lukker utvidelsesmodul Tumbler JPEG Thumbnailer"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Initialiserer utvidelsesmodul Tumbler ffmpeg video thumbnailer"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Lukker utvidelsesmodul Tumbler ffmpeg video thumbnailer"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Initialiserer utvidelsesmodul Tumbler Poppler PDF/PS Thumbnailer"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+msgid "The document is empty"
+msgstr "Dokumentet er tomt"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+msgid "First page of the document could not be read"
+msgstr "Første side av dokumentet kunne ikke leses"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Klarte ikke lagre miniatyr til \"%s\""
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "Initialiserer utvidelsesmodul Tumbler XDG cache"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "Lukker utvidelsesmodul Tumbler XDG cache"
