@@ -84,8 +84,8 @@ msgstr "En annen miniatyrbehandler kjører allerede"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:63
-msgid "Tumbler Thumbnailing tjeneste"
-msgstr ""
+msgid "Tumbler Thumbnailing Service"
+msgstr "Tumbler Thumbnailing tjeneste"
 
 #: ../tumblerd/main.c:78
 #, c-format
