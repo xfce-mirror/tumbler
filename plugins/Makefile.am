@@ -1,6 +1,6 @@
 # vi:set ts=8 sw=8 noet ai nocindent:
 # -
-# Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License as
@@ -18,6 +18,7 @@
 # Boston, MA 02110-1301, USA.
 
 SUBDIRS =								\
+	folder-thumbnailer						\
 	font-thumbnailer						\
 	jpeg-thumbnailer						\
 	pixbuf-thumbnailer						\

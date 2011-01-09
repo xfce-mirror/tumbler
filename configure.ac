@@ -1,6 +1,6 @@
 # vi:set et ai sw=2 sts=2 ts=2: */
 # -
-# Copyright (c) 2009-2010 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License as
@@ -35,7 +35,7 @@ m4_define([tumbler_debug_default], [minimum])
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2009-2010 Jannis Pohlmann <jannis@xfce.org>])
+AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
 AC_INIT([tumbler], [tumbler_version], [http://bugzilla.xfce.org/])
 AC_PREREQ([2.50])
 AC_CANONICAL_TARGET()
@@ -150,6 +150,7 @@ PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
 dnl *************************
 dnl *** Check for plugins ***
 dnl *************************
+TUMBLER_FOLDER_THUMBNAILER()
 TUMBLER_FONT_THUMBNAILER()
 TUMBLER_JPEG_THUMBNAILER()
 TUMBLER_PIXBUF_THUMBNAILER()
@@ -180,6 +181,7 @@ docs/reference/Makefile
 docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
 plugins/Makefile
+plugins/folder-thumbnailer/Makefile
 plugins/font-thumbnailer/Makefile
 plugins/jpeg-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
@@ -203,6 +205,11 @@ echo "  * Debug:                                     $enable_debug"
 echo
 echo "Plugins:"
 echo
+if test x"$ac_tumbler_folder_thumbnailer" = x"yes"; then
+echo "  * Folder thumbnailer plugin:                        yes"
+else
+echo "  * Folder thumbnailer plugin:                        no"
+fi
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
 echo "  * GdkPixbuf thumbnailer plugin:                     yes"
 else

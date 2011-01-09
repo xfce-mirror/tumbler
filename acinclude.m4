@@ -1,6 +1,6 @@
 dnl vi:set et ai sw=2 sts=2 ts=2: */
 dnl -
-dnl Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+dnl Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
 dnl
 dnl This program is free software; you can redistribute it and/or 
 dnl modify it under the terms of the GNU General Public License as
@@ -35,6 +35,48 @@ fi
 AC_MSG_CHECKING([whether to build the GdkPixbuf thumbnailer plugin])
 AM_CONDITIONAL([TUMBLER_PIXBUF_THUMBNAILER], [test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_pixbuf_thumbnailer])
+])
+
+
+
+dnl TUMBLER_FOLDER_THUMBNAILER()
+dnl
+dnl Check whether to build and install the folder thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_FOLDER_THUMBNAILER],
+[
+AC_ARG_ENABLE([folder-thumbnailer], [AC_HELP_STRING([--disable-folder-thumbnailer], [Don't build the folder thumbnailer plugin])],
+  [ac_tumbler_folder_thumbnailer=$enableval], [ac_tumbler_folder_thumbnailer=yes])
+if test x"$ac_tumbler_folder_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  [
+    dnl Check for libjpeg
+    LIBJPEG_LIBS=""
+    LIBJPEG_CFLAGS=""
+    AC_CHECK_LIB([jpeg], [jpeg_start_decompress],
+    [
+      AC_CHECK_HEADER([jpeglib.h],
+      [
+        LIBJPEG_LIBS="-ljpeg -lm"
+      ],
+      [
+        dnl We can only build the JPEG thumbnailer if the JPEG headers are available
+        ac_tumbler_jpeg_thumbnailer=no
+      ])
+    ],
+    [
+      dnl We can only build the JPEG thumbnailer if libjpeg is available
+      ac_tumbler_jpeg_thumbnailer=no
+    ])
+    AC_SUBST([LIBJPEG_CFLAGS])
+    AC_SUBST([LIBJPEG_LIBS])
+  ], [ac_tumbler_jpeg_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the folder thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_FOLDER_THUMBNAILER], [test x"$ac_tumbler_folder_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_folder_thumbnailer])
 ])
 
 
