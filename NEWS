@@ -1,3 +1,7 @@
+0.1.x
+=====
+- Fix a possible segmentation fault in the JPEG thumbnailer plugin.
+
 0.1.5
 =====
 - Fix a segmentation fault when one of the thumbnailer directories is

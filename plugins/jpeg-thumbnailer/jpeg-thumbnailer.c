@@ -679,7 +679,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnail       *thumbnail;
   struct stat             statb;
   const gchar            *uri;
-  GdkPixbuf              *pixbuf;
+  GdkPixbuf              *pixbuf = NULL;
   gboolean                streaming_needed = TRUE;
   JOCTET                 *content;
   GError                 *error = NULL;
