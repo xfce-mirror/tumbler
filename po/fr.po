@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 05:02+0000\n"
+"POT-Creation-Date: 2011-01-16 11:02+0000\n"
 "PO-Revision-Date: 2010-02-09 22:34+0100\n"
 "Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
@@ -204,9 +204,9 @@ msgstr "Impossible de définir le caractère de la carte: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
-#, fuzzy, c-format
+#, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Ne pouvait rendre glyphs: %s"
+msgstr "N'a pas pu rendre glyphs : %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
