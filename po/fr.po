@@ -206,7 +206,7 @@ msgstr "Impossible de définir le caractère de la carte: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "N'a pas pu rendre glyphs : %s"
+msgstr "N'a pas pu générer les glyphes : %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
