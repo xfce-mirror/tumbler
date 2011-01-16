@@ -1,6 +1,9 @@
-0.1.x
+0.1.6
 =====
 - Fix a possible segmentation fault in the JPEG thumbnailer plugin.
+- Translation updates: Arabic, Chinese (Taiwan), Czech, English (United
+  Kingdom), Finnish, French, Galician, Greek, Hebrew, Indonesian, 
+  Japanese, Norwegian Bokmal, Polish, Romanian, Russian, Ukrainian.
 
 0.1.5
 =====

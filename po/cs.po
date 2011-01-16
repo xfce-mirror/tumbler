@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-06 23:01+0000\n"
+"POT-Creation-Date: 2011-01-16 14:48+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,21 +42,22 @@ msgstr "Byla vyžádána nepodporovaná metoda náhledu"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: Časový limit vypršel."
+msgstr ""
+"Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: Časový "
+"limit vypršel."
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
+msgstr ""
+"Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
 
-#: ../tumblerd/tumbler-manager.c:467
-#: ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Načtení souboru \"%s\" se nezdařilo: %s"
 
-#: ../tumblerd/tumbler-manager.c:485
-#: ../tumblerd/tumbler-manager.c:499
+#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -63,11 +65,14 @@ msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje se schématem URI nebo typem MIME"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje se "
+"schématem URI nebo typem MIME"
 
-#: ../tumblerd/tumbler-manager.c:886
-#: ../tumblerd/tumbler-manager.c:900
+#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -101,7 +106,9 @@ msgstr "Spuštění služby mezipaměti náhledů se nezdařilo: %s"
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Načtení specializovaných nástrojů pro vytváření náhledů do registru se nezdařilo: %s"
+msgstr ""
+"Načtení specializovaných nástrojů pro vytváření náhledů do registru se "
+"nezdařilo: %s"
 
 #: ../tumblerd/main.c:158
 #, c-format
@@ -162,16 +169,19 @@ msgstr "Verze se neshodují: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Inicializace zásuvného modulu nástroje pro vytváření náhledů Tumbler Pixbuf"
+msgstr ""
+"Inicializace zásuvného modulu nástroje pro vytváření náhledů Tumbler Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Vypínání zásuvného modulu nástroje pro vytváření náhledů Tumbler Pixbuf"
+msgstr ""
+"Vypínání zásuvného modulu nástroje pro vytváření náhledů Tumbler Pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů písem"
+msgstr ""
+"Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů písem"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
@@ -217,23 +227,31 @@ msgstr "Odvození náhledu z obsahu souboru nelze provést"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů obrázků JPEG"
+msgstr ""
+"Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů obrázků "
+"JPEG"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů obrázků JPEG"
+msgstr ""
+"Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů obrázků JPEG"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů videí ffmpeg"
+msgstr ""
+"Inicializace zásuvného modulu služby Tumbler pro vytváření náhledů videí "
+"ffmpeg"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů videí ffmpeg"
+msgstr ""
+"Vypínání zásuvného modulu služby Tumbler pro vytváření náhledů videí ffmpeg"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Inicializace zásuvného modulu nástroje pro vytváření náhledů Tumbler PDF/PS Poppler"
+msgstr ""
+"Inicializace zásuvného modulu nástroje pro vytváření náhledů Tumbler PDF/PS "
+"Poppler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
@@ -255,4 +273,3 @@ msgstr "Inicializace zásuvného modulu mezipaměti XDG pro službu Tumbler"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Vypínání zásuvného modulu mezipaměti XDG pro službu Tumbler "
-

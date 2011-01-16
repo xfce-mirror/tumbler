@@ -1,6 +1,6 @@
 # vi:set et ai sw=2 sts=2 ts=2: */
 # -
-# Copyright (c) 2009-2010 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License as
@@ -24,7 +24,7 @@ m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
 m4_define([tumbler_version_minor], [1])
-m4_define([tumbler_version_micro], [5])
+m4_define([tumbler_version_micro], [6])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
 dnl ********************************************
@@ -35,7 +35,7 @@ m4_define([tumbler_debug_default], [minimum])
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2009-2010 Jannis Pohlmann <jannis@xfce.org>])
+AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
 AC_INIT([tumbler], [tumbler_version], [http://bugzilla.xfce.org/])
 AC_PREREQ([2.50])
 AC_CANONICAL_TARGET()

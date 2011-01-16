@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-25 17:01+0000\n"
+"POT-Creation-Date: 2011-01-16 14:48+0100\n"
 "PO-Revision-Date: 2009-12-19 22:24+0100\n"
 "Last-Translator: Terje Uriansrud <terje@uriansrud.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
@@ -63,8 +63,8 @@ msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
-"Ugyldig seksjon \"%s\" i fil\"%s\": Misforhold mellom seksjonsnavn og "
-"Uri-skjema/Mime-type"
+"Ugyldig seksjon \"%s\" i fil\"%s\": Misforhold mellom seksjonsnavn og Uri-"
+"skjema/Mime-type"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
