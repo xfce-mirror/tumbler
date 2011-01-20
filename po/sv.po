@@ -2,25 +2,25 @@
 # Copyright (C) 2009-2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the tumbler package.
 # Daniel Nylander <po@danielnylander.se>, 2009, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2011-01-20 11:02+0000\n"
 "PO-Revision-Date: 2010-10-17 18:03+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr ""
+msgstr "En annan cachetjänst för miniatyrbilder är redan igång"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
@@ -31,20 +31,20 @@ msgstr "Ingen miniatyrbildsskapare tillgänglig för \"%s\""
 #: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr ""
+msgstr "En allmän miniatyrbildstjänst är redan igång"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "Ej stödd variant av miniatyrbildstjänst begärd"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "Misslyckades med att anropa specialiserad miniatyrbildstjänst: tidsgräns överstigen"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "Misslyckades med att anropa specialiserad miniatyrbildstjänst: %s"
 
 #: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
@@ -59,10 +59,8 @@ msgstr "Felformulerat avsnitt \"%s\" i filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Felformaterat avsnitt \"%s\" i filen \"%s\": Avsnittsnamn och UriScheme/MimeType stämmer inte"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -93,17 +91,17 @@ msgstr "Misslyckades med att ansluta till D-Bus-sessionsbussen: %s"
 #: ../tumblerd/main.c:90
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
+msgstr "Misslyckades med att starta cachetjänst för miniatyrbilder: %s"
 
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
+msgstr "Misslyckades med att läsa in specialiserade miniatyrbildstjänster i registret: %s"
 
 #: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr ""
+msgstr "Misslyckades med att starta hanterare för miniatyrbildstjänst: %s"
 
 #: ../tumblerd/main.c:176
 #, c-format
@@ -125,12 +123,12 @@ msgstr "RGB-färgrymd"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
+msgstr "Cacheinsticket \"%s\" saknar nödvändiga symboler"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr ""
+msgstr "Misslyckades med att läsa in cacheinsticket \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -159,20 +157,20 @@ msgstr "Versionerna stämmer inte: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Initierar Tumbler-insticket för Pixbuf-miniatyrbilder"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr ""
+msgstr "Stänger av Tumbler-insticket för Pixbuf-miniatyrbilder"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr ""
+msgstr "Initierar Tumbler-insticket för typsnittsminiatyrbilder"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr ""
+msgstr "Stänger av Tumbler-insticket för typsnittsminiatyrbilder"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -196,7 +194,7 @@ msgstr "Kunde inte öppna typsnittsfilen: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr ""
+msgstr "Kunde inte ställa in teckenuppsättningen: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
@@ -210,27 +208,27 @@ msgstr "Kunde inte rendera glyfer: %s"
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
+msgstr "Miniatyrbilder kunde inte tas från filinnehållet"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr ""
+msgstr "Initierar Tumbler-insticket för JPEG-miniatyrbilder"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr ""
+msgstr "Stänger av Tumbler-insticket för JPEG-miniatyrbilder"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr ""
+msgstr "Initierar Tumbler-insticket för ffmpeg-miniatyrbilder"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr ""
+msgstr "Stänger av Tumbler-insticket för ffmpeg-miniatyrbilder"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr ""
+msgstr "Initierar Tumbler-insticket för Poppler PDF/PS-miniatyrbilder"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
@@ -247,8 +245,8 @@ msgstr "Kunde inte spara miniatyrbild till \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr ""
+msgstr "Initierar Tumbler-insticket för XDG-cache"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr ""
+msgstr "Stänger av Tumbler-insticket för XDG-cache"
