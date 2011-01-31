@@ -154,6 +154,7 @@ TUMBLER_FONT_THUMBNAILER()
 TUMBLER_JPEG_THUMBNAILER()
 TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_FFMPEG_THUMBNAILER()
+TUMBLER_GSTREAMER_THUMBNAILER()
 TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
@@ -181,6 +182,7 @@ docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
 plugins/Makefile
 plugins/font-thumbnailer/Makefile
+plugins/gst-thumbnailer/Makefile
 plugins/jpeg-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
 plugins/ffmpeg-thumbnailer/Makefile
@@ -222,6 +224,11 @@ if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
 echo "  * Video thumbnailer plugin using ffmpegthumbnailer: yes"
 else
 echo "  * Video thumbnailer plugin using ffmpegthumbnailer: no"
+fi
+if test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"; then
+echo "  * Video thumbnailer plugin using GStreamer:         yes"
+else
+echo "  * Video thumbnailer plugin using GStreamer        : no"
 fi
 if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
 echo "  * PDF/PS thumbnailer plugin using poppler:          yes"

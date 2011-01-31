@@ -19,6 +19,7 @@
 
 SUBDIRS =								\
 	font-thumbnailer						\
+	gst-thumbnailer							\
 	jpeg-thumbnailer						\
 	pixbuf-thumbnailer						\
 	ffmpeg-thumbnailer						\

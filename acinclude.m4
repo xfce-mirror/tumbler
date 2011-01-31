@@ -145,6 +145,30 @@ AC_MSG_RESULT([$ac_tumbler_ffmpeg_thumbnailer])
 
 
 
+dnl TUMBLER_GSTREAMER_THUMBNAILER()
+dnl
+dnl Check whether to build and install the gstreamer video thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_GSTREAMER_THUMBNAILER],
+[
+AC_ARG_ENABLE([gstreamer-thumbnailer], [AC_HELP_STRING([--disable-gstreamer-thumbnailer], [Don't build the GStreamer video thumbnailer plugin])],
+  [ac_tumbler_gstreamer_thumbnailer=$enableval], [ac_tumbler_gstreamer_thumbnailer=yes])
+if test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  [
+    dnl Check for libgstreamerthumbnailer
+    PKG_CHECK_MODULES([GSTREAMER], [gstreamer-0.10], [], [ac_tumbler_gstreamer_thumbnailer=no])
+  ], [ac_tumbler_gstreamer_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the gstreamer video thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_GSTREAMER_THUMBNAILER], [test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_gstreamer_thumbnailer])
+])
+
+
+
 dnl TUMBLER_POPPLER_THUMBNAILER()
 dnl
 dnl Check whether to build and install the poppler PDF/PS thumbnailer plugin.
