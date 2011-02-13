@@ -1,3 +1,9 @@
+0.1.x
+=====
+- Update to latest revision of the thumbnail management D-Bus 
+  specification where Cleanup() takes an array of base URIs instead
+  of just one.
+
 0.1.20
 ======
 - Version bump to override incompatibly versioned packages for Maemo.

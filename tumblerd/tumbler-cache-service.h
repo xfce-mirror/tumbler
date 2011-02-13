@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -54,7 +54,7 @@ void                 tumbler_cache_service_delete  (TumblerCacheService   *servi
                                                     const GStrv            uris,
                                                     DBusGMethodInvocation *context);
 void                 tumbler_cache_service_cleanup (TumblerCacheService   *service,
-                                                    const gchar           *uri_prefix,
+                                                    const gchar *const    *uri_prefix,
                                                     guint32                since,
                                                     DBusGMethodInvocation *context);
 

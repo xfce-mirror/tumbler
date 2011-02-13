@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -49,7 +49,7 @@ struct _TumblerCacheIface
                                       const gchar            *uri,
                                       TumblerThumbnailFlavor *flavor);
   void              (*cleanup)       (TumblerCache           *cache,
-                                      const gchar            *uri,
+                                      const gchar *const     *base_uris,
                                       guint64                 since);
   void              (*do_delete)     (TumblerCache           *cache,
                                       const GStrv             uris);
@@ -72,7 +72,7 @@ TumblerThumbnail       *tumbler_cache_get_thumbnail  (TumblerCache           *ca
                                                       const gchar            *uri,
                                                       TumblerThumbnailFlavor *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 void                    tumbler_cache_cleanup        (TumblerCache           *cache,
-                                                      const gchar            *uri_prefix,
+                                                      const gchar *const     *base_uris,
                                                       guint64                 since);
 void                    tumbler_cache_delete         (TumblerCache           *cache,
                                                       const GStrv             uris);

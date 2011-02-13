@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -116,7 +116,7 @@ struct _DeleteRequest
 struct _CleanupRequest
 {
   guint32 since;
-  gchar  *uri_prefix;
+  GStrv   base_uris;
 };
 
 
@@ -325,9 +325,13 @@ tumbler_cache_service_cleanup_thread (gpointer data,
   g_mutex_lock (service->mutex);
 
   if (service->cache != NULL)
-    tumbler_cache_cleanup (service->cache, request->uri_prefix, request->since);
+    {
+      tumbler_cache_cleanup (service->cache, 
+                             (const gchar *const *)request->base_uris, 
+                             request->since);
+    }
 
-  g_free (request->uri_prefix);
+  g_strfreev (request->base_uris);
   g_slice_free (CleanupRequest, request);
 
   g_mutex_unlock (service->mutex);
@@ -474,7 +478,7 @@ tumbler_cache_service_delete (TumblerCacheService   *service,
 
 void
 tumbler_cache_service_cleanup (TumblerCacheService   *service,
-                               const gchar           *uri_prefix,
+                               const gchar *const    *base_uris,
                                guint32                since,
                                DBusGMethodInvocation *context)
 {
@@ -483,7 +487,7 @@ tumbler_cache_service_cleanup (TumblerCacheService   *service,
   dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
 
   request = g_slice_new0 (CleanupRequest);
-  request->uri_prefix = g_strdup (uri_prefix);
+  request->base_uris = g_strdupv ((gchar **)base_uris);
   request->since = since;
 
   g_thread_pool_push (service->cleanup_pool, request, NULL);

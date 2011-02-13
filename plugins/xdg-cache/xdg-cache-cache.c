@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -46,7 +46,7 @@ static TumblerThumbnail *xdg_cache_cache_get_thumbnail      (TumblerCache       
                                                              const gchar            *uri,
                                                              TumblerThumbnailFlavor *flavor);
 static void              xdg_cache_cache_cleanup            (TumblerCache           *cache,
-                                                             const gchar            *uri_prefix,
+                                                             const gchar *const     *base_uris,
                                                              guint64                 since);
 static void              xdg_cache_cache_delete             (TumblerCache           *cache,
                                                              const GStrv             uris);
@@ -169,55 +169,97 @@ xdg_cache_cache_get_thumbnail (TumblerCache           *cache,
 
 
 static void
-xdg_cache_cache_cleanup (TumblerCache *cache,
-                         const gchar  *uri_prefix,
-                         guint64       since)
+xdg_cache_cache_cleanup (TumblerCache       *cache,
+                         const gchar *const *base_uris,
+                         guint64             since)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   const gchar   *file_basename;
   guint64        mtime;
+  GFile         *base_file;
   GFile         *dummy_file;
+  GFile         *original_file;
   GFile         *parent;
   GList         *iter;
   gchar         *dirname;
   gchar         *filename;
   gchar         *uri;
+  guint          n;
   GDir          *dir;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
-  
+
+  /* iterate over all flavors */
   for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
+      /* compute the flavor directory filename */
       dummy_file = xdg_cache_cache_get_file ("foo", iter->data);
       parent = g_file_get_parent (dummy_file);
       dirname = g_file_get_path (parent);
       g_object_unref (parent);
       g_object_unref (dummy_file);
 
+      /* attempt to open the directory for reading */
       dir = g_dir_open (dirname, 0, NULL);
-
       if (dir != NULL)
         {
-          while ((file_basename = g_dir_read_name (dir)) != NULL)
+          /* iterate over all files in the directory */
+          file_basename = g_dir_read_name (dir);
+          while (file_basename != NULL)
             {
+              /* build the thumbnail filename */
               filename = g_build_filename (dirname, file_basename, NULL);
 
+              /* read thumbnail information from the file */
               if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime, 
                                                        NULL, NULL))
                 {
-                  if ((uri_prefix == NULL || uri == NULL) 
-                      || (g_str_has_prefix (uri, uri_prefix) && (mtime <= since)))
+                  /* check if the thumbnail information is valid or the mtime
+                   * is too old */
+                  if (uri == NULL || mtime <= since) 
                     {
+                      /* it's invalid, so let's remove the thumbnail */
                       g_unlink (filename);
+                    }
+                  else
+                    {
+                      /* create a GFile for the original URI. we need this for
+                       * reliably checking the ancestor/descendant relationship */
+                      original_file = g_file_new_for_uri (uri);
+
+                      for (n = 0; base_uris != NULL && base_uris[n] != NULL; ++n)
+                        {
+                          /* create a GFile for the base URI */
+                          base_file = g_file_new_for_uri (base_uris[n]);
+
+                          /* delete the file if it is a descendant of the base URI */
+                          if (g_file_equal (original_file, base_file)
+                              || g_file_has_prefix (original_file, base_file))
+                            {
+                              g_unlink (filename);
+                            }
+
+                          /* releas the base file */
+                          g_object_unref(base_file);
+                        }
+
+                      /* release the original file */
+                      g_object_unref (original_file);
                     }
                 }
 
+              /* free the thumbnail filename */
               g_free (filename);
+
+              /* try to determine the next filename in the directory */
+              file_basename = g_dir_read_name (dir);
             }
 
+          /* close the handle used to reading from the directory */
           g_dir_close (dir);
         }
 
+      /* free the thumbnail flavor directory filename */
       g_free (dirname);
     }
 }

@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -103,14 +103,14 @@ tumbler_cache_get_thumbnail (TumblerCache           *cache,
 
 
 void
-tumbler_cache_cleanup (TumblerCache *cache,
-                       const gchar  *uri_prefix,
-                       guint64       since)
+tumbler_cache_cleanup (TumblerCache       *cache,
+                       const gchar *const *base_uris,
+                       guint64             since)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->cleanup != NULL);
 
-  (TUMBLER_CACHE_GET_IFACE (cache)->cleanup) (cache, uri_prefix, since);
+  (TUMBLER_CACHE_GET_IFACE (cache)->cleanup) (cache, base_uris, since);
 }
 
 
