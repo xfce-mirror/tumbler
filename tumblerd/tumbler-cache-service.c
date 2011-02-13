@@ -32,6 +32,7 @@
 
 #include <tumbler/tumbler.h>
 
+#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-cache-service.h>
 #include <tumblerd/tumbler-cache-service-dbus-bindings.h>
 #include <tumblerd/tumbler-utils.h>
@@ -77,12 +78,12 @@ static void tumbler_cache_service_cleanup_thread (gpointer      data,
 
 struct _TumblerCacheServiceClass
 {
-  GObjectClass __parent__;
+  TumblerComponentClass __parent__;
 };
 
 struct _TumblerCacheService
 {
-  GObject __parent__;
+  TumblerComponent __parent__;
 
   DBusGConnection *connection;
 
@@ -121,7 +122,7 @@ struct _CleanupRequest
 
 
 
-G_DEFINE_TYPE (TumblerCacheService, tumbler_cache_service, G_TYPE_OBJECT);
+G_DEFINE_TYPE (TumblerCacheService, tumbler_cache_service, TUMBLER_TYPE_COMPONENT);
 
 
 
@@ -264,6 +265,10 @@ tumbler_cache_service_move_thread (gpointer data,
   g_strfreev (request->to_uris);
   g_slice_free (MoveRequest, request);
 
+  /* allow the lifecycle manager to shut down tumbler again (unless
+   * other requests are still to be processed) */
+  tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
+
   g_mutex_unlock (service->mutex);
 }
 
@@ -292,6 +297,10 @@ tumbler_cache_service_copy_thread (gpointer data,
   g_strfreev (request->to_uris);
   g_slice_free (CopyRequest, request);
 
+  /* allow the lifecycle manager to shut down tumbler again (unless
+   * other requests are still to be processed) */
+  tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
+
   g_mutex_unlock (service->mutex);
 }
 
@@ -314,6 +323,10 @@ tumbler_cache_service_delete_thread (gpointer data,
 
   g_strfreev (request->uris);
   g_slice_free (DeleteRequest, request);
+
+  /* allow the lifecycle manager to shut down tumbler again (unless
+   * other requests are still to be processed) */
+  tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
 
   g_mutex_unlock (service->mutex);
 }
@@ -342,15 +355,23 @@ tumbler_cache_service_cleanup_thread (gpointer data,
   g_strfreev (request->base_uris);
   g_slice_free (CleanupRequest, request);
 
+  /* allow the lifecycle manager to shut down tumbler again (unless
+   * other requests are still to be processed) */
+  tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
+
   g_mutex_unlock (service->mutex);
 }
 
 
 
 TumblerCacheService *
-tumbler_cache_service_new (DBusGConnection *connection)
+tumbler_cache_service_new (DBusGConnection         *connection,
+                           TumblerLifecycleManager *lifecycle_manager)
 {
-  return g_object_new (TUMBLER_TYPE_CACHE_SERVICE, "connection", connection, NULL);
+  return g_object_new (TUMBLER_TYPE_CACHE_SERVICE, 
+                       "connection", connection, 
+                       "lifecycle-manager", lifecycle_manager,
+                       NULL);
 }
 
 
@@ -429,6 +450,10 @@ tumbler_cache_service_move (TumblerCacheService   *service,
   dbus_async_return_if_fail (to_uris != NULL, context);
   dbus_async_return_if_fail (g_strv_length ((gchar **)from_uris) == g_strv_length ((gchar **)to_uris), context);
 
+  /* prevent the lifecycle manager to shut tumbler down before the
+   * move request has been processed */
+  tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
+
   request = g_slice_new0 (MoveRequest);
   request->from_uris = g_strdupv ((gchar **)from_uris);
   request->to_uris = g_strdupv ((gchar **)to_uris);
@@ -436,6 +461,9 @@ tumbler_cache_service_move (TumblerCacheService   *service,
   g_thread_pool_push (service->move_pool, request, NULL);
 
   dbus_g_method_return (context);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -453,6 +481,10 @@ tumbler_cache_service_copy (TumblerCacheService   *service,
   dbus_async_return_if_fail (to_uris != NULL, context);
   dbus_async_return_if_fail (g_strv_length ((gchar **)from_uris) == g_strv_length ((gchar **)to_uris), context);
 
+  /* prevent the lifecycle manager to shut tumbler down before the
+   * copy request has been processed */
+  tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
+
   request = g_slice_new0 (CopyRequest);
   request->from_uris = g_strdupv ((gchar **)from_uris);
   request->to_uris = g_strdupv ((gchar **)to_uris);
@@ -460,6 +492,9 @@ tumbler_cache_service_copy (TumblerCacheService   *service,
   g_thread_pool_push (service->copy_pool, request, NULL);
 
   dbus_g_method_return (context);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -474,12 +509,19 @@ tumbler_cache_service_delete (TumblerCacheService   *service,
   dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
   dbus_async_return_if_fail (uris != NULL, context);
 
+  /* prevent the lifecycle manager to shut tumbler down before the
+   * delete request has been processed */
+  tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
+
   request = g_slice_new0 (DeleteRequest);
   request->uris = g_strdupv ((gchar **)uris);
 
   g_thread_pool_push (service->delete_pool, request, NULL);
 
   dbus_g_method_return (context);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -494,6 +536,10 @@ tumbler_cache_service_cleanup (TumblerCacheService   *service,
 
   dbus_async_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service), context);
 
+  /* prevent the lifecycle manager to shut tumbler down before the
+   * cleanup request has been processed */
+  tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
+
   request = g_slice_new0 (CleanupRequest);
   request->base_uris = g_strdupv ((gchar **)base_uris);
   request->since = since;
@@ -501,4 +547,7 @@ tumbler_cache_service_cleanup (TumblerCacheService   *service,
   g_thread_pool_push (service->cleanup_pool, request, NULL);
 
   dbus_g_method_return (context);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }

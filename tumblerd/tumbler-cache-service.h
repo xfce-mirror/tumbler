@@ -25,6 +25,8 @@
 
 #include <dbus/dbus-glib.h>
 
+#include <tumblerd/tumbler-lifecycle-manager.h>
+
 G_BEGIN_DECLS;
 
 #define TUMBLER_TYPE_CACHE_SERVICE            (tumbler_cache_service_get_type ())
@@ -39,24 +41,25 @@ typedef struct _TumblerCacheService      TumblerCacheService;
 
 GType                tumbler_cache_service_get_type   (void) G_GNUC_CONST;
 
-TumblerCacheService *tumbler_cache_service_new     (DBusGConnection       *connection) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean             tumbler_cache_service_start   (TumblerCacheService   *service,
-                                                    GError               **error);
-void                 tumbler_cache_service_move    (TumblerCacheService   *service,
-                                                    const gchar *const    *from_uris,
-                                                    const gchar *const    *to_uris,
-                                                    DBusGMethodInvocation *context);
-void                 tumbler_cache_service_copy    (TumblerCacheService   *service,
-                                                    const gchar *const    *from_uris,
-                                                    const gchar *const    *to_uris,
-                                                    DBusGMethodInvocation *context);
-void                 tumbler_cache_service_delete  (TumblerCacheService   *service,
-                                                    const gchar *const    *uris,
-                                                    DBusGMethodInvocation *context);
-void                 tumbler_cache_service_cleanup (TumblerCacheService   *service,
-                                                    const gchar *const    *uri_prefix,
-                                                    guint32                since,
-                                                    DBusGMethodInvocation *context);
+TumblerCacheService *tumbler_cache_service_new     (DBusGConnection         *connection,
+                                                    TumblerLifecycleManager *lifecycle_manager) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean             tumbler_cache_service_start   (TumblerCacheService     *service,
+                                                    GError                 **error);
+void                 tumbler_cache_service_move    (TumblerCacheService     *service,
+                                                    const gchar *const      *from_uris,
+                                                    const gchar *const      *to_uris,
+                                                    DBusGMethodInvocation   *context);
+void                 tumbler_cache_service_copy    (TumblerCacheService     *service,
+                                                    const gchar *const      *from_uris,
+                                                    const gchar *const      *to_uris,
+                                                    DBusGMethodInvocation   *context);
+void                 tumbler_cache_service_delete  (TumblerCacheService     *service,
+                                                    const gchar *const      *uris,
+                                                    DBusGMethodInvocation   *context);
+void                 tumbler_cache_service_cleanup (TumblerCacheService     *service,
+                                                    const gchar *const      *uri_prefix,
+                                                    guint32                  since,
+                                                    DBusGMethodInvocation   *context);
 
 
 G_END_DECLS;

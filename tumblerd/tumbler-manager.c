@@ -40,6 +40,7 @@
 #include <dbus/dbus-glib.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
+#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-manager.h>
 #include <tumblerd/tumbler-manager-dbus-bindings.h>
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
@@ -97,12 +98,12 @@ static void             dump_thumbnailers                 (TumblerManager   *man
 
 struct _TumblerManagerClass
 {
-  GObjectClass __parent__;
+  TumblerComponentClass __parent__;
 };
 
 struct _TumblerManager
 {
-  GObject __parent__;
+  TumblerComponent __parent__;
 
   DBusGConnection *connection;
   TumblerRegistry *registry;
@@ -147,7 +148,7 @@ struct _ThumbnailerInfo
 
 
 
-G_DEFINE_TYPE (TumblerManager, tumbler_manager, G_TYPE_OBJECT);
+G_DEFINE_TYPE (TumblerManager, tumbler_manager, TUMBLER_TYPE_COMPONENT);
 
 
 
@@ -1800,11 +1801,15 @@ dump_thumbnailers (TumblerManager *manager)
 
 
 TumblerManager *
-tumbler_manager_new (DBusGConnection *connection,
-                     TumblerRegistry *registry)
+tumbler_manager_new (DBusGConnection         *connection,
+                     TumblerLifecycleManager *lifecycle_manager,
+                     TumblerRegistry         *registry)
 {
-  return g_object_new (TUMBLER_TYPE_MANAGER, "connection", connection, 
-                       "registry", registry, NULL);
+  return g_object_new (TUMBLER_TYPE_MANAGER, 
+                       "connection", connection, 
+                       "registry", registry, 
+                       "lifecycle-manager", lifecycle_manager, 
+                       NULL);
 }
 
 
@@ -1869,7 +1874,7 @@ tumbler_manager_start (TumblerManager *manager,
   /* load thumbnailers installed into the system permanently */
   tumbler_manager_load (manager);
 
-  /* this is how I roll */
+  /* done initializing and loading all permanent thumbnailers */
   return TRUE;
 }
 

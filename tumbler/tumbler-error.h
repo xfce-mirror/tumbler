@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -47,6 +47,7 @@ typedef enum /*< enum >*/
   TUMBLER_ERROR_SAVE_FAILED,
   TUMBLER_ERROR_UNSUPPORTED_FLAVOR,
   TUMBLER_ERROR_NO_CONTENT,
+  TUMBLER_ERROR_SHUTTING_DOWN,
 } TumblerErrorEnum;
 
 G_END_DECLS

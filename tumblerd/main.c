@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -33,9 +33,23 @@
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-cache-service.h>
+#include <tumblerd/tumbler-lifecycle-manager.h>
 #include <tumblerd/tumbler-manager.h>
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-service.h>
+
+
+
+static void
+shutdown_tumbler (TumblerLifecycleManager *lifecycle_manager,
+                  GMainLoop               *main_loop)
+{
+  g_return_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (lifecycle_manager));
+  g_return_if_fail (main_loop != NULL);
+
+  /* exit the main loop */
+  g_main_loop_quit (main_loop);
+}
 
 
 
@@ -43,18 +57,19 @@ int
 main (int    argc,
       char **argv)
 {
-  TumblerProviderFactory *provider_factory;
-  DBusGConnection        *connection;
-  TumblerRegistry        *registry;
-  TumblerManager         *manager;
-  TumblerService         *service;
-  TumblerCacheService    *cache_service;
-  GMainLoop              *main_loop;
-  GError                 *error = NULL;
-  GList                  *providers;
-  GList                  *thumbnailers;
-  GList                  *lp;
-  GList                  *tp;
+  TumblerLifecycleManager *lifecycle_manager;
+  TumblerProviderFactory  *provider_factory;
+  DBusGConnection         *connection;
+  TumblerRegistry         *registry;
+  TumblerManager          *manager;
+  TumblerService          *service;
+  TumblerCacheService     *cache_service;
+  GMainLoop               *main_loop;
+  GError                  *error = NULL;
+  GList                   *providers;
+  GList                   *thumbnailers;
+  GList                   *lp;
+  GList                   *tp;
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
@@ -81,8 +96,11 @@ main (int    argc,
       return EXIT_FAILURE;
     }
 
+  /* create the lifecycle manager */
+  lifecycle_manager = tumbler_lifecycle_manager_new ();
+
   /* create the thumbnail cache service */
-  cache_service = tumbler_cache_service_new (connection);
+  cache_service = tumbler_cache_service_new (connection, lifecycle_manager);
 
   /* try to start the service and exit if that fails */
   if (!tumbler_cache_service_start (cache_service, &error))
@@ -150,7 +168,7 @@ main (int    argc,
     }
 
   /* create the thumbnailer manager service */
-  manager = tumbler_manager_new (connection, registry);
+  manager = tumbler_manager_new (connection, lifecycle_manager, registry);
 
   /* try to start the service and exit if that fails */
   if (!tumbler_manager_start (manager, &error))
@@ -168,7 +186,7 @@ main (int    argc,
     }
 
   /* create the generic thumbnailer service */
-  service = tumbler_service_new (connection, registry);
+  service = tumbler_service_new (connection, lifecycle_manager, registry);
 
   /* try to start the service and exit if that fails */
   if (!tumbler_service_start (service, &error))
@@ -186,8 +204,17 @@ main (int    argc,
       return EXIT_FAILURE;
     }
 
-  /* create a new main loop and run it */
+  /* create a new main loop */
   main_loop = g_main_loop_new (NULL, FALSE);
+
+  /* quit the main loop when the lifecycle manager asks us to shut down */
+  g_signal_connect (lifecycle_manager, "shutdown", 
+                    G_CALLBACK (shutdown_tumbler), main_loop);
+
+  /* start the lifecycle manager */
+  tumbler_lifecycle_manager_start (lifecycle_manager);
+
+  /* enter the main loop, thereby making the tumbler service available */
   g_main_loop_run (main_loop);
 
   /* shut our services down and release all objects */
@@ -195,6 +222,7 @@ main (int    argc,
   g_object_unref (manager);
   g_object_unref (registry);
   g_object_unref (cache_service);
+  g_object_unref (lifecycle_manager);
 
   /* disconnect from the D-Bus session bus */
   dbus_g_connection_unref (connection);

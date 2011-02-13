@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -23,6 +23,7 @@
 
 #include <dbus/dbus-glib.h>
 
+#include <tumblerd/tumbler-lifecycle-manager.h>
 #include <tumblerd/tumbler-registry.h>
 
 G_BEGIN_DECLS;
@@ -39,16 +40,17 @@ typedef struct _TumblerManager      TumblerManager;
 
 GType           tumbler_manager_get_type      (void) G_GNUC_CONST;
 
-TumblerManager *tumbler_manager_new           (DBusGConnection       *connection,
-                                               TumblerRegistry       *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean        tumbler_manager_start         (TumblerManager        *manager,
-                                               GError               **error);
-void            tumbler_manager_register      (TumblerManager        *manager, 
-                                               const gchar *const    *uri_schemes, 
-                                               const gchar *const    *mime_types, 
-                                               DBusGMethodInvocation *context);
-void            tumbler_manager_get_supported (TumblerManager        *manager, 
-                                               DBusGMethodInvocation *context);
+TumblerManager *tumbler_manager_new           (DBusGConnection         *connection,
+                                               TumblerLifecycleManager *lifecycle_manager,
+                                               TumblerRegistry         *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+gboolean        tumbler_manager_start         (TumblerManager          *manager,
+                                               GError                 **error);
+void            tumbler_manager_register      (TumblerManager          *manager, 
+                                               const gchar *const      *uri_schemes, 
+                                               const gchar *const      *mime_types, 
+                                               DBusGMethodInvocation   *context);
+void            tumbler_manager_get_supported (TumblerManager          *manager, 
+                                               DBusGMethodInvocation   *context);
 
 G_END_DECLS;
 

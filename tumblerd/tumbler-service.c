@@ -34,6 +34,7 @@
 
 #include <tumbler/tumbler.h>
 
+#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-service.h>
 #include <tumblerd/tumbler-service-dbus-bindings.h>
@@ -112,12 +113,12 @@ static void scheduler_idle_info_free           (SchedulerIdleInfo  *info);
 
 struct _TumblerServiceClass
 {
-  GObjectClass __parent__;
+  TumblerComponentClass __parent__;
 };
 
 struct _TumblerService
 {
-  GObject __parent__;
+  TumblerComponent  __parent__;
 
   DBusGConnection  *connection;
   TumblerRegistry  *registry;
@@ -144,7 +145,7 @@ static guint tumbler_service_signals[LAST_SIGNAL];
 
 
 
-G_DEFINE_TYPE (TumblerService, tumbler_service, G_TYPE_OBJECT);
+G_DEFINE_TYPE (TumblerService, tumbler_service, TUMBLER_TYPE_COMPONENT);
 
 
 
@@ -491,6 +492,10 @@ tumbler_service_finished_idle (gpointer user_data)
   /* free the allocated D-Bus message */
   dbus_message_unref (message);
 
+  /* allow the lifecycle manager to shut down the service again (unless there
+   * are other requests still being processed) */
+  tumbler_component_decrement_use_count (TUMBLER_COMPONENT (info->service));
+
   scheduler_idle_info_free (info);
 
   return FALSE;
@@ -703,11 +708,15 @@ scheduler_idle_info_free (SchedulerIdleInfo *info)
 
 
 TumblerService *
-tumbler_service_new (DBusGConnection *connection,
-                     TumblerRegistry *registry)
+tumbler_service_new (DBusGConnection         *connection,
+                     TumblerLifecycleManager *lifecycle_manager,
+                     TumblerRegistry         *registry)
 {
-  return g_object_new (TUMBLER_TYPE_SERVICE, "connection", connection, 
-                       "registry", registry, NULL);
+  return g_object_new (TUMBLER_TYPE_SERVICE, 
+                       "connection", connection, 
+                       "lifecycle-manager", lifecycle_manager,
+                       "registry", registry, 
+                       NULL);
 }
 
 
@@ -797,17 +806,19 @@ tumbler_service_queue (TumblerService        *service,
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
 
+  g_mutex_lock (service->mutex);
+
+  /* prevent the lifecycle manager to shut down the service as long
+   * as the request is still being processed */
+  tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
+
   /* if the scheduler is not defined, fall back to "default" */
   if (scheduler_name == NULL || *scheduler_name == '\0')
     scheduler_name = "default";
 
-  g_mutex_lock (service->mutex);
-
   cache = tumbler_cache_get_default ();
   flavor = tumbler_cache_get_flavor (cache, flavor_name);
   g_object_unref (cache);
-
-  g_assert (TUMBLER_IS_CACHE (cache));
 
   infos = tumbler_file_info_array_new_with_flavor (uris, mime_hints, flavor,
                                                    &length);
@@ -887,6 +898,9 @@ tumbler_service_queue (TumblerService        *service,
   g_mutex_unlock (service->mutex);
 
   dbus_g_method_return (context, handle);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -916,6 +930,9 @@ tumbler_service_dequeue (TumblerService        *service,
   g_mutex_unlock (service->mutex);
 
   dbus_g_method_return (context);
+
+  /* keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -938,6 +955,9 @@ tumbler_service_get_supported (TumblerService        *service,
 
   /* return the arrays to the caller */
   dbus_g_method_return (context, uri_schemes, mime_types);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -981,6 +1001,9 @@ tumbler_service_get_flavors (TumblerService        *service,
 
       g_free (flavor_strings);
     }
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }
 
 
@@ -1019,4 +1042,7 @@ tumbler_service_get_schedulers (TumblerService        *service,
 
   /* free the array */
   g_strfreev (supported_schedulers);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
 }

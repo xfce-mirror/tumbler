@@ -4,6 +4,7 @@
   specification where Cleanup() takes an array of base URIs instead
   of just one.
 - Get rid of the inherently broken GStrv type in function signatures.
+- Quit tumbler after at least 5 minutes of inactivity.
 
 0.1.20
 ======

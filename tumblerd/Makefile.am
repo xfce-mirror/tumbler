@@ -1,6 +1,6 @@
 # vi:set ts=8 sw=8 noet ai nocindent:
 #-
-# Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
 #
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License as
@@ -32,6 +32,10 @@ tumblerd_SOURCES =							\
 	main.c								\
 	tumbler-cache-service.c						\
 	tumbler-cache-service.h						\
+	tumbler-component.c						\
+	tumbler-component.h						\
+	tumbler-lifecycle-manager.c					\
+	tumbler-lifecycle-manager.h					\
 	tumbler-manager.c						\
 	tumbler-manager.h						\
 	tumbler-registry.c						\
