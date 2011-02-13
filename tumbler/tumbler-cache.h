@@ -52,13 +52,13 @@ struct _TumblerCacheIface
                                       const gchar *const     *base_uris,
                                       guint64                 since);
   void              (*do_delete)     (TumblerCache           *cache,
-                                      const GStrv             uris);
+                                      const gchar *const     *uris);
   void              (*copy)          (TumblerCache           *cache,
-                                      const GStrv             from_uris,
-                                      const GStrv             to_uris);
+                                      const gchar *const     *from_uris,
+                                      const gchar *const     *to_uris);
   void              (*move)          (TumblerCache           *cache,
-                                      const GStrv             from_uris,
-                                      const GStrv             to_uris);
+                                      const gchar *const     *from_uris,
+                                      const gchar *const     *to_uris);
   gboolean          (*is_thumbnail)  (TumblerCache           *cache,
                                       const gchar            *uri);
   GList            *(*get_flavors)   (TumblerCache           *cache);
@@ -75,13 +75,13 @@ void                    tumbler_cache_cleanup        (TumblerCache           *ca
                                                       const gchar *const     *base_uris,
                                                       guint64                 since);
 void                    tumbler_cache_delete         (TumblerCache           *cache,
-                                                      const GStrv             uris);
+                                                      const gchar *const     *uris);
 void                    tumbler_cache_copy           (TumblerCache           *cache,
-                                                      const GStrv             from_uris,
-                                                      const GStrv             to_uris);
+                                                      const gchar *const     *from_uris,
+                                                      const gchar *const     *to_uris);
 void                    tumbler_cache_move           (TumblerCache           *cache,
-                                                      const GStrv             from_uris,
-                                                      const GStrv             to_uris);
+                                                      const gchar *const     *from_uris,
+                                                      const gchar *const     *to_uris);
 gboolean                tumbler_cache_is_thumbnail   (TumblerCache           *cache,
                                                       const gchar            *uri);
 GList                  *tumbler_cache_get_flavors    (TumblerCache           *cache) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;

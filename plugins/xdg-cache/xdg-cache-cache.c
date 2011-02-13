@@ -49,13 +49,13 @@ static void              xdg_cache_cache_cleanup            (TumblerCache       
                                                              const gchar *const     *base_uris,
                                                              guint64                 since);
 static void              xdg_cache_cache_delete             (TumblerCache           *cache,
-                                                             const GStrv             uris);
+                                                             const gchar *const     *uris);
 static void              xdg_cache_cache_copy               (TumblerCache           *cache,
-                                                             const GStrv             from_uris,
-                                                             const GStrv             to_uris);
+                                                             const gchar *const     *from_uris,
+                                                             const gchar *const     *to_uris);
 static void              xdg_cache_cache_move               (TumblerCache           *cache,
-                                                             const GStrv             from_uris,
-                                                             const GStrv             to_uris);
+                                                             const gchar *const     *from_uris,
+                                                             const gchar *const     *to_uris);
 static gboolean          xdg_cache_cache_is_thumbnail       (TumblerCache           *cache,
                                                              const gchar            *uri);
 static GList            *xdg_cache_cache_get_flavors        (TumblerCache           *cache);
@@ -267,8 +267,8 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
 
 
 static void
-xdg_cache_cache_delete (TumblerCache *cache,
-                        const GStrv   uris)
+xdg_cache_cache_delete (TumblerCache       *cache,
+                        const gchar *const *uris)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   GList         *iter;
@@ -292,9 +292,9 @@ xdg_cache_cache_delete (TumblerCache *cache,
 
 
 static void
-xdg_cache_cache_copy (TumblerCache *cache,
-                      const GStrv   from_uris,
-                      const GStrv   to_uris)
+xdg_cache_cache_copy (TumblerCache       *cache,
+                      const gchar *const *from_uris,
+                      const gchar *const *to_uris)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   GFileInfo     *info;
@@ -311,11 +311,10 @@ xdg_cache_cache_copy (TumblerCache *cache,
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
   g_return_if_fail (to_uris != NULL);
-  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
 
   for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      for (n = 0; n < g_strv_length (from_uris); ++n)
+      for (n = 0; n < g_strv_length ((gchar **)from_uris); ++n)
         {
           dest_source_file = g_file_new_for_uri (to_uris[n]);
           info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
@@ -367,9 +366,9 @@ xdg_cache_cache_copy (TumblerCache *cache,
 
 
 static void
-xdg_cache_cache_move (TumblerCache *cache,
-                      const GStrv   from_uris,
-                      const GStrv   to_uris)
+xdg_cache_cache_move (TumblerCache       *cache,
+                      const gchar *const *from_uris,
+                      const gchar *const *to_uris)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   GFileInfo     *info;
@@ -387,11 +386,10 @@ xdg_cache_cache_move (TumblerCache *cache,
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
   g_return_if_fail (to_uris != NULL);
-  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
 
   for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      for (n = 0; n < g_strv_length (from_uris); ++n)
+      for (n = 0; n < g_strv_length ((gchar **)from_uris); ++n)
         {
           dest_source_file = g_file_new_for_uri (to_uris[n]);
           info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
@@ -663,7 +661,7 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
 
 gboolean
 xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
-                                      gchar        *uri,
+                                      const gchar  *uri,
                                       guint64       mtime,
                                       GCancellable *cancellable,
                                       GError      **error)

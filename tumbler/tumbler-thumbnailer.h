@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -65,9 +65,9 @@ void                 tumbler_thumbnailer_create            (TumblerThumbnailer  
                                                             GCancellable           *cancellable,
                                                             TumblerFileInfo        *info);
 
-GStrv                tumbler_thumbnailer_get_hash_keys     (TumblerThumbnailer  *thumbnailer);
-GStrv                tumbler_thumbnailer_get_mime_types    (TumblerThumbnailer  *thumbnailer);
-GStrv                tumbler_thumbnailer_get_uri_schemes   (TumblerThumbnailer  *thumbnailer);
+gchar              **tumbler_thumbnailer_get_hash_keys     (TumblerThumbnailer  *thumbnailer);
+gchar              **tumbler_thumbnailer_get_mime_types    (TumblerThumbnailer  *thumbnailer);
+gchar              **tumbler_thumbnailer_get_uri_schemes   (TumblerThumbnailer  *thumbnailer);
 gboolean             tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer  *thumbnailer,
                                                             const gchar         *hash_key);
 

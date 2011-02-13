@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -96,7 +96,7 @@ static void tumbler_service_scheduler_finished (TumblerScheduler   *scheduler,
                                                 TumblerService     *service);
 static void tumbler_service_scheduler_ready    (TumblerScheduler   *scheduler,
                                                 guint               handle,
-                                                const GStrv         uris,
+                                                const gchar *const *uris,
                                                 const gchar        *origin,
                                                 TumblerService     *service);
 static void tumbler_service_scheduler_started  (TumblerScheduler   *scheduler,
@@ -131,7 +131,7 @@ struct _SchedulerIdleInfo
 {
   TumblerScheduler *scheduler;
   TumblerService   *service;
-  GStrv             uris;
+  gchar           **uris;
   gchar            *message;
   gchar            *origin;
   guint             handle;
@@ -451,7 +451,7 @@ tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
 
   info->scheduler = g_object_ref (scheduler);
   info->handle = handle;
-  info->uris = g_strdupv ((GStrv) failed_uris);
+  info->uris = g_strdupv ((gchar **)failed_uris);
   info->error_code = error_code;
   info->message = g_strdup (message);
   info->origin = g_strdup (origin);
@@ -575,11 +575,11 @@ tumbler_service_ready_idle (gpointer user_data)
 
 
 static void
-tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
-                                 guint             handle,
-                                 const GStrv       uris,
-                                 const gchar      *origin,
-                                 TumblerService   *service)
+tumbler_service_scheduler_ready (TumblerScheduler   *scheduler,
+                                 guint               handle,
+                                 const gchar *const *uris,
+                                 const gchar        *origin,
+                                 TumblerService     *service)
 {
   SchedulerIdleInfo *info;
   
@@ -592,7 +592,7 @@ tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
 
   info->scheduler = g_object_ref (scheduler);
   info->handle = handle;
-  info->uris = g_strdupv ((GStrv) uris);
+  info->uris = g_strdupv ((gchar **)uris);
   info->origin = g_strdup (origin);
   info->service = g_object_ref (service);
 
@@ -988,9 +988,9 @@ void
 tumbler_service_get_schedulers (TumblerService        *service,
                                 DBusGMethodInvocation *context)
 {
-  GStrv  supported_schedulers;
-  GList *iter;
-  guint  n = 0;
+  gchar **supported_schedulers;
+  GList  *iter;
+  guint   n = 0;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 

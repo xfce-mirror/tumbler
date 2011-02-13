@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -849,7 +849,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   GFile           *directory;
   GList          **list;
   GList           *lp;
-  GStrv            hash_keys;
+  gchar          **hash_keys;
   gchar           *base_name;
   gchar           *filename;
   gchar           *name;
@@ -1251,7 +1251,7 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
   GFile           *directory;
   GList          **list;
   GList           *lp;
-  GStrv            hash_keys;
+  gchar          **hash_keys;
   gchar           *base_name;
   guint            n;
   gint             dir_index;
@@ -1411,7 +1411,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
   GList           *delete_keys = NULL;
   GList          **list;
   GList           *lp;
-  GStrv            hash_keys;
+  gchar          **hash_keys;
   guint            n;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));

@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,11 +29,11 @@
 
 
 
-GStrv
+gchar **
 tumbler_util_get_supported_uri_schemes (void)
 {
   const gchar *const *vfs_schemes;
-  GStrv               uri_schemes;
+  gchar             **uri_schemes;
   gboolean            file_scheme_found = FALSE;
   guint               length;
   guint               n;
@@ -52,12 +52,12 @@ tumbler_util_get_supported_uri_schemes (void)
   if (file_scheme_found)
     {
       /* it is, so simply copy the array */
-      uri_schemes = g_strdupv ((GStrv) vfs_schemes);
+      uri_schemes = g_strdupv ((gchar **)vfs_schemes);
     }
   else
     {
       /* it is not, so we need to copy the array and add "file" */
-      length = g_strv_length ((GStrv) vfs_schemes);
+      length = g_strv_length ((gchar **)vfs_schemes);
       uri_schemes = g_new0 (gchar *, length + 2);
       uri_schemes[0] = g_strdup ("file");
       for (n = 1; n <= length; ++n)

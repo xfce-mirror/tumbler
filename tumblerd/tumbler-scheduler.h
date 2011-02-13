@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -44,13 +44,13 @@ struct _TumblerSchedulerIface
   /* signals */
   void (*error)    (TumblerScheduler        *scheduler,
                     guint                    handle,
-                    const GStrv              failed_uris,
+                    const gchar *const      *failed_uris,
                     gint                     error_code,
                     const gchar             *message);
   void (*finished) (TumblerScheduler        *scheduler,
                     guint                    handle);
   void (*ready)    (TumblerScheduler        *scheduler,
-                    const GStrv              uris);
+                    const gchar *const      *uris);
   void (*started)  (TumblerScheduler        *scheduler,
                     guint                    handle);
 

@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -342,7 +342,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
                       TumblerThumbnailer *thumbnailer)
 {
   GList **list;
-  GStrv   hash_keys;
+  gchar **hash_keys;
   gint    n;
 
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
@@ -499,8 +499,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   GList         *lp;
   const gchar  **pair;
   GString       *pair_string;
-  GStrv          mime_types;
-  GStrv          uri_schemes;
+  gchar        **mime_types;
+  gchar        **uri_schemes;
   gint           n;
   gint           u;
 

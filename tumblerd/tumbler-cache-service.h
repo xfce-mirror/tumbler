@@ -43,15 +43,15 @@ TumblerCacheService *tumbler_cache_service_new     (DBusGConnection       *conne
 gboolean             tumbler_cache_service_start   (TumblerCacheService   *service,
                                                     GError               **error);
 void                 tumbler_cache_service_move    (TumblerCacheService   *service,
-                                                    const GStrv            from_uris,
-                                                    const GStrv            to_uris,
+                                                    const gchar *const    *from_uris,
+                                                    const gchar *const    *to_uris,
                                                     DBusGMethodInvocation *context);
 void                 tumbler_cache_service_copy    (TumblerCacheService   *service,
-                                                    const GStrv            from_uris,
-                                                    const GStrv            to_uris,
+                                                    const gchar *const    *from_uris,
+                                                    const gchar *const    *to_uris,
                                                     DBusGMethodInvocation *context);
 void                 tumbler_cache_service_delete  (TumblerCacheService   *service,
-                                                    const GStrv            uris,
+                                                    const gchar *const    *uris,
                                                     DBusGMethodInvocation *context);
 void                 tumbler_cache_service_cleanup (TumblerCacheService   *service,
                                                     const gchar *const    *uri_prefix,

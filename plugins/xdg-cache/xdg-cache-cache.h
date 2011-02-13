@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -50,7 +50,7 @@ gboolean xdg_cache_cache_read_thumbnail_info  (const gchar            *filename,
                                                GCancellable           *cancellable,
                                                GError                **error);
 gboolean xdg_cache_cache_write_thumbnail_info (const gchar            *filename,
-                                               gchar                  *uri,
+                                               const gchar            *uri,
                                                guint64                 mtime,
                                                GCancellable           *cancellable,
                                                GError                **error);

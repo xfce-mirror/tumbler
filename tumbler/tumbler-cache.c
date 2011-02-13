@@ -116,8 +116,8 @@ tumbler_cache_cleanup (TumblerCache       *cache,
 
 
 void
-tumbler_cache_delete (TumblerCache *cache,
-                      const GStrv   uris)
+tumbler_cache_delete (TumblerCache       *cache,
+                      const gchar *const *uris)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (uris != NULL);
@@ -129,14 +129,13 @@ tumbler_cache_delete (TumblerCache *cache,
 
 
 void
-tumbler_cache_copy (TumblerCache *cache,
-                    const GStrv   from_uris,
-                    const GStrv   to_uris)
+tumbler_cache_copy (TumblerCache       *cache,
+                    const gchar *const *from_uris,
+                    const gchar *const *to_uris)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
   g_return_if_fail (to_uris != NULL);
-  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
   g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->copy != NULL);
 
   (TUMBLER_CACHE_GET_IFACE (cache)->copy) (cache, from_uris, to_uris);
@@ -145,14 +144,13 @@ tumbler_cache_copy (TumblerCache *cache,
 
 
 void
-tumbler_cache_move (TumblerCache *cache,
-                    const GStrv   from_uris,
-                    const GStrv   to_uris)
+tumbler_cache_move (TumblerCache       *cache,
+                    const gchar *const *from_uris,
+                    const gchar *const *to_uris)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
   g_return_if_fail (to_uris != NULL);
-  g_return_if_fail (g_strv_length (from_uris) == g_strv_length (to_uris));
   g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->move != NULL);
 
   (TUMBLER_CACHE_GET_IFACE (cache)->move) (cache, from_uris, to_uris);

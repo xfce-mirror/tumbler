@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -25,7 +25,7 @@
 
 G_BEGIN_DECLS
 
-GStrv tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
+gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 
 G_END_DECLS
 

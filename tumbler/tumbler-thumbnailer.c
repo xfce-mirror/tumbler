@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -152,10 +152,10 @@ tumbler_thumbnailer_create (TumblerThumbnailer     *thumbnailer,
 
 
 
-GStrv
+gchar **
 tumbler_thumbnailer_get_hash_keys (TumblerThumbnailer *thumbnailer)
 {
-  GStrv hash_keys;
+  gchar **hash_keys;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), NULL);
 
@@ -165,10 +165,10 @@ tumbler_thumbnailer_get_hash_keys (TumblerThumbnailer *thumbnailer)
 
 
 
-GStrv
+gchar **
 tumbler_thumbnailer_get_mime_types (TumblerThumbnailer *thumbnailer)
 {
-  GStrv mime_types;
+  gchar **mime_types;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), NULL);
 
@@ -178,10 +178,10 @@ tumbler_thumbnailer_get_mime_types (TumblerThumbnailer *thumbnailer)
 
 
 
-GStrv
+gchar **
 tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
 {
-  GStrv uri_schemes;
+  gchar **uri_schemes;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), NULL);
 
@@ -196,7 +196,7 @@ tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer *thumbnailer,
                                        const gchar        *hash_key)
 {
   gboolean supported = FALSE;
-  GStrv    hash_keys;
+  gchar  **hash_keys;
   guint    n;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), FALSE);

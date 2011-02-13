@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -65,9 +65,9 @@ static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer   
 
 struct _TumblerAbstractThumbnailerPrivate
 {
-  GStrv hash_keys;
-  GStrv mime_types;
-  GStrv uri_schemes;
+  gchar **hash_keys;
+  gchar **mime_types;
+  gchar **uri_schemes;
 };
 
 
