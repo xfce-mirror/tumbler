@@ -1,5 +1,7 @@
 tumblerd/tumbler-cache-service.c
+tumblerd/tumbler-component.c
 tumblerd/tumbler-group-scheduler.c
+tumblerd/tumbler-lifecycle-manager.c
 tumblerd/tumbler-lifo-scheduler.c
 tumblerd/tumbler-service.c
 tumblerd/tumbler-specialized-thumbnailer.c
