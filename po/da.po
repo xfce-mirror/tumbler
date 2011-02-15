@@ -2,24 +2,24 @@
 # Copyright (C) 2009 Jannis Pohlmann <jannis@xfce.org>
 # This file is distributed under the same license as the Tumbler package.
 # Per Kongstad <p_kongstad@op.pl>, 2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2011-02-15 17:02+0000\n"
 "PO-Revision-Date: 2009-12-19 22:24+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
-"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
 "X-Poedit-Language: Danish\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Country: Denmark\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:416
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "En anden tjeneste til cache af miniaturer kører allerede"
@@ -30,12 +30,16 @@ msgstr "En anden tjeneste til cache af miniaturer kører allerede"
 msgid "No thumbnailer available for \"%s\""
 msgstr "Ingen miniaturetjeneste tilgængelig for \"%s\""
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "Tjenesten thumbnailer lukker ned"
+
+#: ../tumblerd/tumbler-service.c:760
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "En anden generisk miniaturetjeneste kører allerede"
 
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Anmodet ikke understøttet miniature"
 
@@ -48,68 +52,64 @@ msgstr "Kunne ikke kalde den specialiserede miniature: tidsudløb"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Kunne ikke kalde den specialiserede miniature: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Kunne ikke indlæse filen  \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Misdannet sektion \"%s\" i filen \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn "
-"og Uri-skema/MIME-type"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Misdannet fil \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Kunne ikke bestemme sidste tid for ændring af \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1854
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "En anden miniaturehåndtering kører allerede"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:78
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler Thumbnailing tjeneste"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Kunne ikke forbinde til D-Bus-sessionen: %s"
 
-#: ../tumblerd/main.c:90
+#: ../tumblerd/main.c:108
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Kunne ikke starte tjenesten thumbnail cache: %s"
 
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Kunne ikke indlæse specialiserede miniaturer ind i registret: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Kunne ikke starte miniaturehændteringen: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:194
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Kunne ikke starte tjenesten til miniaturer: %s"
