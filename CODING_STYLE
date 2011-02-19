@@ -11,6 +11,18 @@ document) is tumblerd/tumbler-service.c. In the following, the most
 important requirements for writing consistent code for tumbler are 
 explained.
 
+Table of Contents:
+  * Line Width
+  * Whitespace
+  * Indentation and Braces
+  * Functions and Braces
+  * Empty Lines
+  * Variable Declarations
+  * Assertions
+  * More on Conditions
+  * Header Files
+  * Loops and Loop Termination
+
 
 Line Width
 ==========
@@ -382,3 +394,47 @@ license header (example for tumbler-data-structure.h):
   G_END_DECLS
 
   #endif /* !__TUMBLER_DATA_STRUCTURE_H__ */
+
+
+
+Loops and Loop Termination
+==========================
+
+When writing loops, try to avoid break statements. Instead of breaking
+on some condition move the condition into the loop header to make more
+clear when the loop is supposed to be terminated.
+
+So, instead of doing
+
+  /* bad */
+  for (n = 0; n < some_value; ++n)
+    {
+      if (some_other_condition)
+        break;
+
+      ...
+    }
+
+do it like this:
+
+  /* good */
+  for (n = 0; !some_other_condition && n < some_value; ++n)
+    {
+      ...
+    }
+
+If the loop header exceeds the 90 character limit per line, split it up
+into multiple lines (in which case you are required to add curly braces 
+of course):
+
+  /* good */
+  for (n = 0;
+       !some_other_condition && n < some_value; 
+       ++n)
+    {
+      ...
+    }
+
+Try to avoid while loops where you can. Some GLib data structures
+such as iterators encourage the use of while loops. In those cases it's
+ok not to use for loops.
