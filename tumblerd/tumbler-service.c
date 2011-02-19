@@ -279,8 +279,8 @@ tumbler_service_remove_scheduler (TumblerScheduler *scheduler,
 static void
 tumbler_service_constructed (GObject *object)
 {
-  TumblerService   *service = TUMBLER_SERVICE (object);
   TumblerScheduler *scheduler;
+  TumblerService   *service = TUMBLER_SERVICE (object);
 
   /* chain up to parent classes */
   if (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed != NULL)
@@ -941,8 +941,8 @@ void
 tumbler_service_get_supported (TumblerService        *service,
                                DBusGMethodInvocation *context)
 {
-  const gchar *const *uri_schemes;
   const gchar *const *mime_types;
+  const gchar *const *uri_schemes;
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 

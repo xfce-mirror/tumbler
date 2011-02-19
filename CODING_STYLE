@@ -1,0 +1,384 @@
+Tumbler Coding Style
+====================
+
+This document intends to give information about the coding style to be
+used when contributing code to tumbler. It does not claim to be
+complete. Parts of it are taken or inspired from the Clutter coding
+style document.
+
+An example of a good coding style (from the perspective of this
+document) is tumblerd/tumbler-service.c. In the following, the most
+important requirements for writing consistent code for tumbler are 
+explained.
+
+
+Line Width
+==========
+
+The maximum line width for source files is 90 characters. This limit may
+be exceeded when there is no way around it. Accepted ways to wrap long
+lines caused by function calls are
+
+  result = some_function_with_a_very_long_name (first_parameter,
+                                                second_parameter,
+                                                third_parameter);
+
+and
+
+  long_result_variable =
+    some_function_with_a_very_long_name (first_parameter,
+                                         second_parameter,
+                                         third_parameter);
+
+where the result variable name is too long to fit the function call
+into the 90 characters limit even when wrapping the parameters.
+
+Do not separate the function name from its arguments like this:
+
+  /* bad */
+  some_function_with_a_long_name
+    (long_argument_name1, long_argument_name2);
+
+Instead, consider using shorter variable names as aliases:
+
+  /* good */
+  short1 = long_argument_name1;
+  short2 = long_argument_name2;
+  some_function_with_a_long_name (short1, short2);
+
+The line width limit of 90 characters does not apply to header files.
+However the alignment and parameter indentation rules explained in the
+section "Functions and Braces" still apply to header files.
+
+
+Whitespace
+==========
+
+Always insert a space before a parenthesis but never after or
+between the opening or closing parenthesis and a parameter.
+
+  /* good */
+  if (condition)
+    foo (argument1, argument2);
+
+  /* bad */
+  if(condition)
+    foo(argument1, argument2);
+
+  /* bad */
+  if ( condition )
+    foo ( argument1, argument 2 );
+
+
+Indentation and Braces
+======================
+
+Use spaces only, tabs are not allowed. The indentation for each level is
+2 spaces in addition to the previous level. Braces add another level of
+indentation. Valid indentations and uses of braces are:
+
+Single-line statements:
+
+  /* good */
+  if (condition)
+    single_line_statement ();
+
+Multiple statements:
+
+  /* good */
+  if (condition)
+    {
+      a_statement ();
+      another_statement ();
+    }
+
+Multiple and single statements:
+
+  /* good */
+  if (condition)
+    {
+      a_statement ();
+      another_statement ();
+    }
+  else
+    {
+      one_more_statement ();
+    }
+
+Do and while loops:
+
+  /* good */
+  while (foo)
+    {
+      bar ();
+    }
+
+  /* good */
+  do
+    {
+      bar ();
+    }
+  while (foo);
+
+Switch statements:
+
+  /* good */
+  switch (condition)
+    {
+    case FOO:
+      do_something ();
+      break;
+    case BAR:
+      do_something_else ();
+      break;
+    default:
+      do_whatever_you_need_to_do ();
+      break;
+    }
+
+  /* bad */
+  switch (condition) {
+    case FOO:
+      do_something ();
+      break;
+  }
+
+  /* bad */
+  switch (condition)
+    {
+      case FOO:
+        do_something ();
+        break;
+    }
+
+  /* bad */
+  switch (condition)
+    {
+    case FOO: do_something ();
+      break;
+    }
+
+  /* bad */
+  switch (condition)
+    {
+      case FOO:
+      do_something ();
+      break;
+    }
+
+Nested if statements:
+
+  /* good */
+  if (condition) 
+    {
+      /* here the same rules as on the top level apply again */
+      if (another_condition)
+        single_statement ();
+      else if (yet_another_condition)
+        another_single_statement ();
+    }
+
+Do not put curly braces into the same line as the condition:
+  
+  /* bad */
+  if (condition) {
+     ...
+  }
+
+Do not asymmetrically use and not use braces:
+
+  /* bad */
+  if (condition)
+    {
+      /* multiple statements */
+    }
+  else
+    single_statement ();
+
+If there are multiple conditions in a single if statement spread across
+more than one line, always use curly braces:
+
+  /* good */
+  if (condition1
+      && condition2)
+  {
+    /* multiple or single statement(s) */
+  }
+
+
+Functions and Braces
+====================
+
+Braces in function definitions are not indented. Parameters are to be
+wrapped and aligned so that the end results looks like this:
+
+Function declarations:
+
+  /* good */
+  static gchar   *some_type_your_function             (SomeType *object,
+                                                       int       another parameter,
+                                                       gchar   **and_another_one);
+  static gboolean some_type_some_longer_function_name (SomeType *object);
+
+Function definitions:
+
+  /* good */
+  static gchar *
+  some_type_your_function (SomeType *object,
+                           int       another_parameter,
+                           gchar   **and_another_one)
+  {
+    /* declarations */
+    /* assertions */
+    /* actual code */
+  }
+
+Do not declare functions like this:
+
+  /* bad */
+  static gchar *some_type_your_function (SomeType *object,
+                                         int another parameter,
+                                         gchar **and_another_one);
+  static gboolean some_type_some_longer_function_name (SomeType *object);
+
+Or like this:
+
+  /* bad */
+  static gchar *some_type_your_function (SomeType *object, int another parameter, gchar **and_another_one);
+  static gboolean some_type_some_longer_function_name (SomeType *object);
+
+
+Empty Lines
+===========
+
+Between declarations of groups of structs, enums, functions, static
+variables and macros there have to be three empty lines to make the
+different items easier to spot and distinguish. There also have to be
+three empty lines between function definitions.
+
+Also, when declaring data structures, use newlines to separate logical
+sections of member variables:
+
+  struct _TumblerService
+  {
+    /* thumbnailers and preferred thumbnailers */
+    GHashTable *thumbnailers;
+    GHashTable *preferred_thumbnailers;
+
+    /* cached supported URIs and MIME types */
+    gchar     **mime_types;
+    gchar     **uri_schemes;
+
+    /* protection against threads */
+    GMutex     *mutex;
+  };
+
+
+Variable Declarations
+=====================
+
+Variables may only be declared at the top of a function. Variable
+declarations in blocks (code surrounded by braces) are not allowed.
+
+Declarations follow special alignment and sorting rules. The sorting
+order of declarations is determined by:
+
+  1. number of characters of the variable type
+  2. ascending alphabetical order of the type (case-insensitive)
+  3. ascending alphabetical order of the variable name
+
+Here is an example of how a variable declaration sequence has to
+look like:
+
+  TumblerSpecializedThumbnailer *thumbnailer;
+  const gchar * const           *mime_types;
+  const gchar                   *static_name;
+  gboolean                       result = FALSE;
+  GFile                         *file;
+  gchar                         *dynamic_name;
+  guint                          index;
+  guint                          n;
+
+
+Assertions
+==========
+
+In order to make it easier to detect broken code paths, assertions in
+the form of g_return_if_fail() and g_return_val_if_fail() statements are
+used in almost all methods. When implementing new methods in your code,
+please make sure to check the input parameters for type incompatiblities
+or memory corruption.
+
+
+More on Conditions
+==================
+
+Do not check boolean values for equality like this:
+
+  /* bad */
+  if (condition == TRUE)
+    ...
+
+Instead, just do it like this:
+
+  /* good */
+  if (condition)
+    ...
+
+Be explicit when checking pointers however:
+
+  /* good */
+  if (some_pointer == NULL)
+    ...
+
+  /* good */
+  if (some_pointer != NULL)
+    ...
+
+Do not simply do it like this:
+
+  /* bad */
+  if (some_pointer)
+    ...
+
+If you have so many conditions in an if statement that you need to split
+them up into multiple lines, the logical operatiors should always be
+placed at the beginning of the line, like this:
+
+  /* good */
+  if (condtion1 
+      || condition 2
+      || condition 3)
+  {
+    ...
+  }
+
+Don't place the logical operators at the end of the line:
+
+  /* bad */
+  if (condition1 || 
+      condition2 ||
+      conidition3)
+  {
+    ...
+  }
+
+
+Header Files
+============
+
+Header files should always include the following code in addition to the
+license header (example for tumbler-data-structure.h):
+
+  #ifndef __TUMBLER_DATA_STRUCTURE_H__
+  #define __TUMBLER_DATA_STRUCTURE_H__
+
+  #include <something-that-also-includes-glib-object.h>
+
+  G_BEGIN_DECLS
+
+  ...
+
+  G_END_DECLS
+
+  #endif /* !__TUMBLER_DATA_STRUCTURE_H__ */
