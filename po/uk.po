@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2011-02-24 11:06+0000\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:416
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Інший сервіс кешування мініатюр вже працює"
@@ -30,12 +30,17 @@ msgstr "Інший сервіс кешування мініатюр вже пр�
 msgid "No thumbnailer available for \"%s\""
 msgstr "Не доступно перегляд мініатюр для \"%s\""
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#, 
+msgid "The thumbnailer service is shutting down"
+msgstr "Інший сервіс кешування мініатюр вже працює"
+
+#: ../tumblerd/tumbler-service.c:760
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Інший переглядач мініатюр вже працює"
 
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Непідтримуваний запит переглядача мініатюр"
 
@@ -49,18 +54,18 @@ msgstr ""
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Не можу викликати визначений створювач мініатюр: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Не вдалось завантажити файл \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Неправильна секція \"%s\" у файлі \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:527
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
@@ -69,48 +74,48 @@ msgstr ""
 "Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і "
 "UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Неправильний файл \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Не вдалось визначити останню модифікацію часу для \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1854
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Інший менеджер перегляду мініатюр вже працює"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:78
 msgid "Tumbler Thumbnailing Service"
 msgstr "Сервіс перегляду мініатюр Tumbler"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Не вдалося з’єднатися буфером сесії D-Bus: %s"
 
-#: ../tumblerd/main.c:90
+#: ../tumblerd/main.c:108
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Не вдалося почати сервіс кешування іконок: %s"
 
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Не вдалося завантажити спеціалізовані іконізатори до регістру: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Не вдалося запустити менеджер "
+msgstr "Не вдалося запустити менеджер іконізації: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:194
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Не вдалося запустити сервіс іконізатора: %s"
