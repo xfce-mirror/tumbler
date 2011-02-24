@@ -1,7 +1,7 @@
 # Ukrainian translation of tumbler.
 # Copyright (C) 2010 Dmitry Nikitin
 # This file is distributed under the same license as the tumbler package.
-#
+# 
 # Dmitry Nikitin <luckas_fb@mail.ru>, 2010.
 msgid ""
 msgstr ""
@@ -15,8 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../tumblerd/tumbler-cache-service.c:416
@@ -31,9 +30,8 @@ msgid "No thumbnailer available for \"%s\""
 msgstr "Не доступно перегляд мініатюр для \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
-#, 
 msgid "The thumbnailer service is shutting down"
-msgstr "Інший сервіс кешування мініатюр вже працює"
+msgstr "Сервіс кешування мініатюр завершує роботу"
 
 #: ../tumblerd/tumbler-service.c:760
 #, c-format
@@ -46,8 +44,7 @@ msgstr "Непідтримуваний запит переглядача мін�
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Не можу викликати визначений створювач мініатюр: задовгий час очікування"
+msgstr "Не можу викликати визначений створювач мініатюр: задовгий час очікування"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
@@ -67,12 +64,8 @@ msgstr "Неправильна секція \"%s\" у файлі \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і "
-"UriScheme/MimeType"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
@@ -232,14 +225,11 @@ msgstr "Вихід з додатку Tumbler JPEG Thumbnailer"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr ""
-"Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою "
-"ffmpeg"
+msgstr "Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою ffmpeg"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr ""
-"Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою ffmpeg"
+msgstr "Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою ffmpeg"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
