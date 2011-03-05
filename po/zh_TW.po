@@ -2,22 +2,22 @@
 # Copyright (C) 2010 THE tumbler's COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2011-03-05 11:05+0000\n"
 "PO-Revision-Date: 2010-12-07 01:36+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n>1);\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:416
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "另一個縮圖快取服務已經在執行中"
@@ -28,12 +28,16 @@ msgstr "另一個縮圖快取服務已經在執行中"
 msgid "No thumbnailer available for \"%s\""
 msgstr "「%s」沒有可用的縮圖製作程式"
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "縮圖製作服務正在關閉"
+
+#: ../tumblerd/tumbler-service.c:760
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "另一個通用縮圖製作程式已經在執行中"
 
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
 msgstr "要求的縮圖風格未支援"
 
@@ -46,67 +50,64 @@ msgstr "無法呼叫特定的縮圖製作程式：逾時"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "無法呼叫特定的縮圖製作程式：%s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "無法載入檔案「%s」：%s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "檔案「%s」的「%s」區段格式不良：%s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "檔案「%s」格式不良：%s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "無法得知「%s」最近修改的時間"
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1854
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "另一個縮圖製作管理員已經在執行中"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:78
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler 縮圖產生服務"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "無法連接至 D-Bus 的作業階段 bus：%s"
 
-#: ../tumblerd/main.c:90
+#: ../tumblerd/main.c:108
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "無法起始縮圖快取服務：%s"
 
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "無法載入特定的縮圖製作程式至註冊檔內：%s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "無法起始縮圖製作管理員：%s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:194
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "無法起始縮圖製作服務：%s"
