@@ -66,12 +66,12 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "Bozuk dosya \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "\"%s\"'nin son değiştirme tarihi belirlenemedi"
 
 #: ../tumblerd/tumbler-manager.c:1854
 #, c-format
@@ -239,11 +239,11 @@ msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
-msgstr ""
+msgstr "Döküman boş"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
 msgid "First page of the document could not be read"
-msgstr ""
+msgstr "Dökümanın ilk sayfası okunamadı"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
