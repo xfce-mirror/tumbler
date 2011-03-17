@@ -24,9 +24,8 @@ msgid "No thumbnailer available for \"%s\""
 msgstr "\"%s\" için önizleyici bulunmamaktadır"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
-#, fuzzy
 msgid "The thumbnailer service is shutting down"
-msgstr "Başka bir önizleyici servisi zaten çalışıyor"
+msgstr "Önizleyici servisi kapatılıyor"
 
 #: ../tumblerd/tumbler-service.c:760
 #, c-format
