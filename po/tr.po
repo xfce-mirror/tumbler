@@ -182,15 +182,15 @@ msgstr ""
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load file contents: %s"
-msgstr "Önizleme \"%s\" konumuna kaydedilemedi"
+msgstr "Dosya içerikleri yüklenemedi: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Could not open font file: %s"
-msgstr "Önizleme \"%s\" konumuna kaydedilemedi"
+msgstr "Yazı tipi dosyası açılamadı: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
