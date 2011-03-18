@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Tumbler Turkish Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-17 11:05+0000\n"
+"POT-Creation-Date: 2011-03-18 17:05+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
@@ -37,19 +37,18 @@ msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
-#, fuzzy
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Özelleştirilmiş önizleyiciler kayıt defterine yüklenemedi: %s"
+msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Özelleştirilmiş önizleyiciler kayıt defterine yüklenemedi: %s"
+msgstr ""
 
 #: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "\"%s\" eklentisi yüklenemedi: %s"
+msgstr ""
 
 #: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
 #: ../tumblerd/tumbler-manager.c:514
@@ -121,14 +120,14 @@ msgid "RGB Colorspace"
 msgstr "RGB Renkuzayı"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "\"%s\" gerekli sembolleri barındırmamaktadır."
+msgstr ""
 
 #: ../tumbler/tumbler-cache-plugin.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "\"%s\" eklentisi yüklenemedi: %s"
+msgstr ""
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -165,14 +164,12 @@ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
+msgstr ""
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
+msgstr ""
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -213,29 +210,24 @@ msgid "Thumbnail could not be inferred from file contents"
 msgstr ""
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
+msgstr ""
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
+msgstr ""
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-#, fuzzy
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
+msgstr ""
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-#, fuzzy
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi kapatılıyor"
+msgstr ""
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Önizleyici eklentisi çalıştırılıyor"
+msgstr ""
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
