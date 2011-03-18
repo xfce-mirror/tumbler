@@ -41,6 +41,9 @@ plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c
 plugins/poppler-thumbnailer/poppler-thumbnailer.c
 plugins/raw-thumbnailer/raw-thumbnailer.c
 plugins/raw-thumbnailer/raw-thumbnailer-plugin.c
+plugins/webkit-thumbnailer/webkit-thumbnailer.c
+plugins/webkit-thumbnailer/webkit-thumbnailer-plugin.c
+plugins/webkit-thumbnailer/webkit-thumbnailer-provider.c
 plugins/xdg-cache/xdg-cache-thumbnail.c
 plugins/xdg-cache/xdg-cache-plugin.c
 plugins/xdg-cache/xdg-cache-cache.c

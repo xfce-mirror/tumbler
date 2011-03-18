@@ -1,19 +1,19 @@
 # vi:set et ai sw=2 sts=2 ts=2: */
 # -
 # Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
-# 
-# This program is free software; you can redistribute it and/or 
+#
+# This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of 
+# published by the Free Software Foundation; either version 2 of
 # the License, or (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public 
-# License along with this program; if not, write to the Free 
+#
+# You should have received a copy of the GNU General Public
+# License along with this program; if not, write to the Free
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
@@ -134,7 +134,7 @@ AC_ARG_VAR([DBUS_BINDING_TOOL], [Tool to generate C bindings from XML D-Bus inte
 AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool], [no])
 if test x"$DBUS_BINDING_TOOL" = x"no"; then
   AC_MSG_ERROR([could not find dbus-binding-tool in \$PATH. You can run
-  ./configure DBUS_BINDING_TOOL=/path/to/dbus-binding-tool to define 
+  ./configure DBUS_BINDING_TOOL=/path/to/dbus-binding-tool to define
   a custom location for it.])
 fi
 
@@ -160,6 +160,7 @@ TUMBLER_GSTREAMER_THUMBNAILER()
 TUMBLER_ODF_THUMBNAILER()
 TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_RAW_THUMBNAILER()
+TUMBLER_WEBKIT_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
 dnl ***********************************
@@ -194,6 +195,7 @@ plugins/ffmpeg-thumbnailer/Makefile
 plugins/odf-thumbnailer/Makefile
 plugins/poppler-thumbnailer/Makefile
 plugins/raw-thumbnailer/Makefile
+plugins/webkit-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
 tumbler/Makefile
@@ -257,9 +259,13 @@ echo "  * RAW thumbnailer plugin using libopenraw:          yes"
 else
 echo "  * RAW thumbnailer plugin using libopenraw:          no"
 fi
+if test x"$ac_tumbler_webkit_thumbnailer" = x"yes"; then
+echo "  * HTML thumbnailer plugin using Webkit:             yes"
+else
+echo "  * HTML thumbnailer plugin using Webkit:             no"
+fi
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
 echo "  * Freedesktop.org cache plugin:                     yes"
 else
 echo "  * Freedesktop.org cache plugin:                     no"
 fi
-echo

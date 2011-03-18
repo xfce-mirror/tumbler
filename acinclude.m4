@@ -2,18 +2,18 @@ dnl vi:set et ai sw=2 sts=2 ts=2: */
 dnl -
 dnl Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
 dnl
-dnl This program is free software; you can redistribute it and/or 
+dnl This program is free software; you can redistribute it and/or
 dnl modify it under the terms of the GNU General Public License as
-dnl published by the Free Software Foundation; either version 2 of 
+dnl published by the Free Software Foundation; either version 2 of
 dnl the License, or (at your option) any later version.
 dnl
 dnl This program is distributed in the hope that it will be useful,
 dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
-dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 dnl GNU General Public License for more details.
 dnl
-dnl You should have received a copy of the GNU General Public 
-dnl License along with this program; if not, write to the Free 
+dnl You should have received a copy of the GNU General Public
+dnl License along with this program; if not, write to the Free
 dnl Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 dnl Boston, MA 02110-1301, USA.
 
@@ -48,8 +48,8 @@ AC_DEFUN([TUMBLER_FONT_THUMBNAILER],
 AC_ARG_ENABLE([font-thumbnailer], [AC_HELP_STRING([--disable-font-thumbnailer], [Don't build the FreeType font thumbnailer plugin])],
   [ac_tumbler_font_thumbnailer=$enableval], [ac_tumbler_font_thumbnailer=yes])
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
-  dnl Check for gdk-pixbuf 
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for FreeType 2.x
     FREETYPE_LIBS=""
@@ -59,7 +59,7 @@ if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
       AC_MSG_CHECKING([FREETYPE_CFLAGS])
       FREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
       AC_MSG_RESULT([$FREETYPE_CFLAGS])
-    
+
       AC_MSG_CHECKING([FREETYPE_LIBS])
       FREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
       AC_MSG_RESULT([$FREETYPE_LIBS])
@@ -81,7 +81,7 @@ AC_MSG_RESULT([$ac_tumbler_font_thumbnailer])
 
 dnl TUMBLER_JPEG_THUMBNAILER()
 dnl
-dnl Check whether to build and install the JPEG thumbnailer plugin with 
+dnl Check whether to build and install the JPEG thumbnailer plugin with
 dnl EXIF support.
 dnl
 AC_DEFUN([TUMBLER_JPEG_THUMBNAILER],
@@ -89,8 +89,8 @@ AC_DEFUN([TUMBLER_JPEG_THUMBNAILER],
 AC_ARG_ENABLE([jpeg-thumbnailer], [AC_HELP_STRING([--disable-jpeg-thumbnailer], [Don't build the JPEG thumbnailer plugin with EXIF support])],
   [ac_tumbler_jpeg_thumbnailer=$enableval], [ac_tumbler_jpeg_thumbnailer=yes])
 if test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"; then
-  dnl Check for gdk-pixbuf 
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for libjpeg
     LIBJPEG_LIBS=""
@@ -131,7 +131,7 @@ AC_ARG_ENABLE([ffmpeg-thumbnailer], [AC_HELP_STRING([--disable-ffmpeg-thumbnaile
   [ac_tumbler_ffmpeg_thumbnailer=$enableval], [ac_tumbler_ffmpeg_thumbnailer=yes])
 if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for libffmpegthumbnailer
     PKG_CHECK_MODULES([FFMPEGTHUMBNAILER], [libffmpegthumbnailer >= 2.0.0], [], [ac_tumbler_ffmpeg_thumbnailer=no])
@@ -182,7 +182,7 @@ AC_ARG_ENABLE([poppler-thumbnailer], [AC_HELP_STRING([--disable-poppler-thumbnai
   [ac_tumbler_poppler_thumbnailer=$enableval], [ac_tumbler_poppler_thumbnailer=yes])
 if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for poppler-glib
     PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.12.0], [], [ac_tumbler_poppler_thumbnailer=no])
@@ -264,6 +264,29 @@ fi
 AC_MSG_CHECKING([whether to build the Cover thumbnailer plugin])
 AM_CONDITIONAL([TUMBLER_COVER_THUMBNAILER], [test x"$ac_tumbler_cover_thumbnailer" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_cover_thumbnailer])
+
+
+
+dnl TUMBLER_WEBKIT_THUMBNAILER()
+dnl
+dnl Check whether to build and install the Webkit HTML thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_WEBKIT_THUMBNAILER],
+[
+AC_ARG_ENABLE([webkit-thumbnailer], [AC_HELP_STRING([--disable-webkit-thumbnailer], [Don't build the Webkit HTML thumbnailer plugin])],
+  [ac_tumbler_webkit_thumbnailer=$enableval], [ac_tumbler_webkit_thumbnailer=yes])
+if test x"$ac_tumbler_webkit_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  [
+    dnl Check for webkit
+    PKG_CHECK_MODULES([WEBKIT], [webkit-1.0 >= 1.2.0], [], [ac_tumbler_webkit_thumbnailer=no])
+  ], [ac_tumbler_webkit_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the Webkit HTML thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_WEBKIT_THUMBNAILER], [test x"$ac_tumbler_webkit_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_webkit_thumbnailer])
 ])
 
 
@@ -277,14 +300,14 @@ AC_DEFUN([TUMBLER_XDG_CACHE],
 AC_ARG_ENABLE([xdg-cache], [AC_HELP_STRING([--disable-xdg-cache], [Don't build the freedesktop.org cache plugin])],
   [ac_tumbler_xdg_cache=$enableval], [ac_tumbler_xdg_cache=yes])
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
-  dnl Check for gdk-pixbuf 
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for PNG libraries
-    PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes], 
+    PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes],
     [
       dnl libpng.pc not found, try with libpng12.pc
-      PKG_CHECK_MODULES(PNG, libpng12 >= 1.2.0, [have_libpng=yes], 
+      PKG_CHECK_MODULES(PNG, libpng12 >= 1.2.0, [have_libpng=yes],
       [
         have_libpng=no
         ac_tumbler_xdg_cache=no
@@ -297,3 +320,5 @@ AC_MSG_CHECKING([whether to build the freedesktop.org cache plugin])
 AM_CONDITIONAL([TUMBLER_XDG_CACHE], [test x"$ac_tumbler_xdg_cache" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_xdg_cache])
 ])
+
+
