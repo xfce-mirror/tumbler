@@ -100,6 +100,23 @@ webkit_thumbnailer_class_finalize (WebkitThumbnailerClass *klass)
 
 
 static void
+cb_view_load_finished (GtkWidget         *web_view,
+                       WebKitWebFrame    *web_frame,
+                       WebkitThumbnailer *thumbnailer)
+{
+  gtk_widget_queue_draw (web_view);
+  gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
+                              TRUE);
+
+  thumbnailer->tmp =
+    gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW (thumbnailer->offscreen));
+
+  gtk_main_quit ();
+}
+
+
+
+static void
 webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
 {
   WebKitWebSettings *settings;
@@ -124,6 +141,12 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   /* apply the result to the web view */
   webkit_web_view_set_settings (WEBKIT_WEB_VIEW(thumbnailer->view),
                                 settings);
+
+  /* retrieve thumbnails once the page is loaded */
+  g_signal_connect (thumbnailer->view,
+                    "load-finished",
+                    G_CALLBACK (cb_view_load_finished),
+                    thumbnailer);
 
   gtk_container_add (GTK_CONTAINER (thumbnailer->offscreen),
                      thumbnailer->view);
@@ -182,23 +205,6 @@ generate_pixbuf (GdkPixbuf *source,
 
 
 
-static void
-cb_view_load_finished (GtkWidget         *web_view,
-                       WebKitWebFrame    *web_frame,
-                       WebkitThumbnailer *thumbnailer)
-{
-  gtk_widget_queue_draw (web_view);
-  gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
-                              TRUE);
-
-  thumbnailer->tmp =
-    gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW (thumbnailer->offscreen));
-
-  gtk_main_quit ();
-}
-
-
-
 static gboolean
 cb_load_timeout (gpointer data)
 {
@@ -246,12 +252,6 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* schedule a timeout to avoid waiting forever */
   g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
-
-  /* retrieve the thumbnail once the page is loaded */
-  g_signal_connect (webkit_thumbnailer->view,
-                    "load-finished",
-                    G_CALLBACK (cb_view_load_finished),
-                    webkit_thumbnailer);
 
   /* load the page in the web view */
   webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view),
