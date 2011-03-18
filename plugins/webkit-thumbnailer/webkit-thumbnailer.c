@@ -99,18 +99,6 @@ webkit_thumbnailer_class_finalize (WebkitThumbnailerClass *klass)
 
 
 
-static gboolean
-cb_offscreen_damage (GtkWidget      *widget,
-                     GdkEventExpose *event,
-                     GtkWidget      *view)
-{
-  gtk_widget_queue_draw (view);
-
-  return TRUE;
-}
-
-
-
 static void
 webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
 {
@@ -140,13 +128,9 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   gtk_container_add (GTK_CONTAINER (thumbnailer->offscreen),
                      thumbnailer->view);
 
-  gtk_widget_show (thumbnailer->offscreen);
-  gtk_widget_queue_draw (thumbnailer->offscreen);
+  gtk_widget_set_size_request (thumbnailer->offscreen, 1024, 600);
 
-  g_signal_connect (thumbnailer->offscreen,
-                    "damage-event",
-                    G_CALLBACK (cb_offscreen_damage),
-                    thumbnailer->view);
+  gtk_widget_show_all (thumbnailer->offscreen);
 }
 
 
@@ -203,6 +187,10 @@ cb_view_load_finished (GtkWidget         *web_view,
                        WebKitWebFrame    *web_frame,
                        WebkitThumbnailer *thumbnailer)
 {
+  gtk_widget_queue_draw (web_view);
+  gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
+                              TRUE);
+
   thumbnailer->tmp =
     gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW (thumbnailer->offscreen));
 
@@ -259,15 +247,15 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* schedule a timeout to avoid waiting forever */
   g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
 
-  /* load the page in the web view */
-  webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view),
-                            uri);
-
   /* retrieve the thumbnail once the page is loaded */
   g_signal_connect (webkit_thumbnailer->view,
                     "load-finished",
                     G_CALLBACK (cb_view_load_finished),
                     webkit_thumbnailer);
+
+  /* load the page in the web view */
+  webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view),
+                            uri);
 
   /* wait until the page is loaded */
   gtk_main ();
