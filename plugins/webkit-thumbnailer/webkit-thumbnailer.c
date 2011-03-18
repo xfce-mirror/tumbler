@@ -226,6 +226,7 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnail       *thumbnail;
   TumblerImageData        data;
   GError                 *error = NULL;
+  guint                   timeout_id;
   gint                    dest_width;
   gint                    dest_height;
   const gchar            *uri;
@@ -251,7 +252,8 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   uri = tumbler_file_info_get_uri (info);
 
   /* schedule a timeout to avoid waiting forever */
-  g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
+  timeout_id =
+    g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
 
   /* load the page in the web view */
   webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view),
@@ -259,6 +261,9 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* wait until the page is loaded */
   gtk_main ();
+
+  /* remove the timeout */
+  g_source_remove (timeout_id);
 
   if (webkit_thumbnailer->tmp == NULL)
     {
