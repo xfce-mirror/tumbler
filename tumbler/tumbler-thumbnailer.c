@@ -145,9 +145,9 @@ tumbler_thumbnailer_create (TumblerThumbnailer     *thumbnailer,
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
   g_return_if_fail (TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create != NULL);
 
-  return (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer, 
-                                                                 cancellable,
-                                                                 info);
+  (*TUMBLER_THUMBNAILER_GET_IFACE (thumbnailer)->create) (thumbnailer,
+                                                          cancellable,
+                                                          info);
 }
 
 
