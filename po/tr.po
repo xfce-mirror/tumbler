@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Tumbler Turkish Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-26 11:05+0000\n"
-"PO-Revision-Date: \n"
+"POT-Creation-Date: 2011-03-29 22:05+0000\n"
+"PO-Revision-Date: 2011-03-29 15:19+0300\n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -34,16 +34,16 @@ msgstr "Başka bir önizleyici zaten çalışıyor"
 
 #: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "Desteklenmeyen bir küçük resim türü talep edildi."
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "Özelleştirilmiş küçük resim üretici çağırılamadı: zaman aşımı"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "Özelleştirilmiş küçük resim üretici çağırılamadı: %s"
 
 #: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
@@ -52,14 +52,18 @@ msgstr "\"%s\" dosyası yüklenemedi: %s"
 
 #: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
 #: ../tumblerd/tumbler-manager.c:514
-#, c-format, fuzzy
+#, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "\"%2$s\" dosyasındaki %1$s bölümünde yanlış biçimlendirme: \"%3$s\""
 
 #: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
 msgstr ""
+"\"%2$s\" dosyasındaki \"%1$s\" bölümünde yanlış biçimlendirme: İsim ile "
+"UriScheme/MimeType arasında yanlış eşleme."
 
 #: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
