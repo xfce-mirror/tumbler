@@ -1,24 +1,24 @@
 # Finnish translation of tumbler
-# Copyright (C) 2009-2010 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (C) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
 # Copyright (C) 2009-2010 Philip Van Hoof <philip@codeminded.be>
 # This file is distributed under the same license as the tumbler package.
-# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2010.
+# Jari Rahkonen <jari.rahkonen@pp1.inet.fi>, 2010-2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Tumbler 0.1.1\n"
+"Project-Id-Version: Tumbler 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
-"PO-Revision-Date: 2010-12-07 16:17+0200\n"
+"POT-Creation-Date: 2011-04-11 16:05+0000\n"
+"PO-Revision-Date: 2011-04-11 22:56+0300\n"
 "Last-Translator: Jari Rahkonen <jari.rahkonen@pp1.inet.fi>\n"
 "Language-Team: Finnish <xfce-i18n@xfce.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:416
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Toinen pienoiskuvien välimuistipalvelu on jo käynnissä"
@@ -29,12 +29,16 @@ msgstr "Toinen pienoiskuvien välimuistipalvelu on jo käynnissä"
 msgid "No thumbnailer available for \"%s\""
 msgstr "Kohteelle \"%s\" ei ole saatavilla pienoiskuvittajaa"
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "Pienoiskuvapalvelu suljetaan"
+
+#: ../tumblerd/tumbler-service.c:760
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Toinen yleinen pienoiskuvittaja on jo käynnissä"
 
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Pyydettyä pienoiskuvamuotoa ei tueta"
 
@@ -47,18 +51,18 @@ msgstr "Erityispienoiskuvittajan suoritusvirhe: aikakatkaisu"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Erityispienoiskuvittajan suoritusvirhe: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Tiedoston \"%s\" lataus epäonnistui: %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Virheellinen alue \"%s\" tiedostossa \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:527
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
@@ -67,48 +71,48 @@ msgstr ""
 "Virheellinen alue \"%s\" tiedostossa \"%s\": Alueen nimi ja UriScheme/"
 "MimeType eivät täsmää"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Virheellinen tiedosto \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Tiedoston \"%s\" viimeisen muokkausajan selvitys epäonnistui"
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1854
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Toinen pienoiskuvien hallintaohjelma on jo käynnissä"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:78
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler-pienoiskuvapalvelu"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus -istuntoväylään ei saa yhteyttä: %s"
 
-#: ../tumblerd/main.c:90
+#: ../tumblerd/main.c:108
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Pienoiskuvien välimuistipalvelun käynnistys epäonnistui: %s"
 
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Erityispienoiskuvittajien rekisteröinti epäonnistui: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Pienoiskuvien hallintaohjelman käynnistys epäonnistui: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:194
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Pienoiskuvapalvelun käynnistys epäonnistui: %s"
