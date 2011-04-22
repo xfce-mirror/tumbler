@@ -71,9 +71,6 @@ font_thumbnailer_provider_register (TumblerProviderPlugin *plugin)
 static void
 font_thumbnailer_provider_class_init (FontThumbnailerProviderClass *klass)
 {
-  GObjectClass *gobject_class;
-
-  gobject_class = G_OBJECT_CLASS (klass);
 }
 
 

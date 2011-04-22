@@ -71,9 +71,6 @@ jpeg_thumbnailer_provider_register (TumblerProviderPlugin *plugin)
 static void
 jpeg_thumbnailer_provider_class_init (JPEGThumbnailerProviderClass *klass)
 {
-  GObjectClass *gobject_class;
-
-  gobject_class = G_OBJECT_CLASS (klass);
 }
 
 

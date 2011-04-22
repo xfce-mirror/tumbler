@@ -71,9 +71,6 @@ poppler_thumbnailer_provider_register (TumblerProviderPlugin *plugin)
 static void
 poppler_thumbnailer_provider_class_init (PopplerThumbnailerProviderClass *klass)
 {
-  GObjectClass *gobject_class;
-
-  gobject_class = G_OBJECT_CLASS (klass);
 }
 
 
