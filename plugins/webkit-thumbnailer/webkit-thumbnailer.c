@@ -23,17 +23,14 @@
 #include <config.h>
 #endif
 
-#include <math.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <webkit/webkit.h>
-
+#include <math.h>
 #include <tumbler/tumbler.h>
+#include <webkit/webkit.h>
 
 #include <webkit-thumbnailer/webkit-thumbnailer.h>
 
@@ -56,9 +53,9 @@ struct _WebkitThumbnailer
 {
   TumblerAbstractThumbnailer __parent__;
 
+  GdkPixbuf *tmp;
   GtkWidget *offscreen;
   GtkWidget *view;
-  GdkPixbuf *tmp;
 };
 
 
@@ -177,8 +174,8 @@ generate_pixbuf (GdkPixbuf *source,
 {
   gdouble hratio;
   gdouble wratio;
-  gint    source_width;
   gint    source_height;
+  gint    source_width;
 
   /* determine the source pixbuf dimensions */
   source_width  = gdk_pixbuf_get_width (source);
@@ -220,16 +217,16 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                            GCancellable               *cancellable,
                            TumblerFileInfo            *info)
 {
-  GdkPixbuf              *pixbuf;
-  WebkitThumbnailer      *webkit_thumbnailer;
   TumblerThumbnailFlavor *flavor;
-  TumblerThumbnail       *thumbnail;
+  WebkitThumbnailer      *webkit_thumbnailer;
   TumblerImageData        data;
+  TumblerThumbnail       *thumbnail;
+  const gchar            *uri;
+  GdkPixbuf              *pixbuf;
   GError                 *error = NULL;
   guint                   timeout_id;
-  gint                    dest_width;
   gint                    dest_height;
-  const gchar            *uri;
+  gint                    dest_width;
 
   g_return_if_fail (IS_WEBKIT_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
