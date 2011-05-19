@@ -36,15 +36,21 @@
 #include "gst-thumbnailer.h"
 #include "gst-helper.h"
 
+
+
 #ifdef DEBUG
 #define LOG(...) g_message (__VA_ARGS__)
 #else
 #define LOG(...)
 #endif
 
+
+
 static void gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                     GCancellable               *cancellable,
                                     TumblerFileInfo            *info);
+
+
 
 struct _GstThumbnailerClass
 {
@@ -57,9 +63,11 @@ struct _GstThumbnailer
 };
 
 
+
 G_DEFINE_DYNAMIC_TYPE (GstThumbnailer,
                        gst_thumbnailer,
                        TUMBLER_TYPE_ABSTRACT_THUMBNAILER);
+
 
 
 void
@@ -67,6 +75,8 @@ gst_thumbnailer_register (TumblerProviderPlugin *plugin)
 {
   gst_thumbnailer_register_type (G_TYPE_MODULE (plugin));
 }
+
+
 
 static void
 gst_thumbnailer_class_init (GstThumbnailerClass *klass)
@@ -77,15 +87,20 @@ gst_thumbnailer_class_init (GstThumbnailerClass *klass)
   abstractthumbnailer_class->create = gst_thumbnailer_create;
 }
 
+
+
 static void
 gst_thumbnailer_class_finalize (GstThumbnailerClass *klass)
 {
 }
 
+
+
 static void
 gst_thumbnailer_init (GstThumbnailer *thumbnailer)
 {
 }
+
 
 
 /*
@@ -161,6 +176,8 @@ is_interesting (GdkPixbuf *pixbuf)
   return count > 1;
 }
 
+
+
 /*
  * Construct a pipline for a given @info, cancelling during initialisation on
  * @cancellable.  This function will either return a #GstElement that has been
@@ -168,18 +185,24 @@ is_interesting (GdkPixbuf *pixbuf)
  * cancelled or an error occurs.
  */
 static GstElement *
-make_pipeline (TumblerFileInfo *info, GCancellable *cancellable)
+make_pipeline (TumblerFileInfo *info, 
+               GCancellable    *cancellable)
 {
-  GstElement *playbin, *audio_sink, *video_sink;
-  int count = 0, n_video = 0;
   GstStateChangeReturn state;
+  GstElement          *audio_sink;
+  GstElement          *playbin;
+  GstElement          *video_sink;
+  gint                 count = 0;
+  gint                 n_video = 0;
 
   g_assert (info);
 
   playbin = gst_element_factory_make ("playbin2", "playbin");
   g_assert (playbin);
+
   audio_sink = gst_element_factory_make ("fakesink", "audiosink");
   g_assert (audio_sink);
+
   video_sink = gst_element_factory_make ("fakesink", "videosink");
   g_assert (video_sink);
 
@@ -225,6 +248,8 @@ make_pipeline (TumblerFileInfo *info, GCancellable *cancellable)
   return playbin;
 }
 
+
+
 /*
  * Get the total duration in nanoseconds of the stream.
  */
@@ -241,6 +266,8 @@ get_duration (GstElement *playbin)
   return duration;
 }
 
+
+
 /*
  * Generate a thumbnail for @info.
  */
@@ -249,8 +276,11 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                         GCancellable               *cancellable,
                         TumblerFileInfo            *info)
 {
+  TumblerThumbnailFlavor *flavour;
+  TumblerThumbnail       *thumbnail;
+  TumblerImageData        data;
   /* These positions are taken from Totem */
-  const double positions[] = {
+  const gdouble           positions[] = {
     1.0 / 3.0,
     2.0 / 3.0,
     0.1,
@@ -258,14 +288,11 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     0.5
   };
   GstElement             *playbin;
-  gint64                  duration;
-  unsigned int            i;
-  GstBuffer              *frame;
   GdkPixbuf              *shot;
-  TumblerThumbnail       *thumbnail;
-  TumblerThumbnailFlavor *flavour;
-  TumblerImageData        data;
+  GstBuffer              *frame;
   GError                 *error = NULL;
+  gint64                  duration;
+  guint                   i;
 
   g_return_if_fail (IS_GST_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -285,8 +312,8 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   duration = get_duration (playbin);
 
   /* Now we have a pipeline that we know has video and is paused, ready for
-     seeking.  Try to find an interesting frame at each of the positions in
-     order. */
+   * seeking.  Try to find an interesting frame at each of the positions in
+   * order. */
   for (i = 0; i < G_N_ELEMENTS (positions); i++)
     {
       /* Check if we've been cancelled */
@@ -329,7 +356,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       shot = gst_helper_convert_buffer_to_pixbuf (frame, cancellable, flavour);
       g_object_unref (flavour);
 
-      /* If it's not interesting, throw it away and try again*/
+      /* If it's not interesting, throw it away and try again */
       if (is_interesting (shot))
         {
           /* Got an interesting image, break out */
@@ -337,10 +364,8 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
           break;
         }
 
-      /*
-       * If we've still got positions to try, free the current uninteresting
-       * shot. Otherwise we'll make do with what we have.
-       */
+      /* If we've still got positions to try, free the current uninteresting
+       * shot. Otherwise we'll make do with what we have. */
       if (i + 1 < G_N_ELEMENTS (positions) && shot)
         {
           g_object_unref (shot);
@@ -349,9 +374,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       /* Spin mainloop so we can pick up the cancels */
       while (g_main_context_pending (NULL))
-        {
-          g_main_context_iteration (NULL, FALSE);
-        }
+        g_main_context_iteration (NULL, FALSE);
     }
 
   gst_element_set_state (playbin, GST_STATE_NULL);

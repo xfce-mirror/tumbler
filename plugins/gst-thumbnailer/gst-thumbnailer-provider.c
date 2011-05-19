@@ -34,8 +34,10 @@
 #include <gst-thumbnailer/gst-thumbnailer.h>
 
 
+
 static void   gst_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
 static GList *gst_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+
 
 
 struct _GstThumbnailerProviderClass
@@ -94,12 +96,14 @@ gst_thumbnailer_provider_init (GstThumbnailerProvider *provider)
 {
 }
 
+
+
 static GList *
 gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
+  /* This list is mainly from Totem. Generating a list from 
+   * GStreamer isn't realistic, so we have to hardcode it. */
   static const char *mime_types[] = {
-    /* This list is mainly from Totem. Generating a list from GStreamer isn't
-       realistic, so we have to hardcode it. */
     "application/asx",
     "application/ogg",
     "application/x-flash-video",
@@ -127,14 +131,14 @@ gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
     "video/x-wmv",
     NULL
   };
-
-  GstThumbnailer *thumbnailer;
-  GStrv           uri_schemes;
-  GError         *error = NULL;
+  GstThumbnailer    *thumbnailer;
+  GError            *error = NULL;
+  GStrv              uri_schemes;
 
   if (!gst_init_check (0, NULL, &error))
     {
-      g_warning ("Cannot initialize GStreamer, thumbnailer not loaded: %s", error->message);
+      g_warning ("Cannot initialize GStreamer, thumbnailer not loaded: %s", 
+                 error->message);
       return NULL;
     }
 

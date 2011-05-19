@@ -25,7 +25,7 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS;
+G_BEGIN_DECLS
 
 #define TYPE_GST_THUMBNAILER            (gst_thumbnailer_get_type ())
 #define GST_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_GST_THUMBNAILER, GstThumbnailer))
@@ -40,6 +40,6 @@ typedef struct _GstThumbnailer        GstThumbnailer;
 GType gst_thumbnailer_get_type (void) G_GNUC_CONST;
 void  gst_thumbnailer_register (TumblerProviderPlugin *plugin);
 
-G_END_DECLS;
+G_END_DECLS
 
 #endif /* !__GST_THUMBNAILER_H__ */
