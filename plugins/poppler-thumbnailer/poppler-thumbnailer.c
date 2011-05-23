@@ -95,6 +95,101 @@ poppler_thumbnailer_init (PopplerThumbnailer *thumbnailer)
 
 
 
+/**
+ * taken from copy_cairo_surface_to_pixbuf() from poppler
+ * which was deprecated in poppler >= 0.17. 
+ */
+static void
+copy_surface_to_pixbuf (cairo_surface_t *surface,
+                        GdkPixbuf       *pixbuf)
+{
+  guchar *pixbuf_data;
+  guchar *dst;
+  guchar *cairo_data;
+  guint  *src;
+  gint    cairo_width;
+  gint    cairo_height;
+  gint    cairo_rowstride;
+  gint    pixbuf_rowstride;
+  gint    pixbuf_n_channels;
+  gint    x;
+  gint    y;
+
+  cairo_width = cairo_image_surface_get_width (surface);
+  cairo_height = cairo_image_surface_get_height (surface);
+  cairo_rowstride = cairo_image_surface_get_stride (surface);
+  cairo_data = cairo_image_surface_get_data (surface);
+
+  pixbuf_data = gdk_pixbuf_get_pixels (pixbuf);
+  pixbuf_rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  pixbuf_n_channels = gdk_pixbuf_get_n_channels (pixbuf);
+
+  if (cairo_width > gdk_pixbuf_get_width (pixbuf))
+    cairo_width = gdk_pixbuf_get_width (pixbuf);
+
+  if (cairo_height > gdk_pixbuf_get_height (pixbuf))
+    cairo_height = gdk_pixbuf_get_height (pixbuf);
+
+  for (y = 0; y < cairo_height; y++)
+    {
+      src = (guint *) (cairo_data + y * cairo_rowstride);
+      dst = pixbuf_data + y * pixbuf_rowstride;
+      
+      for (x = 0; x < cairo_width; x++) 
+        {
+          dst[0] = (*src >> 16) & 0xff;
+          dst[1] = (*src >> 8) & 0xff; 
+          dst[2] = (*src >> 0) & 0xff;
+
+          if (pixbuf_n_channels == 4)
+              dst[3] = (*src >> 24) & 0xff;
+
+          dst += pixbuf_n_channels;
+          src++;
+        }
+    }
+}
+
+
+
+/**
+ * taken from poppler_page_render_to_pixbuf() and
+ * _poppler_page_render_to_pixbuf() which were deprecated
+ * in poppler >= 0.17.
+ */
+static void
+render_page_to_pixbuf (PopplerPage *page,
+                       gint         src_x, 
+                       gint         src_y,
+                       gint         src_width, 
+                       gint         src_height,
+                       GdkPixbuf   *pixbuf)
+{
+  cairo_surface_t *surface;
+  cairo_t         *cr;
+
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, src_width, src_height);
+  cr = cairo_create (surface);
+  cairo_save (cr);
+
+  cairo_translate (cr, -src_x, -src_y);
+
+  poppler_page_render (page, cr);
+
+  cairo_restore (cr);
+
+  cairo_set_operator (cr, CAIRO_OPERATOR_DEST_OVER);
+  cairo_set_source_rgb (cr, 1., 1., 1.);
+  cairo_paint (cr);
+
+  cairo_destroy (cr);
+
+  copy_surface_to_pixbuf (surface, pixbuf);
+  cairo_surface_destroy (surface);
+}
+
+
+
 static GdkPixbuf *
 generate_pixbuf (GdkPixbuf              *source,
                  TumblerThumbnailFlavor *flavor)
@@ -238,7 +333,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* fall back to rendering the page ourselves */
       poppler_page_get_size (page, &page_width, &page_height);
       source_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, page_width, page_height);
-      poppler_page_render_to_pixbuf (page, 0, 0, page_width, page_height, 1.0, 0, source_pixbuf);
+      render_page_to_pixbuf (page, 0, 0, page_width, page_height, source_pixbuf);
     }
 
   /* release allocated poppler data */

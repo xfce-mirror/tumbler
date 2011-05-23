@@ -1,3 +1,11 @@
+0.1.x
+=====
+- Add coding style documentation.
+- Fix compiler error on Sun Studio.
+- Add a GStreamer-based thumbnailer for video thumbnails. Thanks to 
+  Ross Burton for the work.
+- Avoid GdkPixbuf functions deprecated in poppler >= 0.17 (bug #7649).
+
 0.1.21
 ======
 - Update to latest revision of the thumbnail management D-Bus 
