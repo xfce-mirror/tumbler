@@ -57,7 +57,6 @@ gst_helper_convert_buffer_to_pixbuf (GstBuffer    *buffer,
   GstElement *src, *sink, *colorspace, *scale, *filter;
   GstBus *bus;
   GstMessage *msg;
-  GstStateChangeReturn state;
   gboolean ret;
   int thumb_size = 0, width, height, dw, dh, i;
   GstStructure *s;
@@ -154,7 +153,6 @@ gst_helper_convert_buffer_to_pixbuf (GstBuffer    *buffer,
     }
 
   bus = gst_element_get_bus (GST_ELEMENT (pipeline));
-  state = gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
 
   i = 0;
   msg = NULL;

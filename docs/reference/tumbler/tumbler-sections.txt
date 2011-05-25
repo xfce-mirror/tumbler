@@ -1,9 +1,9 @@
 <SECTION>
 <FILE>tumbler-provider-plugin</FILE>
-TumblerProviderPluginClass
-TumblerProviderPlugin
 tumbler_provider_plugin_new
 tumbler_provider_plugin_get_types
+TumblerProviderPluginClass
+TumblerProviderPlugin
 <SUBSECTION Standard>
 TUMBLER_PROVIDER_PLUGIN
 TUMBLER_IS_PROVIDER_PLUGIN
@@ -17,7 +17,6 @@ TUMBLER_PROVIDER_PLUGIN_GET_CLASS
 <SECTION>
 <FILE>tumbler-thumbnailer-provider</FILE>
 <TITLE>TumblerThumbnailerProvider</TITLE>
-TumblerThumbnailerProvider
 TumblerThumbnailerProviderIface
 tumbler_thumbnailer_provider_get_thumbnailers
 <SUBSECTION Standard>
@@ -32,7 +31,6 @@ TUMBLER_THUMBNAILER_PROVIDER_GET_IFACE
 <FILE>tumbler-thumbnail</FILE>
 <TITLE>TumblerThumbnail</TITLE>
 TumblerImageData
-TumblerThumbnail
 TumblerThumbnailIface
 tumbler_thumbnail_load
 tumbler_thumbnail_needs_update
@@ -49,10 +47,10 @@ TUMBLER_THUMBNAIL_GET_IFACE
 
 <SECTION>
 <FILE>tumbler-provider-factory</FILE>
-TumblerProviderFactoryClass
-TumblerProviderFactory
 tumbler_provider_factory_get_default
 tumbler_provider_factory_get_providers
+TumblerProviderFactoryClass
+TumblerProviderFactory
 <SUBSECTION Standard>
 TUMBLER_PROVIDER_FACTORY
 TUMBLER_IS_PROVIDER_FACTORY
@@ -66,7 +64,6 @@ TUMBLER_PROVIDER_FACTORY_GET_CLASS
 <SECTION>
 <FILE>tumbler-thumbnailer</FILE>
 <TITLE>TumblerThumbnailer</TITLE>
-TumblerThumbnailer
 TumblerThumbnailerIface
 tumbler_thumbnailer_create
 tumbler_thumbnailer_get_hash_keys
@@ -86,9 +83,8 @@ TUMBLER_THUMBNAILER_GET_IFACE
 <SECTION>
 <FILE>tumbler-abstract-thumbnailer</FILE>
 <TITLE>TumblerAbstractThumbnailer</TITLE>
-TumblerAbstractThumbnailerPrivate
 TumblerAbstractThumbnailerClass
-TumblerAbstractThumbnailer
+TumblerAbstractThumbnailerPrivate
 <SUBSECTION Standard>
 TUMBLER_ABSTRACT_THUMBNAILER
 TUMBLER_IS_ABSTRACT_THUMBNAILER
@@ -101,14 +97,14 @@ TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS
 
 <SECTION>
 <FILE>tumbler-thumbnail-flavor</FILE>
-TumblerThumbnailFlavorPrivate
-TumblerThumbnailFlavorClass
-TumblerThumbnailFlavor
 tumbler_thumbnail_flavor_new
 tumbler_thumbnail_flavor_new_normal
 tumbler_thumbnail_flavor_new_large
 tumbler_thumbnail_flavor_get_name
 tumbler_thumbnail_flavor_get_size
+TumblerThumbnailFlavorPrivate
+TumblerThumbnailFlavor
+TumblerThumbnailFlavorClass
 <SUBSECTION Standard>
 TUMBLER_THUMBNAIL_FLAVOR
 TUMBLER_IS_THUMBNAIL_FLAVOR
@@ -122,7 +118,6 @@ TUMBLER_THUMBNAIL_FLAVOR_GET_CLASS
 <SECTION>
 <FILE>tumbler-cache</FILE>
 <TITLE>TumblerCache</TITLE>
-TumblerCache
 TumblerCacheIface
 tumbler_cache_get_default
 tumbler_cache_get_thumbnail
@@ -143,8 +138,6 @@ TUMBLER_CACHE_GET_IFACE
 
 <SECTION>
 <FILE>tumbler-file-info</FILE>
-TumblerFileInfoClass
-TumblerFileInfo
 tumbler_file_info_new
 tumbler_file_info_load
 tumbler_file_info_get_uri
@@ -155,6 +148,8 @@ tumbler_file_info_get_thumbnail
 tumbler_file_info_array_new_with_flavor
 tumbler_file_info_array_copy
 tumbler_file_info_array_free
+TumblerFileInfoClass
+TumblerFileInfo
 <SUBSECTION Standard>
 TUMBLER_FILE_INFO
 TUMBLER_IS_FILE_INFO
@@ -167,11 +162,11 @@ TUMBLER_FILE_INFO_GET_CLASS
 
 <SECTION>
 <FILE>tumbler-cache-plugin</FILE>
-TumblerCachePluginPrivate
-TumblerCachePluginClass
-TumblerCachePlugin
 tumbler_cache_plugin_get_default
 tumbler_cache_plugin_get_cache
+TumblerCachePlugin
+TumblerCachePluginClass
+TumblerCachePluginPrivate
 <SUBSECTION Standard>
 TUMBLER_CACHE_PLUGIN
 TUMBLER_IS_CACHE_PLUGIN
