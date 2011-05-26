@@ -24,7 +24,7 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS;
+G_BEGIN_DECLS
 
 #define TYPE_WEBKIT_THUMBNAILER            (webkit_thumbnailer_get_type ())
 #define WEBKIT_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_WEBKIT_THUMBNAILER, WebkitThumbnailer))
@@ -39,6 +39,6 @@ typedef struct _WebkitThumbnailer        WebkitThumbnailer;
 GType webkit_thumbnailer_get_type (void) G_GNUC_CONST;
 void  webkit_thumbnailer_register (TumblerProviderPlugin *plugin);
 
-G_END_DECLS;
+G_END_DECLS
 
 #endif /* !__WEBKIT_THUMBNAILER_H__ */

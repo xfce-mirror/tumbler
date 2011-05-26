@@ -34,7 +34,10 @@
 
 #include <webkit-thumbnailer/webkit-thumbnailer.h>
 
+
+
 #define LOAD_TIMEOUT 1000
+
 
 
 static void webkit_thumbnailer_finalize (GObject                    *object);
@@ -148,7 +151,7 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   gtk_container_add (GTK_CONTAINER (thumbnailer->offscreen),
                      thumbnailer->view);
 
-  gtk_widget_set_size_request (thumbnailer->offscreen, 1024, 600);
+  gtk_widget_set_size_request (thumbnailer->offscreen, 1024, 1024);
 
   gtk_widget_show_all (thumbnailer->offscreen);
 }
@@ -249,12 +252,10 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   uri = tumbler_file_info_get_uri (info);
 
   /* schedule a timeout to avoid waiting forever */
-  timeout_id =
-    g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
+  timeout_id = g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
 
   /* load the page in the web view */
-  webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view),
-                            uri);
+  webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view), uri);
 
   /* wait until the page is loaded */
   gtk_main ();
