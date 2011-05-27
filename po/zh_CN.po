@@ -161,28 +161,28 @@ msgstr "版本不符: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在初始化 Tumbler GStreamer 缩略图生成器查看插件"
+msgstr "正在初始化 Tumbler GStreamer 缩略图查看器插件"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在关闭 Tumbler GStreamer 缩略图生成器查看插件"
+msgstr "正在关闭 Tumbler GStreamer 缩略图查看器插件"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 图像缩略图查看插件"
+msgstr "正在初始化 Tumbler 图像缩略图查看器插件"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 图像缩略图查看插件"
+msgstr "正在关闭 Tumbler 图像缩略图查看器插件"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 字体缩略图查看插件"
+msgstr "正在初始化 Tumbler 字体缩略图查看器插件"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 字体缩略图查看插件"
+msgstr "正在关闭 Tumbler 字体缩略图查看器插件"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -224,23 +224,23 @@ msgstr "缩略图无法从文件内容中获得"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 的 JPEG 缩略图查看插件"
+msgstr "正在初始化 Tumbler 的 JPEG 缩略图查看器插件"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 的 JPEG 缩略图查看插件"
+msgstr "正在关闭 Tumbler 的 JPEG 缩略图查看器插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在初始化 Tumbler 的 ffmpeg 视频缩略图查看插件"
+msgstr "正在初始化 Tumbler 的 ffmpeg 视频缩略图查看器插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在关闭 Tumbler 的 ffmpeg 视频缩略图查看插件"
+msgstr "正在关闭 Tumbler 的 ffmpeg 视频缩略图查看器插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 的 Poppler PDF/PS 缩略图查看插件"
+msgstr "正在初始化 Tumbler 的 Poppler PDF/PS 缩略图查看器插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
