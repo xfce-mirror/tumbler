@@ -1,13 +1,13 @@
-# Dutch translations for the Tumbler package.
+# Dutch translations for the tumbler package.
 # Copyright (C) 2011 The Xfce development team.
-# This file is distributed under the same license as the Tumbler package.
+# This file is distributed under the same license as the tumbler package.
 # Pjotr, 2011.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler 1.0\n"
+"Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-26 22:06+0000\n"
+"POT-Creation-Date: 2011-05-27 04:06+0000\n"
 "PO-Revision-Date: 2011-05-10 12:41+0100\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -42,7 +42,8 @@ msgstr "Er wordt gevraagd om een niet-ondersteunde soort miniatuurmaker"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Kon de gespecialiseerde miniatuurmaker niet oproepen: tijd is verstreken"
+msgstr ""
+"Kon de gespecialiseerde miniatuurmaker niet oproepen: tijd is verstreken"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
@@ -62,8 +63,12 @@ msgstr "Misvormde sectie \"%s\" in bestand \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Misvormde sectie \"%s\" in bestand \"%s\":  geen overeenkomst tussen sectienaam en Urischema/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Misvormde sectie \"%s\" in bestand \"%s\":  geen overeenkomst tussen "
+"sectienaam en Urischema/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
