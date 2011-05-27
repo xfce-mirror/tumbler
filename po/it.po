@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-14 17:02+0000\n"
+"POT-Creation-Date: 2011-05-27 16:05+0000\n"
 "PO-Revision-Date: 2010-06-26 08:57+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian Translation Team <xfce-it-translators@googlegroups.com>\n"
@@ -148,6 +148,7 @@ msgstr "Il plugin \"%s\" non ha i simboli necessari."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Caricamento del plugin \"%s\" non riuscito: %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -157,6 +158,14 @@ msgstr "Caricamento del plugin \"%s\" non riuscito: %s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Versioni non corrispondenti: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Inizializzazione del plugin di Tumbler per la creazione delle miniature di Gstreamer"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Chiusura del plugin di Tumbler per la creazione delle miniature di Gstreamer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -233,11 +242,11 @@ msgstr "Chiusura del plugin ffmpeg di Tumbler per la creazione delle miniature d
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Inizializzazione del plugin Poppler di Tumbler per la creazione delle miniature dei file PDF/PS"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "Il documento è vuoto"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "La prima pagina del documento non può essere letta"
 
