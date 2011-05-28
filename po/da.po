@@ -164,11 +164,11 @@ msgstr "Version uoverensstemmelse: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Initialiserer udvidelsesmodulet Tumbler GStreamer Thumbnailer"
+msgstr "Klargører udvidelsesmodulet Tumbler GStreamer Thumbnailer"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Lukker udvidelsesmodulet GStreamer Thumbnailer ned"
+msgstr "Lukker udvidelsesmodulet Tumbler GStreamer Thumbnailer ned"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
