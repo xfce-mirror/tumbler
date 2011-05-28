@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 17:02+0000\n"
+"POT-Creation-Date: 2011-05-28 10:06+0000\n"
 "PO-Revision-Date: 2009-12-19 22:24+0100\n"
 "Last-Translator: Per Kongstad <p_kongstad@op.pl>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -151,6 +151,7 @@ msgstr "Udvidelsesmodul \"%s\" mangler krævede symboler."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Kunne ikke indlæse udvidelsesmodul  \"%s\": %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -160,6 +161,14 @@ msgstr "Kunne ikke indlæse udvidelsesmodul  \"%s\": %s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Version uoverensstemmelse: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Initialiserer udvidelsesmodulet Tumbler GStreamer Thumbnailer"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Lukker udvidelsesmodulet GStreamer Thumbnailer ned"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -236,11 +245,11 @@ msgstr "Lukker udvidelsesmodulet Tumbler ffmpeg video thumbnailer ned"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Initialiserer udvidelsesmodulet Tumbler Poppler PDF/PS Thumbnailer"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "Dokumentet er tomt"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "Første sideaf dokumentet kunne ikke læses"
 
