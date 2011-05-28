@@ -104,13 +104,17 @@ cb_view_load_finished (GtkWidget         *web_view,
                        WebKitWebFrame    *web_frame,
                        WebkitThumbnailer *thumbnailer)
 {
+  /* force a redraw of the offscreen window to make sure we snapshot
+   * the latest visual changes */
   gtk_widget_queue_draw (web_view);
   gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
                               TRUE);
 
+  /* snapshot the offscreen window */
   thumbnailer->tmp =
     gtk_offscreen_window_get_pixbuf (GTK_OFFSCREEN_WINDOW (thumbnailer->offscreen));
 
+  /* done, exit the main loop */
   gtk_main_quit ();
 }
 
@@ -123,6 +127,8 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
 
   gtk_init (NULL, NULL);
 
+  /* the offscreen window will allow us to use a WebkitWebView to do all
+   * the rendering in the background, without actually displaying it */
   thumbnailer->offscreen = gtk_offscreen_window_new ();
   thumbnailer->view = webkit_web_view_new ();
   thumbnailer->tmp = NULL;
@@ -130,6 +136,7 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   /* create a new websettings and disable potential threats */
   settings = webkit_web_settings_new ();
 
+  /* disable plugins, javascript, java and html5 local features */
   g_object_set (G_OBJECT(settings),
                 "enable-scripts", FALSE,
                 "enable-plugins", FALSE,
@@ -142,7 +149,7 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   webkit_web_view_set_settings (WEBKIT_WEB_VIEW(thumbnailer->view),
                                 settings);
 
-  /* retrieve thumbnails once the page is loaded */
+  /* signal to retrieve thumbnails once the page is loaded */
   g_signal_connect (thumbnailer->view,
                     "load-finished",
                     G_CALLBACK (cb_view_load_finished),
@@ -151,8 +158,11 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   gtk_container_add (GTK_CONTAINER (thumbnailer->offscreen),
                      thumbnailer->view);
 
+  /* we need to set a size big enough for the html rendering to be
+   * relevant but not too big so that we don't manipulate huge pictures */
   gtk_widget_set_size_request (thumbnailer->offscreen, 1024, 1024);
 
+  /* this won't actually show anything as we use an offscreen window */
   gtk_widget_show_all (thumbnailer->offscreen);
 }
 
@@ -251,7 +261,8 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   uri = tumbler_file_info_get_uri (info);
 
-  /* schedule a timeout to avoid waiting forever */
+  /* schedule a timeout to avoid waiting forever if the page fails to
+   * load */
   timeout_id = g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
 
   /* load the page in the web view */
