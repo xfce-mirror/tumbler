@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 05:02+0000\n"
+"POT-Creation-Date: 2011-05-30 10:06+0000\n"
 "PO-Revision-Date: 2010-01-07 14:31-0000\n"
 "Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
 "Language-Team: \n"
@@ -150,6 +150,7 @@ msgstr "O \"plug-in\" \"%s\" tem em falta os símbolos necessários."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Falha ao carregar o \"plug-in\" \"%s\": %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -159,6 +160,14 @@ msgstr "Falha ao carregar o \"plug-in\" \"%s\": %s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Conflito de versão: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Iniciando o \"plug-in\" Tumbler GStreamer Thumbnailer"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Desligando o \"plug-in\" Tumbler GStreamer Thumbnailer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -235,11 +244,11 @@ msgstr "Desligando o \"plug-in\" de miniaturas Tumbler ffmpeg video"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Iniciando o \"plug-in\" de miniaturas Tumbler Poppler PDF/PS"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "O documento está vazio"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "A primeira página do documento não pôde ser lida"
 
