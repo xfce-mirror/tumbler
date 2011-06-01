@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Sérgio Cipolla <secipolla@gmail.com>, 2011.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-31 16:05+0000\n"
+"POT-Creation-Date: 2011-06-01 04:05+0000\n"
 "PO-Revision-Date: 2011-05-31 16:51-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
-"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -51,14 +51,12 @@ msgstr "Falhou ao chamar o gerador de miniaturas especializado: tempo esgotado"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Falhou ao chamar o gerador de miniaturas especializado: %s"
 
-#: ../tumblerd/tumbler-manager.c:468
-#: ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Falhou ao carregar o arquivo \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:486
-#: ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
 #: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -69,8 +67,7 @@ msgstr "Seção malformada \"%s\" no arquivo \"%s\": %s"
 msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
 msgstr "Seção malformada \"%s\" no arquivo \"%s\": nome da seção e UriScheme/MimeType não correspondem"
 
-#: ../tumblerd/tumbler-manager.c:887
-#: ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -94,7 +91,7 @@ msgstr "Serviço de geração de miniaturas Tumbler"
 #: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Falhou ao conectar com o barramento de sessão do D-Bus: %s"
+msgstr "Falhou ao conectar-se com o barramento de sessão do D-Bus: %s"
 
 #: ../tumblerd/main.c:108
 #, c-format
@@ -267,4 +264,3 @@ msgstr "Iniciando o plugin de cache XDG do Tumbler"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Encerrando o plugin de cache XDG do Tumbler"
-
