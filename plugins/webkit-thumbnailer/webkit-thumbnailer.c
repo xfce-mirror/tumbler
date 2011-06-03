@@ -136,6 +136,9 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
   /* create a new websettings and disable potential threats */
   settings = webkit_web_settings_new ();
 
+  /* Set document viewer cache model to reduce memory usage */
+  webkit_set_cache_model (WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER);
+
   /* disable plugins, javascript, java and html5 local features */
   g_object_set (G_OBJECT(settings),
                 "enable-scripts", FALSE,
