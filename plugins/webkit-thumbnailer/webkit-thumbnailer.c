@@ -141,11 +141,14 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
 
   /* disable plugins, javascript, java and html5 local features */
   g_object_set (G_OBJECT(settings),
-                "enable-scripts", FALSE,
-                "enable-plugins", FALSE,
+                "auto-resize-window", FALSE,
                 "enable-html5-database", FALSE,
                 "enable-html5-local-storage", FALSE,
                 "enable-java-applet", FALSE,
+                "enable-plugins", FALSE,
+                "enable-private-browsing", TRUE,
+                "enable-scripts", FALSE,
+                "enable-universal-access-from-file-uris", FALSE,
                 NULL);
 
   /* apply the result to the web view */
