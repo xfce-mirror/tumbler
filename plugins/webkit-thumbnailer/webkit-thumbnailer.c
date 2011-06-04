@@ -119,17 +119,31 @@ cb_view_loaded_idle (gpointer webkit_thumbnailer)
 
 
 static void
-cb_view_load_finished (GtkWidget         *web_view,
-                       WebKitWebFrame    *web_frame,
-                       WebkitThumbnailer *thumbnailer)
+cb_view_load_status (GtkWidget         *web_view,
+                     GParamSpec        *pspec,
+                     WebkitThumbnailer *thumbnailer)
 {
-  /* force a redraw of the offscreen window to make sure we snapshot
-   * the latest visual changes */
-  gtk_widget_queue_draw (thumbnailer->view);
-  gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
-                              TRUE);
+  switch (webkit_web_view_get_load_status (WEBKIT_WEB_VIEW (web_view)))
+    {
+      case WEBKIT_LOAD_FINISHED:
+        /* force a redraw of the offscreen window to make sure we snapshot
+         * the latest visual changes */
+        gtk_widget_queue_draw (thumbnailer->view);
+        gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
+                                    TRUE);
 
-  g_idle_add (cb_view_loaded_idle, thumbnailer);
+        /* capture the web view content in an idle handler */
+        g_idle_add (cb_view_loaded_idle, thumbnailer);
+        break;
+
+      case WEBKIT_LOAD_FAILED:
+        /* exit the main loop, an error will be returned */
+        gtk_main_quit ();
+        break;
+
+      default:
+        break;
+    }
 }
 
 
@@ -171,8 +185,8 @@ webkit_thumbnailer_init (WebkitThumbnailer *thumbnailer)
 
   /* signal to retrieve thumbnails once the page is loaded */
   g_signal_connect (thumbnailer->view,
-                    "load-finished",
-                    G_CALLBACK (cb_view_load_finished),
+                    "notify::load-status",
+                    G_CALLBACK (cb_view_load_status),
                     thumbnailer);
 
   gtk_container_add (GTK_CONTAINER (thumbnailer->offscreen),
