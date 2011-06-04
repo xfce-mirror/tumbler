@@ -99,16 +99,12 @@ webkit_thumbnailer_class_finalize (WebkitThumbnailerClass *klass)
 
 
 
-static void
-cb_view_load_finished (GtkWidget         *web_view,
-                       WebKitWebFrame    *web_frame,
-                       WebkitThumbnailer *thumbnailer)
+static gboolean
+cb_view_loaded_idle (gpointer webkit_thumbnailer)
 {
-  /* force a redraw of the offscreen window to make sure we snapshot
-   * the latest visual changes */
-  gtk_widget_queue_draw (web_view);
-  gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
-                              TRUE);
+  WebkitThumbnailer *thumbnailer;
+
+  thumbnailer = WEBKIT_THUMBNAILER (webkit_thumbnailer);
 
   /* snapshot the offscreen window */
   thumbnailer->tmp =
@@ -116,6 +112,24 @@ cb_view_load_finished (GtkWidget         *web_view,
 
   /* done, exit the main loop */
   gtk_main_quit ();
+
+  return FALSE;
+}
+
+
+
+static void
+cb_view_load_finished (GtkWidget         *web_view,
+                       WebKitWebFrame    *web_frame,
+                       WebkitThumbnailer *thumbnailer)
+{
+  /* force a redraw of the offscreen window to make sure we snapshot
+   * the latest visual changes */
+  gtk_widget_queue_draw (thumbnailer->view);
+  gdk_window_process_updates (gtk_widget_get_window (thumbnailer->offscreen),
+                              TRUE);
+
+  g_idle_add (cb_view_loaded_idle, thumbnailer);
 }
 
 
