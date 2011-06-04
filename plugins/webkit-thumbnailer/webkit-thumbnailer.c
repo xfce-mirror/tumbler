@@ -36,7 +36,7 @@
 
 
 
-#define LOAD_TIMEOUT 1000
+#define LOAD_TIMEOUT 30000
 
 
 
