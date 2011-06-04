@@ -238,6 +238,8 @@ generate_pixbuf (GdkPixbuf *source,
 static gboolean
 cb_load_timeout (gpointer data)
 {
+  webkit_web_view_stop_loading (WEBKIT_WEB_VIEW (WEBKIT_THUMBNAILER (data)->view));
+
   gtk_main_quit ();
 
   return FALSE;
@@ -283,7 +285,8 @@ webkit_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* schedule a timeout to avoid waiting forever if the page fails to
    * load */
-  timeout_id = g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, NULL);
+  timeout_id =
+    g_timeout_add_seconds (LOAD_TIMEOUT, cb_load_timeout, webkit_thumbnailer);
 
   /* load the page in the web view */
   webkit_web_view_load_uri (WEBKIT_WEB_VIEW (webkit_thumbnailer->view), uri);
