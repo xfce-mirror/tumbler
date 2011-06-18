@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Xfce Tumbler Turkish Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-29 22:05+0000\n"
+"POT-Creation-Date: 2011-06-18 16:06+0000\n"
 "PO-Revision-Date: 2011-03-29 15:19+0300\n"
 "Last-Translator: Samed Beyribey <ras0ir@eventualis.org>\n"
 "Language-Team: Xfce-TR <xfce-tr@googlegroups.com>\n"
@@ -58,12 +58,8 @@ msgstr "\"%2$s\" dosyasındaki %1$s bölümünde yanlış biçimlendirme: \"%3$s
 
 #: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"\"%2$s\" dosyasındaki \"%1$s\" bölümünde yanlış biçimlendirme: İsim ile "
-"UriScheme/MimeType arasında yanlış eşleme."
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "\"%2$s\" dosyasındaki \"%1$s\" bölümünde yanlış biçimlendirme: İsim ile UriScheme/MimeType arasında yanlış eşleme."
 
 #: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
@@ -148,6 +144,7 @@ msgstr "\"%s\" gerekli sembolleri barındırmamaktadır."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "\"%s\" eklentisi yüklenemedi: %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -157,6 +154,14 @@ msgstr "\"%s\" eklentisi yüklenemedi: %s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Sürüm çakışması: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Tumbler Font Thumbnailer eklentisi başlatılıyor"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Tumbler Font Thumbnailer eklentisi kapatılıyor"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -233,11 +238,11 @@ msgstr "Tumbler ffmpeg video Thumbnailer eklentisi kapatılıyor."
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Tumbler Poppler PDF/PS Thumbnailer eklentisi başlatılıyor"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "Döküman boş"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "Dökümanın ilk sayfası okunamadı"
 
