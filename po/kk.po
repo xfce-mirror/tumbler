@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-16 05:02+0000\n"
+"POT-Creation-Date: 2011-06-25 10:06+0000\n"
 "PO-Revision-Date: 2010-03-11 12:52+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -149,6 +149,7 @@ msgstr "\"%s\" плагинде керек таңбалар жоқ"
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "\"%s\" плагинді жүктеу қатесі: %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -158,6 +159,14 @@ msgstr "\"%s\" плагинді жүктеу қатесі: %s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Нұсқасы сәйкес емес: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Tumbler GStreamer Thumbnailer плагинді қосу"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Tumbler GStreamer Thumbnailer плагинді сөндіру"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -234,11 +243,11 @@ msgstr "Tumbler ffmpeg видео thumbnailer плагинді сөндіру"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Tumbler Poppler PDF/PS Thumbnailer плагинді қосу"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "Құжат бос"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "Құжаттың бірінші бетін оқу мүмкін емес"
 
