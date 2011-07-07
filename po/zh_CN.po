@@ -102,7 +102,7 @@ msgstr "无法启动缩略图缓存服务： %s"
 #: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "无法在注册表中载入指定的缩略图生成器： %s"
+msgstr "无法载入指定的缩略图生成器至注册档案： %s"
 
 #: ../tumblerd/main.c:176
 #, c-format
