@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-26 22:06+0000\n"
+"POT-Creation-Date: 2011-07-05 22:06+0000\n"
 "PO-Revision-Date: 2010-11-23 23:13+0800\n"
 "Last-Translator: Hunt Xu <huntxu@live.cn>\n"
 "Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
@@ -19,67 +19,70 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:416
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "另一个缩略图缓存服务正在运行"
+msgstr "另一个缩略图缓存服务已在运行"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "没有缩略图查看器可用于 \"%s\""
+msgstr "没有缩略图生成器可用于 “%s”"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
-msgstr "该缩略图服务正在关闭"
+msgstr "该缩略图生成器服务正在关闭"
 
 #: ../tumblerd/tumbler-service.c:760
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "另一个通用的缩略图查看器正在运行"
+msgstr "另一个通用的缩略图生成器已在运行"
 
 #: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
-msgstr "请求了一个不支持的缩略图风格"
+msgstr "请求了一个不支持的缩略图类型"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "载入指定的缩略图查看器失败: 超时"
+msgstr "无法调用指定的缩略图生成器：超时"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "载入指定的缩略图查看器失败: %s"
+msgstr "无法调用指定的缩略图生成器：%s"
 
 #: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "载入文件 \"%s\" 失败: %s"
+msgstr "无法载入文件 “%s”： %s"
 
 #: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
 #: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "在文件 \"%2$s\" 中出现异常段 \"%1$s\": %3$s"
+msgstr "文件 “%2$s” 中的异常段 “%1$s”： %3$s"
 
 #: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "在文件 \"%2$s\" 中出现异常段 \"%1$s\": 段名和 UriScheme/MimeType 不匹配。"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"文件 “%2$s” 中的异常段 “%1$s”： 段名和 UriScheme/MimeType 不匹配。"
 
 #: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "异常的文件 \"%s\": %s"
+msgstr "异常的文件 “%s”： %s"
 
 #: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "检测 \"%s\" 上次修改的时间失败"
+msgstr "无法确定 “%s” 上次修改的时间"
 
 #: ../tumblerd/tumbler-manager.c:1854
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "另一个缩略图管理器正在运行"
+msgstr "另一个缩略图管理器已在运行"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:78
@@ -89,27 +92,27 @@ msgstr "Tumbler 缩略图服务"
 #: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "连接至 D-Bus 会话总线失败: %s"
+msgstr "无法与 D-Bus 会话总线连接： %s"
 
 #: ../tumblerd/main.c:108
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "启动缩略图缓存服务失败: %s"
+msgstr "无法启动缩略图缓存服务： %s"
 
 #: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "载入指定的缩略图查看器失败: %s"
+msgstr "无法在注册表中载入指定的缩略图生成器： %s"
 
 #: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "启动缩略图管理器失败: %s"
+msgstr "无法启动缩略图生成器管理器： %s"
 
 #: ../tumblerd/main.c:194
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "启动缩略图管理服务失败: %s"
+msgstr "无法启动缩略图生成器服务： %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -126,27 +129,27 @@ msgstr "RGB 颜色空间"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "缓存插件 \"%s\" 缺少必须符号"
+msgstr "缓存插件 “%s” 缺少必须符号"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "载入缓存插件 \"%s\" 失败: %s"
+msgstr "无法载入缓存插件 “%s” ： %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "文件 \"%s\" 本身是缩略图"
+msgstr "文件 “%s” 本身是缩略图"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "插件 \"%s\" 缺少必须符号。"
+msgstr "插件 “%s” 缺少必须符号。"
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "载入插件 \"%s\" 失败: %s"
+msgstr "无法载入插件 “%s”： %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
@@ -157,15 +160,15 @@ msgstr "载入插件 \"%s\" 失败: %s"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
-msgstr "版本不符: %s"
+msgstr "版本不符： %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在初始化 Tumbler GStreamer 缩略图查看器插件"
+msgstr "正在初始化 Tumbler GStreamer 缩略图生成器插件"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在关闭 Tumbler GStreamer 缩略图查看器插件"
+msgstr "正在关闭 Tumbler 多媒体缩略图查看器插件"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -174,45 +177,45 @@ msgstr "正在初始化 Tumbler 图像缩略图查看器插件"
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 图像缩略图查看器插件"
+msgstr "正在关闭 Tumbler 图像缩略图生成器插件"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 字体缩略图查看器插件"
+msgstr "正在初始化 Tumbler 字体缩略图生成器插件"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 字体缩略图查看器插件"
+msgstr "正在关闭 Tumbler 字体缩略图生成器插件"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr "无法初始化 freetype: %s"
+msgstr "未能初始化 freetype： %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "无法读取文件内容: %s"
+msgstr "未能读取文件内容： %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "无法打开字体文件: %s"
+msgstr "未能打开字体文件： %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "无法设置字符映射: %s"
+msgstr "未能设置字符映射： %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "无法渲染字型: %s"
+msgstr "未能渲染字型： %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
@@ -220,27 +223,27 @@ msgstr "无法渲染字型: %s"
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "缩略图无法从文件内容中获得"
+msgstr "未能从文件内容中推测缩略图"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 的 JPEG 缩略图查看器插件"
+msgstr "正在初始化 Tumbler 的 JPEG 缩略图生成器插件"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 的 JPEG 缩略图查看器插件"
+msgstr "正在关闭 Tumbler 的 JPEG 缩略图生成器插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在初始化 Tumbler 的 ffmpeg 视频缩略图查看器插件"
+msgstr "正在初始化 Tumbler 的 ffmpeg 视频缩略图生成器插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在关闭 Tumbler 的 ffmpeg 视频缩略图查看器插件"
+msgstr "正在关闭 Tumbler 的 ffmpeg 视频缩略图生成器插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 的 Poppler PDF/PS 缩略图查看器插件"
+msgstr "正在初始化 Tumbler 的 Poppler PDF/PS 缩略图生成器插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
@@ -248,12 +251,12 @@ msgstr "文档是空白的"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
-msgstr "无法读取文档的第一页"
+msgstr "未能读取文档的第一页"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "无法保存缩略图至 \"%s\""
+msgstr "未能保存缩略图至 “%s”"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
@@ -262,12 +265,3 @@ msgstr "正在初始化 Tumbler XDG 缓存插件"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "正在关闭 Tumbler XDG 缓存插件"
-
-#~ msgid "Normal"
-#~ msgstr "正常"
-
-#~ msgid "Large"
-#~ msgstr "大"
-
-#~ msgid "Cropped"
-#~ msgstr "裁剪过的"
