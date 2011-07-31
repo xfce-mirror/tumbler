@@ -6,19 +6,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 0.1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2011-07-31 10:06+0000\n"
 "PO-Revision-Date: 2011-01-05 23:17+0300\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);;\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);;\n"
 "X-Generator: Virtaal 0.6.1\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:416
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Un alt serviciu de cache pentru miniaturi este deja pornit"
@@ -29,88 +28,86 @@ msgstr "Un alt serviciu de cache pentru miniaturi este deja pornit"
 msgid "No thumbnailer available for \"%s\""
 msgstr "Nu există un program de creare de miniaturi pentru „%s”"
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "Serviciul de creare de miniaturi este în curs de oprire"
+
+#: ../tumblerd/tumbler-service.c:760
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Un alt program generic de creare de miniaturi este deja pornit"
 
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:878
 msgid "Unsupported thumbnail flavor requested"
 msgstr "S-a solicitat un tip de miniatură pentru care nu există suport"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Nu s-a putut apela programul specializat de creare de miniaturi: time-out"
+msgstr "Nu s-a putut apela programul specializat de creare de miniaturi: time-out"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Nu s-a putut apela programul specializat de creare de miniaturi: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Nu s-a putut încărca fișierul „%s”: %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Secțiune „%s” nevalidă în fișierul „%s”: %s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:527
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"Secțiune „%s” nevalidă în fișierul „%s”: nepotrivire între numele secțiunii "
-"și UriScheme/MimeType"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Secțiune „%s” nevalidă în fișierul „%s”: nepotrivire între numele secțiunii și UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Fișier nevalid „%s”: %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:941
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Nu s-a putut determina data ultimei modificări pentru „%s”"
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1854
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Un alt manager de miniaturi este deja pornit"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:78
 msgid "Tumbler Thumbnailing Service"
 msgstr "Serviciul de creare de miniaturi Tumbler"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:93
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Încercarea de conectare la sesiunea D-Bus a eșuat: %s"
 
-#: ../tumblerd/main.c:90
+#: ../tumblerd/main.c:108
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Nu s-a putut porni serviciul de cache pentru miniaturi: %s"
 
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Nu s-au putut încărca programele specializate de creare de miniaturi: %s"
+msgstr "Nu s-au putut încărca programele specializate de creare de miniaturi: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Nu s-a putut porni managerul de miniaturi: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:194
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Nu s-a putut porni serviciul de creare de miniaturi: %s"
@@ -152,6 +149,7 @@ msgstr "Modulului „%s” îi lipsesc simbolurile necesare."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Nu s-a putut încărca modulul „%s”: %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -161,6 +159,14 @@ msgstr "Nu s-a putut încărca modulul „%s”: %s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Nepotrivire de versiune: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Se inițializează modulul Tumbler GStreamer Thumbnailer"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Se dezactivează modulul Tumbler GStreamer Thumbnailer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -237,11 +243,11 @@ msgstr "Se dezactivează modulul Tumbler FFmpeg Thumbnailer"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Se inițializează modulul Tumbler PDF/PS Thumbnailer"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "Documentul este gol"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "Nu s-a putut citi prima pagină a documentului"
 
