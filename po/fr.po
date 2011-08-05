@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-01-16 14:48+0100\n"
-"PO-Revision-Date: 2010-02-09 22:34+0100\n"
-"Last-Translator: Douart Patrick <patrick.2@laposte.net>\n"
+"PO-Revision-Date: 2011-08-05 18:12+0100\n"
+"Last-Translator: Jérôme Guelfucci <jeromeg@xfce.org>>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -26,31 +26,31 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:383
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "Un autre service de cache de vignettes est déjà lancé"
+msgstr "Un autre service de cache de miniatures est déjà lancé"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Pas de vignette disponible pour \"%s\""
+msgstr "Pas de générateur de miniatures disponible pour \"%s\""
 
 #: ../tumblerd/tumbler-service.c:751
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Un autre service de vignettes est déjà lancé"
+msgstr "Un autre générateur générique de miniatures est déjà lancé"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Type de vignette demandée non supportée"
+msgstr "Type de miniature demandé non pris en charge"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Créateur de vignettes spécifique non trouvé : arrêt"
+msgstr "Impossible d'utiliser le générateur de miniatures spécialisé : arrêt"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Créateur de vignettes spécifique non trouvé : %s"
+msgstr "Impossible d'utiliser le générateur de miniatures spécialisé : %s"
 
 #: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
 #, c-format
@@ -61,7 +61,7 @@ msgstr "Impossible de charger le fichier \"%s\" : %s"
 #: ../tumblerd/tumbler-manager.c:513
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Section malformée \"%s\" dans le fichier \"%s\": %s"
+msgstr "Section mal formée \"%s\" dans le fichier \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:526
 #, c-format
@@ -69,29 +69,29 @@ msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
-"Section malformée \"%s\" dans le fichier \"%s\": Incompatibilité entre le "
-"nom de section et UriScheme/mimetype"
+"Section mal formée \"%s\" dans le fichier \"%s\": Incompatibilité entre le "
+"nom de section et UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Fichier malformé \"%s\": %s"
+msgstr "Fichier mal formé \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:940
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Impossible de déterminer dernière date de modification de \"%s\""
+msgstr "Impossible de déterminer la dernière date de modification de \"%s\""
 
 #: ../tumblerd/tumbler-manager.c:1849
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Un autre gestionnaire de vignettes est déjà lancé"
+msgstr "Un autre gestionnaire de générateur de miniatures est déjà lancé"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:63
 msgid "Tumbler Thumbnailing Service"
-msgstr "Service de création de vignettes Tumbler"
+msgstr "Service de génération de miniatures Tumbler"
 
 #: ../tumblerd/main.c:78
 #, c-format
@@ -101,24 +101,24 @@ msgstr "Impossible de se connecter au bus de session D-Bus : %s"
 #: ../tumblerd/main.c:90
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Impossible de démarrer le service de cache des vignettes : %s"
+msgstr "Impossible de démarrer le service de cache des miniatures : %s"
 
 #: ../tumblerd/main.c:140
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
-"Impossible de charger des générateurs de vignettes spécifiques dans le "
+"Impossible de charger des générateurs de miniatures spécialisés dans le "
 "registre : %s"
 
 #: ../tumblerd/main.c:158
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Impossible de démarrer le gestionnaire de vignettes : %s"
+msgstr "Impossible de démarrer le gestionnaire de générateurs de miniatures : %s"
 
 #: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "Impossible de démarrer le service des vignettes : %s"
+msgstr "Impossible de démarrer le service de générateurs de miniatures : %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -135,27 +135,27 @@ msgstr "Espace de couleur RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Au greffon \"%s\" manquent les symboles requis."
+msgstr "L'extension de cache \"%s\" n'a pas les symboles requis"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Impossible de charger le greffon \"%s\" : %s"
+msgstr "Impossible de charger le l'extension de cache \"%s\" : %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Le fichier  \"%s\"  est lui-même une vignette"
+msgstr "Le fichier  \"%s\" est lui-même une miniature"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Le greffon \"%s\" manque de symboles requis."
+msgstr "L'extension \"%s\" n'a pas les symboles requis."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Impossible de charger le greffon \"%s\" : %s"
+msgstr "Impossible de charger l'extension \"%s\" : %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -169,20 +169,20 @@ msgstr "Incompatibilité de versions: %s"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Initialisation du greffon de vignettes pixbuf"
+msgstr "Initialisation de l'extension Tumbler générant des miniatures Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Arrêt du greffon de vignettes pixbuf"
+msgstr "Arrêt de l'extension Tumbler générant des miniatures Pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Initialisation de la police du plugin de vignettes pixbuf"
+msgstr "Initialisation de l'extension Tumbler générant des miniatures de polices de caractères"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Arrêt du greffon de vignettes Tumbler Font"
+msgstr "Arrêt de l'extension Tumbler générant des miniatures de polices de caractères"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -200,19 +200,19 @@ msgstr "Impossible de charger le contenu du fichier: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Impossible d'ouvrir le fichier de la police: %s"
+msgstr "Impossible d'ouvrir le fichier de la police de caractères : %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Impossible de définir le caractère de la carte: %s"
+msgstr "Impossible de définir le jeux de caractères : %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "N'a pas pu générer les glyphes : %s"
+msgstr "Impossible de générer les glyphes : %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
@@ -220,27 +220,27 @@ msgstr "N'a pas pu générer les glyphes : %s"
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "La vignette ne peut pas être déduite du contenu du fichier"
+msgstr "Impossible de générer la miniature à partir du contenu du fichier"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Initialisation du greffon de vignettes Tumbler JPEG"
+msgstr "Initialisation de l'extension Tumbler générant des miniatures pour fichiers JPEG"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Fermeture du greffon de vignettes Tumbler JPEG"
+msgstr "Arrêt de l'extension Tumbler générant des miniatures pour fichiers JPEG"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Initialisation du greffon de vignettes Tumbler ffmpeg video"
+msgstr "Initialisation de l'extension Tumbler générant des miniatures pour les vidéos avec ffmpeg"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "fermeture du greffon de vignettes Tumbler ffmpeg video"
+msgstr "Arrêt de l'extension Tumbler générant des miniatures pour les vidéos avec ffmpego"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Initialisation du greffon de vignettes Tumbler Poppler PDF/PS"
+msgstr "Initialisation de l'extension Tumbler générant des miniatures pour les PDF/PS avec Poppler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
 msgid "The document is empty"
@@ -257,17 +257,8 @@ msgstr "Impossible d'enregistrer la miniature dans \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Chargement du greffon de cache XDG"
+msgstr "Initialisation de l'extension Tumbler pour le cache XDG"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Arrêt du greffon de cache XDG"
-
-#~ msgid "Normal"
-#~ msgstr "Normal"
-
-#~ msgid "Large"
-#~ msgstr "Grand"
-
-#~ msgid "Cropped"
-#~ msgstr "Rogné"
+msgstr "Arrêt de l'extension Tumbler pour le cache XDG"
