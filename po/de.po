@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-20 16:06+0000\n"
+"POT-Creation-Date: 2011-08-22 16:06+0000\n"
 "PO-Revision-Date: 2010-11-24 01:36+0100\n"
 "Last-Translator: Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>\n"
 "Language-Team: German\n"
@@ -163,14 +163,12 @@ msgid "Version mismatch: %s"
 msgstr "Keine Übereinstimmung der Versionen: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-#, fuzzy
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Tumbler GStreamer Vorschauerweiterung wird gestartet"
+msgstr "Vorschauerweiterung für GStreamer wird gestartet"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-#, fuzzy
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Tumbler GStreamer Vorschauerweiterung wird angehalten"
+msgstr "Vorschauerweiterung für GStreamer wird beendet"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
