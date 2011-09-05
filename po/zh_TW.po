@@ -2,13 +2,13 @@
 # Copyright (C) 2010 THE tumbler's COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-05 11:05+0000\n"
-"PO-Revision-Date: 2010-12-07 01:36+0800\n"
+"POT-Creation-Date: 2011-09-04 22:06+0000\n"
+"PO-Revision-Date: 2011-09-05 11:41+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -50,12 +50,14 @@ msgstr "無法呼叫特定的縮圖製作程式：逾時"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "無法呼叫特定的縮圖製作程式：%s"
 
-#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:468
+#: ../tumblerd/tumbler-manager.c:874
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "無法載入檔案「%s」：%s"
 
-#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:486
+#: ../tumblerd/tumbler-manager.c:500
 #: ../tumblerd/tumbler-manager.c:514
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -66,7 +68,8 @@ msgstr "檔案「%s」的「%s」區段格式不良：%s"
 msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
 msgstr "檔案「%s」的「%s」區段格式不良：區段名稱與 UriScheme/MimeType 之間不符合"
 
-#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:887
+#: ../tumblerd/tumbler-manager.c:901
 #: ../tumblerd/tumbler-manager.c:915
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -149,6 +152,7 @@ msgstr "插件「%s」缺乏需要的符號。"
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "無法載入插件「%s」：%s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
@@ -158,6 +162,14 @@ msgstr "無法載入插件「%s」：%s"
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "版本不符：%s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "正在初始化 Tumbler GStreamer 縮圖製作插件"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "正在關閉 Tumbler GStreamer 縮圖製作插件"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -234,11 +246,11 @@ msgstr "正在關閉 Tumbler ffmpeg 視訊縮圖製作插件"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "正在初始化 Tumbler Poppler PDF/PS 縮圖製作插件"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
 msgid "The document is empty"
 msgstr "該文件是空的"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
 msgid "First page of the document could not be read"
 msgstr "文件的第一頁無法讀取"
 
@@ -254,3 +266,4 @@ msgstr "正在初始化 Tumbler XDG 快取插件"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "正在關閉 Tumbler XDG 快取插件"
+
