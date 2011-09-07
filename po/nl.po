@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-17 04:06+0000\n"
-"PO-Revision-Date: 2011-06-15 12:41+0200\n"
+"POT-Creation-Date: 2011-09-07 16:06+0000\n"
+"PO-Revision-Date: 2011-09-07 12:41+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "RGB Kleurruimte"
+msgstr "RGB kleurruimte"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
