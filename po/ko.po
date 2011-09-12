@@ -1,0 +1,271 @@
+# Korean translations for tumbler package.
+# Copyright (C) 2003-2011 The Xfce development team.
+# This file is distributed under the same license as the tumbler package.
+# Seong-ho, Cho <darkcircle.0426@gmail.com>, 2011.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: tumbler.master\n"
+"Report-Msgid-Bugs-To: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>n"
+"POT-Creation-Date: 2011-09-12 16:06+0000\n"
+"PO-Revision-Date: 2011-09-13 05:31+0900\n"
+"Last-Translator: Seong-ho, Cho <darkcircle.0426@gmail.com>\n"
+"Language-Team: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../tumblerd/tumbler-cache-service.c:416
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "다른 섬네일 캐시 서비스가 이미 실행중입니다"
+
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "\"%s\"을(를)위해 사용할 수 있는 섬네일 프로그램이 없습니다."
+
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "섬네일러 서비스가 종료중입니다"
+
+#: ../tumblerd/tumbler-service.c:760
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "다른 일반 섬네일러가 이미 실행중입니다"
+
+#: ../tumblerd/tumbler-service.c:878
+msgid "Unsupported thumbnail flavor requested"
+msgstr "지원되지 않는 섬네일 방식이 요청되었습니다"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "특화된 섬네일러를 호출하는데 실패했습니다: 시간 초과"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "특화된 섬네일러를 호출하는데 실패했습니다: %s"
+
+#: ../tumblerd/tumbler-manager.c:468
+#: ../tumblerd/tumbler-manager.c:874
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "파일 \"%s\"을(를) 불러오는데 실패했습니다: %s"
+
+#: ../tumblerd/tumbler-manager.c:486
+#: ../tumblerd/tumbler-manager.c:500
+#: ../tumblerd/tumbler-manager.c:514
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "변형된 섹션 \"%s\", 파일 \"%s\"에 위치: %s"
+
+#: ../tumblerd/tumbler-manager.c:527
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "변형된 섹션 \"%s\", 파일 \"%s\"에 위치: 섹션 명칭과 UriScheme 또는 MimeType이 일치하지 않습니다"
+
+#: ../tumblerd/tumbler-manager.c:887
+#: ../tumblerd/tumbler-manager.c:901
+#: ../tumblerd/tumbler-manager.c:915
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "변형된 파일 \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:941
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "\"%s\"의 최종 수정 시간을 결정하는데 실패했습니다"
+
+#: ../tumblerd/tumbler-manager.c:1854
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "다른 섬네일러 관리자가 이미 실행중입니다"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:78
+msgid "Tumbler Thumbnailing Service"
+msgstr "텀블러 섬네일링 서비스"
+
+#: ../tumblerd/main.c:93
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "D-Bus 세션 버스에 연결하는데 실패했습니다: %s"
+
+#: ../tumblerd/main.c:108
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "섬네일 캐시 서비스를 시작하는데 실패했습니다: %s"
+
+#: ../tumblerd/main.c:158
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "특화된 섬네일러를 레지스트리에 불러오는데 실패했습니다: %s"
+
+#: ../tumblerd/main.c:176
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "섬네일러 관리자를 시작하는데 실패했습니다: %s"
+
+#: ../tumblerd/main.c:194
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "섬네일러 서비스를 시작하는데 실패했습니다: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "잘못된 형식"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "RGB 색상 영역"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "캐시 플러그인 \"%s\"에서 필요한 심볼이 누락되었습니다"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "캐시 플러그인 \"%s\"을(를) 불러오는데 실패했습니다: %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "파일 \"%s\"은(는) 섬네일 그 자체입니다"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "플러그인 \"%s\"에서 필요한 심볼이 누락되었습니다."
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "플러그인 \"%s\"을(를) 불러오는데 실패했습니다: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "버전이 맞지 않습니다: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "텀블러 GStreamer 섬네일러 플러그인 초기화 중"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "텀블러 GStreamer 섬네일러 플러그인 종료 중"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "텀블러 Pixbuf 섬네일러 플러그인 초기화 중"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "텀블러 Pixbuf 섬네일러 플러그인 종료 중"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "텀블러 글꼴 섬네일러 플러그인 초기화 중"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "텀블러 글꼴 섬네일러 플러그인 종료 중"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "freetype을 초기화 할 수 없습니다: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "파일 내용을 불러올 수 없습니다: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "글꼴 파일을 열 수 없습니다: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "문자 맵을 설정할 수 없습니다: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "글리프를 렌더링 할 수 없습니다: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "파일 내용으로부터 섬네일로 표현할 수 없습니다"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "텀블러 JPEG 섬네일러 플러그인 초기화 중"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "텀블러 JPEG 플러그인 종료 중"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "텀블러 ffmpeg 비디오 섬네일러 플러그인 초기화 중"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "텀블러 ffmpeg 비디오 섬네일러 플러그인 종료 중"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "텀블러 Poppler PDF/PS 섬네일러 플러그인 초기화 중"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
+msgid "The document is empty"
+msgstr "문서가 비어 있습니다"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
+msgid "First page of the document could not be read"
+msgstr "문서의 첫 페이지를 읽어들일 수 없습니다"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "\"%s\"에 섬네일을 저장할 수 없습니다"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "텀블러 XDG 캐시 플러그인 초기화 중"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "텀블러 XDG 캐시 플러그인 종료 중"
+
