@@ -1,10 +1,15 @@
-0.1.x
-=====
+0.1.22
+======
 - Add coding style documentation.
 - Fix compiler error on Sun Studio.
 - Add a GStreamer-based thumbnailer for video thumbnails. Thanks to 
   Ross Burton for the work.
 - Avoid GdkPixbuf functions deprecated in poppler >= 0.17 (bug #7649).
+- Translation updates: Arabic, Basque, Catalan (Valencian),
+  Chinese (China), Chinese (Taiwan), Danish, Dutch (Flemish), Finnish,
+  French, German, Indonesian, Italian, Japanese, Kazakh, Korean, 
+  Portuguese (Brazilian), Portuguese, Romanian, Russian, Slovak, 
+  Spanish (Castilian), Swedish, Telugu, Turkish, Ukrainian.
 
 0.1.21
 ======
