@@ -241,6 +241,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   PopplerDocument        *document;
   PopplerPage            *page;
   const gchar            *uri;
+  cairo_surface_t        *surface;
   GdkPixbuf              *source_pixbuf;
   GdkPixbuf              *pixbuf;
   GError                 *error = NULL;
@@ -326,9 +327,17 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   flavor = tumbler_thumbnail_get_flavor (thumbnail);
 
   /* try to extract the embedded thumbnail */
-  source_pixbuf = poppler_page_get_thumbnail_pixbuf (page);
+  surface = poppler_page_get_thumbnail (page);
 
-  if (source_pixbuf == NULL)
+  if (surface != NULL)
+    {
+      source_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8,
+                                      cairo_image_surface_get_width (surface),
+                                      cairo_image_surface_get_height (surface));
+      copy_surface_to_pixbuf (surface, source_pixbuf);
+      cairo_surface_destroy (surface);
+    }
+  else
     {
       /* fall back to rendering the page ourselves */
       poppler_page_get_size (page, &page_width, &page_height);
