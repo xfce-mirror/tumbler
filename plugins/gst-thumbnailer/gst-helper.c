@@ -154,6 +154,8 @@ gst_helper_convert_buffer_to_pixbuf (GstBuffer    *buffer,
 
   bus = gst_element_get_bus (GST_ELEMENT (pipeline));
 
+  gst_element_set_state (GST_ELEMENT (pipeline), GST_STATE_PLAYING);
+
   i = 0;
   msg = NULL;
   while (msg == NULL && i < 5)
