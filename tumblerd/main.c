@@ -65,6 +65,7 @@ main (int    argc,
   TumblerService          *service;
   TumblerCacheService     *cache_service;
   GMainLoop               *main_loop;
+  gboolean                 already_running = FALSE;
   GError                  *error = NULL;
   GList                   *providers;
   GList                   *thumbnailers;
@@ -98,22 +99,6 @@ main (int    argc,
 
   /* create the lifecycle manager */
   lifecycle_manager = tumbler_lifecycle_manager_new ();
-
-  /* create the thumbnail cache service */
-  cache_service = tumbler_cache_service_new (connection, lifecycle_manager);
-
-  /* try to start the service and exit if that fails */
-  if (!tumbler_cache_service_start (cache_service, &error))
-    {
-      g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
-      g_error_free (error);
-
-      g_object_unref (cache_service);
-
-      dbus_g_connection_unref (connection);
-
-      return EXIT_FAILURE;
-    }
 
   /* create the thumbnailer registry */
   registry = tumbler_registry_new ();
@@ -152,6 +137,15 @@ main (int    argc,
   /* update the URI schemes / MIME types supported information */
   tumbler_registry_update_supported (registry);
 
+  /* create the thumbnail cache service */
+  cache_service = tumbler_cache_service_new (connection, lifecycle_manager);
+
+  /* create the thumbnailer manager service */
+  manager = tumbler_manager_new (connection, lifecycle_manager, registry);
+
+  /* create the generic thumbnailer service */
+  service = tumbler_service_new (connection, lifecycle_manager, registry);
+
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))
     {
@@ -159,49 +153,80 @@ main (int    argc,
                  error->message);
       g_error_free (error);
 
-      g_object_unref (registry);
+      g_object_unref (service);
+      g_object_unref (manager);
       g_object_unref (cache_service);
+      g_object_unref (registry);
 
       dbus_g_connection_unref (connection);
 
       return EXIT_FAILURE;
     }
 
-  /* create the thumbnailer manager service */
-  manager = tumbler_manager_new (connection, lifecycle_manager, registry);
+  /* try to start the service and exit if that fails */
+  if (!tumbler_cache_service_start (cache_service, &error))
+    {
+      if (error->domain == DBUS_GERROR && error->code == DBUS_GERROR_ADDRESS_IN_USE)
+        already_running = TRUE;
+
+      g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
+      g_error_free (error);
+
+      g_object_unref (service);
+      g_object_unref (manager);
+      g_object_unref (cache_service);
+      g_object_unref (registry);
+
+      dbus_g_connection_unref (connection);
+
+      if (already_running)
+        return EXIT_SUCCESS;
+      else
+        return EXIT_FAILURE;
+    }
 
   /* try to start the service and exit if that fails */
   if (!tumbler_manager_start (manager, &error))
     {
+      if (error->domain == DBUS_GERROR && error->code == DBUS_GERROR_ADDRESS_IN_USE)
+        already_running = TRUE;
+
       g_warning (_("Failed to start the thumbnailer manager: %s"), error->message);
       g_error_free (error);
 
+      g_object_unref (service);
       g_object_unref (manager);
-      g_object_unref (registry);
       g_object_unref (cache_service);
+      g_object_unref (registry);
 
       dbus_g_connection_unref (connection);
 
-      return EXIT_FAILURE;
+      if (already_running)
+        return EXIT_SUCCESS;
+      else
+        return EXIT_FAILURE;
     }
-
-  /* create the generic thumbnailer service */
-  service = tumbler_service_new (connection, lifecycle_manager, registry);
 
   /* try to start the service and exit if that fails */
   if (!tumbler_service_start (service, &error))
     {
+      if (error->domain == DBUS_GERROR && error->code == DBUS_GERROR_ADDRESS_IN_USE)
+        already_running = TRUE;
+
       g_warning (_("Failed to start the thumbnailer service: %s"), error->message);
       g_error_free (error);
 
       g_object_unref (service);
       g_object_unref (manager);
-      g_object_unref (registry);
       g_object_unref (cache_service);
+      g_object_unref (registry);
 
       dbus_g_connection_unref (connection);
 
-      return EXIT_FAILURE;
+      if (already_running)
+        return EXIT_SUCCESS;
+      else
+        return EXIT_FAILURE;
     }
 
   /* create a new main loop */
@@ -220,8 +245,8 @@ main (int    argc,
   /* shut our services down and release all objects */
   g_object_unref (service);
   g_object_unref (manager);
-  g_object_unref (registry);
   g_object_unref (cache_service);
+  g_object_unref (registry);
   g_object_unref (lifecycle_manager);
 
   /* disconnect from the D-Bus session bus */

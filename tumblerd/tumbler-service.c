@@ -295,6 +295,15 @@ tumbler_service_constructed (GObject *object)
   scheduler = tumbler_group_scheduler_new ("background");
   tumbler_service_add_scheduler (service, scheduler);
   g_object_unref (scheduler);
+
+  /* everything is fine, install the generic thumbnailer D-Bus info */
+  dbus_g_object_type_install_info (G_OBJECT_TYPE (service),
+                                   &dbus_glib_tumbler_service_object_info);
+
+  /* register the service instance as a handler of this interface */
+  dbus_g_connection_register_g_object (service->connection, 
+                                       THUMBNAILER_PATH, 
+                                       G_OBJECT (service));
 }
 
 
@@ -744,7 +753,19 @@ tumbler_service_start (TumblerService *service,
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
-  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
+  if (result == DBUS_REQUEST_NAME_REPLY_EXISTS)
+    {
+      if (error != NULL)
+        {
+          g_set_error (error, DBUS_GERROR, DBUS_GERROR_ADDRESS_IN_USE,
+                       _("Another thumbnail cache service is already running"));
+        }
+
+      g_mutex_unlock (service->mutex);
+
+      return FALSE;
+    }
+  else if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
     {
       /* propagate the D-Bus error */
       if (dbus_error_is_set (&dbus_error))
@@ -764,15 +785,6 @@ tumbler_service_start (TumblerService *service,
 
       return FALSE;
     }
-
-  /* everything is fine, install the generic thumbnailer D-Bus info */
-  dbus_g_object_type_install_info (G_OBJECT_TYPE (service),
-                                   &dbus_glib_tumbler_service_object_info);
-
-  /* register the service instance as a handler of this interface */
-  dbus_g_connection_register_g_object (service->connection, 
-                                       THUMBNAILER_PATH, 
-                                       G_OBJECT (service));
 
   g_mutex_unlock (service->mutex);
 

@@ -1,6 +1,7 @@
 0.1.xx
 ======
 - Fix generation of video images by starting the pipeline (bug #7996).
+- Fix ownership race conditions when started twice (bug #8001).
 
 0.1.22
 ======

@@ -63,6 +63,7 @@ typedef struct _ThumbnailerInfo ThumbnailerInfo;
 
 
 
+static void             tumbler_manager_constructed       (GObject          *object);
 static void             tumbler_manager_finalize          (GObject          *object);
 static void             tumbler_manager_get_property      (GObject          *object,
                                                            guint             prop_id,
@@ -158,6 +159,7 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
+  gobject_class->constructed = tumbler_manager_constructed;
   gobject_class->finalize = tumbler_manager_finalize; 
   gobject_class->get_property = tumbler_manager_get_property;
   gobject_class->set_property = tumbler_manager_set_property;
@@ -194,6 +196,25 @@ tumbler_manager_init (TumblerManager *manager)
   /* create the thumbnailer info hash table */
   manager->thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                  g_free, thumbnailer_info_list_free);
+}
+
+
+
+
+
+static void
+tumbler_manager_constructed (GObject *object)
+{
+  TumblerManager *manager = TUMBLER_MANAGER (object);
+
+  /* everything's fine, install the manager type D-Bus info */
+  dbus_g_object_type_install_info (G_OBJECT_TYPE (manager), 
+                                   &dbus_glib_tumbler_manager_object_info);
+
+  /* register the manager instance as a handler of the manager interface */
+  dbus_g_connection_register_g_object (manager->connection, 
+                                       "/org/freedesktop/thumbnails/Manager1", 
+                                       G_OBJECT (manager));
 }
 
 
@@ -1838,7 +1859,19 @@ tumbler_manager_start (TumblerManager *manager,
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
-  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
+  if (result == DBUS_REQUEST_NAME_REPLY_EXISTS)
+    {
+      if (error != NULL)
+        {
+          g_set_error (error, DBUS_GERROR, DBUS_GERROR_ADDRESS_IN_USE,
+                       _("Another thumbnail cache service is already running"));
+        }
+
+      g_mutex_unlock (manager->mutex);
+
+      return FALSE;
+    }
+  else if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
     {
       /* propagate the D-Bus error */
       if (dbus_error_is_set (&dbus_error))
@@ -1859,15 +1892,6 @@ tumbler_manager_start (TumblerManager *manager,
       /* i can't work like this! */
       return FALSE;
     }
-
-  /* everything's fine, install the manager type D-Bus info */
-  dbus_g_object_type_install_info (G_OBJECT_TYPE (manager), 
-                                   &dbus_glib_tumbler_manager_object_info);
-
-  /* register the manager instance as a handler of the manager interface */
-  dbus_g_connection_register_g_object (manager->connection, 
-                                       "/org/freedesktop/thumbnails/Manager1", 
-                                       G_OBJECT (manager));
 
   g_mutex_unlock (manager->mutex);
 

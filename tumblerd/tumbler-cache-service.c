@@ -174,6 +174,15 @@ tumbler_cache_service_constructed (GObject *object)
                                             service, 1, FALSE, NULL);
   service->cleanup_pool = g_thread_pool_new (tumbler_cache_service_cleanup_thread, 
                                              service, 1, FALSE, NULL);
+
+  /* everything's fine, install the cache type D-Bus info */
+  dbus_g_object_type_install_info (G_OBJECT_TYPE (service),
+                                   &dbus_glib_tumbler_cache_service_object_info);
+
+  /* register the cache instance as a handler of the cache interface */
+  dbus_g_connection_register_g_object (service->connection, 
+                                       "/org/freedesktop/thumbnails/Cache1",
+                                       G_OBJECT (service));
 }
 
 
@@ -400,7 +409,19 @@ tumbler_cache_service_start (TumblerCacheService *service,
                                   DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
 
   /* check if that failed */
-  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
+  if (result == DBUS_REQUEST_NAME_REPLY_EXISTS)
+    {
+      if (error != NULL)
+        {
+          g_set_error (error, DBUS_GERROR, DBUS_GERROR_ADDRESS_IN_USE,
+                       _("Another thumbnail cache service is already running"));
+        }
+
+      g_mutex_unlock (service->mutex);
+
+      return FALSE;
+    }
+  else if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
     {
       /* propagate the D-Bus error */
       if (dbus_error_is_set (&dbus_error))
@@ -421,15 +442,6 @@ tumbler_cache_service_start (TumblerCacheService *service,
       return FALSE;
     }
   
-  /* everything's fine, install the cache type D-Bus info */
-  dbus_g_object_type_install_info (G_OBJECT_TYPE (service),
-                                   &dbus_glib_tumbler_cache_service_object_info);
-
-  /* register the cache instance as a handler of the cache interface */
-  dbus_g_connection_register_g_object (service->connection, 
-                                       "/org/freedesktop/thumbnails/Cache1",
-                                       G_OBJECT (service));
-
   g_mutex_unlock (service->mutex);
 
   return TRUE;
