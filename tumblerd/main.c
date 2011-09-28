@@ -65,7 +65,6 @@ main (int    argc,
   TumblerService          *service;
   TumblerCacheService     *cache_service;
   GMainLoop               *main_loop;
-  gboolean                 already_running = FALSE;
   GError                  *error = NULL;
   GList                   *providers;
   GList                   *thumbnailers;
@@ -166,9 +165,6 @@ main (int    argc,
   /* try to start the service and exit if that fails */
   if (!tumbler_cache_service_start (cache_service, &error))
     {
-      if (error->domain == DBUS_GERROR && error->code == DBUS_GERROR_ADDRESS_IN_USE)
-        already_running = TRUE;
-
       g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
       g_error_free (error);
 
@@ -179,18 +175,13 @@ main (int    argc,
 
       dbus_g_connection_unref (connection);
 
-      if (already_running)
-        return EXIT_SUCCESS;
-      else
-        return EXIT_FAILURE;
+      /* service already running, exit gracefully to not break clients */
+      return EXIT_SUCCESS;
     }
 
   /* try to start the service and exit if that fails */
   if (!tumbler_manager_start (manager, &error))
     {
-      if (error->domain == DBUS_GERROR && error->code == DBUS_GERROR_ADDRESS_IN_USE)
-        already_running = TRUE;
-
       g_warning (_("Failed to start the thumbnailer manager: %s"), error->message);
       g_error_free (error);
 
@@ -201,18 +192,13 @@ main (int    argc,
 
       dbus_g_connection_unref (connection);
 
-      if (already_running)
-        return EXIT_SUCCESS;
-      else
-        return EXIT_FAILURE;
+      /* service already running, exit gracefully to not break clients */
+      return EXIT_SUCCESS;
     }
 
   /* try to start the service and exit if that fails */
   if (!tumbler_service_start (service, &error))
     {
-      if (error->domain == DBUS_GERROR && error->code == DBUS_GERROR_ADDRESS_IN_USE)
-        already_running = TRUE;
-
       g_warning (_("Failed to start the thumbnailer service: %s"), error->message);
       g_error_free (error);
 
@@ -223,10 +209,8 @@ main (int    argc,
 
       dbus_g_connection_unref (connection);
 
-      if (already_running)
-        return EXIT_SUCCESS;
-      else
-        return EXIT_FAILURE;
+      /* service already running, exit gracefully to not break clients */
+      return EXIT_SUCCESS;
     }
 
   /* create a new main loop */

@@ -1840,7 +1840,6 @@ tumbler_manager_start (TumblerManager *manager,
                        GError        **error)
 {
   DBusConnection *connection;
-  DBusError       dbus_error;
   gint            result;
 
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
@@ -1848,40 +1847,17 @@ tumbler_manager_start (TumblerManager *manager,
 
   g_mutex_lock (manager->mutex);
 
-  /* initialize the D-Bus error */
-  dbus_error_init (&dbus_error);
-
   /* get the native D-Bus connection */
   connection = dbus_g_connection_get_connection (manager->connection);
 
   /* request ownership for the manager interface */
   result = dbus_bus_request_name (connection, "org.freedesktop.thumbnails.Manager1",
-                                  DBUS_NAME_FLAG_DO_NOT_QUEUE, &dbus_error);
+                                  DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
 
   /* check if that failed */
-  if (result == DBUS_REQUEST_NAME_REPLY_EXISTS)
+  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
     {
       if (error != NULL)
-        {
-          g_set_error (error, DBUS_GERROR, DBUS_GERROR_ADDRESS_IN_USE,
-                       _("Another thumbnail cache service is already running"));
-        }
-
-      g_mutex_unlock (manager->mutex);
-
-      return FALSE;
-    }
-  else if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
-    {
-      /* propagate the D-Bus error */
-      if (dbus_error_is_set (&dbus_error))
-        {
-          if (error != NULL)
-            dbus_set_g_error (error, &dbus_error);
-
-          dbus_error_free (&dbus_error);
-        }
-      else if (error != NULL)
         {
           g_set_error (error, DBUS_GERROR, DBUS_GERROR_FAILED,
                        _("Another thumbnailer manager is already running"));
