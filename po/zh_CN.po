@@ -3,6 +3,7 @@
 # Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Hunt Xu <huntxu@live.cn>, 2009, 2010.
+# Chipong Luo <chipong_l@yahoo.com, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
