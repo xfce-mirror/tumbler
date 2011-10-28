@@ -143,7 +143,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
 {
   GdkPixbufLoader *loader;
   gssize           n_read;
-  gboolean         result = TRUE;
+  gboolean         result;
   GdkPixbuf       *pixbuf = NULL;
   guchar           buffer[65536];
 
@@ -160,12 +160,15 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       n_read = g_input_stream_read (stream, buffer, sizeof (buffer),
                                     cancellable, error);
 
-      if (n_read <= 0)
+      if (n_read < 0)
         {
-          result = (n_read == 0);
+          result = FALSE;
           error = NULL;
           break;
         }
+
+      if (n_read == 0)
+        break;
 
       if (!gdk_pixbuf_loader_write (loader, buffer, n_read, error))
         {
@@ -234,17 +237,19 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   thumbnail = tumbler_file_info_get_thumbnail (info);
   g_assert (thumbnail != NULL);
 
-  /* load the scaled pixbuf from the stream */
+  /* load the scaled pixbuf from the stream. this works like
+   * gdk_pixbuf_new_from_file_at_scale(), but without increasing the
+   * pixbuf size. */
   pixbuf = pixbuf_thumbnailer_new_from_stream (G_INPUT_STREAM (stream), thumbnail,
                                                cancellable, &error);
 
   g_object_unref (stream);
-  g_object_unref (thumbnail);
 
   if (pixbuf == NULL)
     {
       g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
+      g_object_unref (thumbnail);
       return;
     }
 
@@ -273,4 +278,5 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     }
 
   g_object_unref (pixbuf);
+  g_object_unref (thumbnail);
 }
