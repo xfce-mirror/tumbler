@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -53,7 +53,7 @@ struct _PixbufThumbnailer
 
 
 
-G_DEFINE_DYNAMIC_TYPE (PixbufThumbnailer, 
+G_DEFINE_DYNAMIC_TYPE (PixbufThumbnailer,
                        pixbuf_thumbnailer,
                        TUMBLER_TYPE_ABSTRACT_THUMBNAILER);
 
@@ -92,42 +92,105 @@ pixbuf_thumbnailer_init (PixbufThumbnailer *thumbnailer)
 
 
 
-static GdkPixbuf *
-generate_pixbuf (GdkPixbuf              *source,
-                 TumblerThumbnailFlavor *flavor)
+static void
+pixbuf_thumbnailer_size_prepared (GdkPixbufLoader  *loader,
+                                  gint              source_width,
+                                  gint              source_height,
+                                  TumblerThumbnail *thumbnail)
 {
-  gdouble    hratio;
-  gdouble    wratio;
-  gint       dest_width;
-  gint       dest_height;
-  gint       source_width;
-  gint       source_height;
+  TumblerThumbnailFlavor *flavor;
+  gint                    dest_width;
+  gint                    dest_height;
+  gdouble                 hratio;
+  gdouble                 wratio;
 
-  /* determine the source pixbuf dimensions */
-  source_width = gdk_pixbuf_get_width (source);
-  source_height = gdk_pixbuf_get_height (source);
+  g_return_if_fail (GDK_IS_PIXBUF_LOADER (loader));
+  g_return_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail));
 
-  /* determine the desired size for this flavor */
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
   tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
+  g_object_unref (flavor);
 
-  /* return the same pixbuf if no scaling is required */
   if (source_width <= dest_width && source_height <= dest_height)
-    return g_object_ref (source);
-
-  /* determine which axis needs to be scaled down more */
-  wratio = (gdouble) source_width / (gdouble) dest_width;
-  hratio = (gdouble) source_height / (gdouble) dest_height;
-
-  /* adjust the other axis */
-  if (hratio > wratio)
-    dest_width = rint (source_width / hratio);
+    {
+      /* do not scale the image */
+      dest_width = source_width;
+      dest_height = source_height;
+    }
   else
-    dest_height = rint (source_height / wratio);
-  
-  /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source, 
-                                  MAX (dest_width, 1), MAX (dest_height, 1), 
-                                  GDK_INTERP_BILINEAR);
+    {
+      /* determine which axis needs to be scaled down more */
+      wratio = (gdouble) source_width / (gdouble) dest_width;
+      hratio = (gdouble) source_height / (gdouble) dest_height;
+
+      /* adjust the other axis */
+      if (hratio > wratio)
+        dest_width = rint (source_width / hratio);
+     else
+        dest_height = rint (source_height / wratio);
+    }
+
+  gdk_pixbuf_loader_set_size (loader, MAX (dest_width, 1), MAX (dest_height, 1));
+}
+
+
+
+static GdkPixbuf *
+pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
+                                    TumblerThumbnail  *thumbnail,
+                                    GCancellable      *cancellable,
+                                    GError           **error)
+{
+  GdkPixbufLoader *loader;
+  gssize           n_read;
+  gboolean         result = TRUE;
+  GdkPixbuf       *pixbuf = NULL;
+  guchar           buffer[65536];
+
+  g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
+
+  /* prepare the loader */
+  loader = gdk_pixbuf_loader_new ();
+  g_signal_connect (loader, "size-prepared",
+      G_CALLBACK (pixbuf_thumbnailer_size_prepared), thumbnail);
+
+  result = TRUE;
+  for (;;)
+    {
+      n_read = g_input_stream_read (stream, buffer, sizeof (buffer),
+                                    cancellable, error);
+
+      if (n_read <= 0)
+        {
+          result = (n_read == 0);
+          error = NULL;
+          break;
+        }
+
+      if (!gdk_pixbuf_loader_write (loader, buffer, n_read, error))
+        {
+          result = FALSE;
+          error = NULL;
+          break;
+        }
+    }
+
+  if (!gdk_pixbuf_loader_close (loader, error))
+    {
+      result = FALSE;
+      error = NULL;
+    }
+
+  if (result)
+    {
+      pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+      if (G_LIKELY (pixbuf != NULL))
+        g_object_ref (pixbuf);
+    }
+
+  g_object_unref (loader);
+
+  return pixbuf;
 }
 
 
@@ -137,22 +200,21 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                            GCancellable               *cancellable,
                            TumblerFileInfo            *info)
 {
-  TumblerThumbnailFlavor *flavor;
-  GFileInputStream       *stream;
-  TumblerImageData        data;
-  TumblerThumbnail       *thumbnail;
-  const gchar            *uri;
-  GdkPixbuf              *source_pixbuf;
-  GdkPixbuf              *pixbuf;
-  GError                 *error = NULL;
-  GFile                  *file;
+
+  GFileInputStream *stream;
+  TumblerImageData  data;
+  TumblerThumbnail *thumbnail;
+  const gchar      *uri;
+  GdkPixbuf        *pixbuf;
+  GError           *error = NULL;
+  GFile            *file;
 
   g_return_if_fail (IS_PIXBUF_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
-  if (g_cancellable_is_cancelled (cancellable)) 
+  if (g_cancellable_is_cancelled (cancellable))
     return;
 
   uri = tumbler_file_info_get_uri (info);
@@ -169,25 +231,22 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       return;
     }
 
-  source_pixbuf = gdk_pixbuf_new_from_stream (G_INPUT_STREAM (stream), 
-                                              cancellable, &error);
-  g_object_unref (stream);
+  thumbnail = tumbler_file_info_get_thumbnail (info);
+  g_assert (thumbnail != NULL);
 
-  if (source_pixbuf == NULL)
+  /* load the scaled pixbuf from the stream */
+  pixbuf = pixbuf_thumbnailer_new_from_stream (G_INPUT_STREAM (stream), thumbnail,
+                                               cancellable, &error);
+
+  g_object_unref (stream);
+  g_object_unref (thumbnail);
+
+  if (pixbuf == NULL)
     {
       g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
       return;
     }
-
-  thumbnail = tumbler_file_info_get_thumbnail (info);
-
-  g_assert (thumbnail != NULL);
-
-  /* generate a pixbuf for the thumbnail */
-  flavor = tumbler_thumbnail_get_flavor (thumbnail);
-  pixbuf = generate_pixbuf (source_pixbuf, flavor);
-  g_object_unref (flavor);
 
   g_assert (pixbuf != NULL);
 
@@ -199,8 +258,8 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
   data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-  tumbler_thumbnail_save_image_data (thumbnail, &data, 
-                                     tumbler_file_info_get_mtime (info), 
+  tumbler_thumbnail_save_image_data (thumbnail, &data,
+                                     tumbler_file_info_get_mtime (info),
                                      NULL, &error);
 
   if (error != NULL)
@@ -213,7 +272,5 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "ready", uri);
     }
 
-  g_object_unref (thumbnail);
   g_object_unref (pixbuf);
-  g_object_unref (source_pixbuf);
 }
