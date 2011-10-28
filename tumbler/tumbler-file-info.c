@@ -307,8 +307,11 @@ tumbler_file_info_load (TumblerFileInfo *info,
       g_propagate_error (error, err);
 
       /* release the thumbnail info */
-      g_object_unref (info->thumbnail);
-      info->thumbnail = NULL;
+      if (info->thumbnail != NULL)
+        {
+          g_object_unref (info->thumbnail);
+          info->thumbnail = NULL;
+        }
 
       return FALSE;
     }
