@@ -383,6 +383,10 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
     }
+  else
+    {
+      g_signal_emit_by_name (thumbnailer, "ready", uri);
+    }
 
   g_object_unref (G_OBJECT (input));
 }
