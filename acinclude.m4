@@ -193,6 +193,30 @@ AC_MSG_RESULT([$ac_tumbler_poppler_thumbnailer])
 
 
 
+dnl TUMBLER_ODF_THUMBNAILER()
+dnl
+dnl Check whether to build and install the ODF thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_ODF_THUMBNAILER],
+[
+AC_ARG_ENABLE([odf-thumbnailer], [AC_HELP_STRING([--disable-odf-thumbnailer], [Don't build the ODF thumbnailer plugin])],
+  [ac_tumbler_odf_thumbnailer=$enableval], [ac_tumbler_odf_thumbnailer=yes])
+if test x"$ac_tumbler_odf_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  [
+    dnl Check for libgsf
+    PKG_CHECK_MODULES([GSF], [libgsf-1 >= 1.14.9], [], [ac_tumbler_odf_thumbnailer=no])
+  ], [ac_tumbler_odf_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the ODF thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_ODF_THUMBNAILER], [test x"$ac_tumbler_odf_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_odf_thumbnailer])
+])
+
+
+
 dnl TUMBLER_XDG_CACHE()
 dnl
 dnl Check whether to build and install the freedesktop.org cache plugin.

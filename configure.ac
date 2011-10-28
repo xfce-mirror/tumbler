@@ -155,6 +155,7 @@ TUMBLER_JPEG_THUMBNAILER()
 TUMBLER_PIXBUF_THUMBNAILER()
 TUMBLER_FFMPEG_THUMBNAILER()
 TUMBLER_GSTREAMER_THUMBNAILER()
+TUMBLER_ODF_THUMBNAILER()
 TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
@@ -186,6 +187,7 @@ plugins/gst-thumbnailer/Makefile
 plugins/jpeg-thumbnailer/Makefile
 plugins/pixbuf-thumbnailer/Makefile
 plugins/ffmpeg-thumbnailer/Makefile
+plugins/odf-thumbnailer/Makefile
 plugins/poppler-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
@@ -228,7 +230,12 @@ fi
 if test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"; then
 echo "  * Video thumbnailer plugin using GStreamer:         yes"
 else
-echo "  * Video thumbnailer plugin using GStreamer        : no"
+echo "  * Video thumbnailer plugin using GStreamer:         no"
+fi
+if test x"$ac_tumbler_odf_thumbnailer" = x"yes"; then
+echo "  * ODF thumbnailer plugin using libgsf:              yes"
+else
+echo "  * ODF thumbnailer plugin using libgsf:              no"
 fi
 if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
 echo "  * PDF/PS thumbnailer plugin using poppler:          yes"
