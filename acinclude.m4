@@ -199,7 +199,7 @@ dnl Check whether to build and install the ODF thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_ODF_THUMBNAILER],
 [
-AC_ARG_ENABLE([odf-thumbnailer], [AC_HELP_STRING([--disable-odf-thumbnailer], [Don't build the ODF thumbnailer plugin])],
+AC_ARG_ENABLE([odf-thumbnailer], [AC_HELP_STRING([--disable-odf-thumbnailer], [Don't build the office thumbnailer plugin])],
   [ac_tumbler_odf_thumbnailer=$enableval], [ac_tumbler_odf_thumbnailer=yes])
 if test x"$ac_tumbler_odf_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -210,7 +210,7 @@ if test x"$ac_tumbler_odf_thumbnailer" = x"yes"; then
   ], [ac_tumbler_odf_thumbnailer=no])
 fi
 
-AC_MSG_CHECKING([whether to build the ODF thumbnailer plugin])
+AC_MSG_CHECKING([whether to build the office thumbnailer plugin])
 AM_CONDITIONAL([TUMBLER_ODF_THUMBNAILER], [test x"$ac_tumbler_odf_thumbnailer" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_odf_thumbnailer])
 ])

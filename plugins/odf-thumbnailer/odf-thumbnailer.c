@@ -54,10 +54,9 @@
 
 
 
-static void odf_thumbnailer_finalize (GObject                    *object);
 static void odf_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
-                                       GCancellable               *cancellable,
-                                       TumblerFileInfo            *info);
+                                      GCancellable               *cancellable,
+                                      TumblerFileInfo            *info);
 
 
 
@@ -91,10 +90,6 @@ static void
 odf_thumbnailer_class_init (OdfThumbnailerClass *klass)
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
-  GObjectClass                    *gobject_class;
-
-  gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = odf_thumbnailer_finalize;
 
   abstractthumbnailer_class = TUMBLER_ABSTRACT_THUMBNAILER_CLASS (klass);
   abstractthumbnailer_class->create = odf_thumbnailer_create;
@@ -112,29 +107,67 @@ odf_thumbnailer_class_finalize (OdfThumbnailerClass *klass)
 static void
 odf_thumbnailer_init (OdfThumbnailer *thumbnailer)
 {
-
 }
 
 
-static void
-odf_thumbnailer_finalize (GObject *object)
-{
-  //OdfThumbnailer *thumbnailer = ODF_THUMBNAILER (object);
 
-  (*G_OBJECT_CLASS (odf_thumbnailer_parent_class)->finalize) (object);
+static void
+odf_thumbnailer_size_prepared (GdkPixbufLoader  *loader,
+                               gint              source_width,
+                               gint              source_height,
+                               TumblerThumbnail *thumbnail)
+{
+  TumblerThumbnailFlavor *flavor;
+  gint                    dest_width;
+  gint                    dest_height;
+  gdouble                 hratio;
+  gdouble                 wratio;
+
+  g_return_if_fail (GDK_IS_PIXBUF_LOADER (loader));
+  g_return_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail));
+
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
+  tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
+  g_object_unref (flavor);
+
+  if (source_width <= dest_width && source_height <= dest_height)
+    {
+      /* do not scale the image */
+      dest_width = source_width;
+      dest_height = source_height;
+    }
+  else
+    {
+      /* determine which axis needs to be scaled down more */
+      wratio = (gdouble) source_width / (gdouble) dest_width;
+      hratio = (gdouble) source_height / (gdouble) dest_height;
+
+      /* adjust the other axis */
+      if (hratio > wratio)
+        dest_width = rint (source_width / hratio);
+     else
+        dest_height = rint (source_height / wratio);
+    }
+
+  gdk_pixbuf_loader_set_size (loader, MAX (dest_width, 1), MAX (dest_height, 1));
 }
 
 
 
 static GdkPixbuf *
-odf_thumbnailer_create_from_data (const guchar *data,
-                                  gsize         bytes)
+odf_thumbnailer_create_from_data (const guchar     *data,
+                                  gsize             bytes,
+                                  TumblerThumbnail *thumbnail)
 {
   GdkPixbufLoader *loader;
   GdkPixbuf       *pixbuf = NULL;
   GError          *error = NULL;
 
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
+
   loader = gdk_pixbuf_loader_new ();
+  g_signal_connect (loader, "size-prepared",
+      G_CALLBACK (odf_thumbnailer_size_prepared), thumbnail);
   if (gdk_pixbuf_loader_write (loader, data, bytes, &error))
     {
       if (gdk_pixbuf_loader_close (loader, &error))
@@ -148,7 +181,7 @@ odf_thumbnailer_create_from_data (const guchar *data,
     {
       gdk_pixbuf_loader_close (loader, NULL);
     }
-  g_object_unref (G_OBJECT (loader));
+  g_object_unref (loader);
 
   return pixbuf;
 }
@@ -156,9 +189,10 @@ odf_thumbnailer_create_from_data (const guchar *data,
 
 
 static GdkPixbuf *
-odf_thumbnailer_create_zip (GsfInfile *infile)
+odf_thumbnailer_create_zip (GsfInfile        *infile,
+                            TumblerThumbnail *thumbnail)
 {
-  GsfInput     *thumbnail;
+  GsfInput     *thumb_file;
   gsize         bytes;
   const guint8 *data;
   GdkPixbuf    *pixbuf = NULL;
@@ -166,22 +200,22 @@ odf_thumbnailer_create_zip (GsfInfile *infile)
   g_return_val_if_fail (GSF_IS_INFILE_ZIP (infile), NULL);
 
   /* openoffice and libreoffice thumbnail */
-  thumbnail = gsf_infile_child_by_vname (infile, "Thumbnails", "thumbnail.png", NULL);
-  if (thumbnail == NULL)
+  thumb_file = gsf_infile_child_by_vname (infile, "Thumbnails", "thumbnail.png", NULL);
+  if (thumb_file == NULL)
     {
       /* microsoft office-x thumbnails */
-      thumbnail = gsf_open_pkg_open_rel_by_type (GSF_INPUT (infile), OPEN_XML_SCHEMA, NULL);
-      if (thumbnail == NULL)
+      thumb_file = gsf_open_pkg_open_rel_by_type (GSF_INPUT (infile), OPEN_XML_SCHEMA, NULL);
+      if (thumb_file == NULL)
         return NULL;
     }
 
   /* read data and generate a pixbuf */
-  bytes = gsf_input_remaining (thumbnail);
-  data = gsf_input_read (thumbnail, bytes, NULL);
+  bytes = gsf_input_remaining (thumb_file);
+  data = gsf_input_read (thumb_file, bytes, NULL);
   if (data != NULL)
-    pixbuf = odf_thumbnailer_create_from_data (data, bytes);
+    pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail);
 
-  g_object_unref (G_OBJECT (thumbnail));
+  g_object_unref (thumb_file);
 
   return pixbuf;
 }
@@ -189,12 +223,13 @@ odf_thumbnailer_create_zip (GsfInfile *infile)
 
 
 static GdkPixbuf *
-odf_thumbnailer_create_msole (GsfInfile *infile)
+odf_thumbnailer_create_msole (GsfInfile        *infile,
+                              TumblerThumbnail *thumbnail)
 {
   GsfInput       *summary;
   GsfDocMetaData *meta_data;
   GError         *error;
-  GsfDocProp     *thumbnail;
+  GsfDocProp     *thumb_doc;
   GdkPixbuf      *pixbuf = NULL;
   GValue const   *thumb_value;
   GsfClipData    *clip_data;
@@ -211,7 +246,7 @@ odf_thumbnailer_create_msole (GsfInfile *infile)
   /* read meta data from stream */
   meta_data = gsf_doc_meta_data_new ();
   error = gsf_msole_metadata_read (summary, meta_data);
-  g_object_unref (G_OBJECT (summary));
+  g_object_unref (summary);
   if (error != NULL)
     {
       g_error_free (error);
@@ -219,10 +254,10 @@ odf_thumbnailer_create_msole (GsfInfile *infile)
     }
 
   /* try to extract thumbnail */
-  thumbnail = gsf_doc_meta_data_lookup (meta_data, GSF_META_NAME_THUMBNAIL);
-  if (thumbnail != NULL)
+  thumb_doc = gsf_doc_meta_data_lookup (meta_data, GSF_META_NAME_THUMBNAIL);
+  if (thumb_doc != NULL)
     {
-      thumb_value = gsf_doc_prop_get_val (thumbnail);
+      thumb_value = gsf_doc_prop_get_val (thumb_doc);
       if (thumb_value != NULL)
         {
           clip_data = g_value_get_object (thumb_value);
@@ -233,50 +268,14 @@ odf_thumbnailer_create_msole (GsfInfile *infile)
             {
               data = gsf_clip_data_peek_real_data (GSF_CLIP_DATA (clip_data), &bytes, NULL);
               if (data != NULL)
-                pixbuf = odf_thumbnailer_create_from_data (data, bytes);
+                pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail);
             }
         }
     }
 
-  g_object_unref (G_OBJECT (meta_data));
+  g_object_unref (meta_data);
 
   return pixbuf;
-}
-
-
-
-static GdkPixbuf*
-scale_pixbuf (GdkPixbuf *source,
-              gint       dest_width,
-              gint       dest_height)
-{
-  gdouble wratio;
-  gdouble hratio;
-  gint    source_width;
-  gint    source_height;
-
-  /* determine source pixbuf dimensions */
-  source_width  = gdk_pixbuf_get_width  (source);
-  source_height = gdk_pixbuf_get_height (source);
-
-  /* don't do anything if there is no need to resize */
-  if (source_width <= dest_width && source_height <= dest_height)
-    return g_object_ref (source);
-
-  /* determine which axis needs to be scaled down more */
-  wratio = (gdouble) source_width  / (gdouble) dest_width;
-  hratio = (gdouble) source_height / (gdouble) dest_height;
-
-  /* adjust the other axis */
-  if (hratio > wratio)
-    dest_width = rint (source_width / hratio);
-  else
-    dest_height = rint (source_height / wratio);
-
-  /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1),
-                                  MAX (dest_height, 1),
-                                  GDK_INTERP_BILINEAR);
 }
 
 
@@ -286,18 +285,15 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                         GCancellable               *cancellable,
                         TumblerFileInfo            *info)
 {
-  GsfInput               *input = NULL;
-  TumblerThumbnail       *thumbnail;
-  const gchar            *uri;
-  GFile                  *file;
-  GError                 *error = NULL;
-  gchar                  *path;
-  GsfInfile              *infile;
-  GdkPixbuf              *pixbuf = NULL;
-  TumblerThumbnailFlavor *flavor;
-  gint                    width, height;
-  TumblerImageData        data;
-  GdkPixbuf              *scaled;
+  GsfInput         *input = NULL;
+  TumblerThumbnail *thumbnail;
+  const gchar      *uri;
+  GFile            *file;
+  GError           *error = NULL;
+  gchar            *path;
+  GsfInfile        *infile;
+  GdkPixbuf        *pixbuf = NULL;
+  TumblerImageData  data;
 
   g_return_if_fail (IS_ODF_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -330,6 +326,8 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
         }
     }
 
+  thumbnail = tumbler_file_info_get_thumbnail (info);
+
   /* extract the file */
   input = gsf_input_uncompress (input);
 
@@ -337,45 +335,34 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   infile = gsf_infile_zip_new (input, NULL);
   if (infile != NULL)
     {
-      pixbuf = odf_thumbnailer_create_zip (infile);
-      g_object_unref (G_OBJECT (infile));
+      pixbuf = odf_thumbnailer_create_zip (infile, thumbnail);
+      g_object_unref (infile);
     }
   else
     {
       infile = gsf_infile_msole_new (input, NULL);
       if (infile != NULL)
         {
-          pixbuf = odf_thumbnailer_create_msole (infile);
-          g_object_unref (G_OBJECT (infile));
+          pixbuf = odf_thumbnailer_create_msole (infile, thumbnail);
+          g_object_unref (infile);
         }
     }
 
   if (pixbuf != NULL)
     {
-      /* get thumbnail size */
-      thumbnail = tumbler_file_info_get_thumbnail (info);
-      flavor = tumbler_thumbnail_get_flavor (thumbnail);
-      tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
-      g_object_unref (G_OBJECT (flavor));
-      g_object_unref (G_OBJECT (thumbnail));
-
-      /* scale thumb if required */
-      scaled = scale_pixbuf (pixbuf, width, height);
-      g_object_unref (G_OBJECT (pixbuf));
-
-      data.data = gdk_pixbuf_get_pixels (scaled);
-      data.has_alpha = gdk_pixbuf_get_has_alpha (scaled);
-      data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (scaled);
-      data.width = gdk_pixbuf_get_width (scaled);
-      data.height = gdk_pixbuf_get_height (scaled);
-      data.rowstride = gdk_pixbuf_get_rowstride (scaled);
-      data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (scaled);
+      data.data = gdk_pixbuf_get_pixels (pixbuf);
+      data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+      data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+      data.width = gdk_pixbuf_get_width (pixbuf);
+      data.height = gdk_pixbuf_get_height (pixbuf);
+      data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+      data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
       tumbler_thumbnail_save_image_data (thumbnail, &data,
                                          tumbler_file_info_get_mtime (info),
                                          NULL, &error);
 
-      g_object_unref (G_OBJECT (scaled));
+      g_object_unref (pixbuf);
     }
 
   if (error != NULL)
@@ -388,5 +375,6 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "ready", uri);
     }
 
-  g_object_unref (G_OBJECT (input));
+  g_object_unref (input);
+  g_object_unref (thumbnail);
 }
