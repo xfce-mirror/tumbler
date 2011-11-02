@@ -1,5 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
+ * Copyright (c) 2011 Jannis Pohlmann <jannis@xfce.org>
  * Copyright (c) 2011 Nick Schermer <nick@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
@@ -157,20 +158,22 @@ odf_thumbnailer_size_prepared (GdkPixbufLoader  *loader,
 static GdkPixbuf *
 odf_thumbnailer_create_from_data (const guchar     *data,
                                   gsize             bytes,
-                                  TumblerThumbnail *thumbnail)
+                                  TumblerThumbnail *thumbnail,
+                                  GError          **error)
 {
   GdkPixbufLoader *loader;
   GdkPixbuf       *pixbuf = NULL;
-  GError          *error = NULL;
+  GError          *err = NULL;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
   loader = gdk_pixbuf_loader_new ();
   g_signal_connect (loader, "size-prepared",
       G_CALLBACK (odf_thumbnailer_size_prepared), thumbnail);
-  if (gdk_pixbuf_loader_write (loader, data, bytes, &error))
+  if (gdk_pixbuf_loader_write (loader, data, bytes, &err))
     {
-      if (gdk_pixbuf_loader_close (loader, &error))
+      if (gdk_pixbuf_loader_close (loader, &err))
         {
           pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
           if (pixbuf != NULL)
@@ -183,6 +186,10 @@ odf_thumbnailer_create_from_data (const guchar     *data,
     }
   g_object_unref (loader);
 
+  /* forward errors to the caller */
+  if (err != NULL)
+    g_propagate_error (error, err);
+
   return pixbuf;
 }
 
@@ -190,7 +197,8 @@ odf_thumbnailer_create_from_data (const guchar     *data,
 
 static GdkPixbuf *
 odf_thumbnailer_create_zip (GsfInfile        *infile,
-                            TumblerThumbnail *thumbnail)
+                            TumblerThumbnail *thumbnail,
+                            GError          **error)
 {
   GsfInput     *thumb_file;
   gsize         bytes;
@@ -198,6 +206,7 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
   GdkPixbuf    *pixbuf = NULL;
 
   g_return_val_if_fail (GSF_IS_INFILE_ZIP (infile), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
   /* openoffice and libreoffice thumbnail */
   thumb_file = gsf_infile_child_by_vname (infile, "Thumbnails", "thumbnail.png", NULL);
@@ -213,7 +222,7 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
   bytes = gsf_input_remaining (thumb_file);
   data = gsf_input_read (thumb_file, bytes, NULL);
   if (data != NULL)
-    pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail);
+    pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail, error);
 
   g_object_unref (thumb_file);
 
@@ -224,11 +233,12 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
 
 static GdkPixbuf *
 odf_thumbnailer_create_msole (GsfInfile        *infile,
-                              TumblerThumbnail *thumbnail)
+                              TumblerThumbnail *thumbnail,
+                              GError          **error)
 {
   GsfInput       *summary;
   GsfDocMetaData *meta_data;
-  GError         *error;
+  GError         *err = NULL;
   GsfDocProp     *thumb_doc;
   GdkPixbuf      *pixbuf = NULL;
   GValue const   *thumb_value;
@@ -237,19 +247,25 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
   const guchar   *data;
 
   g_return_val_if_fail (GSF_IS_INFILE_MSOLE (infile), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
   /* try to find summary information stream */
   summary = gsf_infile_child_by_name (infile, "\05SummaryInformation");
   if (summary == NULL)
-    return NULL;
+    {
+      g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                   _("Thumbnail could not be inferred from file contents"));
+      g_propagate_error (error, err);
+      return NULL;
+    }
 
   /* read meta data from stream */
   meta_data = gsf_doc_meta_data_new ();
-  error = gsf_msole_metadata_read (summary, meta_data);
+  err = gsf_msole_metadata_read (summary, meta_data);
   g_object_unref (summary);
-  if (error != NULL)
+  if (err != NULL)
     {
-      g_error_free (error);
+      g_propagate_error (error, err);
       return NULL;
     }
 
@@ -268,12 +284,15 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
             {
               data = gsf_clip_data_peek_real_data (GSF_CLIP_DATA (clip_data), &bytes, NULL);
               if (data != NULL)
-                pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail);
+                pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail, &err);
             }
         }
     }
 
   g_object_unref (meta_data);
+
+  if (err != NULL)
+    g_propagate_error (error, err);
 
   return pixbuf;
 }
@@ -335,7 +354,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   infile = gsf_infile_zip_new (input, NULL);
   if (infile != NULL)
     {
-      pixbuf = odf_thumbnailer_create_zip (infile, thumbnail);
+      pixbuf = odf_thumbnailer_create_zip (infile, thumbnail, &error);
       g_object_unref (infile);
     }
   else
@@ -343,8 +362,13 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       infile = gsf_infile_msole_new (input, NULL);
       if (infile != NULL)
         {
-          pixbuf = odf_thumbnailer_create_msole (infile, thumbnail);
+          pixbuf = odf_thumbnailer_create_msole (infile, thumbnail, &error);
           g_object_unref (infile);
+        }
+      else
+        {
+          g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                       _("Thumbnail could not be inferred from file contents"));
         }
     }
 
