@@ -132,6 +132,7 @@ odf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
     "application/vnd.sun.xml.draw.template",
     "application/vnd.sun.xml.draw",
     "application/vnd.sun.xml.math",
+    "image/openraster",
     NULL
   };
   OdfThumbnailer    *thumbnailer;

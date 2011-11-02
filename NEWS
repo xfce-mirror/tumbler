@@ -3,6 +3,7 @@
 - Fix generation of video images by starting the pipeline (bug #7996).
 - Fix ownership race conditions when started twice (bug #8001).
 - Add an ODF thumbnailer plugin.
+- Add support for OpenRaster images in the ODF thumbnailer (bug #6108).
 
 0.1.22
 ======
