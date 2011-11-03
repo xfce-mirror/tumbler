@@ -217,6 +217,30 @@ AC_MSG_RESULT([$ac_tumbler_odf_thumbnailer])
 
 
 
+dnl TUMBLER_RAW_THUMBNAILER()
+dnl
+dnl Check whether to build and install the libopenraw thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_RAW_THUMBNAILER],
+[
+AC_ARG_ENABLE([raw-thumbnailer], [AC_HELP_STRING([--disable-raw-thumbnailer], [Don't build the Raw video thumbnailer plugin])],
+  [ac_tumbler_raw_thumbnailer=$enableval], [ac_tumbler_raw_thumbnailer=yes])
+if test x"$ac_tumbler_raw_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  [
+    dnl Check for libopenraw
+    PKG_CHECK_MODULES([LIBOPENRAW_GNOME], [libopenraw-gnome-1.0 >= 0.0.4], [], [ac_tumbler_raw_thumbnailer=no])
+  ], [ac_tumbler_raw_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the Raw thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_RAW_THUMBNAILER], [test x"$ac_tumbler_raw_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_raw_thumbnailer])
+])
+
+
+
 dnl TUMBLER_XDG_CACHE()
 dnl
 dnl Check whether to build and install the freedesktop.org cache plugin.

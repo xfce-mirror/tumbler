@@ -157,6 +157,7 @@ TUMBLER_FFMPEG_THUMBNAILER()
 TUMBLER_GSTREAMER_THUMBNAILER()
 TUMBLER_ODF_THUMBNAILER()
 TUMBLER_POPPLER_THUMBNAILER()
+TUMBLER_RAW_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 
 dnl ***********************************
@@ -189,6 +190,7 @@ plugins/pixbuf-thumbnailer/Makefile
 plugins/ffmpeg-thumbnailer/Makefile
 plugins/odf-thumbnailer/Makefile
 plugins/poppler-thumbnailer/Makefile
+plugins/raw-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 po/Makefile.in
 tumbler/Makefile
@@ -241,6 +243,11 @@ if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
 echo "  * PDF/PS thumbnailer plugin using poppler:          yes"
 else
 echo "  * PDF/PS thumbnailer plugin using poppler:          no"
+fi
+if test x"$ac_tumbler_raw_thumbnailer" = x"yes"; then
+echo "  * Raw thumbnailer plugin using libopenraw:          yes"
+else
+echo "  * Raw thumbnailer plugin using libopenraw:          no"
 fi
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
 echo "  * Freedesktop.org cache plugin:                     yes"

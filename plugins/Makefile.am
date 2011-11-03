@@ -25,4 +25,5 @@ SUBDIRS =								\
 	ffmpeg-thumbnailer						\
 	odf-thumbnailer							\
 	poppler-thumbnailer						\
+	raw-thumbnailer							\
 	xdg-cache

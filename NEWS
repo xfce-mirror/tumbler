@@ -4,6 +4,7 @@
 - Fix ownership race conditions when started twice (bug #8001).
 - Add an ODF thumbnailer plugin.
 - Add support for OpenRaster images in the ODF thumbnailer (bug #6108).
+- Add a raw image thumbnailer plugin.
 
 0.1.22
 ======
