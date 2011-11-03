@@ -100,6 +100,42 @@ raw_thumbnailer_init (RawThumbnailer *thumbnailer)
 
 
 
+static GdkPixbuf*
+scale_pixbuf (GdkPixbuf *source,
+              gint       dest_width,
+              gint       dest_height)
+{
+  gdouble wratio;
+  gdouble hratio;
+  gint    source_width;
+  gint    source_height;
+
+  /* determine source pixbuf dimensions */
+  source_width  = gdk_pixbuf_get_width  (source);
+  source_height = gdk_pixbuf_get_height (source);
+
+  /* don't do anything if there is no need to resize */
+  if (source_width <= dest_width && source_height <= dest_height)
+    return g_object_ref (source);
+
+  /* determine which axis needs to be scaled down more */
+  wratio = (gdouble) source_width  / (gdouble) dest_width;
+  hratio = (gdouble) source_height / (gdouble) dest_height;
+
+  /* adjust the other axis */
+  if (hratio > wratio)
+    dest_width = rint (source_width / hratio);
+  else
+    dest_height = rint (source_height / wratio);
+
+  /* scale the pixbuf down to the desired size */
+  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1),
+                                  MAX (dest_height, 1),
+                                  GDK_INTERP_BILINEAR);
+}
+
+
+
 static void
 raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                         GCancellable               *cancellable,
@@ -115,6 +151,7 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GFile                  *file;
   gint                    height;
   gint                    width;
+  GdkPixbuf              *scaled;
 
   g_return_if_fail (IS_RAW_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -130,23 +167,26 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   thumbnail = tumbler_file_info_get_thumbnail (info);
   g_assert (thumbnail != NULL);
 
+  /* get destination size */
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
+  g_assert (flavor != NULL);
+  tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
+  g_object_unref (flavor);
+
   /* libopenraw only handles local IO */
   path = g_file_get_path (file);
   if (path != NULL && g_path_is_absolute (path))
-    {
-      flavor = tumbler_thumbnail_get_flavor (thumbnail);
-      g_assert (flavor != NULL);
-      tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
-      g_object_unref (flavor);
-
-      pixbuf = or_gdkpixbuf_extract_rotated_thumbnail (path, MIN (width, height));
-    }
+    pixbuf = or_gdkpixbuf_extract_rotated_thumbnail (path, MIN (width, height));
 
   g_free (path);
   g_object_unref (file);
 
   if (pixbuf != NULL)
     {
+      scaled = scale_pixbuf (pixbuf, width, height);
+      g_object_unref (pixbuf);
+      pixbuf = scaled;
+
       data.data = gdk_pixbuf_get_pixels (pixbuf);
       data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
       data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
