@@ -245,9 +245,9 @@ else
 echo "  * PDF/PS thumbnailer plugin using poppler:          no"
 fi
 if test x"$ac_tumbler_raw_thumbnailer" = x"yes"; then
-echo "  * Raw thumbnailer plugin using libopenraw:          yes"
+echo "  * RAW thumbnailer plugin using libopenraw:          yes"
 else
-echo "  * Raw thumbnailer plugin using libopenraw:          no"
+echo "  * RAW thumbnailer plugin using libopenraw:          no"
 fi
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
 echo "  * Freedesktop.org cache plugin:                     yes"
