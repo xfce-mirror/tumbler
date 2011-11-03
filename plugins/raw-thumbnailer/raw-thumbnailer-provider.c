@@ -100,10 +100,10 @@ raw_thumbnailer_provider_init (RawThumbnailerProvider *provider)
 static GList *
 raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  RawThumbnailer *thumbnailer;
-  GList          *thumbnailers = NULL;
-  GStrv           uri_schemes;
-  const gchar    *mime_types[] =
+  RawThumbnailer     *thumbnailer;
+  GList              *thumbnailers = NULL;
+  static const gchar *uri_schemes[] = { "file", NULL };
+  const gchar        *mime_types[] =
   {
     "image/x-adobe-dng",
     "image/x-canon-cr2",
@@ -120,16 +120,11 @@ raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
     NULL
   };
 
-  /* determine which URI schemes are supported by GIO */
-  uri_schemes = tumbler_util_get_supported_uri_schemes ();
-
   /* create the raw thumbnailer */
   thumbnailer = g_object_new (TYPE_RAW_THUMBNAILER,
-                              "uri-schemes", uri_schemes, "mime-types", mime_types,
+                              "uri-schemes", uri_schemes,
+                              "mime-types", mime_types,
                               NULL);
-
-  /* free URI schemes and MIME types */
-  g_strfreev (uri_schemes);
 
   /* add the thumbnailer to the list */
   thumbnailers = g_list_append (thumbnailers, thumbnailer);

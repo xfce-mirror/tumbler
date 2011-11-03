@@ -176,7 +176,20 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* libopenraw only handles local IO */
   path = g_file_get_path (file);
   if (path != NULL && g_path_is_absolute (path))
-    pixbuf = or_gdkpixbuf_extract_rotated_thumbnail (path, MIN (width, height));
+    {
+      pixbuf = or_gdkpixbuf_extract_rotated_thumbnail (path, MIN (width, height));
+
+      if (pixbuf == NULL)
+        {
+          g_set_error_literal (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                               _("Thumbnail could not be inferred from file contents"));
+        }
+    }
+  else
+    {
+      g_set_error_literal (&error, TUMBLER_ERROR, TUMBLER_ERROR_UNSUPPORTED,
+                           _("Only local files are supported"));
+    }
 
   g_free (path);
   g_object_unref (file);
