@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-07 16:06+0000\n"
+"POT-Creation-Date: 2011-11-04 11:03+0000\n"
 "PO-Revision-Date: 2011-09-07 12:41+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: nl (Dutch)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-cache-service.c:416
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Een andere dienst voor opslag van miniaturen draait al"
@@ -32,12 +32,12 @@ msgstr "Geen miniatuurmaker beschikbaar voor \"%s\""
 msgid "The thumbnailer service is shutting down"
 msgstr "De dienst voor de miniatuurmaker is aan het afsluiten"
 
-#: ../tumblerd/tumbler-service.c:760
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Een andere generieke miniatuurmaker draait al"
 
-#: ../tumblerd/tumbler-service.c:878
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Er wordt gevraagd om een niet-ondersteunde soort miniatuurmaker"
 
@@ -51,18 +51,18 @@ msgstr ""
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Kon de gespecialiseerde miniatuurmaker niet oproepen: %s"
 
-#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Kon het bestand \"%s\" niet laden: %s"
 
-#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
-#: ../tumblerd/tumbler-manager.c:514
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Misvormde sectie \"%s\" in bestand \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:527
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
@@ -71,48 +71,48 @@ msgstr ""
 "Misvormde sectie \"%s\" in bestand \"%s\":  geen overeenkomst tussen "
 "sectienaam en Urischema/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
-#: ../tumblerd/tumbler-manager.c:915
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Misvormd bestand \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:941
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Kon tijdstip van laatste aanpassing van \"%s\" niet bepalen"
 
-#: ../tumblerd/tumbler-manager.c:1854
+#: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Een andere miniatuurmaker-beheerder draait al"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler Miniatuurmakerdienst"
 
-#: ../tumblerd/main.c:93
+#: ../tumblerd/main.c:98
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Kon niet verbinden met de D-Bus sessie bus: %s"
 
-#: ../tumblerd/main.c:108
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Kon de miniatuuropslagdienst niet starten: %s"
-
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:156
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Kon de gespecialiseerde miniatuurmakers niet in het register laden: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:173
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Kon de miniatuuropslagdienst niet starten: %s"
+
+#: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Kon de miniatuurmaker-beheerder niet starten: %s"
 
-#: ../tumblerd/main.c:194
+#: ../tumblerd/main.c:207
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Kon de miniatuurmakerdienst niet starten: %s"
@@ -160,6 +160,7 @@ msgstr "Kon plugin \"%s\" niet laden: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -220,10 +221,11 @@ msgstr "Kon de tekenkaart niet instellen: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Kon geen accenten weergeven: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Miniatuur kon niet worden afgeleid uit de bestandinhoud"
@@ -248,13 +250,25 @@ msgstr "Bezig met afsluiten van de Tumbler ffmpeg miniatuurmaker-plugin"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Bezig met starten van de Tumbler Poppler PDF/PS Miniatuurmaker-plugin"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "Het document is leeg"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "Eerste bladzijde van het document kon niet worden gelezen"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Slechts plaatselijke bestanden worden ondersteund"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Bezig met opstarten van de Tumbler RAW Miniatuurmaker-plugin"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Bezig met afsluiten van de Tumbler RAW Miniatuurmaker-plugin"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
