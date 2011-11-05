@@ -53,7 +53,7 @@ msgstr "无法调用指定的缩略图生成器：%s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "无法载入文件 “%s”： %s"
+msgstr "无法载入文件 “%s”：%s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
@@ -217,7 +217,7 @@ msgstr "未能设置字符映射：%s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "未能渲染字型：%s"
+msgstr "未能渲染字形：%s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
