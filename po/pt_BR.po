@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-01 04:05+0000\n"
+"POT-Creation-Date: 2011-11-04 23:04+0000\n"
 "PO-Revision-Date: 2011-05-31 16:51-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../tumblerd/tumbler-cache-service.c:416
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Outro serviço de cache de miniaturas já está em execução"
@@ -33,12 +33,12 @@ msgstr "Nenhum gerador de miniaturas disponível para \"%s\""
 msgid "The thumbnailer service is shutting down"
 msgstr "O serviço de geração de miniaturas está sendo encerrado"
 
-#: ../tumblerd/tumbler-service.c:760
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Um outro gerador de miniaturas genérico já está em execução"
 
-#: ../tumblerd/tumbler-service.c:878
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Tipo de miniatura sem suporte solicitado"
 
@@ -51,64 +51,69 @@ msgstr "Falhou ao chamar o gerador de miniaturas especializado: tempo esgotado"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Falhou ao chamar o gerador de miniaturas especializado: %s"
 
-#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Falhou ao carregar o arquivo \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
-#: ../tumblerd/tumbler-manager.c:514
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Seção malformada \"%s\" no arquivo \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:527
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Seção malformada \"%s\" no arquivo \"%s\": nome da seção e UriScheme/MimeType não correspondem"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Seção malformada \"%s\" no arquivo \"%s\": nome da seção e UriScheme/"
+"MimeType não correspondem"
 
-#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
-#: ../tumblerd/tumbler-manager.c:915
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Arquivo malformado \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:941
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Falhou ao determinar o momento da última modificação de \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1854
+#: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Um outro gerenciador de miniaturas já está em execução"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Serviço de geração de miniaturas Tumbler"
 
-#: ../tumblerd/main.c:93
+#: ../tumblerd/main.c:98
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Falhou ao conectar-se com o barramento de sessão do D-Bus: %s"
 
-#: ../tumblerd/main.c:108
+#: ../tumblerd/main.c:156
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr ""
+"Falhou ao carregar geradores de miniaturas especializados no registro: %s"
+
+#: ../tumblerd/main.c:173
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Falhou ao iniciar o serviço de cache de miniaturas: %s"
 
-#: ../tumblerd/main.c:158
-#, c-format
-msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Falhou ao carregar geradores de miniaturas especializados no registro: %s"
-
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Falhou ao iniciar o gerenciador de miniaturas: %s"
 
-#: ../tumblerd/main.c:194
+#: ../tumblerd/main.c:207
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Falhou ao iniciar o serviço de geração de miniaturas: %s"
@@ -156,6 +161,7 @@ msgstr "Falhou ao carregar o plugin \"%s\": %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -216,10 +222,11 @@ msgstr "Não foi possível definir o mapa de caracteres: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Não foi possível renderizar os glifos: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "A miniatura não pode ser inferida do conteúdo do arquivo"
@@ -244,13 +251,25 @@ msgstr "Encerrando o plugin gerador de miniaturas de vídeo ffmpeg do Tumbler"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Iniciando o plugin gerador de miniaturas PDF/PS Poppler do Tumbler"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "O documento está vazio"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "A primeira página do documento não pôde ser lida"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Somente arquivos locais são suportados"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Iniciando o plugin gerador de miniaturas de fontes do Tumbler"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Encerrando o plugin gerador de miniaturas de fontes do Tumbler"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
