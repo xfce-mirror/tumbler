@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-05 14:19+0900\n"
-"PO-Revision-Date: 2011-11-05 14:22+0900\n"
+"POT-Creation-Date: 2011-11-05 18:04+0900\n"
+"PO-Revision-Date: 2011-11-05 18:05+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: \n"
@@ -158,6 +158,7 @@ msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
@@ -230,6 +231,8 @@ msgstr "グリフをレンダリングできませんでした: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
@@ -248,17 +251,27 @@ msgstr "Shutting down the Tumbler JPEG Thumbnailer plugin"
 # DEBUG message
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Initializing the Tumbler ffmpeg video thumbnailer plugin"
 
 # DEBUG message
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+
+# DEBUG message
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Initializing the Tumbler ODF Thumbnailer plugin"
+
+# DEBUG message
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Shutting down the Tumbler ODF Thumbnailer plugin"
 
 # DEBUG message
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -275,12 +288,12 @@ msgstr "ローカルファイルのみサポートされます"
 # DEBUG message
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Initializing the Tumbler RAW Thumbnailer plugin"
 
 # DEBUG message
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "Shutting down the Tumbler RAW Thumbnailer plugin"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
