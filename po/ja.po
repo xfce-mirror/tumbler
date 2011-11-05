@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-28 15:09+0900\n"
-"PO-Revision-Date: 2011-05-28 15:08+0900\n"
+"POT-Creation-Date: 2011-11-05 14:19+0900\n"
+"PO-Revision-Date: 2011-11-05 14:22+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../tumblerd/tumbler-cache-service.c:416
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "他のサムネイルキャッシュサービスが既に動作しています"
@@ -33,12 +33,12 @@ msgstr "\"%s\" 用のサムネイラはありません"
 msgid "The thumbnailer service is shutting down"
 msgstr "サムネイラサービスを終了しています"
 
-#: ../tumblerd/tumbler-service.c:760
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "他の一般サムネイラが既に動作しています"
 
-#: ../tumblerd/tumbler-service.c:878
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "サポートしていないサムネイルフレーバーが要求されました"
 
@@ -51,68 +51,67 @@ msgstr "特殊サムネイラの呼び出しに失敗しました: タイムア�
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "特殊サムネイラの呼び出しに失敗しました: %s"
 
-#: ../tumblerd/tumbler-manager.c:468 ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:489
+#: ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "ファイル \"%s\" の読み込みに失敗しました: %s"
 
-#: ../tumblerd/tumbler-manager.c:486 ../tumblerd/tumbler-manager.c:500
-#: ../tumblerd/tumbler-manager.c:514
+#: ../tumblerd/tumbler-manager.c:507
+#: ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: %3$s"
 
-#: ../tumblerd/tumbler-manager.c:527
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr ""
-"ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: セクション名と "
-"UriScheme/MimeType が一致しません"
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: セクション名と UriScheme/MimeType が一致しません"
 
-#: ../tumblerd/tumbler-manager.c:887 ../tumblerd/tumbler-manager.c:901
-#: ../tumblerd/tumbler-manager.c:915
+#: ../tumblerd/tumbler-manager.c:908
+#: ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "ファイル \"%s\" は不正な形式です: %s"
 
-#: ../tumblerd/tumbler-manager.c:941
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "\"%s\" の最終変更日時の決定に失敗しました"
 
-#: ../tumblerd/tumbler-manager.c:1854
+#: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "他のサムネイルマネージャが既に動作しています"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler サムネイルサービス"
 
-#: ../tumblerd/main.c:93
+#: ../tumblerd/main.c:98
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus セッションバスへの接続に失敗しました: %s"
 
-#: ../tumblerd/main.c:108
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "サムネイルキャッシュサービスの起動に失敗しました: %s"
-
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:156
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "特殊サムネイラのレジストリへの読み込みに失敗しました: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:173
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "サムネイルキャッシュサービスの起動に失敗しました: %s"
+
+#: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "サムネイルマネージャの起動に失敗しました: %s"
 
-#: ../tumblerd/main.c:194
+#: ../tumblerd/main.c:207
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "サムネイラサービスの起動に失敗しました: %s"
@@ -160,6 +159,7 @@ msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -226,10 +226,11 @@ msgstr "キャラクタマップを設定できませんでした: %s"
 msgid "Could not render glyphs: %s"
 msgstr "グリフをレンダリングできませんでした: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ファイル内容からサムネイルを推測できませんでした"
@@ -259,13 +260,27 @@ msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Initializing the Tumbler Font Thumbnailer plugin"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "ドキュメントは空です"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "ドキュメントの最初のページを読み込めませんでした"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "ローカルファイルのみサポートされます"
+
+# DEBUG message
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Initializing the Tumbler Font Thumbnailer plugin"
+
+# DEBUG message
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
