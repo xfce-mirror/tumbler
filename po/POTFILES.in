@@ -33,6 +33,8 @@ plugins/jpeg-thumbnailer/jpeg-thumbnailer-provider.c
 plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c
 plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c
 plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-provider.c
+plugins/odf-thumbnailer/odf-thumbnailer-plugin.c
+plugins/odf-thumbnailer/odf-thumbnailer.c
 plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c
 plugins/poppler-thumbnailer/poppler-thumbnailer.c
 plugins/raw-thumbnailer/raw-thumbnailer.c
