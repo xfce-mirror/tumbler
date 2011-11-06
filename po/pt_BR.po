@@ -2,19 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Sérgio Cipolla <secipolla@gmail.com>, 2011.
-# 
+# Michael Martins <michaelfm21@gmail.com>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-04 23:04+0000\n"
+"POT-Creation-Date: 2011-11-05 23:04+0000\n"
 "PO-Revision-Date: 2011-05-31 16:51-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
@@ -160,6 +161,7 @@ msgstr "Falhou ao carregar o plugin \"%s\": %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
@@ -226,6 +228,8 @@ msgstr "Não foi possível renderizar os glifos: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
@@ -246,6 +250,16 @@ msgstr "Iniciando o plugin gerador de miniaturas de vídeo ffmpeg do Tumbler"
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Encerrando o plugin gerador de miniaturas de vídeo ffmpeg do Tumbler"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+#, fuzzy
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Iniciando o plugin gerador de miniaturas de fontes do Tumbler"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+#, fuzzy
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Encerrando o plugin gerador de miniaturas de fontes do Tumbler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
