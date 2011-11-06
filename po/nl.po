@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-04 11:03+0000\n"
+"POT-Creation-Date: 2011-11-06 11:04+0000\n"
 "PO-Revision-Date: 2011-09-07 12:41+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -159,6 +159,7 @@ msgstr "Kon plugin \"%s\" niet laden: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
@@ -225,6 +226,8 @@ msgstr "Kon geen accenten weergeven: %s"
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
@@ -245,6 +248,14 @@ msgstr "Bezig met starten van de Tumbler ffmpeg video miniatuurmaker-plugin"
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Bezig met afsluiten van de Tumbler ffmpeg miniatuurmaker-plugin"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Bezig met opstarten van de Tumbler ODF Miniatuurmaker-plugin"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Bezig met afsluiten van de Tumbler ODF Miniatuurmaker-plugin"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
