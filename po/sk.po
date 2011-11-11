@@ -2,23 +2,24 @@
 # Copyright (C) 2010 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Tomáš Vadina <kyberdev@gmail.com>, 2011.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-15 10:06+0000\n"
+"POT-Creation-Date: 2011-11-11 05:04+0000\n"
 "PO-Revision-Date: 2011-07-18 08:30+0100\n"
 "Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
-#: ../tumblerd/tumbler-cache-service.c:416
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Už je spustená iná služba medzipamäte náhľadov"
@@ -27,91 +28,97 @@ msgstr "Už je spustená iná služba medzipamäte náhľadov"
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Pre položku \"%s\" nie je dostupný žiadny nástroj pre vytváranie náhľadov"
+msgstr ""
+"Pre položku \"%s\" nie je dostupný žiadny nástroj pre vytváranie náhľadov"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
 msgstr "Služba vytvárania náhľadov sa vypína"
 
-#: ../tumblerd/tumbler-service.c:760
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Už je spustený iný nástroj pre vytváranie náhľadov"
 
-#: ../tumblerd/tumbler-service.c:878
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Bola vyžiadaná nepodporovaná metóda náhľadov"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Volanie špecializovaného nástroja pre vytváranie náhľadov zlyhalo: časový limit vypršal"
+msgstr ""
+"Volanie špecializovaného nástroja pre vytváranie náhľadov zlyhalo: časový "
+"limit vypršal"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Volanie špecializovaného nástroja pre vytváranie náhľadov zlyhalo: %s"
 
-#: ../tumblerd/tumbler-manager.c:468
-#: ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Načítanie súboru \"%s\" zlyhalo: %s"
 
-#: ../tumblerd/tumbler-manager.c:486
-#: ../tumblerd/tumbler-manager.c:500
-#: ../tumblerd/tumbler-manager.c:514
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Poškodená oblasť \"%s\" v súbore \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:527
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "Poškodená oblasť \"%s\" v súbore \"%s\": Názov oblasti sa nezhoduje so schémou URI alebo typom MIME"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Poškodená oblasť \"%s\" v súbore \"%s\": Názov oblasti sa nezhoduje so "
+"schémou URI alebo typom MIME"
 
-#: ../tumblerd/tumbler-manager.c:887
-#: ../tumblerd/tumbler-manager.c:901
-#: ../tumblerd/tumbler-manager.c:915
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Poškodený súbor \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:941
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Zistenie času poslednej zmeny položky \"%s\" zlyhalo"
 
-#: ../tumblerd/tumbler-manager.c:1854
+#: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Už je spustený iný správca nástroja pre vytváranie náhľadov"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Služba vytvárania náhľadov Tumbler"
 
-#: ../tumblerd/main.c:93
+#: ../tumblerd/main.c:98
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Pripojenie k relácii zbernice D-Bus zlyhalo: %s"
 
-#: ../tumblerd/main.c:108
+#: ../tumblerd/main.c:156
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr ""
+"Načítanie špecializovaných nástrojov pre vytváranie náhľadov do registra "
+"zlyhalo: %s"
+
+#: ../tumblerd/main.c:173
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Spustenie služby medzipamäte náhľadov zlyhalo: %s"
 
-#: ../tumblerd/main.c:158
-#, c-format
-msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Načítanie špecializovaných nástrojov pre vytváranie náhľadov do registra zlyhalo: %s"
-
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Spustenie správcu nástroja pre vytváranie náhľadov zlyhalo: %s"
 
-#: ../tumblerd/main.c:194
+#: ../tumblerd/main.c:207
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Spustenie služby nástroja pre vytváranie náhľadov zlyhalo: %s"
@@ -158,7 +165,9 @@ msgstr "Načítanie zásuvného modulu \"%s\" zlyhalo: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -219,10 +228,13 @@ msgstr "Nie je možné nastaviť mapu znakov: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nie je možné vykresliť piktogramy: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Odvodenie náhľadu z obsahu súboru nie je možné vykonať"
@@ -243,17 +255,37 @@ msgstr "Inicializácia zásuvného modulu Tumbler ffmpeg video thumbnailer"
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Vypínanie zásuvného modulu Tumbler ffmpeg video thumbnailer"
 
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Inicializácia zásuvného modulu Tumbler ODF Thumbnailer"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Vypínanie zásuvného modulu Tumbler ODF Thumbnailer"
+
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Inicializácia zásuvného modulu Tumbler Poppler PDF/PS Thumbnailer"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "Dokument je prázdny"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "Nie je možné načítať prvú stranu dokumentu"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Podporované sú len mieste súbory"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Inicializácia zásuvného modulu Tumbler RAW Thumbnailer"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Vypínanie zásuvného modulu Tumbler RAW Thumbnailer"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -267,4 +299,3 @@ msgstr "Inicializácia zásuvného modulu Tumbler XDG cache"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Vypínanie zásuvného modulu Tumbler XDG cache"
-
