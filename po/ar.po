@@ -2,26 +2,26 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-23 22:06+0000\n"
+"POT-Creation-Date: 2011-11-11 11:04+0000\n"
 "PO-Revision-Date: 2011-08-24 03:17-0000\n"
 "Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
 "Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: MOROCCO\n"
 "Language: ar\n"
 "X-Poedit-Language: Arabic\n"
-"X-Poedit-Country: MOROCCO\n"
 
-#: ../tumblerd/tumbler-cache-service.c:416
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "هنالك تطبيق مصغرات المخبأة أخر يعمل حاليا"
+msgstr "هناك تطبيق مصغرات مخبأة أخر يعمل حاليا"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
@@ -33,12 +33,12 @@ msgstr "لا تتوفر مصغرات لـ \"%s\""
 msgid "The thumbnailer service is shutting down"
 msgstr "تم إقاف خدمة المصغرات"
 
-#: ../tumblerd/tumbler-service.c:760
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "هنالك تطبيق مصغرات أخر يعمل حاليا"
 
-#: ../tumblerd/tumbler-service.c:878
+#: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
 msgstr "طلب صفة مصغرات غير مدعومة"
 
@@ -51,67 +51,67 @@ msgstr "فشل إتصال بمصغرات المتخصصة: إنتهاء المه
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "فشل إستدعاء مصغرات متخصصة: %s"
 
-#: ../tumblerd/tumbler-manager.c:468
-#: ../tumblerd/tumbler-manager.c:874
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "فشل تحميل الملف \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:486
-#: ../tumblerd/tumbler-manager.c:500
-#: ../tumblerd/tumbler-manager.c:514
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "قسم مشوه \"%s\" في الملف \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:527
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "قسم تالف \"%s\" في الملف \"%s\": عدم تطابق إسم القسم و UriScheme/MimeType"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"قسم تالف \"%s\" في الملف \"%s\": عدم تطابق إسم القسم و UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:887
-#: ../tumblerd/tumbler-manager.c:901
-#: ../tumblerd/tumbler-manager.c:915
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "ملف مشوه \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:941
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "فشل تحديد أخر مرة تم التعديل \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1854
+#: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "مدير مصغرات أخر يعمل حاليا"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "خدمة مصغرات Tumbler"
 
-#: ../tumblerd/main.c:93
+#: ../tumblerd/main.c:98
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "فشل إتصال بجلسة D-Bus: %s"
 
-#: ../tumblerd/main.c:108
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "فشل بدء خدمة مصغرات المخباة: %s"
-
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:156
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "فشل تحميل مصغرات المتخصصة داخل السجل: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:173
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "فشل بدء خدمة مصغرات المخباة: %s"
+
+#: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "فشل بدء مدير المصغرات: %s"
 
-#: ../tumblerd/main.c:194
+#: ../tumblerd/main.c:207
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "فشل بدء خدمة مصغرات: %s"
@@ -158,7 +158,9 @@ msgstr "فشل نحميل الملحق \"%s\": %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
@@ -219,10 +221,13 @@ msgstr "لا يمكن تعيين خريطة المحارف: %s"
 msgid "Could not render glyphs: %s"
 msgstr "لا يمكن تصير الرموز: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "المصغرات لا يمكن أن تستدل بمحتويات الملف"
@@ -243,17 +248,37 @@ msgstr "بدء ملحق مصغرات الفيديو Tumbler ffmpeg"
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "إيقاف ملحق مصغرات الفيديو Tumbler ffmpeg"
 
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr ""
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr ""
+
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "بدء ملحق مصغرات Tumbler Poppler PDF/PS"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:304
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "الوثيقة فارغة"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:316
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "الصفحة الأولة من الوثيقة لايمكن أن تقرأ"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "دعم الملفات المحلية فقط"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr ""
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -267,4 +292,3 @@ msgstr "بدء ملحق مخبات Tumbler XDG"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "إيقاف ملحق مخبات Tumbler XDG"
-
