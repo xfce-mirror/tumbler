@@ -178,22 +178,21 @@ msgstr "Incompatibilité de versions: %s"
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
 msgstr ""
-"Initialisation de l'extension Tumbler générant des miniatures de polices de "
-"caractères"
+"Initialisation de l'extension Tumbler générant des miniatures avec GStreamer"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
 msgstr ""
-"Arrêt de l'extension Tumbler générant des miniatures de polices de caractères"
+"Arrêt de l'extension Tumbler générant des miniatures avec GStreamer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Initialisation de l'extension Tumbler générant des miniatures Pixbuf"
+msgstr "Initialisation de l'extension Tumbler générant des miniatures avec Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Arrêt de l'extension Tumbler générant des miniatures Pixbuf"
+msgstr "Arrêt de l'extension Tumbler générant des miniatures avec Pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
@@ -268,18 +267,17 @@ msgstr ""
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr ""
 "Arrêt de l'extension Tumbler générant des miniatures pour les vidéos avec "
-"ffmpego"
+"ffmpeg"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
 msgstr ""
-"Initialisation de l'extension Tumbler générant des miniatures de polices de "
-"caractères"
+"Initialisation de l'extension Tumbler générant des miniatures ODF"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
 msgstr ""
-"Arrêt de l'extension Tumbler générant des miniatures de polices de caractères"
+"Arrêt de l'extension Tumbler générant des miniatures ODF"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
@@ -302,13 +300,12 @@ msgstr "Seuls les fichiers locaux sont supportés"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
 msgstr ""
-"Initialisation de l'extension Tumbler générant des miniatures de polices de "
-"caractères"
+"Initialisation de l'extension Tumbler générant des miniatures RAW"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
 msgstr ""
-"Arrêt de l'extension Tumbler générant des miniatures de polices de caractères"
+"Arrêt de l'extension Tumbler générant des miniatures RAW"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
