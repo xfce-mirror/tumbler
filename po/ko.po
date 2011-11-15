@@ -252,14 +252,12 @@ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "텀블러 ffmpeg 비디오 섬네일러 플러그인 종료 중"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-#, fuzzy
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "텀블러 글꼴 섬네일러 플러그인 초기화 중"
+msgstr "텀블러 ODF 섬네일러 플러그인 초기화 중"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-#, fuzzy
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "텀블러 글꼴 섬네일러 플러그인 종료 중"
+msgstr "텀블러 ODF 섬네일러 플러그인 종료 중"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
@@ -278,14 +276,12 @@ msgid "Only local files are supported"
 msgstr "로컬 파일만 지원합니다"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "텀블러 글꼴 섬네일러 플러그인 초기화 중"
+msgstr "텀블러 RAW 섬네일러 플러그인 초기화 중"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "텀블러 글꼴 섬네일러 플러그인 종료 중"
+msgstr "텀블러 RAW 섬네일러 플러그인 종료 중"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
