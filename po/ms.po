@@ -1,0 +1,294 @@
+# # Malay translation of the tumbler package.
+# # Copyright (C) YEAR THE tumbler'S COPYRIGHT HOLDER
+# # This file is distributed under the same license as the tumbler package.
+# Puretech <terjemah.puretech@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-18 13:56+0000\n"
+"PO-Revision-Date: 2011-11-19 02:04+0800\n"
+"Last-Translator: Puretech <terjemah.puretech@gmail.com>\n"
+"Language-Team: Malay <>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: ../tumblerd/tumbler-cache-service.c:413
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "Perkhidmatan cache lakaran kecil lain telah pun berjalan"
+
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Tiada lakaran kecil didapati untuk \"%s\""
+
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "Servis lakaran kecil sedang ditutup"
+
+#: ../tumblerd/tumbler-service.c:758
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "Perkhidmatan generik lakaran kenit lain telah pun berjalan"
+
+#: ../tumblerd/tumbler-service.c:867
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Meminta lakaran kecil yang tidak disokong"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Gagal memanggil lakaran.kecil khas: masa tamat"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Gagal memanggil lakaran.kecil khas: %s"
+
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "Gagal memuatkan fail \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "Seksyen cacat \"%s\" dalam fail \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:548
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"Seksyen cacat \"%s\" dalam fail \"%s\": Tidak sepadan antara nama seksyen "
+"dan UriScheme/MimeType"
+
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "Fail cacat \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:962
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "Gagal untuk menentukan masa terakhir ubahsuai \"%s\""
+
+#: ../tumblerd/tumbler-manager.c:1863
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "Pengurus lakaran kecil lain sedang berjalan"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:83
+msgid "Tumbler Thumbnailing Service"
+msgstr "Servis Lakaran Kecil Tumbler"
+
+#: ../tumblerd/main.c:98
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "Gagal menyambung ke sesi bus D-Bus: %s"
+
+#: ../tumblerd/main.c:156
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Gagal memuatkan lakaran kecil khas ke dalam daftar: %s"
+
+#: ../tumblerd/main.c:173
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Gagal memulakan servis cache lakaran kecil: %s"
+
+#: ../tumblerd/main.c:190
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "Gagal memulakan pengurus lakaran kecil: %s"
+
+#: ../tumblerd/main.c:207
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "Gagal memulakan servis lakaran kecil: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Format tidak sah"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "Ruang warna RGB"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Cache plugin \"%s\" kekurangan simbol yang diperlukan"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Gagal memuatkan cache plugin \"%s\": %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Fail \"%s\" juga merupakan lakaran kecil"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Plugin \"%s\" kekurangan simbol yang diperlukan"
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "Gagal memuatkan plugin \"%s\": %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Versi tidak sepadan: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Memulakan plugin GStreamer Thumbnailer Tumbler"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Menutup plugin GStreamer Thumbnailer Tumbler"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Memulakan plugin Pixbuf Thumbnailer Tumbler"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Menutup plugin Pixbuf Thumbnailer Tumbler"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Memulakan plugin Fon Thumbnailer Tumbler"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "Menutup plugin Fon Thumbnailer Tumbler"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Tidak dapat memulakan freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Tidak dapat memuatkan kandungan fail: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Tidak dapat membuka fail fon: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Tidak dapat menetapkan peta aksara: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Tidak dapat membentuk glyphs: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Lakaran kecil tidak boleh ditakbir daripada kandungan fail"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Memulakan plugin JPEG Thumbnailer Tumbler"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Menutup plugin JPEG Thumbnailer Tumbler"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Memulakan plugin ffmpeg video thumbnailer Tumbler"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Menutup plugin ffmpeg video thumbnailer Tumbler"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Memulakan plugin ODF Thumbnailer Tumbler"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Menutup plugin ODF Thumbnailer Tumbler"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Memulakan plugin Poppler PDF/PS Thumbnailer Tumbler"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+msgid "The document is empty"
+msgstr "Dokumen adalah kosong."
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+msgid "First page of the document could not be read"
+msgstr "Halaman pertama dokumen tidak dapat dibaca"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Hanya fail tempatan disokong"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Memulakan cache plugin RAW Thumbnailer Tumbler"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Menutup plugin RAW Thumbnailer Tumbler"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Tidak dapat menyimpan lakaran kecil ke \"%s\""
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "Memulakan cache plugin XDG Tumbler"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "Menutup cache plugin XDG Tumbler"
