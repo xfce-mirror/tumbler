@@ -229,8 +229,18 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (stream == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
-      g_error_free (error);
+      if (error != NULL)
+        {
+          g_signal_emit_by_name (thumbnailer, "error", uri, error->code,
+                                 error->message);
+          g_error_free (error);
+        }
+      else
+        {
+          g_signal_emit_by_name (thumbnailer, "error", uri, 0,
+                                 "Failed to open pixbuf stream");
+        }
+
       return;
     }
 
@@ -247,8 +257,18 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (pixbuf == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
-      g_error_free (error);
+      if (error != NULL)
+        {
+          g_signal_emit_by_name (thumbnailer, "error", uri, error->code,
+                                 error->message);
+          g_error_free (error);
+        }
+      else
+        {
+          g_signal_emit_by_name (thumbnailer, "error", uri, 0,
+                                 "Failed to create pixbuf from stream");
+        }
+
       g_object_unref (thumbnail);
       return;
     }
