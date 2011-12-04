@@ -615,6 +615,19 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
 
           if (info_ptr)
             {
+#ifdef PNG_SETJMP_SUPPORTED
+              if (setjmp (png_jmpbuf (png_ptr)))
+                {
+                  /* finalize the PNG reader */
+                  png_destroy_read_struct (&png_ptr, &info_ptr, NULL);
+
+                  /* close the PNG file handle */
+                  fclose (png);
+
+                  return FALSE;
+                }
+#endif
+
               /* initialize reading from the file and read the file info */
               png_init_io (png_ptr, png);
               png_read_info (png_ptr, info_ptr);
