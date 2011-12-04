@@ -237,7 +237,7 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
         }
       else
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri, 0,
+          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
                                  "Failed to open pixbuf stream");
         }
 
@@ -265,7 +265,7 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
         }
       else
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri, 0,
+          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
                                  "Failed to create pixbuf from stream");
         }
 
