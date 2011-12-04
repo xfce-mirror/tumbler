@@ -1,10 +1,19 @@
-0.1.xx
+0.1.23
 ======
 - Fix generation of video images by starting the pipeline (bug #7996).
 - Fix ownership race conditions when started twice (bug #8001).
 - Add an ODF thumbnailer plugin.
 - Add support for OpenRaster images in the ODF thumbnailer (bug #6108).
 - Add a raw image thumbnailer plugin.
+- Drop AC_PROG_LIBTOOL in favor of LT_PREREQ and LT_INIT.
+- Don't crash on 0x0 errors (bug #8142).
+- Exit the xdg thumbnailer nicely with corrupt png files.
+- Avoid huge thumbnails from libjpeg (bug #8020).
+- Optimize the pixbuf thumbnailer.
+- Translation updates: Icelandic, Turkish, Malay, Hungarian, Korean,
+  Chinese (Taiwan), Arabic, Danish, Slovak, Ukrainian, Russian,
+  Italian, Japanese, Portuguese (Brazilian), Basque, Hungarian,
+  Dutch (Flemish), Chinese (China), French.
 
 0.1.22
 ======
