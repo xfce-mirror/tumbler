@@ -1,22 +1,22 @@
 # translation of tumbler.master.tumbler.po to Icelandic
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Sveinn í Felli <sveinki@nett.is>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler.master.tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-03 02:00+0000\n"
+"POT-Creation-Date: 2011-12-05 03:00+0000\n"
 "PO-Revision-Date: 2011-12-03 08:10+0000\n"
 "Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Language: \n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -54,7 +54,7 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr ""
+msgstr "Mistókst að hlaða inn skránna \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
@@ -73,7 +73,7 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr ""
+msgstr "Gölluð skrá \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
@@ -150,7 +150,7 @@ msgstr ""
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr ""
+msgstr "Mistókst að hlaða inn viðbætu"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
@@ -206,7 +206,7 @@ msgstr ""
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr ""
+msgstr "Mistókst að opna letur skrá: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
@@ -261,7 +261,7 @@ msgstr ""
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
-msgstr ""
+msgstr "Skrá er tóm"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
@@ -291,4 +291,3 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr ""
-
