@@ -1,6 +1,7 @@
-# simplified Chinese translations for tumbler package
-# Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the tumbler package.
+# Simplified Chinese translations for
+# the tumbler package.
+# This file is distributed under the same license as
+# the tumbler package.
 # Hunt Xu <huntxu@live.cn>, 2009, 2010.
 # Chipong Luo <chipong_l@yahoo.com, 2011.
 #
@@ -11,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2011-11-25 16:20+0000\n"
 "PO-Revision-Date: 2010-11-23 23:13+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
-"Language-Team: Chinese (simplified) <xfce-i18n@xfce.org>\n"
+"Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
