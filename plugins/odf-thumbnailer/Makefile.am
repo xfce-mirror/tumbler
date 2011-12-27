@@ -41,6 +41,7 @@ tumbler_odf_thumbnailer_la_CFLAGS =					\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(GSF_CFLAGS)							\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_odf_thumbnailer_la_LDFLAGS =					\

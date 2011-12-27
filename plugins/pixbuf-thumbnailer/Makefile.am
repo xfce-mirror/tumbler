@@ -40,6 +40,7 @@ tumbler_pixbuf_thumbnailer_la_CFLAGS =					\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_pixbuf_thumbnailer_la_LDFLAGS =					\

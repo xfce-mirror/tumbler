@@ -83,7 +83,8 @@ libtumbler_1_la_CFLAGS =						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(GTHREAD_CFLAGS)						\
-	$(PLATFORM_CFLAGS)
+	$(PLATFORM_CFLAGS)						\
+	$(PLATFORM_CPPFLAGS)
 
 libtumbler_1_la_LDFLAGS =						\
 	-no-undefined							\

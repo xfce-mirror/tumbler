@@ -41,6 +41,7 @@ tumbler_font_thumbnailer_la_CFLAGS =					\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(FREETYPE_CFLAGS)						\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_font_thumbnailer_la_LDFLAGS =					\

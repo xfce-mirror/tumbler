@@ -41,6 +41,7 @@ tumbler_ffmpeg_thumbnailer_la_CFLAGS =					\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(FFMPEGTHUMBNAILER_CFLAGS)					\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_ffmpeg_thumbnailer_la_LDFLAGS =					\

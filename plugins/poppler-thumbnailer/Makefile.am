@@ -41,6 +41,7 @@ tumbler_poppler_thumbnailer_la_CFLAGS =					\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(POPPLER_GLIB_CFLAGS)						\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_poppler_thumbnailer_la_LDFLAGS =				\

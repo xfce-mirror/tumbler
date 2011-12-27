@@ -40,6 +40,7 @@ tumbler_xdg_cache_la_CFLAGS =						\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)						\
 	$(PNG_CFLAGS)
 

@@ -41,6 +41,7 @@ tumbler_raw_thumbnailer_la_CFLAGS =					\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(LIBOPENRAW_GNOME_CFLAGS)					\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_raw_thumbnailer_la_LDFLAGS =					\

@@ -41,6 +41,7 @@ tumbler_jpeg_thumbnailer_la_CFLAGS =					\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(LIBJPEG_CFLAGS)						\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_jpeg_thumbnailer_la_LDFLAGS =					\

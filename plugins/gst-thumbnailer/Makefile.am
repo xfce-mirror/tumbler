@@ -43,6 +43,7 @@ tumbler_gst_thumbnailer_la_CFLAGS =					\
 	$(GSTREAMER_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
+	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
 tumbler_gst_thumbnailer_la_LDFLAGS =					\

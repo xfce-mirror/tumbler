@@ -62,10 +62,13 @@ tumblerd_CFLAGS =							\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
-	$(GTHREAD_CFLAGS)
+	$(GTHREAD_CFLAGS)						\
+	$(PLATFORM_CFLAGS)						\
+	$(PLATFORM_CPPFLAGS)
 
 tumblerd_LDFLAGS =							\
-	-no-undefined
+	-no-undefined							\
+	$(PLATFORM_LDFLAGS)
 
 tumblerd_DEPENDENCIES =							\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
