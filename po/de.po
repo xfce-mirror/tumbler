@@ -3,7 +3,8 @@
 # Copyright (C) 2010 Jannis Pohlmann
 # This file is distributed under the same license as the tumbler package.
 # Fabian Nowak <timystery@arcor.de>, 2010.
-# Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010.
+# Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010
+# Thomas Schütz <xfce@thschuetz.de>, 2012
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-02 15:00+0000\n"
 "PO-Revision-Date: 2010-11-24 01:36+0100\n"
-"Last-Translator: Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>\n"
+"Last-Translator: Thomas Schütz <xfce@thschuetz.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
