@@ -256,12 +256,12 @@ msgstr "Beende das ffmpeg-Plugin für Videovorschaubilder"
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
 #, fuzzy
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Starte das Plugin für Schriftvorschau"
+msgstr "Das Tumbler ODF-Vorschaubildplugin wird gestartet."
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
 #, fuzzy
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Beende das Plugin für Schriftvorschau"
+msgstr "Das Tumbler ODF-Vorschaubildplugin wird beendet."
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
@@ -283,12 +283,12 @@ msgstr "Es werden nur lokale Dateien unterstützt"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 #, fuzzy
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Starte das Plugin für Schriftvorschau"
+msgstr "Das Tumbler RAW-Vorschaubildplugin wird gestartet."
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 #, fuzzy
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Beende das Plugin für Schriftvorschau"
+msgstr "Das Tumbler RAW-Vorschaubildplugin wird beendet."
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
