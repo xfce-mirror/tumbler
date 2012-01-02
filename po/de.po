@@ -45,7 +45,6 @@ msgid "Unsupported thumbnail flavor requested"
 msgstr "Nicht unterstützte Vorschaubildart angefordert"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
-#, fuzzy
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr ""
 "Konnte den spezialisierten Vorschaubildersteller nicht aufrufen: Timeout"
