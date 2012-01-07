@@ -1,0 +1,295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-01-07 17:00+0000\n"
+"PO-Revision-Date: 2012-01-08 00:11+0100\n"
+"Last-Translator: Eivind Ødegård <gingermi@yahoo.no>\n"
+"Language-Team: nn_NO <i18n-nn@lister.ping.uio.no>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Norwegian Nynorsk\n"
+"X-Poedit-Country: NORWAY\n"
+
+#: ../tumblerd/tumbler-cache-service.c:413
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "Ei anna mellomlagertenest for småbilete køyrer"
+
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Det finst ikkje noko småbilete-innstikk for «%s»"
+
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "Småbiletetenesta avsluttar"
+
+#: ../tumblerd/tumbler-service.c:758
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "Eit anna småbilete-program køyrer allereie"
+
+#: ../tumblerd/tumbler-service.c:867
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Spurde etter ikkje støtta småbiletetype"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Klarte ikkje kalla opp den spesielle småbiletelagaren: tidsavbrot"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Klarte ikkje kalla opp den spesielle småbiletelagaren: %s"
+
+#: ../tumblerd/tumbler-manager.c:489
+#: ../tumblerd/tumbler-manager.c:895
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "Klarte ikkje å lasta fila «%s»: %s"
+
+#: ../tumblerd/tumbler-manager.c:507
+#: ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "Feilforma del «%s» i fila «%s»: %s"
+
+#: ../tumblerd/tumbler-manager.c:548
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
+msgstr "Feilforma avdeling «%s» i fila «%s»: Ikkje samsvar mellom avdelingsnamnet og UriScheme/MimeType"
+
+#: ../tumblerd/tumbler-manager.c:908
+#: ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "Feilforma fil «%s»: %s"
+
+#: ../tumblerd/tumbler-manager.c:962
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "Greidde ikkje finna ut når «%s» vart endra sist"
+
+#: ../tumblerd/tumbler-manager.c:1863
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "Ein annan småbilete-handterar køyrer allereie"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:83
+msgid "Tumbler Thumbnailing Service"
+msgstr "Tumbler småbilete-tenest"
+
+#: ../tumblerd/main.c:98
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "Klarte ikkje kopla til D-bus-øktbussen: %s"
+
+#: ../tumblerd/main.c:156
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Greidde ikkje lasta spesielle småbiletelagarar til registeret: %s"
+
+#: ../tumblerd/main.c:173
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Klarte ikkje setja i gang småbilete-mellomlagertenesta: %s"
+
+#: ../tumblerd/main.c:190
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "Klarte ikkje starta småbilete-handteraren: %s"
+
+#: ../tumblerd/main.c:207
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "Klarte ikkje starta småbilete-tenesta: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Ugyldig format"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "RGB-fargerom"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Mellomlagerinnstikket «%s» manglar symbola det treng"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Klarte ikkje lagra mellomlagerinnstikket «%s»: %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Fila «%s» er eit småbilete sjølv"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Innstikket «%s» manglar symbol."
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "Klarte ikkje å lasta innstikket «%s»: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Versjonane stemmer ikkje: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Set i gang småbilete-innstikket Tumbler GStreamer"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Avsluttar småbilete-innstikket Tumbler GStreamer"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Set i gang småbilete-innstikket Tumbler Pixbuf"
+
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+msgstr "Avsluttar småbilete-innstikket Tumbler Pixbuf"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Font Thumbnailer plugin"
+msgstr "Set i gang skrifttype-innstikket Tumbler Font"
+
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+msgstr "Avsluttar skrifttype-innstikket Tumbler Font"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Klarte ikkje setja i gang freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Klarte ikkje lasta filinnhald: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Klarte ikkje opna skriftfil: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Klarte ikkje setja teiknkartet: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Klarte ikkje teikna glyffar: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Klarte ikkje finna ut småbiletet ut frå filinnhaldet"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+msgstr "Set i gang småbilete-innstikket Tumbler JPEG"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+msgstr "Avsluttar småbilete-innstikket Tumbler JPEG"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
+msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Set i gang video-småbiletinnstikket Tumbler ffmpeg"
+
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
+msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+msgstr "Avsluttar video-småbiletinnstikket Tumbler ffmpeg"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Set i gang småbilete-innstikket Tumbler ODF"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Avsluttar småbilete-innstikket Tumbler ODF"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+msgstr "Set o gamg småbilete-innstikket Tumbler Poppler PDF/PS"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+msgid "The document is empty"
+msgstr "Dokumentet er tomt"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+msgid "First page of the document could not be read"
+msgstr "Klarte ikkje lesa fyrste sida av dokumentet"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Berre lokale filer er støtta"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Set i gang småbilete-innstikket Tumbler RAW"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Avsluttar småbilete-innstikket Tumbler RAW"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Greidde ikkje lagra småbiletet til «%s»"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
+msgid "Initializing the Tumbler XDG cache plugin"
+msgstr "Set i gang mellomlager-innstikket Tumbler XDG"
+
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
+msgid "Shutting down the Tumbler XDG cache plugin"
+msgstr "Avsluttar mellomlager-innstikket Tumbler XDG"
+
