@@ -245,32 +245,26 @@ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
 msgstr "Die Tumbler JPEG-Vorschaubilderweiterung wird gestartet"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
 msgstr "Die Tumbler JPEG-Vorschaubilderweiterung wird beendet"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-#, fuzzy
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Die Tumbler ffmpeg-Video-Vorschaubilderweiterung wird gestartet"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-#, fuzzy
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Die Tumbler ffmpeg-Video-Vorschaubilderweiterung wird beendet"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-#, fuzzy
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Die Tumbler ODF-Vorschaubilderweiterung wird gestartet."
+msgstr "Die Tumbler ODF-Vorschaubilderweiterung wird gestartet"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-#, fuzzy
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Die Tumbler ODF-Vorschaubilderweiterung wird beendet."
+msgstr "Die Tumbler ODF-Vorschaubilderweiterung wird beendet"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Die Tumbler Poppler-PDF/PS-Vorschaubilderweiterung wird gestartet"
 
@@ -283,31 +277,26 @@ msgid "First page of the document could not be read"
 msgstr "Erste Seite des Dokuments konnte nicht gelesen werden"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
-#, fuzzy
 msgid "Only local files are supported"
-msgstr "Es werden nur lokale Dateien unterstützt"
+msgstr "Nur lokale Dateien werden unterstützt"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Die Tumbler RAW-Vorschaubilderweiterung wird gestartet."
+msgstr "Die Tumbler RAW-Vorschaubilderweiterung wird gestartet"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Die Tumbler RAW-Vorschaubilderweiterung wird beendet."
+msgstr "Die Tumbler RAW-Vorschaubilderweiterung wird beendet"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Vorschaubild konnte nicht nach »%s« gespeichert werden"
+msgstr "Vorschaubild konnte nicht nach  »%s« gespeichert werden"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-#, fuzzy
 msgid "Initializing the Tumbler XDG cache plugin"
 msgstr "Die Tumbler XDG-Cache-Erweiterung wird gestartet"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-#, fuzzy
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Die Tumbler XDG-Cache-Erweiterung wird beendet"
