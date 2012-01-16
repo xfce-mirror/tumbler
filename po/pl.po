@@ -2,23 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Piotr Sokół <psokol@jabster.pl>, 2011.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: thumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2012-01-16 03:12+0000\n"
 "PO-Revision-Date: 2011-01-10 16:16+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n"
-"%100<10 || n%100>=20)) ? 1 : 2));\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2));\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr ""
@@ -29,7 +28,11 @@ msgstr ""
 msgid "No thumbnailer available for \"%s\""
 msgstr "Brak usługi dostarczania miniatur dla „%s”"
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr ""
+
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr ""
@@ -47,66 +50,66 @@ msgstr ""
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Nie udało się wczytać pliku „%s”: %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Niepoprawna sekcja „%s” w pliku „%s”: %s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Niepoprawny plik „%s”: %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Nie udało się określić czasu ostatniej modyfikacji pliku „%s”"
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Inny menedżer dostarczania miniatur jest już uruchomiony"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Usługa dostarczania miniatur Tumbler"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:98
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Nie udało się połączyć z sesją systemu D-Bus: %s"
 
-#: ../tumblerd/main.c:90
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
-
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:156
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:173
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr ""
+
+#: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Nie udało się uruchomić menedżera dostarczania miniatur: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:207
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Nie udało się uruchomić usługi dostarczania miniatur: %s"
@@ -148,15 +151,26 @@ msgstr ""
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Nie udało się wczytać wtyczki „%s”: %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
-msgstr ""
+msgstr "Niezgodna wersja: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Inicjowanie wtyczki czcionek usługi dostarczania miniatur"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Kończenie działania wtyczki czcionek usługi dostarczania miniatur"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -168,7 +182,6 @@ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
 msgstr "Kończenie działania wtyczki Pixbuf usługi dostarczania miniatur"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
 msgstr "Inicjowanie wtyczki czcionek usługi dostarczania miniatur"
 
@@ -178,7 +191,7 @@ msgstr "Kończenie działania wtyczki czcionek usługi dostarczania miniatur"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "Could not initialize freetype: %s"
 msgstr "Nie można zainicjować modułu freetype: %s"
 
@@ -196,7 +209,7 @@ msgstr "Nie można otworzyć pliku czcionki: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
-#, fuzzy, c-format
+#, c-format
 msgid "Could not set the character map: %s"
 msgstr "Nie można ustawić mapy znaków: %s"
 
@@ -206,10 +219,13 @@ msgstr "Nie można ustawić mapy znaków: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nie można zrenderować glifu: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""
@@ -230,17 +246,41 @@ msgstr "Inicjowanie wtyczki wideo ffmpeg usługi dostarczania miniatur"
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Kończenie działania wtyczki wideo ffmpeg usługi dostarczania miniatur"
 
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+#, fuzzy
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Inicjowanie wtyczki czcionek usługi dostarczania miniatur"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+#, fuzzy
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Kończenie działania wtyczki czcionek usługi dostarczania miniatur"
+
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Inicjowanie wtyczki Poppler PDF/PS usługi dostarczania miniatur"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "Dokument jest pusty"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "Nie można odczytać pierwszej strony dokumentu"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr ""
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+#, fuzzy
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Inicjowanie wtyczki czcionek usługi dostarczania miniatur"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+#, fuzzy
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Kończenie działania wtyczki czcionek usługi dostarczania miniatur"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
