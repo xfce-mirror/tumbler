@@ -3,13 +3,13 @@
 # This file is distributed under the same license as
 # the tumbler package.
 # Hunt Xu <huntxu@live.cn>, 2009, 2010.
-# Chipong Luo <chipong_l@yahoo.com, 2011.
+# Chipong Luo <chipong_l@yahoo.com, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-25 16:20+0000\n"
+"POT-Creation-Date: 2012-02-07 05:48+0000\n"
 "PO-Revision-Date: 2010-11-23 23:13+0800\n"
 "Last-Translator: Chipong Luo <chipong_l@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
@@ -169,28 +169,37 @@ msgstr "版本不匹配：%s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在初始化 Tumbler GStreamer 缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler GStreamer 缩略图"
+"生成器插件"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在关闭 Tumbler GStreamer 缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler GStreamer 缩略图"
+"生成器插件"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在初始化 Tumbler Pixbuf 缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler Pixbuf 缩略图生成器"
+"插件"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在关闭 Tumbler Pixbuf 缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler Pixbuf 缩略图生成器插件"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 字体缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler 字体缩略图生成器插件"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "正在关闭 Tumbler 字体缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler 字体缩略图生成器插件"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -235,31 +244,41 @@ msgstr "未能从文件内容推测缩略图"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在初始化 Tumbler JPEG 缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler JPEG 缩略图生成器插件"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在关闭 Tumbler JPEG 缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler JPEG 缩略图生成器插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在初始化 Tumbler ffmpeg 视频缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler ffmpeg 视频缩略图"
+"生成器插件"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在关闭 Tumbler ffmpeg 视频缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler ffmpeg 视频缩略图生成器"
+"插件"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "正在初始化 Tumbler ODF 缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler ODF 缩略图生成器插件"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "正在关闭 Tumbler ODF 缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler ODF 缩略图生成器插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "正在初始化 Tumbler Poppler PDF/PS 缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler Poppler PDF/PS "
+"缩略图生成器插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -275,11 +294,13 @@ msgstr "仅支持本地文件"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "正在初始化 Tumbler RAW 缩略图生成器插件"
+msgstr ""
+"正在初始化 Tumbler RAW 缩略图生成器插件"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "正在关闭 Tumbler RAW 缩略图生成器插件"
+msgstr ""
+"正在关闭 Tumbler RAW 缩略图生成器插件"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
