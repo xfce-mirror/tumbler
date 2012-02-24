@@ -1,6 +1,6 @@
 # vi:set ts=8 sw=8 noet ai nocindent:
 # -
-# Copyright (c) 2010 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (c) 2010-2012 Jannis Pohlmann <jannis@xfce.org>
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License as
@@ -55,7 +55,8 @@ tumbler_poppler_thumbnailer_la_LIBADD =					\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
-	$(POPPLER_GLIB_LIBS)
+	$(POPPLER_GLIB_LIBS)						\
+	-lm
 
 tumbler_poppler_thumbnailer_la_DEPENDENCIES =				\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
