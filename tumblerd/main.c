@@ -1,6 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
- * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2009-2012 Jannis Pohlmann <jannis@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -88,6 +88,9 @@ main (int    argc,
   /* initialize threading system */
   if (!g_thread_supported ())
     g_thread_init (NULL);
+
+  /* initial the D-Bus threading system */
+  dbus_g_thread_init ();
 
   /* try to connect to the D-Bus session bus */
   connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
