@@ -1,6 +1,7 @@
 0.1.x
 =====
 - Update COPYING to the latest version of GPL2 (bug #7796).
+- Link all plugins that use rint() against libm (bug #8236).
 
 0.1.23
 ======
