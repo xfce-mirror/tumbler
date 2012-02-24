@@ -113,6 +113,7 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
     "video/x-msvideo",
     "video/x-flv",
     "application/x-flash-video",
+    "application/vnd.rn-realmedia",
     "video/3gpp",
     "video/x-matroska",
     "video/ogg",

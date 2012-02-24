@@ -3,6 +3,7 @@
 - Update COPYING to the latest version of GPL2 (bug #7796).
 - Link all plugins that use rint() against libm (bug #8236).
 - Call dbus_g_thread_init() to fix threading issues (bug #7544).
+- Add application/vnd.rn-realmedia to the ffmpeg plugin (bug #6949).
 
 0.1.23
 ======
