@@ -148,6 +148,7 @@ dnl *** Check for required packages ***
 dnl ***********************************
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.0])
 PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.16.0])
+PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.10.0])
 PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.16.0])
 PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.0.0])
 PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])

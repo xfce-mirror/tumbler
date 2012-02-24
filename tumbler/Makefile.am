@@ -82,6 +82,7 @@ libtumbler_1_la_CFLAGS =						\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
+	$(GMODULE_CFLAGS)						\
 	$(GTHREAD_CFLAGS)						\
 	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
@@ -96,6 +97,7 @@ libtumbler_1_la_LIBADD =						\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
+	$(GMODULE_LIBS)							\
 	$(GTHREAD_LIBS)
 
 EXTRA_DIST =								\
