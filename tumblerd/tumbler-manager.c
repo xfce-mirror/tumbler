@@ -1433,6 +1433,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
   GList           *delete_keys = NULL;
   GList          **list;
   GList           *lp;
+  GList           *next;
   gchar          **hash_keys;
   guint            n;
 
@@ -1454,9 +1455,10 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
       g_assert (*list != NULL);
 
       /* iterate over all thumbnailers in the current list */
-      for (lp = *list; lp != NULL; lp = lp->next)
+      for (lp = *list; lp != NULL; )
         {
           info = lp->data;
+          next = lp->next;
 
           /* check if the thumbnailer info comes from the deleted directory */
           if (info->dir_index == dir_index)
@@ -1508,6 +1510,9 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
               /* destroy the thumbnailer info */
               thumbnailer_info_free (info);
             }
+
+          /* advance to the next entry in the list */
+          lp = next;
         }
 
       if (*list == NULL)

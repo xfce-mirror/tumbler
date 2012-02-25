@@ -5,6 +5,7 @@
 - Call dbus_g_thread_init() to fix threading issues (bug #7544).
 - Add application/vnd.rn-realmedia to the ffmpeg plugin (bug #6949).
 - Explicitly link against gmodule (bug #8466).
+- Avoid accessing list elements after they have been freed (bug #7418).
 
 0.1.23
 ======
