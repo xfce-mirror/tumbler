@@ -2,19 +2,19 @@
 # Copyright (C) 2003-2011 The Xfce development team.
 # This file is distributed under the same license as the tumbler package.
 # Seong-ho, Cho <darkcircle.0426@gmail.com>, 2011.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler.master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-15 10:12+0000\n"
+"Report-Msgid-Bugs-To: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2012-02-27 15:24+0000\n"
 "PO-Revision-Date: 2011-09-13 05:31+0900\n"
 "Last-Translator: Seong-ho, Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: xfce4-users-kr-i18n <xfce4-users-kr-i18n@lists.sourceforge.net>\n"
+"Language: Ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Language: Korean\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -84,7 +84,7 @@ msgstr "변형된 파일 \"%s\": %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "\"%s\"의 최종 수정 시간을 결정하는데 실패했습니다"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "다른 섬네일러 관리자가 이미 실행중입니다"
@@ -94,27 +94,27 @@ msgstr "다른 섬네일러 관리자가 이미 실행중입니다"
 msgid "Tumbler Thumbnailing Service"
 msgstr "텀블러 섬네일링 서비스"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus 세션 버스에 연결하는데 실패했습니다: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "특화된 섬네일러를 레지스트리에 불러오는데 실패했습니다: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "섬네일 캐시 서비스를 시작하는데 실패했습니다: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "섬네일러 관리자를 시작하는데 실패했습니다: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "섬네일러 서비스를 시작하는데 실패했습니다: %s"
