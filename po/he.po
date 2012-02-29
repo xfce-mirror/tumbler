@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-28 13:00+0000\n"
+"POT-Creation-Date: 2012-02-29 14:12+0000\n"
 "PO-Revision-Date: 2010-12-07 10:50+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <xfce-i18n@xfce.org>\n"
@@ -30,9 +30,8 @@ msgid "No thumbnailer available for \"%s\""
 msgstr "אין מנהל זמין לתמונות ממוזערות עבור \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
-#, fuzzy
 msgid "The thumbnailer service is shutting down"
-msgstr "שירות אחר למטמון תמונות ממוזערות כבר פעיל"
+msgstr "שירות מטמון התמונות הממוזערות נכבה"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -82,7 +81,7 @@ msgstr "קובץ פגום \"%s\":‏ %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "אירע כשל במציאת זמן העדכון האחרון של \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "מנהל תמונות ממוזערות אחר כבר פעיל"
@@ -92,27 +91,27 @@ msgstr "מנהל תמונות ממוזערות אחר כבר פעיל"
 msgid "Tumbler Thumbnailing Service"
 msgstr "‏Tumbler שירות יצירת תמונות ממוזערות"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Failed to connect to the D-Bus session bus: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Failed to load specialized thumbnailers into the registry: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Failed to start the thumbnail cache service: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Failed to start the thumbnailer manager: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Failed to start the thumbnailer service: %s"
