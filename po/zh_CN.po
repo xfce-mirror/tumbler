@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-08 05:00+0000\n"
+"POT-Creation-Date: 2012-03-11 00:27+0000\n"
 "PO-Revision-Date: 2010-11-23 23:13+0800\n"
 "Last-Translator: Chipong Luo <chipong.luo@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n@xfce.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -80,7 +81,7 @@ msgstr "异常的文件 “%s”：%s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "无法确定 “%s” 上次修改的时间"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "另一个缩略图管理器已在运行"
@@ -90,27 +91,27 @@ msgstr "另一个缩略图管理器已在运行"
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler 缩略图服务"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "无法与 D-Bus 会话总线连接：%s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "无法载入指定的缩略图生成器至注册档案：%s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "无法启动缩略图缓存服务：%s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "无法启动缩略图生成器管理器：%s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "无法启动缩略图生成器服务：%s"
