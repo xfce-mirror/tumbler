@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-16 03:12+0000\n"
+"POT-Creation-Date: 2012-03-14 15:27+0000\n"
 "PO-Revision-Date: 2011-01-10 16:16+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -30,7 +30,7 @@ msgstr "Brak usługi dostarczania miniatur dla „%s”"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
-msgstr ""
+msgstr "Zatrzymywanie usługi dostarczania miniatur "
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -79,7 +79,7 @@ msgstr "Niepoprawny plik „%s”: %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Nie udało się określić czasu ostatniej modyfikacji pliku „%s”"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Inny menedżer dostarczania miniatur jest już uruchomiony"
@@ -89,27 +89,27 @@ msgstr "Inny menedżer dostarczania miniatur jest już uruchomiony"
 msgid "Tumbler Thumbnailing Service"
 msgstr "Usługa dostarczania miniatur Tumbler"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Nie udało się połączyć z sesją systemu D-Bus: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr ""
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Nie udało się uruchomić menedżera dostarczania miniatur: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Nie udało się uruchomić usługi dostarczania miniatur: %s"
@@ -270,7 +270,7 @@ msgstr "Nie można odczytać pierwszej strony dokumentu"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr ""
+msgstr "Obsługiwane są tylko pliki lokalne"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 #, fuzzy
