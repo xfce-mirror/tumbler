@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-29 14:12+0000\n"
+"POT-Creation-Date: 2012-03-26 11:39+0000\n"
 "PO-Revision-Date: 2010-12-07 10:50+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <xfce-i18n@xfce.org>\n"
@@ -167,14 +167,12 @@ msgid "Version mismatch: %s"
 msgstr "אי התאמה בגרסה: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-#, fuzzy
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "אתחול תוסף הגופנים של Tumbler"
+msgstr "תוסף התמונות הממוזערות ל־GStreamer מופעל"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-#, fuzzy
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "כיבוי תוסף הגופנים של Tumbler"
+msgstr "תוסף התמונות הממוזערות ל־GStreamer נכבה"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -251,14 +249,12 @@ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "כיבוי תוסף הווידאו ffmpeg של Tumbler"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-#, fuzzy
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "אתחול תוסף הגופנים של Tumbler"
+msgstr "תוסף התמונות הממוזערות מ־ODF מופעל"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-#, fuzzy
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "כיבוי תוסף הגופנים של Tumbler"
+msgstr "תוסף התמונות הממוזערות מ־ODF נכבה"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
@@ -277,14 +273,12 @@ msgid "Only local files are supported"
 msgstr "התמיכה היא בקבצים מקומיים בלבד"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "אתחול תוסף הגופנים של Tumbler"
+msgstr "תוסף התמונות הממוזערות מ־RAW מופעל"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "כיבוי תוסף הגופנים של Tumbler"
+msgstr "תוסף התמונות הממוזערות מ־RAW נכבה"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
