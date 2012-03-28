@@ -1,11 +1,14 @@
-0.1.x
-=====
+0.1.24
+======
 - Update COPYING to the latest version of GPL2 (bug #7796).
 - Link all plugins that use rint() against libm (bug #8236).
 - Call dbus_g_thread_init() to fix threading issues (bug #7544).
 - Add application/vnd.rn-realmedia to the ffmpeg plugin (bug #6949).
 - Explicitly link against gmodule (bug #8466).
 - Avoid accessing list elements after they have been freed (bug #7418).
+- Make sure to include PLATFORM flags everywhere.
+- Translation updates: bg, ca, cs, de, es, fi, he, id, is, kk, ko, lt,
+  nn, pl, pt, pt_BR, zh_CN.
 
 0.1.23
 ======
@@ -28,18 +31,18 @@
 ======
 - Add coding style documentation.
 - Fix compiler error on Sun Studio.
-- Add a GStreamer-based thumbnailer for video thumbnails. Thanks to 
+- Add a GStreamer-based thumbnailer for video thumbnails. Thanks to
   Ross Burton for the work.
 - Avoid GdkPixbuf functions deprecated in poppler >= 0.17 (bug #7649).
 - Translation updates: Arabic, Basque, Catalan (Valencian),
   Chinese (China), Chinese (Taiwan), Danish, Dutch (Flemish), Finnish,
-  French, German, Indonesian, Italian, Japanese, Kazakh, Korean, 
-  Portuguese (Brazilian), Portuguese, Romanian, Russian, Slovak, 
+  French, German, Indonesian, Italian, Japanese, Kazakh, Korean,
+  Portuguese (Brazilian), Portuguese, Romanian, Russian, Slovak,
   Spanish (Castilian), Swedish, Telugu, Turkish, Ukrainian.
 
 0.1.21
 ======
-- Update to latest revision of the thumbnail management D-Bus 
+- Update to latest revision of the thumbnail management D-Bus
   specification where Cleanup() takes an array of base URIs instead
   of just one.
 - Get rid of the inherently broken GStrv type in function signatures.
@@ -54,7 +57,7 @@
 =====
 - Fix a possible segmentation fault in the JPEG thumbnailer plugin.
 - Translation updates: Arabic, Chinese (Taiwan), Czech, English (United
-  Kingdom), Finnish, French, Galician, Greek, Hebrew, Indonesian, 
+  Kingdom), Finnish, French, Galician, Greek, Hebrew, Indonesian,
   Japanese, Norwegian Bokmal, Polish, Romanian, Russian, Ukrainian.
 
 0.1.5
@@ -73,13 +76,13 @@
 
 0.1.3
 =====
-- Link plugins against libtumbler-1. Should fix builds with 
+- Link plugins against libtumbler-1. Should fix builds with
   --as-needed.
 - Move tumblerd into $libdir/tumbler-1.
 - Add support for arbitrary URI shemes in the poppler plugin.
 - Translation updates: Basque, Indonesian, Swedish, German, Russian,
   Galician, Uyghur, Chinese (Taiwan), Ukrainian, Finnish, Catalan
-  (Valencian), Danish, Japanese, Kazakh, Italian, Portuguese, 
+  (Valencian), Danish, Japanese, Kazakh, Italian, Portuguese,
 
 0.1.2
 =====
@@ -87,7 +90,7 @@
 - Add a new video thumbnailer plugin using libffmpegthumbnailer.
 - Handle missing URIs/MIME types in thumbnailer requests by reporting
   them back to the client application as an error.
-- Don't use dbus_connection_send from threads. Use g_idle_add() 
+- Don't use dbus_connection_send from threads. Use g_idle_add()
   instead.
 - Improve tumblerd's startup significantly by optimizing the code
   dealing with updating the supported URI schemes and MIME types.

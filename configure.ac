@@ -24,13 +24,8 @@ m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
 m4_define([tumbler_version_minor], [1])
-m4_define([tumbler_version_micro], [23])
+m4_define([tumbler_version_micro], [24])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
-
-dnl ********************************************
-dnl *** Full debug support for SVN snapshots ***
-dnl ********************************************
-m4_define([tumbler_debug_default], [minimum])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
