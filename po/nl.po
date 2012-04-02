@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-06 11:04+0000\n"
+"POT-Creation-Date: 2012-04-02 06:03+0000\n"
 "PO-Revision-Date: 2011-09-07 12:41+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -26,7 +26,7 @@ msgstr "Een andere dienst voor opslag van miniaturen draait al"
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Geen miniatuurmaker beschikbaar voor \"%s\""
+msgstr "Geen miniatuurmaker beschikbaar voor '%s'"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
@@ -54,13 +54,13 @@ msgstr "Kon de gespecialiseerde miniatuurmaker niet oproepen: %s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Kon het bestand \"%s\" niet laden: %s"
+msgstr "Kon het bestand '%s' niet laden: %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Misvormde sectie \"%s\" in bestand \"%s\": %s"
+msgstr "Misvormde sectie '%s' in bestand '%s': %s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
@@ -75,14 +75,14 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Misvormd bestand \"%s\": %s"
+msgstr "Misvormd bestand '%s': %s"
 
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Kon tijdstip van laatste aanpassing van \"%s\" niet bepalen"
+msgstr "Kon tijdstip van laatste aanpassing van '%s' niet bepalen"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Een andere miniatuurmaker-beheerder draait al"
@@ -90,29 +90,29 @@ msgstr "Een andere miniatuurmaker-beheerder draait al"
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
-msgstr "Tumbler Miniatuurmakerdienst"
+msgstr "Tumbler miniatuurmakerdienst"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Kon niet verbinden met de D-Bus sessie bus: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Kon de gespecialiseerde miniatuurmakers niet in het register laden: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Kon de miniatuuropslagdienst niet starten: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Kon de miniatuurmaker-beheerder niet starten: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Kon de miniatuurmakerdienst niet starten: %s"
@@ -127,32 +127,32 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "RGB kleurruimte"
+msgstr "RGB-kleurruimte"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "De opslag-plugin \"%s\" ontbeert de vereiste symbolen"
+msgstr "De opslag-plugin '%s' ontbeert de vereiste symbolen"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Kon de opslag-plugin \"%s\" niet laden: %s"
+msgstr "Kon de opslag-plugin '%s' niet laden: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Het bestand \"%s\" is zelf een miniatuur"
+msgstr "Het bestand '%s' is zelf een miniatuur"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Plugin \"%s\" heeft de vereiste symbolen niet."
+msgstr "Plugin '%s' heeft de vereiste symbolen niet."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Kon plugin \"%s\" niet laden: %s"
+msgstr "Kon plugin '%s' niet laden: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
@@ -169,28 +169,28 @@ msgstr "Versies komen niet overeen: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Bezig met opstarten van de Tumbler Gstreamer Miniatuurmaker-plugin"
+msgstr "Bezig met opstarten van de Tumbler Gstreamer miniatuurmaker-plugin"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler Gstreamer Miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler Gstreamer miniatuurmaker-plugin"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Bezig met opstarten van de Tumbler Pixbuf Miniatuurmaker-plugin"
+msgstr "Bezig met opstarten van de Tumbler Pixbuf miniatuurmaker-plugin"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler Pixbuf Miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler Pixbuf miniatuurmaker-plugin"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Bezig met opstarten van de Tumbler Lettertype Miniatuurmaker-plugin"
+msgstr "Bezig met opstarten van de Tumbler Lettertype miniatuurmaker-plugin"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler Lettertype Miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler Lettertype miniatuurmaker-plugin"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -235,11 +235,11 @@ msgstr "Miniatuur kon niet worden afgeleid uit de bestandinhoud"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Bezig met starten van de Tumbler JPEG Miniatuurmaker-plugin"
+msgstr "Bezig met starten van de Tumbler JPEG miniatuurmaker-plugin"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler JPEG Miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler JPEG miniatuurmaker-plugin"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
@@ -247,19 +247,19 @@ msgstr "Bezig met starten van de Tumbler ffmpeg video miniatuurmaker-plugin"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler ffmpeg miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler ffmpeg video miniatuurmaker-plugin"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Bezig met opstarten van de Tumbler ODF Miniatuurmaker-plugin"
+msgstr "Bezig met opstarten van de Tumbler ODF miniatuurmaker-plugin"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler ODF Miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler ODF miniatuurmaker-plugin"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Bezig met starten van de Tumbler Poppler PDF/PS Miniatuurmaker-plugin"
+msgstr "Bezig met starten van de Tumbler Poppler PDF/PS miniatuurmaker-plugin"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -275,16 +275,16 @@ msgstr "Slechts plaatselijke bestanden worden ondersteund"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Bezig met opstarten van de Tumbler RAW Miniatuurmaker-plugin"
+msgstr "Bezig met opstarten van de Tumbler RAW miniatuurmaker-plugin"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Bezig met afsluiten van de Tumbler RAW Miniatuurmaker-plugin"
+msgstr "Bezig met afsluiten van de Tumbler RAW miniatuurmaker-plugin"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Kon de miniatuur niet opslaan in \"%s\""
+msgstr "Kon de miniatuur niet opslaan in '%s'"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
