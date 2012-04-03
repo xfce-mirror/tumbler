@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: thumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-14 15:27+0000\n"
+"POT-Creation-Date: 2012-04-03 16:51+0000\n"
 "PO-Revision-Date: 2011-01-10 16:16+0100\n"
 "Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
 "Language-Team: Polish <>\n"
@@ -18,9 +18,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2));\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
+#, c-format, fuzzy
 msgid "Another thumbnail cache service is already running"
-msgstr ""
+msgstr "Aktualnie jest uruchomionya inna usługa przechowywania miniatur"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
@@ -33,22 +33,22 @@ msgid "The thumbnailer service is shutting down"
 msgstr "Zatrzymywanie usługi dostarczania miniatur "
 
 #: ../tumblerd/tumbler-service.c:758
-#, c-format
+#, c-format, fuzzy
 msgid "Another generic thumbnailer is already running"
-msgstr ""
+msgstr "Aktualnie jest uruchomina inna ogólna miniaturka"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "Niewspierane żądanie "
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "Nieudane wywołanie konkretnej miniatury: timeout"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "Nieudane wywołanie konkretnej miniatury: %s"
 
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
@@ -97,12 +97,12 @@ msgstr "Nie udało się połączyć z sesją systemu D-Bus: %s"
 #: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
+msgstr "Błąd ładowania konkretnych miniaturek do rejestru: %s"
 
 #: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
+msgstr "Błąd uruchomienia usługi przechowywania miniatur: %s"
 
 #: ../tumblerd/main.c:193
 #, c-format
@@ -129,12 +129,12 @@ msgstr "Przestrzeń barw RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
+msgstr "Wtyczka przechowywania \"%s\" nie posiada wymaganych symboli"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr ""
+msgstr "Błąd ładowania wtyczki przechowywania \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -144,7 +144,7 @@ msgstr "Plik „%s” jest miniaturą"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr ""
+msgstr "We wtyczce \"%s\" brakuje wymaganych symboli"
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
