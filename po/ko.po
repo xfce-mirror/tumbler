@@ -42,7 +42,7 @@ msgstr "다른 일반 섬네일러가 이미 실행중입니다"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr "지원되지 않는 섬네일 방식이 요청되었습니다"
+msgstr "지원하지 않는 섬네일 방식을 요청했습니다"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -134,7 +134,7 @@ msgstr "RGB 색상 영역"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "캐시 플러그인 \"%s\"에서 필요한 심볼이 누락되었습니다"
+msgstr "캐시 플러그인 \"%s\"에서 필요한 심볼을 누락했습니다"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
@@ -149,7 +149,7 @@ msgstr "파일 \"%s\"은(는) 섬네일 그 자체입니다"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "플러그인 \"%s\"에서 필요한 심볼이 누락되었습니다."
+msgstr "플러그인 \"%s\"에서 필요한 심볼을 누락했습니다."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
