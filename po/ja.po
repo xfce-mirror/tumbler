@@ -1,15 +1,15 @@
 # Japanese translations for tumbler package
 # tumbler パッケージに対する英訳.
-# Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
+# Copyright (C) 2009-2012 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
-#  <cabezon.hashimoto@gmail.com>, 2009.
+# Masato Hashimoto <cabezon.hashimoto@gmail.com>, 2009-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-05 18:04+0900\n"
-"PO-Revision-Date: 2011-11-05 18:05+0900\n"
+"PO-Revision-Date: 2012-04-11 21:46+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese\n"
 "Language: \n"
@@ -27,16 +27,16 @@ msgstr "他のサムネイルキャッシュサービスが既に動作してい
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "\"%s\" 用のサムネイラはありません"
+msgstr "\"%s\" 用のサムネイラーはありません"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
-msgstr "サムネイラサービスを終了しています"
+msgstr "サムネイラーサービスを終了しています"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "他の一般サムネイラが既に動作しています"
+msgstr "他の一般サムネイラーが既に動作しています"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -44,12 +44,12 @@ msgstr "サポートしていないサムネイルフレーバーが要求され
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:461
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "特殊サムネイラの呼び出しに失敗しました: タイムアウト"
+msgstr "特殊サムネイラーの呼び出しに失敗しました: タイムアウト"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:470
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "特殊サムネイラの呼び出しに失敗しました: %s"
+msgstr "特殊サムネイラーの呼び出しに失敗しました: %s"
 
 #: ../tumblerd/tumbler-manager.c:489
 #: ../tumblerd/tumbler-manager.c:895
@@ -84,7 +84,7 @@ msgstr "\"%s\" の最終変更日時の決定に失敗しました"
 #: ../tumblerd/tumbler-manager.c:1863
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "他のサムネイルマネージャが既に動作しています"
+msgstr "他のサムネイルマネージャーが既に動作しています"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:83
@@ -99,7 +99,7 @@ msgstr "D-Bus セッションバスへの接続に失敗しました: %s"
 #: ../tumblerd/main.c:156
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "特殊サムネイラのレジストリへの読み込みに失敗しました: %s"
+msgstr "特殊サムネイラーのレジストリへの読み込みに失敗しました: %s"
 
 #: ../tumblerd/main.c:173
 #, c-format
@@ -109,7 +109,7 @@ msgstr "サムネイルキャッシュサービスの起動に失敗しました
 #: ../tumblerd/main.c:190
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "サムネイルマネージャの起動に失敗しました: %s"
+msgstr "サムネイルマネージャーの起動に失敗しました: %s"
 
 #: ../tumblerd/main.c:207
 #, c-format
@@ -219,7 +219,7 @@ msgstr "フォントファイルを開けませんでした: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "キャラクタマップを設定できませんでした: %s"
+msgstr "キャラクターマップを設定できませんでした: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
