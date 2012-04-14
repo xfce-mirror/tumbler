@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-06 17:04+0000\n"
-"PO-Revision-Date: 2012-02-09 19:24-0000\n"
-"Last-Translator: Sérgio Marques <smarquespt@gmail.com>\n"
+"PO-Revision-Date: 2012-04-13 16:39+0100\n"
+"Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: pt\n"
 "X-Poedit-Language: Portuguese\n"
 "X-Poedit-Country: PORTUGAL\n"
 
@@ -131,12 +131,12 @@ msgstr "Espaço de cores RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "O \"plug-in\" \"%s\" não possui os símbolos necessários"
+msgstr "O \"plugin\" \"%s\" não possui os símbolos necessários"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Falha ao carregar o \"plug-in\" de cache \"%s\": %s"
+msgstr "Falha ao carregar o \"plugin\" de cache \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -146,12 +146,12 @@ msgstr "O ficheiro \"%s\" é uma miniatura"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "O \"plug-in\" \"%s\" não possui os símbolos necessários"
+msgstr "O \"plugin\" \"%s\" não possui os símbolos necessários."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Falha ao carregar o \"plug-in\" \"%s\": %s"
+msgstr "Falha ao carregar o \"plugin\" \"%s\": %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
@@ -168,28 +168,28 @@ msgstr "Conflito de versão: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" Tumbler GStreamer Thumbnailer"
+msgstr "A iniciar o \"plugin\" Tumbler GStreamer Thumbnailer"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" Tumbler GStreamer Thumbnailer"
+msgstr "A desligar o \"plugin\" Tumbler GStreamer Thumbnailer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler Pixbuf"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" de miniaturas Tumbler Pixbuf"
+msgstr "A desligar o \"plugin\" de miniaturas Tumbler Pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler Font"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler Font"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" de miniaturas Tumbler Font"
+msgstr "A desligar o \"plugin\" de miniaturas Tumbler Font"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -234,31 +234,31 @@ msgstr "Não foi possível inferir o conteúdo do ficheiro"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler JPEG"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler JPEG"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" de miniaturas Tumbler JPEG"
+msgstr "A desligar o \"plugin\" de miniaturas Tumbler JPEG"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler ffmpeg video"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler ffmpeg video"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" de miniaturas Tumbler ffmpeg video"
+msgstr "A desligar o \"plugin\" de miniaturas Tumbler ffmpeg video"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler ODF"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler ODF"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" de miniaturas Tumbler ODF"
+msgstr "A desligar o \"plugin\" de miniaturas Tumbler ODF"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler Poppler PDF/PS"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler Poppler PDF/PS"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -274,11 +274,11 @@ msgstr "Só tem suporte a ficheiros locais"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "A iniciar o \"plug-in\" de miniaturas Tumbler RAW"
+msgstr "A iniciar o \"plugin\" de miniaturas Tumbler RAW"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "A desligar o \"plug-in\" de miniaturas Tumbler RAW"
+msgstr "A desligar o \"plugin\" de miniaturas Tumbler RAW"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -287,9 +287,9 @@ msgstr "Não foi possível gravar a miniatura em \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "A iniciar o \"plug-in\" de cache Tumbler XDG"
+msgstr "A iniciar o \"plugin\" de cache Tumbler XDG"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "A desligar o \"plug-in\" de cache Tumbler XDG"
+msgstr "A desligar o \"plugin\" de cache Tumbler XDG"
 
