@@ -233,7 +233,7 @@ msgstr "글리프를 렌더링 할 수 없습니다: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "파일 내용으로부터 섬네일로 표현할 수 없습니다"
+msgstr "파일 내용을 섬네일로 표현할 수 없습니다"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
