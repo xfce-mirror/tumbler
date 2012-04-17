@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-02 06:03+0000\n"
+"POT-Creation-Date: 2012-04-17 08:57+0000\n"
 "PO-Revision-Date: 2011-09-07 12:41+0200\n"
 "Last-Translator: Pjotr\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -35,7 +35,7 @@ msgstr "De dienst voor de miniatuurmaker is aan het afsluiten"
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Een andere generieke miniatuurmaker draait al"
+msgstr "Er draait al een andere generieke miniatuurmaker"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
