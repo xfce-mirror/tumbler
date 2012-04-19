@@ -2,21 +2,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Jeff Bailes <thepizzaking@gmail.com>
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
+"POT-Creation-Date: 2012-04-19 01:12+0000\n"
 "PO-Revision-Date: 2009-08-18 21:35+1000\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: en_GB\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Another thumbnail cache service is already running"
@@ -27,7 +27,11 @@ msgstr "Another thumbnail cache service is already running"
 msgid "No thumbnailer available for \"%s\""
 msgstr "No thumbnailer available for \"%s\""
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:207
+msgid "The thumbnailer service is shutting down"
+msgstr "The thumbnailer service is shutting down"
+
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Another generic thumbnailer is already running"
@@ -45,18 +49,18 @@ msgstr "Failed to call the specialised thumbnailer: timeout"
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Failed to call the specialised thumbnailer: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Failed to load the file \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Malformed section \"%s\" in file \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
@@ -65,48 +69,48 @@ msgstr ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Malformed file \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Failed to determine last modified time of \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Another thumbnailer manager is already running"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler Thumbnailing Service"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Failed to connect to the D-Bus session bus: %s"
 
-#: ../tumblerd/main.c:90
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Failed to start the thumbnail cache service: %s"
-
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Failed to load specialised thumbnailers into the registry: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:176
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Failed to start the thumbnail cache service: %s"
+
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Failed to start the thumbnailer manager: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Failed to start the thumbnailer service: %s"
@@ -148,15 +152,26 @@ msgstr "Plugin \"%s\" lacks required symbols."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Failed to load plugin \"%s\": %s"
 
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Version mismatch: %s"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Initialising the Tumbler GStreamer Thumbnailer plugin"
+
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+msgstr "Shutting down the Tumbler GStreamer Thumbnailer plugin"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -205,10 +220,13 @@ msgstr "Could not set the character map: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Could not render glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Thumbnail could not be inferred from file contents"
@@ -229,17 +247,37 @@ msgstr "Initialising the Tumbler ffmpeg video thumbnailer plugin"
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 msgstr "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
+msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+msgstr "Initialising the Tumbler ODF Thumbnailer plugin"
+
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
+msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+msgstr "Shutting down the Tumbler ODF Thumbnailer plugin"
+
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 msgstr "Initialising the Tumbler Poppler PDF/PS Thumbnailer plugin"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
 msgstr "The document is empty"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
 msgstr "First page of the document could not be read"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Only local files are supported"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
+msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+msgstr "Initialising the Tumbler RAW Thumbnailer plugin"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
+msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+msgstr "Shutting down the Tumbler RAW Thumbnailer plugin"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
