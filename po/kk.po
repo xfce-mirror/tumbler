@@ -2,19 +2,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-17 14:42+0000\n"
+"POT-Creation-Date: 2012-04-20 05:57+0000\n"
 "PO-Revision-Date: 2011-12-17 22:56+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
-"Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: kk\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
@@ -50,14 +50,12 @@ msgstr "Арнайы таңбаша қолданбасын шақыру қате
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Арнайы таңбаша қолданбасын шақыру қатесі: %s"
 
-#: ../tumblerd/tumbler-manager.c:489
-#: ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "\"%s\" файлын жүктеп алу қатесі: %s"
 
-#: ../tumblerd/tumbler-manager.c:507
-#: ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -65,11 +63,14 @@ msgstr "\"%s\" секциясы қате, ол \"%s\" файлында: %s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
-msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
-msgstr "\"%s\" секциясы қате, ол \"%s\" файлында: Секция аты мен UriScheme/MimeType арасында сәйкестік жоқ"
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr ""
+"\"%s\" секциясы қате, ол \"%s\" файлында: Секция аты мен UriScheme/MimeType "
+"арасында сәйкестік жоқ"
 
-#: ../tumblerd/tumbler-manager.c:908
-#: ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -80,37 +81,37 @@ msgstr "Қате файл \"%s\": %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "\"%s\" үшін соңғы өзгерту уақытын анықтау мүмкін емес"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Басқа таңбашалар басқарушысы қосулы тұр"
+msgstr "Басқа таңбашалар басқарушысы іске қосулы тұр"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler таңбашалар қызметі"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus сессия шинасына қосылу қатесі: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Арнайы таңбашалар қолданбаларын регистрге жүктеу қатесі: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Таңбашаларды кэштеу қызметін жөнелту қатесі: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Таңбашаларды басқарушысын жөнелту қатесі: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Таңбашалар қызметін жөнелту қатесі: %s"
@@ -291,4 +292,3 @@ msgstr "Tumbler XDG кэш плагинін іске қосу"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr "Tumbler XDG кэш плагинін сөндіру"
-
