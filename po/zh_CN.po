@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
-"Report-Msgid-Bugs-To: <xfce-i18n@xfce.org>\n"
-"POT-Creation-Date: 2012-04-20 11:42+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-04-23 02:57+0000\n"
 "PO-Revision-Date: 2010-11-23 23:13+0800\n"
 "Last-Translator: Chipong Luo <chipong.luo@yahoo.com>\n"
 "Language-Team: Chinese (Simplified) <xfce-i18n-cn@xfce.org>\n"
@@ -32,7 +32,7 @@ msgstr "“%s” 无可用的缩略图生成器"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
-msgstr "此缩略图生成器服务正在关闭"
+msgstr "正在关闭此缩略图生成器服务"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -61,14 +61,14 @@ msgstr "无法载入文件 “%s”：%s"
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "异常段 “%s” 在文件 %s 中：%s"
+msgstr "文件 %2$s 中的异常段 “%1$s”：%3$s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "异常段 “%s” 在文件 %s 中：段名和 UriScheme/MimeType 不匹配。"
+msgstr "文件 %2$s 中的异常段 “%1$s”：段名和 UriScheme/MimeType 不匹配。"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -99,7 +99,7 @@ msgstr "无法与 D-Bus 会话总线连接：%s"
 #: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "无法载入指定的缩略图生成器至注册档案：%s"
+msgstr "无法在注册档案载入已指定的缩略图生成器：%s"
 
 #: ../tumblerd/main.c:176
 #, c-format
@@ -141,7 +141,7 @@ msgstr "无法载入此缓存插件 “%s”：%s"
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "文件 “%s” 本身是缩略图"
+msgstr "文件 “%s” 本身是一个缩略图"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
