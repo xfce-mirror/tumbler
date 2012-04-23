@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Transifex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-10 10:12+0000\n"
+"POT-Creation-Date: 2012-04-23 08:42+0000\n"
 "PO-Revision-Date: 2009-12-18 13:46+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -176,14 +176,13 @@ msgid "Version mismatch: %s"
 msgstr "As versións non coinciden: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-#, fuzzy
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Inicializando o engadido Creador de miniaturas de tipos de letra Tumbler"
+msgstr ""
+"Inicializando o engadido Creador de miniaturas de tipos de letra Tumbler"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-#, fuzzy
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Parando o engadido Creador de miniaturas de tipos de letra Tumbler"
+msgstr "Parando o engadido Creador de miniaturas para GStreamer Tumbler"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
@@ -286,14 +285,12 @@ msgid "Only local files are supported"
 msgstr "Só se admiten ficheiros locais"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Iniciando o engadido Creador de miniaturas de tipos de letra Tumbler"
+msgstr ""
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Parando o engadido Creador de miniaturas de tipos de letra Tumbler"
+msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
