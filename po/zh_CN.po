@@ -99,7 +99,7 @@ msgstr "无法与 D-Bus 会话总线连接：%s"
 #: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "无法在注册档案载入已指定的缩略图生成器：%s"
+msgstr "无法在注册档案中载入已指定的缩略图生成器：%s"
 
 #: ../tumblerd/main.c:176
 #, c-format
