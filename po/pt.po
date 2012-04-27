@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-06 17:04+0000\n"
-"PO-Revision-Date: 2012-04-13 16:39+0100\n"
+"PO-Revision-Date: 2012-04-27 20:18+0100\n"
 "Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "Já está em execução outro serviço de miniaturas em cache"
+msgstr "Já está em execução outro serviço de cache de miniaturas"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
