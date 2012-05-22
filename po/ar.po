@@ -1,21 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# mohammad <malham1@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-11 11:04+0000\n"
-"PO-Revision-Date: 2011-08-24 03:17-0000\n"
-"Last-Translator: كريم أولاد الشلحة <herr.linux88@gmail.com>\n"
-"Language-Team: Arabic Xfce Translation Team <herr.linux88@gmail.com>\n"
+"POT-Creation-Date: 2012-05-22 14:33+0000\n"
+"PO-Revision-Date: 2012-05-22 19:23+0300\n"
+"Last-Translator: mohammad <malham1@gmail.com>\n"
+"Language-Team: http://www.vertaal.com.ar/files/factory/ar/list/\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-Country: MOROCCO\n"
-"Language: ar\n"
 "X-Poedit-Language: Arabic\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
@@ -81,7 +83,7 @@ msgstr "ملف مشوه \"%s\": %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "فشل تحديد أخر مرة تم التعديل \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "مدير مصغرات أخر يعمل حاليا"
@@ -91,27 +93,27 @@ msgstr "مدير مصغرات أخر يعمل حاليا"
 msgid "Tumbler Thumbnailing Service"
 msgstr "خدمة مصغرات Tumbler"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "فشل إتصال بجلسة D-Bus: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "فشل تحميل مصغرات المتخصصة داخل السجل: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "فشل بدء خدمة مصغرات المخباة: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "فشل بدء مدير المصغرات: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "فشل بدء خدمة مصغرات: %s"
@@ -126,7 +128,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "RGB Colorspace"
+msgstr "مساحة الألوان RGB"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
@@ -168,7 +170,7 @@ msgstr "عدم تطابق الإصدار: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "بدء ملحق مصغرات Tumbler GStreamer"
+msgstr "تهيئة ملحق مصغرات Tumbler GStreamer"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
@@ -176,7 +178,7 @@ msgstr "إيقاف ملحق مصغرات Tumbler GStreamer"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "بدء ملحق مصغرات Tumbler Pixbuf"
+msgstr "تهيئة ملحق مصغرات Tumbler Pixbuf"
 
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
@@ -185,7 +187,7 @@ msgstr "إيقاف ملحق مصغرات Tumbler Pixbuf"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "بدء ملحق مصغرات خطوط Tumbler"
+msgstr "تهيئة ملحق مصغرات خطوط Tumbler"
 
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler Font Thumbnailer plugin"
@@ -195,7 +197,7 @@ msgstr "إيقاف ملحق مصغرات خطوط Tumbler"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr "لا يمكن بدء خطوط  freetype: %s"
+msgstr "لا يمكن بدء خطوط freetype: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
@@ -234,7 +236,7 @@ msgstr "المصغرات لا يمكن أن تستدل بمحتويات المل
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "بدء ملحق المصغرات Tumbler JPEG"
+msgstr "تهيئة ملحق المصغرات Tumbler JPEG"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
@@ -242,7 +244,7 @@ msgstr "إيقاف ملحق المصغرات Tumbler JPEG"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
 msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "بدء ملحق مصغرات الفيديو Tumbler ffmpeg"
+msgstr "تهيئة ملحق مصغرات الفيديو Tumbler ffmpeg"
 
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
 msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
@@ -250,15 +252,15 @@ msgstr "إيقاف ملحق مصغرات الفيديو Tumbler ffmpeg"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr ""
+msgstr "تهيئة ملحق المصغرات ODF"
 
 #: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
 msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr ""
+msgstr "إيقاف ملحق المصغرات ODF"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "بدء ملحق مصغرات Tumbler Poppler PDF/PS"
+msgstr "تهيئة ملحق مصغرات Tumbler Poppler PDF/PS"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -274,11 +276,11 @@ msgstr "دعم الملفات المحلية فقط"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr ""
+msgstr "تهيئة ملحق المصغرات RAW"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
 msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr ""
+msgstr "إيقاف ملحق المصغرات RAW"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
@@ -287,7 +289,7 @@ msgstr "لا يمكن حفظ المصغرات في \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "بدء ملحق مخبات Tumbler XDG"
+msgstr "تهيئة ملحق مخبات Tumbler XDG"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
