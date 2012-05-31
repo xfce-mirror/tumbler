@@ -2,7 +2,7 @@
 # Copyright (C) 2009 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
 # Gheyret T.Kenji <gheyret@gmail.com>, 2010.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
@@ -62,9 +62,7 @@ msgstr "ھۆججەت \"%2$s\" دىكى بۆلەك \"%1$s\" نىڭ فورماتى
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"ھۆججەت \"%2$s\" دىكى بۆلەك \"%1$s\" نىڭ فورماتى توغرا ئەمەس: بۆلەك ئاتى "
-"بىلەن UriScheme/MimeType ماسلاشمىدى"
+msgstr "ھۆججەت \"%2$s\" دىكى بۆلەك \"%1$s\" نىڭ فورماتى توغرا ئەمەس: بۆلەك ئاتى بىلەن UriScheme/MimeType ماسلاشمىدى"
 
 #: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
 #: ../tumblerd/tumbler-manager.c:914
@@ -137,7 +135,7 @@ msgstr "غەملەك قىستۇرما \"%s\" نى ئوقۇش مەغلۇپ بول
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "\"%s\" نىڭ ئۆزى thumbnail ھۆججىتى "
+msgstr "\"%s\" نىڭ ئۆزى thumbnail ھۆججىتى"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
@@ -220,15 +218,13 @@ msgstr "Thumbnail نى ھۆججەت مەزمۇنىدىن كەلتۈرۈپ چىق
 
 # DEBUG message
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
 msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
+msgstr ""
 
 # DEBUG message
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
 msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Thumbnailer قىستۇرمىسىنى توختىتىۋاتىدۇ"
+msgstr ""
 
 # DEBUG message
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
