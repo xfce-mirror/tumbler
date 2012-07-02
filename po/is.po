@@ -1,14 +1,14 @@
-# translation of tumbler.master.tumbler.po to Icelandic
+# translation of is.po to Icelandic
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# Sveinn í Felli <sveinki@nett.is>, 2011.
+#
+# Sveinn í Felli <sveinki@nett.is>, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler.master.tumbler\n"
+"Project-Id-Version: is\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-05 03:00+0000\n"
-"PO-Revision-Date: 2011-12-03 08:10+0000\n"
+"PO-Revision-Date: 2012-07-02 15:25+0000\n"
 "Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -150,7 +150,7 @@ msgstr ""
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Mistókst að hlaða inn viðbætu"
+msgstr "Mistókst að hlaða inn viðbótinni \"%s\": %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
@@ -163,7 +163,7 @@ msgstr "Mistókst að hlaða inn viðbætu"
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
-msgstr ""
+msgstr "Mismunandi útgáfur: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
 msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
@@ -200,25 +200,25 @@ msgstr ""
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr ""
+msgstr "Gat ekki hlaðið inn efni skráar: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Mistókst að opna letur skrá: %s"
+msgstr "Mistókst að opna leturskrá: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr ""
+msgstr "Gat ekki stillt stafatöflu: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "Gat ekki myndgert tákn (glyphs): %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
@@ -261,7 +261,7 @@ msgstr ""
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
-msgstr "Skrá er tóm"
+msgstr "Skráin er tóm"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "First page of the document could not be read"
@@ -269,7 +269,7 @@ msgstr ""
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr "Það er bara stuðningur við skrár á þessu skráakerfi"
+msgstr "Aðeins er stuðningur við skrár á þessu skráakerfi"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
 msgid "Initializing the Tumbler RAW Thumbnailer plugin"
@@ -282,7 +282,7 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr ""
+msgstr "Gat ekki vistað smámynd í \"%s\""
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
@@ -291,3 +291,4 @@ msgstr ""
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
 msgstr ""
+
