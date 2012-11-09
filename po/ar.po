@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # mohammad <malham1@gmail.com>, 2012.
+# محمد الحرقان <malham1@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-22 14:33+0000\n"
-"PO-Revision-Date: 2012-05-22 19:23+0300\n"
-"Last-Translator: mohammad <malham1@gmail.com>\n"
+"POT-Creation-Date: 2012-11-09 08:39+0000\n"
+"PO-Revision-Date: 2012-11-09 16:11+0300\n"
+"Last-Translator: محمد الحرقان <malham1@gmail.com>\n"
 "Language-Team: http://www.vertaal.com.ar/files/factory/ar/list/\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -23,17 +24,17 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "هناك تطبيق مصغرات مخبأة أخر يعمل حاليا"
+msgstr "هناك تطبيق مصغرات أخر يعمل في الخلفية حاليا"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "لا تتوفر مصغرات لـ \"%s\""
+msgstr "لا تتوفر مصغرات \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
-msgstr "تم إقاف خدمة المصغرات"
+msgstr "تم إيقاف خدمة المصغرات"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -69,8 +70,7 @@ msgstr "قسم مشوه \"%s\" في الملف \"%s\": %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"قسم تالف \"%s\" في الملف \"%s\": عدم تطابق إسم القسم و UriScheme/MimeType"
+msgstr "قسم تالف \"%s\" في الملف \"%s\": عدم تطابق إسم القسم و UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -138,7 +138,7 @@ msgstr "ملحق المخبأ \"%s\" يفتقر إلى رموز مطلوبة"
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "فشل نحميل الملحق المخبأت \"%s\": %s"
+msgstr "فشل تحميل الملحق المخبئ \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -148,12 +148,12 @@ msgstr "هذا الملف \"%s\" هو مصغرة أصلا"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "الملحق \"%s\" بفتقر لرموز مطلوبة."
+msgstr "الملحق \"%s\" يفتقر لرموز مطلوبة."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "فشل نحميل الملحق \"%s\": %s"
+msgstr "فشل تحميل الملحق \"%s\": %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
