@@ -29,7 +29,7 @@ msgstr "다른 섬네일 캐시 서비스가 이미 실행중입니다"
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "\"%s\"을(를)위해 사용할 수 있는 섬네일 프로그램이 없습니다."
+msgstr "\"%s\"에 대해 사용할 수 있는 섬네일 프로그램이 없습니다."
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
@@ -70,7 +70,7 @@ msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
-"변형된 섹션 \"%s\", 파일 \"%s\"에 위치: 섹션 명칭과 UriScheme 또는 MimeType"
+"변형된 \"%s\" 섹션이 \"%s\" 파일에 위치합니다: 섹션 명칭과 UriScheme 또는 MimeType"
 "이 일치하지 않습니다"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
@@ -134,27 +134,27 @@ msgstr "RGB 색상 영역"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "캐시 플러그인 \"%s\"에서 필요한 심볼을 누락했습니다"
+msgstr "\"%s\" 캐시 플러그인에서 필요한 심볼을 누락했습니다"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "캐시 플러그인 \"%s\"을(를) 불러오는데 실패했습니다: %s"
+msgstr "\"%s\" 캐시 플러그인을 불러오는데 실패했습니다: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "파일 \"%s\"은(는) 섬네일 그 자체입니다"
+msgstr "\"%s\"파일은 섬네일 그 자체입니다"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "플러그인 \"%s\"에서 필요한 심볼을 누락했습니다."
+msgstr "\"%s\" 플러그인에서 필요한 심볼을 누락했습니다."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "플러그인 \"%s\"을(를) 불러오는데 실패했습니다: %s"
+msgstr "\"%s\" 플러그인을 불러오는데 실패했습니다: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
