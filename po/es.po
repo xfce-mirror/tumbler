@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-03 09:18+0000\n"
+"POT-Creation-Date: 2012-11-18 06:39+0000\n"
 "PO-Revision-Date: 2011-03-11 17:31-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "x"
+msgstr "Ya está ejecutándose otro servicio de caché de previsualizador"
 
 #: ../tumblerd/tumbler-group-scheduler.c:485
 #: ../tumblerd/tumbler-lifo-scheduler.c:421
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Previsualización no disponible para \"%s\""
+msgstr "No hay una previsualización dsponible para «%s»"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:207
 msgid "The thumbnailer service is shutting down"
@@ -53,13 +53,13 @@ msgstr "Error al llamar al previsualizador especializado: %s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Error al cargar el archivo \"%s\": %s"
+msgstr "Error al cargar el archivo «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Sección mal formada \"%s\" en archivo \"%s\": %s"
+msgstr "Sección «%s» mal formada en el archivo «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
@@ -74,47 +74,47 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Archivo \"%s\" mal formado: %s"
+msgstr "Archivo «%s» mal formado: %s"
 
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Error al determinar la fecha de modificación de \"%s\""
+msgstr "Error al determinar la fecha de modificación de «%s»"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Otro gestor de previsualización ya está corriendo"
+msgstr "Otro gestor de previsualización ya está funcionando"
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:83
 msgid "Tumbler Thumbnailing Service"
 msgstr "Servicio de previsualización de Tumbler"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:101
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Error al conectar a la sesión de bus D-Bus: %s"
+msgstr "Falló al conectar la sesión de bus D-Bus: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:159
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Error al cargar previsualizadores especializados al registro: %s"
+msgstr "Falló al cargar previsualizadores especializados dentro del registro: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:176
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Error al iniciar el servicio de caché de previsualización: %s"
+msgstr "Falló al iniciar el servicio de caché de previsualización: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:193
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Error al iniciar el gestor de previsualización: %s"
+msgstr "Falló al iniciar el gestor de previsualización: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:210
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "Error al iniciar el servicio de previsualización: %s"
+msgstr "Falló al iniciar el servicio de previsualización: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -131,27 +131,27 @@ msgstr "Espacio de color RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "El complemento de cache \"%s\" carece de los símbolos necesarios"
+msgstr "El complemento de cache «%s» carece de los símbolos necesarios"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Error al cargar el complemento de cache \"%s\": %s"
+msgstr "Error al cargar el complemento de cache «%s»: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "El archivo \"%s\" ya es una previsualización"
+msgstr "El archivo «%s» ya es una previsualización"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "El complemento \"%s\" carece de los símbolos necesarios"
+msgstr "El complemento «%s» carece de los símbolos necesarios."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Error al cargar el complemento \"%s\": %s"
+msgstr "Error al cargar el complemento «%s»: %s"
 
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
@@ -213,7 +213,7 @@ msgstr "No se puede abrir el archivo de fuente: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "No se puede establecer el mapa de caracteres: %s."
+msgstr "No se puede establecer el mapa de caracteres: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
@@ -284,12 +284,12 @@ msgstr "Cerrando el complemento RAW Thumbnailer para Tumbler"
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "No se puede guardar la previsualización a \"%s\""
+msgstr "No se puede guardar la previsualización a «%s»"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:57
 msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Iniciando el complemento XDG cache para Tumbler"
+msgstr "Iniciando el complemento caché XDG para Tumbler"
 
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:71
 msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Cerrando el complemento XDG cache para Tumbler"
+msgstr "Cerrando el complemento caché XDG para Tumbler"
