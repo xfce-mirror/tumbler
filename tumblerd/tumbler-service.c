@@ -122,7 +122,7 @@ struct _TumblerService
 
   DBusGConnection  *connection;
   TumblerRegistry  *registry;
-  GMutex           *mutex;
+  TUMBLER_MUTEX     (mutex);
   GList            *schedulers;
 
   GVolumeMonitor   *volume_monitor;
@@ -232,7 +232,7 @@ tumbler_service_class_init (TumblerServiceClass *klass)
 static void
 tumbler_service_init (TumblerService *service)
 {
-  service->mutex = g_mutex_new ();
+  tumbler_mutex_create (service->mutex);
   service->schedulers = NULL;
 
   service->volume_monitor = g_volume_monitor_get ();
@@ -329,7 +329,7 @@ tumbler_service_finalize (GObject *object)
 
   dbus_g_connection_unref (service->connection);
 
-  g_mutex_free (service->mutex);
+  tumbler_mutex_free (service->mutex);
 
   (*G_OBJECT_CLASS (tumbler_service_parent_class)->finalize) (object);
 }
@@ -687,13 +687,13 @@ tumbler_service_pre_unmount (TumblerService *service,
   g_return_if_fail (G_IS_MOUNT (mount));
   g_return_if_fail (volume_monitor == service->volume_monitor);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   /* iterate over all schedulers, cancelling URIs belonging to the mount */
   for (iter = service->schedulers; iter != NULL; iter = iter->next)
     tumbler_scheduler_cancel_by_mount (iter->data, mount);
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 }
 
 
@@ -740,7 +740,7 @@ tumbler_service_start (TumblerService *service,
   g_return_val_if_fail (TUMBLER_IS_SERVICE (service), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   /* get the native D-Bus connection */
   connection = dbus_g_connection_get_connection (service->connection);
@@ -758,12 +758,12 @@ tumbler_service_start (TumblerService *service,
                        _("Another generic thumbnailer is already running"));
         }
 
-      g_mutex_unlock (service->mutex);
+      tumbler_mutex_unlock (service->mutex);
 
       return FALSE;
     }
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 
   return TRUE;
 }
@@ -795,7 +795,7 @@ tumbler_service_queue (TumblerService        *service,
   dbus_async_return_if_fail (uris != NULL, context);
   dbus_async_return_if_fail (mime_hints != NULL, context);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   /* prevent the lifecycle manager to shut down the service as long
    * as the request is still being processed */
@@ -884,7 +884,7 @@ tumbler_service_queue (TumblerService        *service,
   /* free the thumbnailer array */
   tumbler_thumbnailer_array_free (thumbnailers, length);
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 
   dbus_g_method_return (context, handle);
 
@@ -903,7 +903,7 @@ tumbler_service_dequeue (TumblerService        *service,
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   if (handle != 0) 
     {
@@ -916,7 +916,7 @@ tumbler_service_dequeue (TumblerService        *service,
         }
     }
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 
   dbus_g_method_return (context);
 
@@ -935,12 +935,12 @@ tumbler_service_get_supported (TumblerService        *service,
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   /* fetch all supported URI scheme / MIME type pairs from the registry */
   tumbler_registry_get_supported (service->registry, &uri_schemes, &mime_types);
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 
   /* return the arrays to the caller */
   dbus_g_method_return (context, uri_schemes, mime_types);
@@ -1006,7 +1006,7 @@ tumbler_service_get_schedulers (TumblerService        *service,
 
   dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   /* allocate an error for the schedulers */
   supported_schedulers = g_new0 (gchar *, g_list_length (service->schedulers) + 2);
@@ -1021,7 +1021,7 @@ tumbler_service_get_schedulers (TumblerService        *service,
         tumbler_scheduler_get_name (TUMBLER_SCHEDULER (iter->data));
     }
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 
   /* NULL-terminate the array */
   supported_schedulers[n] = NULL;

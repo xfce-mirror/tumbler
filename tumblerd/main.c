@@ -85,9 +85,11 @@ main (int    argc,
   /* initialize the GLib type system */
   g_type_init ();
 
+#if !GLIB_CHECK_VERSION (2, 32, 0)
   /* initialize threading system */
   if (!g_thread_supported ())
     g_thread_init (NULL);
+#endif
 
   /* initial the D-Bus threading system */
   dbus_g_thread_init ();

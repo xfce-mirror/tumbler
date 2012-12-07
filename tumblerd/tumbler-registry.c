@@ -29,6 +29,7 @@
 
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -56,7 +57,7 @@ struct _TumblerRegistry
 
   GHashTable   *thumbnailers;
   GHashTable   *preferred_thumbnailers;
-  GMutex       *mutex;
+  TUMBLER_MUTEX (mutex);
 
   gchar       **uri_schemes;
   gchar       **mime_types;
@@ -90,7 +91,7 @@ tumbler_registry_class_init (TumblerRegistryClass *klass)
 static void
 tumbler_registry_init (TumblerRegistry *registry)
 {
-  registry->mutex = g_mutex_new ();
+  tumbler_mutex_create (registry->mutex);
   registry->thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
                                                   g_free, tumbler_registry_list_free);
   registry->preferred_thumbnailers = g_hash_table_new_full (g_str_hash, g_str_equal,
@@ -113,7 +114,7 @@ tumbler_registry_finalize (GObject *object)
   g_strfreev (registry->mime_types);
 
   /* destroy the mutex */
-  g_mutex_free (registry->mutex);
+  tumbler_mutex_free (registry->mutex);
 
   (*G_OBJECT_CLASS (tumbler_registry_parent_class)->finalize) (object);
 }
@@ -348,7 +349,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
 
   /* determine the hash keys (all combinations of URI schemes and MIME types)
    * for this thumbnailer */
@@ -390,7 +391,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
   dump_registry (registry);
 #endif
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 }
 
 
@@ -402,7 +403,7 @@ tumbler_registry_remove (TumblerRegistry    *registry,
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
 
   g_signal_handlers_disconnect_matched (thumbnailer, G_SIGNAL_MATCH_DATA, 
                                         0, 0, NULL, NULL, registry);
@@ -411,7 +412,7 @@ tumbler_registry_remove (TumblerRegistry    *registry,
   g_hash_table_foreach (registry->thumbnailers, 
                         (GHFunc) tumbler_registry_remove_thumbnailer, thumbnailer);
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 }
 
 
@@ -423,11 +424,11 @@ tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
 
   thumbnailers = tumbler_registry_get_thumbnailers_internal (registry);
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 
   /* return all active thumbnailers */
   return thumbnailers;
@@ -456,7 +457,7 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   /* iterate over all URIs */
   for (n = 0; n < length; ++n)
     {
-      g_mutex_lock (registry->mutex);
+      tumbler_mutex_lock (registry->mutex);
 
       /* determine the URI scheme and generate a hash key */
       scheme = g_uri_parse_scheme (tumbler_file_info_get_uri (infos[n]));
@@ -470,7 +471,7 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
       g_free (hash_key);
       g_free (scheme);
 
-      g_mutex_unlock (registry->mutex);
+      tumbler_mutex_unlock (registry->mutex);
     }
 
   /* NULL-terminate the array */
@@ -506,7 +507,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
 
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
 
   /* free the old cache */
   g_strfreev (registry->uri_schemes);
@@ -517,7 +518,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   /* get a list of all active thumbnailers */
   thumbnailers = tumbler_registry_get_thumbnailers_internal (registry);
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 
   /* abort if there are no thumbnailers */
   if (thumbnailers == NULL)
@@ -595,7 +596,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
 
   n = g_hash_table_size (unique_pairs);
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
 
   /* allocate a string array for the URI scheme / MIME type pairs */
   registry->uri_schemes = g_new0 (gchar *, n+1);
@@ -617,7 +618,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   registry->uri_schemes[n] = NULL;
   registry->mime_types[n] = NULL;
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 
   /* destroy the hash table we used */
   g_hash_table_unref (unique_pairs);
@@ -636,7 +637,7 @@ tumbler_registry_get_supported (TumblerRegistry     *registry,
 {
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
   
   if (uri_schemes != NULL)
     *uri_schemes = (const gchar *const *)registry->uri_schemes;
@@ -644,7 +645,7 @@ tumbler_registry_get_supported (TumblerRegistry     *registry,
   if (mime_types != NULL)
     *mime_types = (const gchar *const *)registry->mime_types;
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 }
 
 
@@ -658,9 +659,9 @@ tumbler_registry_get_preferred (TumblerRegistry *registry,
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (hash_key != NULL && *hash_key != '\0', NULL);
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
   thumbnailer = g_hash_table_lookup (registry->preferred_thumbnailers, hash_key);
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 
   return thumbnailer != NULL ? g_object_ref (thumbnailer) : NULL;
 }
@@ -676,7 +677,7 @@ tumbler_registry_set_preferred (TumblerRegistry    *registry,
   g_return_if_fail (hash_key != NULL && *hash_key != '\0');
   g_return_if_fail (thumbnailer == NULL || TUMBLER_IS_THUMBNAILER (thumbnailer));
 
-  g_mutex_lock (registry->mutex);
+  tumbler_mutex_lock (registry->mutex);
   
   if (thumbnailer == NULL)
     {
@@ -692,5 +693,5 @@ tumbler_registry_set_preferred (TumblerRegistry    *registry,
   dump_registry (registry);
 #endif
 
-  g_mutex_unlock (registry->mutex);
+  tumbler_mutex_unlock (registry->mutex);
 }

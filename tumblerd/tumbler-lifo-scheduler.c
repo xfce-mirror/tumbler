@@ -34,6 +34,7 @@
 
 #include <tumblerd/tumbler-lifo-scheduler.h>
 #include <tumblerd/tumbler-scheduler.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -89,7 +90,7 @@ struct _TumblerLifoScheduler
   GObject __parent__;
 
   GThreadPool *pool;
-  GMutex      *mutex;
+  TUMBLER_MUTEX (mutex);
   GList       *requests;
 
   gchar       *name;
@@ -135,7 +136,7 @@ tumbler_lifo_scheduler_iface_init (TumblerSchedulerIface *iface)
 static void
 tumbler_lifo_scheduler_init (TumblerLifoScheduler *scheduler)
 {
-  scheduler->mutex = g_mutex_new ();
+  tumbler_mutex_create (scheduler->mutex);
   scheduler->requests = NULL;
 
   /* allocate a thread pool with a maximum of one thread */
@@ -167,7 +168,7 @@ tumbler_lifo_scheduler_finalize (GObject *object)
   g_free (scheduler->name);
 
   /* destroy the mutex */
-  g_mutex_free (scheduler->mutex);
+  tumbler_mutex_free (scheduler->mutex);
 
   (*G_OBJECT_CLASS (tumbler_lifo_scheduler_parent_class)->finalize) (object);
 }
@@ -225,7 +226,7 @@ tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (lifo_scheduler->mutex);
+  tumbler_mutex_lock (lifo_scheduler->mutex);
   
   /* gain ownership over the requests (sets request->scheduler) */
   tumbler_scheduler_take_request (scheduler, request);
@@ -236,7 +237,7 @@ tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
   /* enqueue the request in the pool */
   g_thread_pool_push (lifo_scheduler->pool, request, NULL);
 
-  g_mutex_unlock (lifo_scheduler->mutex);
+  tumbler_mutex_unlock (lifo_scheduler->mutex);
 }
 
 
@@ -250,14 +251,14 @@ tumbler_lifo_scheduler_dequeue (TumblerScheduler *scheduler,
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
 
-  g_mutex_lock (lifo_scheduler->mutex);
+  tumbler_mutex_lock (lifo_scheduler->mutex);
 
   /* dequeue all requests (usually only one) with this handle */
   g_list_foreach (lifo_scheduler->requests, 
                   (GFunc) tumbler_lifo_scheduler_dequeue_request, 
                   GUINT_TO_POINTER (handle));
 
-  g_mutex_unlock (lifo_scheduler->mutex);
+  tumbler_mutex_unlock (lifo_scheduler->mutex);
 }
 
 
@@ -279,7 +280,7 @@ tumbler_lifo_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
   /* determine the root mount point */
   mount_point = g_mount_get_root (mount);
 
-  g_mutex_lock (lifo_scheduler->mutex);
+  tumbler_mutex_lock (lifo_scheduler->mutex);
 
   /* iterate over all requests */
   for (iter = lifo_scheduler->requests; iter != NULL; iter = iter->next)
@@ -301,7 +302,7 @@ tumbler_lifo_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
         }
     }
 
-  g_mutex_unlock (lifo_scheduler->mutex);
+  tumbler_mutex_unlock (lifo_scheduler->mutex);
 
   /* release the mount point */
   g_object_unref (mount_point);
@@ -374,27 +375,27 @@ tumbler_lifo_scheduler_thread (gpointer data,
                          request->origin);
 
   /* finish the request if it was already dequeued */
-  g_mutex_lock (scheduler->mutex);
+  tumbler_mutex_lock (scheduler->mutex);
   if (request->dequeued)
     {
       tumbler_lifo_scheduler_finish_request (scheduler, request);
-      g_mutex_unlock (scheduler->mutex);
+      tumbler_mutex_unlock (scheduler->mutex);
       return;
     }
-  g_mutex_unlock (scheduler->mutex);
+  tumbler_mutex_unlock (scheduler->mutex);
 
   /* process URI by URI */
   for (n = 0; n < request->length; ++n)
     {
       /* finish the request if it was dequeued */
-      g_mutex_lock (scheduler->mutex);
+      tumbler_mutex_lock (scheduler->mutex);
       if (request->dequeued)
         {
           tumbler_lifo_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->mutex);
+          tumbler_mutex_unlock (scheduler->mutex);
           return;
         }
-      g_mutex_unlock (scheduler->mutex);
+      tumbler_mutex_unlock (scheduler->mutex);
 
       /* ignore the the URI if has been cancelled already */
       if (g_cancellable_is_cancelled (request->cancellables[n]))
@@ -469,9 +470,9 @@ tumbler_lifo_scheduler_thread (gpointer data,
       /* finish the request if it was dequeued */
       if (request->dequeued)
         {
-          g_mutex_lock (scheduler->mutex);
+          tumbler_mutex_lock (scheduler->mutex);
           tumbler_lifo_scheduler_finish_request (scheduler, request);
-          g_mutex_unlock (scheduler->mutex);
+          tumbler_mutex_unlock (scheduler->mutex);
           return;
         }
 
@@ -503,12 +504,12 @@ tumbler_lifo_scheduler_thread (gpointer data,
   /* free list */
   g_list_free (missing_uris);
 
-  g_mutex_lock (scheduler->mutex);
+  tumbler_mutex_lock (scheduler->mutex);
 
   /* notify others that we're finished processing the request */
   tumbler_lifo_scheduler_finish_request (scheduler, request);
 
-  g_mutex_unlock (scheduler->mutex);
+  tumbler_mutex_unlock (scheduler->mutex);
 }
 
 

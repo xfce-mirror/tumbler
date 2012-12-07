@@ -94,7 +94,7 @@ struct _TumblerCacheService
   GThreadPool     *delete_pool;
   GThreadPool     *cleanup_pool;
 
-  GMutex          *mutex;
+  TUMBLER_MUTEX    (mutex);
 };
 
 struct _MoveRequest
@@ -150,7 +150,7 @@ tumbler_cache_service_class_init (TumblerCacheServiceClass *klass)
 static void
 tumbler_cache_service_init (TumblerCacheService *service)
 {
-  service->mutex = g_mutex_new ();
+  tumbler_mutex_create (service->mutex);
 }
 
 
@@ -202,7 +202,7 @@ tumbler_cache_service_finalize (GObject *object)
 
   dbus_g_connection_unref (service->connection);
 
-  g_mutex_free (service->mutex);
+  tumbler_mutex_free (service->mutex);
 
   (*G_OBJECT_CLASS (tumbler_cache_service_parent_class)->finalize) (object);
 }
@@ -261,7 +261,7 @@ tumbler_cache_service_move_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   if (service->cache != NULL)
     {
@@ -278,7 +278,7 @@ tumbler_cache_service_move_thread (gpointer data,
    * other requests are still to be processed) */
   tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 }
 
 
@@ -293,7 +293,7 @@ tumbler_cache_service_copy_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   if (service->cache != NULL)
     {
@@ -310,7 +310,7 @@ tumbler_cache_service_copy_thread (gpointer data,
    * other requests are still to be processed) */
   tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 }
 
 
@@ -325,7 +325,7 @@ tumbler_cache_service_delete_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   if (service->cache != NULL)
     tumbler_cache_delete (service->cache, (const gchar *const *)request->uris);
@@ -337,7 +337,7 @@ tumbler_cache_service_delete_thread (gpointer data,
    * other requests are still to be processed) */
   tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 }
 
 
@@ -352,7 +352,7 @@ tumbler_cache_service_cleanup_thread (gpointer data,
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   if (service->cache != NULL)
     {
@@ -368,7 +368,7 @@ tumbler_cache_service_cleanup_thread (gpointer data,
    * other requests are still to be processed) */
   tumbler_component_decrement_use_count (TUMBLER_COMPONENT (service));
 
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 }
 
 
@@ -395,7 +395,7 @@ tumbler_cache_service_start (TumblerCacheService *service,
   g_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (service->mutex);
+  tumbler_mutex_lock (service->mutex);
 
   /* get the native D-Bus connection */
   connection = dbus_g_connection_get_connection (service->connection);
@@ -413,12 +413,12 @@ tumbler_cache_service_start (TumblerCacheService *service,
                        _("Another thumbnail cache service is already running"));
         }
 
-      g_mutex_unlock (service->mutex);
+      tumbler_mutex_unlock (service->mutex);
 
       return FALSE;
     }
   
-  g_mutex_unlock (service->mutex);
+  tumbler_mutex_unlock (service->mutex);
 
   return TRUE;
 }

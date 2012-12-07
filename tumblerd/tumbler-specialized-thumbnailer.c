@@ -30,6 +30,7 @@
 #include <tumbler/tumbler-marshal.h>
 
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -92,8 +93,12 @@ struct _TumblerSpecializedThumbnailer
 struct _SpecializedInfo
 {
   TumblerThumbnailer *thumbnailer;
+#if GLIB_CHECK_VERSION (2, 32, 0)
+  GCond               condition;
+#else
   GCond              *condition;
-  GMutex             *mutex;
+#endif
+  TUMBLER_MUTEX       (mutex);
   const gchar        *uri;
   const gchar        *mime_type;
   gboolean            had_callback;
@@ -378,10 +383,14 @@ specialized_finished (DBusGProxy *proxy,
 
   if (info->handle == handle) 
     {
-      g_mutex_lock (info->mutex);
+      tumbler_mutex_lock (info->mutex);
+#if GLIB_CHECK_VERSION (2, 32, 0)
+      g_cond_broadcast (&info->condition);
+#else
       g_cond_broadcast (info->condition);
+#endif
       info->had_callback = TRUE;
-      g_mutex_unlock (info->mutex);
+      tumbler_mutex_unlock (info->mutex);
     }
 }
 
@@ -392,7 +401,11 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 {
   TumblerSpecializedThumbnailer *s;
   SpecializedInfo                sinfo;
+#if GLIB_CHECK_VERSION (2, 32, 0)
+  gint64                         end_time;
+#else
   GTimeVal                       timev;
+#endif
   TumblerThumbnail              *thumbnail;
   TumblerThumbnailFlavor        *flavor;
   const gchar                   *flavor_name;
@@ -409,9 +422,13 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 
   s = TUMBLER_SPECIALIZED_THUMBNAILER (thumbnailer);
 
+#if GLIB_CHECK_VERSION (2, 32, 0)
+  g_cond_init (&sinfo.condition);
+#else
   sinfo.condition = g_cond_new ();
+#endif
   sinfo.had_callback = FALSE;
-  sinfo.mutex = g_mutex_new ();
+  tumbler_mutex_create (sinfo.mutex);
   sinfo.uri = uri;
   sinfo.mime_type = tumbler_file_info_get_mime_type (info);
   sinfo.thumbnailer = thumbnailer;
@@ -445,25 +462,32 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 
   if (error == NULL)
     {
+     /* 100 seconds worth of timeout */
+#if GLIB_CHECK_VERSION (2, 32, 0)
+     end_time = g_get_monotonic_time () + 100 * G_TIME_SPAN_SECOND;
+#else
       g_get_current_time (&timev);
-  
-      /* 100 seconds worth of timeout */
       g_time_val_add  (&timev, 100000000); 
+#endif
 
-      g_mutex_lock (sinfo.mutex);
+      tumbler_mutex_lock (sinfo.mutex);
 
       /* we are a thread, so the mainloop will still be
        * be running to receive the error and ready signals */
       if (!sinfo.had_callback)
         {
+#if GLIB_CHECK_VERSION (2, 32, 0)
+          if (!g_cond_wait_until (&sinfo.condition, &sinfo.mutex, end_time))
+#else
           if (!g_cond_timed_wait (sinfo.condition, sinfo.mutex, &timev))
+#endif
             {
               message = g_strdup (_("Failed to call the specialized thumbnailer: timeout"));
               g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
               g_free (message);
             }
         }
-      g_mutex_unlock (sinfo.mutex);
+      tumbler_mutex_unlock (sinfo.mutex);
     }
   else
     {
@@ -485,6 +509,12 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   dbus_g_proxy_disconnect_signal (s->proxy, "Error",
                                G_CALLBACK (specialized_error),
                                &sinfo);
+
+#if GLIB_CHECK_VERSION (2, 32, 0)
+  g_cond_clear (&sinfo.condition);
+#else
+  g_cond_free (sinfo.condition);
+#endif
 }
 
 static void

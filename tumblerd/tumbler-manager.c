@@ -127,7 +127,7 @@ struct _TumblerManager
    * (smaller directory index) coming first */
   GHashTable      *thumbnailers;
 
-  GMutex          *mutex;
+  TUMBLER_MUTEX    (mutex);
 };
 
 struct _OverrideInfo
@@ -187,7 +187,7 @@ tumbler_manager_init (TumblerManager *manager)
 {
   manager->directories = NULL;
   manager->monitors = NULL;
-  manager->mutex = g_mutex_new ();
+  tumbler_mutex_create (manager->mutex);
 
   /* create the overrides info hash table */
   manager->overrides = g_hash_table_new_full (g_str_hash, g_str_equal,
@@ -224,7 +224,7 @@ tumbler_manager_finalize (GObject *object)
 {
   TumblerManager *manager = TUMBLER_MANAGER (object);
 
-  g_mutex_lock (manager->mutex);
+  tumbler_mutex_lock (manager->mutex);
 
   /* release all thumbnailer directory monitors */
   g_list_foreach (manager->monitors, (GFunc) tumbler_manager_monitor_unref, manager);
@@ -244,10 +244,10 @@ tumbler_manager_finalize (GObject *object)
   /* release the D-Bus connection object */
   dbus_g_connection_unref (manager->connection);
 
-  g_mutex_unlock (manager->mutex);
+  tumbler_mutex_unlock (manager->mutex);
 
   /* destroy the mutex */
-  g_mutex_free (manager->mutex);
+  tumbler_mutex_free (manager->mutex);
 
   (*G_OBJECT_CLASS (tumbler_manager_parent_class)->finalize) (object);
 }
@@ -1188,13 +1188,13 @@ tumbler_manager_load (TumblerManager *manager)
 
   g_return_if_fail (TUMBLER_MANAGER (manager));
 
-  g_mutex_lock (manager->mutex);
+  tumbler_mutex_lock (manager->mutex);
 
   /* this function may only be called once */
   g_assert (manager->directories == NULL);
   g_assert (manager->monitors == NULL);
 
-  g_mutex_unlock (manager->mutex);
+  tumbler_mutex_unlock (manager->mutex);
 
   /* prepend $XDG_DATA_HOME/thumbnailers/ to the directory list */
   dirname = g_build_filename (g_get_user_data_dir (), "thumbnailers", NULL);
@@ -1216,7 +1216,7 @@ tumbler_manager_load (TumblerManager *manager)
    * priority come first */
   directories = g_list_reverse (directories);
 
-  g_mutex_lock (manager->mutex);
+  tumbler_mutex_lock (manager->mutex);
 
   /* pass the ownership of the directories list to the manager */
   manager->directories = directories;
@@ -1246,7 +1246,7 @@ tumbler_manager_load (TumblerManager *manager)
       manager->monitors = g_list_prepend (manager->monitors, monitor);
     }
 
-  g_mutex_unlock (manager->mutex);
+  tumbler_mutex_unlock (manager->mutex);
 }
 
 
@@ -1561,46 +1561,46 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
 #ifdef DEBUG
           g_debug ("  %s deleted", g_file_get_path (file));
 #endif
-          g_mutex_lock (manager->mutex);
+          tumbler_mutex_lock (manager->mutex);
           tumbler_manager_unload_overrides_file (manager, file);
           tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
           dump_overrides (manager);
 #endif
-          g_mutex_unlock (manager->mutex);
+          tumbler_mutex_unlock (manager->mutex);
         }
       else if (g_str_has_suffix (base_name, ".service"))
         {
 #ifdef DEBUG
           g_debug ("  %s deleted", g_file_get_path (file));
 #endif
-          g_mutex_lock (manager->mutex);
+          tumbler_mutex_lock (manager->mutex);
           tumbler_manager_thumbnailer_file_deleted (manager, file);
           tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
           dump_thumbnailers (manager);
 #endif
-          g_mutex_unlock (manager->mutex);
+          tumbler_mutex_unlock (manager->mutex);
         }
       else
         {
 #ifdef DEBUG
           g_debug ("  %s deleted", g_file_get_path (file));
 #endif
-          g_mutex_lock (manager->mutex);
+          tumbler_mutex_lock (manager->mutex);
           dir_index = tumbler_manager_get_dir_index (manager, file);
-          g_mutex_unlock (manager->mutex);
+          tumbler_mutex_unlock (manager->mutex);
 
           if (dir_index >= 0)
             {
-              g_mutex_lock (manager->mutex);
+              tumbler_mutex_lock (manager->mutex);
               tumbler_manager_directory_deleted (manager, file, dir_index);
               tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
               dump_overrides (manager);
               dump_thumbnailers (manager);
 #endif
-              g_mutex_unlock (manager->mutex);
+              tumbler_mutex_unlock (manager->mutex);
             }
         }
     }
@@ -1619,27 +1619,27 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
 #ifdef DEBUG
                   g_debug ("  %s created", g_file_get_path (file));
 #endif
-                  g_mutex_lock (manager->mutex);
+                  tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_load_overrides_file (manager, file);
                   tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
                   dump_overrides (manager);
 #endif
-                  g_mutex_unlock (manager->mutex);
+                  tumbler_mutex_unlock (manager->mutex);
                 }
               else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
                 {
 #ifdef DEBUG
                   g_debug ("  %s changed", g_file_get_path (file));
 #endif
-                  g_mutex_lock (manager->mutex);
+                  tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_unload_overrides_file (manager, file);
                   tumbler_manager_load_overrides_file (manager, file);
                   tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
                   dump_overrides (manager);
 #endif
-                  g_mutex_unlock (manager->mutex);
+                  tumbler_mutex_unlock (manager->mutex);
                 }
             }
           else if (g_str_has_suffix (base_name, ".service"))
@@ -1649,35 +1649,35 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
 #ifdef DEBUG
                   g_debug ("  %s created", g_file_get_path (file));
 #endif
-                  g_mutex_lock (manager->mutex);
+                  tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_load_thumbnailer (manager, file);
                   tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
                   dump_thumbnailers (manager);
 #endif
-                  g_mutex_unlock (manager->mutex);
+                  tumbler_mutex_unlock (manager->mutex);
                 }
               else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
                 {
 #ifdef DEBUG
                   g_debug ("  %s changed", g_file_get_path (file));
 #endif
-                  g_mutex_lock (manager->mutex);
+                  tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_thumbnailer_file_deleted (manager, file);
                   tumbler_manager_load_thumbnailer (manager, file);
                   tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
                   dump_thumbnailers (manager);
 #endif
-                  g_mutex_unlock (manager->mutex);
+                  tumbler_mutex_unlock (manager->mutex);
                 }
             }
         }
       else
         {
-          g_mutex_lock (manager->mutex);
+          tumbler_mutex_lock (manager->mutex);
           dir_index = tumbler_manager_get_dir_index (manager, file);
-          g_mutex_unlock (manager->mutex);
+          tumbler_mutex_unlock (manager->mutex);
 
           if (dir_index >= 0)
             {
@@ -1685,14 +1685,14 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
               g_debug ("  %s created", g_file_get_path (file));
 #endif
 
-              g_mutex_lock (manager->mutex);
+              tumbler_mutex_lock (manager->mutex);
               tumbler_manager_directory_created (manager, file, dir_index);
               tumbler_registry_update_supported (manager->registry);
 #ifdef DEBUG
               dump_overrides (manager);
               dump_thumbnailers (manager);
 #endif
-              g_mutex_unlock (manager->mutex);
+              tumbler_mutex_unlock (manager->mutex);
             }
         }
     }
@@ -1850,7 +1850,7 @@ tumbler_manager_start (TumblerManager *manager,
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (manager->mutex);
+  tumbler_mutex_lock (manager->mutex);
 
   /* get the native D-Bus connection */
   connection = dbus_g_connection_get_connection (manager->connection);
@@ -1868,13 +1868,13 @@ tumbler_manager_start (TumblerManager *manager,
                        _("Another thumbnailer manager is already running"));
         }
 
-      g_mutex_unlock (manager->mutex);
+      tumbler_mutex_unlock (manager->mutex);
 
       /* i can't work like this! */
       return FALSE;
     }
 
-  g_mutex_unlock (manager->mutex);
+  tumbler_mutex_unlock (manager->mutex);
 
   /* load thumbnailers installed into the system permanently */
   tumbler_manager_load (manager);
@@ -1900,7 +1900,7 @@ tumbler_manager_register (TumblerManager        *manager,
 
   sender_name = dbus_g_method_get_sender (context);
 
-  g_mutex_lock (manager->mutex);
+  tumbler_mutex_lock (manager->mutex);
 
   thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->connection,
                                                              sender_name, uri_schemes, 
@@ -1910,7 +1910,7 @@ tumbler_manager_register (TumblerManager        *manager,
 
   g_object_unref (thumbnailer);
 
-  g_mutex_unlock (manager->mutex);
+  tumbler_mutex_unlock (manager->mutex);
 
   g_free (sender_name);
 

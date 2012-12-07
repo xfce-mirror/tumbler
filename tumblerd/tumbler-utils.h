@@ -41,6 +41,20 @@ G_BEGIN_DECLS
       }                                                                                 \
   }G_STMT_END
 
+#if GLIB_CHECK_VERSION (2, 32, 0)
+#define TUMBLER_MUTEX(mtx)        GMutex mtx
+#define tumbler_mutex_free(mtx)   G_STMT_START{ (void)0; }G_STMT_END
+#define tumbler_mutex_lock(mtx)   g_mutex_lock (&(mtx))
+#define tumbler_mutex_unlock(mtx) g_mutex_unlock (&(mtx))
+#define tumbler_mutex_create(mtx) g_mutex_init (&(mtx))
+#else
+#define TUMBLER_MUTEX(mtx)        GMutex *mtx
+#define tumbler_mutex_free(mtx)   g_mutex_free (mtx)
+#define tumbler_mutex_lock(mtx)   g_mutex_lock (mtx)
+#define tumbler_mutex_unlock(mtx) g_mutex_unlock (mtx)
+#define tumbler_mutex_create(mtx) (mtx) = g_mutex_new ()
+#endif
+
 G_END_DECLS
 
 #endif /* !__TUMBLER_UTILS_H__ */

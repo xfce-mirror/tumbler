@@ -29,6 +29,7 @@
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-lifecycle-manager.h>
+#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -58,7 +59,7 @@ struct _TumblerLifecycleManager
 {
   GObject __parent__;
 
-  GMutex *lock;
+  TUMBLER_MUTEX (lock);
 
   guint   timeout_id;
   guint   component_use_count;
@@ -103,7 +104,7 @@ tumbler_lifecycle_manager_class_init (TumblerLifecycleManagerClass *klass)
 static void
 tumbler_lifecycle_manager_init (TumblerLifecycleManager *manager)
 {
-  manager->lock = g_mutex_new ();
+  tumbler_mutex_create (manager->lock);
   manager->timeout_id = 0;
   manager->component_use_count = 0;
   manager->shutdown_emitted = FALSE;
@@ -114,9 +115,11 @@ tumbler_lifecycle_manager_init (TumblerLifecycleManager *manager)
 static void
 tumbler_lifecycle_manager_finalize (GObject *object)
 {
+#if !GLIB_CHECK_VERSION (2, 32, 0)
   TumblerLifecycleManager *manager = TUMBLER_LIFECYCLE_MANAGER (object);
+#endif
 
-  g_mutex_free (manager->lock);
+  tumbler_mutex_free (TUMBLER_LIFECYCLE_MANAGER (object)->lock);
 
   (*G_OBJECT_CLASS (tumbler_lifecycle_manager_parent_class)->finalize) (object);
 }
@@ -128,12 +131,12 @@ tumbler_lifecycle_manager_timeout (TumblerLifecycleManager *manager)
 {
   g_return_val_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager), FALSE);
 
-  g_mutex_lock (manager->lock);
+  tumbler_mutex_lock (manager->lock);
 
   /* reschedule the timeout if one of the components is still in use */
   if (manager->component_use_count > 0)
     {
-      g_mutex_unlock (manager->lock);
+      tumbler_mutex_unlock (manager->lock);
       return TRUE;
     }
 
@@ -147,7 +150,7 @@ tumbler_lifecycle_manager_timeout (TumblerLifecycleManager *manager)
    * reschedule the timeout */
   manager->shutdown_emitted = TRUE;
 
-  g_mutex_unlock (manager->lock);
+  tumbler_mutex_unlock (manager->lock);
 
   return FALSE;
 }
@@ -167,12 +170,12 @@ tumbler_lifecycle_manager_start (TumblerLifecycleManager *manager)
 {
   g_return_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager));
 
-  g_mutex_lock (manager->lock);
+  tumbler_mutex_lock (manager->lock);
 
   /* ignore if there already is a timeout scheduled */
   if (manager->timeout_id > 0)
     {
-      g_mutex_unlock (manager->lock);
+      tumbler_mutex_unlock (manager->lock);
       return;
     }
 
@@ -181,7 +184,7 @@ tumbler_lifecycle_manager_start (TumblerLifecycleManager *manager)
                            (GSourceFunc) tumbler_lifecycle_manager_timeout, 
                            manager);
 
-  g_mutex_unlock (manager->lock);
+  tumbler_mutex_unlock (manager->lock);
 }
 
 
@@ -193,13 +196,13 @@ tumbler_lifecycle_manager_keep_alive (TumblerLifecycleManager *manager,
   g_return_val_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  g_mutex_lock (manager->lock);
+  tumbler_mutex_lock (manager->lock);
 
   /* if the shutdown signal has been emitted, there's nothing 
    * we can do to prevent a shutdown anymore */
   if (manager->shutdown_emitted)
     {
-      g_mutex_unlock (manager->lock);
+      tumbler_mutex_unlock (manager->lock);
 
       if (error != NULL)
         {
@@ -220,7 +223,7 @@ tumbler_lifecycle_manager_keep_alive (TumblerLifecycleManager *manager,
                            (GSourceFunc) tumbler_lifecycle_manager_timeout, 
                            manager);
 
-  g_mutex_unlock (manager->lock);
+  tumbler_mutex_unlock (manager->lock);
 
   return TRUE;
 }
@@ -232,11 +235,11 @@ tumbler_lifecycle_manager_increment_use_count (TumblerLifecycleManager *manager)
 {
   g_return_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager));
 
-  g_mutex_lock (manager->lock);
+  tumbler_mutex_lock (manager->lock);
 
   manager->component_use_count += 1;
   
-  g_mutex_unlock (manager->lock);
+  tumbler_mutex_unlock (manager->lock);
 }
 
 
@@ -246,11 +249,11 @@ tumbler_lifecycle_manager_decrement_use_count (TumblerLifecycleManager *manager)
 {
   g_return_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager));
 
-  g_mutex_lock (manager->lock);
+  tumbler_mutex_lock (manager->lock);
   
   /* decrement the use count, make sure not to drop below zero */
   if (manager->component_use_count > 0)
     manager->component_use_count -= 1;
   
-  g_mutex_unlock (manager->lock);
+  tumbler_mutex_unlock (manager->lock);
 }
