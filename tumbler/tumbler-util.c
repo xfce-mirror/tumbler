@@ -22,6 +22,10 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_STRING_H
+#include <string.h>
+#endif
+
 #include <glib.h>
 #include <gio/gio.h>
 
@@ -34,36 +38,38 @@ tumbler_util_get_supported_uri_schemes (void)
 {
   const gchar *const *vfs_schemes;
   gchar             **uri_schemes;
-  gboolean            file_scheme_found = FALSE;
   guint               length;
-  guint               n;
+  guint               n = 0;
+  guint               i;
   GVfs               *vfs;
 
   /* determine the URI schemes supported by GIO */
   vfs = g_vfs_get_default ();
   vfs_schemes = g_vfs_get_supported_uri_schemes (vfs);
 
-  /* search for the "file" scheme */
-  for (n = 0; !file_scheme_found && vfs_schemes[n] != NULL; ++n)
-    if (g_strcmp0 (vfs_schemes[n], "file") == 0)
-      file_scheme_found = TRUE;
-
-  /* check if the "file" scheme is included */
-  if (file_scheme_found)
-    {
-      /* it is, so simply copy the array */
-      uri_schemes = g_strdupv ((gchar **)vfs_schemes);
-    }
+  if (G_LIKELY (vfs_schemes != NULL))
+    length = g_strv_length ((gchar **) vfs_schemes);
   else
+    length = 0;
+
+  /* always start with file */
+  uri_schemes = g_new0 (gchar *, length + 2);
+  uri_schemes[n++] = g_strdup ("file");
+
+  if (G_LIKELY (vfs_schemes != NULL))
     {
-      /* it is not, so we need to copy the array and add "file" */
-      length = g_strv_length ((gchar **)vfs_schemes);
-      uri_schemes = g_new0 (gchar *, length + 2);
-      uri_schemes[0] = g_strdup ("file");
-      for (n = 1; n <= length; ++n)
-        uri_schemes[n] = g_strdup (vfs_schemes[n-1]);
-      uri_schemes[n] = NULL;
+      for (i = 0; vfs_schemes[i] != NULL; ++i)
+        {
+          /* skip unneeded schemes */
+          if (strcmp ("file", vfs_schemes[i]) != 0
+              && strcmp ("computer", vfs_schemes[i]) != 0
+              && strcmp ("localtest", vfs_schemes[i]) != 0
+              && strcmp ("network", vfs_schemes[i]) != 0)
+            uri_schemes[n++] = g_strdup (vfs_schemes[i]);
+        }
     }
+
+  uri_schemes[n++] = NULL;
 
   return uri_schemes;
 }
