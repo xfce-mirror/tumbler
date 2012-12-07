@@ -473,7 +473,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   GList         *thumbnailers;
   GList         *lp;
   const gchar  **pair;
-  GString       *pair_string;
+  gchar         *pair_string;
   gchar        **mime_types;
   gchar        **uri_schemes;
   gint           n;
@@ -541,15 +541,10 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
               pair[1] = mime_types[n];
 
               /* combine the two to a unique pair identifier */
-              pair_string = g_string_new (pair[0]);
-              g_string_append_c (pair_string, '-');
-              g_string_append (pair_string, pair[1]);
+              pair_string = g_strdup_printf ("%s-%s", pair[0], pair[1]);
 
               /* remember the pair in the hash table */
-              g_hash_table_insert (unique_pairs, pair_string->str, pair);
-
-              /* free the pair string */
-              g_string_free (pair_string, FALSE);
+              g_hash_table_insert (unique_pairs, pair_string, pair);
             }
         }
 
