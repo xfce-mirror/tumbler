@@ -144,6 +144,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   GdkPixbufLoader *loader;
   gssize           n_read;
   gboolean         result;
+  GdkPixbuf       *src;
   GdkPixbuf       *pixbuf = NULL;
   guchar           buffer[65536];
 
@@ -186,9 +187,9 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
 
   if (result)
     {
-      pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
-      if (G_LIKELY (pixbuf != NULL))
-        g_object_ref (pixbuf);
+      src = gdk_pixbuf_loader_get_pixbuf (loader);
+      if (G_LIKELY (src != NULL))
+        pixbuf = gdk_pixbuf_apply_embedded_orientation (src);
     }
 
   g_object_unref (loader);
