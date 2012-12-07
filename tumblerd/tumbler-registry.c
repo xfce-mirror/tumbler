@@ -33,16 +33,16 @@
 
 
 
-static void         tumbler_registry_finalize                  (GObject            *object);
-static void         tumbler_registry_remove_thumbnailer        (const gchar        *key,
-                                                                GList             **list,
-                                                                TumblerThumbnailer *thumbnailer);
-static void         tumbler_registry_list_free                 (gpointer            data);
-static GList       *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
-static gint         tumbler_registry_compare                   (TumblerThumbnailer *a,
-                                                                TumblerThumbnailer *b);
-TumblerThumbnailer *tumbler_registry_lookup                    (TumblerRegistry    *registry,
-                                                                const gchar        *hash_key);
+static void                tumbler_registry_finalize                  (GObject            *object);
+static void                tumbler_registry_remove_thumbnailer        (const gchar        *key,
+                                                                       GList             **list,
+                                                                       TumblerThumbnailer *thumbnailer);
+static void                tumbler_registry_list_free                 (gpointer            data);
+static GList              *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
+static gint                tumbler_registry_compare                   (TumblerThumbnailer *a,
+                                                                       TumblerThumbnailer *b);
+static TumblerThumbnailer *tumbler_registry_lookup                    (TumblerRegistry    *registry,
+                                                                       const gchar        *hash_key);
 
 
 
@@ -125,36 +125,10 @@ tumbler_registry_finalize (GObject *object)
 static void
 dump_registry (TumblerRegistry *registry)
 {
-  TumblerThumbnailer *thumbnailer;
-  GHashTableIter      iter;
-  const gchar        *hash_key;
-  GList             **thumbnailers;
-  GList              *lp;
-
   g_print ("Registry:\n");
-
-  g_print ("  Preferred Thumbnailers:\n");
-  g_hash_table_iter_init (&iter, registry->preferred_thumbnailers);
-  while (g_hash_table_iter_next (&iter, (gpointer) &hash_key, (gpointer) &thumbnailer))
-    {
-      g_print ("    %s: %s\n", hash_key,
-               tumbler_specialized_thumbnailer_get_name (TUMBLER_SPECIALIZED_THUMBNAILER (thumbnailer)));
-    }
-
-  g_print ("  Registry Thumbnailers:\n");
-  g_hash_table_iter_init (&iter, registry->thumbnailers);
-  while (g_hash_table_iter_next (&iter, (gpointer) &hash_key, (gpointer) &thumbnailers))
-    {
-      for (lp = *thumbnailers; lp != NULL; lp = lp->next)
-        {
-          if (TUMBLER_IS_SPECIALIZED_THUMBNAILER (lp->data))
-            {
-              g_print ("    %s: %s\n", 
-                       hash_key, tumbler_specialized_thumbnailer_get_name (lp->data));
-            }
-        }
-    }
-
+  g_print ("  Preferred Thumbnailers: %d\n",
+           g_hash_table_size (registry->preferred_thumbnailers));
+  g_print ("  Registry Thumbnailers: %d\n",g_hash_table_size (registry->thumbnailers));
   g_print ("\n");
 }
 #endif
@@ -286,7 +260,7 @@ tumbler_registry_get_thumbnailers_internal (TumblerRegistry *registry)
 
 
 
-TumblerThumbnailer *
+static TumblerThumbnailer *
 tumbler_registry_lookup (TumblerRegistry *registry,
                          const gchar     *hash_key)
 {
