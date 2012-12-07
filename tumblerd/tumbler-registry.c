@@ -469,7 +469,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
 {
   GHashTableIter iter;
   GHashTable    *unique_pairs;
-  GSList        *used_strings = NULL;
+  GPtrArray     *used_strings;
   GList         *thumbnailers;
   GList         *lp;
   const gchar  **pair;
@@ -507,6 +507,9 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
                                         (GDestroyNotify) g_free, 
                                         (GDestroyNotify) free_pair);
 
+  /* prepare array */
+  used_strings = g_ptr_array_sized_new (150);
+
   /* iterate over all of them */
   for (lp = thumbnailers; lp != NULL; lp = lp->next)
     {
@@ -523,7 +526,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
            ++n)
         {
           /* remember the MIME type so that we can later reuse it without copying */
-          used_strings = g_slist_prepend (used_strings, mime_types[n]);
+          g_ptr_array_add (used_strings, mime_types[n]);
 
           for (u = 0; uri_schemes[u] != NULL; ++u)
             {
@@ -531,7 +534,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
                * without copying. Only remember it once (n==0) to avoid segmentation 
                * faults when freeing the list */
               if (n == 0)
-                used_strings = g_slist_prepend (used_strings, uri_schemes[u]);
+                g_ptr_array_add (used_strings, uri_schemes[u]);
 
               /* allocate a pair with the current URI scheme and MIME type */
               pair = g_slice_alloc (2 * sizeof (const gchar *));
@@ -593,8 +596,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   g_hash_table_unref (unique_pairs);
 
   /* free all strings we used but haven't freed yet */
-  g_slist_foreach (used_strings, (GFunc) g_free, NULL);
-  g_slist_free (used_strings);
+  g_ptr_array_foreach (used_strings, (GFunc) g_free, NULL);
+  g_ptr_array_free (used_strings, TRUE);
 }
 
 
