@@ -61,10 +61,12 @@ tumbler_util_get_supported_uri_schemes (void)
       for (i = 0; vfs_schemes[i] != NULL; ++i)
         {
           /* skip unneeded schemes */
-          if (strcmp ("file", vfs_schemes[i]) != 0
-              && strcmp ("computer", vfs_schemes[i]) != 0
-              && strcmp ("localtest", vfs_schemes[i]) != 0
-              && strcmp ("network", vfs_schemes[i]) != 0)
+          if (strcmp ("file", vfs_schemes[i]) != 0         /* always first scheme */
+              && strcmp ("computer", vfs_schemes[i]) != 0  /* only devices here */
+              && strcmp ("localtest", vfs_schemes[i]) != 0 /* test fs */
+              && strcmp ("http", vfs_schemes[i]) != 0      /* not a fs you can browse */
+              && strcmp ("cdda", vfs_schemes[i]) != 0      /* audio cds */
+              && strcmp ("network", vfs_schemes[i]) != 0)  /* only to list remotes, not files */
             uri_schemes[n++] = g_strdup (vfs_schemes[i]);
         }
     }
