@@ -105,6 +105,7 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   {
     "video/jpeg",
     "video/mp4",
+    "video/mp2t",
     "video/mpeg",
     "video/quicktime",
     "video/x-ms-asf",
