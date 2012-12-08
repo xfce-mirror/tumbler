@@ -281,7 +281,7 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
   if (cache_thumbnail->cached_mtime == 0)
     return TRUE;
 
-  return g_utf8_collate (cache_thumbnail->uri, uri) != 0 
+  return strcmp (cache_thumbnail->uri, uri) != 0
     || cache_thumbnail->cached_mtime != mtime;
 }
 

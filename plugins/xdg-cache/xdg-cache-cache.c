@@ -640,13 +640,14 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
                     {
                       if (!text_ptr[i].key)
                         continue;
-                      else if (g_utf8_collate ("Thumb::URI", text_ptr[i].key) == 0)
+
+                      if (strcmp ("Thumb::URI", text_ptr[i].key) == 0)
                         {
                           /* remember the Thumb::URI value */
                           *uri = g_strdup (text_ptr[i].text);
                           has_uri = TRUE;
                         }
-                      else if (g_utf8_collate ("Thumb::MTime", text_ptr[i].key) == 0)
+                      else if (strcmp ("Thumb::MTime", text_ptr[i].key) == 0)
                         {
                           /* remember the Thumb::MTime value */
                           if (text_ptr[i].text != NULL)
