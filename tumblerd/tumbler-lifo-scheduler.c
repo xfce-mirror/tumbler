@@ -473,6 +473,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
           tumbler_mutex_lock (scheduler->mutex);
           tumbler_lifo_scheduler_finish_request (scheduler, request);
           tumbler_mutex_unlock (scheduler->mutex);
+          g_list_free (missing_uris);
           return;
         }
 
