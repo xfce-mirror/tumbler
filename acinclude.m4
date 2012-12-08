@@ -158,7 +158,7 @@ if test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for libgstreamerthumbnailer
-    PKG_CHECK_MODULES([GSTREAMER], [gstreamer-0.10], [], [ac_tumbler_gstreamer_thumbnailer=no])
+    PKG_CHECK_MODULES([GSTREAMER], [gstreamer-1.0], [], [ac_tumbler_gstreamer_thumbnailer=no])
   ], [ac_tumbler_gstreamer_thumbnailer=no])
 fi
 

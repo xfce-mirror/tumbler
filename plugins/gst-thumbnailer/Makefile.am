@@ -28,9 +28,7 @@ tumbler_gst_thumbnailer_la_SOURCES =					\
 	gst-thumbnailer-provider.c					\
 	gst-thumbnailer-provider.h					\
 	gst-thumbnailer.c						\
-	gst-thumbnailer.h						\
-	gst-helper.c							\
-	gst-helper.h
+	gst-thumbnailer.h
 
 tumbler_gst_thumbnailer_la_CFLAGS =					\
 	-I$(top_builddir)						\

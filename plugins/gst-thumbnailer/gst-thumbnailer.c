@@ -1,8 +1,6 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*
- * Copyright (c) 2011 Intel Corporation
- *
- * Author: Ross Burton <ross@linux.intel.com>
+ * Copyright (C) 2003,2004 Bastien Nocera <hadess@hadess.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -11,13 +9,16 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
+ *
+ * Most of the code is taken from the totem-video-thumbnailer and
+ * made suitable for Tumbler by Nick Schermer.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -31,18 +32,17 @@
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <tumbler/tumbler.h>
+
 #include <gst/gst.h>
+#include <gst/tag/tag.h>
 
 #include "gst-thumbnailer.h"
-#include "gst-helper.h"
 
 
 
-#ifdef DEBUG
-#define LOG(...) g_message (__VA_ARGS__)
-#else
-#define LOG(...)
-#endif
+#define BORING_IMAGE_VARIANCE       256.0    /* tweak this if necessary */
+#define TUMBLER_GST_PLAY_FLAG_VIDEO (1 << 0) /* from GstPlayFlags */
+#define TUMBLER_GST_PLAY_FLAG_AUDIO (1 << 1) /* from GstPlayFlags */
 
 
 
@@ -103,298 +103,523 @@ gst_thumbnailer_init (GstThumbnailer *thumbnailer)
 
 
 
-/*
- * Determine if the image is "interesting" or not.  This implementation reduces
- * the RGB from 24 to 12 bits and examines the distribution of colours.
- *
- * This function is taken from Bickley, Copyright (c) Intel Corporation 2008.
- */
-static gboolean
-is_interesting (GdkPixbuf *pixbuf)
+static GdkPixbuf *
+gst_thumbnailer_buffer_to_pixbuf (GstBuffer *buffer)
 {
-  int width, height, y, rowstride;
-  gboolean has_alpha;
-  guint32 histogram[4][4][4] = {{{0,},},};
-  guchar *pixels;
-  guint pxl_count = 0, count, i;
+  GstMapInfo       info;
+  GdkPixbuf       *pixbuf = NULL;
+  GdkPixbufLoader *loader;
 
-  g_assert (GDK_IS_PIXBUF (pixbuf));
+  if (!gst_buffer_map (buffer, &info, GST_MAP_READ))
+    return NULL;
 
-  width = gdk_pixbuf_get_width (pixbuf);
-  height = gdk_pixbuf_get_height (pixbuf);
-  rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-  has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+  loader = gdk_pixbuf_loader_new ();
 
-  pixels = gdk_pixbuf_get_pixels (pixbuf);
-  for (y = 0; y < height; y++)
+  if (gdk_pixbuf_loader_write (loader, info.data, info.size, NULL)
+      && gdk_pixbuf_loader_close (loader, NULL))
     {
-      guchar *row = pixels + (y * rowstride);
-      int c;
-
-      for (c = 0; c < width; c++)
-        {
-          guchar r, g, b;
-
-          r = row[0];
-          g = row[1];
-          b = row[2];
-
-          histogram[r / 64][g / 64][b / 64]++;
-
-          if (has_alpha)
-            {
-              row += 4;
-            }
-          else
-            {
-              row += 3;
-            }
-
-          pxl_count++;
-        }
+      pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+      if (pixbuf != NULL)
+        g_object_ref (pixbuf);
     }
 
-  count = 0;
-  for (i = 0; i < 4; i++)
-    {
-      int j;
-      for (j = 0; j < 4; j++)
-        {
-          int k;
+  g_object_unref (loader);
 
-          for (k = 0; k < 4; k++)
-            {
-              /* Count how many bins have more than
-                 1% of the pixels in the histogram */
-              if (histogram[i][j][k] > pxl_count / 100)
-                count++;
-            }
-        }
-    }
+  gst_buffer_unmap (buffer, &info);
 
-  /* Image is boring if there is only 1 bin with > 1% of pixels */
-  return count > 1;
+  return pixbuf;
 }
 
 
 
-/*
- * Construct a pipline for a given @info, cancelling during initialisation on
- * @cancellable.  This function will either return a #GstElement that has been
- * prerolled and is in the paused state, or %NULL if the initialisation is
- * cancelled or an error occurs.
- */
-static GstElement *
-make_pipeline (TumblerFileInfo *info, 
-               GCancellable    *cancellable)
+static GdkPixbuf *
+gst_thumbnailer_cover_from_tags (GstTagList   *tags,
+                                 GCancellable *cancellable)
 {
-  GstStateChangeReturn state;
-  GstElement          *audio_sink;
-  GstElement          *playbin;
-  GstElement          *video_sink;
-  gint                 count = 0;
-  gint                 n_video = 0;
+  GstSample          *cover = NULL;
+  guint               i;
+  GstSample          *sample;
+  GstCaps            *caps;
+  const GstStructure *caps_struct;
+  gint                type;
+  GstBuffer          *buffer;
+  GdkPixbuf          *pixbuf = NULL;
 
-  g_assert (info);
+  for (i = 0; ; i++)
+    {
+      if (g_cancellable_is_cancelled (cancellable))
+        break;
 
-  playbin = gst_element_factory_make ("playbin2", "playbin");
-  g_assert (playbin);
+      /* look for image in the tags */
+      if (!gst_tag_list_get_sample_index (tags, GST_TAG_IMAGE, i, &sample))
+        break;
 
-  audio_sink = gst_element_factory_make ("fakesink", "audiosink");
-  g_assert (audio_sink);
+      caps = gst_sample_get_caps (sample);
+      caps_struct = gst_caps_get_structure (caps, 0);
+      gst_structure_get_enum (caps_struct,
+                              "image-type",
+                              GST_TYPE_TAG_IMAGE_TYPE,
+                              &type);
 
-  video_sink = gst_element_factory_make ("fakesink", "videosink");
-  g_assert (video_sink);
+      if (type == GST_TAG_IMAGE_TYPE_FRONT_COVER)
+        {
+          /* found the cover */
+          cover = sample;
+          break;
+        }
 
-  g_object_set (playbin,
+      gst_sample_unref (sample);
+    }
+
+  if (cover == NULL
+      && !g_cancellable_is_cancelled (cancellable))
+    {
+      /* look for preview image */
+      gst_tag_list_get_sample_index (tags, GST_TAG_PREVIEW_IMAGE, 0, &cover);
+    }
+
+  if (cover != NULL)
+    {
+      /* create image */
+      buffer = gst_sample_get_buffer (cover);
+      pixbuf = gst_thumbnailer_buffer_to_pixbuf (buffer);
+      gst_sample_unref (cover);
+    }
+
+  return pixbuf;
+}
+
+
+
+static GdkPixbuf *
+gst_thumbnailer_cover_by_name (GstElement   *play,
+                               const gchar  *signal_name,
+                               GCancellable *cancellable)
+{
+  GstTagList *tags = NULL;
+  GdkPixbuf  *cover;
+
+  g_signal_emit_by_name (G_OBJECT (play), signal_name, 0, &tags);
+
+  if (tags == NULL)
+    return FALSE;
+
+  /* check the tags for a cover */
+  cover = gst_thumbnailer_cover_from_tags (tags, cancellable);
+  gst_tag_list_free (tags);
+
+  return cover;
+}
+
+
+
+static GdkPixbuf *
+gst_thumbnailer_cover (GstElement   *play,
+                       GCancellable *cancellable)
+{
+  GdkPixbuf *cover;
+
+  cover = gst_thumbnailer_cover_by_name (play, "get-audio-tags", cancellable);
+  if (cover == NULL)
+    cover = gst_thumbnailer_cover_by_name (play, "get-video-tags", cancellable);
+
+  return cover;
+}
+
+
+
+static gboolean
+gst_thumbnailer_has_video (GstElement *play)
+{
+  guint n_video;
+  g_object_get (play, "n-video", &n_video, NULL);
+  return n_video > 0;
+}
+
+
+
+static void
+gst_thumbnailer_destroy_pixbuf (guchar   *pixbuf,
+                                gpointer  data)
+{
+  gst_sample_unref (GST_SAMPLE (data));
+}
+
+
+
+static gboolean
+gst_thumbnailer_pixbuf_interesting (GdkPixbuf *pixbuf)
+{
+  gint    rowstride;
+  gint    height;
+  guchar *buffer;
+  gint    length;
+  gint    i;
+  gfloat  x_bar = 0.0f;
+  gfloat  variance = 0.0f;
+  gfloat  temp;
+
+  rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  height = gdk_pixbuf_get_height (pixbuf);
+  length = (rowstride * height);
+
+  buffer = gdk_pixbuf_get_pixels (pixbuf);
+
+  /* calculate the x-bar */
+  for (i = 0; i < length; i++)
+    x_bar += (gfloat) buffer[i];
+  x_bar /= (gfloat) length;
+
+  /* calculate the variance */
+  for (i = 0; i < length; i++)
+    {
+      temp = ((gfloat) buffer[i] - x_bar);
+      variance += temp * temp;
+    }
+
+  return (variance > BORING_IMAGE_VARIANCE);
+}
+
+
+
+static GdkPixbuf *
+gst_thumbnailer_capture_frame (GstElement *play)
+{
+  GstCaps      *to_caps;
+  GstSample    *sample = NULL;
+  GdkPixbuf    *pixbuf = NULL;
+  GstStructure *s;
+  GstCaps      *sample_caps;
+  gint          width = 0, height = 0;
+  GstMemory    *memory;
+  GstMapInfo    info;
+
+  /* desired output format (RGB24) */
+  to_caps = gst_caps_new_simple ("video/x-raw",
+                                 "format", G_TYPE_STRING, "RGB",
+                                 "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1,
+                                 NULL);
+
+  /* get the frame */
+  g_signal_emit_by_name (play, "convert-sample", to_caps, &sample);
+  gst_caps_unref (to_caps);
+
+  if (sample == NULL)
+    return NULL;
+
+  sample_caps = gst_sample_get_caps (sample);
+  if (sample_caps == NULL)
+    {
+      /* no caps on output buffer */
+      gst_sample_unref (sample);
+      return NULL;
+    }
+
+  /* size of the frame */
+  s = gst_caps_get_structure (sample_caps, 0);
+  gst_structure_get_int (s, "width", &width);
+  gst_structure_get_int (s, "height", &height);
+  if (width <= 0 || height <= 0)
+    {
+      /* invalid size */
+      gst_sample_unref (sample);
+      return NULL;
+    }
+
+  /* get the memory block of the buffer */
+  memory = gst_buffer_get_memory (gst_sample_get_buffer (sample), 0);
+  if (gst_memory_map (memory, &info, GST_MAP_READ))
+    {
+      /* create pixmap for the data */
+      pixbuf = gdk_pixbuf_new_from_data (info.data,
+                                         GDK_COLORSPACE_RGB, FALSE, 8,
+                                         width, height,
+                                         GST_ROUND_UP_4 (width * 3),
+                                         gst_thumbnailer_destroy_pixbuf,
+                                         sample);
+
+      /* release memory */
+      gst_memory_unmap (memory, &info);
+    }
+
+  gst_memory_unref (memory);
+
+  /* release sample if pixbuf failed */
+  if (pixbuf == NULL)
+    gst_sample_unref (sample);
+
+  return pixbuf;
+}
+
+
+
+static GdkPixbuf *
+gst_thumbnailer_capture_interesting_frame (GstElement   *play,
+                                           gint64        duration,
+                                           GCancellable *cancellable)
+{
+  GdkPixbuf     *pixbuf = NULL;
+  guint          n;
+  const gdouble  offsets[] = { 1.0 / 3.0, 2.0 / 3.0, 0.1, 0.9, 0.5 };
+  gint64         seek_time;
+
+  /* video has no duration, capture 1st frame */
+  if (duration == -1)
+    {
+      if (!g_cancellable_is_cancelled (cancellable))
+        return gst_thumbnailer_capture_frame (play);
+      else
+        return NULL;
+    }
+
+  for (n = 0; n < G_N_ELEMENTS (offsets); n++)
+    {
+      /* check if we should abort */
+      if (g_cancellable_is_cancelled (cancellable))
+        break;
+
+      /* seek to offset */
+      seek_time = offsets[n] * duration;
+      gst_element_seek (play, 1.0,
+                        GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT,
+                        GST_SEEK_TYPE_SET, seek_time * GST_MSECOND,
+                        GST_SEEK_TYPE_NONE, GST_CLOCK_TIME_NONE);
+
+      /* wait for the seek to complete */
+      gst_element_get_state (play, NULL, NULL, GST_CLOCK_TIME_NONE);
+
+      /* check if we should abort */
+      if (g_cancellable_is_cancelled (cancellable))
+        break;
+
+      /* get the frame */
+      pixbuf = gst_thumbnailer_capture_frame (play);
+      if (pixbuf == NULL)
+        continue;
+
+      /* check if image is interesting or end of loop */
+      if (n + 1 == G_N_ELEMENTS (offsets)
+          || gst_thumbnailer_pixbuf_interesting (pixbuf))
+        break;
+
+      /* continue looking for something better */
+      g_object_unref (pixbuf);
+      pixbuf = NULL;
+    }
+
+  return pixbuf;
+}
+
+
+
+static GstBusSyncReply
+gst_thumbnailer_error_handler (GstBus     *bus,
+                               GstMessage *message,
+                               gpointer    user_data)
+{
+  GCancellable *cancellable = user_data;
+
+  switch (GST_MESSAGE_TYPE (message))
+    {
+      case GST_MESSAGE_ERROR:
+      case GST_MESSAGE_EOS:
+        /* stop */
+        g_cancellable_cancel (cancellable);
+        return GST_BUS_DROP;
+
+      default:
+        return GST_BUS_PASS;
+    }
+}
+
+
+
+static gboolean
+gst_thumbnailer_play_start (GstElement   *play,
+                            GCancellable *cancellable)
+{
+  GstBus     *bus;
+  gboolean    terminate = FALSE;
+  GstMessage *message;
+  gboolean    async_received = FALSE;
+
+  /* pause to prepare for seeking */
+  gst_element_set_state (play, GST_STATE_PAUSED);
+
+  bus = gst_element_get_bus (play);
+
+  while (!terminate
+         && !g_cancellable_is_cancelled (cancellable))
+    {
+      message = gst_bus_timed_pop_filtered (bus,
+                                            GST_CLOCK_TIME_NONE,
+                                            GST_MESSAGE_ASYNC_DONE | GST_MESSAGE_ERROR);
+
+      switch (GST_MESSAGE_TYPE (message))
+        {
+        case GST_MESSAGE_ASYNC_DONE:
+          if (GST_MESSAGE_SRC (message) == GST_OBJECT (play))
+            {
+              async_received = TRUE;
+              terminate = TRUE;
+            }
+          break;
+
+        case GST_MESSAGE_ERROR:
+          terminate = TRUE;
+          break;
+
+        default:
+          break;
+        }
+
+      gst_message_unref (message);
+    }
+
+  /* setup the error handler */
+  if (async_received)
+    gst_bus_set_sync_handler (bus, gst_thumbnailer_error_handler, cancellable, NULL);
+
+  gst_object_unref (bus);
+
+  return async_received;
+}
+
+
+
+static GstElement *
+gst_thumbnailer_play_init (TumblerFileInfo *info)
+{
+  GstElement *play;
+  GstElement *audio_sink;
+  GstElement *video_sink;
+
+  /* prepare play factory */
+  play = gst_element_factory_make ("playbin", "play");
+  audio_sink = gst_element_factory_make ("fakesink", "audio-fake-sink");
+  video_sink = gst_element_factory_make ("fakesink", "video-fake-sink");
+  g_object_set (video_sink, "sync", TRUE, NULL);
+
+  g_object_set (play,
                 "uri", tumbler_file_info_get_uri (info),
                 "audio-sink", audio_sink,
                 "video-sink", video_sink,
+                "flags", TUMBLER_GST_PLAY_FLAG_VIDEO | TUMBLER_GST_PLAY_FLAG_AUDIO,
                 NULL);
 
-  g_object_set (video_sink,
-                "sync", TRUE,
-                NULL);
-
-  /* Change to paused state so we're ready to seek */
-  state = gst_element_set_state (playbin, GST_STATE_PAUSED);
-  while (state == GST_STATE_CHANGE_ASYNC
-         && count < 5
-         && !g_cancellable_is_cancelled (cancellable))
-    {
-      state = gst_element_get_state (playbin, NULL, 0, 1 * GST_SECOND);
-      count++;
-
-      /* Spin mainloop so we can pick up the cancels */
-      while (g_main_context_pending (NULL))
-        g_main_context_iteration (NULL, FALSE);
-    }
-
-  if (state == GST_STATE_CHANGE_FAILURE || state == GST_STATE_CHANGE_ASYNC)
-    {
-      LOG ("failed to or still changing state, aborting (state change %d)", state);
-      g_object_unref (playbin);
-      return NULL;
-    }
-
-  g_object_get (playbin, "n-video", &n_video, NULL);
-  if (n_video == 0)
-    {
-      LOG ("no video stream, aborting");
-      g_object_unref (playbin);
-      return NULL;
-    }
-
-  return playbin;
+  return play;
 }
 
 
 
-/*
- * Get the total duration in nanoseconds of the stream.
- */
-static gint64
-get_duration (GstElement *playbin)
+static GdkPixbuf *
+gst_thumbnailer_scale_pixbuf (GdkPixbuf *source,
+                              gint       dest_width,
+                              gint       dest_height)
 {
-  GstFormat format = GST_FORMAT_TIME;
-  gint64 duration = 0;
+  gdouble wratio;
+  gdouble hratio;
+  gint    source_width;
+  gint    source_height;
 
-  g_assert (playbin);
+  /* determine source pixbuf dimensions */
+  source_width  = gdk_pixbuf_get_width  (source);
+  source_height = gdk_pixbuf_get_height (source);
 
-  gst_element_query_duration (playbin, &format, &duration);
+  /* don't do anything if there is no need to resize */
+  if (source_width <= dest_width && source_height <= dest_height)
+    return g_object_ref (source);
 
-  return duration;
+  /* determine which axis needs to be scaled down more */
+  wratio = (gdouble) source_width  / (gdouble) dest_width;
+  hratio = (gdouble) source_height / (gdouble) dest_height;
+
+  /* adjust the other axis */
+  if (hratio > wratio)
+    dest_width = rint (source_width / hratio);
+  else
+    dest_height = rint (source_height / wratio);
+
+  /* scale the pixbuf down to the desired size */
+  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1),
+                                  MAX (dest_height, 1),
+                                  GDK_INTERP_BILINEAR);
 }
 
 
 
-/*
- * Generate a thumbnail for @info.
- */
 static void
 gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                         GCancellable               *cancellable,
                         TumblerFileInfo            *info)
 {
-  TumblerThumbnailFlavor *flavour;
-  TumblerThumbnail       *thumbnail;
-  TumblerImageData        data;
-  /* These positions are taken from Totem */
-  const gdouble           positions[] = {
-    1.0 / 3.0,
-    2.0 / 3.0,
-    0.1,
-    0.9,
-    0.5
-  };
-  GstElement             *playbin;
-  GdkPixbuf              *shot;
-  GstBuffer              *frame;
-  GError                 *error = NULL;
+  GstElement             *play;
+  GdkPixbuf              *pixbuf = NULL;
   gint64                  duration;
-  guint                   i;
+  TumblerImageData        data;
+  GError                 *error = NULL;
+  TumblerThumbnail       *thumbnail;
+  gint                    width, height;
+  TumblerThumbnailFlavor *flavor;
+  GdkPixbuf              *scaled;
 
-  g_return_if_fail (IS_GST_THUMBNAILER (thumbnailer));
-  g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
-  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
-
-  /* Check for early cancellation */
+  /* check for early cancellation */
   if (g_cancellable_is_cancelled (cancellable))
     return;
 
-  playbin = make_pipeline (info, cancellable);
-  if (playbin == NULL)
+  /* prepare factory */
+  play = gst_thumbnailer_play_init (info);
+
+  if (gst_thumbnailer_play_start (play, cancellable))
     {
-      /* TODO: emit an error, but the specification won't let me. */
-      return;
+      /* check for covers in the file */
+      pixbuf = gst_thumbnailer_cover (play, cancellable);
+
+      /* extract cover from video stream */
+      if (pixbuf == NULL
+          && gst_thumbnailer_has_video (play))
+        {
+          /* get the length of the video track */
+          if (gst_element_query_duration (play, GST_FORMAT_TIME, &duration)
+              && duration != -1)
+            duration /= GST_MSECOND;
+          else
+            duration = -1;
+
+          pixbuf = gst_thumbnailer_capture_interesting_frame (play, duration, cancellable);
+        }
     }
 
-  duration = get_duration (playbin);
+  /* stop factory */
+  gst_element_set_state (play, GST_STATE_NULL);
+  g_object_unref (play);
 
-  /* Now we have a pipeline that we know has video and is paused, ready for
-   * seeking.  Try to find an interesting frame at each of the positions in
-   * order. */
-  for (i = 0; i < G_N_ELEMENTS (positions); i++)
+  if (G_LIKELY (pixbuf != NULL))
     {
-      /* Check if we've been cancelled */
-      if (g_cancellable_is_cancelled (cancellable))
-        {
-          gst_element_set_state (playbin, GST_STATE_NULL);
-          g_object_unref (playbin);
-          return;
-        }
-
-      LOG ("trying position %f", positions[i]);
-
-      gst_element_seek_simple (playbin,
-                               GST_FORMAT_TIME,
-                               GST_SEEK_FLAG_FLUSH | GST_SEEK_FLAG_KEY_UNIT,
-                               (gint64)(positions[i] * duration));
-
-      if (gst_element_get_state (playbin, NULL, NULL, 1 * GST_SECOND)
-          == GST_STATE_CHANGE_FAILURE)
-        {
-          LOG ("Could not seek");
-          gst_element_set_state (playbin, GST_STATE_NULL);
-          g_object_unref (playbin);
-          return;
-        }
-
-      g_object_get (playbin, "frame", &frame, NULL);
-
-      if (frame == NULL)
-        {
-          LOG ("No frame found!");
-          gst_element_set_state (playbin, GST_STATE_NULL);
-          g_object_unref (playbin);
-          continue;
-        }
-
       thumbnail = tumbler_file_info_get_thumbnail (info);
-      flavour = tumbler_thumbnail_get_flavor (thumbnail);
-      /* This frees the buffer for us */
-      shot = gst_helper_convert_buffer_to_pixbuf (frame, cancellable, flavour);
-      g_object_unref (flavour);
 
-      /* If it's not interesting, throw it away and try again */
-      if (is_interesting (shot))
-        {
-          /* Got an interesting image, break out */
-          LOG ("Found an interesting image");
-          break;
-        }
+      /* get size of dest thumb */
+      flavor = tumbler_thumbnail_get_flavor (thumbnail);
+      tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
 
-      /* If we've still got positions to try, free the current uninteresting
-       * shot. Otherwise we'll make do with what we have. */
-      if (i + 1 < G_N_ELEMENTS (positions) && shot)
-        {
-          g_object_unref (shot);
-          shot = NULL;
-        }
+      /* scale to correct size */
+      scaled = gst_thumbnailer_scale_pixbuf (pixbuf, width, height);
+      g_object_unref (pixbuf);
+      pixbuf = scaled;
 
-      /* Spin mainloop so we can pick up the cancels */
-      while (g_main_context_pending (NULL))
-        g_main_context_iteration (NULL, FALSE);
-    }
-
-  gst_element_set_state (playbin, GST_STATE_NULL);
-  g_object_unref (playbin);
-
-  if (shot)
-    {
-      data.data = gdk_pixbuf_get_pixels (shot);
-      data.has_alpha = gdk_pixbuf_get_has_alpha (shot);
-      data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (shot);
-      data.width = gdk_pixbuf_get_width (shot);
-      data.height = gdk_pixbuf_get_height (shot);
-      data.rowstride = gdk_pixbuf_get_rowstride (shot);
-      data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (shot);
+      data.data = gdk_pixbuf_get_pixels (pixbuf);
+      data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+      data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+      data.width = gdk_pixbuf_get_width (pixbuf);
+      data.height = gdk_pixbuf_get_height (pixbuf);
+      data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+      data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
       tumbler_thumbnail_save_image_data (thumbnail, &data,
                                          tumbler_file_info_get_mtime (info),
                                          NULL, &error);
 
-      g_object_unref (shot);
+      g_object_unref (pixbuf);
 
       if (error != NULL)
         {
