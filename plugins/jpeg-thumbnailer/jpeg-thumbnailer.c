@@ -384,6 +384,7 @@ typedef struct
     {
       guint     length;
       guint     offset;
+      guint     orientation;
     } thumb_jpeg;
     struct /* thumbnail TIFF */
     {
@@ -520,6 +521,17 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
                 exif->thumb.thumb_jpeg.length = value;
             }
         }
+      else if (tag == 0x112)
+        {
+          /* verify that we have a 2-byte integer (format 3) */
+          if (tvtj_exif_get_ushort (exif, ifd_ptr + 2) == 3
+              && tvtj_exif_get_ulong (exif, ifd_ptr + 4) == 1)
+            {
+              /* determine the orientation value */
+              value = tvtj_exif_get_ushort (exif, ifd_ptr + 8);
+              exif->thumb.thumb_jpeg.orientation = MIN (value, 8);
+            }
+        }
     }
 
   /* check for link to next IFD */
@@ -533,13 +545,73 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
 
 
 
+static GdkPixbuf *
+tvtj_rotate_pixbuf (GdkPixbuf *src,
+                    guint      orientation)
+{
+  GdkPixbuf *dest = NULL;
+  GdkPixbuf *temp;
+
+  g_return_val_if_fail (GDK_IS_PIXBUF (src), NULL);
+
+  switch (orientation)
+    {
+    case 1:
+      dest = g_object_ref (src);
+      break;
+
+    case 2:
+      dest = gdk_pixbuf_flip (src, TRUE);
+      break;
+
+    case 3:
+      dest = gdk_pixbuf_rotate_simple (src, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
+      break;
+
+    case 4:
+      dest = gdk_pixbuf_flip (src, FALSE);
+      break;
+
+    case 5:
+      temp = gdk_pixbuf_rotate_simple (src, GDK_PIXBUF_ROTATE_CLOCKWISE);
+      dest = gdk_pixbuf_flip (temp, TRUE);
+      g_object_unref (temp);
+      break;
+
+    case 6:
+      dest = gdk_pixbuf_rotate_simple (src, GDK_PIXBUF_ROTATE_CLOCKWISE);
+      break;
+
+    case 7:
+      temp = gdk_pixbuf_rotate_simple (src, GDK_PIXBUF_ROTATE_CLOCKWISE);
+      dest = gdk_pixbuf_flip (temp, FALSE);
+      g_object_unref (temp);
+      break;
+
+    case 8:
+      dest = gdk_pixbuf_rotate_simple (src, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
+      break;
+
+    default:
+      /* if no orientation tag was present */
+      dest = g_object_ref (src);
+      break;
+    }
+
+  return dest;
+}
+
+
+
 static GdkPixbuf*
 tvtj_exif_extract_thumbnail (const guchar *data,
                              guint         length,
                              gint          size)
 {
-  TvtjExif exif;
-  guint    offset;
+  TvtjExif   exif;
+  guint      offset;
+  GdkPixbuf *thumb = NULL;
+  GdkPixbuf *rotated;
 
   /* make sure we have enough data */
   if (G_UNLIKELY (length < 6 + 8))
@@ -587,7 +659,7 @@ tvtj_exif_extract_thumbnail (const guchar *data,
               && exif.thumb.thumb_jpeg.offset + exif.thumb.thumb_jpeg.length <= length)
             {
               /* try to load the embedded thumbnail JPEG */
-              return tvtj_jpeg_load (data + exif.thumb.thumb_jpeg.offset, exif.thumb.thumb_jpeg.length, size);
+              thumb = tvtj_jpeg_load (data + exif.thumb.thumb_jpeg.offset, exif.thumb.thumb_jpeg.length, size);
             }
         }
       else if (exif.thumb_compression == 1) /* Uncompressed */
@@ -599,15 +671,24 @@ tvtj_exif_extract_thumbnail (const guchar *data,
               && exif.thumb.thumb_tiff.height * exif.thumb.thumb_tiff.width == exif.thumb.thumb_tiff.length)
             {
               /* plain RGB data, just what we need for a GdkPixbuf */
-              return gdk_pixbuf_new_from_data (g_memdup (data + exif.thumb.thumb_tiff.offset, exif.thumb.thumb_tiff.length),
-                                               GDK_COLORSPACE_RGB, FALSE, 8, exif.thumb.thumb_tiff.width,
-                                               exif.thumb.thumb_tiff.height, exif.thumb.thumb_tiff.width,
-                                               (GdkPixbufDestroyNotify) g_free, NULL);
+              thumb = gdk_pixbuf_new_from_data (g_memdup (data + exif.thumb.thumb_tiff.offset, exif.thumb.thumb_tiff.length),
+                                                GDK_COLORSPACE_RGB, FALSE, 8, exif.thumb.thumb_tiff.width,
+                                                exif.thumb.thumb_tiff.height, exif.thumb.thumb_tiff.width,
+                                                (GdkPixbufDestroyNotify) g_free, NULL);
             }
         }
+
+     if (thumb != NULL
+         && exif.thumb.thumb_jpeg.orientation > 1)
+       {
+         /* rotate thumbnail */
+         rotated = tvtj_rotate_pixbuf (thumb, exif.thumb.thumb_jpeg.orientation);
+         g_object_unref (thumb);
+         thumb = rotated;
+       }
     }
 
-  return NULL;
+  return thumb;
 }
 
 
