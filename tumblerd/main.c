@@ -70,6 +70,7 @@ main (int    argc,
   GList                   *thumbnailers;
   GList                   *lp;
   GList                   *tp;
+  gint                     retval = EXIT_SUCCESS;
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
@@ -162,14 +163,9 @@ main (int    argc,
                  error->message);
       g_error_free (error);
 
-      g_object_unref (service);
-      g_object_unref (manager);
-      g_object_unref (cache_service);
-      g_object_unref (registry);
-
-      dbus_g_connection_unref (connection);
-
-      return EXIT_FAILURE;
+      /* something failed */
+      retval = EXIT_FAILURE;
+      goto exit_tumbler;
     }
 
   /* try to start the service and exit if that fails */
@@ -178,15 +174,8 @@ main (int    argc,
       g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
       g_error_free (error);
 
-      g_object_unref (service);
-      g_object_unref (manager);
-      g_object_unref (cache_service);
-      g_object_unref (registry);
-
-      dbus_g_connection_unref (connection);
-
       /* service already running, exit gracefully to not break clients */
-      return EXIT_SUCCESS;
+      goto exit_tumbler;
     }
 
   /* try to start the service and exit if that fails */
@@ -195,15 +184,8 @@ main (int    argc,
       g_warning (_("Failed to start the thumbnailer manager: %s"), error->message);
       g_error_free (error);
 
-      g_object_unref (service);
-      g_object_unref (manager);
-      g_object_unref (cache_service);
-      g_object_unref (registry);
-
-      dbus_g_connection_unref (connection);
-
       /* service already running, exit gracefully to not break clients */
-      return EXIT_SUCCESS;
+      goto exit_tumbler;
     }
 
   /* try to start the service and exit if that fails */
@@ -212,15 +194,8 @@ main (int    argc,
       g_warning (_("Failed to start the thumbnailer service: %s"), error->message);
       g_error_free (error);
 
-      g_object_unref (service);
-      g_object_unref (manager);
-      g_object_unref (cache_service);
-      g_object_unref (registry);
-
-      dbus_g_connection_unref (connection);
-
       /* service already running, exit gracefully to not break clients */
-      return EXIT_SUCCESS;
+      goto exit_tumbler;
     }
 
   /* create a new main loop */
@@ -236,6 +211,8 @@ main (int    argc,
   /* enter the main loop, thereby making the tumbler service available */
   g_main_loop_run (main_loop);
 
+  exit_tumbler:
+
   /* shut our services down and release all objects */
   g_object_unref (service);
   g_object_unref (manager);
@@ -247,5 +224,5 @@ main (int    argc,
   dbus_g_connection_unref (connection);
 
   /* we're done, all fine */
-  return EXIT_SUCCESS;
+  return retval;
 }

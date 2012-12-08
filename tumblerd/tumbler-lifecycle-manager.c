@@ -115,11 +115,9 @@ tumbler_lifecycle_manager_init (TumblerLifecycleManager *manager)
 static void
 tumbler_lifecycle_manager_finalize (GObject *object)
 {
-#if !GLIB_CHECK_VERSION (2, 32, 0)
   TumblerLifecycleManager *manager = TUMBLER_LIFECYCLE_MANAGER (object);
-#endif
 
-  tumbler_mutex_free (TUMBLER_LIFECYCLE_MANAGER (object)->lock);
+  tumbler_mutex_free (manager->lock);
 
   (*G_OBJECT_CLASS (tumbler_lifecycle_manager_parent_class)->finalize) (object);
 }
