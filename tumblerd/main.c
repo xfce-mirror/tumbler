@@ -76,7 +76,7 @@ main (int    argc,
 
 #ifdef DEBUG
   /* if something doesn't work, fix your code instead! */
-  g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL | G_LOG_LEVEL_WARNING);
+  g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL);
 #endif
 
   /* set the application name. Translators: Don't translate "Tumbler". */
