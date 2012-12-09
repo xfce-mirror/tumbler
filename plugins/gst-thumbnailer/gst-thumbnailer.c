@@ -283,14 +283,15 @@ gst_thumbnailer_pixbuf_interesting (GdkPixbuf *pixbuf)
 
 
 static GdkPixbuf *
-gst_thumbnailer_capture_frame (GstElement *play)
+gst_thumbnailer_capture_frame (GstElement *play,
+                               gint        width)
 {
   GstCaps      *to_caps;
   GstSample    *sample = NULL;
   GdkPixbuf    *pixbuf = NULL;
   GstStructure *s;
   GstCaps      *sample_caps;
-  gint          width = 0, height = 0;
+  gint          outwidth = 0, outheight = 0;
   GstMemory    *memory;
   GstMapInfo    info;
 
@@ -298,6 +299,7 @@ gst_thumbnailer_capture_frame (GstElement *play)
   to_caps = gst_caps_new_simple ("video/x-raw",
                                  "format", G_TYPE_STRING, "RGB",
                                  "pixel-aspect-ratio", GST_TYPE_FRACTION, 1, 1,
+                                 "width", G_TYPE_INT, width,
                                  NULL);
 
   /* get the frame */
@@ -317,9 +319,9 @@ gst_thumbnailer_capture_frame (GstElement *play)
 
   /* size of the frame */
   s = gst_caps_get_structure (sample_caps, 0);
-  gst_structure_get_int (s, "width", &width);
-  gst_structure_get_int (s, "height", &height);
-  if (width <= 0 || height <= 0)
+  gst_structure_get_int (s, "width", &outwidth);
+  gst_structure_get_int (s, "height", &outheight);
+  if (outwidth <= 0 || outheight <= 0)
     {
       /* invalid size */
       gst_sample_unref (sample);
@@ -333,7 +335,7 @@ gst_thumbnailer_capture_frame (GstElement *play)
       /* create pixmap for the data */
       pixbuf = gdk_pixbuf_new_from_data (info.data,
                                          GDK_COLORSPACE_RGB, FALSE, 8,
-                                         width, height,
+                                         outwidth, outheight,
                                          GST_ROUND_UP_4 (width * 3),
                                          gst_thumbnailer_destroy_pixbuf,
                                          sample);
@@ -356,6 +358,7 @@ gst_thumbnailer_capture_frame (GstElement *play)
 static GdkPixbuf *
 gst_thumbnailer_capture_interesting_frame (GstElement   *play,
                                            gint64        duration,
+                                           gint          width,
                                            GCancellable *cancellable)
 {
   GdkPixbuf     *pixbuf = NULL;
@@ -367,7 +370,7 @@ gst_thumbnailer_capture_interesting_frame (GstElement   *play,
   if (duration == -1)
     {
       if (!g_cancellable_is_cancelled (cancellable))
-        return gst_thumbnailer_capture_frame (play);
+        return gst_thumbnailer_capture_frame (play, width);
       else
         return NULL;
     }
@@ -393,7 +396,7 @@ gst_thumbnailer_capture_interesting_frame (GstElement   *play,
         break;
 
       /* get the frame */
-      pixbuf = gst_thumbnailer_capture_frame (play);
+      pixbuf = gst_thumbnailer_capture_frame (play, width);
       if (pixbuf == NULL)
         continue;
 
@@ -567,6 +570,11 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_cancellable_is_cancelled (cancellable))
     return;
 
+  /* get size of dest thumb */
+  thumbnail = tumbler_file_info_get_thumbnail (info);
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
+  tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
+
   /* prepare factory */
   play = gst_thumbnailer_play_init (info);
 
@@ -586,7 +594,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
           else
             duration = -1;
 
-          pixbuf = gst_thumbnailer_capture_interesting_frame (play, duration, cancellable);
+          pixbuf = gst_thumbnailer_capture_interesting_frame (play, duration, width, cancellable);
         }
     }
 
@@ -596,13 +604,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (G_LIKELY (pixbuf != NULL))
     {
-      thumbnail = tumbler_file_info_get_thumbnail (info);
-
-      /* get size of dest thumb */
-      flavor = tumbler_thumbnail_get_flavor (thumbnail);
-      tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
-
-      /* scale to correct size */
+      /* scale to correct size if required */
       scaled = gst_thumbnailer_scale_pixbuf (pixbuf, width, height);
       g_object_unref (pixbuf);
       pixbuf = scaled;
