@@ -1,3 +1,25 @@
+0.1.26
+======
+- Remove INSTALL
+- Directly render the capture in the correct size.
+- New gstreamer thumbnailer based on totem-thumbnailer.
+- Disable http and cdda schemes as well.
+- Add support for MPEG2 transport streams (bug #7421).
+- Rotate jpeg thumbnails (bug #6730).
+- Plug small leak.
+- Don't use collate to check strings.
+- Release lifecycle manager during early exit.
+- Don't abort with warnings in debug mode.
+- Clear 2.32 mutex memory leak.
+- Drop unneeded vfs schemes.
+- Work with an array to store the strings.
+- Don't use GString for a simple concat.
+- Make registry dump a bit smaller.
+- Don't use deprecated glib 2.32 API.
+- Rotate pixbuf loader images (bug #6730).
+- Translation updates: Arabic, Spanish (Castilian), Icelandic, 
+  Korean, Dutch (Flemish), Serbian, Uyghur.
+
 0.1.25
 ======
 - Remove some unused m4 macros.
