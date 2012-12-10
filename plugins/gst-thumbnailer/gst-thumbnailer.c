@@ -636,4 +636,6 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                  tumbler_file_info_get_uri (info));
         }
     }
+
+  g_object_unref (thumbnail);
 }
