@@ -151,6 +151,7 @@ PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
 dnl *************************
 dnl *** Check for plugins ***
 dnl *************************
+TUMBLER_COVER_THUMBNAILER()
 TUMBLER_FONT_THUMBNAILER()
 TUMBLER_JPEG_THUMBNAILER()
 TUMBLER_PIXBUF_THUMBNAILER()
@@ -184,6 +185,7 @@ docs/reference/Makefile
 docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
 plugins/Makefile
+plugins/cover-thumbnailer/Makefile
 plugins/font-thumbnailer/Makefile
 plugins/gst-thumbnailer/Makefile
 plugins/jpeg-thumbnailer/Makefile
@@ -206,7 +208,7 @@ dnl ***************************
 echo
 echo "Build Configuration:"
 echo
-echo "  * Debug:                                     $enable_debug"
+echo "  * Debug:                                            $enable_debug"
 echo
 echo "Plugins:"
 echo
@@ -214,6 +216,11 @@ if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
 echo "  * GdkPixbuf thumbnailer plugin:                     yes"
 else
 echo "  * GdkPixbuf thumbnailer plugin:                     no"
+fi
+if test x"$ac_tumbler_cover_thumbnailer" = x"yes"; then
+echo "  * Cover thumbnailer plugin:                         yes"
+else
+echo "  * Cover thumbnailer plugin:                         no"
 fi
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
 echo "  * FreeType font thumbnailer plugin:                 yes"

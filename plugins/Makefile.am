@@ -18,6 +18,7 @@
 # Boston, MA 02110-1301, USA.
 
 SUBDIRS =								\
+	cover-thumbnailer						\
 	font-thumbnailer						\
 	gst-thumbnailer							\
 	jpeg-thumbnailer						\
