@@ -442,6 +442,7 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
   gboolean     append_space;
   gunichar     uchar;
   gboolean     succeed;
+  gchar       *temp;
 
   g_return_val_if_fail (G_IS_FILE (gfile), FALSE);
   g_return_val_if_fail (ret_title != NULL, FALSE);
@@ -470,11 +471,21 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
             {
               /* store year and remove the suffix from the title */
               if (g_match_info_fetch_pos (match_info, 0, &start_pos, &end_pos)
-                  && start_pos > 0
+                  && start_pos >= 0
                   && end_pos > start_pos)
                 {
                   year = g_strndup (basename + start_pos, end_pos - start_pos);
-                  basename[start_pos] = '\0';
+
+                  if (start_pos == 0)
+                    {
+                      temp = g_strdup (basename + end_pos);
+                      g_free (basename);
+                      basename = temp;
+                    }
+                  else
+                    {
+                      basename[start_pos] = '\0';
+                    }
                 }
               g_match_info_free (match_info);
             }
@@ -633,7 +644,7 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* check if file is in allowed destinations */
   for (lp = cover->locations; lp != NULL; lp = lp->next)
-    if (g_file_has_parent (gfile, lp->data))
+    if (g_file_has_prefix (gfile, lp->data))
       break;
 
   if (lp == NULL)
