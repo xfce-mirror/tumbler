@@ -39,6 +39,7 @@ tumbler_gst_thumbnailer_la_CFLAGS =					\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GSTREAMER_CFLAGS)						\
+	$(GSTREAMER_TAG_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GLIB_CFLAGS)							\
 	$(PLATFORM_CFLAGS)						\
@@ -54,8 +55,10 @@ tumbler_gst_thumbnailer_la_LIBADD =					\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la	\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GSTREAMER_LIBS)						\
+	$(GSTREAMER_TAG_LIBS)						\
 	$(GIO_LIBS)							\
-	$(GLIB_LIBS)
+	$(GLIB_LIBS)							\
+	-lm
 
 tumbler_gst_thumbnailer_la_DEPENDENCIES =				\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
