@@ -108,7 +108,7 @@ dnl ***************************************
 AC_HEADER_STDC()
 AC_CHECK_HEADERS([fcntl.h linux/sched.h memory.h sched.h setjmp.h stdio.h \
                   stdlib.h string.h syscall.h sys/mman.h sys/types.h \
-                  sys/stat.h unistd.h])
+                  sys/stat.h unistd.h sys/select.h])
 
 dnl ************************************
 dnl *** Check for standard functions ***

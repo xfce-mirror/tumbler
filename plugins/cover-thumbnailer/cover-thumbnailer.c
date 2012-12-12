@@ -24,6 +24,9 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#ifdef HAVE_SYS_SELECT_H
+#include <sys/select.h>
+#endif
 
 #include <math.h>
 
@@ -46,7 +49,6 @@
 #define OMDBAPI_QUERY_URL "http://www.omdbapi.com/?t="
 
 #define TMDB_BASE_URL     "http://cf2.imgobject.com/t/p/"
-#define TMDB_API_KEY      "4be68d7eab1fbd1b6fd8a3b80a65a95e"
 #define TMDB_QUERY_URL    "http://api.themoviedb.org/3/search/movie?api_key="
 
 
@@ -81,6 +83,9 @@ struct _CoverThumbnailer
   GRegex *series_regex;
   GRegex *abbrev_regex;
   GRegex *year_regex;
+
+  /* multi session for curl */
+  CURLM *curl_multi;
 };
 
 enum
@@ -154,6 +159,9 @@ cover_thumbnailer_init (CoverThumbnailer *thumbnailer)
   thumbnailer->series_regex = g_regex_new (SERIES_PATTERN, G_REGEX_CASELESS, 0, NULL);
   thumbnailer->abbrev_regex = g_regex_new (ABBREV_PATTERN, G_REGEX_CASELESS, 0, NULL);
   thumbnailer->year_regex = g_regex_new (YEAR_PATTERN, 0, 0, NULL);
+
+  /* curl dns share */
+  thumbnailer->curl_multi = curl_multi_init ();
 }
 
 
@@ -207,6 +215,8 @@ cover_thumbnailer_finalize (GObject *object)
 
   g_slist_foreach (cover->locations, (GFunc) g_object_unref, NULL);
   g_slist_free (cover->locations);
+
+  curl_multi_cleanup (cover->curl_multi);
 
   (*G_OBJECT_CLASS (cover_thumbnailer_parent_class)->finalize) (object);
 }
@@ -313,16 +323,21 @@ cover_thumbnailer_check_progress (gpointer user_data,
 
 
 static CURL *
-cover_thumbnailer_load_prepare (const gchar  *url,
-                                GCancellable *cancellable)
+cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
+                                const gchar      *url,
+                                GCancellable     *cancellable)
 {
   CURL *curl_handle;
 
   g_return_val_if_fail (g_str_has_prefix (url, "http://"), NULL);
   g_return_val_if_fail (G_IS_CANCELLABLE (cancellable), NULL);
+  g_return_val_if_fail (IS_COVER_THUMBNAILER (cover), NULL);
 
   /* curl downloader */
   curl_handle = curl_easy_init ();
+  curl_multi_add_handle (cover->curl_multi, curl_handle);
+  /* curl_easy_setopt (curl_handle, CURLOPT_VERBOSE, TRUE); */
+  curl_easy_setopt (curl_handle, CURLOPT_TCP_KEEPALIVE, TRUE);
   curl_easy_setopt (curl_handle, CURLOPT_URL, url);
   curl_easy_setopt (curl_handle, CURLOPT_USERAGENT, PACKAGE_NAME "/" PACKAGE_VERSION);
 
@@ -336,8 +351,64 @@ cover_thumbnailer_load_prepare (const gchar  *url,
 
 
 
+static CURLcode
+cover_thumbnailer_load_perform (CoverThumbnailer  *cover,
+                                CURL              *curl_handle)
+{
+  gint            still_running;
+  struct timeval  timeout;
+  fd_set          fdread;
+  fd_set          fdwrite;
+  fd_set          fdexcep;
+  gint            rc = 0;
+  gint            maxfd;
+  CURLcode        code = CURLE_OK;
+  CURLMsg        *msg;
+
+  do
+    {
+      /* start the action */
+      while (curl_multi_perform (cover->curl_multi, &still_running)
+             == CURLM_CALL_MULTI_PERFORM);
+
+      if (!still_running)
+        break;
+
+      /* timeout once per second */
+      timeout.tv_sec = 1;
+      timeout.tv_usec = 0;
+
+      FD_ZERO (&fdread);
+      FD_ZERO (&fdwrite);
+      FD_ZERO (&fdexcep);
+
+      /* get file descriptors from the transfers */
+      curl_multi_fdset (cover->curl_multi, &fdread, &fdwrite, &fdexcep, &maxfd);
+      rc = select (maxfd + 1, &fdread, &fdwrite, &fdexcep, &timeout);
+
+      /* select error */
+      if (rc == -1)
+        break;
+    }
+  while (still_running);
+
+  /* get return value */
+  msg = curl_multi_info_read (cover->curl_multi, &rc);
+  if (msg != NULL)
+    code = msg->data.result;
+
+  /* cleanup */
+  curl_multi_remove_handle (cover->curl_multi, curl_handle);
+  curl_easy_cleanup (curl_handle);
+
+  return code;
+}
+
+
+
 static GdkPixbuf *
-cover_thumbnailer_load_pixbuf (const gchar             *url,
+cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
+                               const gchar             *url,
                                TumblerThumbnailFlavor  *flavor,
                                GCancellable            *cancellable,
                                GError                 **error)
@@ -361,11 +432,10 @@ cover_thumbnailer_load_pixbuf (const gchar             *url,
                     G_CALLBACK (cover_thumbnailer_size_prepared), flavor);
 
   /* download the image into a pixbuf loader */
-  curl_handle = cover_thumbnailer_load_prepare (url, cancellable);
+  curl_handle = cover_thumbnailer_load_prepare (cover, url, cancellable);
   curl_easy_setopt (curl_handle, CURLOPT_WRITEFUNCTION, cover_thumbnailer_load_pixbuf_write);
   curl_easy_setopt (curl_handle, CURLOPT_WRITEDATA, loader);
-  ret = curl_easy_perform (curl_handle);
-  curl_easy_cleanup (curl_handle);
+  ret = cover_thumbnailer_load_perform (cover, curl_handle);
 
   /* check if everything went fine */
   if (gdk_pixbuf_loader_close (loader, error)
@@ -392,9 +462,10 @@ cover_thumbnailer_load_pixbuf (const gchar             *url,
 
 
 static gchar *
-cover_thumbnailer_load_contents (const gchar   *uri,
-                                 GCancellable  *cancellable,
-                                 GError       **error)
+cover_thumbnailer_load_contents (CoverThumbnailer  *cover,
+                                 const gchar       *uri,
+                                 GCancellable      *cancellable,
+                                 GError           **error)
 {
   GString *contents;
   CURL    *curl_handle;
@@ -407,11 +478,10 @@ cover_thumbnailer_load_contents (const gchar   *uri,
   contents = g_string_new (NULL);
 
   /* download metadata */
-  curl_handle = cover_thumbnailer_load_prepare (uri, cancellable);
+  curl_handle = cover_thumbnailer_load_prepare (cover, uri, cancellable);
   curl_easy_setopt (curl_handle, CURLOPT_WRITEFUNCTION, cover_thumbnailer_load_contents_write);
   curl_easy_setopt (curl_handle, CURLOPT_WRITEDATA, contents);
-  ret = curl_easy_perform (curl_handle);
-  curl_easy_cleanup (curl_handle);
+  ret = cover_thumbnailer_load_perform (cover, curl_handle);
 
   if (ret != 0)
     {
@@ -563,7 +633,7 @@ cover_thumbnailer_poster_url (CoverThumbnailer        *cover,
                            NULL);
     }
 
-  data = cover_thumbnailer_load_contents (query, cancellable, error);
+  data = cover_thumbnailer_load_contents (cover, query, cancellable, error);
   g_free (query);
 
   if (data != NULL)
@@ -673,7 +743,7 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       if (poster_url != NULL)
         {
           /* download poster and load it in a pixbuf */
-          pixbuf = cover_thumbnailer_load_pixbuf (poster_url, flavor, cancellable, &error);
+          pixbuf = cover_thumbnailer_load_pixbuf (cover, poster_url, flavor, cancellable, &error);
           g_free (poster_url);
         }
     }
