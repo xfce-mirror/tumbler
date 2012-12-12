@@ -40,7 +40,7 @@
 
 
 #define SERIES_PATTERN    "\\b((?:s\\d{1,2}e\\d{1,2}|\\d{1,2}x\\d{1,2}))\\b"
-#define ABBREV_PATTERN    "\\b(\\w{1,}(?:rip|scr)|r5|hdtv|(?:480|720|1080)p|\\.(?:avi|mpe?g|mkv|ts))\\b"
+#define ABBREV_PATTERN    "\\b(\\w{1,}(?:rip|scr)|r5|hdtv|(?:480|720|1080)p|\(?:avi|mpe?g|mkv|ts)$)\\b"
 #define YEAR_PATTERN      "\\b(\\d{4})\\b"
 
 #define OMDBAPI_QUERY_URL "http://www.omdbapi.com/?t="
@@ -498,7 +498,7 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
     {
       uchar = g_utf8_get_char (p);
       if (g_unichar_isalnum (uchar)
-          || uchar == '\'')
+          || uchar == '\'' || uchar == '!')
         {
           if (append_space)
             {
