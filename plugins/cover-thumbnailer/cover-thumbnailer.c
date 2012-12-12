@@ -612,7 +612,7 @@ cover_thumbnailer_poster_url (CoverThumbnailer        *cover,
   gchar       *url_part;
   gchar       *url = NULL;
   gchar       *data;
-  gint         dest_width;
+  gint         dest_size;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
   g_return_val_if_fail (IS_COVER_THUMBNAILER (cover), NULL);
@@ -647,19 +647,33 @@ cover_thumbnailer_poster_url (CoverThumbnailer        *cover,
 
       if (p != NULL && k != NULL)
         {
-          /* extract poster data from the contents and build a working uri */
+          /* extract poster data from the contents */
           url_part = g_strndup (p, k - p);
+
+          /* get destination size */
+          tumbler_thumbnail_flavor_get_size (flavor, &dest_size, NULL);
+
           if (cover->api_key == NULL)
             {
-              /* imdb image location */
-              url = g_strconcat ("http://", url_part, ".jpg", NULL);
+              if (g_str_has_suffix (url_part, "_V1_SX300"))
+                {
+                  /* imdb supports output sizes, above means image X is 300px
+                   * so set something that avoids scaling. Y is most of the time
+                   * higher with posters, so set Y<thumbsize> */
+                  url_part[strlen (url_part) - 4] = '\0';
+                  url = g_strdup_printf ("http://%sY%d.jpg", url_part, dest_size);
+                }
+              else
+                {
+                  /* fallback that always works */
+                  url = g_strconcat ("http://", url_part, ".jpg", NULL);
+                }
             }
           else
             {
               /* see http://api.themoviedb.org/3/configuration?api_key= for the values */
-              tumbler_thumbnail_flavor_get_size (flavor, &dest_width, NULL);
               url = g_strconcat (TMDB_BASE_URL,
-                                 dest_width <= 154 ? "w154" : "w342", /* optimize for 128 or 256 */
+                                 dest_size <= 154 ? "w154" : "w342", /* optimize for 128 or 256 */
                                  "/", url_part, ".jpg", NULL);
             }
           g_free (url_part);
