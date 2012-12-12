@@ -533,33 +533,31 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
           && start_pos > 0)
         basename[start_pos] = '\0';
       g_match_info_free (match_info);
+    }
 
-      if (!is_series)
+  /* for non-series, look for a year in the title */
+  if (!is_series
+      && g_regex_match (cover->year_regex, basename, 0, &match_info))
+    {
+      /* store year and remove the suffix from the title */
+      if (g_match_info_fetch_pos (match_info, 0, &start_pos, &end_pos)
+          && start_pos >= 0
+          && end_pos > start_pos)
         {
-          /* for non-series, look for a year in the title */
-          if (g_regex_match (cover->year_regex, basename, 0, &match_info))
-            {
-              /* store year and remove the suffix from the title */
-              if (g_match_info_fetch_pos (match_info, 0, &start_pos, &end_pos)
-                  && start_pos >= 0
-                  && end_pos > start_pos)
-                {
-                  year = g_strndup (basename + start_pos, end_pos - start_pos);
+          year = g_strndup (basename + start_pos, end_pos - start_pos);
 
-                  if (start_pos == 0)
-                    {
-                      temp = g_strdup (basename + end_pos);
-                      g_free (basename);
-                      basename = temp;
-                    }
-                  else
-                    {
-                      basename[start_pos] = '\0';
-                    }
-                }
-              g_match_info_free (match_info);
+          if (start_pos == 0)
+            {
+              temp = g_strdup (basename + end_pos);
+              g_free (basename);
+              basename = temp;
+            }
+          else
+            {
+              basename[start_pos] = '\0';
             }
         }
+      g_match_info_free (match_info);
     }
 
   /* append the possible title part of the filename */
