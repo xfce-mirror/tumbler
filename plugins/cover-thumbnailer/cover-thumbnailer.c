@@ -54,10 +54,6 @@
 
 
 static void cover_thumbnailer_finalize     (GObject                    *object);
-static void cover_thumbnailer_set_property (GObject                    *object,
-                                            guint                       prop_id,
-                                            const GValue               *value,
-                                            GParamSpec                 *pspec);
 static void cover_thumbnailer_create       (TumblerAbstractThumbnailer *thumbnailer,
                                             GCancellable               *cancellable,
                                             TumblerFileInfo            *info);
@@ -76,9 +72,6 @@ struct _CoverThumbnailer
   /* themoviedb api key */
   gchar  *api_key;
 
-  /* whitelisted locations */
-  GSList *locations;
-
   /* precompiled */
   GRegex *series_regex;
   GRegex *abbrev_regex;
@@ -86,13 +79,6 @@ struct _CoverThumbnailer
 
   /* multi session for curl */
   CURLM *curl_multi;
-};
-
-enum
-{
-  PROP_0,
-  PROP_LOCATIONS,
-  PROP_API_KEY
 };
 
 
@@ -122,25 +108,6 @@ cover_thumbnailer_class_init (CoverThumbnailerClass *klass)
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = cover_thumbnailer_finalize;
-  gobject_class->set_property = cover_thumbnailer_set_property;
-
-  g_object_class_install_property (gobject_class,
-                                   PROP_LOCATIONS,
-                                   g_param_spec_boxed ("locations",
-                                                       "locations",
-                                                       "locations",
-                                                       G_TYPE_STRV,
-                                                       G_PARAM_CONSTRUCT_ONLY |
-                                                       G_PARAM_WRITABLE));
-
-  g_object_class_install_property (gobject_class,
-                                   PROP_API_KEY,
-                                   g_param_spec_string ("api-key",
-                                                        "api-key",
-                                                        "api-key",
-                                                        NULL,
-                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                        G_PARAM_WRITABLE));
 }
 
 
@@ -155,6 +122,8 @@ cover_thumbnailer_class_finalize (CoverThumbnailerClass *klass)
 static void
 cover_thumbnailer_init (CoverThumbnailer *thumbnailer)
 {
+  GKeyFile *rc;
+
   /* prepare the regular expressions */
   thumbnailer->series_regex = g_regex_new (SERIES_PATTERN, G_REGEX_CASELESS, 0, NULL);
   thumbnailer->abbrev_regex = g_regex_new (ABBREV_PATTERN, G_REGEX_CASELESS, 0, NULL);
@@ -162,41 +131,11 @@ cover_thumbnailer_init (CoverThumbnailer *thumbnailer)
 
   /* curl dns share */
   thumbnailer->curl_multi = curl_multi_init ();
-}
 
-
-
-static void
-cover_thumbnailer_set_property (GObject      *object,
-                                guint         prop_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
-{
-  CoverThumbnailer     *cover = COVER_THUMBNAILER (object);
-  guint                i;
-  const gchar * const *locations;
-  GFile               *gfile;
-
-  switch (prop_id)
-    {
-    case PROP_API_KEY:
-      cover->api_key = g_value_dup_string (value);
-      break;
-
-    case PROP_LOCATIONS:
-      locations = g_value_get_boxed (value);
-      g_assert (locations != NULL);
-      for (i = 0; locations[i] != NULL; i++)
-        {
-          gfile = g_file_new_for_commandline_arg (locations[i]);
-          cover->locations = g_slist_prepend (cover->locations, gfile);
-        }
-      break;
-
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-    }
+  /* read the api key */
+  rc = tumbler_util_get_settings ();
+  thumbnailer->api_key = g_key_file_get_string (rc, G_OBJECT_TYPE_NAME (thumbnailer), "APIKey", NULL);
+  g_key_file_free (rc);
 }
 
 
@@ -212,9 +151,6 @@ cover_thumbnailer_finalize (GObject *object)
   g_regex_unref (cover->year_regex);
 
   g_free (cover->api_key);
-
-  g_slist_foreach (cover->locations, (GFunc) g_object_unref, NULL);
-  g_slist_free (cover->locations);
 
   curl_multi_cleanup (cover->curl_multi);
 
@@ -718,26 +654,10 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerImageData        data;
   TumblerThumbnailFlavor *flavor;
   GFile                  *gfile;
-  GSList                 *lp;
 
   /* source file */
   uri = tumbler_file_info_get_uri (info);
   gfile = g_file_new_for_uri (uri);
-
-  /* check if file is in allowed destinations */
-  for (lp = cover->locations; lp != NULL; lp = lp->next)
-    if (g_file_has_prefix (gfile, lp->data))
-      break;
-
-  if (lp == NULL)
-    {
-      /* location not white-listed */
-      g_object_unref (gfile);
-      g_signal_emit_by_name (thumbnailer, "error", uri,
-                             TUMBLER_ERROR_UNSUPPORTED,
-                             _("Location is not whitelisted in rc file"));
-      return;
-    }
 
   /* target data */
   thumbnail = tumbler_file_info_get_thumbnail (info);

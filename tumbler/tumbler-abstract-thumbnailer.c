@@ -42,6 +42,9 @@ enum
   PROP_URI_SCHEMES,
   PROP_MIME_TYPES,
   PROP_HASH_KEYS,
+  PROP_PRIORITY,
+  PROP_MAX_FILE_SIZE,
+  PROP_LOCATIONS
 };
 
 
@@ -68,6 +71,9 @@ struct _TumblerAbstractThumbnailerPrivate
   gchar **hash_keys;
   gchar **mime_types;
   gchar **uri_schemes;
+  gint    priority;
+  gint64  max_file_size;
+  GSList *locations;
 };
 
 
@@ -97,6 +103,9 @@ tumbler_abstract_thumbnailer_class_init (TumblerAbstractThumbnailerClass *klass)
   g_object_class_override_property (gobject_class, PROP_MIME_TYPES, "mime-types");
   g_object_class_override_property (gobject_class, PROP_URI_SCHEMES, "uri-schemes");
   g_object_class_override_property (gobject_class, PROP_HASH_KEYS, "hash-keys");
+  g_object_class_override_property (gobject_class, PROP_PRIORITY, "priority");
+  g_object_class_override_property (gobject_class, PROP_MAX_FILE_SIZE, "max-file-size");
+  g_object_class_override_property (gobject_class, PROP_LOCATIONS, "locations");
 }
 
 
@@ -173,6 +182,9 @@ tumbler_abstract_thumbnailer_finalize (GObject *object)
   g_strfreev (thumbnailer->priv->mime_types);
   g_strfreev (thumbnailer->priv->uri_schemes);
 
+  g_slist_foreach (thumbnailer->priv->locations, (GFunc) g_object_unref, NULL);
+  g_slist_free (thumbnailer->priv->locations);
+
   (*G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->finalize) (object);
 }
 
@@ -185,18 +197,36 @@ tumbler_abstract_thumbnailer_get_property (GObject    *object,
                                            GParamSpec *pspec)
 {
   TumblerAbstractThumbnailer *thumbnailer = TUMBLER_ABSTRACT_THUMBNAILER (object);
+  GSList                     *dup;
 
   switch (prop_id)
     {
     case PROP_MIME_TYPES:
       g_value_set_pointer (value, g_strdupv (thumbnailer->priv->mime_types));
       break;
+
     case PROP_URI_SCHEMES:
       g_value_set_pointer (value, g_strdupv (thumbnailer->priv->uri_schemes));
       break;
+
     case PROP_HASH_KEYS:
       g_value_set_pointer (value, g_strdupv (thumbnailer->priv->hash_keys));
       break;
+
+    case PROP_PRIORITY:
+      g_value_set_int (value, thumbnailer->priv->priority);
+      break;
+
+    case PROP_MAX_FILE_SIZE:
+      g_value_set_int64 (value, thumbnailer->priv->max_file_size);
+      break;
+
+    case PROP_LOCATIONS:
+      dup = g_slist_copy (thumbnailer->priv->locations);
+      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      g_value_set_pointer (value, dup);
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -212,18 +242,36 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
                                            GParamSpec   *pspec)
 {
   TumblerAbstractThumbnailer *thumbnailer = TUMBLER_ABSTRACT_THUMBNAILER (object);
+  GSList                     *dup;
 
   switch (prop_id)
     {
     case PROP_MIME_TYPES:
       thumbnailer->priv->mime_types = g_strdupv (g_value_get_pointer (value));
       break;
+
     case PROP_URI_SCHEMES:
       thumbnailer->priv->uri_schemes = g_strdupv (g_value_get_pointer (value));
       break;
+
     case PROP_HASH_KEYS:
       thumbnailer->priv->hash_keys = g_strdupv (g_value_get_pointer (value));
       break;
+
+    case PROP_PRIORITY:
+      thumbnailer->priv->priority = g_value_get_int (value);
+      break;
+
+    case PROP_MAX_FILE_SIZE:
+      thumbnailer->priv->max_file_size = g_value_get_int64 (value);
+      break;
+
+    case PROP_LOCATIONS:
+      dup = g_slist_copy (g_value_get_pointer (value));
+      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      thumbnailer->priv->locations = dup;
+      break;
+
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;

@@ -27,6 +27,8 @@ G_BEGIN_DECLS
 
 gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 
+GKeyFile *tumbler_util_get_settings (void) G_GNUC_MALLOC;
+
 G_END_DECLS
 
 #endif /* !__TUMBLER_UTIL_H__ */

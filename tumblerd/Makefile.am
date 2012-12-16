@@ -94,11 +94,16 @@ service_DATA = $(service_in_files:.service.in=.service)
 	sed -e "s,\@libdir\@,$(libdir),g"				\
 	    -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" < $< > $@
 
+confdir = $(sysconfdir)/xdg/tumbler
+conf_DATA = \
+	tumbler.rc
+
 CLEANFILES =								\
 	$(service_DATA)
 
 EXTRA_DIST =								\
 	$(service_in_files)						\
+	tumbler.rc							\
 	tumbler-cache-service-dbus.xml					\
 	tumbler-manager-dbus.xml					\
 	tumbler-service-dbus.xml

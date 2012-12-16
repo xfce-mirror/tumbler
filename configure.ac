@@ -108,13 +108,13 @@ dnl ***************************************
 AC_HEADER_STDC()
 AC_CHECK_HEADERS([fcntl.h linux/sched.h memory.h sched.h setjmp.h stdio.h \
                   stdlib.h string.h syscall.h sys/mman.h sys/types.h \
-                  sys/stat.h unistd.h sys/select.h])
+                  sys/stat.h unistd.h sys/select.h pwd.h])
 
 dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
 AC_FUNC_MMAP()
-AC_CHECK_FUNCS([sched_getparam sched_setscheduler])
+AC_CHECK_FUNCS([sched_getparam sched_setscheduler getpwnam])
 
 dnl ******************************
 dnl *** Check for i18n support ***

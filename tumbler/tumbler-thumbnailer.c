@@ -94,7 +94,28 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                                        g_param_spec_pointer ("hash-keys",
                                                              "hash-keys",
                                                              "hash-keys",
-                                                             G_PARAM_READABLE));
+                                                             G_PARAM_CONSTRUCT_ONLY |
+                                                             G_PARAM_READWRITE));
+
+  g_object_interface_install_property (klass,
+                                       g_param_spec_int ("priority",
+                                                         "priority",
+                                                         "priority",
+                                                         0, G_MAXINT, 0,
+                                                         G_PARAM_READWRITE));
+
+  g_object_interface_install_property (klass,
+                                       g_param_spec_int64 ("max-file-size",
+                                                           "max-file-size",
+                                                           "max-file-size",
+                                                           0, G_MAXINT64, 0,
+                                                           G_PARAM_READWRITE));
+
+  g_object_interface_install_property (klass,
+                                       g_param_spec_pointer ("locations",
+                                                             "locations",
+                                                             "locations",
+                                                             G_PARAM_READWRITE));
 
   tumbler_thumbnailer_signals[SIGNAL_READY] = 
     g_signal_new ("ready",
@@ -187,6 +208,57 @@ tumbler_thumbnailer_get_uri_schemes (TumblerThumbnailer *thumbnailer)
 
   g_object_get (thumbnailer, "uri-schemes", &uri_schemes, NULL);
   return uri_schemes;
+}
+
+
+
+gint
+tumbler_thumbnailer_get_priority (TumblerThumbnailer *thumbnailer)
+{
+  gint priority;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), 0);
+
+  g_object_get (thumbnailer, "priority", &priority, NULL);
+  return priority;
+}
+
+
+
+gint64
+tumbler_thumbnailer_get_max_file_size (TumblerThumbnailer *thumbnailer)
+{
+  gint max_file_size;
+
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), 0);
+
+  g_object_get (thumbnailer, "max-file-size", &max_file_size, NULL);
+  return max_file_size;
+}
+
+
+
+gboolean
+tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
+                                       GFile              *file)
+{
+  GSList   *locations, *lp;
+  gboolean  supported = FALSE;
+
+  /* we're cool if no locations are set */
+  g_object_get (thumbnailer, "locations", &locations, NULL);
+  if (locations == NULL)
+    return TRUE;
+
+  /*check if the prefix is supported */
+  for (lp = locations; !supported && lp != NULL; lp = lp->next)
+    if (g_file_has_prefix (file, G_FILE (lp->data)))
+      supported = TRUE;
+
+  g_slist_foreach (locations, (GFunc) g_object_unref, NULL);
+  g_slist_free (locations);
+
+  return supported;
 }
 
 

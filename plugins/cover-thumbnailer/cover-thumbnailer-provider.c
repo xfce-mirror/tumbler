@@ -49,12 +49,6 @@ struct _CoverThumbnailerProviderClass
 struct _CoverThumbnailerProvider
 {
   GObject __parent__;
-
-  /* for themoviedb metadata */
-  gchar  *api_key;
-
-  /* allowed locations */
-  gchar **locations;
 };
 
 
@@ -105,22 +99,8 @@ cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProvider
 static void
 cover_thumbnailer_provider_init (CoverThumbnailerProvider *provider)
 {
-  GKeyFile *keyfile;
-  gchar    *config_dir;
-
-  config_dir = g_build_filename (g_get_user_config_dir (), "tumbler", "cover.rc", NULL);
-  keyfile = g_key_file_new ();
-  if (g_key_file_load_from_file (keyfile, config_dir, G_KEY_FILE_NONE, NULL))
-    {
-      provider->api_key = g_key_file_get_string (keyfile, "TheMovieDB", "API-key", NULL);
-      provider->locations = g_key_file_get_string_list (keyfile, "General", "Locations", NULL, NULL);
-    }
-  g_key_file_free (keyfile);
-  g_free (config_dir);
-
   /* curl */
-  if (provider->locations != NULL)
-    curl_global_init (CURL_GLOBAL_ALL);
+  curl_global_init (CURL_GLOBAL_ALL);
 }
 
 
@@ -128,14 +108,8 @@ cover_thumbnailer_provider_init (CoverThumbnailerProvider *provider)
 static void
 cover_thumbnailer_provider_finalize (GObject *object)
 {
-  CoverThumbnailerProvider *provider = COVER_THUMBNAILER_PROVIDER (object);
-
-  g_free (provider->api_key);
-  g_strfreev (provider->locations);
-
   /* curl */
-  if (provider->locations != NULL)
-    curl_global_cleanup ();
+  curl_global_cleanup ();
 
   (*G_OBJECT_CLASS (cover_thumbnailer_provider_parent_class)->finalize) (object);
 }
@@ -145,11 +119,10 @@ cover_thumbnailer_provider_finalize (GObject *object)
 static GList *
 cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  CoverThumbnailerProvider *cover = COVER_THUMBNAILER_PROVIDER (provider);
-  CoverThumbnailer         *thumbnailer;
-  GList                    *thumbnailers = NULL;
-  GStrv                     uri_schemes;
-  static const gchar       *mime_types[] =
+  CoverThumbnailer   *thumbnailer;
+  GList              *thumbnailers = NULL;
+  GStrv               uri_schemes;
+  static const gchar *mime_types[] =
   {
     "video/divx",
     "video/jpeg",
@@ -167,34 +140,20 @@ cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provide
     NULL
   };
 
-  if (cover->locations != NULL)
-    {
-      /* determine the URI schemes supported by GIO */
-      uri_schemes = tumbler_util_get_supported_uri_schemes ();
+  /* determine the URI schemes supported by GIO */
+  uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
-      /* create the pixbuf thumbnailer */
-      thumbnailer = g_object_new (TYPE_COVER_THUMBNAILER,
-                                  "uri-schemes", uri_schemes,
-                                  "mime-types", mime_types,
-                                  "locations", cover->locations,
-                                  "api-key", cover->api_key,
-                                  NULL);
+  /* create the pixbuf thumbnailer */
+  thumbnailer = g_object_new (TYPE_COVER_THUMBNAILER,
+                              "uri-schemes", uri_schemes,
+                              "mime-types", mime_types,
+                              NULL);
 
-      /* add the thumbnailer to the list */
-      thumbnailers = g_list_append (thumbnailers, thumbnailer);
+  /* add the thumbnailer to the list */
+  thumbnailers = g_list_append (thumbnailers, thumbnailer);
 
-      /* free URI schemes */
-      g_strfreev (uri_schemes);
-    }
-  else
-    {
-      g_print ("\n");
-      g_print (_("Cover thumbnailer is disabled because there are no "
-                 "locations white-listed in the config file. See "
-                 "%s for more information."),
-               "http://docs.xfce.org/xfce/thunar/tumbler");
-      g_print ("\n\n");
-    }
+  /* free URI schemes */
+  g_strfreev (uri_schemes);
 
   return thumbnailers;
 }

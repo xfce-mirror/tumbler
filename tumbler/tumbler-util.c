@@ -75,3 +75,58 @@ tumbler_util_get_supported_uri_schemes (void)
 
   return uri_schemes;
 }
+
+
+static gchar *
+tumbler_util_get_settings_filename (void)
+{
+  gchar               *path;
+  const gchar          filename[] = "tumbler" G_DIR_SEPARATOR_S "tumbler.rc";
+  const gchar * const *dirs;
+  guint                n;
+
+  /* check user directory */
+  path = g_build_filename (g_get_user_config_dir (), filename, NULL);
+  if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
+    return path;
+  g_free (path);
+
+  dirs = g_get_system_config_dirs ();
+  if (G_UNLIKELY (dirs == NULL))
+    return FALSE;
+
+  /* look in system config dirs */
+  for (n = 0; dirs[n] != NULL; n++)
+    {
+      path = g_build_filename (dirs[n], filename, NULL);
+      if (g_file_test (path, G_FILE_TEST_IS_REGULAR))
+        return path;
+      g_free (path);
+    }
+
+  return NULL;
+}
+
+
+
+GKeyFile *
+tumbler_util_get_settings (void)
+{
+  GKeyFile *settings;
+  GError   *err = NULL;
+  gchar    *filename;
+
+  settings = g_key_file_new ();
+  filename = tumbler_util_get_settings_filename ();
+
+  if (filename != NULL
+      && !g_key_file_load_from_file (settings, filename, 0, &err))
+    {
+      g_critical ("Unable to load settings from \"%s\": %s", filename, err->message);
+      g_error_free (err);
+    }
+
+  g_free (filename);
+
+  return settings;
+}

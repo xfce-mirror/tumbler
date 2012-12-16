@@ -68,6 +68,11 @@ void                 tumbler_thumbnailer_create            (TumblerThumbnailer  
 gchar              **tumbler_thumbnailer_get_hash_keys     (TumblerThumbnailer  *thumbnailer);
 gchar              **tumbler_thumbnailer_get_mime_types    (TumblerThumbnailer  *thumbnailer);
 gchar              **tumbler_thumbnailer_get_uri_schemes   (TumblerThumbnailer  *thumbnailer);
+gint                 tumbler_thumbnailer_get_priority      (TumblerThumbnailer  *thumbnailer);
+gint64               tumbler_thumbnailer_get_max_file_size (TumblerThumbnailer  *thumbnailer);
+
+gboolean             tumbler_thumbnailer_supports_location (TumblerThumbnailer  *thumbnailer,
+                                                            GFile               *file);
 gboolean             tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer  *thumbnailer,
                                                             const gchar         *hash_key);
 

@@ -41,7 +41,7 @@ static void                tumbler_registry_list_free                 (gpointer 
 static GList              *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
 static gint                tumbler_registry_compare                   (TumblerThumbnailer *a,
                                                                        TumblerThumbnailer *b);
-static TumblerThumbnailer *tumbler_registry_lookup                    (TumblerRegistry    *registry,
+static GList              *tumbler_registry_lookup                    (TumblerRegistry    *registry,
                                                                        const gchar        *hash_key);
 
 
@@ -175,8 +175,8 @@ tumbler_registry_compare (TumblerThumbnailer *a,
 
   if (!TUMBLER_IS_SPECIALIZED_THUMBNAILER (a) || !TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))
     {
-      /* plugin thumbnailers are always overriden */
-      insert_a_before_b = TRUE;
+      /* sort by priority */
+      insert_a_before_b = tumbler_thumbnailer_get_priority (a) >= tumbler_thumbnailer_get_priority (b);
     }
   else if (TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))
     {
@@ -260,32 +260,50 @@ tumbler_registry_get_thumbnailers_internal (TumblerRegistry *registry)
 
 
 
-static TumblerThumbnailer *
+static GList *
 tumbler_registry_lookup (TumblerRegistry *registry,
                          const gchar     *hash_key)
 {
   TumblerThumbnailer *thumbnailer = NULL;
   GList             **list;
-  GList              *first;
+  GList              *available = NULL;
+  GList              *lp;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (hash_key != NULL, NULL);
 
   thumbnailer = g_hash_table_lookup (registry->preferred_thumbnailers, hash_key);
   if (thumbnailer != NULL)
-    return g_object_ref (thumbnailer);
+    available = g_list_prepend (available, g_object_ref (thumbnailer));
 
   list = g_hash_table_lookup (registry->thumbnailers, hash_key);
-
   if (list != NULL)
     {
-      first = g_list_first (*list);
-
-      if (first != NULL)
-        thumbnailer = g_object_ref (first->data);
+      for (lp = *list; lp != NULL; lp = lp->next)
+        available = g_list_prepend (available, g_object_ref (lp->data));
     }
 
-  return thumbnailer;
+  return g_list_reverse (available);
+}
+
+
+
+static gint64
+tumbler_registry_get_file_size (GFile *gfile)
+{
+  GFileInfo *file_info;
+  gint64     size = 0;
+
+  file_info = g_file_query_info (gfile,
+                                 G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                                 G_FILE_QUERY_INFO_NONE, NULL, NULL);
+  if (file_info != NULL)
+    {
+      size = g_file_info_get_size (file_info);
+      g_object_unref (file_info);
+    }
+
+  return size;
 }
 
 
@@ -419,6 +437,10 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   gchar               *hash_key;
   gchar               *scheme;
   guint                n;
+  GList               *list, *lp;
+  GFile               *gfile;
+  gint64               file_size;
+  gint64               max_file_size;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (infos != NULL, NULL);
@@ -433,17 +455,46 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
     {
       tumbler_mutex_lock (registry->mutex);
 
+      /* reset */
+      file_size = 0;
+
       /* determine the URI scheme and generate a hash key */
-      scheme = g_uri_parse_scheme (tumbler_file_info_get_uri (infos[n]));
+      gfile = g_file_new_for_uri (tumbler_file_info_get_uri (infos[n]));
+      scheme = g_file_get_uri_scheme (gfile);
       hash_key = g_strdup_printf ("%s-%s", scheme, 
                                   tumbler_file_info_get_mime_type (infos[n]));
 
-      /* see if we can find a thumbnailer to handle this URI/MIME type pair */
-      thumbnailers[n] = tumbler_registry_lookup (registry, hash_key);
+      /* get list of thumbnailer that can handle this URI/MIME type pair */
+      list = tumbler_registry_lookup (registry, hash_key);
+      for (lp = list; lp != NULL; lp = lp->next)
+        {
+          /* check if the file size is a limitation */
+          max_file_size = tumbler_thumbnailer_get_max_file_size (lp->data);
+          if (max_file_size > 0)
+            {
+              /* load the source's size on demand */
+              if (file_size == 0)
+                file_size = tumbler_registry_get_file_size (gfile);
+              if (file_size > max_file_size)
+                continue;
+            }
 
-      /* free strings */
+          /* check if the location is supported */
+          if (!tumbler_thumbnailer_supports_location (lp->data, gfile))
+            continue;
+
+          /* found a usable thumbnailer */
+          thumbnailers[n] = g_object_ref (lp->data);
+
+          break;
+        }
+
+      /* cleanup */
       g_free (hash_key);
       g_free (scheme);
+      g_object_unref (gfile);
+      g_list_foreach (list, (GFunc) g_object_unref, NULL);
+      g_list_free (list);
 
       tumbler_mutex_unlock (registry->mutex);
     }

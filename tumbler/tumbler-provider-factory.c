@@ -22,11 +22,16 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_STRING_H
+#include <string.h>
+#endif
+
 #include <glib.h>
 #include <glib-object.h>
 
 #include <tumbler/tumbler-provider-factory.h>
 #include <tumbler/tumbler-provider-plugin.h>
+#include <tumbler/tumbler-util.h>
 
 
 
@@ -253,16 +258,33 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
   GList               *plugins;
   GList               *providers = NULL;
   guint                n;
+  const gchar         *type_name;
+  gchar               *name;
+  gboolean             disabled;
+  GKeyFile            *rc;
 
   G_LOCK (factory_lock);
 
   /* load available plugins */
   plugins = tumbler_provider_factory_load_plugins (factory);
 
+  /* rc file */
+  rc = tumbler_util_get_settings ();
+
   /* iterate over all provider infos */
   for (n = 0; n < factory->provider_infos->len; ++n)
     {
       info = factory->provider_infos->pdata[n];
+
+      /* check if this plugin is disabled with the assumption
+       * the provider only provides 1 type */
+      type_name = g_type_name (info->type);
+      g_assert (g_str_has_suffix (type_name, "Provider"));
+      name = g_strndup (type_name, strlen (type_name) - 8);
+      disabled = g_key_file_get_boolean (rc, name, "Disabled", NULL);
+      g_free (name);
+      if (disabled)
+        continue;
 
       /* check if the provider type implements the given type */
       if (G_LIKELY (g_type_is_a (info->type, type)))
@@ -271,8 +293,8 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
           if (info->provider == NULL)
             info->provider = g_object_new (info->type, NULL);
 
-          /* append the provider to the list */
-          providers = g_list_append (providers, g_object_ref (info->provider));
+          /* add the provider to the list */
+          providers = g_list_prepend (providers, g_object_ref (info->provider));
         }
     }
 
@@ -280,6 +302,8 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
   for (lp = plugins; lp != NULL; lp = lp->next)
     g_type_module_unuse (G_TYPE_MODULE (lp->data));
   g_list_free (plugins);
+
+  g_key_file_free (rc);
 
   G_UNLOCK (factory_lock);
 
