@@ -13,6 +13,8 @@
 # MaxFileSize: Maximum size of the source file the plugin will still
 #              try to generate a plugin for. The size is in bytes,
 #              0 disabled the check.
+#
+# For more information see http://docs.xfce.org/xfce/thunar/tumbler
 ###
 
 ###
