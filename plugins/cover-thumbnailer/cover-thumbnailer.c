@@ -123,11 +123,12 @@ static void
 cover_thumbnailer_init (CoverThumbnailer *thumbnailer)
 {
   GKeyFile *rc;
+  GRegexCompileFlags rcflags = G_REGEX_CASELESS | G_REGEX_OPTIMIZE;
 
   /* prepare the regular expressions */
-  thumbnailer->series_regex = g_regex_new (SERIES_PATTERN, G_REGEX_CASELESS, 0, NULL);
-  thumbnailer->abbrev_regex = g_regex_new (ABBREV_PATTERN, G_REGEX_CASELESS, 0, NULL);
-  thumbnailer->year_regex = g_regex_new (YEAR_PATTERN, 0, 0, NULL);
+  thumbnailer->series_regex = g_regex_new (SERIES_PATTERN, rcflags, 0, NULL);
+  thumbnailer->abbrev_regex = g_regex_new (ABBREV_PATTERN, rcflags, 0, NULL);
+  thumbnailer->year_regex = g_regex_new (YEAR_PATTERN, rcflags, 0, NULL);
 
   /* curl dns share */
   thumbnailer->curl_multi = curl_multi_init ();
