@@ -1,3 +1,12 @@
+0.1.27
+======
+- Autotools updates.
+- Remove unmaintained translations.
+- Fix build when using -Wl,-z,defs
+- Add cover-thumbnailer for movies.
+- Add config file system to control thumbnailing plugins.
+- Release thumbnail in gst thumbnailer.
+
 0.1.26
 ======
 - Remove INSTALL
