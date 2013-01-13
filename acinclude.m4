@@ -250,13 +250,13 @@ dnl Check whether to build and install the Open Movie Database thumbnailer plugi
 dnl
 AC_DEFUN([TUMBLER_COVER_THUMBNAILER],
 [
-AC_ARG_ENABLE([pixbuf-thumbnailer], [AC_HELP_STRING([--disable-cover-thumbnailer], [Don't build the Cover thumbnailer plugin])],
+AC_ARG_ENABLE([cover-thumbnailer], [AC_HELP_STRING([--disable-cover-thumbnailer], [Don't build the Cover thumbnailer plugin])],
   [ac_tumbler_cover_thumbnailer=$enableval], [ac_tumbler_cover_thumbnailer=yes])
 if test x"$ac_tumbler_cover_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
-    dnl CHeck for curl
+    dnl Check for curl
     PKG_CHECK_MODULES([CURL], [libcurl], [], [ac_tumbler_cover_thumbnailer=no])
   ], [ac_tumbler_cover_thumbnailer=no])
 fi
