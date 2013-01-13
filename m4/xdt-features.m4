@@ -5,19 +5,19 @@ dnl         The Xfce development team. All rights reserved.
 dnl
 dnl Written for Xfce by Benedikt Meurer <benny@xfce.org>.
 dnl
-dnl This program is free software; you can redistribute it and/or modify it
-dnl under the terms of the GNU General Public License as published by the Free
-dnl Software Foundation; either version 2 of the License, or (at your option)
-dnl any later version.
+dnl This program is free software; you can redistribute it and/or modify
+dnl it under the terms of the GNU General Public License as published by
+dnl the Free Software Foundation; either version 2 of the License, or
+dnl (at your option) any later version.
 dnl
-dnl This program is distributed in the hope that it will be useful, but WITHOUT
-dnl ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-dnl FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-dnl more details.
+dnl This program is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl GNU General Public License for more details.
 dnl
-dnl You should have received a copy of the GNU General Public License along with
-dnl this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-dnl Place, Suite 330, Boston, MA  02111-1307  USA
+dnl You should have received a copy of the GNU General Public License along
+dnl with this program; if not, write to the Free Software Foundation, Inc.,
+dnl 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 dnl
 dnl xdt-depends
 dnl -----------
@@ -42,7 +42,7 @@ AC_DEFUN([XDT_SUPPORTED_FLAGS],
     AC_MSG_CHECKING([if $CC supports $flag])
     saved_CFLAGS="$CFLAGS"
     CFLAGS="$CFLAGS $flag"
-    AC_COMPILE_IFELSE([ ], [flag_supported=yes], [flag_supported=no])
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([ ])], [flag_supported=yes], [flag_supported=no])
     CFLAGS="$saved_CFLAGS"
     AC_MSG_RESULT([$flag_supported])
 
@@ -74,17 +74,25 @@ AC_HELP_STRING([--disable-debug], [Include no debugging support]),
                               -Wno-missing-field-initializers \
                               -Wno-unused-parameter -Wold-style-definition \
                               -Wdeclaration-after-statement \
-                              -Wmissing-declarations -Wredundant-decls \
+                              -Wmissing-declarations \
                               -Wmissing-noreturn -Wshadow -Wpointer-arith \
                               -Wcast-align -Wformat-security \
                               -Winit-self -Wmissing-include-dirs -Wundef \
-                              -Wmissing-format-attribute -Wnested-externs \
-                              -fstack-protector"
-    CPPFLAGS="$CPPFLAGS -D_FORTIFY_SOURCE=2"
-    
+                              -Wmissing-format-attribute -Wnested-externs"
+    CPPFLAGS="$CPPFLAGS"
+
+    if test x`uname` = x"Linux"; then
+      xdt_cv_additional_CFLAGS="$xdt_cv_additional_CFLAGS -fstack-protector"
+    fi
+
+    dnl # signal.h inline is crapy on openbsd
+    if test x`uname` != x"OpenBSD"; then
+      xdt_cv_additional_CFLAGS="$xdt_cv_additional_CFLAGS -Wredundant-decls"
+    fi
+
     if test x"$enable_debug" = x"full"; then
       AC_DEFINE([DEBUG_TRACE], [1], [Define for tracing support])
-      xdt_cv_additional_CFLAGS="$xdt_cv_additional_CFLAGS -O0 -g3 -Werror"
+      xdt_cv_additional_CFLAGS="$xdt_cv_additional_CFLAGS -O0 -g -Werror"
       CPPFLAGS="$CPPFLAGS -DG_ENABLE_DEBUG"
       AC_MSG_RESULT([full])
     else
@@ -96,7 +104,7 @@ AC_HELP_STRING([--disable-debug], [Include no debugging support]),
 
     ifelse([$CXX], , , [
       dnl FIXME: should test on c++ compiler, but the following line causes
-      dnl        autoconf errors for projects that do not check for a
+      dnl        autoconf errors for projects that don't check for a
       dnl        c++ compiler at all.
       dnl AC_LANG_PUSH([C++])
       dnl XDT_SUPPORTED_FLAGS([supported_CXXFLAGS], [$xdt_cv_additional_CFLAGS])
@@ -111,12 +119,68 @@ AC_HELP_STRING([--disable-debug], [Include no debugging support]),
     CPPFLAGS="$CPPFLAGS -DNDEBUG"
 
     if test x"$enable_debug" = x"no"; then
-      CPPFLAGS="$CPPFLAGS -DG_DISABLE_CAST_CHECKS -DG_DISABLE_ASSERT -DG_DISABLE_CHECKS"
+      CPPFLAGS="$CPPFLAGS -DG_DISABLE_CAST_CHECKS -DG_DISABLE_ASSERT"
       AC_MSG_RESULT([no])
     else
       AC_MSG_RESULT([minimum])
     fi
   fi
+])
+
+
+dnl XDT_FEATURE_VISIBILITY()
+dnl
+dnl Checks to see if the compiler supports the 'visibility' attribute
+dnl If so, adds -DHAVE_GNUC_VISIBILTY to CPPFLAGS.  Also sets the
+dnl automake conditional HAVE_GNUC_VISIBILITY.
+dnl
+AC_DEFUN([XDT_FEATURE_VISIBILITY],
+[
+  AC_ARG_ENABLE([visibility],
+                AC_HELP_STRING([--disable-visibility],
+                               [Don't use ELF visibility attributes]),
+                [enable_visibility=$enableval], [enable_visibility=yes])
+  have_gnuc_visibility=no
+  if test "x$enable_visibility" != "xno"; then
+    XDT_SUPPORTED_FLAGS([xdt_vis_test_cflags], [-Wall -Werror -Wno-unused-parameter])
+    saved_CFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS $xdt_vis_test_cflags"
+    AC_MSG_CHECKING([whether $CC supports the GNUC visibility attribute])
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE(
+    [
+      void test_default (void);
+      void test_hidden (void);
+
+      void __attribute__ ((visibility("default"))) test_default (void) {}
+      void __attribute__ ((visibility("hidden"))) test_hidden (void) {}
+
+      int main (int argc, char **argv) {
+        test_default ();
+        test_hidden ();
+        return 0;
+      }
+    ])],
+    [
+      have_gnuc_visibility=yes
+      AC_MSG_RESULT([yes])
+    ],
+    [
+      AC_MSG_RESULT([no])
+    ])
+    CFLAGS="$saved_CFLAGS"
+  fi
+
+  if test "x$have_gnuc_visibility" = "xyes"; then
+    CPPFLAGS="$CPPFLAGS -DHAVE_GNUC_VISIBILITY"
+    xdt_vis_hidden_cflags=""
+    XDT_SUPPORTED_FLAGS([xdt_vis_hidden_cflags], [-xldscope=hidden])
+    if test "x$xdt_vis_hidden_cflags" = "x"; then
+      XDT_SUPPORTED_FLAGS([xdt_vis_hidden_cflags], [-fvisibility=hidden])
+    fi
+    CFLAGS="$CFLAGS $xdt_vis_hidden_cflags"
+  fi
+
+  AM_CONDITIONAL([HAVE_GNUC_VISIBILITY], [test "x$have_gnuc_visibility" = "xyes"])
 ])
 
 dnl XDT_FEATURE_LINKER_OPTS
@@ -131,16 +195,18 @@ AC_DEFUN([XDT_FEATURE_LINKER_OPTS],
                 [enable_linker_opts=$enableval], [enable_linker_opts=yes])
 
   if test "x$enable_linker_opts" != "xno"; then
-    AC_MSG_CHECKING([whether $LD accepts --as-needed])
-    case `$LD --as-needed -v 2>&1 </dev/null` in
-    *GNU* | *'with BFD'*)
-      LDFLAGS="$LDFLAGS -Wl,--as-needed"
-      AC_MSG_RESULT([yes])
-      ;;
-    *)
-      AC_MSG_RESULT([no])
-      ;;
-    esac
+    if test x`uname` != x"OpenBSD"; then
+      AC_MSG_CHECKING([whether $LD accepts --as-needed])
+      case `$LD --as-needed -v 2>&1 </dev/null` in
+      *GNU* | *'with BFD'*)
+        LDFLAGS="$LDFLAGS -Wl,--as-needed"
+        AC_MSG_RESULT([yes])
+        ;;
+      *)
+        AC_MSG_RESULT([no])
+        ;;
+      esac
+    fi
     AC_MSG_CHECKING([whether $LD accepts -O1])
     case `$LD -O1 -v 2>&1 </dev/null` in
     *GNU* | *'with BFD'*)
