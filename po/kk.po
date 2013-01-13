@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-20 05:57+0000\n"
+"POT-Creation-Date: 2013-01-13 10:51+0000\n"
 "PO-Revision-Date: 2011-12-17 22:56+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
@@ -22,13 +22,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "Басқа таңбашалар қызметі қосулы тұр"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "\"%s\" үшін таңбашалар қолданбасы қолжетерсіз"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "Таңбашалар қызметі сөндірілуде"
 
@@ -41,11 +41,11 @@ msgstr "Басқа жалпы таңбашалар қызметі қосулы �
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Қолдауы жоқ таңбаша түрі сұранды"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Арнайы таңбаша қолданбасын шақыру қатесі: уақыты өтті"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Арнайы таңбаша қолданбасын шақыру қатесі: %s"
@@ -87,31 +87,31 @@ msgid "Another thumbnailer manager is already running"
 msgstr "Басқа таңбашалар басқарушысы іске қосулы тұр"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler таңбашалар қызметі"
 
-#: ../tumblerd/main.c:101
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus сессия шинасына қосылу қатесі: %s"
 
-#: ../tumblerd/main.c:159
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Арнайы таңбашалар қолданбаларын регистрге жүктеу қатесі: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Таңбашаларды кэштеу қызметін жөнелту қатесі: %s"
 
-#: ../tumblerd/main.c:193
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Таңбашаларды басқарушысын жөнелту қатесі: %s"
 
-#: ../tumblerd/main.c:210
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Таңбашалар қызметін жөнелту қатесі: %s"
@@ -153,6 +153,7 @@ msgstr "\"%s\" плагинде керек таңбалар жоқ"
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "\"%s\" плагинді жүктеу қатесі: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -166,30 +167,29 @@ msgstr "\"%s\" плагинді жүктеу қатесі: %s"
 msgid "Version mismatch: %s"
 msgstr "Нұсқасы сәйкес емес: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Tumbler GStreamer Thumbnailer плагинді қосу"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "\"%s\" постер суретін жүктеу сәтсіз"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Tumbler GStreamer Thumbnailer плагинді сөндіру"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "\"%s\" адресінен метаақпаратты жүктеп алу сәтсіз"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Thumbnailer плагинді қосу"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "API кілті қате, сізде дұрыс кілт болу керек. Фильмдер дерекқоры қызметі сөндіріледі."
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Tumbler Pixbuf Thumbnailer плагинді сөндіру"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr "Метаақпараттан постер табылмады"
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Tumbler Font Thumbnailer плагинді қосу"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Tumbler Font Thumbnailer плагинді сөндіру"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "Фильм атауы тым қысқа"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -221,8 +221,8 @@ msgstr "Таңбалар кестесін орнату мүмкін емес: %s
 msgid "Could not render glyphs: %s"
 msgstr "Глифтерді өндеу мүмкін емес: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -231,34 +231,6 @@ msgstr "Глифтерді өндеу мүмкін емес: %s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Таңбаша файл құрамасынан алынуы мүмкін емес"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler JPEG Thumbnailer плагинін іске қосу"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler JPEG Thumbnailer плагинін сөндіру"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Tumbler ffmpeg видео thumbnailer плагинді қосу"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Tumbler ffmpeg видео thumbnailer плагинді сөндіру"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Tumbler ODF Thumbnailer плагинін іске қосу"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Tumbler ODF Thumbnailer плагинін сөндіру"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Tumbler Poppler PDF/PS Thumbnailer плагинді қосу"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -272,23 +244,58 @@ msgstr "Құжаттың бірінші бетін оқу мүмкін емес"
 msgid "Only local files are supported"
 msgstr "Тек жергілікті файлдарға қолдау бар"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Tumbler RAW Thumbnailer плагинін іске қосу"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Tumbler RAW Thumbnailer плагинін сөндіру"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Таңбашаны \"%s\" ішіне сақтау мүмкін емес"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Tumbler XDG кэш плагинін іске қосу"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Tumbler GStreamer Thumbnailer плагинді қосу"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Tumbler XDG кэш плагинін сөндіру"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Tumbler GStreamer Thumbnailer плагинді сөндіру"
+
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Tumbler Pixbuf Thumbnailer плагинді қосу"
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Tumbler Pixbuf Thumbnailer плагинді сөндіру"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Tumbler Font Thumbnailer плагинді қосу"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Tumbler Font Thumbnailer плагинді сөндіру"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Tumbler JPEG Thumbnailer плагинін іске қосу"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Tumbler JPEG Thumbnailer плагинін сөндіру"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Tumbler ffmpeg видео thumbnailer плагинді қосу"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Tumbler ffmpeg видео thumbnailer плагинді сөндіру"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Tumbler ODF Thumbnailer плагинін іске қосу"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Tumbler ODF Thumbnailer плагинін сөндіру"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "Tumbler Poppler PDF/PS Thumbnailer плагинді қосу"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Tumbler RAW Thumbnailer плагинін іске қосу"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Tumbler RAW Thumbnailer плагинін сөндіру"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "Tumbler XDG кэш плагинін іске қосу"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "Tumbler XDG кэш плагинін сөндіру"
