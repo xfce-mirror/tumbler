@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-18 06:39+0000\n"
+"POT-Creation-Date: 2013-01-14 18:57+0000\n"
 "PO-Revision-Date: 2011-03-11 17:31-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -21,13 +21,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "Ya está ejecutándose otro servicio de caché de previsualizador"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "No hay una previsualización dsponible para «%s»"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "El servicio de previsualización se está cerrando"
 
@@ -40,12 +40,12 @@ msgstr "Otro previsualizador genérico ya está abierto"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Tipo de previsualización seleccionada no soportada"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr ""
 "Error al llamar al previsualizador especializado: tiempo de espera terminado."
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Error al llamar al previsualizador especializado: %s"
@@ -87,31 +87,32 @@ msgid "Another thumbnailer manager is already running"
 msgstr "Otro gestor de previsualización ya está funcionando"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Servicio de previsualización de Tumbler"
 
-#: ../tumblerd/main.c:101
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Falló al conectar la sesión de bus D-Bus: %s"
 
-#: ../tumblerd/main.c:159
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Falló al cargar previsualizadores especializados dentro del registro: %s"
+msgstr ""
+"Falló al cargar previsualizadores especializados dentro del registro: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Falló al iniciar el servicio de caché de previsualización: %s"
 
-#: ../tumblerd/main.c:193
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Falló al iniciar el gestor de previsualización: %s"
 
-#: ../tumblerd/main.c:210
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Falló al iniciar el servicio de previsualización: %s"
@@ -153,6 +154,7 @@ msgstr "El complemento «%s» carece de los símbolos necesarios."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Error al cargar el complemento «%s»: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -166,30 +168,29 @@ msgstr "Error al cargar el complemento «%s»: %s"
 msgid "Version mismatch: %s"
 msgstr "Conflicto de versiones: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Inicializando el complemento Tumbler GStreamer Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, fuzzy, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Error al cargar el archivo «%s»: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Apagando el complemento Tumbler GStreamer Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, fuzzy, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Error al cargar el archivo «%s»: %s"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Iniciando el complemento Pixbuf Thumbnailer para Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Cerrando el complemento Pixbuf Thumbnailer para Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Iniciando el complemento Font Thumbnailer para Tumbler"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Cerrando el complemento Font Thumbnailer para Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "El título de la película es muy corto"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -221,8 +222,8 @@ msgstr "No se puede establecer el mapa de caracteres: %s"
 msgid "Could not render glyphs: %s"
 msgstr "No se pueden renderizar glifos: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -232,34 +233,6 @@ msgstr "No se pueden renderizar glifos: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""
 "No se puede generar previsualización a partir de los contenidos del archivo"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Iniciando el complemento JPEG Thumbnailer para Tumbler"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Cerrando el complemento JPEG Thumbnailer para Tumbler"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Iniciando el complemento Ffmpeg video Thumbnailer para Tumbler"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Cerrando el complemento Ffmpeg video Thumbnailer para Tumbler"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Iniciando el complemento ODF Thumbnailer para Tumbler"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Cerrando el complemento ODF Thumbnailer para Tumbler"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Iniciando el complemento Poppler PDF/PS Thumbnailer para Tumbler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -273,23 +246,58 @@ msgstr "La primera página del documento no puede ser leída"
 msgid "Only local files are supported"
 msgstr "Únicamente archivos locales son soportados"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Iniciando el complemento RAW Thumbnailer para Tumbler"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Cerrando el complemento RAW Thumbnailer para Tumbler"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "No se puede guardar la previsualización a «%s»"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Iniciando el complemento caché XDG para Tumbler"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Inicializando el complemento Tumbler GStreamer Thumbnailer"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Cerrando el complemento caché XDG para Tumbler"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Apagando el complemento Tumbler GStreamer Thumbnailer"
+
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Iniciando el complemento Pixbuf Thumbnailer para Tumbler"
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Cerrando el complemento Pixbuf Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Iniciando el complemento Font Thumbnailer para Tumbler"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Cerrando el complemento Font Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Iniciando el complemento JPEG Thumbnailer para Tumbler"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Cerrando el complemento JPEG Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Iniciando el complemento Ffmpeg video Thumbnailer para Tumbler"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Cerrando el complemento Ffmpeg video Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Iniciando el complemento ODF Thumbnailer para Tumbler"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Cerrando el complemento ODF Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "Iniciando el complemento Poppler PDF/PS Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Iniciando el complemento RAW Thumbnailer para Tumbler"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Cerrando el complemento RAW Thumbnailer para Tumbler"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "Iniciando el complemento caché XDG para Tumbler"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "Cerrando el complemento caché XDG para Tumbler"
