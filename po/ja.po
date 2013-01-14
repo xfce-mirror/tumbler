@@ -1,17 +1,17 @@
 # Japanese translations for tumbler package
 # tumbler パッケージに対する英訳.
-# Copyright (C) 2009-2012 THE tumbler'S COPYRIGHT HOLDER
+# Copyright (C) 2009-2013 THE tumbler'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the tumbler package.
-# Masato Hashimoto <cabezon.hashimoto@gmail.com>, 2009-2012.
+# Masato Hashimoto <cabezon.hashimoto@gmail.com>, 2009-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-05 18:04+0900\n"
-"PO-Revision-Date: 2012-04-11 21:46+0900\n"
+"POT-Creation-Date: 2013-01-14 16:57+0900\n"
+"PO-Revision-Date: 2013-01-14 17:17+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
-"Language-Team: Japanese\n"
+"Language-Team: Japanese <xfce-users-jp@googlegroups.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,13 +23,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "他のサムネイルキャッシュサービスが既に動作しています"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "\"%s\" 用のサムネイラーはありません"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "サムネイラーサービスを終了しています"
 
@@ -42,23 +42,21 @@ msgstr "他の一般サムネイラーが既に動作しています"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "サポートしていないサムネイルフレーバーが要求されました"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "特殊サムネイラーの呼び出しに失敗しました: タイムアウト"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "特殊サムネイラーの呼び出しに失敗しました: %s"
 
-#: ../tumblerd/tumbler-manager.c:489
-#: ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "ファイル \"%s\" の読み込みに失敗しました: %s"
 
-#: ../tumblerd/tumbler-manager.c:507
-#: ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
@@ -69,8 +67,7 @@ msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式で�
 msgid "Malformed section \"%s\" in file \"%s\": Mismatch between section name and UriScheme/MimeType"
 msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: セクション名と UriScheme/MimeType が一致しません"
 
-#: ../tumblerd/tumbler-manager.c:908
-#: ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
@@ -81,40 +78,40 @@ msgstr "ファイル \"%s\" は不正な形式です: %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "\"%s\" の最終変更日時の決定に失敗しました"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "他のサムネイルマネージャーが既に動作しています"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler サムネイルサービス"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus セッションバスへの接続に失敗しました: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "特殊サムネイラーのレジストリへの読み込みに失敗しました: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "サムネイルキャッシュサービスの起動に失敗しました: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "サムネイルマネージャーの起動に失敗しました: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "サムネイラサービスの起動に失敗しました: %s"
+msgstr "サムネイラーサービスの起動に失敗しました: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -153,6 +150,7 @@ msgstr "プラグイン \"%s\" には必要なシンボルが不足していま�
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -166,36 +164,27 @@ msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
 msgid "Version mismatch: %s"
 msgstr "バージョン不整合です: %s"
 
-# DEBUG message
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "ポスター画像 \"%s\" の読み込みに失敗しました"
 
-# DEBUG message
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "\"%s\" からのメタデータの読み込みに失敗しました"
 
-# DEBUG message
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid "Invalid API key, you must be granted a valid key. The Movie DB backend will be disabled."
+msgstr "不正な API キーです。正しいキーを受け取ってください。動画 DB バックエンドは無効になります。"
 
-# DEBUG message
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr "メタデータ内に poster キーが見つかりませんでした"
 
-# DEBUG message
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Initializing the Tumbler Font Thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "動画タイトルが短過ぎます"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -227,8 +216,8 @@ msgstr "キャラクターマップを設定できませんでした: %s"
 msgid "Could not render glyphs: %s"
 msgstr "グリフをレンダリングできませんでした: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -237,41 +226,6 @@ msgstr "グリフをレンダリングできませんでした: %s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ファイル内容からサムネイルを推測できませんでした"
-
-# DEBUG message
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Initializing the Tumbler JPEG Thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Shutting down the Tumbler JPEG Thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Initializing the Tumbler ODF Thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Shutting down the Tumbler ODF Thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -285,30 +239,78 @@ msgstr "ドキュメントの最初のページを読み込めませんでした
 msgid "Only local files are supported"
 msgstr "ローカルファイルのみサポートされます"
 
-# DEBUG message
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Initializing the Tumbler RAW Thumbnailer plugin"
-
-# DEBUG message
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Shutting down the Tumbler RAW Thumbnailer plugin"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "サムネイルを \"%s\" へ保存できませんでした"
 
 # DEBUG message
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Initializing the Tumbler XDG cache plugin"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler GStreamer Thumbnailer plugin"
 
 # DEBUG message
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Shutting down the Tumbler XDG cache plugin"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler Font Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler Font Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler JPEG Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler JPEG Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler ODF Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler ODF Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Initializing the Tumbler RAW Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Shutting down the Tumbler RAW Thumbnailer plugin"
+
+# DEBUG message
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "Initializing the Tumbler XDG cache plugin"
+
+# DEBUG message
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "Shutting down the Tumbler XDG cache plugin"
 
 #~ msgid "Normal"
 #~ msgstr "普通"
