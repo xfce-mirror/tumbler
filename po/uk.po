@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-05 17:04+0000\n"
+"POT-Creation-Date: 2013-01-14 18:57+0000\n"
 "PO-Revision-Date: 2010-03-09 14:21+0200\n"
 "Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
 "Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
@@ -23,13 +23,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "Інший сервіс кешування мініатюр вже працює"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Не доступно перегляд мініатюр для \"%s\""
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "Сервіс кешування мініатюр завершує роботу"
 
@@ -42,12 +42,12 @@ msgstr "Інший переглядач мініатюр вже працює"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Непідтримуваний запит переглядача мініатюр"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr ""
 "Не можу викликати визначений створювач мініатюр: задовгий час очікування"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Не можу викликати визначений створювач мініатюр: %s"
@@ -83,37 +83,37 @@ msgstr "Неправильний файл \"%s\": %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Не вдалось визначити останню модифікацію часу для \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Інший менеджер перегляду мініатюр вже працює"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Сервіс перегляду мініатюр Tumbler"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Не вдалося з’єднатися буфером сесії D-Bus: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Не вдалося завантажити спеціалізовані іконізатори до регістру: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Не вдалося почати сервіс кешування іконок: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Не вдалося запустити менеджер іконізації: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Не вдалося запустити сервіс іконізатора: %s"
@@ -155,6 +155,7 @@ msgstr "Додатку \"%s\" бракує необхідних символів
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Не вдалося завантажити додаток \"%s\": %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -168,30 +169,29 @@ msgstr "Не вдалося завантажити додаток \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Версія не збігаються: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler GStreamer Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Не вдалось завантажити малюнок постера \"%s\""
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler GStreamer Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Не вдалось завантажити метадані з \"%s\""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler Pixbuf Thumbnailer "
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Поганий ключ API, Вам потрібно подати правильний ключ. Movie DB буде виключене."
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler Pixbuf Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr "Не знайдено ключ постера в метаданих"
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler Font Thumbnailer"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler Font Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "Назва кінострічки закоротка"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -223,8 +223,8 @@ msgstr "Не можу встановити розкладку символів: 
 msgid "Could not render glyphs: %s"
 msgstr "Не вдалось відобразити гліфи: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -233,37 +233,6 @@ msgstr "Не вдалось відобразити гліфи: %s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Неможливо створити іконку з  вмісту файлу"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler JPEG Thumbnailer"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler JPEG Thumbnailer"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr ""
-"Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою "
-"ffmpeg"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr ""
-"Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою ffmpeg"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler ODF Thumbnailer"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler ODF Thumbnailer"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler Poppler PDF/PS Thumbnailer"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -277,23 +246,62 @@ msgstr "Не можу прочитати першу сторінку докум�
 msgid "Only local files are supported"
 msgstr "Тільки локальні файли підтримуються"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Ініціалізація додатку Tumbler RAW Thumbnailer"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Вихід з додатку Tumbler RAW Thumbnailer"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Не вдалось зберегти мініатюри в \"%s\""
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Ініціалізація розширення Tumbler XDG cache"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler GStreamer Thumbnailer"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Вимкнути розширення Tumbler XDG cache"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Вихід з додатку Tumbler GStreamer Thumbnailer"
+
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler Pixbuf Thumbnailer "
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Вихід з додатку Tumbler Pixbuf Thumbnailer"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler Font Thumbnailer"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Вихід з додатку Tumbler Font Thumbnailer"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler JPEG Thumbnailer"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Вихід з додатку Tumbler JPEG Thumbnailer"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr ""
+#~ "Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою "
+#~ "ffmpeg"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr ""
+#~ "Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою "
+#~ "ffmpeg"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler ODF Thumbnailer"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Вихід з додатку Tumbler ODF Thumbnailer"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler Poppler PDF/PS Thumbnailer"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Ініціалізація додатку Tumbler RAW Thumbnailer"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Вихід з додатку Tumbler RAW Thumbnailer"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "Ініціалізація розширення Tumbler XDG cache"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "Вимкнути розширення Tumbler XDG cache"
