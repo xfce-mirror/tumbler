@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-15 16:42+0000\n"
-"PO-Revision-Date: 2012-04-15 14:45-0300\n"
-"Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
+"POT-Creation-Date: 2013-01-15 00:18+0000\n"
+"PO-Revision-Date: 2013-01-14 22:36-0300\n"
+"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -18,19 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Outro serviço de cache de miniaturas já está em execução"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Nenhum gerador de miniaturas disponível para \"%s\""
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "O serviço de geração de miniaturas está sendo encerrado"
 
@@ -43,11 +44,11 @@ msgstr "Um outro gerador de miniaturas genérico já está em execução"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Tipo de miniatura sem suporte solicitado"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Falhou ao chamar o gerador de miniaturas especializado: tempo esgotado"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Falhou ao chamar o gerador de miniaturas especializado: %s"
@@ -89,32 +90,32 @@ msgid "Another thumbnailer manager is already running"
 msgstr "Um outro gerenciador de miniaturas já está em execução"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Serviço de geração de miniaturas Tumbler"
 
-#: ../tumblerd/main.c:101
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Falhou ao conectar-se com o barramento de sessão do D-Bus: %s"
 
-#: ../tumblerd/main.c:159
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 "Falhou ao carregar geradores de miniaturas especializados no registro: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Falhou ao iniciar o serviço de cache de miniaturas: %s"
 
-#: ../tumblerd/main.c:193
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Falhou ao iniciar o gerenciador de miniaturas: %s"
 
-#: ../tumblerd/main.c:210
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Falhou ao iniciar o serviço de geração de miniaturas: %s"
@@ -156,6 +157,7 @@ msgstr "O plug-in \"%s\" não possui os símbolos requeridos"
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Falhou ao carregar o plug-in \"%s\": %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -169,30 +171,31 @@ msgstr "Falhou ao carregar o plug-in \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Versão incompatível: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas GStreamer do Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Falhou ao carregar a imagem do poster de \"%s\""
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas GStreamer do Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Falhou ao carregar os metadados de \"%s\""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas Pixbuf do Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
+"A chave de API é inválida: você deve possuir uma chave válida. O backend de "
+"banco de dados de filmes será desabilitado."
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas Pixbuf do Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr "Nenhuma chave de poster econtrada nos metadados"
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas de fontes do Tumbler"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas de fontes do Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "O título do filme é muito curto"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -224,8 +227,8 @@ msgstr "Não foi possível definir o mapa de caracteres: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Não foi possível renderizar os glifos: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -234,34 +237,6 @@ msgstr "Não foi possível renderizar os glifos: %s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "A miniatura não pode ser inferida do conteúdo do arquivo"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas JPEG do Tumbler"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas JPEG do Tumbler"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas de vídeo ffmpeg do Tumbler"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas de vídeo ffmpeg do Tumbler"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas ODF do Tumbler"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas ODF do Tumbler"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas PDF/PS Poppler do Tumbler"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -275,23 +250,61 @@ msgstr "A primeira página do documento não pôde ser lida"
 msgid "Only local files are supported"
 msgstr "Somente arquivos locais são suportados"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Iniciando o plug-in gerador de miniaturas de imagens RAW do Tumbler"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Encerrando o plug-in gerador de miniaturas de imagens RAW do Tumbler"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Não foi possível salvar a miniatura em \"%s\""
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Iniciando o plug-in de cache XDG do Tumbler"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas GStreamer do Tumbler"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Encerrando o plug-in de cache XDG do Tumbler"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Encerrando o plug-in gerador de miniaturas GStreamer do Tumbler"
+
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas Pixbuf do Tumbler"
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Encerrando o plug-in gerador de miniaturas Pixbuf do Tumbler"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas de fontes do Tumbler"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Encerrando o plug-in gerador de miniaturas de fontes do Tumbler"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas JPEG do Tumbler"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Encerrando o plug-in gerador de miniaturas JPEG do Tumbler"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr ""
+#~ "Iniciando o plug-in gerador de miniaturas de vídeo ffmpeg do Tumbler"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr ""
+#~ "Encerrando o plug-in gerador de miniaturas de vídeo ffmpeg do Tumbler"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas ODF do Tumbler"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Encerrando o plug-in gerador de miniaturas ODF do Tumbler"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas PDF/PS Poppler do Tumbler"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Iniciando o plug-in gerador de miniaturas de imagens RAW do Tumbler"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr ""
+#~ "Encerrando o plug-in gerador de miniaturas de imagens RAW do Tumbler"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "Iniciando o plug-in de cache XDG do Tumbler"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "Encerrando o plug-in de cache XDG do Tumbler"
