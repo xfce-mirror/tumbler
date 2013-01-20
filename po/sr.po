@@ -6,29 +6,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-05 05:57+0000\n"
+"POT-Creation-Date: 2013-01-20 19:24+0000\n"
 "PO-Revision-Date: 2012-07-05 10:35+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: српски <xfce-i18n@xfce.org>\n"
-"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Нека друга услуга оставе сличица је већ покренута"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Није доступан сличичар за „%s“"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "Услуга сличичара се гаси"
 
@@ -39,16 +38,16 @@ msgstr "Други општи сличичар је већ покренут"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Заттражена је неподржана особеност сличице"
+msgstr "Затражена је неподржана особеност сличице"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Нисам успео да позовем специјализованог сличичара: време истека"
+msgstr "Нисам успео да позовем специјализираног сличичара: време је истекло"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Нисам успео да позовем специјализованог сличичара: %s"
+msgstr "Нисам успео да позовем  специјализираног сличичара: %s"
 
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
@@ -87,31 +86,31 @@ msgid "Another thumbnailer manager is already running"
 msgstr "Неки други управник сличичара је већ покренут"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Услуга стварања сличица Тамблер"
 
-#: ../tumblerd/main.c:101
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Нисам успео да се повежем на сабирницу сесије Д-сабирнице: %s"
 
-#: ../tumblerd/main.c:159
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Нисам успео да учитам специјализоване сличичаре у регистар: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Нисам успео да покренем услугу оставе сличица: %s"
 
-#: ../tumblerd/main.c:193
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Нисам успео да покренем управника сличичара: %s"
 
-#: ../tumblerd/main.c:210
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Нисам успео да покренем услугу сличичара: %s"
@@ -153,6 +152,7 @@ msgstr "Прикључку „%s“ недостају захтевани сим
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Нисам успео да учитам прикључак „%s“: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -166,30 +166,29 @@ msgstr "Нисам успео да учитам прикључак „%s“: %s"
 msgid "Version mismatch: %s"
 msgstr "Неслагање издања: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара Гстримера"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Нисам успео да учитам постер слику „%s“"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара Гстримера"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Нисам успео да учитам метаподатак „%s“"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара Сличица"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара Сличица"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара Словног лика"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара Словног лика"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "Наслов филма је прекратак"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -221,8 +220,8 @@ msgstr "Не могу да подесим мапу знакова: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Не могу да исцртам симболе: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -231,34 +230,6 @@ msgstr "Не могу да исцртам симболе: %s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Сличица не може бити наслућена из садржаја датотеке"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара ЈПЕГ-а"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара ЈПЕГ-а"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара ффмпег видеа"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара ффмпег видеа"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара ОДФ-а"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара ОДФ-а"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара Поплер ПДФ/ПС-а"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -272,23 +243,58 @@ msgstr "Прва страница документа не може бити пр
 msgid "Only local files are supported"
 msgstr "Само локалне датотеке су подржане"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Покрећем Тамблера прикључак сличичара РАВ-а"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Заустављам Тамблера прикључак сличичара РАВ-а"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Не могу да сачувам сличицу у „%s“"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Покрећем Тамблера прикључак оставе ИксДГ-а"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара Гстримера"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Заустављам Тамблера прикључак оставе ИксДГ-а"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара Гстримера"
+
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара Сличица"
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара Сличица"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара Словног лика"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара Словног лика"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара ЈПЕГ-а"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара ЈПЕГ-а"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара ффмпег видеа"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара ффмпег видеа"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара ОДФ-а"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара ОДФ-а"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара Поплер ПДФ/ПС-а"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Покрећем Тамблера прикључак сличичара РАВ-а"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "Заустављам Тамблера прикључак сличичара РАВ-а"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "Покрећем Тамблера прикључак оставе ИксДГ-а"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "Заустављам Тамблера прикључак оставе ИксДГ-а"
