@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-17 14:16+0000\n"
+"POT-Creation-Date: 2013-01-20 19:24+0000\n"
 "PO-Revision-Date: 2010-12-01 03:08+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
@@ -23,13 +23,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "Már fut egy bélyegkép-gyorsítótárazási szolgáltatás"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Nem érhető el bélyegképkészítő ehhez: „%s”"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "A bélyegkép-szolgáltatás leáll"
 
@@ -42,11 +42,11 @@ msgstr "Már fut egy általános bélyegkép-készítő"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "A kért bélyegkép-fajta nem támogatott"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "A specializált bélyegkép-készítő hívása meghiúsult: időtúllépés"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "A specializált bélyegkép-készítő hívása meghiúsult: %s"
@@ -82,38 +82,38 @@ msgstr "Rosszul formázott fájl („%s”): %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Nem sikerült meghatározni a(z) „%s” utolsó módosításának idejét"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Már fut egy másik bélyegkép-kezelő"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler bélyegkép-készítő szolgáltatás"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Nem sikerült kapcsolódni a D-Bus munkamenetbuszhoz: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 "A specializált bélyegkép-készítők betöltése a nyilvántartásba meghiúsult: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "A bélyegkép-gyorsítótárazási szolgáltatás elindítása meghiúsult: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "A bélyegképkészítő-kezelő elindítása meghiúsult: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "A bélyegkép-készítő szolgáltatás elindítása meghiúsult: %s"
@@ -155,6 +155,7 @@ msgstr "A bővítményből („%s”) hiányoznak a szükséges szimbólumok."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "A bővítmény („%s”) betöltése meghiúsult: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -168,30 +169,29 @@ msgstr "A bővítmény („%s”) betöltése meghiúsult: %s"
 msgid "Version mismatch: %s"
 msgstr "Verzióeltérés: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "A Tumbler GStreamer bélyegképkészítő bővítmény előkészítése"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "A poszterkép („%s”) betöltése meghiúsult"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "A Tumbler GStreamer bélyegképkészítő bővítmény leállítása"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "„%s” metaadatainak betöltése meghiúsult"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "A Tumbler bélyegkép-készítő bővítmény előkészítése"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Érvénytelen API kulcs, rendelkeznie kell egy érvényes kulccsal. A filmadatbázis háttérprogram ki lesz kapcsolva."
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "A Tumbler bélyegkép-készítő bővítmény leállítása"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr "Nem található poszterkulcs a metaadatok közt"
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "A Tumbler betűkészletbélyegkép-készítő bővítmény előkészítése"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "A Tumbler betűkészletbélyegkép-készítő bővítmény leállítása"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "A film címe túl rövid"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -223,8 +223,8 @@ msgstr "Nem állítható be a karaktertérkép: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nem jeleníthetők meg a szimbólumok: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -233,34 +233,6 @@ msgstr "Nem jeleníthetők meg a szimbólumok: %s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "A bélyegkép nem készíthető el a fájl tartalmából"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "A Tumbler JPEG bélyegkép-készítő bővítmény előkészítése"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "A Tumbler JPEG bélyegkép-készítő bővítmény leállítása"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "A Tumbler FFMpeg videobélyegkép-készítő bővítmény előkészítése"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "A Tumbler FFMpeg videobélyegkép-készítő bővítmény leállítása"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "A Tumbler ODF-bélyegkép-készítő bővítmény előkészítése"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "A Tumbler ODF-bélyegkép-készítő bővítmény leállítása"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "A Tumbler Poppler PDF/PS bélyegkép-készítő bővítmény előkészítése"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -274,23 +246,58 @@ msgstr "A dokumentum első oldala nem olvasható"
 msgid "Only local files are supported"
 msgstr "Csak a helyi fájlok támogatottak"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "A Tumbler RAW bélyegképkészítő bővítmény előkészítése"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "A Tumbler RAW bélyegképkészítő bővítmény leállítása"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nem menthető a bélyegkép ide: „%s”"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "A Tumbler XDG-gyorsítótár bővítmény előkészítése"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "A Tumbler GStreamer bélyegképkészítő bővítmény előkészítése"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "A Tumbler XDG-gyorsítótár bővítmény leállítása"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "A Tumbler GStreamer bélyegképkészítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "A Tumbler bélyegkép-készítő bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "A Tumbler bélyegkép-készítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "A Tumbler betűkészletbélyegkép-készítő bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "A Tumbler betűkészletbélyegkép-készítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "A Tumbler JPEG bélyegkép-készítő bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "A Tumbler JPEG bélyegkép-készítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "A Tumbler FFMpeg videobélyegkép-készítő bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "A Tumbler FFMpeg videobélyegkép-készítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "A Tumbler ODF-bélyegkép-készítő bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "A Tumbler ODF-bélyegkép-készítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "A Tumbler Poppler PDF/PS bélyegkép-készítő bővítmény előkészítése"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "A Tumbler RAW bélyegképkészítő bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "A Tumbler RAW bélyegképkészítő bővítmény leállítása"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "A Tumbler XDG-gyorsítótár bővítmény előkészítése"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "A Tumbler XDG-gyorsítótár bővítmény leállítása"
