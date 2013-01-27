@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 18:57+0000\n"
+"POT-Creation-Date: 2013-01-27 01:12+0000\n"
 "PO-Revision-Date: 2011-03-11 17:31-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -169,14 +169,14 @@ msgid "Version mismatch: %s"
 msgstr "Conflicto de versiones: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Error al cargar el archivo «%s»: %s"
+msgstr "Fallo al cargar la imagen de poster de \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Error al cargar el archivo «%s»: %s"
+msgstr "Error al cargar la metadata de \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
 msgid ""
