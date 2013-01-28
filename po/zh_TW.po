@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-12 23:03+0000\n"
-"PO-Revision-Date: 2011-11-13 10:17+0800\n"
+"POT-Creation-Date: 2013-01-27 22:36+0000\n"
+"PO-Revision-Date: 2013-01-28 11:00+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: chinese-l10n <chinese-l10n@googlegroups.com>\n"
 "Language: \n"
@@ -22,13 +22,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "另一個縮圖快取服務已經在執行中"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "「%s」沒有可用的縮圖製作程式"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "縮圖製作服務正在關閉"
 
@@ -41,11 +41,11 @@ msgstr "另一個通用縮圖製作程式已經在執行中"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "要求的縮圖風格未支援"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "無法呼叫特定的縮圖製作程式：逾時"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "無法呼叫特定的縮圖製作程式：%s"
@@ -80,37 +80,37 @@ msgstr "檔案「%s」格式不良：%s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "無法得知「%s」最近修改的時間"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "另一個縮圖製作管理員已經在執行中"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:250
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler 縮圖產生服務"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:270
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "無法連接至 D-Bus 的作業階段 bus：%s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:353
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "無法載入特定的縮圖製作程式至註冊檔內：%s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:365
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "無法起始縮圖快取服務：%s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "無法起始縮圖製作管理員：%s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "無法起始縮圖製作服務：%s"
@@ -152,6 +152,7 @@ msgstr "插件「%s」缺乏需要的符號。"
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "無法載入插件「%s」：%s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -165,30 +166,27 @@ msgstr "無法載入插件「%s」：%s"
 msgid "Version mismatch: %s"
 msgstr "版本不符：%s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在初始化 Tumbler GStreamer 縮圖製作插件"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "無法載入海報影像「%s」"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "正在關閉 Tumbler GStreamer 縮圖製作插件"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "無法載入檔案「%s」的中介資料"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在初始化 Tumbler Pixbuf 縮圖製作插件"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+msgid "Invalid API key, you must be granted a valid key. The Movie DB backend will be disabled."
+msgstr "無效的 API 鍵，您必須賦予有效的鍵。影片 DB 後端將被停用。"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "正在關閉 Tumbler Pixbuf 縮圖製作插件"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+msgid "No poster key found in metadata"
+msgstr "中介資料中找不到海報鍵"
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "正在初始化 Tumbler 字型縮圖製作插件"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "正在關閉 Tumbler 字型縮圖製作插件"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+msgid "Movie title is too short"
+msgstr "影片標題過短"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -220,8 +218,8 @@ msgstr "無法設定字元對應表：%s"
 msgid "Could not render glyphs: %s"
 msgstr "無法繪製字形：%s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -230,34 +228,6 @@ msgstr "無法繪製字形：%s"
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "縮圖無法從檔案內容推算"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在初始化 Tumbler JPEG 縮圖製作插件"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "正在關閉 Tumbler JPEG 縮圖製作插件"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在初始化 Tumbler ffmpeg 視訊製作插件"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "正在關閉 Tumbler ffmpeg 視訊縮圖製作插件"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "正在初始化 Tumbler ODF 縮圖製作插件"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "正在關閉 Tumbler ODF 縮圖製作插件"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "正在初始化 Tumbler Poppler PDF/PS 縮圖製作插件"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
 msgid "The document is empty"
@@ -271,24 +241,58 @@ msgstr "文件的第一頁無法讀取"
 msgid "Only local files are supported"
 msgstr "僅支援本地檔案"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "正在初始化 Tumbler RAW 縮圖製作插件"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "正在關閉 Tumbler RAW 縮圖製作插件"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "無法儲存縮圖至「%s」"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "正在初始化 Tumbler XDG 快取插件"
+#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler GStreamer 縮圖製作插件"
 
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "正在關閉 Tumbler XDG 快取插件"
+#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler GStreamer 縮圖製作插件"
 
+#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler Pixbuf 縮圖製作插件"
+
+#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler Pixbuf 縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler 字型縮圖製作插件"
+
+#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler 字型縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler JPEG 縮圖製作插件"
+
+#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler JPEG 縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler ffmpeg 視訊製作插件"
+
+#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler ffmpeg 視訊縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler ODF 縮圖製作插件"
+
+#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler ODF 縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler Poppler PDF/PS 縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "正在初始化 Tumbler RAW 縮圖製作插件"
+
+#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
+#~ msgstr "正在關閉 Tumbler RAW 縮圖製作插件"
+
+#~ msgid "Initializing the Tumbler XDG cache plugin"
+#~ msgstr "正在初始化 Tumbler XDG 快取插件"
+
+#~ msgid "Shutting down the Tumbler XDG cache plugin"
+#~ msgstr "正在關閉 Tumbler XDG 快取插件"
