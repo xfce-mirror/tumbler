@@ -54,7 +54,8 @@ tumbler_webkit_thumbnailer_la_LIBADD =					\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
-	$(WEBKIT_LIBS)
+	$(WEBKIT_LIBS)							\
+	-lm
 
 tumbler_webkit_thumbnailer_la_DEPENDENCIES =				\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
