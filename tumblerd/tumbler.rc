@@ -95,3 +95,10 @@ Disabled=false
 Priority=1
 Locations=
 MaxFileSize=0
+
+# Webkit thumbnailer
+[WebkitThumbnailer]
+Disabled=false
+Priority=1
+Locations=
+MaxFileSize=0
