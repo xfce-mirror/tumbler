@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-27 01:12+0000\n"
+"POT-Creation-Date: 2013-02-28 19:39+0000\n"
 "PO-Revision-Date: 2011-03-11 17:31-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -179,14 +179,16 @@ msgid "Failed to load the metadata from \"%s\""
 msgstr "Error al cargar la metadata de \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#, fuzzy
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
+msgstr "Clave API inválida, debe garantizarse una clave válida. La BD será desactivada."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#, fuzzy
 msgid "No poster key found in metadata"
-msgstr ""
+msgstr "No se ha encontrado ningún cartel de claves en metadatos"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
 msgid "Movie title is too short"
