@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-28 19:39+0000\n"
+"POT-Creation-Date: 2013-03-02 19:48+0000\n"
 "PO-Revision-Date: 2011-03-11 17:31-0300\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "Ya está ejecutándose otro servicio de caché de previsualizador"
+msgstr "Ya se está ejecutando otro servicio de caché de miniaturas"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -38,7 +38,7 @@ msgstr "Otro previsualizador genérico ya está abierto"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Tipo de previsualización seleccionada no soportada"
+msgstr "Se solicitó un tipo de miniaturas no compatible"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -119,7 +119,7 @@ msgstr "Falló al iniciar el servicio de previsualización: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
-msgstr "Formato inválido"
+msgstr "Formato no válido"
 
 #: ../tumbler/tumbler-enum-types.c:50
 msgid "PNG"
@@ -171,24 +171,24 @@ msgstr "Conflicto de versiones: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Fallo al cargar la imagen de poster de \"%s\""
+msgstr "Falló al cargar la imagen del publicador «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Error al cargar la metadata de \"%s\""
+msgstr "Falló al cargar los metadatos de «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
-#, fuzzy
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Clave API inválida, debe garantizarse una clave válida. La BD será desactivada."
+msgstr ""
+"Clave API inválida, debe garantizarse una clave válida. La BD será "
+"desactivada."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
-#, fuzzy
 msgid "No poster key found in metadata"
-msgstr "No se ha encontrado ningún cartel de claves en metadatos"
+msgstr "No se encontró ninguna clave de publicador en los metadatos"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
 msgid "Movie title is too short"
@@ -210,19 +210,19 @@ msgstr "No se pueden cargar los contenidos del archivo: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "No se puede abrir el archivo de fuente: %s"
+msgstr "No se pudo abrir el archivo de tipografía: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "No se puede establecer el mapa de caracteres: %s"
+msgstr "No se pudo establecer el mapa de caracteres: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "No se pueden renderizar glifos: %s"
+msgstr "No se pudieron renderizar los glifos: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
@@ -246,7 +246,7 @@ msgstr "La primera página del documento no puede ser leída"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr "Únicamente archivos locales son soportados"
+msgstr "Solo se permiten los archivos locales"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
