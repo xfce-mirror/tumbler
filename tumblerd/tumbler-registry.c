@@ -274,13 +274,19 @@ tumbler_registry_lookup (TumblerRegistry *registry,
 
   thumbnailer = g_hash_table_lookup (registry->preferred_thumbnailers, hash_key);
   if (thumbnailer != NULL)
-    available = g_list_prepend (available, g_object_ref (thumbnailer));
+    {
+      g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (available), NULL);
+      available = g_list_prepend (available, g_object_ref (thumbnailer));
+    }
 
   list = g_hash_table_lookup (registry->thumbnailers, hash_key);
   if (list != NULL)
     {
       for (lp = *list; lp != NULL; lp = lp->next)
-        available = g_list_prepend (available, g_object_ref (lp->data));
+        {
+          g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (lp->data), NULL);
+          available = g_list_prepend (available, g_object_ref (lp->data));
+        }
     }
 
   return g_list_reverse (available);
@@ -293,6 +299,8 @@ tumbler_registry_get_file_size (GFile *gfile)
 {
   GFileInfo *file_info;
   gint64     size = 0;
+
+  g_return_val_if_fail (G_IS_FILE (gfile), 0);
 
   file_info = g_file_query_info (gfile,
                                  G_FILE_ATTRIBUTE_STANDARD_SIZE,

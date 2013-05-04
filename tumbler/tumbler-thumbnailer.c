@@ -245,6 +245,9 @@ tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
   GSList   *locations, *lp;
   gboolean  supported = FALSE;
 
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), FALSE);
+  g_return_val_if_fail (G_IS_FILE (file), FALSE);
+
   /* we're cool if no locations are set */
   g_object_get (thumbnailer, "locations", &locations, NULL);
   if (locations == NULL)
