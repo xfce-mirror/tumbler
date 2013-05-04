@@ -249,8 +249,10 @@ main (int    argc,
   /* set the application name. Translators: Don't translate "Tumbler". */
   g_set_application_name (_("Tumbler Thumbnailing Service"));
 
+#if !GLIB_CHECK_VERSION (2, 36, 0)
   /* initialize the GLib type system */
   g_type_init ();
+#endif
 
 #if !GLIB_CHECK_VERSION (2, 32, 0)
   /* initialize threading system */
