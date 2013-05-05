@@ -228,7 +228,7 @@ tumbler_thumbnailer_get_priority (TumblerThumbnailer *thumbnailer)
 gint64
 tumbler_thumbnailer_get_max_file_size (TumblerThumbnailer *thumbnailer)
 {
-  gint max_file_size;
+  gint64 max_file_size;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), 0);
 
