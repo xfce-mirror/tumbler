@@ -1,3 +1,17 @@
+0.1.28
+======
+- Set nice value of tumblerd to 19 (bug #9627).
+- Fix rendering from pdfs with thumbnail (bug #9972).
+- Add more supported types for gst thumbnailer (bug #9747).
+- Some additional debug checks for bug #9766 and minor optimizations.
+- Fix deprecating warning with glib 2.36.
+- Include string.h (bug #9858).
+- Translation updates: Arabic, Bulgarian, Czech, Spanish (Castilian),
+  Basque, French, Hungarian, Indonesian, Italian, Japanese, Kazakh,
+  Korean, Dutch (Flemish), Polish, Portuguese, Portuguese (Brazilian),
+  Romanian, Russian, Serbian, Swedish, Uyghur, Ukrainian, Chinese
+  (China), Chinese (Taiwan).
+
 0.1.27
 ======
 - Autotools updates.
