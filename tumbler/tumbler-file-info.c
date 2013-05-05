@@ -388,18 +388,20 @@ tumbler_file_info_array_new_with_flavor (const gchar *const     *uris,
   guint             num_uris;
   guint             num_mime_types;
   guint             n;
+  guint             num;
 
   g_return_val_if_fail (uris != NULL, NULL);
 
   num_uris = g_strv_length ((gchar **)uris);
   num_mime_types = g_strv_length ((gchar **)mime_types);
+  num = MIN (num_uris, num_mime_types);
 
   if (length != NULL)
-    *length = MIN (num_uris, num_mime_types);
+    *length = num;
 
-  infos = g_new0 (TumblerFileInfo *, MIN (num_uris, num_mime_types) + 1);
+  infos = g_new0 (TumblerFileInfo *, num + 1);
 
-  for (n = 0; n < MIN (num_uris, num_mime_types); ++n)
+  for (n = 0; n < num; ++n)
     infos[n] = tumbler_file_info_new (uris[n], mime_types[n], flavor);
 
   infos[n] = NULL;
