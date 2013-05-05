@@ -6,16 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-23 06:15+0000\n"
+"POT-Creation-Date: 2013-05-05 14:15+0000\n"
 "PO-Revision-Date: 2013-01-23 11:54+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
-"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: sr\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -86,32 +85,36 @@ msgstr "Нисам успео да одредим последње време и
 msgid "Another thumbnailer manager is already running"
 msgstr "Неки други управник сличичара је већ покренут"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Нисам успео да изменим вредност предности процеса."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Услуга стварања сличица „Tumbler“"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Нисам успео да се повежем на сабирницу сесије Д-сабирнице: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Нисам успео да учитам специјализоване сличичаре у регистар: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Нисам успео да покренем услугу оставе сличица: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Нисам успео да покренем управника сличичара: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Нисам успео да покренем услугу сличичара: %s"
@@ -234,11 +237,11 @@ msgstr "Не могу да исцртам симболе: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Сличица не може бити наслућена из садржаја датотеке"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Документ је празан"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Прва страница документа не може бити прочитана"
 
