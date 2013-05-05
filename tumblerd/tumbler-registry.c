@@ -453,6 +453,8 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (infos != NULL, NULL);
 
+  tumbler_mutex_lock (registry->mutex);
+
   /* allocate the thumbnailer array */
   thumbnailers = g_new0 (TumblerThumbnailer *, length + 1);
 
@@ -460,8 +462,6 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   for (n = 0; n < length; ++n)
     {
       g_assert (TUMBLER_IS_FILE_INFO (infos[n]));
-
-      tumbler_mutex_lock (registry->mutex);
 
       /* reset */
       file_size = 0;
@@ -503,12 +503,12 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
       g_object_unref (gfile);
       g_list_foreach (list, (GFunc) g_object_unref, NULL);
       g_list_free (list);
-
-      tumbler_mutex_unlock (registry->mutex);
     }
 
   /* NULL-terminate the array */
   thumbnailers[n] = NULL;
+
+  tumbler_mutex_unlock (registry->mutex);
 
   return thumbnailers;
 }
