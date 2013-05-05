@@ -1,3 +1,8 @@
+0.1.29
+======
+- Fix memory corruption on 64bit (bug #9766).
+- Translation updates: Japanese, Dutch (Flemish), Serbian.
+
 0.1.28
 ======
 - Set nice value of tumblerd to 19 (bug #9627).
