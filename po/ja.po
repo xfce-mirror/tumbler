@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 16:57+0900\n"
-"PO-Revision-Date: 2013-01-14 17:17+0900\n"
+"POT-Creation-Date: 2013-05-06 00:10+0900\n"
+"PO-Revision-Date: 2013-05-06 00:12+0900\n"
 "Last-Translator: Masato Hashimoto <cabezon.hashimoto@gmail.com>\n"
 "Language-Team: Japanese <xfce-users-jp@googlegroups.com>\n"
 "Language: \n"
@@ -83,32 +83,36 @@ msgstr "\"%s\" の最終変更日時の決定に失敗しました"
 msgid "Another thumbnailer manager is already running"
 msgstr "他のサムネイルマネージャーが既に動作しています"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "プロセスの nice 値を変更できませんでした。"
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler サムネイルサービス"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus セッションバスへの接続に失敗しました: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "特殊サムネイラーのレジストリへの読み込みに失敗しました: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "サムネイルキャッシュサービスの起動に失敗しました: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "サムネイルマネージャーの起動に失敗しました: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "サムネイラーサービスの起動に失敗しました: %s"
@@ -227,11 +231,11 @@ msgstr "グリフをレンダリングできませんでした: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ファイル内容からサムネイルを推測できませんでした"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "ドキュメントは空です"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "ドキュメントの最初のページを読み込めませんでした"
 
