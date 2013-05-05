@@ -453,14 +453,14 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (infos != NULL, NULL);
 
-  for (length = 0; infos != NULL && infos[length] != NULL; ++length);
-
   /* allocate the thumbnailer array */
   thumbnailers = g_new0 (TumblerThumbnailer *, length + 1);
 
   /* iterate over all URIs */
   for (n = 0; n < length; ++n)
     {
+      g_assert (TUMBLER_IS_FILE_INFO (infos[n]));
+
       tumbler_mutex_lock (registry->mutex);
 
       /* reset */
