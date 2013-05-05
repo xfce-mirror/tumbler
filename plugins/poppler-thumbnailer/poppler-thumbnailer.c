@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -56,7 +56,7 @@ struct _PopplerThumbnailer
 
 
 
-G_DEFINE_DYNAMIC_TYPE (PopplerThumbnailer, 
+G_DEFINE_DYNAMIC_TYPE (PopplerThumbnailer,
                        poppler_thumbnailer,
                        TUMBLER_TYPE_ABSTRACT_THUMBNAILER);
 
@@ -95,97 +95,111 @@ poppler_thumbnailer_init (PopplerThumbnailer *thumbnailer)
 
 
 
-/**
- * taken from copy_cairo_surface_to_pixbuf() from poppler
- * which was deprecated in poppler >= 0.17. 
- */
-static void
-copy_surface_to_pixbuf (cairo_surface_t *surface,
-                        GdkPixbuf       *pixbuf)
+static GdkPixbuf *
+poppler_thumbnailer_pixbuf_from_surface (cairo_surface_t *surface)
 {
-  guchar *pixbuf_data;
-  guchar *dst;
-  guchar *cairo_data;
-  guint  *src;
-  gint    cairo_width;
-  gint    cairo_height;
-  gint    cairo_rowstride;
-  gint    pixbuf_rowstride;
-  gint    pixbuf_n_channels;
-  gint    x;
-  gint    y;
+#if 0
+  return gdk_pixbuf_get_from_surface (surface,
+                                      0, 0,
+                                      cairo_image_surface_get_width (surface),
+                                      cairo_image_surface_get_height (surface));
+#else
+  GdkPixbuf       *pixbuf;
+  cairo_surface_t *image;
+  cairo_t         *cr;
+  gboolean         has_alpha;
+  gint             width, height;
+  cairo_format_t   surface_format;
+  gint             pixbuf_n_channels;
+  gint             pixbuf_rowstride;
+  guchar          *pixbuf_pixels;
+  gint             x, y;
+  guchar          *p;
+  guchar           tmp;
 
-  cairo_width = cairo_image_surface_get_width (surface);
-  cairo_height = cairo_image_surface_get_height (surface);
-  cairo_rowstride = cairo_image_surface_get_stride (surface);
-  cairo_data = cairo_image_surface_get_data (surface);
+  width = cairo_image_surface_get_width (surface);
+  height = cairo_image_surface_get_height (surface);
 
-  pixbuf_data = gdk_pixbuf_get_pixels (pixbuf);
-  pixbuf_rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  surface_format = cairo_image_surface_get_format (surface);
+  has_alpha = (surface_format == CAIRO_FORMAT_ARGB32);
+
+  pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
   pixbuf_n_channels = gdk_pixbuf_get_n_channels (pixbuf);
+  pixbuf_rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+  pixbuf_pixels = gdk_pixbuf_get_pixels (pixbuf);
 
-  if (cairo_width > gdk_pixbuf_get_width (pixbuf))
-    cairo_width = gdk_pixbuf_get_width (pixbuf);
+  image = cairo_image_surface_create_for_data (pixbuf_pixels,
+                                               surface_format,
+                                               width, height,
+                                               pixbuf_rowstride);
+  cr = cairo_create (image);
+  cairo_set_source_surface (cr, surface, 0, 0);
 
-  if (cairo_height > gdk_pixbuf_get_height (pixbuf))
-    cairo_height = gdk_pixbuf_get_height (pixbuf);
+  if (has_alpha)
+    cairo_mask_surface (cr, surface, 0, 0);
+  else
+    cairo_paint (cr);
 
-  for (y = 0; y < cairo_height; y++)
+  cairo_destroy (cr);
+  cairo_surface_destroy (image);
+
+  for (y = 0; y < height; y++)
     {
-      src = (guint *) (cairo_data + y * cairo_rowstride);
-      dst = pixbuf_data + y * pixbuf_rowstride;
-      
-      for (x = 0; x < cairo_width; x++) 
+      p = pixbuf_pixels + y * pixbuf_rowstride;
+
+      for (x = 0; x < width; x++)
         {
-          dst[0] = (*src >> 16) & 0xff;
-          dst[1] = (*src >> 8) & 0xff; 
-          dst[2] = (*src >> 0) & 0xff;
-
-          if (pixbuf_n_channels == 4)
-              dst[3] = (*src >> 24) & 0xff;
-
-          dst += pixbuf_n_channels;
-          src++;
+#if G_BYTE_ORDER == G_LITTLE_ENDIAN
+          tmp = p[0];
+          p[0] = p[2];
+          p[2] = tmp;
+          p[3] = has_alpha ? p[3] : 0xff;
+#else
+          tmp = p[0];
+          p[0] = p[1];
+          p[1] = p[2];
+          p[2] = p[3];
+          p[3] = has_alpha ? tmp : 0xff;
+#endif
+          p += pixbuf_n_channels;
         }
     }
+
+  return pixbuf;
+#endif
 }
 
 
 
-/**
- * taken from poppler_page_render_to_pixbuf() and
- * _poppler_page_render_to_pixbuf() which were deprecated
- * in poppler >= 0.17.
- */
-static void
-render_page_to_pixbuf (PopplerPage *page,
-                       gint         src_x, 
-                       gint         src_y,
-                       gint         src_width, 
-                       gint         src_height,
-                       GdkPixbuf   *pixbuf)
+static GdkPixbuf *
+poppler_thumbnailer_pixbuf_from_page (PopplerPage *page)
 {
   cairo_surface_t *surface;
   cairo_t         *cr;
+  GdkPixbuf       *pixbuf;
+  gdouble          width, height;
 
-  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, src_width, src_height);
+  /* get the page size */
+  poppler_page_get_size (page, &width, &height);
+
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
   cr = cairo_create (surface);
+
   cairo_save (cr);
-
-  cairo_translate (cr, -src_x, -src_y);
-
   poppler_page_render (page, cr);
-
   cairo_restore (cr);
 
   cairo_set_operator (cr, CAIRO_OPERATOR_DEST_OVER);
-  cairo_set_source_rgb (cr, 1., 1., 1.);
+  cairo_set_source_rgb (cr, 1.0, 1.0, 1.0);
   cairo_paint (cr);
 
   cairo_destroy (cr);
 
-  copy_surface_to_pixbuf (surface, pixbuf);
+  pixbuf = poppler_thumbnailer_pixbuf_from_surface (surface);
+
   cairo_surface_destroy (surface);
+
+  return pixbuf;
 }
 
 
@@ -221,10 +235,10 @@ generate_pixbuf (GdkPixbuf              *source,
     dest_width = rint (source_width / hratio);
   else
     dest_height = rint (source_height / wratio);
-  
+
   /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source, 
-                                  MAX (dest_width, 1), MAX (dest_height, 1), 
+  return gdk_pixbuf_scale_simple (source,
+                                  MAX (dest_width, 1), MAX (dest_height, 1),
                                   GDK_INTERP_BILINEAR);
 }
 
@@ -245,8 +259,6 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GdkPixbuf              *source_pixbuf;
   GdkPixbuf              *pixbuf;
   GError                 *error = NULL;
-  gdouble                 page_width;
-  gdouble                 page_height;
   GFile                  *file;
   gchar                  *contents = NULL;
   gsize                   length;
@@ -256,7 +268,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
-  if (g_cancellable_is_cancelled (cancellable)) 
+  if (g_cancellable_is_cancelled (cancellable))
     return;
 
   /* try to load the PDF/PS file based on the URI */
@@ -274,7 +286,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* try to load the file contents using GIO */
       if (!g_file_load_contents (file, cancellable, &contents, &length, NULL, &error))
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_UNSUPPORTED, 
+          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_UNSUPPORTED,
                                  error->message);
           g_error_free (error);
           g_object_unref (file);
@@ -291,7 +303,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* emit an error if both ways to load the document failed */
   if (document == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_INVALID_FORMAT, 
+      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_INVALID_FORMAT,
                              error->message);
       g_error_free (error);
       g_free (contents);
@@ -301,7 +313,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* check if the document has content (= at least one page) */
   if (poppler_document_get_n_pages (document) <= 0)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT, 
+      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
                              _("The document is empty"));
       g_object_unref (document);
       g_free (contents);
@@ -328,21 +340,15 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* try to extract the embedded thumbnail */
   surface = poppler_page_get_thumbnail (page);
-
   if (surface != NULL)
     {
-      source_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8,
-                                      cairo_image_surface_get_width (surface),
-                                      cairo_image_surface_get_height (surface));
-      copy_surface_to_pixbuf (surface, source_pixbuf);
+      source_pixbuf = poppler_thumbnailer_pixbuf_from_surface (surface);
       cairo_surface_destroy (surface);
     }
   else
     {
       /* fall back to rendering the page ourselves */
-      poppler_page_get_size (page, &page_width, &page_height);
-      source_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, page_width, page_height);
-      render_page_to_pixbuf (page, 0, 0, page_width, page_height, source_pixbuf);
+      source_pixbuf = poppler_thumbnailer_pixbuf_from_page (page);
     }
 
   /* release allocated poppler data */
@@ -363,8 +369,8 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
   data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-  tumbler_thumbnail_save_image_data (thumbnail, &data, 
-                                     tumbler_file_info_get_mtime (info), 
+  tumbler_thumbnail_save_image_data (thumbnail, &data,
+                                     tumbler_file_info_get_mtime (info),
                                      NULL, &error);
 
   if (error != NULL)
