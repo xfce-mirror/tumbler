@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-15 05:39+0000\n"
+"POT-Creation-Date: 2013-05-05 14:15+0000\n"
 "PO-Revision-Date: 2011-09-07 12:41+0200\n"
 "Last-Translator: Pjotr pjotrvertaalt@gmail.com\n"
 "Language-Team: Dutch (Flemish)\n"
@@ -68,8 +68,8 @@ msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
-"Misvormde sectie '%s' in bestand '%s':  geen overeenkomst tussen "
-"sectienaam en Urischema/MimeType"
+"Misvormde sectie '%s' in bestand '%s':  geen overeenkomst tussen sectienaam "
+"en Urischema/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -87,32 +87,36 @@ msgstr "Kon tijdstip van laatste aanpassing van '%s' niet bepalen"
 msgid "Another thumbnailer manager is already running"
 msgstr "Een andere miniatuurmaker-beheerder draait al"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Kon de 'nice'-waarde van het proces niet veranderen."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler miniatuurmakerdienst"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Kon niet verbinden met de D-Bus sessiebus: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Kon de gespecialiseerde miniatuurmakers niet in het register laden: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Kon de miniatuuropslagdienst niet starten: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Kon de miniatuurmaker-beheerder niet starten: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Kon de miniatuurmakerdienst niet starten: %s"
@@ -183,8 +187,8 @@ msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
 msgstr ""
-"Ongeldige API-sleutel, u moet beschikken over een geldige sleutel. "
-"De Film-DB-achtergronddienst zal worden uitgeschakeld."
+"Ongeldige API-sleutel, u moet beschikken over een geldige sleutel. De Film-"
+"DB-achtergronddienst zal worden uitgeschakeld."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
 msgid "No poster key found in metadata"
@@ -235,11 +239,11 @@ msgstr "Kon geen accenten weergeven: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Miniatuur kon niet worden afgeleid uit de bestandinhoud"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Het document is leeg"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Eerste bladzijde van het document kon niet worden gelezen"
 
@@ -253,51 +257,71 @@ msgid "Could not save thumbnail to \"%s\""
 msgstr "Kon de miniatuur niet opslaan in '%s'"
 
 #~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Bezig met opstarten van de Tumbler Gstreamer miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met opstarten van de Tumbler Gstreamer miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Bezig met afsluiten van de Tumbler Gstreamer miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met afsluiten van de Tumbler Gstreamer miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Bezig met opstarten van de Tumbler Pixbuf miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met opstarten van de Tumbler Pixbuf miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Bezig met afsluiten van de Tumbler Pixbuf miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met afsluiten van de Tumbler Pixbuf miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Bezig met opstarten van de Tumbler Lettertype miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met opstarten van de Tumbler Lettertype miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Bezig met afsluiten van de Tumbler Lettertype miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met afsluiten van de Tumbler Lettertype miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Bezig met starten van de Tumbler JPEG miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met starten van de Tumbler JPEG miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Bezig met afsluiten van de Tumbler JPEG miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met afsluiten van de Tumbler JPEG miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr "Bezig met starten van de Tumbler ffmpeg video miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met starten van de Tumbler ffmpeg video miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
 #~ msgstr ""
-#~ "Bezig met afsluiten van de Tumbler ffmpeg video miniatuurmaker-invoegtoepassing"
+#~ "Bezig met afsluiten van de Tumbler ffmpeg video miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Bezig met opstarten van de Tumbler ODF miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met opstarten van de Tumbler ODF miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Bezig met afsluiten van de Tumbler ODF miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met afsluiten van de Tumbler ODF miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
 #~ msgstr ""
-#~ "Bezig met starten van de Tumbler Poppler PDF/PS miniatuurmaker-invoegtoepassing"
+#~ "Bezig met starten van de Tumbler Poppler PDF/PS miniatuurmaker-"
+#~ "invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Bezig met opstarten van de Tumbler RAW miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met opstarten van de Tumbler RAW miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Bezig met afsluiten van de Tumbler RAW miniatuurmaker-invoegtoepassing"
+#~ msgstr ""
+#~ "Bezig met afsluiten van de Tumbler RAW miniatuurmaker-invoegtoepassing"
 
 #~ msgid "Initializing the Tumbler XDG cache plugin"
 #~ msgstr "Bezig met opstarten van de Tumbler XDG opslag-invoegtoepassing"
