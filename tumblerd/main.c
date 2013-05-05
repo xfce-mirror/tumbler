@@ -28,6 +28,9 @@
 #ifdef HAVE_PWD_H
 #include <pwd.h>
 #endif
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
 
 #include <stdlib.h>
 
@@ -240,6 +243,11 @@ main (int    argc,
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
+
+#ifdef G_OS_UNIX
+  if (nice (19) != 19)
+    g_warning (_("Couldn't change nice value of process."));
+#endif
 
 #ifdef DEBUG
   /* if something doesn't work, fix your code instead! */
