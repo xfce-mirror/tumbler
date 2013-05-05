@@ -476,6 +476,8 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
       list = tumbler_registry_lookup (registry, hash_key);
       for (lp = list; lp != NULL; lp = lp->next)
         {
+          g_assert (lp != NULL && TUMBLER_IS_THUMBNAILER (lp->data));
+
           /* check if the file size is a limitation */
           max_file_size = tumbler_thumbnailer_get_max_file_size (lp->data);
           if (max_file_size > 0)
