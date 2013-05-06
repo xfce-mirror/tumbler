@@ -94,7 +94,7 @@ msgstr "Un autre gestionnaire de générateur de miniatures est déjà lancé"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
-msgstr "Impossible de changer la valeur gentille du processus."
+msgstr "Impossible de changer la valeur « nice » du processus."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:258
