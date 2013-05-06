@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 13:36+0000\n"
+"POT-Creation-Date: 2013-05-06 11:51+0000\n"
 "PO-Revision-Date: 2011-08-05 18:12+0100\n"
 "Last-Translator: Jérôme Guelfucci <jeromeg@xfce.org>>\n"
 "Language-Team: French <i18n-xfce@xfce.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: FRANCE\n"
 "Language: fr\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Country: FRANCE\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -92,35 +92,39 @@ msgstr "Impossible de déterminer la dernière date de modification de « %s »"
 msgid "Another thumbnailer manager is already running"
 msgstr "Un autre gestionnaire de générateur de miniatures est déjà lancé"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Impossible de changer la valeur gentille du processus."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Service de génération de miniatures Tumbler"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Impossible de se connecter au bus de session D-Bus : %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 "Impossible de charger des générateurs de miniatures spécialisés dans le "
 "registre : %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Impossible de démarrer le service de cache des miniatures : %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr ""
 "Impossible de démarrer le gestionnaire de générateurs de miniatures : %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Impossible de démarrer le service de générateurs de miniatures : %s"
@@ -243,11 +247,11 @@ msgstr "Impossible de générer les glyphes : %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Impossible de générer la miniature à partir du contenu du fichier"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Le document est vide"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "La première page du document n'a pas pu être lue"
 
