@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler 0.1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 08:15+0000\n"
+"POT-Creation-Date: 2013-05-06 17:15+0000\n"
 "PO-Revision-Date: 2011-01-05 23:17+0300\n"
 "Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
 "Language-Team: Romanian <diacritice@googlegroups.com>\n"
@@ -87,33 +87,37 @@ msgstr "Nu s-a putut determina data ultimei modificări pentru „%s”"
 msgid "Another thumbnailer manager is already running"
 msgstr "Un alt manager de miniaturi este deja pornit"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Nu s-a putut modifica valoarea «nice» a procesului."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Serviciul de creare de miniaturi Tumbler"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Încercarea de conectare la sesiunea D-Bus a eșuat: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 "Nu s-au putut încărca programele specializate de creare de miniaturi: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Nu s-a putut porni serviciul de cache pentru miniaturi: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Nu s-a putut porni managerul de miniaturi: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Nu s-a putut porni serviciul de creare de miniaturi: %s"
@@ -169,27 +173,29 @@ msgstr "Nu s-a putut încărca modulul „%s”: %s"
 msgid "Version mismatch: %s"
 msgstr "Nepotrivire de versiune: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Nu s-a putut încărca imaginea de tip poster „%s”"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Nu s-au putut încărca metadatele din „%s”"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Cheie API invalidă, e nevoie de o cheie validă. Backendul Movie DB va fi dezactivat."
+msgstr ""
+"Cheie API invalidă, e nevoie de o cheie validă. Backendul Movie DB va fi "
+"dezactivat."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Nu s-a găsit în metadate o cheie pentru postere"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "Titlul filmului este prea scurt"
 
@@ -234,11 +240,11 @@ msgstr "Nu s-au putut reda glifele: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Miniatura nu a putut fi creată din conținutul fișierului"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Documentul este gol"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Nu s-a putut citi prima pagină a documentului"
 
