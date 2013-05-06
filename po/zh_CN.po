@@ -185,7 +185,7 @@ msgstr "无法从 “%s” 载入元数据"
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "无效的 API 值，它必须是有效值。"
+msgstr "无效的 API 值，它必须是有效值。将禁用电影 DB 后端。"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
 msgid "No poster key found in metadata"
