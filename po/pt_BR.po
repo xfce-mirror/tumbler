@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler 0.1.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-15 00:18+0000\n"
-"PO-Revision-Date: 2013-01-14 22:36-0300\n"
+"POT-Creation-Date: 2013-05-06 22:39+0000\n"
+"PO-Revision-Date: 2013-05-06 22:22-0300\n"
 "Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar2.conectiva.com.br>\n"
 "Language: pt_BR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -89,33 +89,38 @@ msgstr "Falhou ao determinar o momento da última modificação de \"%s\""
 msgid "Another thumbnailer manager is already running"
 msgstr "Um outro gerenciador de miniaturas já está em execução"
 
+# Neste caso, 'nice' é um nome técnico de sistemas similares a Unix, e não "legal".
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Não foi possível alterar o valor 'nice' do processo."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Serviço de geração de miniaturas Tumbler"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Falhou ao conectar-se com o barramento de sessão do D-Bus: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 "Falhou ao carregar geradores de miniaturas especializados no registro: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Falhou ao iniciar o serviço de cache de miniaturas: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Falhou ao iniciar o gerenciador de miniaturas: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Falhou ao iniciar o serviço de geração de miniaturas: %s"
@@ -171,17 +176,17 @@ msgstr "Falhou ao carregar o plug-in \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Versão incompatível: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Falhou ao carregar a imagem do poster de \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Falhou ao carregar os metadados de \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
@@ -189,11 +194,11 @@ msgstr ""
 "A chave de API é inválida: você deve possuir uma chave válida. O backend de "
 "banco de dados de filmes será desabilitado."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr "Nenhuma chave de poster econtrada nos metadados"
+msgstr "Nenhuma chave de poster encontrada nos metadados"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "O título do filme é muito curto"
 
@@ -238,11 +243,11 @@ msgstr "Não foi possível renderizar os glifos: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "A miniatura não pode ser inferida do conteúdo do arquivo"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "O documento está vazio"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "A primeira página do documento não pôde ser lida"
 
