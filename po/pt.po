@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-20 19:24+0000\n"
+"POT-Creation-Date: 2013-05-07 14:51+0000\n"
 "PO-Revision-Date: 2012-04-27 20:18+0100\n"
 "Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: \n"
@@ -87,32 +87,36 @@ msgstr "Falha ao determinar a data de modificação de \"%s\" "
 msgid "Another thumbnailer manager is already running"
 msgstr "Já está em execução outro gestor de miniaturas"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Não foi possível mudar o valor do processo."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Serviço de miniaturas Tumbler"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Falha ao ligar ao canal de sessão D-Bus: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Falha ao carregar as miniaturas especializadas no registo: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Falha ao iniciar o serviço de miniaturas em cache: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Falha ao iniciar o gestor de miniaturas: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Falha ao iniciar o serviço de miniaturas: %s"
@@ -168,27 +172,29 @@ msgstr "Falha ao carregar o \"plugin\" \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Conflito de versão: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Falha ao carregar a imagem \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Falha ao carregar os dados de \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Chave API inválida. Tem que obter uma chave válida. A infraestrutura da base de dados de filmes será desativada."
+msgstr ""
+"Chave API inválida. Tem que obter uma chave válida. A infraestrutura da base "
+"de dados de filmes será desativada."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Não foi encontrada a chave nos dados"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "O título do filme é muito pequeno"
 
@@ -233,11 +239,11 @@ msgstr "Não foi possível processar o símbolo: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Não foi possível inferir o conteúdo do ficheiro"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "O documento está vazio"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "A primeira página do documento não pôde ser lida"
 
