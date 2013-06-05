@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-25 01:03+0000\n"
+"POT-Creation-Date: 2013-06-05 04:39+0000\n"
 "PO-Revision-Date: 2011-11-09 16:10+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -85,33 +85,37 @@ msgstr "«%s» نىڭ ئەڭ ئاخىرقى ئۆزگەرتىلگەن ۋاقتى�
 msgid "Another thumbnailer manager is already running"
 msgstr "باشقا بىر كىچىك سۈرەت ياسىغۇچ باشقۇرغۇسى بۆلۈۋېتىپتۇ"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "ئىجرانىڭ ئەڭ ياخشى قىممىتى(nice value) نى ئۆزگەرتكىلى بولمىدى."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "كىچىك سۈرەت ياسىغۇچ مۇلازىمىتى(Tumbler)"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus ئەڭگىمە باش لىنىيىسىگە باشلىنىش مەغلۇپ بولدى: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr ""
 "مەخسۇسلاشتۇرۇلغان كىچىك سۈرەت ياسىغۇچنى رويخەتكە ئوقۇش مەغلۇپ بولدى: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "كىچىك سۈرەت ياسىغۇچ غەملەك مۇلازىمىتىنى ئىجرا قىلىش مەغلۇپ بولدى: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "كىچىك سۈرەت ياسىغۇچ باشقۇرغۇسىنى ئىجرا قىلىش مەغلۇپ بولدى: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "كىچىك سۈرەت ياسىغۇچ مۇلازىمىتىنى ئىجرا قىلىش مەغلۇپ بولدى: %s"
@@ -167,27 +171,29 @@ msgstr "قىستۇرما «%s» نى ئوقۇش مەغلۇپ بولدى: %s"
 msgid "Version mismatch: %s"
 msgstr "نەشرى ماس كەلمىدى: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "poster سۈرىتى «%s» نى ئوقۇش مەغلۇپ بولدى"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "مېتا سانلىق-مەلۇماتنى «%s» دىن ئوقۇش مەغلۇپ بولدى"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "API ئاچقۇچى ئىناۋەتسىز، سىز ئاچقۇچنىڭ توغرا بولۇشىغا كاپالەتلىك قىلىشىڭىز كېرەك. كىنو ساندىنى(DB) نىڭ ئارقا ئۇچى ئىناۋەتسىز قىلىنىدۇ."
+msgstr ""
+"API ئاچقۇچى ئىناۋەتسىز، سىز ئاچقۇچنىڭ توغرا بولۇشىغا كاپالەتلىك قىلىشىڭىز "
+"كېرەك. كىنو ساندىنى(DB) نىڭ ئارقا ئۇچى ئىناۋەتسىز قىلىنىدۇ."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "مېتا سانلىق-مەلۇماتى ئىچىدە poster ئاچقۇچى يوق"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "كىنونىڭ ماۋزۇسى بەك قىسقا"
 
@@ -232,11 +238,11 @@ msgstr "glyphs نى سىزغىلى بولمىدى: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "كىچىك سۈرەتنى ھۆججەت مەزمۇنىدىن كەلتۈرۈپ چىقارغىلى بولمىدى"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "پۈتۈك قۇرۇق ئىكەن"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "پۈتۈكنىڭ تۇنجى بېتىنى ئوقۇغىلى بولمىدى"
 
