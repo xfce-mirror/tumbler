@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler (Xfce)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-23 13:21+0000\n"
+"POT-Creation-Date: 2013-06-06 02:15+0000\n"
 "PO-Revision-Date: 2010-06-01 14:35+0700\n"
 "Last-Translator: Δrdjuna <ard_12_hr@rocketmail.com>\n"
 "Language-Team: Bahasa Indonesia\n"
@@ -87,32 +87,36 @@ msgstr "Gagal menentukan waktu modifikasi terakhir pada berkas \"%s\""
 msgid "Another thumbnailer manager is already running"
 msgstr "Terdapat aplikasi manajer thumbnail lain yang sedang berjalan"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Gagal mengubah prioritas (nilai nice) proses."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler Servis Pembentuk Thumbnail"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Gagal mengoneksikan ke sesi D-Bus: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Gagal memuat pemroses thumbnail khusus ke registry: %s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Gagal mengaktifkan servis cache untuk proses thumbnail: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Gagal menjalankan manajer pemroses thumbnail: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Gagal menjalankan servis pemroses thumbnail: %s"
@@ -168,27 +172,27 @@ msgstr "Gagal memuat plugin \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Versi tidak sama: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Gagal memuat poster: \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Gagal memuat metadata: \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
 msgstr "Fitur Movie DB akan dimatikan karena kunci API tidak valid."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Tidak ditemukan kunci poster pada metadata"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "Judul film terlalu pendek"
 
@@ -233,11 +237,11 @@ msgstr "Tidak dapat membentuk: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Tidak dapat membentuk thumbnail dari isi berkas"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Dokumen kosong"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Tidak dapat membaca halaman awal dokumen"
 
