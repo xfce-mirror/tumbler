@@ -1,20 +1,21 @@
-# Uyghur translation for tumbler.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Gheyret Kenji <gheyret@gmail.com>, YEAR.
 # 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-05 04:39+0000\n"
-"PO-Revision-Date: 2011-11-09 16:10+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-07-11 06:29+0000\n"
+"Last-Translator: kawichi\n"
+"Language-Team: Uighur (http://www.transifex.com/projects/p/xfce/language/ug/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: ug\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -65,9 +66,7 @@ msgstr "ھۆججەت «%2$s» دىكى بۆلەك «%1$s» نىڭ فورماتى
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"ھۆججەت «%2$s» دىكى بۆلەك «%1$s» نىڭ فورماتى توغرا ئەمەس: بۆلەك ئاتى بىلەن "
-"UriScheme/MimeType ماسلاشمىدى"
+msgstr "ھۆججەت «%2$s» دىكى بۆلەك «%1$s» نىڭ فورماتى توغرا ئەمەس: بۆلەك ئاتى بىلەن UriScheme/MimeType ماسلاشمىدى"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -102,8 +101,7 @@ msgstr "D-Bus ئەڭگىمە باش لىنىيىسىگە باشلىنىش مەغ
 #: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"مەخسۇسلاشتۇرۇلغان كىچىك سۈرەت ياسىغۇچنى رويخەتكە ئوقۇش مەغلۇپ بولدى: %s"
+msgstr "مەخسۇسلاشتۇرۇلغان كىچىك سۈرەت ياسىغۇچنى رويخەتكە ئوقۇش مەغلۇپ بولدى: %s"
 
 #: ../tumblerd/main.c:375
 #, c-format
@@ -185,9 +183,7 @@ msgstr "مېتا سانلىق-مەلۇماتنى «%s» دىن ئوقۇش مەغ
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
-"API ئاچقۇچى ئىناۋەتسىز، سىز ئاچقۇچنىڭ توغرا بولۇشىغا كاپالەتلىك قىلىشىڭىز "
-"كېرەك. كىنو ساندىنى(DB) نىڭ ئارقا ئۇچى ئىناۋەتسىز قىلىنىدۇ."
+msgstr "API ئاچقۇچى ئىناۋەتسىز، سىز ئاچقۇچنىڭ توغرا بولۇشىغا كاپالەتلىك قىلىشىڭىز كېرەك. كىنو ساندىنى(DB) نىڭ ئارقا ئۇچى ئىناۋەتسىز قىلىنىدۇ."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
@@ -254,81 +250,3 @@ msgstr "يەرلىك ھۆججەتنىلا قوللايدۇ."
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "كىچىك سۈرەتنى «%s» غا ساقلىغىلى بولمىدى."
-
-#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler GStreamer Thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler GStreamer Thumbnailer) قىستۇرمىسىنى "
-#~ "توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler Pixbuf Thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler Pixbuf Thumbnailer) قىستۇرمىسىنى "
-#~ "توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler Font Thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler Font Thumbnailer) قىستۇرمىسىنى توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler JPEG Thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler JPEG Thumbnailer) قىستۇرمىسىنى توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler ffmpeg video thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler ffmpeg video thumbnailer) قىستۇرمىسىنى "
-#~ "توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler ODF Thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler ODF Thumbnailer) قىستۇرمىسىنى توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler Poppler PDF/PS) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler RAW Thumbnailer) قىستۇرمىسىنى "
-#~ "دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ (Tumbler RAW Thumbnailer) قىستۇرمىسىنى توختىتىۋاتىدۇ"
-
-#~ msgid "Initializing the Tumbler XDG cache plugin"
-#~ msgstr ""
-#~ "كىچىك سۈرەت ياسىغۇچ(Tumbler XDG) غەملەك قىستۇرمىسىنى دەسلەپلەشتۈرۈۋاتىدۇ"
-
-#~ msgid "Shutting down the Tumbler XDG cache plugin"
-#~ msgstr "كىچىك سۈرەت ياسىغۇچ(Tumbler XDG) غەملەك قىستۇرمىسىنى توختىتىۋاتىدۇ"
