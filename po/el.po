@@ -1,34 +1,36 @@
-#
-# Efstathios Iosifidis <iosifidis@opensuse.org>, 2012.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
+# loathingkernel <zeronebones@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-08 17:57+0000\n"
-"PO-Revision-Date: 2012-04-09 19:36+0300\n"
-"Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
-"Language-Team: Ελληνικά, Σύγχρονα <opensuse-translation-el@opensuse.org>\n"
-"Language: el\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-07-14 20:27+0000\n"
+"Last-Translator: loathingkernel <zeronebones@gmail.com>\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/xfce/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: GREECE\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr ""
-"Μια άλλη υπηρεσία λανθάνουσας μνήμης επισκόπησης εικόνων εκτελείται ήδη"
+msgstr "Μια άλλη υπηρεσία λανθάνουσας μνήμης επισκόπησης εικόνων εκτελείται ήδη"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Δεν είναι διαθέσιμη η επισκόπηση εικόνων για το \"%s\""
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "Τερματίζεται η υπηρεσία thumbnailer"
 
@@ -41,11 +43,11 @@ msgstr "Ένας άλλος μηχανισμός επισκόπησης εικό
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Ζητήθηκε μη υποστηριζόμενη έκδοση επισκόπησης εικόνων"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Αποτυχία καλέσματος της ειδικής επισκόπησης εικόνων: χρονικό όριο"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Αποτυχία καλέσματος της ειδικής επισκόπησης εικόνων: %s"
@@ -66,9 +68,7 @@ msgstr "Λανθασμένη τμήμα \"%s\" στο αρχείο \"%s\": %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Λανθασμένη τμήμα \"%s\" στο αρχείο \"%s\": Αναντιστοιχία μεταξύ τμήματος "
-"ονόματος και UriScheme/MimeType"
+msgstr "Λανθασμένη τμήμα \"%s\" στο αρχείο \"%s\": Αναντιστοιχία μεταξύ τμήματος ονόματος και UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -86,33 +86,36 @@ msgstr "Αποτυχία καθορισμού τελευταίας τροποπ�
 msgid "Another thumbnailer manager is already running"
 msgstr "Ένας άλλος μηχανισμός επισκόπησης εικόνων τρέχει ήδη"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr ""
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Υπηρεσία επισκόπησης εικόνων Tumbler"
 
-#: ../tumblerd/main.c:101
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Αποτυχία σύνδεσης στη σύνοδο D-Bus: %s"
 
-#: ../tumblerd/main.c:159
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Αποτυχία φόρτωσης ειδικής επισκόπησης εικόνων στο μητρώο: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr ""
-"Αποτυχία εκκίνησης της υπηρεσίας λανθάνουσας μνήμης επισκόπησης εικόνων: %s"
+msgstr "Αποτυχία εκκίνησης της υπηρεσίας λανθάνουσας μνήμης επισκόπησης εικόνων: %s"
 
-#: ../tumblerd/main.c:193
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Αποτυχία εκκίνησης του διαχειριστή επισκόπησης εικόνων: %s"
 
-#: ../tumblerd/main.c:210
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Αποτυχία εκκίνησης της υπηρεσίας επισκόπησης εικόνων: %s"
@@ -132,8 +135,7 @@ msgstr "Χώρος χρωμάτων RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
-"Η λανθάνουσα μνήμη του πρόσθετου  \"%s\" στερείται απαιτούμενων συμβόλων"
+msgstr "Η λανθάνουσα μνήμη του πρόσθετου  \"%s\" στερείται απαιτούμενων συμβόλων"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
@@ -155,6 +157,7 @@ msgstr "Το πρόσθετο \"%s\" στερείται απαιτούμενων
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Αποτυχία φόρτωσης πρόσθετου \"%s\": %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -168,30 +171,29 @@ msgstr "Αποτυχία φόρτωσης πρόσθετου \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Αναντιστοιχία έκδοσης: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο Tumbler GStreamer Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr ""
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο Tumbler GStreamer Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο Tumbler pixbuf Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο Tumbler pixbuf Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο Tumbler Font Thumbnailer"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο Tumbler Font Thumbnailer"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr "Ο τίτλος της ταινίας είναι πολύ σύντομος"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -223,8 +225,8 @@ msgstr "Δεν ήταν δυνατός ο καθορισμός του χάρτη
 msgid "Could not render glyphs: %s"
 msgstr "Δεν ήταν δυνατή η αποτύπωση της γλυφής: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -232,42 +234,13 @@ msgstr "Δεν ήταν δυνατή η αποτύπωση της γλυφής: 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
-"Η επισκόπηση εικόνας δεν ήταν δυνατό να γίνει από το περιεχόμενο του αρχείου"
+msgstr "Η επισκόπηση εικόνας δεν ήταν δυνατό να γίνει από το περιεχόμενο του αρχείου"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο JPEG Tumbler Thumbnailer"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο JPEG Tumbler Thumbnailer"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο ffmpeg βίντεο Tumbler Thumbnailer"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο ffmpeg βίντεο Tumbler Thumbnailer"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο Tumbler ΟΔΦ Thumbnailer"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο Tumbler ODF Thumbnailer"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο Tumbler Poppler PDF/PS Thumbnailer"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Το έγγραφο είναι άδειο"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Η πρώτη σελίδα του εγγράφου δε μπορεί να διαβαστεί"
 
@@ -275,23 +248,7 @@ msgstr "Η πρώτη σελίδα του εγγράφου δε μπορεί ν�
 msgid "Only local files are supported"
 msgstr "Υποστηρίζονται μόνο τοπικά αρχεία"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Αρχικοποιείται το πρόσθετο Tumbler RAW Thumbnailer"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Τερματίζει το πρόσθετο Tumbler RAW Thumbnailer"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Δεν ήταν δυνατή η αποθήκευση της επισκόπησης εικόνας στο \"%s\""
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Αρχικοποιείται το πρόσθετο λανθάνουσας μνήμης Tumbler XDG"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Τερματίζει το πρόσθετο  λανθάνουσας μνήμης Tumbler XDG"
