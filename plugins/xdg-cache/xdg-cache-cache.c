@@ -293,9 +293,10 @@ xdg_cache_cache_delete (TumblerCache       *cache,
 
 
 static void
-xdg_cache_cache_copy (TumblerCache       *cache,
-                      const gchar *const *from_uris,
-                      const gchar *const *to_uris)
+xdg_cache_cache_copy_or_move (TumblerCache       *cache,
+                              gboolean            do_copy,
+                              const gchar *const *from_uris,
+                              const gchar *const *to_uris)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   GFileInfo     *info;
@@ -307,7 +308,9 @@ xdg_cache_cache_copy (TumblerCache       *cache,
   GList         *iter;
   gchar         *temp_path;
   gchar         *dest_path;
+  gchar         *from_path;
   guint          n;
+  gboolean       result;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
@@ -332,8 +335,18 @@ xdg_cache_cache_copy (TumblerCache       *cache,
           from_file = xdg_cache_cache_get_file (from_uris[n], iter->data);
           temp_file = xdg_cache_cache_get_temp_file (to_uris[n], iter->data);
 
-          if (g_file_copy (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
-                           NULL, NULL, NULL, NULL))
+          if (do_copy)
+            {
+              result = g_file_copy (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
+                                    NULL, NULL, NULL, NULL);
+            }
+          else
+            {
+              result = g_file_move (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
+                                    NULL, NULL, NULL, NULL);
+            }
+
+          if (result)
             {
               temp_path = g_file_get_path (temp_file);
 
@@ -355,6 +368,13 @@ xdg_cache_cache_copy (TumblerCache       *cache,
                 }
 
               g_free (temp_path);
+            }
+          else if (!do_copy)
+            {
+              /* if the move failed, drop the old cache file */
+              from_path = g_file_get_path (from_file);
+              g_unlink (from_path);
+              g_free (from_path);
             }
 
           g_object_unref (temp_file);
@@ -365,81 +385,23 @@ xdg_cache_cache_copy (TumblerCache       *cache,
 
 
 
+static void
+xdg_cache_cache_copy (TumblerCache       *cache,
+                      const gchar *const *from_uris,
+                      const gchar *const *to_uris)
+{
+  xdg_cache_cache_copy_or_move (cache, TRUE, from_uris, to_uris);
+}
+
+
+
 
 static void
 xdg_cache_cache_move (TumblerCache       *cache,
                       const gchar *const *from_uris,
                       const gchar *const *to_uris)
 {
-  XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  GFileInfo     *info;
-  guint64        mtime;
-  GFile         *dest_file;
-  GFile         *dest_source_file;
-  GFile         *from_file;
-  GFile         *temp_file;
-  GList         *iter;
-  gchar         *from_path;
-  gchar         *temp_path;
-  gchar         *dest_path;
-  guint          n;
-
-  g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
-  g_return_if_fail (from_uris != NULL);
-  g_return_if_fail (to_uris != NULL);
-
-  for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
-    {
-      for (n = 0; n < g_strv_length ((gchar **)from_uris); ++n)
-        {
-          dest_source_file = g_file_new_for_uri (to_uris[n]);
-          info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
-                                    G_FILE_QUERY_INFO_NONE, NULL, NULL);
-          g_object_unref (dest_source_file);
-
-          if (info == NULL)
-            continue;
-
-          mtime = g_file_info_get_attribute_uint64 (info, 
-                                                    G_FILE_ATTRIBUTE_TIME_MODIFIED);
-          g_object_unref (info);
-
-          from_file = xdg_cache_cache_get_file (from_uris[n], iter->data);
-          temp_file = xdg_cache_cache_get_temp_file (to_uris[n], iter->data);
-
-          if (g_file_move (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
-                           NULL, NULL, NULL, NULL))
-            {
-              temp_path = g_file_get_path (temp_file);
-
-              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[n], mtime,
-                                                        NULL, NULL))
-                {
-                  dest_file = xdg_cache_cache_get_file (to_uris[n], iter->data);
-                  dest_path = g_file_get_path (dest_file);
-
-                  if (g_rename (temp_path, dest_path) != 0)
-                    g_unlink (temp_path);
-
-                  g_free (dest_path);
-                  g_object_unref (dest_file);
-                }
-              else
-                {
-                  g_unlink (temp_path);
-                }
-
-              g_free (temp_path);
-            }
-
-          from_path = g_file_get_path (from_file);
-          g_unlink (from_path);
-          g_free (from_path);
-
-          g_object_unref (temp_file);
-          g_object_unref (from_file);
-        }
-    }
+  xdg_cache_cache_copy_or_move (cache, FALSE, from_uris, to_uris);
 }
 
 
