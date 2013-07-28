@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -212,12 +212,12 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
               filename = g_build_filename (dirname, file_basename, NULL);
 
               /* read thumbnail information from the file */
-              if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime, 
+              if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime,
                                                        NULL, NULL))
                 {
                   /* check if the thumbnail information is valid or the mtime
                    * is too old */
-                  if (uri == NULL || mtime <= since) 
+                  if (uri == NULL || mtime <= since)
                     {
                       /* it's invalid, so let's remove the thumbnail */
                       g_unlink (filename);
@@ -293,6 +293,73 @@ xdg_cache_cache_delete (TumblerCache       *cache,
 
 
 static void
+xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
+                                   TumblerThumbnailFlavor *flavor,
+                                   gboolean                do_copy,
+                                   const gchar            *from_uri,
+                                   const gchar            *to_uri,
+                                   guint64                 mtime)
+{
+  GFile         *from_file;
+  GFile         *temp_file;
+  gchar         *temp_path;
+  gchar         *dest_path;
+  gchar         *from_path;
+  gboolean       result;
+  GFile         *dest_file;
+
+  from_file = xdg_cache_cache_get_file (from_uri, flavor);
+  temp_file = xdg_cache_cache_get_temp_file (to_uri, flavor);
+
+  if (do_copy)
+    {
+      result = g_file_copy (from_file, temp_file, G_FILE_COPY_OVERWRITE,
+                            NULL, NULL, NULL, NULL);
+    }
+  else
+    {
+      result = g_file_move (from_file, temp_file, G_FILE_COPY_OVERWRITE,
+                            NULL, NULL, NULL, NULL);
+    }
+
+  if (result)
+    {
+      temp_path = g_file_get_path (temp_file);
+
+      if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uri, mtime,
+                                                NULL, NULL))
+        {
+          dest_file = xdg_cache_cache_get_file (to_uri, flavor);
+          dest_path = g_file_get_path (dest_file);
+
+          if (g_rename (temp_path, dest_path) != 0)
+            g_unlink (temp_path);
+
+          g_free (dest_path);
+          g_object_unref (dest_file);
+        }
+      else
+        {
+          g_unlink (temp_path);
+        }
+
+      g_free (temp_path);
+    }
+  else if (!do_copy)
+    {
+      /* if the move failed, drop the old cache file */
+      from_path = g_file_get_path (from_file);
+      g_unlink (from_path);
+      g_free (from_path);
+    }
+
+  g_object_unref (temp_file);
+  g_object_unref (from_file);
+}
+
+
+
+static void
 xdg_cache_cache_copy_or_move (TumblerCache       *cache,
                               gboolean            do_copy,
                               const gchar *const *from_uris,
@@ -301,16 +368,19 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   GFileInfo     *info;
   guint64        mtime;
-  GFile         *dest_file;
   GFile         *dest_source_file;
-  GFile         *from_file;
-  GFile         *temp_file;
   GList         *iter;
-  gchar         *temp_path;
-  gchar         *dest_path;
-  gchar         *from_path;
   guint          n;
-  gboolean       result;
+  GFile         *dummy_file;
+  GFile         *parent;
+  gchar         *dirname;
+  GDir          *dir;
+  const gchar   *file_basename;
+  gchar         *filename;
+  gchar         *uri;
+  GFile         *original_file;
+  GFile         *base_file;
+  gchar         *to_uri;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
@@ -321,64 +391,90 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
       for (n = 0; n < g_strv_length ((gchar **)from_uris); ++n)
         {
           dest_source_file = g_file_new_for_uri (to_uris[n]);
-          info = g_file_query_info (dest_source_file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
+          info = g_file_query_info (dest_source_file,
+                                    G_FILE_ATTRIBUTE_STANDARD_TYPE ","
+                                    G_FILE_ATTRIBUTE_TIME_MODIFIED,
                                     G_FILE_QUERY_INFO_NONE, NULL, NULL);
-          g_object_unref (dest_source_file);
 
           if (info == NULL)
-            continue;
-
-          mtime = g_file_info_get_attribute_uint64 (info, 
-                                                    G_FILE_ATTRIBUTE_TIME_MODIFIED);
-          g_object_unref (info);
-
-          from_file = xdg_cache_cache_get_file (from_uris[n], iter->data);
-          temp_file = xdg_cache_cache_get_temp_file (to_uris[n], iter->data);
-
-          if (do_copy)
             {
-              result = g_file_copy (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
-                                    NULL, NULL, NULL, NULL);
+              g_object_unref (dest_source_file);
+              continue;
+            }
+
+          if (g_file_info_get_file_type (info) == G_FILE_TYPE_DIRECTORY)
+            {
+              /* compute the flavor directory filename */
+              dummy_file = xdg_cache_cache_get_file ("foo", iter->data);
+              parent = g_file_get_parent (dummy_file);
+              dirname = g_file_get_path (parent);
+              g_object_unref (parent);
+              g_object_unref (dummy_file);
+
+              /* the base path */
+              base_file = g_file_new_for_uri (from_uris[n]);
+
+              /* attempt to open the directory for reading */
+              dir = g_dir_open (dirname, 0, NULL);
+              if (dir != NULL)
+                {
+                  /* iterate over all files in the directory */
+                  file_basename = g_dir_read_name (dir);
+                  while (file_basename != NULL)
+                    {
+                      /* build the thumbnail filename */
+                      filename = g_build_filename (dirname, file_basename, NULL);
+
+                      /* read thumbnail information from the file */
+                      if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime, NULL, NULL)
+                          && uri != NULL)
+                        {
+                          /* create a GFile for the original URI. we need this for
+                          * reliably checking the ancestor/descendant relationship */
+                          original_file = g_file_new_for_uri (uri);
+
+                          /* check if we have a thumbnail that is located in the moved/copied folder */
+                          if (g_file_equal (original_file, base_file)
+                              || g_file_has_prefix (original_file, base_file))
+                            {
+                              /* build the new target (replace old base with new base) */
+                              to_uri = g_build_filename (to_uris[n], uri + strlen (from_uris[n]), NULL);
+
+                              /* move or copy the thumbnail */
+                              xdg_cache_cache_copy_or_move_file (cache, iter->data,
+                                                                 do_copy,
+                                                                 uri, to_uri,
+                                                                 mtime);
+
+                              g_free (to_uri);
+                            }
+
+                          g_object_unref (original_file);
+                          g_free (uri);
+                        }
+
+                      g_free (filename);
+
+                      /* try to determine the next filename in the directory */
+                      file_basename = g_dir_read_name (dir);
+                    }
+
+                 g_dir_close (dir);
+                }
+
+              g_free (dirname);
+              g_object_unref (base_file);
             }
           else
             {
-              result = g_file_move (from_file, temp_file, G_FILE_COPY_OVERWRITE, 
-                                    NULL, NULL, NULL, NULL);
+              mtime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+              xdg_cache_cache_copy_or_move_file (cache, iter->data, do_copy,
+                                                 from_uris[n], to_uris[n],
+                                                 mtime);
             }
 
-          if (result)
-            {
-              temp_path = g_file_get_path (temp_file);
-
-              if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uris[n], mtime,
-                                                        NULL, NULL))
-                {
-                  dest_file = xdg_cache_cache_get_file (to_uris[n], iter->data);
-                  dest_path = g_file_get_path (dest_file);
-
-                  if (g_rename (temp_path, dest_path) != 0)
-                    g_unlink (temp_path);
-
-                  g_free (dest_path);
-                  g_object_unref (dest_file);
-                }
-              else
-                {
-                  g_unlink (temp_path);
-                }
-
-              g_free (temp_path);
-            }
-          else if (!do_copy)
-            {
-              /* if the move failed, drop the old cache file */
-              from_path = g_file_get_path (from_file);
-              g_unlink (from_path);
-              g_free (from_path);
-            }
-
-          g_object_unref (temp_file);
-          g_object_unref (from_file);
+          g_object_unref (info);
+          g_object_unref (dest_source_file);
         }
     }
 }
@@ -523,7 +619,7 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
   g_get_current_time (&current_time);
 
   md5_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, uri, -1);
-  filename = g_strdup_printf ("%s-%ld-%ld.png", md5_hash, 
+  filename = g_strdup_printf ("%s-%ld-%ld.png", md5_hash,
                               current_time.tv_sec, current_time.tv_usec);
   path = g_build_filename (home, ".thumbnails", dirname, filename, NULL);
 
