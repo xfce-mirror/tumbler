@@ -300,13 +300,13 @@ xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
                                    const gchar            *to_uri,
                                    guint64                 mtime)
 {
-  GFile         *from_file;
-  GFile         *temp_file;
-  gchar         *temp_path;
-  gchar         *dest_path;
-  gchar         *from_path;
-  gboolean       result;
-  GFile         *dest_file;
+  GFile    *from_file;
+  GFile    *temp_file;
+  gchar    *temp_path;
+  gchar    *dest_path;
+  gchar    *from_path;
+  gboolean  result;
+  GFile    *dest_file;
 
   from_file = xdg_cache_cache_get_file (from_uri, flavor);
   temp_file = xdg_cache_cache_get_temp_file (to_uri, flavor);
