@@ -1,27 +1,22 @@
-# French translation for tumbler.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Mike Massonnet <mmassonnet@xfce.org>
-# Douart Patrick <patrick.2@laspote.net> 2010
 # 
-# Les mentions "de ou pour Tumbler" ont été volotairement omis dans les
-# traductions des messages de types "Tumbler ... plugin". -- Mike
-# 
+# Translators:
+# jc1 <jc1.quebecos@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-06 11:51+0000\n"
-"PO-Revision-Date: 2011-08-05 18:12+0100\n"
-"Last-Translator: Jérôme Guelfucci <jeromeg@xfce.org>>\n"
-"Language-Team: French <i18n-xfce@xfce.org>\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-07-29 12:20+0000\n"
+"Last-Translator: jc1 <jc1.quebecos@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/xfce/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Country: FRANCE\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -36,7 +31,7 @@ msgstr "Pas de générateur de miniatures disponible pour « %s »"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "Arrêt du service de miniature"
+msgstr "Arrêt du service générateur de miniatures"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -72,9 +67,7 @@ msgstr "Section mal formée « %s » dans le fichier « %s » : %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Section mal formée \"%s\" dans le fichier \"%s\": Incompatibilité entre le "
-"nom de section et UriScheme/MimeType"
+msgstr "Section mal formée « %s » dans le fichier « %s » : Incompatibilité entre le nom de section et le schéma URI / Type Mime"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -109,20 +102,17 @@ msgstr "Impossible de se connecter au bus de session D-Bus : %s"
 #: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Impossible de charger des générateurs de miniatures spécialisés dans le "
-"registre : %s"
+msgstr "Impossible de charger les générateurs de miniatures spécialisés dans le registre : %s"
 
 #: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Impossible de démarrer le service de cache des miniatures : %s"
+msgstr "Impossible de démarrer le service de cache de miniatures : %s"
 
 #: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr ""
-"Impossible de démarrer le gestionnaire de générateurs de miniatures : %s"
+msgstr "Impossible de démarrer le gestionnaire de générateurs de miniatures : %s"
 
 #: ../tumblerd/main.c:395
 #, c-format
@@ -144,12 +134,12 @@ msgstr "Espace de couleur RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "L'extension de cache « %s » n'a pas les symboles requis"
+msgstr "Le greffon de cache « %s » manque de symboles requis"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Impossible de charger le l'extension de cache « %s » : %s"
+msgstr "Impossible de charger le greffon de cache « %s » : %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -159,12 +149,12 @@ msgstr "Le fichier « %s » est lui-même une miniature"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "L'extension « %s » n'a pas les symboles requis."
+msgstr "Le greffon « %s » manque de symboles requis"
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Impossible de charger l'extension « %s » : %s"
+msgstr "Impossible de charger le greffon « %s » : %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -180,29 +170,27 @@ msgstr "Impossible de charger l'extension « %s » : %s"
 msgid "Version mismatch: %s"
 msgstr "Incompatibilité de versions : %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Impossible de charger l'affiche « %s »"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Impossible de charger les métadonnées depuis « %s »"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
-"Touche API invalide , vous devez spécifier une clé valide. La base de "
-"données film sera désactivée."
+msgstr "Clé API invalide , vous devez spécifier une clé valide. Le moteur de la base de données film sera désactivée."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Aucune clé poster trouvée dans les méta-données"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "Le titre du film est trop court"
 
@@ -263,70 +251,3 @@ msgstr "Seuls les fichiers locaux sont supportés"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Impossible d'enregistrer la miniature dans « %s »"
-
-#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr ""
-#~ "Initialisation de l'extension Tumbler générant des miniatures avec "
-#~ "GStreamer"
-
-#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Arrêt de l'extension Tumbler générant des miniatures avec GStreamer"
-
-#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr ""
-#~ "Initialisation de l'extension Tumbler générant des miniatures avec Pixbuf"
-
-#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Arrêt de l'extension Tumbler générant des miniatures avec Pixbuf"
-
-#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr ""
-#~ "Initialisation de l'extension Tumbler générant des miniatures de polices "
-#~ "de caractères"
-
-#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr ""
-#~ "Arrêt de l'extension Tumbler générant des miniatures de polices de "
-#~ "caractères"
-
-#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr ""
-#~ "Initialisation de l'extension Tumbler générant des miniatures pour "
-#~ "fichiers JPEG"
-
-#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr ""
-#~ "Arrêt de l'extension Tumbler générant des miniatures pour fichiers JPEG"
-
-#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Initialisation de l'extension Tumbler générant des miniatures pour les "
-#~ "vidéos avec ffmpeg"
-
-#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Arrêt de l'extension Tumbler générant des miniatures pour les vidéos avec "
-#~ "ffmpeg"
-
-#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Initialisation de l'extension Tumbler générant des miniatures ODF"
-
-#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Arrêt de l'extension Tumbler générant des miniatures ODF"
-
-#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-#~ msgstr ""
-#~ "Initialisation de l'extension Tumbler générant des miniatures pour les "
-#~ "PDF/PS avec Poppler"
-
-#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Initialisation de l'extension Tumbler générant des miniatures RAW"
-
-#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Arrêt de l'extension Tumbler générant des miniatures RAW"
-
-#~ msgid "Initializing the Tumbler XDG cache plugin"
-#~ msgstr "Initialisation de l'extension Tumbler pour le cache XDG"
-
-#~ msgid "Shutting down the Tumbler XDG cache plugin"
-#~ msgstr "Arrêt de l'extension Tumbler pour le cache XDG"
