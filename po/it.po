@@ -1,20 +1,24 @@
-# Italian translation of the tumbler package.
-# Copyright (C) YEAR THE tumbler'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the tumbler package.
-#  Cristian Marchi <cri.penta@gmail.com>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
+# cri <cri.penta@gmail.com>, 2010
+# cri <cri.penta@gmail.com>, 2013
+# edmael <edoardo.elidoro@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-18 13:54+0000\n"
-"PO-Revision-Date: 2010-06-26 08:57+0100\n"
-"Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
-"Language-Team: Italian Translation Team <xfce-it-translators@googlegroups.com>\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-08-13 13:05+0000\n"
+"Last-Translator: cri <cri.penta@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/xfce/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -42,8 +46,7 @@ msgstr "Richiesta di tipo di miniatura non valida"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Chiamata del creatore di miniature specializzato non riuscita: tempo scaduto"
+msgstr "Chiamata del creatore di miniature specializzato non riuscita: tempo scaduto"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
@@ -53,7 +56,7 @@ msgstr "Chiamata del creatore di miniature specializzato non riuscita: %s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Caricamento del file \"%s\" non riuscito: %s"
+msgstr "Caricamento del file «%s» non riuscito: %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
@@ -66,9 +69,7 @@ msgstr "Sezione malformata \"%s\" nel file «%s»: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il nome "
-"della sezione e UriScheme/MimeType"
+msgstr "Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il nome della sezione e UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -79,41 +80,43 @@ msgstr "File «%s» formattato non correttamente: %s"
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Impossibile determinare la data dell'ultima modifica di \"%s\""
+msgstr "Impossibile determinare la data dell'ultima modifica di «%s»"
 
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Un altro gestore di miniature è già in esecuzione"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Non è possibile modificare la priorità del processo."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:250
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Servizio di miniaturizzazione Tumbler"
 
-#: ../tumblerd/main.c:270
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Connessione al bus della sessione di D-Bus non riuscita: %s"
 
-#: ../tumblerd/main.c:353
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Caricamento del creatore di miniature specializzato nel registro non "
-"riuscito:%s"
+msgstr "Caricamento del creatore di miniature specializzato nel registro non riuscito:%s"
 
-#: ../tumblerd/main.c:365
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Avvio del servizio di cache per le miniature non riuscito: %s"
 
-#: ../tumblerd/main.c:375
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Avvio del gestore di miniature non riuscito: %s"
 
-#: ../tumblerd/main.c:385
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Avvio del servizio di creazione delle miniature non riuscito: %s"
@@ -169,27 +172,27 @@ msgstr "Caricamento del plugin \"%s\" non riuscito: %s"
 msgid "Version mismatch: %s"
 msgstr "Versioni non corrispondenti: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Caricamento dell'immagine di copertina \"%s\" non riuscito"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Caricamento dei metadati da \"%s\" non riuscito"
+msgstr "Caricamento dei metadati da «%s» non riuscito"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
 msgstr "Chiave API non valida, è necessaria una chiave valida. Il backend di Movie DB sarà disabilitato."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Nessuna chiave dell'immagine di copertina disponibile nei metadati"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "Il titolo del film è troppo corto"
 
@@ -232,13 +235,13 @@ msgstr "Impossibile disegnare i glifi: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "La miniatura non può essere creata dal contenuto di un file"
+msgstr "La miniatura non può essere creata dal contenuto del file"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Il documento è vuoto"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "La prima pagina del documento non può essere letta"
 
@@ -250,77 +253,3 @@ msgstr "Sono supportati solo i file locali"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Impossibile salvare la miniatura in \"%s\""
-
-#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin di Tumbler per la creazione delle miniature "
-#~ "di Gstreamer"
-
-#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr ""
-#~ "Chiusura del plugin di Tumbler per la creazione delle miniature di "
-#~ "Gstreamer"
-
-#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin di Tumbler Pixbuf Thumbnailer in corso..."
-
-#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Chiusura del plugin di Tumbler Pixbuf Thumbnailer in corso..."
-
-#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin di Tumbler per la creazione delle miniature "
-#~ "del carattere"
-
-#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr ""
-#~ "Chiusura del plugin di Tumbler per la creazione delle miniature del "
-#~ "carattere"
-
-#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Inizializzazione del plugin JPG Thumbnailer di Tumbler in corso..."
-
-#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Chiusura del plugin JPG Thumbnailer di Tumbler in corso..."
-
-#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin ffmpeg di Tumbler per la creazione delle "
-#~ "miniature del video"
-
-#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Chiusura del plugin ffmpeg di Tumbler per la creazione delle miniature "
-#~ "del video"
-
-#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin di Tumbler per la creazione delle miniature "
-#~ "del carattere"
-
-#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr ""
-#~ "Chiusura del plugin di Tumbler per la creazione delle miniature del "
-#~ "carattere"
-
-#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin Poppler di Tumbler per la creazione delle "
-#~ "miniature dei file PDF/PS"
-
-#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr ""
-#~ "Inizializzazione del plugin di Tumbler per la creazione delle miniature "
-#~ "del carattere"
-
-#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr ""
-#~ "Chiusura del plugin di Tumbler per la creazione delle miniature del "
-#~ "carattere"
-
-#~ msgid "Initializing the Tumbler XDG cache plugin"
-#~ msgstr "Inizializzazione del plugin di Tumbler per la cache XDG"
-
-#~ msgid "Shutting down the Tumbler XDG cache plugin"
-#~ msgstr "Chiusura del plugin di Tumbler per la cache XDG"
