@@ -1,19 +1,20 @@
-# German translations for tumbler package
-# German messages for tumbler.
-# Copyright (C) 2010 Jannis Pohlmann
-# This file is distributed under the same license as the tumbler package.
-# Fabian Nowak <timystery@arcor.de>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Fabian Nowak <timystery@arcor.de>, 2010
+# hjudt <h.judt@gmx.at>, 2013
 # Paul Seyfert <pseyfert@mathphys.fsk.uni-heidelberg.de>, 2010
 # Thomas Schütz <xfce@thschuetz.de>, 2012
-# 
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler 0.1.2\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-07 23:03+0000\n"
-"PO-Revision-Date: 2010-11-24 01:36+0100\n"
-"Last-Translator: Thomas Schütz <xfce@thschuetz.de>\n"
-"Language-Team: German\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-10-01 16:56+0000\n"
+"Last-Translator: hjudt <h.judt@gmx.at>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/xfce/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,13 +26,13 @@ msgstr ""
 msgid "Another thumbnail cache service is already running"
 msgstr "Ein anderer Dienst für Vorschaubilder läuft bereits"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Kein Vorschaubildersteller für »%s« vorhanden"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "Der Dienst für Vorschaubilder wird angehalten"
 
@@ -44,16 +45,14 @@ msgstr "Ein anderer allgemeiner Vorschaubildersteller läuft bereits"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Nicht unterstützte Vorschaubildart angefordert"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Konnte den spezialisierten Vorschaubildersteller nicht aufrufen: Timeout"
+msgstr "Konnte den spezialisierten Vorschaubildersteller nicht aufrufen: Timeout"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
-"Der spezialisierte Vorschaubildersteller konnte nicht aufrufen werden: %s"
+msgstr "Der spezialisierte Vorschaubildersteller konnte nicht aufrufen werden: %s"
 
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
@@ -71,9 +70,7 @@ msgstr "Kaputter Abschnitt »%s« in Datei »%s«: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Kaputter Abschnitt »%s« in Datei »%s«: Keine Übereinstimmung zwischen Name "
-"des Abschnitts und dem URI-Schema/MIME-Typ"
+msgstr "Kaputter Abschnitt »%s« in Datei »%s«: Keine Übereinstimmung zwischen Name des Abschnitts und dem URI-Schema/MIME-Typ"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -86,40 +83,41 @@ msgstr "Kaputte Datei »%s«: %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Das Datum der letzten Änderung von »%s« konnte nicht bestimmt werden."
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Eine anderes Verwaltungsprogramm für Vorschaubilder läuft bereits"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Priorität des Prozesses konnte nicht geändert werden."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Vorschaubildersteller Tumbler"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Konnte nicht mit dem D-Bus-Sitzungsbus verbinden: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Konnte besondere Vorschaubildersteller nicht in die Registrierung eintragen: "
-"%s"
+msgstr "Konnte besondere Vorschaubildersteller nicht in die Registrierung eintragen: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Der Vorschaubild-Cache-Dienst konnte nicht gestartet werden: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr ""
-"Das Verwaltungsprogramm für Vorschaubilder konnte nicht gestartet werden: %s"
+msgstr "Das Verwaltungsprogramm für Vorschaubilder konnte nicht gestartet werden: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Der Vorschaubilddienst konnte nicht gestartet werden: %s"
@@ -161,6 +159,7 @@ msgstr "Das Plugin »%s« hat die benötigten Symbole nicht"
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Das Plugin »%s« konnte nicht geladen werden: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -174,30 +173,29 @@ msgstr "Das Plugin »%s« konnte nicht geladen werden: %s"
 msgid "Version mismatch: %s"
 msgstr "Keine Übereinstimmung der Versionen: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Die Tumbler GStreamer-Vorschaubilderweiterung wird gestartet"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Laden von Posterbild »%s« fehlgeschlagen"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Die Tumbler GStreamer-Vorschaubilderweiterung wird beendet"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Laden der Metadaten von »%s« fehlgeschlagen"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Die Tumbler Pixbuf-Vorschaubilderweiterung wird gestartet"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Ungültiger API Schlüssel; Sie müssen einen gültigen Schlüssel verwenden. Das Movie DB Backend wird deaktiviert bleiben."
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Die Tumbler Pixbuf-Vorschaubilderweiterung wird beendet"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr "Kein Poster-Schlüssel in den Metadaten gefunden."
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Die Tumbler Schriften-Vorschaubilderweiterung wird gestartet"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Die Tumbler Schriften-Vorschaubilderweiterung wird beendet"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr "Filmtitel ist zu kurz"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -229,8 +227,8 @@ msgstr "Zeichensatz konnte nicht eingestellt werden: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Glyphen konnten nicht gerendert werden: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -240,39 +238,11 @@ msgstr "Glyphen konnten nicht gerendert werden: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Vorschaubild konnte nicht anhand der Dateiinhalte erstellt werden"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Die Tumbler JPEG-Vorschaubilderweiterung wird gestartet"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Die Tumbler JPEG-Vorschaubilderweiterung wird beendet"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Die Tumbler ffmpeg-Video-Vorschaubilderweiterung wird gestartet"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Die Tumbler ffmpeg-Video-Vorschaubilderweiterung wird beendet"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Die Tumbler ODF-Vorschaubilderweiterung wird gestartet"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Die Tumbler ODF-Vorschaubilderweiterung wird beendet"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Die Tumbler Poppler-PDF/PS-Vorschaubilderweiterung wird gestartet"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Das Dokument ist leer"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Erste Seite des Dokuments konnte nicht gelesen werden"
 
@@ -280,23 +250,7 @@ msgstr "Erste Seite des Dokuments konnte nicht gelesen werden"
 msgid "Only local files are supported"
 msgstr "Nur lokale Dateien werden unterstützt"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Die Tumbler RAW-Vorschaubilderweiterung wird gestartet"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Die Tumbler RAW-Vorschaubilderweiterung wird beendet"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Vorschaubild konnte nicht nach  »%s« gespeichert werden"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Die Tumbler XDG-Cache-Erweiterung wird gestartet"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Die Tumbler XDG-Cache-Erweiterung wird beendet"
