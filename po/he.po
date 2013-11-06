@@ -1,35 +1,36 @@
-# Hebrew translation of the tumbler package.
-# Copyright (C) 2010
-# This file is distributed under the same license as the libxfce4menu package.
-# Hezy Amiel <open@hezyamiel.com>, 2010.
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Hezy Amiel <open@hezyamiel.com>, 2010
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2010,2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-26 11:39+0000\n"
-"PO-Revision-Date: 2010-12-07 10:50+0200\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-06 08:14+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <xfce-i18n@xfce.org>\n"
+"Language-Team: Hebrew (http://www.transifex.com/projects/p/xfce/language/he/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
-"X-Poedit-Language: Hebrew\n"
-"X-Poedit-Country: ISRAEL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "שירות אחר למטמון תמונות ממוזערות כבר פעיל"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "אין מנהל זמין לתמונות ממוזערות עבור \"%s\""
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "שירות מטמון התמונות הממוזערות נכבה"
 
@@ -42,11 +43,11 @@ msgstr "שירות תמונות ממוזערות גנרי כבר פעיל"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "סוג התמונה הממוזערת שהתבקש אינו נתמך"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "אירע כשל בקריאה למנהל התמונות הממוזערות המיוחד: פג הזמן המוקצב"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "אירע כשל בקריאה למנהל התמונות הממוזערות המיוחד: %s"
@@ -67,8 +68,7 @@ msgstr "סעיף פגום \"%s\" בקובץ \"%s\":‏ %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"סעיף פגום \"%s\" בקובץ \"%s\":‏ חוסר התאמה בין שם הסעיף וה־UriScheme/MimeType"
+msgstr "סעיף פגום \"%s\" בקובץ \"%s\":‏ חוסר התאמה בין שם הסעיף וה־UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -86,32 +86,36 @@ msgstr "אירע כשל במציאת זמן העדכון האחרון של \"%s\
 msgid "Another thumbnailer manager is already running"
 msgstr "מנהל תמונות ממוזערות אחר כבר פעיל"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "לא ניתן לשנות את ערך ה־nice של התהליך."
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "‏Tumbler שירות יצירת תמונות ממוזערות"
 
-#: ../tumblerd/main.c:101
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Failed to connect to the D-Bus session bus: %s"
 
-#: ../tumblerd/main.c:159
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Failed to load specialized thumbnailers into the registry: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Failed to start the thumbnail cache service: %s"
 
-#: ../tumblerd/main.c:193
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Failed to start the thumbnailer manager: %s"
 
-#: ../tumblerd/main.c:210
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Failed to start the thumbnailer service: %s"
@@ -153,6 +157,7 @@ msgstr "לתוסף \"%s\" חסרים סימנים נחוצים."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "אירע כשל בטעינת התוסף \"%s\":‏ %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -166,30 +171,29 @@ msgstr "אירע כשל בטעינת התוסף \"%s\":‏ %s"
 msgid "Version mismatch: %s"
 msgstr "אי התאמה בגרסה: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "תוסף התמונות הממוזערות ל־GStreamer מופעל"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "טעינת תמונת הכרזה „%s“ נכשלה"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "תוסף התמונות הממוזערות ל־GStreamer נכבה"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "טעינת נתוני העל מהמיקום „%s“ נכשלה"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "אתחול תוסף ה־Pixbuf של Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "מפתח ה־API שגוי, עליך להצטייד במפתח פעיל. מנגנון מסד הנתונים של הסרטים ינוטרל."
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "כיבוי תוסף ה־Pixbuf של Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr "לא נמצא מפתח כרזה בנתוני העל"
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "אתחול תוסף הגופנים של Tumbler"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "כיבוי תוסף הגופנים של Tumbler"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr "כותרת הסרט קצרה מדי"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -221,8 +225,8 @@ msgstr "לא ניתן להגדיר את מפת התווים: %s"
 msgid "Could not render glyphs: %s"
 msgstr "לא ניתן לעבד את האותיות: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -232,39 +236,11 @@ msgstr "לא ניתן לעבד את האותיות: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "לא ניתן ליצור תמונה ממוזערת מתוכן הקובץ"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "אתחול תוסף ה־JPEG של Tumbler"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "כיבוי תוסף ה־JPEG של Tumbler"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "אתחול תוסף הווידאו ffmpeg של Tumbler"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "כיבוי תוסף הווידאו ffmpeg של Tumbler"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "תוסף התמונות הממוזערות מ־ODF מופעל"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "תוסף התמונות הממוזערות מ־ODF נכבה"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "אתחול תוסף ה־PDF/PS של Tumbler "
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "המסמך ריק"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "לא ניתן לקרוא את העמוד הראשון של המסמך"
 
@@ -272,23 +248,7 @@ msgstr "לא ניתן לקרוא את העמוד הראשון של המסמך"
 msgid "Only local files are supported"
 msgstr "התמיכה היא בקבצים מקומיים בלבד"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "תוסף התמונות הממוזערות מ־RAW מופעל"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "תוסף התמונות הממוזערות מ־RAW נכבה"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "לא ניתן לשמור את התמונה הממוזערת אל \"%s\""
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "אתחול תוסף מטמון ה־XDG של Tumbler"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "כיבוי תוסף מטמון ה־XDG של Tumbler"
