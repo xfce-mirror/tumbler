@@ -1,35 +1,39 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Rihards Prieditis <rprieditis@gmail.com>, 2009.
+# 
+# Translators:
+# Rihards Priedītis <rprieditis@gmail.com>, 2009
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
-"PO-Revision-Date: 2009-10-16 18:19+0100\n"
-"Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
-"Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
-"Language: lv\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-19 12:27+0000\n"
+"Last-Translator: Nick <nick@xfce.org>\n"
+"Language-Team: Latvian (http://www.transifex.com/projects/p/xfce/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Vēl viens sīktēlu keša pakalpojums jau skrien"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Neviens sīktēlotājs nav pieejams priekš \"%s\""
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
+msgid "The thumbnailer service is shutting down"
+msgstr ""
+
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "Vēl viens autentisks sīktēlotājs jau skrien"
@@ -38,76 +42,79 @@ msgstr "Vēl viens autentisks sīktēlotājs jau skrien"
 msgid "Unsupported thumbnail flavor requested"
 msgstr ""
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
-#, fuzzy
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Neizdevās ielādēt specializētus sīktēlotājus reģistrā: %s"
+msgstr ""
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
-#, fuzzy, c-format
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Neizdevās ielādēt specializētus sīktēlotājus reģistrā: %s"
+msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
-#, fuzzy, c-format
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Neizdevās ielādēt spraudni \"%s\": %s"
+msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr ""
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Vēl viens sīktēlotājs jau skrien"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr ""
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler sīktēlotāja pakalpojums"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Neizdevās savienoties ar D-Buss sesijas kopni: %s"
 
-#: ../tumblerd/main.c:90
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Neizdevās sākt sīktēlu keša pakalpojumu: %s"
-
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Neizdevās ielādēt specializētus sīktēlotājus reģistrā: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:375
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Neizdevās sākt sīktēlu keša pakalpojumu: %s"
+
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Neizdevās palaists sīktēlotāja pārvaldnieku: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Neizdevās palaist sīktēlotāja pakalpojumu: %s"
@@ -125,14 +132,14 @@ msgid "RGB Colorspace"
 msgstr ""
 
 #: ../tumbler/tumbler-cache-plugin.c:145
-#, fuzzy, c-format
+#, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Spraudnis \"%s\" ir bez nepieciešamajiem simboliem."
+msgstr ""
 
 #: ../tumbler/tumbler-cache-plugin.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Neizdevās ielādēt spraudni \"%s\": %s"
+msgstr ""
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -149,32 +156,43 @@ msgstr "Spraudnis \"%s\" ir bez nepieciešamajiem simboliem."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Neizdevās ielādēt spraudni \"%s\": %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Versiju nesakritība: %s"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Inicializē Tumble Pixbuf sīktēlotāja spraudni"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Izslēdz Tumble Pixbuf sīktēlotāja spraudni"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Inicializē Tumbler Fonta sīktēlotāja spraudni"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Izslēdz Tumbler Fonta sīktēlotāja spraudni"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr ""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr ""
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -206,65 +224,30 @@ msgstr "Neizdevās uzstādīt rakstzīmju karti: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Neizdevās vizualizēt glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr ""
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Inicializē Tumble Pixbuf sīktēlotāja spraudni"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Izslēdz Tumble Pixbuf sīktēlotāja spraudni"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-#, fuzzy
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Inicializē Tumbler Fonta sīktēlotāja spraudni"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-#, fuzzy
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Izslēdz Tumbler Fonta sīktēlotāja spraudni"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-#, fuzzy
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Inicializē Tumbler Fonta sīktēlotāja spraudni"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
+msgstr ""
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
 msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nevarēja saglabāt siktēlu \"%s\""
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Inicializē Tumbler XDG keša spraudni"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Izslēdzu Tumbler XDG keša spraudni"
-
-#~ msgid "Normal"
-#~ msgstr "Parasts"
-
-#~ msgid "Large"
-#~ msgstr "Liels"
-
-#~ msgid "Cropped"
-#~ msgstr "Apgriezts"
