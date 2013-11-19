@@ -1,33 +1,39 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Sadia Afroz <sadia@ankur.org.bd>, 2010.
-#
+# 
+# Translators:
+# Sadia Afroz <sadia@ankur.org.bd>, 2010
 msgid ""
 msgstr ""
-"Project-Id-Version: bn\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-16 14:48+0100\n"
-"PO-Revision-Date: 2010-03-31 17:05+0600\n"
-"Last-Translator: Sadia Afroz <sadia@ankur.org.bd>\n"
-"Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
-"Language: bn\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-19 12:27+0000\n"
+"Last-Translator: Nick <nick@xfce.org>\n"
+"Language-Team: Bengali (http://www.transifex.com/projects/p/xfce/language/bn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-cache-service.c:383
+#: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "অন্য একটি থাম্বনেইল ক্যাশে সার্ভিস ইতিমধ্যেই চলছে"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "\"%s\"-র জন্য কোনো থাম্বনেইলার নেই"
 
-#: ../tumblerd/tumbler-service.c:751
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
+msgid "The thumbnailer service is shutting down"
+msgstr ""
+
+#: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
 msgstr "অন্য একটি সাধারণ থাম্বনেইলার ইতিমধ্যেই চলছে"
@@ -36,77 +42,79 @@ msgstr "অন্য একটি সাধারণ থাম্বনেইল
 msgid "Unsupported thumbnail flavor requested"
 msgstr "অসমর্থিত ধরনের থাম্বনেইল অনুরোধ করা হয়েছে"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "বিশেষ থাম্বনেইলার কল করতে ব্যর্থ: সময় উত্তীর্ণ"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "বিশেষ থাম্বনেইলার কল করতে ব্যর্থ: %s"
 
-#: ../tumblerd/tumbler-manager.c:467 ../tumblerd/tumbler-manager.c:873
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "\"%s\" ফাইল লোড করতে ব্যর্থ: %s"
 
-#: ../tumblerd/tumbler-manager.c:485 ../tumblerd/tumbler-manager.c:499
-#: ../tumblerd/tumbler-manager.c:513
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "\"%2$s\" ফাইলের \"%1$s\" অংশটি বিকৃত: %3$s"
 
-#: ../tumblerd/tumbler-manager.c:526
+#: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"\"%2$s\" ফাইলের \"%1$s\" অংশটি বিকৃত: অংশের নাম ও UriScheme/MimeType-র মধ্যে "
-"মিল পাওয়া যায়নি "
+msgstr "\"%2$s\" ফাইলের \"%1$s\" অংশটি বিকৃত: অংশের নাম ও UriScheme/MimeType-র মধ্যে মিল পাওয়া যায়নি "
 
-#: ../tumblerd/tumbler-manager.c:886 ../tumblerd/tumbler-manager.c:900
-#: ../tumblerd/tumbler-manager.c:914
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "\"%s\" ফাইলটি বিকৃত: %s"
 
-#: ../tumblerd/tumbler-manager.c:940
+#: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "\"%s\"-র সর্বশেষ পরিবর্তনের সময় নির্ধারণ করতে ব্যর্থ"
 
-#: ../tumblerd/tumbler-manager.c:1849
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "অন্য একটি থাম্বনেইলার ব্যবস্থাপক ইতিমধ্যেই চলছে"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr ""
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:63
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler থাম্বনেইল করার সার্ভিস"
 
-#: ../tumblerd/main.c:78
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "D-Bus সেশন বাসে সংযুক্ত করতে ব্যর্থ: %s"
 
-#: ../tumblerd/main.c:90
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "থাম্বনেইল ক্যাশে সার্ভিস আরম্ভ করতে ব্যর্থ: %s"
-
-#: ../tumblerd/main.c:140
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "রেজিস্ট্রিতে বিশেষ থাম্বনেইলার লোড করতে ব্যর্থ: %s"
 
-#: ../tumblerd/main.c:158
+#: ../tumblerd/main.c:375
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "থাম্বনেইল ক্যাশে সার্ভিস আরম্ভ করতে ব্যর্থ: %s"
+
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "থাম্বনেইলার ব্যবস্থাপক আরম্ভ করতে ব্যর্থ: %s"
 
-#: ../tumblerd/main.c:176
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "থাম্বনেইলার সার্ভিস আরম্ভ করতে ব্যর্থ: %s"
@@ -148,32 +156,43 @@ msgstr "\"%s\" প্লাগইনে আবশ্যকীয় প্রতী
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "\"%s\" প্লাগইন লোড করতে ব্যর্থ: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "সংস্করণে মিল পাওয়া যায়নি: %s"
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr ""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr ""
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -205,56 +224,30 @@ msgstr "অক্ষরের মানচিত্র নির্ধারণ 
 msgid "Could not render glyphs: %s"
 msgstr "glyphs রেন্ডার করা যায়নি: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:746
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:784
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "ফাইলের বিষয়বস্তু থেকে থাম্বনেইল অনুমান করা যায়নি"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-#, fuzzy
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-#, fuzzy
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Tumbler Pixbuf থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-#, fuzzy
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-#, fuzzy
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন বন্ধ করা হচ্ছে"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-#, fuzzy
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Tumbler ফন্ট থাম্বনেইলার প্লাগইন আরম্ভ করা হচ্ছে"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:209
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr ""
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:221
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
+msgstr ""
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
 msgstr ""
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "\"%s\"-এ থাম্বনেইল সংরক্ষণ করা যায়নি"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Tumbler XDG ক্যাশে প্লাগইন আরম্ভ করা হচ্ছে"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Tumbler XDG ক্যাশে প্লাগইন বন্ধ করা হচ্ছে"
