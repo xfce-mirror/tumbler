@@ -1,22 +1,22 @@
-# Ukrainian translation of tumbler.
-# Copyright (C) 2010 Dmitry Nikitin
-# This file is distributed under the same license as the tumbler package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
-# Dmitry Nikitin <luckas_fb@mail.ru>, 2010.
+# Translators:
+# Dmitry Nikitin <luckas_fb@mail.ru>, 2010
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-06 06:27+0000\n"
-"PO-Revision-Date: 2010-03-09 14:21+0200\n"
-"Last-Translator: Dmitry Nikitin <luckas_fb@mail.ru>\n"
-"Language-Team: Ukrainian <xfce4-dev@xfce.org>\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-19 12:27+0000\n"
+"Last-Translator: Nick <nick@xfce.org>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/xfce/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -44,8 +44,7 @@ msgstr "Непідтримуваний запит переглядача мін�
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Не можу викликати визначений створювач мініатюр: задовгий час очікування"
+msgstr "Не можу викликати визначений створювач мініатюр: задовгий час очікування"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
@@ -68,9 +67,7 @@ msgstr "Неправильна секція \"%s\" у файлі \"%s\": %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і "
-"UriScheme/MimeType"
+msgstr "Неправильна секція \"%s\" у файлі \"%s\": немає збігу між назвою секції і UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -173,29 +170,27 @@ msgstr "Не вдалося завантажити додаток \"%s\": %s"
 msgid "Version mismatch: %s"
 msgstr "Версія не збігаються: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Не вдалось завантажити малюнок постера \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Не вдалось завантажити метадані з \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
-"Поганий ключ API, Вам потрібно подати правильний ключ. Movie DB буде "
-"виключене."
+msgstr "Поганий ключ API, Вам потрібно подати правильний ключ. Movie DB буде виключене."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Не знайдено ключ постера в метаданих"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "Назва кінострічки закоротка"
 
@@ -256,58 +251,3 @@ msgstr "Тільки локальні файли підтримуються"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Не вдалось зберегти мініатюри в \"%s\""
-
-#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler GStreamer Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Вихід з додатку Tumbler GStreamer Thumbnailer"
-
-#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler Pixbuf Thumbnailer "
-
-#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Вихід з додатку Tumbler Pixbuf Thumbnailer"
-
-#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler Font Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Вихід з додатку Tumbler Font Thumbnailer"
-
-#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler JPEG Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Вихід з додатку Tumbler JPEG Thumbnailer"
-
-#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Ініціалізація додатку Tumbler відображення відео мініатюрами за допомогою "
-#~ "ffmpeg"
-
-#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Вихід з додатку Tumbler  відображення відео мініатюрами за допомогою "
-#~ "ffmpeg"
-
-#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler ODF Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Вихід з додатку Tumbler ODF Thumbnailer"
-
-#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler Poppler PDF/PS Thumbnailer"
-
-#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Ініціалізація додатку Tumbler RAW Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Вихід з додатку Tumbler RAW Thumbnailer"
-
-#~ msgid "Initializing the Tumbler XDG cache plugin"
-#~ msgstr "Ініціалізація розширення Tumbler XDG cache"
-
-#~ msgid "Shutting down the Tumbler XDG cache plugin"
-#~ msgstr "Вимкнути розширення Tumbler XDG cache"
