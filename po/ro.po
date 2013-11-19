@@ -1,21 +1,22 @@
-# Romanian translation for Tumbler.
-# Copyright (C) 2011 THE Tumbler'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the Tumbler package.
-# Mișu Moldovan <dumol@xfce.org>, 2011.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Mișu Moldovan <dumol@xfce.org>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: Tumbler 0.1.5\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-06 17:15+0000\n"
-"PO-Revision-Date: 2011-01-05 23:17+0300\n"
-"Last-Translator: Mișu Moldovan <dumol@xfce.org>\n"
-"Language-Team: Romanian <diacritice@googlegroups.com>\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-19 12:27+0000\n"
+"Last-Translator: Nick <nick@xfce.org>\n"
+"Language-Team: Romanian (http://www.transifex.com/projects/p/xfce/language/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);;\n"
-"X-Generator: Virtaal 0.6.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -43,8 +44,7 @@ msgstr "S-a solicitat un tip de miniatură pentru care nu există suport"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Nu s-a putut apela programul specializat de creare de miniaturi: time-out"
+msgstr "Nu s-a putut apela programul specializat de creare de miniaturi: time-out"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
@@ -67,9 +67,7 @@ msgstr "Secțiune „%s” nevalidă în fișierul „%s”: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Secțiune „%s” nevalidă în fișierul „%s”: nepotrivire între numele secțiunii "
-"și UriScheme/MimeType"
+msgstr "Secțiune „%s” nevalidă în fișierul „%s”: nepotrivire între numele secțiunii și UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -104,8 +102,7 @@ msgstr "Încercarea de conectare la sesiunea D-Bus a eșuat: %s"
 #: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Nu s-au putut încărca programele specializate de creare de miniaturi: %s"
+msgstr "Nu s-au putut încărca programele specializate de creare de miniaturi: %s"
 
 #: ../tumblerd/main.c:375
 #, c-format
@@ -187,9 +184,7 @@ msgstr "Nu s-au putut încărca metadatele din „%s”"
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
-"Cheie API invalidă, e nevoie de o cheie validă. Backendul Movie DB va fi "
-"dezactivat."
+msgstr "Cheie API invalidă, e nevoie de o cheie validă. Backendul Movie DB va fi dezactivat."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
@@ -256,54 +251,3 @@ msgstr "Doar pentru fișierele locale există suport"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nu s-a putut salva miniatura pentru „%s”"
-
-#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler GStreamer Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler GStreamer Thumbnailer"
-
-#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler Pixbuf Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler Pixbuf Thumbnailer"
-
-#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler Font Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler Font Thumbnailer"
-
-#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler JPEG Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler JPEG Thumbnailer"
-
-#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler FFmpeg Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler FFmpeg Thumbnailer"
-
-#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler ODF Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler ODF Thumbnailer"
-
-#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler PDF/PS Thumbnailer"
-
-#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Se inițializează modulul Tumbler RAW Thumbnailer"
-
-#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Se dezactivează modulul Tumbler RAW Thumbnailer"
-
-#~ msgid "Initializing the Tumbler XDG cache plugin"
-#~ msgstr "Se inițializează modulul de cache Tumbler XDG"
-
-#~ msgid "Shutting down the Tumbler XDG cache plugin"
-#~ msgstr "Se dezactivează modulul de cache Tumbler XDG"
