@@ -1,36 +1,35 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012.
-#
+# 
+# Translators:
+# Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: thumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-11 08:12+0000\n"
-"PO-Revision-Date: 2012-01-11 11:37+0200\n"
-"Last-Translator: Algimantas Margevičius <margevicius.algimantas@gmail.com>\n"
-"Language-Team: Lietuvių <>\n"
-"Language: \n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-19 12:27+0000\n"
+"Last-Translator: Nick <nick@xfce.org>\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/xfce/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2)\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
 msgstr "Kita miniatiūrų podėlio tarnyba jau veikia"
 
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:421
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Nėra prieinamos miniatiūrų kūrimo programos skirtos „%s“"
 
-#: ../tumblerd/tumbler-lifecycle-manager.c:207
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
 msgstr "Miniatiūrų tarnyba baigia darbą"
 
@@ -43,12 +42,11 @@ msgstr "Kita pagrindinė miniatiūrų kūrimo programa jau veikia"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Prašoma nepalaikomos miniatiūros rūšies"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:461
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
-"Nepavyko paleisti specializuotos miniatiūrų kūrimo programos: baigėsi laikas"
+msgstr "Nepavyko paleisti specializuotos miniatiūrų kūrimo programos: baigėsi laikas"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:470
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Nepavyko paleisti specializuotos miniatiūrų kūrimo programos: %s"
@@ -69,9 +67,7 @@ msgstr "Netaisyklinga sritis „%s“ faile „%s“: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Netaisyklinga sritis „%s“ faile „%s“: Nesutampa srities vardas ir Urischeme/"
-"MimeType"
+msgstr "Netaisyklinga sritis „%s“ faile „%s“: Nesutampa srities vardas ir Urischeme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -84,38 +80,41 @@ msgstr "Neteisingas failas „%s“: %s"
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Nepavyko nustatyti „%s“ paskutinio keitimo laiko"
 
-#: ../tumblerd/tumbler-manager.c:1863
+#: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
 msgstr "Kita miniatiūrų kūrimo kopija jau veikia"
 
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr ""
+
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:83
+#: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler miniatiūrų kūrimo tarnyba"
 
-#: ../tumblerd/main.c:98
+#: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
 msgstr "Nepavyko prisijungti prie D-Bus seanso magistralės: %s"
 
-#: ../tumblerd/main.c:156
+#: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Nepavyko įkelti specializuotos miniatiūrų kūrimo programos į registrą: %s"
+msgstr "Nepavyko įkelti specializuotos miniatiūrų kūrimo programos į registrą: %s"
 
-#: ../tumblerd/main.c:173
+#: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
 msgstr "Nepavyko paleisti miniatiūrų kūrimo programos podėlio tarnybos: %s"
 
-#: ../tumblerd/main.c:190
+#: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
 msgstr "Nepavyko paleisti miniatiūrų kūrimo tvarkyklės: %s"
 
-#: ../tumblerd/main.c:207
+#: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
 msgstr "Nepavyko paleisti miniatiūrų kūrimo programos tarnybos: %s"
@@ -157,6 +156,7 @@ msgstr "Įskiepis „%s“ neturi reikalingų simbolių."
 msgid "Failed to load plugin \"%s\": %s"
 msgstr "Nepavyko įkelti įskiepio „%s“: %s"
 
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
 #: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
 #: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
@@ -170,30 +170,29 @@ msgstr "Nepavyko įkelti įskiepio „%s“: %s"
 msgid "Version mismatch: %s"
 msgstr "Versijos nesutampa: %s"
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler GStreamer Thumbnailer įskiepis"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr ""
 
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-msgstr "Užveriamas Tumbler GStreamer Thumbnailer įskiepis"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler Pixbuf Thumbnailer įskiepis"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr ""
 
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:79
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-msgstr "Užveriamas Tumbler Pixbuf Thumbnailer įskiepis"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr ""
 
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Font Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler Font Thumbnailer įskiepis"
-
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-msgstr "Užveriamas Tumbler Font Thumbnailer įskiepis"
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr ""
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -225,8 +224,8 @@ msgstr "Nepavyko nustatyti simbolių žemėlapio: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nepavyko atvaizduoti glifo: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:783
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:821
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
 #: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
@@ -236,39 +235,11 @@ msgstr "Nepavyko atvaizduoti glifo: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "Iš failo turinio miniatiūra negali būti sukurta"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler JPEG Thumbnailer įskiepis"
-
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-msgstr "Užveriamas Tumbler JPEG Thumbnailer įskiepis"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:63
-msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler ffmpeg video thumbnailer įskiepis"
-
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:80
-msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-msgstr "Užveriamas Tumbler ffmpeg video thumbnailer įskiepis"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:64
-msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler ODF Thumbnailer įskiepis"
-
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:81
-msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-msgstr "Užveriamas Tumbler ODF Thumbnailer įskiepis"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler Poppler PDF/PS Thumbnailer įskiepis"
-
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:305
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
 msgstr "Dokumentas tuščias"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
 msgstr "Nepavyko perskaityti pirmo dokumento puslapio"
 
@@ -276,23 +247,7 @@ msgstr "Nepavyko perskaityti pirmo dokumento puslapio"
 msgid "Only local files are supported"
 msgstr "Palaikomi tik vietiniai failai"
 
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:62
-msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-msgstr "Inicijuojamas Tumbler RAW Thumbnailer įskiepis"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:79
-msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-msgstr "Užveriamas Tumbler RAW Thumbnailer įskiepis"
-
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nepavyko išsaugoti miniatiūros „%s“"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:57
-msgid "Initializing the Tumbler XDG cache plugin"
-msgstr "Inicijuojamas Tumbler XDG cache įskiepis"
-
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:71
-msgid "Shutting down the Tumbler XDG cache plugin"
-msgstr "Užveriamas Tumbler XDG cache įskiepis"
