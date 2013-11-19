@@ -1,21 +1,22 @@
-# Polish translation of thumbler package.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Piotr Sokół <psokol@jabster.pl>, 2011.
 # 
+# Translators:
+# Piotr Sokół <psokol@jabster.pl>, 2011
 msgid ""
 msgstr ""
-"Project-Id-Version: thumbler\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-11 11:51+0000\n"
-"PO-Revision-Date: 2011-01-10 16:16+0100\n"
-"Last-Translator: Piotr Sokół <psokol@jabster.pl>\n"
-"Language-Team: Polish <>\n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2013-11-19 12:27+0000\n"
+"Last-Translator: Nick <nick@xfce.org>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/xfce/language/pl/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl\n"
-"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : ((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2));\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
@@ -35,8 +36,7 @@ msgstr "Zatrzymywanie usługi dostarczania miniatur "
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr ""
-"Aktualnie uruchomina jest inna, standardowa usługa dostarczania miniatur"
+msgstr "Aktualnie uruchomina jest inna, standardowa usługa dostarczania miniatur"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -67,9 +67,7 @@ msgstr "Nieprawidłowa sekcja „%s” w pliku „%s”: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Nieprawidłowa sekcja „%s” w pliku „%s”: niezgodność nazwy sekcji i UriScheme/"
-"MimeType"
+msgstr "Nieprawidłowa sekcja „%s” w pliku „%s”: niezgodność nazwy sekcji i UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -104,8 +102,7 @@ msgstr "Nie udało się połączyć z sesją systemu D-Bus: %s"
 #: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
-"Nie udało się wczytać do rejestru określonej usługi dostarczania miniatur: %s"
+msgstr "Nie udało się wczytać do rejestru określonej usługi dostarczania miniatur: %s"
 
 #: ../tumblerd/main.c:375
 #, c-format
@@ -187,9 +184,7 @@ msgstr "Nie udało się wczytać metadanych z „%s”"
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
-"Nieprawidłowy klucz interfejsu API. Należy dostarczyć prawidłowy klucz. "
-"Moduł obsługi bazy danych filmów będzie wyłączony."
+msgstr "Nieprawidłowy klucz interfejsu API. Należy dostarczyć prawidłowy klucz. Moduł obsługi bazy danych filmów będzie wyłączony."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
@@ -256,58 +251,3 @@ msgstr "Obsługiwane są tylko pliki lokalne"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nie można zapisać miniatury do pliku „%s”"
-
-#~ msgid "Initializing the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki GStreamer usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler GStreamer Thumbnailer plugin"
-#~ msgstr "Kończenie działania wtyczki GStreamer usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki Pixbuf usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler Pixbuf Thumbnailer plugin"
-#~ msgstr "Kończenie działania wtyczki Pixbuf usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki czcionek usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler Font Thumbnailer plugin"
-#~ msgstr "Kończenie działania wtyczki czcionek usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki JPEG usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler JPEG Thumbnailer plugin"
-#~ msgstr "Kończenie działania wtyczki JPEG usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki wideo ffmpeg usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler ffmpeg video thumbnailer plugin"
-#~ msgstr ""
-#~ "Kończenie działania wtyczki wideo ffmpeg usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki ODF usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler ODF Thumbnailer plugin"
-#~ msgstr "Kończenie działania wtyczki ODF usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler Poppler PDF/PS Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki Poppler PDF/PS usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Inicjowanie wtyczki RAW usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler RAW Thumbnailer plugin"
-#~ msgstr "Kończenie działania wtyczki RAW usługi dostarczania miniatur"
-
-#~ msgid "Initializing the Tumbler XDG cache plugin"
-#~ msgstr ""
-#~ "Inicjowanie wtyczki pamięci podręcznej XDG usługi dostarczania miniatur"
-
-#~ msgid "Shutting down the Tumbler XDG cache plugin"
-#~ msgstr ""
-#~ "Kończenie działania wtyczki pamięci podręcznej XDG usługi dostarczania "
-#~ "miniatur"
