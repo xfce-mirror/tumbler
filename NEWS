@@ -1,3 +1,18 @@
+0.1.30
+======
+- Only enable keepalive in curl >= 7.25.
+- Support move/copy operations on directories in the cache.
+- Send the cache operation replies after they are completed.
+- Translation updates: Arabic, Asturian, Bulgarian, Bengali, Catalan
+  (Valencian), Czech, Danish, German, Greek, English (Australia),
+  English (United Kingdom), Spanish (Castilian), Basque, Finnish,
+  French, Galician, Hebrew, Hungarian, Indonesian, Italian, Japanese,
+  Kazakh, Korean, Lithuanian, Latvian, Malay, Norwegian Bokmal, Dutch
+  (Flemish), Norwegian Nynorsk, Occitan (post 1500), Polish,
+  Portuguese, Portuguese (Brazilian), Romanian, Russian, Slovak,
+  Swedish, Thai, Turkish, Uyghur, Ukrainian, Chinese (China), Chinese
+  (Hong Kong), Chinese (Taiwan).
+
 0.1.29
 ======
 - Fix memory corruption on 64bit (bug #9766).
@@ -45,7 +60,7 @@
 - Make registry dump a bit smaller.
 - Don't use deprecated glib 2.32 API.
 - Rotate pixbuf loader images (bug #6730).
-- Translation updates: Arabic, Spanish (Castilian), Icelandic, 
+- Translation updates: Arabic, Spanish (Castilian), Icelandic,
   Korean, Dutch (Flemish), Serbian, Uyghur.
 
 0.1.25

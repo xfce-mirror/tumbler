@@ -88,7 +88,6 @@
     <xi:include href="xml/tumbler-provider-factory.xml"/>
     <xi:include href="xml/tumbler-provider-plugin.xml"/>
     <xi:include href="xml/tumbler-abstract-thumbnailer.xml"/>
-    <xi:include href="xml/tumbler-cache-provider.xml"/>
     <xi:include href="xml/tumbler-thumbnailer-provider.xml"/>
   </part>
 
