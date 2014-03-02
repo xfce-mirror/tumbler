@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# schizo <eveskovic@gmail.com>, 2014
+# Ivica  Kolić <ikoli@yahoo.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-02 22:38+0200\n"
+"PO-Revision-Date: 2014-03-02 11:14+0000\n"
+"Last-Translator: schizo <eveskovic@gmail.com>\n"
+"Language-Team: Croatian (http://www.transifex.com/projects/p/xfce/language/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: ../tumblerd/tumbler-cache-service.c:413
+#, c-format
+msgid "Another thumbnail cache service is already running"
+msgstr "Jedan servis za predmemoriranje sličica je već pokrenut"
+
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Nije dostupan servis sličica za \"%s\""
+
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
+msgid "The thumbnailer service is shutting down"
+msgstr "Servis sličica se gasi"
+
+#: ../tumblerd/tumbler-service.c:758
+#, c-format
+msgid "Another generic thumbnailer is already running"
+msgstr "Drugi generični servis sličica je već pokrenut"
+
+#: ../tumblerd/tumbler-service.c:867
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Zahtjevan je nepodržani oblik servisa sličica "
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Neuspjelo pozivanje specijaliziranog servisa sličica: vrijeme je isteklo"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Neuspjelo pozivanje specijaliziranog servisa sličica: %s"
+
+#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "Neuspjelo učitavanje datoteke \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
+#: ../tumblerd/tumbler-manager.c:535
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "Deformirana sekcija \"%s\" u datoteci \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:548
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr "Deformirana sekcija \"%s\" u datoteci \"%s\": nepodudarnost između imena sekcije i UriScheme/MimeType"
+
+#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
+#: ../tumblerd/tumbler-manager.c:936
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "Deformirana datoteka \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:962
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "Neuspjelo određivanje vremena zadnje izmjene od \"%s\""
+
+#: ../tumblerd/tumbler-manager.c:1868
+#, c-format
+msgid "Another thumbnailer manager is already running"
+msgstr "Drugi upravitelj servisima sličica je već pokrenut"
+
+#: ../tumblerd/main.c:249
+msgid "Couldn't change nice value of process."
+msgstr "Nije uspjela promijena nice vrijednosti procesa."
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:258
+msgid "Tumbler Thumbnailing Service"
+msgstr "Tumbler servis sličica"
+
+#: ../tumblerd/main.c:280
+#, c-format
+msgid "Failed to connect to the D-Bus session bus: %s"
+msgstr "Neuspjelo spajanje na vezu D-Bus sesije: %s"
+
+#: ../tumblerd/main.c:363
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Neuspjelo učitavanje specijaliziranih servisa sličica u registar: %s"
+
+#: ../tumblerd/main.c:375
+#, c-format
+msgid "Failed to start the thumbnail cache service: %s"
+msgstr "Neuspjelo pokretanje servisa za predmemoriranje sličica: %s"
+
+#: ../tumblerd/main.c:385
+#, c-format
+msgid "Failed to start the thumbnailer manager: %s"
+msgstr "Neuspjelo pokretanje upravitelja servisima sličica: %s"
+
+#: ../tumblerd/main.c:395
+#, c-format
+msgid "Failed to start the thumbnailer service: %s"
+msgstr "Neuspjelo pokretanje servisa sličica: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Neispravni format"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "RGB područje boja"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Dodatku za predmemoriranje \"%s\" nedostaju potrebni simboli"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Neuspjelo učitavanje dodatka za predmemoriranje \"%s\": %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Datoteka \"%s\" je i sama sličica"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Dodatku \"%s\" nedostaju potrebni simboli"
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "Neuspjelo učitavanje priključka \"%s\": %s"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Nepodudarnost verzija: %s"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Neuspjelo učitavanje postera \"%s\""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Neuspjelo učitavanje metapodataka iz \"%s\""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Neispravan API ključ, morate generirati ispravan ključ. MovieDB backend će biti onemogućen."
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr "Nije pronađen ključ postera u metapodacima"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr "Naziv filma je prekratak"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Neuspjela inicijalizacija freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Ne mogu učitati sadržaj datoteke: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Neuspjelo otvaranje font datoteke: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Neuspjelo postavljanje mape znakova: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Neuspjelo prikazivanje glyphsa: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Sličica nije mogla biti izvedena iz sadržaja datoteke"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+msgid "The document is empty"
+msgstr "Dokument je prazan"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
+msgid "First page of the document could not be read"
+msgstr "Prva stranica dokumenta se ne može pročitati"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Podržane su samo lokalne datoteke"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Neuspjelo spremanje sličice u \"%s\""
