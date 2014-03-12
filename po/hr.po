@@ -4,14 +4,14 @@
 # 
 # Translators:
 # schizo <eveskovic@gmail.com>, 2014
-# Ivica  Kolić <ikoli@yahoo.com>, 2013
+# Ivica  Kolić <ikoli@yahoo.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2014-03-02 11:14+0000\n"
-"Last-Translator: schizo <eveskovic@gmail.com>\n"
+"PO-Revision-Date: 2014-03-12 17:55+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/projects/p/xfce/language/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +37,7 @@ msgstr "Servis sličica se gasi"
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Drugi generični servis sličica je već pokrenut"
+msgstr "Drugi generički servis sličica je već pokrenut"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -135,12 +135,12 @@ msgstr "RGB područje boja"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Dodatku za predmemoriranje \"%s\" nedostaju potrebni simboli"
+msgstr "Priključku za predmemoriranje \"%s\" nedostaju potrebni simboli"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Neuspjelo učitavanje dodatka za predmemoriranje \"%s\": %s"
+msgstr "Neuspjelo učitavanje priključka za predmemoriranje \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
