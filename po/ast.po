@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2014-04-09 10:28+0000\n"
+"PO-Revision-Date: 2014-04-12 14:06+0000\n"
 "Last-Translator: Tornes Llume <l.lumex03.tornes@gmail.com>\n"
 "Language-Team: Asturian (http://www.transifex.com/projects/p/xfce/language/ast/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Nun hai miniatures disponibles pa \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr ""
+msgstr "El serviciu de miniatures ta apagándose"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -237,17 +237,17 @@ msgstr ""
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
-msgstr ""
+msgstr "El documentu ta baleru"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
-msgstr ""
+msgstr "La primer páxina del documentu nun pue lleese"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr ""
+msgstr "Namái tan sofitaos ficheros llocales"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Nun puede guardase miniatura en \"%s\""
+msgstr "Nun pudo atroxase la miniatura en \"%s\""
