@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# haarek <haarektrans@gmail.com>, 2014
 # Terje Uriansrud <terje@uriansrud.net>, 2010
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-19 12:27+0000\n"
-"Last-Translator: Nick <nick@xfce.org>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/xfce/language/nb/)\n"
+"PO-Revision-Date: 2014-04-26 18:31+0000\n"
+"Last-Translator: haarek <haarektrans@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/tumbler/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,11 +28,11 @@ msgstr "En annen tjeneste for hurtiglager av miniatyrer kjører allerede"
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Ingen miniatyrtjeneste tilgjengelig for \"%s\""
+msgstr "Ingen miniatyrbildetjeneste tilgjengelig for «%s»"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr ""
+msgstr "Miniatyrbildetjenesten slås av"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -54,36 +55,36 @@ msgstr "Kunne ikke kalle spesialisert miniatyr: %s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Klarte ikke lese filen \"%s\": %s"
+msgstr "Klarte ikke lese filen «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Uglydig seksjon \"%s\" i fil \"%s\": %s"
+msgstr "Ugyldig seksjon «%s» i fil «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Ugyldig seksjon \"%s\" i fil\"%s\": Misforhold mellom seksjonsnavn og Uri-skjema/Mime-type"
+msgstr "Ugyldig seksjon «%s» i fil «%s»: Misforhold mellom seksjonsnavn og Uri-skjema/Mime-type"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Ugyldig fil \"%s\": %s"
+msgstr "Ugyldig fil «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Klarte ikke finne sist modifisert tidspunkt for \"%s\""
+msgstr "Klarte ikke fastslå siste endringstidspunkt for «%s»"
 
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "En annen miniatyrbehandler kjører allerede"
+msgstr "En annen miniatyrbildebehandler kjører allerede"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
@@ -92,7 +93,7 @@ msgstr ""
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
-msgstr "Tumbler Thumbnailing tjeneste"
+msgstr "Tumbler miniatyrbildetjeneste"
 
 #: ../tumblerd/main.c:280
 #, c-format
@@ -178,7 +179,7 @@ msgstr ""
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr ""
+msgstr "Klarte ikke å laste inn metadatene fra «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
@@ -192,7 +193,7 @@ msgstr ""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
-msgstr ""
+msgstr "Filmtittelen er for kort"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -245,7 +246,7 @@ msgstr "Første side av dokumentet kunne ikke leses"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr ""
+msgstr "Kun lokale filer støttes"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
