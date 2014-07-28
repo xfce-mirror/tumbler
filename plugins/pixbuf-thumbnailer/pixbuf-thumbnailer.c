@@ -149,6 +149,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   guchar           buffer[65536];
 
   g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
   /* prepare the loader */
   loader = gdk_pixbuf_loader_new ();
@@ -164,7 +165,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       if (n_read < 0)
         {
           result = FALSE;
-          error = NULL;
+          error = NULL; /* ignore further errors in this function */
           break;
         }
 
@@ -174,7 +175,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       if (!gdk_pixbuf_loader_write (loader, buffer, n_read, error))
         {
           result = FALSE;
-          error = NULL;
+          error = NULL; /* ignore further errors in this function */
           break;
         }
     }
@@ -182,7 +183,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   if (!gdk_pixbuf_loader_close (loader, error))
     {
       result = FALSE;
-      error = NULL;
+      error = NULL; /* ignore further errors in this function */
     }
 
   if (result)
