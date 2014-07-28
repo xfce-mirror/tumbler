@@ -164,8 +164,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       if (n_read < 0)
         {
           result = FALSE;
-          if (error != NULL)
-            *error = NULL;
+          error = NULL;
           break;
         }
 
@@ -175,8 +174,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       if (!gdk_pixbuf_loader_write (loader, buffer, n_read, error))
         {
           result = FALSE;
-          if (error != NULL)
-            *error = NULL;
+          error = NULL;
           break;
         }
     }
@@ -184,8 +182,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   if (!gdk_pixbuf_loader_close (loader, error))
     {
       result = FALSE;
-      if (error != NULL)
-        *error = NULL;
+      error = NULL;
     }
 
   if (result)
