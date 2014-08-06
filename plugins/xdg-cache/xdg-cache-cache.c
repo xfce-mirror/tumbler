@@ -507,7 +507,7 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
                               const gchar  *uri)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  const gchar   *home;
+  const gchar   *cachedir;
   const gchar   *dirname;
   gboolean       is_thumbnail = FALSE;
   GList         *iter;
@@ -520,9 +520,9 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
 
   for (iter = xdg_cache->flavors; !is_thumbnail && iter != NULL; iter = iter->next)
     {
-      home = xdg_cache_cache_get_home ();
+      cachedir = g_get_user_cache_dir ();
       dirname = tumbler_thumbnail_flavor_get_name (iter->data);
-      path = g_build_filename (home, ".thumbnails", dirname, NULL);
+      path = g_build_filename (cachedir, "thumbnails", dirname, NULL);
 
       flavor_dir = g_file_new_for_path (path);
       file = g_file_new_for_uri (uri);
@@ -570,7 +570,7 @@ GFile *
 xdg_cache_cache_get_file (const gchar            *uri,
                           TumblerThumbnailFlavor *flavor)
 {
-  const gchar *home;
+  const gchar *cachedir;
   const gchar *dirname;
   GFile       *file;
   gchar       *filename;
@@ -580,12 +580,12 @@ xdg_cache_cache_get_file (const gchar            *uri,
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
-  home = xdg_cache_cache_get_home ();
+  cachedir = g_get_user_cache_dir ();
   dirname = tumbler_thumbnail_flavor_get_name (flavor);
 
   md5_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, uri, -1);
   filename = g_strdup_printf ("%s.png", md5_hash);
-  path = g_build_filename (home, ".thumbnails", dirname, filename, NULL);
+  path = g_build_filename (cachedir, "thumbnails", dirname, filename, NULL);
 
   file = g_file_new_for_path (path);
 
@@ -602,7 +602,7 @@ GFile *
 xdg_cache_cache_get_temp_file (const gchar            *uri,
                                TumblerThumbnailFlavor *flavor)
 {
-  const gchar *home;
+  const gchar *cachedir;
   const gchar *dirname;
   GTimeVal     current_time = { 0, 0 };
   GFile       *file;
@@ -613,7 +613,7 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
 
-  home = xdg_cache_cache_get_home ();
+  cachedir = g_get_user_cache_dir ();
   dirname = tumbler_thumbnail_flavor_get_name (flavor);
 
   g_get_current_time (&current_time);
@@ -621,7 +621,7 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
   md5_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, uri, -1);
   filename = g_strdup_printf ("%s-%ld-%ld.png", md5_hash,
                               current_time.tv_sec, current_time.tv_usec);
-  path = g_build_filename (home, ".thumbnails", dirname, filename, NULL);
+  path = g_build_filename (cachedir, "thumbnails", dirname, filename, NULL);
 
   file = g_file_new_for_path (path);
 
