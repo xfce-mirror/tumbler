@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2014-07-18 13:53+0000\n"
+"PO-Revision-Date: 2014-08-18 18:39+0000\n"
 "Last-Translator: Yannick Le Guen <leguen.yannick@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/tumbler/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Type de miniature demandé non pris en charge"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Impossible d'utiliser le générateur de miniatures spécialisé : arrêt"
+msgstr "Impossible d'utiliser le générateur de miniatures spécialisé : délai d’attente."
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
@@ -130,7 +130,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "Espace de couleur RGB"
+msgstr "Espace de couleur RVB"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
@@ -185,11 +185,11 @@ msgstr "Impossible de charger les métadonnées depuis « %s »"
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Clé API invalide , vous devez spécifier une clé valide. Le moteur de la base de données film sera désactivée."
+msgstr "Clé API invalide, vous devez spécifier une clé valide. Le moteur de la base de données « The Movie DB » sera désactivé."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr "Aucune clé poster trouvée dans les méta-données"
+msgstr "Aucune affiche trouvée dans les métadonnées."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
