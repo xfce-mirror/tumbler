@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2014-09-22 16:53+0000\n"
+"PO-Revision-Date: 2014-11-15 12:28+0000\n"
 "Last-Translator: Ḷḷumex03 <tornes@opmbx.org>\n"
 "Language-Team: Asturian (http://www.transifex.com/projects/p/tumbler/language/ast/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "Ta executándose otru serviciu caché de miniatures"
+msgstr "Yá ta executándose otru serviciu caché de miniatures"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -38,7 +38,7 @@ msgstr "El serviciu de miniatures ta apagándose"
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Ta executándose otru xestor de miniatures xenéricu"
+msgstr "Yá ta executándose otru xestor de miniatures xenéricu"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -85,7 +85,7 @@ msgstr ""
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Ta executándose otru xestor de miniatures"
+msgstr "Yá ta executándose otru xestor de miniatures"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
@@ -136,7 +136,7 @@ msgstr "Espaciu de color RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
+msgstr "El complementu caché \"%s\" falten-y los simbolos riquíos"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
@@ -194,7 +194,7 @@ msgstr ""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
-msgstr ""
+msgstr "El títulu de la película ye percurtiu"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
