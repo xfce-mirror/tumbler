@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Pablo Lezaeta <prflr88@gmail.com>, 2013
+# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-10-30 03:51+0000\n"
-"Last-Translator: Pablo Lezaeta <prflr88@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/xfce/language/es/)\n"
+"PO-Revision-Date: 2014-12-25 19:20+0000\n"
+"Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/tumbler/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -67,7 +67,7 @@ msgstr "Sección «%s» mal formada en el archivo «%s»: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Sección mal formada «%s» en el archivo «%s»: el nombre de la sección y UriScheme/MimeType no coinciden"
+msgstr "Sección mal formada «%s» en el archivo «%s»: el nombre de la sección y EsquemaURI/TipoMime no coinciden"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
@@ -78,7 +78,7 @@ msgstr "Archivo «%s» mal formado: %s"
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Falló al determinar la fecha de modificación de «%s»"
+msgstr "No se pudo determinar la fecha de modificación de «%s»"
 
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
@@ -97,27 +97,27 @@ msgstr "Servicio de miniaturización Tumbler"
 #: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Falló al conectar el bus de sesiones D-Bus: %s"
+msgstr "No se pudo conectar el bus de sesiones D-Bus: %s"
 
 #: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Falló al cargar previsualizadores especializados dentro del registro: %s"
+msgstr "No se pudo cargar previsualizadores especializados dentro del registro: %s"
 
 #: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Falló al iniciar el servicio de caché de miniaturas: %s"
+msgstr "No se pudo iniciar el servicio de caché de miniaturas: %s"
 
 #: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Falló al iniciar el gestor de miniaturización: %s"
+msgstr "No se pudo iniciar el gestor de miniaturas: %s"
 
 #: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "Falló al iniciar el servicio de miniaturización: %s"
+msgstr "No se pudo iniciar el servicio de miniaturas: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -125,7 +125,7 @@ msgstr "Formato no válido"
 
 #: ../tumbler/tumbler-enum-types.c:50
 msgid "PNG"
-msgstr "PNG"
+msgstr ".PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
@@ -173,18 +173,18 @@ msgstr "Las versiones no coinciden: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Falló al cargar la imagen del publicador «%s»"
+msgstr "No se pudo cargar la imagen del publicador «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Falló al cargar los metadatos de «%s»"
+msgstr "No se pudo cargar los metadatos de «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Clave API no válida, debe otorgársele una clave válida. Se desactivará el motor \"The Movie DB\"."
+msgstr "Clave API no válida, debe otorgársele una clave válida. Se desactivará el motor The Movie DB."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
