@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2013-2014
+# Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2014-12-25 19:20+0000\n"
+"PO-Revision-Date: 2015-02-19 16:02+0000\n"
 "Last-Translator: Pablo Roberto Francisco Lezaeta Reyes <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/tumbler/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "Ya se está ejecutando otro servicio de caché de miniaturas"
+msgstr "Ya se está ejecutando otro servicio de la caché de miniaturas"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -107,7 +107,7 @@ msgstr "No se pudo cargar previsualizadores especializados dentro del registro: 
 #: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "No se pudo iniciar el servicio de caché de miniaturas: %s"
+msgstr "No se pudo iniciar el servicio de la caché de miniaturas: %s"
 
 #: ../tumblerd/main.c:385
 #, c-format
@@ -134,12 +134,12 @@ msgstr "Espacio de color RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "El complemento de caché «%s» carece de los símbolos necesarios"
+msgstr "El complemento de la caché «%s» carece de los símbolos necesarios"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Falló al cargar el complemento de caché «%s»: %s"
+msgstr "Falló al cargar el complemento de la caché «%s»: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
