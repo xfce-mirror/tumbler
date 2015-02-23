@@ -1,6 +1,7 @@
 # vi:set et ai sw=2 sts=2 ts=2: */
 # -
 # Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
+# Copyright (c) 2015 The Xfce Development Team
 # 
 # This program is free software; you can redistribute it and/or 
 # modify it under the terms of the GNU General Public License as
@@ -32,13 +33,13 @@ dnl *** Initialize autoconf ***
 dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
 AC_INIT([tumbler], [tumbler_version], [http://bugzilla.xfce.org/])
-AC_PREREQ([2.50])
+AC_PREREQ([2.60])
 AC_CANONICAL_TARGET()
 
 dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
-AM_INIT_AUTOMAKE([1.8 dist-bzip2 tar-ustar no-dist-gzip])
+AM_INIT_AUTOMAKE([1.11 dist-bzip2 tar-ustar no-dist-gzip])
 AC_CONFIG_MACRO_DIR([m4])
 AC_SUBST([ACLOCAL_AMFLAGS], ["$ACLOCAL_FLAGS -I m4"])
 AC_CONFIG_HEADERS([config.h])
@@ -99,7 +100,7 @@ IT_PROG_INTLTOOL([0.35.0], [no-xml])
 dnl ***********************
 dnl *** Prepare libtool ***
 dnl ***********************
-LT_PREREQ([2.2.6])
+LT_PREREQ([2.4])
 LT_INIT([disable-static])
 
 dnl ***************************************
