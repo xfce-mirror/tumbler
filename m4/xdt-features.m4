@@ -1,6 +1,4 @@
-dnl $Id$
-dnl
-dnl Copyright (c) 2002-2006
+dnl Copyright (c) 2002-2015
 dnl         The Xfce development team. All rights reserved.
 dnl
 dnl Written for Xfce by Benedikt Meurer <benny@xfce.org>.
@@ -28,7 +26,7 @@ dnl
 
 
 dnl We need recent a autoconf version
-AC_PREREQ([2.53])
+AC_PREREQ([2.60])
 
 
 dnl XDT_SUPPORTED_FLAGS(VAR, FLAGS)
@@ -76,9 +74,9 @@ AC_HELP_STRING([--disable-debug], [Include no debugging support]),
                               -Wdeclaration-after-statement \
                               -Wmissing-declarations \
                               -Wmissing-noreturn -Wshadow -Wpointer-arith \
-                              -Wcast-align -Wformat-security \
+                              -Wcast-align -Wformat -Wformat-security -Wformat-y2k \
                               -Winit-self -Wmissing-include-dirs -Wundef \
-                              -Wmissing-format-attribute -Wnested-externs"
+                              -Wnested-externs"
     CPPFLAGS="$CPPFLAGS"
 
     if test x`uname` = x"Linux"; then
