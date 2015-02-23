@@ -19,6 +19,8 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
+test -d m4 || mkdir m4
+
 which xdt-autogen
 if test x"$?" = x"0"; then
   echo "Building using the Xfce development environment"

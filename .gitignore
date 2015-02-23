@@ -58,3 +58,4 @@ version.xml
 tmpl
 *.stamp
 html
+m4/*
