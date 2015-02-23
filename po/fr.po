@@ -4,13 +4,13 @@
 # 
 # Translators:
 # jc1 <jc1.quebecos@gmail.com>, 2013
-# Yannick Le Guen <leguen.yannick@gmail.com>, 2014
+# Yannick Le Guen <leguen.yannick@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2014-08-18 18:39+0000\n"
+"PO-Revision-Date: 2015-02-23 18:45+0000\n"
 "Last-Translator: Yannick Le Guen <leguen.yannick@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/tumbler/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Type de miniature demandé non pris en charge"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Impossible d'utiliser le générateur de miniatures spécialisé : délai d’attente."
+msgstr "Impossible d’utiliser le générateur de miniatures spécialisé : délai d’attente expiré."
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
@@ -189,7 +189,7 @@ msgstr "Clé API invalide, vous devez spécifier une clé valide. Le moteur de l
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr "Aucune affiche trouvée dans les métadonnées."
+msgstr "Aucune clé d’affiche trouvée dans les métadonnées."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
@@ -217,7 +217,7 @@ msgstr "Impossible d'ouvrir le fichier de la police de caractères : %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Impossible de définir le jeux de caractères : %s"
+msgstr "Impossible de définir le jeu de caractères : %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
