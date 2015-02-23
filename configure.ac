@@ -94,7 +94,7 @@ AM_PROG_AS()
 AC_PROG_CC()
 AM_PROG_CC_C_O()
 AC_PROG_INSTALL()
-AC_PROG_INTLTOOL([0.31], [no-xml])
+IT_PROG_INTLTOOL([0.35.0], [no-xml])
 
 dnl ***********************
 dnl *** Prepare libtool ***
