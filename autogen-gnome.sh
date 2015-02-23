@@ -19,7 +19,7 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-export ACLOCAL_FLAGS="-I `pwd`/m4 $ACLOCAL_FLAGS"
+export ACLOCAL_FLAGS="-I `pwd`/m4macros $ACLOCAL_FLAGS"
 
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
