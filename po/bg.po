@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Lyubomir Vasilev, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-19 12:27+0000\n"
-"Last-Translator: Nick <nick@xfce.org>\n"
-"Language-Team: Bulgarian (http://www.transifex.com/projects/p/xfce/language/bg/)\n"
+"PO-Revision-Date: 2015-02-23 06:55+0000\n"
+"Last-Translator: Lyubomir Vasilev\n"
+"Language-Team: Bulgarian (http://www.transifex.com/projects/p/tumbler/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +27,7 @@ msgstr "Работи друга услуга за кеширане на умал
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Няма услуга за умалени изображения за \"%s\" "
+msgstr "Няма услуга за умалени изображения за „%s“ "
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
@@ -53,31 +54,31 @@ msgstr "Не мога да се свържа със специалната ус�
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Не може да се зареди файла \"%s\": %s"
+msgstr "Не може да се зареди файла „%s“: %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Деформирана секция \"%s\" във файла \"%s\": %s"
+msgstr "Деформирана секция „%s“ във файла „%s“: %s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Деформирана секция \"%s\" във файла \"%s\":  Несъответствие между името на секцията и UriScheme/Mime типа"
+msgstr "Деформирана секция „%s“ във файла „%s“:  Несъответствие между името на секцията и UriScheme/Mime типа"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Деформиран файл \"%s\": %s"
+msgstr "Деформиран файл „%s“: %s"
 
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Не може да се определи времето на последната промяна на \"%s\""
+msgstr "Не може да се определи времето на последната промяна на „%s“"
 
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
@@ -133,27 +134,27 @@ msgstr "RGB гама"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Липсват необходимите символи за \"%s\" кеширащ плъгин"
+msgstr "Кеширащата добавка „%s“ няма необходимите символи"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Не може да се зареди кеширащ плъгин \"%s\": %s"
+msgstr "Не може да се зареди кеширащата добавка „%s“: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Файлът \"%s\" е умалено изображение"
+msgstr "Файлът „%s“ е умалено изображение"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Липсват необходимите символи за \"%s\" плъгин."
+msgstr "Добавката „%s“ няма необходимите символи."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Не може да се зареди плъгин \"%s\": %s"
+msgstr "Не може да се зареди добавката „%s“: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -172,12 +173,12 @@ msgstr "Несъвместимост на версиите: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Не може да се зареди изображението \"%s\""
+msgstr "Не може да се зареди изображението „%s“"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Не могат да се заредят метаданните от \"%s\""
+msgstr "Не могат да се заредят метаданните от „%s“"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
@@ -249,4 +250,4 @@ msgstr "Поддържат се само локални файлове"
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Не може да се запази умаленото изображение в \"%s\""
+msgstr "Умаленото изображение не може да се запази в „%s“"
