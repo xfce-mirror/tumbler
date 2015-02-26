@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Tomáš Vadina <tomasvadina+transifex@myopera.com>, 2011
+# Slavko <linux@slavino.sk>, 2015
+# Tomáš Vadina <tomasvadina+transifex@cryptolab.net>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-19 12:27+0000\n"
-"Last-Translator: Nick <nick@xfce.org>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/xfce/language/sk/)\n"
+"PO-Revision-Date: 2015-02-26 10:39+0000\n"
+"Last-Translator: Slavko <linux@slavino.sk>\n"
+"Language-Team: Slovak (http://www.transifex.com/projects/p/tumbler/language/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,7 +88,7 @@ msgstr "Už je spustený iný správca nástroja pre vytváranie náhľadov"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
-msgstr ""
+msgstr "Nemožno zmeniť hodnotu „nice” procesu."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:258
@@ -173,26 +174,26 @@ msgstr "Verzie sa nezhodujú: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr ""
+msgstr "Zlyhalo načítanie obrázku posteru „%s”"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr ""
+msgstr "Zlyhalo načítanie metadát „%s”"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
+msgstr "Neplatný kľúč API, musíte sa autentifkovať platným kľúčom. Backend Movie DB bude vypnutý."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr ""
+msgstr "nenájdený kľúč poster v metadátach"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
-msgstr ""
+msgstr "Titulok filmu je príliš krátky"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
