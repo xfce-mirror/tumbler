@@ -1,3 +1,15 @@
+0.1.31
+======
+- Use $XDG_CACHE_HOME/thumbnails as per spec change (bug #10613)
+- Move xdt m4 macros into separate directory
+- Update xdt m4 macros
+- Bump autotools requirements
+- Fix IT_PROG_INTLTOOL warning
+- Fix all m4 warnings
+- Enable support for video/webm in ffmpeg thumbnailer plugin (bug #10360)
+- Translation updates: Asturian, Bulgarian, Croatian, French, German,
+  Greek, Norwegian Bokmål, Polish, Romanian, Slovak, Spanish
+
 0.1.30
 ======
 - Only enable keepalive in curl >= 7.25.
