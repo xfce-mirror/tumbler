@@ -60,7 +60,6 @@ static void              xdg_cache_cache_move               (TumblerCache       
 static gboolean          xdg_cache_cache_is_thumbnail       (TumblerCache           *cache,
                                                              const gchar            *uri);
 static GList            *xdg_cache_cache_get_flavors        (TumblerCache           *cache);
-static const gchar      *xdg_cache_cache_get_home           (void);
 
 
 
@@ -554,14 +553,6 @@ xdg_cache_cache_get_flavors (TumblerCache *cache)
     flavors = g_list_prepend (flavors, g_object_ref (iter->data));
 
   return flavors;
-}
-
-
-
-static const gchar *
-xdg_cache_cache_get_home (void)
-{
-  return g_getenv ("HOME") != NULL ? g_getenv ("HOME") : g_get_home_dir ();
 }
 
 
