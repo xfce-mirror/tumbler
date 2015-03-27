@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2015-03-16 11:57+0000\n"
+"PO-Revision-Date: 2015-03-27 12:44+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/tumbler/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +174,7 @@ msgstr "Versijos nesutampa: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr ""
+msgstr "Nepavyko įkelti plakato paveikslo \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
@@ -185,15 +185,15 @@ msgstr "Nepavyko įkelti meta duomenų iš \"%s\""
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
+msgstr "Neteisingas API raktas, jums privalo būti suteiktas teisingas raktas. Filmų DB vidinė pusė bus išjungta."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr ""
+msgstr "Meta duomenyse nerastas plakato raktas"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
-msgstr ""
+msgstr "Filmo pavadinimas yra pernelyg trumpas"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
