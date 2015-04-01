@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2015-03-27 12:44+0000\n"
+"PO-Revision-Date: 2015-04-01 12:36+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/tumbler/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgstr "Kita miniatiūrų kūrimo kopija jau veikia"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
-msgstr ""
+msgstr "Nepavyko pakeisti proceso nice reikšmės."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:258
