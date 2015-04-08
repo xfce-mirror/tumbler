@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2015-04-01 12:36+0000\n"
+"PO-Revision-Date: 2015-04-08 21:43+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/projects/p/tumbler/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Nepavyko paleisti miniatiūrų kūrimo programos podėlio tarnybos: %s"
 #: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Nepavyko paleisti miniatiūrų kūrimo tvarkyklės: %s"
+msgstr "Nepavyko paleisti miniatiūrų kūrimo tvarkytuvės: %s"
 
 #: ../tumblerd/main.c:395
 #, c-format
