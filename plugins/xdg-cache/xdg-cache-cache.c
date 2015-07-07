@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <glib/gprintf.h>
 #include <glib-object.h>
@@ -657,6 +658,9 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
 
 
 
+/* Will return %TRUE if the thumbnail was loaded successfully, or did not exist.
+ * Check whether @uri is non-%NULL and @mtime is a valid time to determine
+ * between the two. Will return %FALSE and set @error if the PNG was corrupt. */
 gboolean
 xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
                                      gchar       **uri,
@@ -705,6 +709,10 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
 
                   /* close the PNG file handle */
                   fclose (png);
+
+                  /* set an error */
+                  g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
+                               _("Corrupt thumbnail PNG: '%s'"), filename);
 
                   return FALSE;
                 }
