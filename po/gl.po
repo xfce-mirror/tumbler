@@ -5,14 +5,15 @@
 # Translators:
 # Leandro Regueiro <leandro DOT regueiro AT gmail DOT com>, 2009
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2013
+# Xosé <xosecalvo@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-19 12:27+0000\n"
-"Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
-"Language-Team: Galician (http://www.transifex.com/projects/p/xfce/language/gl/)\n"
+"PO-Revision-Date: 2015-09-18 20:34+0000\n"
+"Last-Translator: Xosé <xosecalvo@gmail.com>\n"
+"Language-Team: Galician (http://www.transifex.com/xfce/tumbler/language/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +29,7 @@ msgstr "Xa se está executando outro servizo de caché de miniaturas"
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Non hai ningún miniaturizador dispoñible para \"%s\""
+msgstr "Non hai ningún miniaturizador dispoñíbel para «%s»"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
@@ -55,36 +56,36 @@ msgstr "Produciuse un erro ao chamar ao miniaturizador especializado: %s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Produciuse un erro ao cargar o ficheiro \"%s\": %s"
+msgstr "Produciuse un erro ao cargar o ficheiro «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Sección malformada \"%s\" no ficheiro \"%s\": %s"
+msgstr "Sección malformada «%s» no ficheiro «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:548
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Sección malformada \"%s\" no ficheiro \"%s\": O nome da sección e UriScheme/MimeType non coinciden"
+msgstr "Sección mal escrita «%s» no ficheiro «%s»: O nome da sección e UriScheme/MimeType non coinciden"
 
 #: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
 #: ../tumblerd/tumbler-manager.c:936
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Ficheiro malformado \"%s\": %s"
+msgstr "Ficheiro «%s» mal escrito: %s"
 
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Produciuse un erro ao determinar a hora da última modificación de \"%s\""
+msgstr "Produciuse un erro ao determinar a hora da última modificación de «%s»"
 
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
 msgid "Another thumbnailer manager is already running"
-msgstr "Xa está executando outro xestor de miniaturas"
+msgstr "Xa se está executando outro xestor de miniaturas"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
@@ -98,7 +99,7 @@ msgstr "Servizo de miniaturas Tumbler"
 #: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Produciuse un erro ó conectar co bus de sesión de D-BUS: %s"
+msgstr "Produciuse un erro ao conectar co bus de sesión de D-BUS: %s"
 
 #: ../tumblerd/main.c:363
 #, c-format
@@ -135,27 +136,27 @@ msgstr "Espazo de cores RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "O engadido de caché \"%s\" carece dos símbolos requiridos."
+msgstr "O engadido de caché «%s» carece dos símbolos requiridos."
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Produciuse un erro ao cargar o engadido de caché \"%s\": %s"
+msgstr "Produciuse un erro ao cargar o engadido de caché «%s»: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "O ficheiro \"%s\" xa é unha miniatura"
+msgstr "O ficheiro «%s» xa é unha miniatura"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "O engadido \"%s\" carece dos símbolos requiridos."
+msgstr "O engadido «%s» carece dos símbolos requiridos."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Fallo ao cargar o engadido \"%s\": %s"
+msgstr "Fallo ao cargar o engadido «%s»: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -174,22 +175,22 @@ msgstr "As versións non coinciden: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr ""
+msgstr "Produciuse un erro ao cargar a imaxe de póster «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Produciuse un erro ao cargar os metadatos desdes  «%s»"
+msgstr "Produciuse un erro ao cargar os metadatos desde «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
+msgstr "A chave da API é incorrecta; ten que contar cunha chave válida. Vaise desactivar a infraestrutura de Movie DB."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr ""
+msgstr "Non se atopou chave de póster nos metadatos"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
@@ -199,31 +200,31 @@ msgstr "O título da película é demasiado curto"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr "Non se puido iniciar freetype: %s"
+msgstr "Non foi posíbel iniciar freetype: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "Non foi posible cargar o ficheiro: %s"
+msgstr "Non foi posíbel cargar o ficheiro: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Non se puido cargar o ficheiro de tipo de letra: %s"
+msgstr "Non foi posíbel cargar o ficheiro de tipo de letra: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Non se puido definir o mapa de caracteres: %s"
+msgstr "Non foi posíbel definir o mapa de caracteres: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Non foi posible debuxar os glifos: %s"
+msgstr "Non foi posíbel debuxar os glifos: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
@@ -234,7 +235,7 @@ msgstr "Non foi posible debuxar os glifos: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "Non se puido obter a miniatura a partir do contido do ficheiro"
+msgstr "Non foi posíbel obter a miniatura a partir do contido do ficheiro"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
@@ -242,7 +243,7 @@ msgstr "O documento está baleiro"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
-msgstr "Non foi posible ler a primeira páxina do documento"
+msgstr "Non foi posíbel ler a primeira páxina do documento"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
@@ -251,4 +252,4 @@ msgstr "Só se admiten ficheiros locais"
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Non se puido gardar a miniatura en \"%s\""
+msgstr "Non foi posíbel gardar a miniatura en «%s»"
