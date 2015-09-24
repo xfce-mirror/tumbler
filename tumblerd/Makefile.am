@@ -94,6 +94,11 @@ service_in_files = 							\
 
 service_DATA = $(service_in_files:.service.in=.service)
 
+systemd_userdir = $(prefix)/lib/systemd/user
+systemd_user_in_files = tumblerd.service.in
+
+systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
+
 %.service: %.service.in
 	sed -e "s,\@libdir\@,$(libdir),g"				\
 	    -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" < $< > $@
@@ -103,9 +108,11 @@ conf_DATA = \
 	tumbler.rc
 
 CLEANFILES =								\
+	$(systemd_user_DATA)						\
 	$(service_DATA)
 
 EXTRA_DIST =								\
+	$(systemd_user_in_files)					\
 	$(service_in_files)						\
 	tumbler.rc							\
 	tumbler-cache-service-dbus.xml					\

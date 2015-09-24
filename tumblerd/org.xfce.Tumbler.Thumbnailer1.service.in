@@ -1,3 +1,4 @@
 [D-BUS Service]
 Name=org.freedesktop.thumbnails.Thumbnailer1
 Exec=@libdir@/tumbler-@TUMBLER_VERSION_API@/tumblerd
+SystemdService=tumblerd.service
