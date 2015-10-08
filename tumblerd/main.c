@@ -214,7 +214,17 @@ locations_from_strv (gchar **array)
   return locations;
 }
 
+static void
+on_dbus_name_lost (GDBusConnection *connection,
+		   const gchar     *name,
+		   gpointer         user_data)
+{
+  GMainLoop *main_loop;
 
+  g_critical (_("Name %s lost on the message dbus, exiting."),name);
+  main_loop = (GMainLoop*)user_data;
+  g_main_loop_quit(main_loop);
+}
 
 int
 main (int    argc,
@@ -222,6 +232,7 @@ main (int    argc,
 {
   TumblerLifecycleManager *lifecycle_manager;
   TumblerProviderFactory  *provider_factory;
+  GDBusConnection         *gconnection;
   DBusGConnection         *connection;
   TumblerRegistry         *registry;
   TumblerManager          *manager;
@@ -283,6 +294,16 @@ main (int    argc,
       return EXIT_FAILURE;
     }
 
+  gconnection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+  
+  if (error != NULL)
+    {
+      g_critical ("error getting session bus: %s", error->message);
+      g_error_free (error);
+      
+      return  EXIT_FAILURE;
+    }
+  
   /* create the lifecycle manager */
   lifecycle_manager = tumbler_lifecycle_manager_new ();
 
@@ -352,7 +373,7 @@ main (int    argc,
   cache_service = tumbler_cache_service_new (connection, lifecycle_manager);
 
   /* create the thumbnailer manager service */
-  manager = tumbler_manager_new (connection, lifecycle_manager, registry);
+  manager = tumbler_manager_new (gconnection, lifecycle_manager, registry);
 
   /* create the generic thumbnailer service */
   service = tumbler_service_new (connection, lifecycle_manager, registry);
@@ -378,17 +399,17 @@ main (int    argc,
       /* service already running, exit gracefully to not break clients */
       goto exit_tumbler;
     }
+  
+  /* Acquire the manager dbus name */
+  g_bus_own_name_on_connection (gconnection,
+				"org.freedesktop.thumbnails.Manager1",
+				G_BUS_NAME_OWNER_FLAGS_REPLACE,
+				NULL, /* We dont need to do anything on name acquired*/
+				on_dbus_name_lost,
+				main_loop,
+				NULL);
 
-  /* try to start the service and exit if that fails */
-  if (!tumbler_manager_start (manager, &error))
-    {
-      g_warning (_("Failed to start the thumbnailer manager: %s"), error->message);
-      g_error_free (error);
-
-      /* service already running, exit gracefully to not break clients */
-      goto exit_tumbler;
-    }
-
+  
   /* try to start the service and exit if that fails */
   if (!tumbler_service_start (service, &error))
     {
@@ -423,6 +444,9 @@ main (int    argc,
 
   /* disconnect from the D-Bus session bus */
   dbus_g_connection_unref (connection);
+
+  /* free the dbus session bus connection */
+  g_object_unref (gconnection);
 
   /* we're done, all fine */
   return retval;

@@ -140,10 +140,22 @@ if test x"$DBUS_BINDING_TOOL" = x"no"; then
 fi
 
 dnl ***********************************
+dnl *** Check for gdbus-codegen ***
+dnl ***********************************
+AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
+AC_PATH_PROG([GDBUS_CODEGEN], [gdbus-codegen], [no])
+if test x"$GDBUS_CODEGEN" = x"no"; then
+  AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
+  ./configure GDBUS_CODEGEN=/path/to/gdbus-codegen to define 
+  a custom location for it.])
+fi
+
+dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.0])
 PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.16.0])
+PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.16.0])
 PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.10.0])
 PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.16.0])
 PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.0.0])
