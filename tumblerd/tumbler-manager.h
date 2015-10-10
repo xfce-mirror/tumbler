@@ -1,6 +1,7 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org> 
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -20,8 +21,6 @@
 
 #ifndef __TUMBLER_MANAGER_H__
 #define __TUMBLER_MANAGER_H__
-
-#include <dbus/dbus-glib.h>
 
 #include <tumblerd/tumbler-lifecycle-manager.h>
 #include <tumblerd/tumbler-registry.h>
@@ -43,6 +42,9 @@ GType           tumbler_manager_get_type      (void) G_GNUC_CONST;
 TumblerManager *tumbler_manager_new           (GDBusConnection         *connection,
                                                TumblerLifecycleManager *lifecycle_manager,
                                                TumblerRegistry         *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+void            tumbler_manager_load          (TumblerManager *manager);
+
+gboolean        tumbler_manager_is_exported   (TumblerManager *manager);
 
 G_END_DECLS;
 

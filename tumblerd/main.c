@@ -374,6 +374,9 @@ main (int    argc,
       goto exit_tumbler;
     }
 
+  /* create a new main loop */
+  main_loop = g_main_loop_new (NULL, FALSE);
+      
   
   /* Acquire the cache service dbus name */
   g_bus_own_name_on_connection (connection,
@@ -407,10 +410,10 @@ main (int    argc,
       tumbler_service_is_exported(service) &&
       tumbler_cache_service_is_exported(cache_service))
     {
-
-      /* create a new main loop */
-      main_loop = g_main_loop_new (NULL, FALSE);
-
+      /* Let the manager initializes the thumbnailer
+       * directory objects, directory monitors */
+      tumbler_manager_load (manager);
+        
       /* quit the main loop when the lifecycle manager asks us to shut down */
       g_signal_connect (lifecycle_manager, "shutdown", 
                         G_CALLBACK (shutdown_tumbler), main_loop);

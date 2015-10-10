@@ -61,8 +61,6 @@ tumblerd_CFLAGS =							\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\
 	-DG_LOG_DOMAIN=\"tumblerd\"					\
 	-I$(top_srcdir)							\
-	$(DBUS_CFLAGS)							\
-	$(DBUS_GLIB_CFLAGS)						\
 	$(GDK_PIXBUF_CFLAGS)						\
 	$(GIO_CFLAGS)							\
 	$(GIO_UNIX_CFLAGS)	 					\
@@ -79,8 +77,6 @@ tumblerd_DEPENDENCIES =							\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
 
 tumblerd_LDADD =							\
-	$(DBUS_LIBS)							\
-	$(DBUS_GLIB_LIBS)						\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GIO_UNIX_LIBS)                                                \

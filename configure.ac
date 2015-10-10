@@ -129,17 +129,6 @@ dnl *************************
 GTK_DOC_CHECK(1.9)
 
 dnl ***********************************
-dnl *** Check for dbus-binding-tool ***
-dnl ***********************************
-AC_ARG_VAR([DBUS_BINDING_TOOL], [Tool to generate C bindings from XML D-Bus interface definitions])
-AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool], [no])
-if test x"$DBUS_BINDING_TOOL" = x"no"; then
-  AC_MSG_ERROR([could not find dbus-binding-tool in \$PATH. You can run
-  ./configure DBUS_BINDING_TOOL=/path/to/dbus-binding-tool to define 
-  a custom location for it.])
-fi
-
-dnl ***********************************
 dnl *** Check for gdbus-codegen ***
 dnl ***********************************
 AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
@@ -153,13 +142,11 @@ fi
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.10.0])
-PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.0.0])
-PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.26.0])
 
 dnl *************************
 dnl *** Check for plugins ***

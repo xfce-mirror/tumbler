@@ -2,7 +2,7 @@
 <node name="/org/freedesktop/thumbnails/Manager1">
   <interface name="org.freedesktop.thumbnails.Manager1">
 	
-	<annotation name="org.gtk.GDBus.C.Name" value="ExportedManager" />
+    <annotation name="org.gtk.GDBus.C.Name" value="ExportedManager" />
     
     <method name="Register">
       <arg type="s" name="uri_scheme" direction="in" />

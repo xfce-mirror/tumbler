@@ -23,8 +23,6 @@
 
 #include <glib-object.h>
 
-#include <dbus/dbus-glib.h>
-
 #include <tumblerd/tumbler-lifecycle-manager.h>
 
 G_BEGIN_DECLS;

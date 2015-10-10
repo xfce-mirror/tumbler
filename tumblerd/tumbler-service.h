@@ -22,8 +22,6 @@
 #ifndef __TUMBLER_SERVICE_H__
 #define __TUMBLER_SERVICE_H__
 
-#include <dbus/dbus-glib.h>
-
 #include <tumblerd/tumbler-lifecycle-manager.h>
 #include <tumblerd/tumbler-registry.h>
 

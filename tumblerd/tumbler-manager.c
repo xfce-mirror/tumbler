@@ -37,10 +37,6 @@
 
 #include <gio/gio.h>
 
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
-
 #include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-manager.h>
 #include <tumblerd/tumbler-manager-gdbus.h>
@@ -74,10 +70,10 @@ static void             tumbler_manager_set_property      (GObject          *obj
                                                            const GValue     *value,
                                                            GParamSpec       *pspec);
 static gboolean         tumbler_manager_register_cb       (TumblerExportedManager *skeleton,
-							   GDBusMethodInvocation  *invocation,
-							   const gchar *const     *uri_schemes, 
-							   const gchar *const     *mime_types,
-							   TumblerManager         *manager);
+                                                           GDBusMethodInvocation  *invocation,
+                                                           const gchar *const     *uri_schemes, 
+                                                           const gchar *const     *mime_types,
+                                                           TumblerManager         *manager);
 static void             tumbler_manager_monitor_unref     (GFileMonitor     *monitor,
                                                            TumblerManager   *manager);
 static void             tumbler_manager_load_thumbnailers (TumblerManager   *manager,
@@ -110,9 +106,10 @@ struct _TumblerManagerClass
 struct _TumblerManager
 {
   TumblerComponent __parent__;
-  DBusGConnection        *legacy_connection;
   GDBusConnection        *connection;
   TumblerExportedManager *skeleton;
+  
+  gboolean                dbus_interface_exported;
   
   TumblerRegistry        *registry;
 
@@ -164,7 +161,7 @@ static void
 tumbler_manager_class_init (TumblerManagerClass *klass)
 {
   GObjectClass *gobject_class;
-
+  
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->constructed = tumbler_manager_constructed;
   gobject_class->finalize = tumbler_manager_finalize; 
@@ -173,11 +170,11 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
 
   g_object_class_install_property (gobject_class, PROP_CONNECTION,
                                    g_param_spec_object ("connection",
-							"connection",
-							"connection",
-							G_TYPE_DBUS_CONNECTION,
-							G_PARAM_READWRITE |
-							G_PARAM_CONSTRUCT_ONLY));
+							                                          "connection",
+							                                          "connection",
+							                                          G_TYPE_DBUS_CONNECTION,
+							                                          G_PARAM_READWRITE |
+							                                          G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_install_property (gobject_class, PROP_REGISTRY,
                                    g_param_spec_object ("registry",
@@ -218,22 +215,25 @@ tumbler_manager_constructed (GObject *object)
   
   manager = TUMBLER_MANAGER (object);
 
-  /* FIXME: dbus-glib legacy, to be removed shortly  */
-  manager->legacy_connection = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
-  
   manager->skeleton = tumbler_exported_manager_skeleton_new ();
 
   g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(manager->skeleton),
-				    manager->connection,
-				    "/org/freedesktop/thumbnails/Manager1",
-				    &error);
+				                            manager->connection,
+				                            "/org/freedesktop/thumbnails/Manager1",
+				                            &error);
+	
   if (error != NULL)
     {
       g_critical ("error exporting thumbnail manager on session bus: %s", error->message);
       g_error_free (error);
-      
-      exit (1);
-    }  
+      manager->dbus_interface_exported = FALSE;
+    }
+  else
+    {
+      manager->dbus_interface_exported = TRUE;
+      g_signal_connect(manager->skeleton, "handle-register", 
+                       G_CALLBACK(tumbler_manager_register_cb), manager);
+    }
 }
 
 static void
@@ -259,8 +259,12 @@ tumbler_manager_finalize (GObject *object)
   g_object_unref (manager->registry);
 
   /* Unexport from dbus */
-  g_dbus_interface_skeleton_unexport_from_connection (G_DBUS_INTERFACE_SKELETON (manager->skeleton),
-						      manager->connection);
+  if (manager->dbus_interface_exported)
+    g_dbus_interface_skeleton_unexport_from_connection 
+      (
+        G_DBUS_INTERFACE_SKELETON (manager->skeleton),
+			  manager->connection
+			);
 
   /* release the Skeleton object */
   g_object_unref (manager->skeleton);
@@ -326,10 +330,10 @@ tumbler_manager_set_property (GObject      *object,
  
 static gboolean
 tumbler_manager_register_cb (TumblerExportedManager *skeleton,
-			     GDBusMethodInvocation  *invocation,
-			     const gchar *const     *uri_schemes, 
-			     const gchar *const     *mime_types,
-			     TumblerManager         *manager)
+                             GDBusMethodInvocation  *invocation,
+                             const gchar *const     *uri_schemes, 
+                             const gchar *const     *mime_types,
+                             TumblerManager         *manager)
 {
   TumblerThumbnailer *thumbnailer;
   const gchar        *sender_name;
@@ -342,7 +346,7 @@ tumbler_manager_register_cb (TumblerExportedManager *skeleton,
 
   tumbler_mutex_lock (manager->mutex);
 
-  thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->legacy_connection,
+  thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->connection,
                                                              sender_name, uri_schemes, 
                                                              mime_types);
 
@@ -1040,7 +1044,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   /* create a new specialized thumbnailer object and pass all the required
    * information on to it */
   info->thumbnailer = 
-    tumbler_specialized_thumbnailer_new (manager->legacy_connection, name, object_path,
+    tumbler_specialized_thumbnailer_new (manager->connection, name, object_path,
                                          (const gchar *const *)uri_schemes,
                                          (const gchar *const *)mime_types,
                                          file_stat.st_mtime);
@@ -1231,7 +1235,7 @@ tumbler_manager_load_thumbnailers (TumblerManager *manager,
  * directory objects, directory monitors, override infos and thumbnailer 
  * infos. 
  */
-static void
+void
 tumbler_manager_load (TumblerManager *manager)
 {
   const gchar *const *data_dirs;
@@ -1891,4 +1895,11 @@ tumbler_manager_new (GDBusConnection         *connection,
                        "registry", registry, 
                        "lifecycle-manager", lifecycle_manager, 
                        NULL);
+}
+
+gboolean tumbler_manager_is_exported (TumblerManager *manager) 
+{
+  g_return_if_fail (TUMBLER_IS_MANAGER (manager));
+ 
+  return manager->dbus_interface_exported;
 }
