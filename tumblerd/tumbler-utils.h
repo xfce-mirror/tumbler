@@ -41,6 +41,36 @@ G_BEGIN_DECLS
       }                                                                                 \
   }G_STMT_END
 
+#define g_dbus_async_return_if_fail(expr, invocation)                                   \
+  G_STMT_START{                                                                         \
+    if (G_UNLIKELY (!(expr)))                                                           \
+      {                                                                                 \
+        GError *dbus_async_return_if_fail_error = NULL;                                 \
+                                                                                        \
+        g_set_error (&dbus_async_return_if_fail_error, DBUS_GERROR, DBUS_GERROR_FAILED, \
+                     "Assertion \"%s\" failed", #expr);                                 \
+        g_dbus_method_invocation_return_gerror (invocation, dbus_async_return_if_fail_error);\
+        g_clear_error (&dbus_async_return_if_fail_error);                               \
+                                                                                        \
+        return;                                                                         \
+      }                                                                                 \
+  }G_STMT_END
+
+#define g_dbus_async_return_val_if_fail(expr, invocation,val)                           \
+  G_STMT_START{                                                                         \
+    if (G_UNLIKELY (!(expr)))                                                           \
+      {                                                                                 \
+        GError *dbus_async_return_if_fail_error = NULL;                                 \
+                                                                                        \
+        g_set_error (&dbus_async_return_if_fail_error, DBUS_GERROR, DBUS_GERROR_FAILED, \
+                     "Assertion \"%s\" failed", #expr);                                 \
+        g_dbus_method_invocation_return_gerror (invocation, dbus_async_return_if_fail_error);\
+        g_clear_error (&dbus_async_return_if_fail_error);                               \
+                                                                                        \
+        return (val);                                                                   \
+      }                                                                                 \
+  }G_STMT_END
+
 #if GLIB_CHECK_VERSION (2, 32, 0)
 #define TUMBLER_MUTEX(mtx)        GMutex mtx
 #define tumbler_mutex_free(mtx)   g_mutex_clear (&(mtx))

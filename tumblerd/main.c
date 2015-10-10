@@ -1,7 +1,8 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009-2012 Jannis Pohlmann <jannis@xfce.org>
- *
+ * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org>
+ *  
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2 of 
@@ -376,7 +377,7 @@ main (int    argc,
   manager = tumbler_manager_new (gconnection, lifecycle_manager, registry);
 
   /* create the generic thumbnailer service */
-  service = tumbler_service_new (connection, lifecycle_manager, registry);
+  service = tumbler_service_new (gconnection, lifecycle_manager, registry);
 
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))
@@ -402,24 +403,22 @@ main (int    argc,
   
   /* Acquire the manager dbus name */
   g_bus_own_name_on_connection (gconnection,
-				"org.freedesktop.thumbnails.Manager1",
-				G_BUS_NAME_OWNER_FLAGS_REPLACE,
-				NULL, /* We dont need to do anything on name acquired*/
-				on_dbus_name_lost,
-				main_loop,
-				NULL);
-
+				                        "org.freedesktop.thumbnails.Manager1",
+				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
+				                        NULL, /* We dont need to do anything on name acquired*/
+				                        on_dbus_name_lost,
+				                        main_loop,
+				                        NULL);
+	
+  /* Acquire the thumbnailer service dbus name */
+  g_bus_own_name_on_connection (gconnection,
+				                        "org.freedesktop.thumbnails.Thumbnailer1",
+				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
+				                        NULL, /* We dont need to do anything on name acquired*/
+				                        on_dbus_name_lost,
+				                        main_loop,
+				                        NULL);
   
-  /* try to start the service and exit if that fails */
-  if (!tumbler_service_start (service, &error))
-    {
-      g_warning (_("Failed to start the thumbnailer service: %s"), error->message);
-      g_error_free (error);
-
-      /* service already running, exit gracefully to not break clients */
-      goto exit_tumbler;
-    }
-
   /* create a new main loop */
   main_loop = g_main_loop_new (NULL, FALSE);
 

@@ -25,9 +25,11 @@ tumblerd_PROGRAMS =							\
 
 tumblerd_built_sources =						\
 	tumbler-cache-service-dbus-bindings.h				\
-	tumbler-service-dbus-bindings.h			\
-	tumbler-manager-gdbus.c					\
-	tumbler-manager-gdbus.h
+	tumbler-manager-gdbus.c					        \
+	tumbler-manager-gdbus.h                                         \
+	tumbler-service-gdbus.c					        \
+	tumbler-service-gdbus.h
+
 
 tumblerd_SOURCES =							\
 	main.c								\
@@ -120,10 +122,6 @@ BUILT_SOURCES =								\
 tumbler-cache-service-dbus-bindings.h: tumbler-cache-service-dbus.xml Makefile
 	$(AM_V_GEN) $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_cache_service $< > $@
 
-
-tumbler-service-dbus-bindings.h: tumbler-service-dbus.xml Makefile
-	$(AM_V_GEN) $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_service $< > $@
-
 tumbler-manager-gdbus.h:
 tumbler-manager-gdbus.c: tumbler-manager-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
@@ -131,3 +129,12 @@ tumbler-manager-gdbus.c: tumbler-manager-dbus.xml Makefile
 	--c-namespace Tumbler 	\
 	--generate-c-code tumbler-manager-gdbus \
 	$(srcdir)/tumbler-manager-dbus.xml
+
+tumbler-service-gdbus.h:
+tumbler-service-gdbus.c: tumbler-service-dbus.xml Makefile
+	$(AM_V_GEN) $(GDBUS_CODEGEN) \
+	--interface-prefix org.freedesktop.thumbnails.Thumbnailer1 \
+	--c-namespace Tumbler 	\
+	--generate-c-code tumbler-service-gdbus \
+	$(srcdir)/tumbler-service-dbus.xml
+

@@ -1,7 +1,8 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
- *
+ * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org>
+ * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2 of 
@@ -40,27 +41,10 @@ typedef struct _TumblerService      TumblerService;
 
 GType           tumbler_service_get_type (void) G_GNUC_CONST;
 
-TumblerService *tumbler_service_new            (DBusGConnection         *connection,
+TumblerService *tumbler_service_new            (GDBusConnection         *connection,
                                                 TumblerLifecycleManager *lifecycle_manager,
                                                 TumblerRegistry         *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-gboolean        tumbler_service_start          (TumblerService          *service,
-                                                GError                 **error);
-void            tumbler_service_queue          (TumblerService          *service,
-                                                const gchar *const      *uris,
-                                                const gchar *const      *mime_hints,
-                                                const gchar             *flavor_name,
-                                                const gchar             *scheduler_name,
-                                                guint                    handle_to_dequeue,
-                                                DBusGMethodInvocation   *context);
-void            tumbler_service_dequeue        (TumblerService           *service,
-                                                guint                     handle,
-                                                DBusGMethodInvocation    *context);
-void            tumbler_service_get_schedulers (TumblerService          *service,
-                                                DBusGMethodInvocation   *context);
-void            tumbler_service_get_supported  (TumblerService          *service,
-                                                DBusGMethodInvocation   *context);
-void            tumbler_service_get_flavors    (TumblerService          *service,
-                                                DBusGMethodInvocation   *context);
+gboolean        tumbler_service_is_exported    (TumblerService *service);
 
 G_END_DECLS;
 
