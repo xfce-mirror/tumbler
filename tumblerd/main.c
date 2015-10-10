@@ -39,8 +39,6 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 
-#include <dbus/dbus-glib.h>
-
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-cache-service.h>
@@ -233,8 +231,7 @@ main (int    argc,
 {
   TumblerLifecycleManager *lifecycle_manager;
   TumblerProviderFactory  *provider_factory;
-  GDBusConnection         *gconnection;
-  DBusGConnection         *connection;
+  GDBusConnection         *connection;
   TumblerRegistry         *registry;
   TumblerManager          *manager;
   TumblerService          *service;
@@ -280,22 +277,8 @@ main (int    argc,
     g_thread_init (NULL);
 #endif
 
-  /* initial the D-Bus threading system */
-  dbus_g_thread_init ();
 
-  /* try to connect to the D-Bus session bus */
-  connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-
-  /* print an error and exit if the connection could not be established */
-  if (connection == NULL)
-    {
-      g_warning (_("Failed to connect to the D-Bus session bus: %s"), error->message);
-      g_error_free (error);
-
-      return EXIT_FAILURE;
-    }
-
-  gconnection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+  connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
   
   if (error != NULL)
     {
@@ -374,10 +357,10 @@ main (int    argc,
   cache_service = tumbler_cache_service_new (connection, lifecycle_manager);
 
   /* create the thumbnailer manager service */
-  manager = tumbler_manager_new (gconnection, lifecycle_manager, registry);
+  manager = tumbler_manager_new (connection, lifecycle_manager, registry);
 
   /* create the generic thumbnailer service */
-  service = tumbler_service_new (gconnection, lifecycle_manager, registry);
+  service = tumbler_service_new (connection, lifecycle_manager, registry);
 
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))
@@ -391,18 +374,18 @@ main (int    argc,
       goto exit_tumbler;
     }
 
-  /* try to start the service and exit if that fails */
-  if (!tumbler_cache_service_start (cache_service, &error))
-    {
-      g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
-      g_error_free (error);
-
-      /* service already running, exit gracefully to not break clients */
-      goto exit_tumbler;
-    }
   
+  /* Acquire the cache service dbus name */
+  g_bus_own_name_on_connection (connection,
+				                        "org.freedesktop.thumbnails.Cache1",
+				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
+				                        NULL, /* We dont need to do anything on name acquired*/
+				                        on_dbus_name_lost,
+				                        main_loop,
+				                        NULL);
+	
   /* Acquire the manager dbus name */
-  g_bus_own_name_on_connection (gconnection,
+  g_bus_own_name_on_connection (connection,
 				                        "org.freedesktop.thumbnails.Manager1",
 				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
 				                        NULL, /* We dont need to do anything on name acquired*/
@@ -411,7 +394,7 @@ main (int    argc,
 				                        NULL);
 	
   /* Acquire the thumbnailer service dbus name */
-  g_bus_own_name_on_connection (gconnection,
+  g_bus_own_name_on_connection (connection,
 				                        "org.freedesktop.thumbnails.Thumbnailer1",
 				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
 				                        NULL, /* We dont need to do anything on name acquired*/
@@ -419,19 +402,26 @@ main (int    argc,
 				                        main_loop,
 				                        NULL);
   
-  /* create a new main loop */
-  main_loop = g_main_loop_new (NULL, FALSE);
+  /* check to see if all services are successfully exported on the bus */
+  if (tumbler_manager_is_exported(manager) &&
+      tumbler_service_is_exported(service) &&
+      tumbler_cache_service_is_exported(cache_service))
+    {
 
-  /* quit the main loop when the lifecycle manager asks us to shut down */
-  g_signal_connect (lifecycle_manager, "shutdown", 
-                    G_CALLBACK (shutdown_tumbler), main_loop);
+      /* create a new main loop */
+      main_loop = g_main_loop_new (NULL, FALSE);
 
-  /* start the lifecycle manager */
-  tumbler_lifecycle_manager_start (lifecycle_manager);
+      /* quit the main loop when the lifecycle manager asks us to shut down */
+      g_signal_connect (lifecycle_manager, "shutdown", 
+                        G_CALLBACK (shutdown_tumbler), main_loop);
 
-  /* enter the main loop, thereby making the tumbler service available */
-  g_main_loop_run (main_loop);
+      /* start the lifecycle manager */
+      tumbler_lifecycle_manager_start (lifecycle_manager);
 
+      /* enter the main loop, thereby making the tumbler service available */
+      g_main_loop_run (main_loop);
+    }
+  
   exit_tumbler:
 
   /* shut our services down and release all objects */
@@ -441,11 +431,8 @@ main (int    argc,
   g_object_unref (registry);
   g_object_unref (lifecycle_manager);
 
-  /* disconnect from the D-Bus session bus */
-  dbus_g_connection_unref (connection);
-
   /* free the dbus session bus connection */
-  g_object_unref (gconnection);
+  g_object_unref (connection);
 
   /* we're done, all fine */
   return retval;

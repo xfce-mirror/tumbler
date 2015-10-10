@@ -24,11 +24,12 @@ tumblerd_PROGRAMS =							\
 	tumblerd
 
 tumblerd_built_sources =						\
-	tumbler-cache-service-dbus-bindings.h				\
 	tumbler-manager-gdbus.c					        \
 	tumbler-manager-gdbus.h                                         \
 	tumbler-service-gdbus.c					        \
-	tumbler-service-gdbus.h
+	tumbler-service-gdbus.h                                         \
+	tumbler-cache-service-gdbus.h                                   \
+	tumbler-cache-service-gdbus.c
 
 
 tumblerd_SOURCES =							\
@@ -82,7 +83,7 @@ tumblerd_LDADD =							\
 	$(DBUS_GLIB_LIBS)						\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
-	$(GIO_UNIX_LIBS)							\
+	$(GIO_UNIX_LIBS)                                                \
 	$(GLIB_LIBS)							\
 	$(GTHREAD_LIBS)							\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
@@ -119,9 +120,6 @@ DISTCLEANFILES =							\
 BUILT_SOURCES =								\
 	$(tumblerd_built_sources)
 
-tumbler-cache-service-dbus-bindings.h: tumbler-cache-service-dbus.xml Makefile
-	$(AM_V_GEN) $(DBUS_BINDING_TOOL) --mode=glib-server --prefix=tumbler_cache_service $< > $@
-
 tumbler-manager-gdbus.h:
 tumbler-manager-gdbus.c: tumbler-manager-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
@@ -138,3 +136,10 @@ tumbler-service-gdbus.c: tumbler-service-dbus.xml Makefile
 	--generate-c-code tumbler-service-gdbus \
 	$(srcdir)/tumbler-service-dbus.xml
 
+tumbler-cache-service-gdbus.h:
+tumbler-cache-service-gdbus.c: tumbler-cache-service-dbus.xml Makefile
+	$(AM_V_GEN) $(GDBUS_CODEGEN) \
+	--interface-prefix org.freedesktop.thumbnails.Cache1 \
+	--c-namespace Tumbler 	\
+	--generate-c-code tumbler-cache-service-gdbus \
+	$(srcdir)/tumbler-cache-service-dbus.xml
