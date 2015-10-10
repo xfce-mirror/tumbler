@@ -261,7 +261,7 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
 
   /* read meta data from stream */
   meta_data = gsf_doc_meta_data_new ();
-  err = gsf_msole_metadata_read (summary, meta_data);
+  err = gsf_doc_meta_data_read_from_msole (meta_data, summary);
   g_object_unref (summary);
   if (err != NULL)
     {
