@@ -170,11 +170,11 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
 
   g_object_class_install_property (gobject_class, PROP_CONNECTION,
                                    g_param_spec_object ("connection",
-							                                          "connection",
-							                                          "connection",
-							                                          G_TYPE_DBUS_CONNECTION,
-							                                          G_PARAM_READWRITE |
-							                                          G_PARAM_CONSTRUCT_ONLY));
+                                                        "connection",
+                                                        "connection",
+                                                        G_TYPE_DBUS_CONNECTION,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_install_property (gobject_class, PROP_REGISTRY,
                                    g_param_spec_object ("registry",
@@ -263,8 +263,8 @@ tumbler_manager_finalize (GObject *object)
     g_dbus_interface_skeleton_unexport_from_connection 
       (
         G_DBUS_INTERFACE_SKELETON (manager->skeleton),
-			  manager->connection
-			);
+        manager->connection
+      );
 
   /* release the Skeleton object */
   g_object_unref (manager->skeleton);

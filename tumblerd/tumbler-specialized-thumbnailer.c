@@ -360,7 +360,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
     }
   else if (strcmp (signal_name, "Error") == 0)
     {
-       if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(usis"))) 
+       if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(usis)"))) 
         {
           const gchar *uri, *error_msg;
           gint error_code;

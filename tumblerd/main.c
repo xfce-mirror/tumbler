@@ -215,8 +215,8 @@ locations_from_strv (gchar **array)
 
 static void
 on_dbus_name_lost (GDBusConnection *connection,
-		   const gchar     *name,
-		   gpointer         user_data)
+                   const gchar     *name,
+                   gpointer         user_data)
 {
   GMainLoop *main_loop;
 
@@ -380,30 +380,30 @@ main (int    argc,
   
   /* Acquire the cache service dbus name */
   g_bus_own_name_on_connection (connection,
-				                        "org.freedesktop.thumbnails.Cache1",
-				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
-				                        NULL, /* We dont need to do anything on name acquired*/
-				                        on_dbus_name_lost,
-				                        main_loop,
-				                        NULL);
-	
+                                "org.freedesktop.thumbnails.Cache1",
+                                G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                NULL, /* We dont need to do anything on name acquired*/
+                                on_dbus_name_lost,
+                                main_loop,
+                                NULL);
+
   /* Acquire the manager dbus name */
   g_bus_own_name_on_connection (connection,
-				                        "org.freedesktop.thumbnails.Manager1",
-				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
-				                        NULL, /* We dont need to do anything on name acquired*/
-				                        on_dbus_name_lost,
-				                        main_loop,
-				                        NULL);
-	
+                                "org.freedesktop.thumbnails.Manager1",
+                                G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                NULL, /* We dont need to do anything on name acquired*/
+                                on_dbus_name_lost,
+                                main_loop,
+                                NULL);
+
   /* Acquire the thumbnailer service dbus name */
   g_bus_own_name_on_connection (connection,
-				                        "org.freedesktop.thumbnails.Thumbnailer1",
-				                        G_BUS_NAME_OWNER_FLAGS_REPLACE,
-				                        NULL, /* We dont need to do anything on name acquired*/
-				                        on_dbus_name_lost,
-				                        main_loop,
-				                        NULL);
+                                "org.freedesktop.thumbnails.Thumbnailer1",
+                                G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                NULL, /* We dont need to do anything on name acquired*/
+                                on_dbus_name_lost,
+                                main_loop,
+                                NULL);
   
   /* check to see if all services are successfully exported on the bus */
   if (tumbler_manager_is_exported(manager) &&
