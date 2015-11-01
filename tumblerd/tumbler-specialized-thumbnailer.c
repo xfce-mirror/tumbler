@@ -351,7 +351,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
        if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(us)"))) 
         {
           const gchar *uri;
-          g_variant_get (parameters, "(us)", &handle, &uri);
+          g_variant_get (parameters, "(u&s)", &handle, &uri);
           if (info->handle == handle) 
             {
                g_signal_emit_by_name (info->thumbnailer, "ready", uri);
@@ -365,7 +365,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
           const gchar *uri, *error_msg;
           gint error_code;
           
-          g_variant_get (parameters, "(&usis)", &handle, &uri, &error_code, &error_msg);
+          g_variant_get (parameters, "(u&si&s)", &handle, &uri, &error_code, &error_msg);
           if (info->handle == handle) 
             {
               g_signal_emit_by_name (info->thumbnailer, "error", uri, error_code, error_msg);
