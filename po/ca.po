@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# alavios <registres@lavios.cat>, 2013
-# carlesmu <carlesmu@internautas.org>, 2009,2011
+# Adrián Laviós <registres@lavios.cat>, 2013
+# Carles Muñoz Gorriz <carlesmu@internautas.org>, 2009,2011
 # Harald Servat <redcrash@gmail.com>, 2009
+# Davidmp <medipas@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-07-08 14:33+0000\n"
-"Last-Translator: alavios <registres@lavios.cat>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/xfce/language/ca/)\n"
+"PO-Revision-Date: 2015-12-15 17:21+0000\n"
+"Last-Translator: Davidmp <medipas@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/xfce/tumbler/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,7 +30,7 @@ msgstr "Un altre servei de memòria cau de miniatures ja s'està executant"
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "No hi ha cap miniatura disponible per «%s»"
+msgstr "No hi ha cap miniatura disponible per a «%s»"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
@@ -38,7 +39,7 @@ msgstr "S'està tancant el servei de miniatures"
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "Un altres sistema genèric de miniatures ja s'està executant"
+msgstr " Ja s'està executant un altre sistema genèric de miniatures"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -89,7 +90,7 @@ msgstr "Un altre gestor de miniatures ja s'està executant"
 
 #: ../tumblerd/main.c:249
 msgid "Couldn't change nice value of process."
-msgstr ""
+msgstr "No s'ha pogut canviar el valor precís del procés."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:258
@@ -175,7 +176,7 @@ msgstr "Versió errònia: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr ""
+msgstr "No s'ha pogut carregar la imatge de cartell «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
@@ -190,7 +191,7 @@ msgstr "Clau de l'API invàlida: has d'haver sigut proporcionat una clau vàlida
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr ""
+msgstr "No s'ha trobat la clau de cartell a les metadades"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
