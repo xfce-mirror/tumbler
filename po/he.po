@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Elishai Eliyahu <e1907@mm.st>, 2016
 # Hezy Amiel <open@hezyamiel.com>, 2010
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2010,2013
 msgid ""
@@ -10,9 +11,9 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-06 08:14+0000\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew (http://www.transifex.com/projects/p/xfce/language/he/)\n"
+"PO-Revision-Date: 2016-03-07 20:12+0000\n"
+"Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
+"Language-Team: Hebrew (http://www.transifex.com/xfce/tumbler/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,12 +33,12 @@ msgstr "אין מנהל זמין לתמונות ממוזערות עבור \"%s\"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "שירות מטמון התמונות הממוזערות נכבה"
+msgstr "שירות התמונות הממוזערות נכבה"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
 msgid "Another generic thumbnailer is already running"
-msgstr "שירות תמונות ממוזערות גנרי כבר פעיל"
+msgstr "שירות תמונות ממוזערות גנרי אחר כבר פעיל"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
@@ -45,7 +46,7 @@ msgstr "סוג התמונה הממוזערת שהתבקש אינו נתמך"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "אירע כשל בקריאה למנהל התמונות הממוזערות המיוחד: פג הזמן המוקצב"
+msgstr "אירע כשל בקריאה למנהל התמונות הממוזערות המיוחד: תם הזמן המוקצב"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:494
 #, c-format
@@ -79,7 +80,7 @@ msgstr "קובץ פגום \"%s\":‏ %s"
 #: ../tumblerd/tumbler-manager.c:962
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "אירע כשל במציאת זמן העדכון האחרון של \"%s\""
+msgstr "אירע כשל במציאת זמן השינוי האחרון של \"%s\""
 
 #: ../tumblerd/tumbler-manager.c:1868
 #, c-format
@@ -98,31 +99,31 @@ msgstr "‏Tumbler שירות יצירת תמונות ממוזערות"
 #: ../tumblerd/main.c:280
 #, c-format
 msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Failed to connect to the D-Bus session bus: %s"
+msgstr "אירע כשל בחיבור אל אפיק סשן אפיק די: %s"
 
 #: ../tumblerd/main.c:363
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "אירע כשל בטעינת מנהלי תמונות ממוזערות מיוחדים לתוך מאגר הרישום: %s "
 
 #: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Failed to start the thumbnail cache service: %s"
+msgstr "אירע כשל בהפעלת שירות מטמון תמונות ממוזערות: %s "
 
 #: ../tumblerd/main.c:385
 #, c-format
 msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Failed to start the thumbnailer manager: %s"
+msgstr "אירע כשל בהפעלת מנהל תמונות ממוזערות: %s "
 
 #: ../tumblerd/main.c:395
 #, c-format
 msgid "Failed to start the thumbnailer service: %s"
-msgstr "Failed to start the thumbnailer service: %s"
+msgstr "אירע כשל בהפעלת שירות תמונות ממוזערות: %s "
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
-msgstr "המבנה שגוי"
+msgstr "פורמט לא חוקי"
 
 #: ../tumbler/tumbler-enum-types.c:50
 msgid "PNG"
@@ -223,7 +224,7 @@ msgstr "לא ניתן להגדיר את מפת התווים: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "לא ניתן לעבד את האותיות: %s"
+msgstr "לא ניתן לממש את הגליפים: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
