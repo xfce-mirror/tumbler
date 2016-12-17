@@ -497,7 +497,7 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
           /* and remember it appropriately */
           if (tag == 0x0100)
             exif->thumb.thumb_tiff.width = value;
-          else if (tag == 0x0100)
+          else if (tag == 0x0101)
             exif->thumb.thumb_tiff.height = value;
           else if (tag == 0x0106)
             exif->thumb.thumb_tiff.interp = value;
