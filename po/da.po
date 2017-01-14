@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Aputsiaĸ Niels Janussen <aj@isit.gl>, 2013
+# Aputsiak Niels Janussen <aj@isit.gl>, 2013
 # Per Kongstad <p_kongstad@op.pl>, 2009
+# scootergrisen, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-08 14:50+0000\n"
-"Last-Translator: Aputsiaĸ Niels Janussen <aj@isit.gl>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/xfce/language/da/)\n"
+"PO-Revision-Date: 2017-01-14 10:12+0000\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,7 +56,7 @@ msgstr "Kunne ikke kalde den specialiserede miniature: %s"
 #: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Kunne ikke indlæse filen  \"%s\": %s"
+msgstr "Kunne ikke indlæse filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
 #: ../tumblerd/tumbler-manager.c:535
@@ -140,7 +141,7 @@ msgstr "Udvidelsesmodul til mellemlager \"%s\" mangler krævede symboler"
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Kunne ikke indlæse udvidelsesmodul  til mellemlager \"%s\": %s"
+msgstr "Kunne ikke indlæse udvidelsesmodul til mellemlager \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -155,7 +156,7 @@ msgstr "Udvidelsesmodul \"%s\" mangler krævede symboler."
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Kunne ikke indlæse udvidelsesmodul  \"%s\": %s"
+msgstr "Kunne ikke indlæse udvidelsesmodul \"%s\": %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
