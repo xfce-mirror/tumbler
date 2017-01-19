@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2017-01-14 10:12+0000\n"
+"PO-Revision-Date: 2017-01-19 10:31+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: ../tumblerd/tumbler-cache-service.c:413
 #, c-format
 msgid "Another thumbnail cache service is already running"
-msgstr "En anden tjeneste til cache af miniaturer kører allerede"
+msgstr "En anden tjeneste til mellemlagring af miniaturer kører allerede"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -33,7 +33,7 @@ msgstr "Ingen miniaturetjeneste tilgængelig for \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "Tjenesten thumbnailer lukker ned"
+msgstr "Tjenesten til miniaturer lukker ned"
 
 #: ../tumblerd/tumbler-service.c:758
 #, c-format
@@ -94,7 +94,7 @@ msgstr "Kunne ikke ændre processens venlighedsværdi."
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:258
 msgid "Tumbler Thumbnailing Service"
-msgstr "Tumbler Thumbnailing tjeneste"
+msgstr "Tumbler tjeneste til miniaturer"
 
 #: ../tumblerd/main.c:280
 #, c-format
@@ -109,7 +109,7 @@ msgstr "Kunne ikke indlæse specialiserede miniaturer ind i registret: %s"
 #: ../tumblerd/main.c:375
 #, c-format
 msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Kunne ikke starte tjenesten thumbnail cache: %s"
+msgstr "Kunne ikke starte tjeneste til mellemlagring af miniaturer: %s"
 
 #: ../tumblerd/main.c:385
 #, c-format
@@ -243,7 +243,7 @@ msgstr "Dokumentet er tomt"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
-msgstr "Første sideaf dokumentet kunne ikke læses"
+msgstr "Første side af dokumentet kunne ikke læses"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
