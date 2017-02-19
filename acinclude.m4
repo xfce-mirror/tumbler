@@ -233,7 +233,11 @@ if test x"$ac_tumbler_raw_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for libopenraw
-    PKG_CHECK_MODULES([LIBOPENRAW_GNOME], [libopenraw-gnome-1.0 >= 0.0.4], [], [ac_tumbler_raw_thumbnailer=no])
+    dnl Note: 0.1.0 release changed the pkg-config name from -1.0 to -0.1
+    PKG_CHECK_MODULES([LIBOPENRAW_GNOME], [libopenraw-gnome-0.1 >= 0.0.4], [],
+    [
+      PKG_CHECK_MODULES([LIBOPENRAW_GNOME], [libopenraw-gnome-1.0 >= 0.0.4], [], [ac_tumbler_raw_thumbnailer=no])
+    ])
   ], [ac_tumbler_raw_thumbnailer=no])
 fi
 
