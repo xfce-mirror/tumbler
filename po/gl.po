@@ -5,13 +5,13 @@
 # Translators:
 # Leandro Regueiro <leandro DOT regueiro AT gmail DOT com>, 2009
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2013
-# Xosé <xosecalvo@gmail.com>, 2015
+# Xosé <xosecalvo@gmail.com>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2015-09-18 20:34+0000\n"
+"PO-Revision-Date: 2017-03-20 21:42+0000\n"
 "Last-Translator: Xosé <xosecalvo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/tumbler/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "Xa está executando outro miniaturizador xenérico"
 
 #: ../tumblerd/tumbler-service.c:867
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Solicitouse un tipo de miniatura non soportada"
+msgstr "Solicitouse un tipo de miniatura non admitida"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:485
 msgid "Failed to call the specialized thumbnailer: timeout"
