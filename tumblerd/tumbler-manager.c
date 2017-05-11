@@ -338,9 +338,9 @@ tumbler_manager_register_cb (TumblerExportedManager *skeleton,
   TumblerThumbnailer *thumbnailer;
   const gchar        *sender_name;
 
-  g_return_if_fail (TUMBLER_IS_MANAGER (manager));
-  g_return_if_fail (uri_schemes != NULL);
-  g_return_if_fail (mime_types != NULL);
+  g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
+  g_return_val_if_fail (uri_schemes != NULL, FALSE);
+  g_return_val_if_fail (mime_types != NULL, FALSE);
   
   sender_name = g_dbus_method_invocation_get_sender (invocation);
 
@@ -1899,7 +1899,7 @@ tumbler_manager_new (GDBusConnection         *connection,
 
 gboolean tumbler_manager_is_exported (TumblerManager *manager) 
 {
-  g_return_if_fail (TUMBLER_IS_MANAGER (manager));
+  g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
  
   return manager->dbus_interface_exported;
 }

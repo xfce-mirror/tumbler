@@ -584,6 +584,6 @@ tumbler_cache_service_cleanup (TumblerExportedCacheService   *skeleton,
 
 gboolean tumbler_cache_service_is_exported (TumblerCacheService *service)
 {
-  g_return_if_fail (TUMBLER_IS_CACHE_SERVICE(service));
+  g_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE(service), FALSE);
   return service->dbus_interface_exported;
 }

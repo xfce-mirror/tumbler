@@ -961,6 +961,6 @@ tumbler_service_get_flavors_cb  (TumblerExportedService  *skeleton,
 
 gboolean tumbler_service_is_exported (TumblerService *service)
 {
-  g_return_if_fail (TUMBLER_IS_SERVICE(service));
+  g_return_val_if_fail (TUMBLER_IS_SERVICE(service), FALSE);
   return service->dbus_interface_exported;
 }
