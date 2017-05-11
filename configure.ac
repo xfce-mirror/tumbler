@@ -25,7 +25,7 @@ m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
 m4_define([tumbler_version_minor], [1])
-m4_define([tumbler_version_micro], [31])
+m4_define([tumbler_version_micro], [90])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
 dnl ***************************
@@ -129,25 +129,24 @@ dnl *************************
 GTK_DOC_CHECK(1.9)
 
 dnl ***********************************
-dnl *** Check for dbus-binding-tool ***
+dnl *** Check for gdbus-codegen ***
 dnl ***********************************
-AC_ARG_VAR([DBUS_BINDING_TOOL], [Tool to generate C bindings from XML D-Bus interface definitions])
-AC_PATH_PROG([DBUS_BINDING_TOOL], [dbus-binding-tool], [no])
-if test x"$DBUS_BINDING_TOOL" = x"no"; then
-  AC_MSG_ERROR([could not find dbus-binding-tool in \$PATH. You can run
-  ./configure DBUS_BINDING_TOOL=/path/to/dbus-binding-tool to define 
+AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
+AC_PATH_PROG([GDBUS_CODEGEN], [gdbus-codegen], [no])
+if test x"$GDBUS_CODEGEN" = x"no"; then
+  AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
+  ./configure GDBUS_CODEGEN=/path/to/gdbus-codegen to define 
   a custom location for it.])
 fi
 
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.10.0])
-PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.16.0])
-PKG_CHECK_MODULES([DBUS], [dbus-1 >= 1.0.0])
-PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 >= 0.72])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.26.0])
+PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.26.0])
 
 dnl *************************
 dnl *** Check for plugins ***

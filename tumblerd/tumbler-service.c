@@ -1,7 +1,8 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
- *
+ * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org>
+ * 
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2 of 
@@ -28,20 +29,15 @@
 
 #include <gio/gio.h>
 
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
-
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-service.h>
-#include <tumblerd/tumbler-service-dbus-bindings.h>
 #include <tumblerd/tumbler-lifo-scheduler.h>
 #include <tumblerd/tumbler-group-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
-
+#include <tumblerd/tumbler-service-gdbus.h>
 
 
 #define THUMBNAILER_PATH    "/org/freedesktop/thumbnails/Thumbnailer1"
@@ -50,15 +46,6 @@
 
 
 
-/* signal identifiers */
-enum
-{
-  SIGNAL_ERROR,
-  SIGNAL_FINISHED,
-  SIGNAL_READY,
-  SIGNAL_STARTED,
-  LAST_SIGNAL,
-};
 
 /* property identifiers */
 enum
@@ -84,6 +71,27 @@ static void tumbler_service_set_property       (GObject            *object,
                                                 guint               prop_id,
                                                 const GValue       *value,
                                                 GParamSpec         *pspec);
+static gboolean tumbler_service_queue_cb        (TumblerExportedService  *skeleton,
+                                                 GDBusMethodInvocation   *invocation,
+                                                 const gchar *const      *uris,
+                                                 const gchar *const      *mime_hints,
+                                                 const gchar             *flavor_name,
+                                                 const gchar             *scheduler_name,
+                                                 guint                    handle_to_dequeue,
+                                                 TumblerService          *service);
+static gboolean tumbler_service_dequeue_cb      (TumblerExportedService  *skeleton,
+                                                 GDBusMethodInvocation   *invocation,
+                                                 guint                     handle,
+                                                 TumblerService          *service);
+static gboolean tumbler_service_get_schedulers_cb(TumblerExportedService  *skeleton,
+                                                  GDBusMethodInvocation   *invocation,
+                                                  TumblerService          *service);
+static gboolean tumbler_service_get_supported_cb(TumblerExportedService  *skeleton,
+                                                 GDBusMethodInvocation   *invocation,
+                                                 TumblerService          *service);
+static gboolean tumbler_service_get_flavors_cb  (TumblerExportedService  *skeleton,
+                                                 GDBusMethodInvocation   *invocation,
+                                                 TumblerService          *service);
 static void tumbler_service_scheduler_error    (TumblerScheduler   *scheduler,
                                                 guint               handle,
                                                 const gchar *const *failed_uris,
@@ -118,14 +126,17 @@ struct _TumblerServiceClass
 
 struct _TumblerService
 {
-  TumblerComponent  __parent__;
+  TumblerComponent       __parent__;
 
-  DBusGConnection  *connection;
-  TumblerRegistry  *registry;
-  TUMBLER_MUTEX     (mutex);
-  GList            *schedulers;
+  GDBusConnection        *connection;
+  TumblerExportedService *skeleton;
+  gboolean                dbus_interface_exported;
+  
+  TumblerRegistry        *registry;
+  TUMBLER_MUTEX          (mutex);
+  GList                  *schedulers;
 
-  GVolumeMonitor   *volume_monitor;
+  GVolumeMonitor         *volume_monitor;
 };
 
 struct _SchedulerIdleInfo
@@ -139,9 +150,6 @@ struct _SchedulerIdleInfo
   gint              error_code;
 };
 
-
-
-static guint tumbler_service_signals[LAST_SIGNAL];
 
 
 
@@ -161,11 +169,12 @@ tumbler_service_class_init (TumblerServiceClass *klass)
   gobject_class->set_property = tumbler_service_set_property;
 
   g_object_class_install_property (gobject_class, PROP_CONNECTION,
-                                   g_param_spec_pointer ("connection",
-                                                         "connection",
-                                                         "connection",
-                                                         G_PARAM_READWRITE |
-                                                         G_PARAM_CONSTRUCT_ONLY));
+                                   g_param_spec_object ("connection",
+                                                        "connection",
+                                                        "connection",
+                                                        G_TYPE_DBUS_CONNECTION,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_install_property (gobject_class, PROP_REGISTRY,
                                    g_param_spec_object ("registry",
@@ -174,57 +183,6 @@ tumbler_service_class_init (TumblerServiceClass *klass)
                                                         TUMBLER_TYPE_REGISTRY,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY));
-
-  tumbler_service_signals[SIGNAL_ERROR] =
-    g_signal_new ("error",
-                  TUMBLER_TYPE_SERVICE,
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL,
-                  NULL,
-                  tumbler_marshal_VOID__UINT_POINTER_INT_STRING,
-                  G_TYPE_NONE,
-                  4,
-                  G_TYPE_UINT,
-                  G_TYPE_STRV,
-                  G_TYPE_INT,
-                  G_TYPE_STRING);
-
-  tumbler_service_signals[SIGNAL_FINISHED] =
-    g_signal_new ("finished",
-                  TUMBLER_TYPE_SERVICE,
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL,
-                  NULL,
-                  g_cclosure_marshal_VOID__UINT,
-                  G_TYPE_NONE,
-                  1,
-                  G_TYPE_UINT);
-
-  tumbler_service_signals[SIGNAL_READY] =
-    g_signal_new ("ready",
-                  TUMBLER_TYPE_SERVICE,
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL,
-                  NULL,
-                  g_cclosure_marshal_VOID__POINTER,
-                  G_TYPE_NONE,
-                  1,
-                  G_TYPE_STRV);
-
-  tumbler_service_signals[SIGNAL_STARTED] =
-    g_signal_new ("started",
-                  TUMBLER_TYPE_SERVICE,
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL,
-                  NULL,
-                  g_cclosure_marshal_VOID__UINT,
-                  G_TYPE_NONE,
-                  1,
-                  G_TYPE_UINT);
 }
 
 
@@ -281,7 +239,8 @@ tumbler_service_constructed (GObject *object)
 {
   TumblerScheduler *scheduler;
   TumblerService   *service = TUMBLER_SERVICE (object);
-
+  GError           *error = NULL;
+  
   /* chain up to parent classes */
   if (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_service_parent_class)->constructed) (object);
@@ -297,13 +256,37 @@ tumbler_service_constructed (GObject *object)
   g_object_unref (scheduler);
 
   /* everything is fine, install the generic thumbnailer D-Bus info */
-  dbus_g_object_type_install_info (G_OBJECT_TYPE (service),
-                                   &dbus_glib_tumbler_service_object_info);
-
-  /* register the service instance as a handler of this interface */
-  dbus_g_connection_register_g_object (service->connection, 
-                                       THUMBNAILER_PATH, 
-                                       G_OBJECT (service));
+  service->skeleton = tumbler_exported_service_skeleton_new();
+  
+  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(service->skeleton),
+                                    service->connection,
+                                    THUMBNAILER_PATH,
+                                    &error);
+  if (error != NULL)
+    {
+      g_critical ("error exporting thumbnail service on session bus: %s", error->message);
+      g_error_free (error);
+      service->dbus_interface_exported = FALSE; 
+    }
+  else
+    {
+      service->dbus_interface_exported = TRUE;
+      
+      g_signal_connect (service->skeleton, "handle-queue",
+                        G_CALLBACK(tumbler_service_queue_cb), service);
+      
+      g_signal_connect (service->skeleton, "handle-dequeue",
+                        G_CALLBACK(tumbler_service_dequeue_cb), service);
+      
+      g_signal_connect (service->skeleton, "handle-get-supported",
+                        G_CALLBACK(tumbler_service_get_supported_cb), service);
+      
+      g_signal_connect (service->skeleton, "handle-get-schedulers",
+                        G_CALLBACK(tumbler_service_get_schedulers_cb), service);
+      
+      g_signal_connect (service->skeleton, "handle-get-flavors",
+                        G_CALLBACK(tumbler_service_get_flavors_cb), service);
+    }
 }
 
 
@@ -326,8 +309,20 @@ tumbler_service_finalize (GObject *object)
 
   /* release the reference on the thumbnailer registry */
   g_object_unref (service->registry);
+  
+  /* Unexport from dbus */
+  if (service->dbus_interface_exported)
+    g_dbus_interface_skeleton_unexport_from_connection 
+      (
+        G_DBUS_INTERFACE_SKELETON (service->skeleton),
+        service->connection
+      );
 
-  dbus_g_connection_unref (service->connection);
+  /* release the Skeleton object */
+  g_object_unref (service->skeleton);
+  
+  /* release the D-Bus connection object */
+  g_object_unref (service->connection);
 
   tumbler_mutex_free (service->mutex);
 
@@ -347,7 +342,7 @@ tumbler_service_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      g_value_set_pointer (value, service->connection);
+      g_value_set_object (value, service->connection);
       break;
     case PROP_REGISTRY:
       g_value_set_object (value, service->registry);
@@ -371,7 +366,7 @@ tumbler_service_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      service->connection = dbus_g_connection_ref (g_value_get_pointer (value));
+      service->connection = g_object_ref (g_value_get_object (value));
       break;
     case PROP_REGISTRY:
       service->registry = g_value_dup_object (value);
@@ -388,10 +383,7 @@ static gboolean
 tumbler_service_error_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
-  DBusMessageIter    iter;
-  DBusMessageIter    strv_iter;
-  DBusMessage       *message;
-  guint              n;
+  GVariant          *signal_variant;
 
   g_return_val_if_fail (info != NULL, FALSE);
   g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
@@ -400,38 +392,22 @@ tumbler_service_error_idle (gpointer user_data)
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
-  /* create a D-Bus message for the error signal */
-  message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Error");
-
-  /* define the destination (the thumbnailer client) if possible */
-  if (info->origin)
-    dbus_message_set_destination (message, info->origin);
-
-  /* append the request handle */
-  dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &info->handle);
-
-  /* start the URI string array */
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, 
-                                    DBUS_TYPE_STRING_AS_STRING, &strv_iter);
-
-  /* insert all failed URIs into the array */
-  for (n = 0; info->uris[n] != NULL; n++)
-    dbus_message_iter_append_basic (&strv_iter, DBUS_TYPE_STRING, &info->uris[n]);
-
-  /* finish the URI string array */
-  dbus_message_iter_close_container (&iter, &strv_iter);
-
-  /* append the error code and error message */
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &info->error_code);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &info->message);
-
+  /* signal variant */
+  signal_variant = g_variant_ref_sink (g_variant_new ("(u^asis)",
+                                                      info->handle,
+                                                      info->uris,
+                                                      info->error_code,
+                                                      info->message));
   /* send the signal message over D-Bus */
-  dbus_connection_send (dbus_g_connection_get_connection (info->service->connection), 
-                        message, NULL);
+  g_dbus_connection_emit_signal (info->service->connection,
+                                 info->origin, 
+                                 THUMBNAILER_PATH,
+                                 THUMBNAILER_IFACE,
+                                 "Error",
+                                 signal_variant, 
+                                 NULL);
 
-  /* free the allocated D-Bus message */
-  dbus_message_unref (message);
+  g_variant_unref (signal_variant);
 
   scheduler_idle_info_free (info);
 
@@ -476,30 +452,24 @@ static gboolean
 tumbler_service_finished_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
-  DBusMessageIter    iter;
-  DBusMessage       *message;
+  GVariant          *signal_variant;
 
   g_return_val_if_fail (info != NULL, FALSE);
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
-
-  /* create a D-Bus message for the finished signal */
-  message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Finished");
-
-  /* define the destination (the thumbnailer client) if possible */
-  if (info->origin)
-    dbus_message_set_destination (message, info->origin);
-
-  /* append the request handle */
-  dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &info->handle);
-
+  
+  signal_variant = g_variant_ref_sink (g_variant_new ("(u)",
+                                                      info->handle));
   /* send the signal message over D-Bus */
-  dbus_connection_send (dbus_g_connection_get_connection (info->service->connection), 
-                        message, NULL);
+  g_dbus_connection_emit_signal (info->service->connection,
+                                 info->origin, 
+                                 THUMBNAILER_PATH,
+                                 THUMBNAILER_IFACE,
+                                 "Finished",
+                                 signal_variant, 
+                                 NULL);
 
-  /* free the allocated D-Bus message */
-  dbus_message_unref (message);
+  g_variant_unref (signal_variant);
 
   /* allow the lifecycle manager to shut down the service again (unless there
    * are other requests still being processed) */
@@ -540,10 +510,7 @@ static gboolean
 tumbler_service_ready_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
-  DBusMessageIter    iter;
-  DBusMessageIter    strv_iter;
-  DBusMessage       *message;
-  guint              n;
+  GVariant          *signal_variant;
 
   g_return_val_if_fail (info != NULL, FALSE);
   g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
@@ -551,36 +518,21 @@ tumbler_service_ready_idle (gpointer user_data)
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
-  /* create a D-Bus message for the ready signal */
-  message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Ready");
-
-  /* define the destination (the thumbnailer client) if possible */
-  if (info->origin)
-    dbus_message_set_destination (message, info->origin);
-
-  dbus_message_iter_init_append (message, &iter);
-
-  /* append the request handle */
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &info->handle);
-
-  /* start the URI string array */
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
-                                    DBUS_TYPE_STRING_AS_STRING, &strv_iter);
-
-  /* insert all URIs into the array for which we have thumbnails now */
-  for (n = 0; info->uris[n] != NULL; n++)
-    dbus_message_iter_append_basic (&strv_iter, DBUS_TYPE_STRING, &info->uris[n]);
-
-  /* finish the URI string array */
-  dbus_message_iter_close_container (&iter, &strv_iter);
-
+  signal_variant = g_variant_ref_sink (g_variant_new ("(u^as)",
+                                                      info->handle,
+                                                      info->uris));
+ 
   /* send the signal message over D-Bus */
-  dbus_connection_send (dbus_g_connection_get_connection (info->service->connection), 
-                        message, NULL);
-
-  /* free the allocated D-Bus message */
-  dbus_message_unref (message);
-
+  g_dbus_connection_emit_signal (info->service->connection,
+                                 info->origin, 
+                                 THUMBNAILER_PATH,
+                                 THUMBNAILER_IFACE,
+                                 "Ready",
+                                 signal_variant, 
+                                 NULL);
+  
+  g_variant_unref (signal_variant);
+   
   scheduler_idle_info_free (info);
 
   return FALSE;
@@ -619,32 +571,27 @@ static gboolean
 tumbler_service_started_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
-  DBusMessageIter   iter;
-  DBusMessage      *message;
-
+  GVariant          *signal_variant;
+  
   g_return_val_if_fail (info != NULL, FALSE);
   g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
-  /* create a D-Bus message for the started signal */
-  message = dbus_message_new_signal (THUMBNAILER_PATH, THUMBNAILER_IFACE, "Started");
-
-  /* define the destination (the thumbnailer client) if possible */
-  if (info->origin)
-    dbus_message_set_destination (message, info->origin);
-
-  /* append the request handle */
-  dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &info->handle);
-
+  signal_variant = g_variant_ref_sink (g_variant_new ("(u)", info->handle));
+                                                      
+ 
   /* send the signal message over D-Bus */
-  dbus_connection_send (dbus_g_connection_get_connection (info->service->connection), 
-                        message, NULL);
-
-  /* free the allocated D-Bus message */
-  dbus_message_unref (message);
-
+  g_dbus_connection_emit_signal (info->service->connection,
+                                 info->origin, 
+                                 THUMBNAILER_PATH,
+                                 THUMBNAILER_IFACE,
+                                 "Started",
+                                 signal_variant, 
+                                 NULL);
+  
+  g_variant_unref (signal_variant);
+  
   scheduler_idle_info_free (info);
 
   return FALSE;
@@ -717,7 +664,7 @@ scheduler_idle_info_free (SchedulerIdleInfo *info)
 
 
 TumblerService *
-tumbler_service_new (DBusGConnection         *connection,
+tumbler_service_new (GDBusConnection         *connection,
                      TumblerLifecycleManager *lifecycle_manager,
                      TumblerRegistry         *registry)
 {
@@ -730,54 +677,16 @@ tumbler_service_new (DBusGConnection         *connection,
 
 
 
-gboolean
-tumbler_service_start (TumblerService *service,
-                       GError        **error)
-{
-  DBusConnection *connection;
-  gint            result;
 
-  g_return_val_if_fail (TUMBLER_IS_SERVICE (service), FALSE);
-  g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-  tumbler_mutex_lock (service->mutex);
-
-  /* get the native D-Bus connection */
-  connection = dbus_g_connection_get_connection (service->connection);
-
-  /* request ownership for the generic thumbnailer interface */
-  result = dbus_bus_request_name (connection, THUMBNAILER_SERVICE,
-                                  DBUS_NAME_FLAG_DO_NOT_QUEUE, NULL);
-
-  /* check if that failed */
-  if (result != DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER)
-    {
-      if (error != NULL)
-        {
-          g_set_error (error, DBUS_GERROR, DBUS_GERROR_FAILED,
-                       _("Another generic thumbnailer is already running"));
-        }
-
-      tumbler_mutex_unlock (service->mutex);
-
-      return FALSE;
-    }
-
-  tumbler_mutex_unlock (service->mutex);
-
-  return TRUE;
-}
-
-
-
-void
-tumbler_service_queue (TumblerService        *service,
-                       const gchar *const    *uris,
-                       const gchar *const    *mime_hints,
-                       const gchar           *flavor_name,
-                       const gchar           *scheduler_name,
-                       guint                  handle_to_dequeue,
-                       DBusGMethodInvocation *context)
+static gboolean 
+tumbler_service_queue_cb (TumblerExportedService  *skeleton,
+                          GDBusMethodInvocation   *invocation,
+                          const gchar *const      *uris,
+                          const gchar *const      *mime_hints,
+                          const gchar             *flavor_name,
+                          const gchar             *scheduler_name,
+                          guint                    handle_to_dequeue,
+                          TumblerService          *service)
 {
   TumblerSchedulerRequest *scheduler_request;
   TumblerThumbnailFlavor  *flavor;
@@ -787,13 +696,13 @@ tumbler_service_queue (TumblerService        *service,
   TumblerCache            *cache;
   GList                   *iter;
   gchar                   *name;
-  gchar                   *origin;
+  const gchar             *origin;
   guint                    handle;
   guint                    length;
 
-  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
-  dbus_async_return_if_fail (uris != NULL, context);
-  dbus_async_return_if_fail (mime_hints != NULL, context);
+  g_dbus_async_return_val_if_fail (TUMBLER_IS_SERVICE (service), invocation, FALSE);
+  g_dbus_async_return_val_if_fail (uris != NULL, invocation, FALSE);
+  g_dbus_async_return_val_if_fail (mime_hints != NULL, invocation, FALSE);
 
   tumbler_mutex_lock (service->mutex);
 
@@ -816,7 +725,7 @@ tumbler_service_queue (TumblerService        *service,
   thumbnailers = tumbler_registry_get_thumbnailer_array (service->registry, infos,
                                                          length);
 
-  origin = dbus_g_method_get_sender (context);
+  origin = g_dbus_method_invocation_get_sender (invocation);
 
   /* allocate a scheduler request */
   scheduler_request = tumbler_scheduler_request_new (infos, thumbnailers, 
@@ -825,7 +734,6 @@ tumbler_service_queue (TumblerService        *service,
   /* release the file info array */
   tumbler_file_info_array_free (infos);
 
-  g_free (origin);
 
   /* get the request handle */
   handle = scheduler_request->handle;
@@ -885,23 +793,24 @@ tumbler_service_queue (TumblerService        *service,
   tumbler_thumbnailer_array_free (thumbnailers, length);
 
   tumbler_mutex_unlock (service->mutex);
-
-  dbus_g_method_return (context, handle);
-
+  
+  tumbler_exported_service_complete_queue(skeleton, invocation, handle);
+  
   /* try to keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
+    
+  return TRUE;
 }
 
 
 
-void
-tumbler_service_dequeue (TumblerService        *service,
-                         guint                  handle,
-                         DBusGMethodInvocation *context)
+static gboolean 
+tumbler_service_dequeue_cb (TumblerExportedService  *skeleton,
+                            GDBusMethodInvocation   *invocation,
+                            guint                    handle,
+                            TumblerService          *service)
 {
   GList *iter;
-
-  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
   tumbler_mutex_lock (service->mutex);
 
@@ -918,93 +827,24 @@ tumbler_service_dequeue (TumblerService        *service,
 
   tumbler_mutex_unlock (service->mutex);
 
-  dbus_g_method_return (context);
-
+  tumbler_exported_service_complete_dequeue(skeleton, invocation);
+    
   /* keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
+  
+  return TRUE;
 }
 
 
 
-void
-tumbler_service_get_supported (TumblerService        *service,
-                               DBusGMethodInvocation *context)
-{
-  const gchar *const *mime_types;
-  const gchar *const *uri_schemes;
-
-  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
-
-  tumbler_mutex_lock (service->mutex);
-
-  /* fetch all supported URI scheme / MIME type pairs from the registry */
-  tumbler_registry_get_supported (service->registry, &uri_schemes, &mime_types);
-
-  tumbler_mutex_unlock (service->mutex);
-
-  /* return the arrays to the caller */
-  dbus_g_method_return (context, uri_schemes, mime_types);
-
-  /* try to keep tumbler alive */
-  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
-}
-
-
-
-void 
-tumbler_service_get_flavors (TumblerService        *service,
-                              DBusGMethodInvocation *context)
-{
-  TumblerCache *cache;
-  const gchar **flavor_strings;
-  GList        *flavors;
-  GList        *iter;
-  guint         n;
-
-  cache = tumbler_cache_get_default ();
-
-  if (cache != NULL)
-    {
-      flavors = tumbler_cache_get_flavors (cache);
-      flavor_strings = g_new0 (const gchar *, g_list_length (flavors) + 1);
-
-      for (iter = flavors, n = 0; iter != NULL; iter = iter->next, ++n)
-        flavor_strings[n] = tumbler_thumbnail_flavor_get_name (iter->data);
-      flavor_strings[n] = NULL;
-    
-      dbus_g_method_return (context, flavor_strings);
-
-      g_free (flavor_strings);
-
-      g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
-      g_list_free (flavors);
-
-      g_object_unref (cache);
-    }
-  else
-    {
-      flavor_strings = g_new0 (const gchar *, 1);
-      flavor_strings[0] = NULL;
-
-      dbus_g_method_return (context, flavor_strings);
-
-      g_free (flavor_strings);
-    }
-
-  /* try to keep tumbler alive */
-  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
-}
-
-
-void
-tumbler_service_get_schedulers (TumblerService        *service,
-                                DBusGMethodInvocation *context)
+static gboolean 
+tumbler_service_get_schedulers_cb (TumblerExportedService  *skeleton,
+                                   GDBusMethodInvocation   *invocation,
+                                   TumblerService          *service)
 {
   gchar **supported_schedulers;
   GList  *iter;
   guint   n = 0;
-
-  dbus_async_return_if_fail (TUMBLER_IS_SERVICE (service), context);
 
   tumbler_mutex_lock (service->mutex);
 
@@ -1027,11 +867,100 @@ tumbler_service_get_schedulers (TumblerService        *service,
   supported_schedulers[n] = NULL;
 
   /* return the scheduler array to the caller */
-  dbus_g_method_return (context, supported_schedulers);
+  tumbler_exported_service_complete_get_schedulers (skeleton, 
+                                                    invocation,
+                                                    (const char* const*)supported_schedulers);
 
   /* free the array */
   g_strfreev (supported_schedulers);
 
   /* try to keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
+  
+  return TRUE;
+}
+
+
+
+static gboolean 
+tumbler_service_get_supported_cb (TumblerExportedService  *skeleton,
+                                  GDBusMethodInvocation   *invocation,
+                                  TumblerService          *service)
+{
+  const gchar *const *mime_types;
+  const gchar *const *uri_schemes;
+
+  g_dbus_async_return_val_if_fail (TUMBLER_IS_SERVICE (service), invocation, FALSE);
+
+  tumbler_mutex_lock (service->mutex);
+
+  /* fetch all supported URI scheme / MIME type pairs from the registry */
+  tumbler_registry_get_supported (service->registry, &uri_schemes, &mime_types);
+
+  tumbler_mutex_unlock (service->mutex);
+
+  /* return the arrays to the caller */
+  tumbler_exported_service_complete_get_supported(skeleton, invocation, uri_schemes, mime_types);
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
+  
+  return TRUE;
+}
+
+
+
+static gboolean 
+tumbler_service_get_flavors_cb  (TumblerExportedService  *skeleton,
+                                 GDBusMethodInvocation   *invocation,
+                                 TumblerService          *service)
+{
+  TumblerCache *cache;
+  const gchar **flavor_strings;
+  GList        *flavors;
+  GList        *iter;
+  guint         n;
+
+  cache = tumbler_cache_get_default ();
+
+  if (cache != NULL)
+    {
+      flavors = tumbler_cache_get_flavors (cache);
+      flavor_strings = g_new0 (const gchar *, g_list_length (flavors) + 1);
+
+      for (iter = flavors, n = 0; iter != NULL; iter = iter->next, ++n)
+        flavor_strings[n] = tumbler_thumbnail_flavor_get_name (iter->data);
+      flavor_strings[n] = NULL;
+   
+      tumbler_exported_service_complete_get_flavors (skeleton, invocation, flavor_strings);
+      
+      g_free (flavor_strings);
+
+      g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
+      g_list_free (flavors);
+
+      g_object_unref (cache);
+    }
+  else
+    {
+      flavor_strings = g_new0 (const gchar *, 1);
+      flavor_strings[0] = NULL;
+      
+      tumbler_exported_service_complete_get_flavors (skeleton, invocation, flavor_strings);
+
+      g_free (flavor_strings);
+    }
+
+  /* try to keep tumbler alive */
+  tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
+
+  return TRUE;
+}
+
+
+
+gboolean tumbler_service_is_exported (TumblerService *service)
+{
+  g_return_val_if_fail (TUMBLER_IS_SERVICE(service), FALSE);
+  return service->dbus_interface_exported;
 }

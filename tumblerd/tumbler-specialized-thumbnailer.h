@@ -21,8 +21,6 @@
 #ifndef __TUMBLER_SPECIALIZED_THUMBNAILER_H__
 #define __TUMBLER_SPECIALIZED_THUMBNAILER_H__
 
-#include <dbus/dbus-glib-lowlevel.h>
-
 #include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
@@ -39,13 +37,13 @@ typedef struct _TumblerSpecializedThumbnailer      TumblerSpecializedThumbnailer
 
 GType               tumbler_specialized_thumbnailer_get_type        (void) G_GNUC_CONST;
 
-TumblerThumbnailer *tumbler_specialized_thumbnailer_new             (DBusGConnection               *connection,
+TumblerThumbnailer *tumbler_specialized_thumbnailer_new             (GDBusConnection               *connection,
                                                                      const gchar                   *name,
                                                                      const gchar                   *object_path,
                                                                      const gchar *const            *uri_schemes,
                                                                      const gchar *const            *mime_types,
                                                                      guint64                        modified) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-TumblerThumbnailer *tumbler_specialized_thumbnailer_new_foreign     (DBusGConnection               *connection,
+TumblerThumbnailer *tumbler_specialized_thumbnailer_new_foreign     (GDBusConnection               *connection,
                                                                      const gchar                   *name,
                                                                      const gchar *const            *uri_scheme,
                                                                      const gchar *const            *mime_type) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;

@@ -1,3 +1,7 @@
+0.1.90
+======
+- Tumbler relies now on gdbus instead of dbus-glib
+
 0.1.31
 ======
 - Use $XDG_CACHE_HOME/thumbnails as per spec change (bug #10613)

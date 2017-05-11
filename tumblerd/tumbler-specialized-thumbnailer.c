@@ -66,9 +66,10 @@ static void tumbler_specialized_thumbnailer_set_property    (GObject            
 static void tumbler_specialized_thumbnailer_create          (TumblerThumbnailer            *thumbnailer,
                                                              GCancellable                  *cancellable,
                                                              TumblerFileInfo               *info);
-static void tumbler_specialized_thumbnailer_proxy_destroyed (DBusGProxy                    *proxy,
-                                                             TumblerSpecializedThumbnailer *thumbnailer);
 
+static void tumbler_specialized_thumbnailer_proxy_name_owner_changed (GDBusProxy                    *proxy,
+                                                                      GParamSpec                    *spec,
+                                                                      TumblerSpecializedThumbnailer *thumbnailer);
 
 
 struct _TumblerSpecializedThumbnailerClass
@@ -80,8 +81,8 @@ struct _TumblerSpecializedThumbnailer
 {
   TumblerAbstractThumbnailer __parent__;
 
-  DBusGConnection *connection;
-  DBusGProxy      *proxy;
+  GDBusConnection *connection;
+  GDBusProxy      *proxy;
 
   gboolean         foreign;
   guint64          modified;
@@ -146,18 +147,19 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
 
   g_object_class_install_property (gobject_class,
                                    PROP_CONNECTION,
-                                   g_param_spec_pointer ("connection",
-                                                         "connection",
-                                                         "connection",
-                                                         G_PARAM_CONSTRUCT_ONLY |
-                                                         G_PARAM_READWRITE));
+                                   g_param_spec_object ("connection",
+                                                        "connection",
+                                                        "connection",
+                                                        G_TYPE_DBUS_CONNECTION,
+                                                        G_PARAM_CONSTRUCT_ONLY |
+                                                        G_PARAM_READWRITE));
 
   g_object_class_install_property (gobject_class,
                                    PROP_PROXY,
                                    g_param_spec_object ("proxy",
                                                         "proxy",
                                                         "proxy",
-                                                        DBUS_TYPE_G_PROXY,
+                                                        G_TYPE_DBUS_PROXY,
                                                         G_PARAM_READABLE));
 
   g_object_class_install_property (gobject_class,
@@ -177,26 +179,6 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         0, G_MAXUINT64, 0,
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_READWRITE));
-
-  dbus_g_object_register_marshaller (tumbler_marshal_VOID__UINT_STRING,
-                                     G_TYPE_NONE, 
-                                     G_TYPE_UINT,
-                                     G_TYPE_STRING,
-                                     G_TYPE_INVALID);
-
-  dbus_g_object_register_marshaller (g_cclosure_marshal_VOID__UINT,
-                                     G_TYPE_NONE, 
-                                     G_TYPE_UINT,
-                                     G_TYPE_INVALID);
-
-  dbus_g_object_register_marshaller (tumbler_marshal_VOID__UINT_STRING_INT_STRING,
-                                     G_TYPE_NONE,
-                                     G_TYPE_UINT,
-                                     G_TYPE_STRING,
-                                     G_TYPE_INT,
-                                     G_TYPE_STRING,
-                                     G_TYPE_INVALID);
-
 }
 
 
@@ -226,29 +208,20 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
   /* chain up to parent classes */
   if (G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->constructed != NULL)
     (G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->constructed) (object);
-
+  
   thumbnailer->proxy = 
-    dbus_g_proxy_new_for_name (thumbnailer->connection,
-                               thumbnailer->name,
-                               thumbnailer->object_path,
-                               "org.freedesktop.thumbnails.SpecializedThumbnailer1");
-
-  dbus_g_proxy_add_signal (thumbnailer->proxy, "Ready", 
-                           G_TYPE_UINT, G_TYPE_STRING, 
-                           G_TYPE_INVALID);
-
-  dbus_g_proxy_add_signal (thumbnailer->proxy, "Error",
-                           G_TYPE_UINT, G_TYPE_STRING, 
-                           G_TYPE_INT, G_TYPE_STRING, 
-                           G_TYPE_INVALID);
-
-  dbus_g_proxy_add_signal (thumbnailer->proxy, "Finished", 
-                           G_TYPE_UINT,
-                           G_TYPE_INVALID);
-
+    g_dbus_proxy_new_sync (thumbnailer->connection,
+                           G_DBUS_PROXY_FLAGS_NONE,
+                           NULL,
+                           thumbnailer->name,
+                           thumbnailer->object_path,
+                           "org.freedesktop.thumbnails.SpecializedThumbnailer1",
+                           NULL,
+                           NULL);
+    
   if (thumbnailer->foreign) {
-    g_signal_connect (thumbnailer->proxy, "destroy",
-                      G_CALLBACK (tumbler_specialized_thumbnailer_proxy_destroyed),
+    g_signal_connect (thumbnailer->proxy, "notify::g-name-owner",
+                      G_CALLBACK (tumbler_specialized_thumbnailer_proxy_name_owner_changed),
                       thumbnailer);
   }
 }
@@ -268,8 +241,8 @@ tumbler_specialized_thumbnailer_finalize (GObject *object)
 
   g_object_unref (thumbnailer->proxy);
 
-  dbus_g_connection_unref (thumbnailer->connection);
-
+  g_object_unref (thumbnailer->connection);
+  
   (*G_OBJECT_CLASS (tumbler_specialized_thumbnailer_parent_class)->finalize) (object);
 }
 
@@ -286,7 +259,7 @@ tumbler_specialized_thumbnailer_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      g_value_set_pointer (value, dbus_g_connection_ref (thumbnailer->connection));
+      g_value_set_object (value, g_object_ref (thumbnailer->connection));
       break;
     case PROP_NAME:
       g_value_set_string (value, thumbnailer->name);
@@ -322,7 +295,7 @@ tumbler_specialized_thumbnailer_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_CONNECTION:
-      thumbnailer->connection = dbus_g_connection_ref (g_value_get_pointer (value));
+      thumbnailer->connection = g_object_ref (g_value_get_object (value));
       break;
     case PROP_NAME:
       thumbnailer->name = g_value_dup_string (value);
@@ -344,55 +317,64 @@ tumbler_specialized_thumbnailer_set_property (GObject      *object,
 
 
 
-static void
-specialized_error (DBusGProxy *proxy,
-                   guint       handle,
-                   gchar      *uri,
-                   gint        error_code,
-                   gchar      *error_msg,
-                   gpointer    user_data)
+
+static void 
+thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy, 
+                               gchar *sender_name, 
+                               gchar *signal_name, 
+                               GVariant *parameters, 
+                               gpointer user_data) 
 {
-  SpecializedInfo *info = user_data;
-
-  if (info->handle == handle)
-    g_signal_emit_by_name (info->thumbnailer, "error", uri, error_code, error_msg);
-}
-
-
-
-static void
-specialized_ready (DBusGProxy *proxy,
-                   guint       handle,
-                   gchar      *uri,
-                   gpointer    user_data)
-{
-  SpecializedInfo *info = user_data;
-
-  if (info->handle == handle)
-    g_signal_emit_by_name (info->thumbnailer, "ready", uri);
-}
-
-
-
-static void
-specialized_finished (DBusGProxy *proxy,
-                      guint       handle,
-                      gpointer    user_data)
-{
-  SpecializedInfo *info = user_data;
-
-  if (info->handle == handle) 
+  SpecializedInfo *info = user_data;  
+  guint handle;
+  
+  if (strcmp (signal_name, "Finished") == 0) 
     {
-      tumbler_mutex_lock (info->mutex);
+      if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(u)"))) 
+        {
+          g_variant_get (parameters, "(&u)", &handle);
+          if (info->handle == handle) 
+            {
+              tumbler_mutex_lock (info->mutex);
 #if GLIB_CHECK_VERSION (2, 32, 0)
-      g_cond_broadcast (&info->condition);
+              g_cond_broadcast (&info->condition);
 #else
-      g_cond_broadcast (info->condition);
+              g_cond_broadcast (info->condition);
 #endif
-      info->had_callback = TRUE;
-      tumbler_mutex_unlock (info->mutex);
+              info->had_callback = TRUE;
+              tumbler_mutex_unlock (info->mutex);
+            }  
+        }
+    }
+  else if (strcmp (signal_name, "Ready") == 0)
+    {
+       if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(us)"))) 
+        {
+          const gchar *uri;
+          g_variant_get (parameters, "(u&s)", &handle, &uri);
+          if (info->handle == handle) 
+            {
+               g_signal_emit_by_name (info->thumbnailer, "ready", uri);
+            }
+        }
+    }
+  else if (strcmp (signal_name, "Error") == 0)
+    {
+       if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(usis)"))) 
+        {
+          const gchar *uri, *error_msg;
+          gint error_code;
+          
+          g_variant_get (parameters, "(u&si&s)", &handle, &uri, &error_code, &error_msg);
+          if (info->handle == handle) 
+            {
+              g_signal_emit_by_name (info->thumbnailer, "error", uri, error_code, error_msg);
+            }
+        }
     }
 }
+
+  
 
 static void
 tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
@@ -408,11 +390,13 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 #endif
   TumblerThumbnail              *thumbnail;
   TumblerThumbnailFlavor        *flavor;
+  GVariant                      *result;
   const gchar                   *flavor_name;
   const gchar                   *uri;
   GError                        *error = NULL;
   gchar                         *message;
-
+  int                            handler_id;
+  
   g_return_if_fail (TUMBLER_IS_SPECIALIZED_THUMBNAILER (thumbnailer));
 
   uri = tumbler_file_info_get_uri (info);
@@ -433,36 +417,29 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   sinfo.mime_type = tumbler_file_info_get_mime_type (info);
   sinfo.thumbnailer = thumbnailer;
 
-  dbus_g_proxy_connect_signal (s->proxy, "Finished",
-                               G_CALLBACK (specialized_finished),
-                               &sinfo, 
-                               NULL);
+  handler_id = g_signal_connect (s->proxy, "g-signal", 
+                                 G_CALLBACK(thumbnailer_proxy_g_signal_cb), &info);
 
-  dbus_g_proxy_connect_signal (s->proxy, "Ready",
-                               G_CALLBACK (specialized_ready),
-                               &sinfo, 
-                               NULL);
-
-  dbus_g_proxy_connect_signal (s->proxy, "Error",
-                               G_CALLBACK (specialized_error),
-                               &sinfo, 
-                               NULL);
-
-  dbus_g_proxy_call_with_timeout (s->proxy, "Queue", 
-                                  100000000, /* 100 seconds worth of timeout */
-                                  &error,
-                                  G_TYPE_STRING, uri,
-                                  G_TYPE_STRING, sinfo.mime_type,
-                                  G_TYPE_STRING, flavor_name,
-                                  /* TODO: Get this bool from scheduler type */
-                                  G_TYPE_BOOLEAN, FALSE,
-                                  G_TYPE_INVALID, 
-                                  G_TYPE_UINT, &sinfo.handle,
-                                  G_TYPE_INVALID);
+  result = g_dbus_proxy_call_sync (s->proxy, 
+                                   "Queue", 
+                                   g_variant_new("(sssb)",
+                                                 uri,
+                                                 sinfo.mime_type,
+                                                 flavor_name,
+                                                 /* TODO: Get this bool from scheduler type */
+                                                 FALSE),
+                                   G_DBUS_CALL_FLAGS_NONE,
+                                   100000000, /* 100 seconds worth of timeout */
+                                   NULL,
+                                   &error);
 
   if (error == NULL)
     {
-     /* 100 seconds worth of timeout */
+      /*Get the return handle */
+      g_variant_get (result, "(u)", &sinfo.handle);
+      g_variant_unref (result);
+        
+      /* 100 seconds worth of timeout */
 #if GLIB_CHECK_VERSION (2, 32, 0)
      end_time = g_get_monotonic_time () + 100 * G_TIME_SPAN_SECOND;
 #else
@@ -497,18 +474,8 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
       g_free (message);
       g_clear_error (&error);
     }
-
-  dbus_g_proxy_disconnect_signal (s->proxy, "Finished",
-                               G_CALLBACK (specialized_finished),
-                               &sinfo);
-
-  dbus_g_proxy_disconnect_signal (s->proxy, "Ready",
-                               G_CALLBACK (specialized_ready),
-                               &sinfo);
-
-  dbus_g_proxy_disconnect_signal (s->proxy, "Error",
-                               G_CALLBACK (specialized_error),
-                               &sinfo);
+  
+  g_signal_handler_disconnect (s->proxy, handler_id);
 
 #if GLIB_CHECK_VERSION (2, 32, 0)
   g_cond_clear (&sinfo.condition);
@@ -518,19 +485,26 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 }
 
 static void
-tumbler_specialized_thumbnailer_proxy_destroyed (DBusGProxy                    *proxy,
-                                                 TumblerSpecializedThumbnailer *thumbnailer)
+tumbler_specialized_thumbnailer_proxy_name_owner_changed (GDBusProxy                    *proxy,
+                                                          GParamSpec                    *spec,
+                                                          TumblerSpecializedThumbnailer *thumbnailer)
 {
-  g_return_if_fail (DBUS_IS_G_PROXY (proxy));
+  gchar *name_owner;
+  g_return_if_fail (G_IS_DBUS_PROXY (proxy));
   g_return_if_fail (TUMBLER_IS_SPECIALIZED_THUMBNAILER (thumbnailer));
-
-  g_signal_emit_by_name (thumbnailer, "unregister");
+  
+  name_owner = g_dbus_proxy_get_name_owner (proxy);
+  if (name_owner == NULL) 
+    {
+      g_signal_emit_by_name (thumbnailer, "unregister");
+    }
+  g_free(name_owner);
 }
 
 
 
 TumblerThumbnailer *
-tumbler_specialized_thumbnailer_new (DBusGConnection    *connection,
+tumbler_specialized_thumbnailer_new (GDBusConnection    *connection,
                                      const gchar        *name,
                                      const gchar        *object_path,
                                      const gchar *const *uri_schemes,
@@ -557,7 +531,7 @@ tumbler_specialized_thumbnailer_new (DBusGConnection    *connection,
 
 
 TumblerThumbnailer *
-tumbler_specialized_thumbnailer_new_foreign (DBusGConnection    *connection,
+tumbler_specialized_thumbnailer_new_foreign (GDBusConnection    *connection,
                                              const gchar        *name,
                                              const gchar *const *uri_schemes,
                                              const gchar *const *mime_types)

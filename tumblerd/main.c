@@ -1,7 +1,8 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009-2012 Jannis Pohlmann <jannis@xfce.org>
- *
+ * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org>
+ *  
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2 of 
@@ -37,8 +38,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
-#include <dbus/dbus-glib.h>
 
 #include <tumbler/tumbler.h>
 
@@ -214,7 +213,17 @@ locations_from_strv (gchar **array)
   return locations;
 }
 
+static void
+on_dbus_name_lost (GDBusConnection *connection,
+                   const gchar     *name,
+                   gpointer         user_data)
+{
+  GMainLoop *main_loop;
 
+  g_critical (_("Name %s lost on the message dbus, exiting."),name);
+  main_loop = (GMainLoop*)user_data;
+  g_main_loop_quit(main_loop);
+}
 
 int
 main (int    argc,
@@ -222,7 +231,7 @@ main (int    argc,
 {
   TumblerLifecycleManager *lifecycle_manager;
   TumblerProviderFactory  *provider_factory;
-  DBusGConnection         *connection;
+  GDBusConnection         *connection;
   TumblerRegistry         *registry;
   TumblerManager          *manager;
   TumblerService          *service;
@@ -268,21 +277,17 @@ main (int    argc,
     g_thread_init (NULL);
 #endif
 
-  /* initial the D-Bus threading system */
-  dbus_g_thread_init ();
 
-  /* try to connect to the D-Bus session bus */
-  connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-
-  /* print an error and exit if the connection could not be established */
-  if (connection == NULL)
+  connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+  
+  if (error != NULL)
     {
-      g_warning (_("Failed to connect to the D-Bus session bus: %s"), error->message);
+      g_critical ("error getting session bus: %s", error->message);
       g_error_free (error);
-
-      return EXIT_FAILURE;
+      
+      return  EXIT_FAILURE;
     }
-
+  
   /* create the lifecycle manager */
   lifecycle_manager = tumbler_lifecycle_manager_new ();
 
@@ -369,49 +374,57 @@ main (int    argc,
       goto exit_tumbler;
     }
 
-  /* try to start the service and exit if that fails */
-  if (!tumbler_cache_service_start (cache_service, &error))
-    {
-      g_warning (_("Failed to start the thumbnail cache service: %s"), error->message);
-      g_error_free (error);
-
-      /* service already running, exit gracefully to not break clients */
-      goto exit_tumbler;
-    }
-
-  /* try to start the service and exit if that fails */
-  if (!tumbler_manager_start (manager, &error))
-    {
-      g_warning (_("Failed to start the thumbnailer manager: %s"), error->message);
-      g_error_free (error);
-
-      /* service already running, exit gracefully to not break clients */
-      goto exit_tumbler;
-    }
-
-  /* try to start the service and exit if that fails */
-  if (!tumbler_service_start (service, &error))
-    {
-      g_warning (_("Failed to start the thumbnailer service: %s"), error->message);
-      g_error_free (error);
-
-      /* service already running, exit gracefully to not break clients */
-      goto exit_tumbler;
-    }
-
   /* create a new main loop */
   main_loop = g_main_loop_new (NULL, FALSE);
+      
+  
+  /* Acquire the cache service dbus name */
+  g_bus_own_name_on_connection (connection,
+                                "org.freedesktop.thumbnails.Cache1",
+                                G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                NULL, /* We dont need to do anything on name acquired*/
+                                on_dbus_name_lost,
+                                main_loop,
+                                NULL);
 
-  /* quit the main loop when the lifecycle manager asks us to shut down */
-  g_signal_connect (lifecycle_manager, "shutdown", 
-                    G_CALLBACK (shutdown_tumbler), main_loop);
+  /* Acquire the manager dbus name */
+  g_bus_own_name_on_connection (connection,
+                                "org.freedesktop.thumbnails.Manager1",
+                                G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                NULL, /* We dont need to do anything on name acquired*/
+                                on_dbus_name_lost,
+                                main_loop,
+                                NULL);
 
-  /* start the lifecycle manager */
-  tumbler_lifecycle_manager_start (lifecycle_manager);
+  /* Acquire the thumbnailer service dbus name */
+  g_bus_own_name_on_connection (connection,
+                                "org.freedesktop.thumbnails.Thumbnailer1",
+                                G_BUS_NAME_OWNER_FLAGS_REPLACE,
+                                NULL, /* We dont need to do anything on name acquired*/
+                                on_dbus_name_lost,
+                                main_loop,
+                                NULL);
+  
+  /* check to see if all services are successfully exported on the bus */
+  if (tumbler_manager_is_exported(manager) &&
+      tumbler_service_is_exported(service) &&
+      tumbler_cache_service_is_exported(cache_service))
+    {
+      /* Let the manager initializes the thumbnailer
+       * directory objects, directory monitors */
+      tumbler_manager_load (manager);
+        
+      /* quit the main loop when the lifecycle manager asks us to shut down */
+      g_signal_connect (lifecycle_manager, "shutdown", 
+                        G_CALLBACK (shutdown_tumbler), main_loop);
 
-  /* enter the main loop, thereby making the tumbler service available */
-  g_main_loop_run (main_loop);
+      /* start the lifecycle manager */
+      tumbler_lifecycle_manager_start (lifecycle_manager);
 
+      /* enter the main loop, thereby making the tumbler service available */
+      g_main_loop_run (main_loop);
+    }
+  
   exit_tumbler:
 
   /* shut our services down and release all objects */
@@ -421,8 +434,8 @@ main (int    argc,
   g_object_unref (registry);
   g_object_unref (lifecycle_manager);
 
-  /* disconnect from the D-Bus session bus */
-  dbus_g_connection_unref (connection);
+  /* free the dbus session bus connection */
+  g_object_unref (connection);
 
   /* we're done, all fine */
   return retval;

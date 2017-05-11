@@ -21,23 +21,37 @@
 #ifndef __TUMBLER_UTILS_H__
 #define __TUMBLER_UTILS_H__
 
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
-#define dbus_async_return_if_fail(expr, context)                                        \
+#define g_dbus_async_return_if_fail(expr, invocation)                                   \
   G_STMT_START{                                                                         \
     if (G_UNLIKELY (!(expr)))                                                           \
       {                                                                                 \
         GError *dbus_async_return_if_fail_error = NULL;                                 \
                                                                                         \
-        g_set_error (&dbus_async_return_if_fail_error, DBUS_GERROR, DBUS_GERROR_FAILED, \
+        g_set_error (&dbus_async_return_if_fail_error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED, \
                      "Assertion \"%s\" failed", #expr);                                 \
-        dbus_g_method_return_error (context, dbus_async_return_if_fail_error);          \
+        g_dbus_method_invocation_return_gerror (invocation, dbus_async_return_if_fail_error);\
         g_clear_error (&dbus_async_return_if_fail_error);                               \
                                                                                         \
         return;                                                                         \
+      }                                                                                 \
+  }G_STMT_END
+
+#define g_dbus_async_return_val_if_fail(expr, invocation,val)                           \
+  G_STMT_START{                                                                         \
+    if (G_UNLIKELY (!(expr)))                                                           \
+      {                                                                                 \
+        GError *dbus_async_return_if_fail_error = NULL;                                 \
+                                                                                        \
+        g_set_error (&dbus_async_return_if_fail_error, G_DBUS_ERROR, G_DBUS_ERROR_FAILED, \
+                     "Assertion \"%s\" failed", #expr);                                 \
+        g_dbus_method_invocation_return_gerror (invocation, dbus_async_return_if_fail_error);\
+        g_clear_error (&dbus_async_return_if_fail_error);                               \
+                                                                                        \
+        return (val);                                                                   \
       }                                                                                 \
   }G_STMT_END
 
