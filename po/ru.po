@@ -3,121 +3,93 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Igor <f2404@yandex.ru>, 2017
+# Sergey Alyoshin <alyoshin.s@gmail.com>, 2014
 # Алекс <dwqwt3i02@sneakemail.com>, 2010
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-11-19 12:27+0000\n"
-"Last-Translator: Nick <nick@xfce.org>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/xfce/language/ru/)\n"
+"POT-Creation-Date: 2017-05-15 18:30+0200\n"
+"PO-Revision-Date: 2017-05-16 00:41+0000\n"
+"Last-Translator: Igor <f2404@yandex.ru>\n"
+"Language-Team: Russian (http://www.transifex.com/xfce/tumbler/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
-msgid "Another thumbnail cache service is already running"
-msgstr "Служба кэша миниатюр уже запущена"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Отсутствует модуль миниатюр для \"%s\""
+msgstr "Отсутствует модуль миниатюр для «%s»"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "Служба кэша миниатюр завершает работу"
+msgstr "Служба создания миниатюр завершает работу"
 
-#: ../tumblerd/tumbler-service.c:758
-#, c-format
-msgid "Another generic thumbnailer is already running"
-msgstr "Уже запущен другой общий модуль миниатюр"
-
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Запрошен неподдерживаемый тип миниатюры"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Ошибка вызова специального модуля миниатюр: время истекло"
+msgstr "Ошибка вызова специального модуля миниатюр: время ожидания истекло"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Ошибка вызова специального модуля миниатюр: %s"
 
-#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Не удалось загрузить файл \"%s\": %s"
+msgstr "Не удалось загрузить файл «%s»: %s"
 
-#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
-#: ../tumblerd/tumbler-manager.c:535
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Неверная секция \"%s\" в файле \"%s\": %s"
+msgstr "Неверная секция «%s» в файле «%s»: %s"
 
-#: ../tumblerd/tumbler-manager.c:548
+#: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Неверная секция \"%s\" в файле \"%s\": Несовпадение названия секции и UriScheme/MimeType"
+msgstr "Неверная секция «%s» в файле «%s»: несовпадение названия секции и UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
-#: ../tumblerd/tumbler-manager.c:936
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Неверный формат файла \"%s\": %s"
+msgstr "Неверный формат файла «%s»: %s"
 
-#: ../tumblerd/tumbler-manager.c:962
+#: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Не удалось определить время изменения \"%s\""
+msgstr "Не удалось определить время изменения «%s»"
 
-#: ../tumblerd/tumbler-manager.c:1868
+#: ../tumblerd/main.c:223
 #, c-format
-msgid "Another thumbnailer manager is already running"
-msgstr "Уже запущен другой менеджер миниатюр"
+msgid "Name %s lost on the message dbus, exiting."
+msgstr "Имя «%s» потеряно в сообщении dbus, выходим."
 
-#: ../tumblerd/main.c:249
+#: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
 msgstr "Не удалось изменить приоритет процесса."
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
 msgstr "Служба создания миниатюр Tumbler"
 
-#: ../tumblerd/main.c:280
-#, c-format
-msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Не удалось подключиться к сеансовой шине D-Bus: %s"
-
-#: ../tumblerd/main.c:363
+#: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Не удалось загрузить специальные модули миниатюр в реестр: %s"
-
-#: ../tumblerd/main.c:375
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Не удалось запустить службу кэша миниатюр: %s"
-
-#: ../tumblerd/main.c:385
-#, c-format
-msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Не удалось запустить менеджер миниатюр: %s"
-
-#: ../tumblerd/main.c:395
-#, c-format
-msgid "Failed to start the thumbnailer service: %s"
-msgstr "Не удалось запустить службу миниатюр: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -134,27 +106,27 @@ msgstr "Цветовое пространство RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "В модуле кэша \"%s\" отсутствуют необходимые символы"
+msgstr "В модуле кэша «%s» отсутствуют необходимые символы"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Не удалось загрузить модуль кэша \"%s\": %s"
+msgstr "Не удалось загрузить модуль кэша «%s»: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Файл \"%s\" сам является миниатюрой"
+msgstr "Файл «%s» сам является миниатюрой"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "В модуле \"%s\" отсутствуют необходимые символы."
+msgstr "В модуле «%s» отсутствуют необходимые символы."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Не удалось загрузить модуль \"%s\": %s"
+msgstr "Не удалось загрузить модуль «%s»: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -173,12 +145,12 @@ msgstr "Неверная версия: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Не удалось загрузить изображение \"%s\""
+msgstr "Не удалось загрузить изображение «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Не удалось загрузить метаданные из \"%s\""
+msgstr "Не удалось загрузить метаданные из «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
@@ -204,7 +176,7 @@ msgstr "Не удалось инициализировать freetype: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "не удалось загрузить содержимое файла: %s"
+msgstr "Не удалось загрузить содержимое файла: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
@@ -250,4 +222,4 @@ msgstr "Поддерживаются только локальные файлы"
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Не удалось сохранить миниатюру в \"%s\""
+msgstr "Не удалось сохранить миниатюру в «%s»"
