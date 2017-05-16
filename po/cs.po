@@ -4,24 +4,20 @@
 # 
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
+# Michal Várady <miko.vaji@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-08-12 07:30+0000\n"
-"Last-Translator: Alois Nešpor <info@aloisnespor.info>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/xfce/language/cs/)\n"
+"POT-Creation-Date: 2017-05-15 18:30+0200\n"
+"PO-Revision-Date: 2017-05-16 22:13+0000\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/xfce/tumbler/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-
-#: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
-msgid "Another thumbnail cache service is already running"
-msgstr "Již je spuštěna jiná služba mezipaměti náhledů"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -33,91 +29,66 @@ msgstr "Pro položku \"%s\" není dostupný žádný nástroj pro vytváření n
 msgid "The thumbnailer service is shutting down"
 msgstr "Služba náhledů se vypíná"
 
-#: ../tumblerd/tumbler-service.c:758
-#, c-format
-msgid "Another generic thumbnailer is already running"
-msgstr "Již je spuštěn jiný nástroj pro vytváření náhledů"
-
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Byla vyžádána nepodporovaná metoda náhledu"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: Časový limit vypršel."
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
 
-#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Načtení souboru \"%s\" se nezdařilo: %s"
 
-#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
-#: ../tumblerd/tumbler-manager.c:535
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:548
+#: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje se schématem URI nebo typem MIME"
 
-#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
-#: ../tumblerd/tumbler-manager.c:936
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Poškozený soubor \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:962
+#: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Zjištění času poslední změny položky \"%s\" se nezdařilo"
 
-#: ../tumblerd/tumbler-manager.c:1868
+#: ../tumblerd/main.c:223
 #, c-format
-msgid "Another thumbnailer manager is already running"
-msgstr "Již je spuštěn jiný správce nástroje pro vytváření náhledů"
+msgid "Name %s lost on the message dbus, exiting."
+msgstr "Název %s ztracen na sběrnici zpráv dbus, ukončování."
 
-#: ../tumblerd/main.c:249
+#: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
 msgstr "Nelze změnit hodnotu nice procesu."
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
 msgstr "Služba vytváření náhledů Tumbler"
 
-#: ../tumblerd/main.c:280
-#, c-format
-msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Připojení k relaci sběrnice D-Bus se nezdařilo: %s"
-
-#: ../tumblerd/main.c:363
+#: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Načtení specializovaných nástrojů pro vytváření náhledů do registru se nezdařilo: %s"
-
-#: ../tumblerd/main.c:375
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Spuštění služby mezipaměti náhledů se nezdařilo: %s"
-
-#: ../tumblerd/main.c:385
-#, c-format
-msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Spuštění správce nástroje pro vytváření náhledů se nezdařilo: %s"
-
-#: ../tumblerd/main.c:395
-#, c-format
-msgid "Failed to start the thumbnailer service: %s"
-msgstr "Spuštění služby nástroj pro vytváření náhledů se nezdařilo: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -139,7 +110,7 @@ msgstr "Zásuvný modul pro mezipaměť \"%s\" postrádá požadované symboly"
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Načtení zásuvného modulu pro mezipaměť se nezdařilo \"%s\": %s"
+msgstr "Načtení zásuvného modulu pro mezipaměť \"%s\" se nezdařilo: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
