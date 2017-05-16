@@ -57,7 +57,7 @@ MaxFileSize=0
 #APIKey=your-api-key-from-themoviedb.org
 
 # ffmpegthumbnailer plugin
-[FfmegThumbnailer]
+[FfmpegThumbnailer]
 Disabled=false
 Priority=2
 Locations=
