@@ -161,6 +161,7 @@ TUMBLER_ODF_THUMBNAILER()
 TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_RAW_THUMBNAILER()
 TUMBLER_XDG_CACHE()
+TUMBLER_DESKTOP_THUMBNAILER()
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -195,6 +196,7 @@ plugins/odf-thumbnailer/Makefile
 plugins/poppler-thumbnailer/Makefile
 plugins/raw-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
+plugins/desktop-thumbnailer/Makefile
 po/Makefile.in
 tumbler/Makefile
 tumbler/tumbler-1.pc
@@ -261,5 +263,10 @@ if test x"$ac_tumbler_xdg_cache" = x"yes"; then
 echo "  * Freedesktop.org cache plugin:                     yes"
 else
 echo "  * Freedesktop.org cache plugin:                     no"
+fi
+if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
+echo "  * Loading thumbnailers from .desktop file:          yes"
+else
+echo "  * Loading thumbnailers from .desktop file:          no"
 fi
 echo

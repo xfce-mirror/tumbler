@@ -297,3 +297,22 @@ AC_MSG_CHECKING([whether to build the freedesktop.org cache plugin])
 AM_CONDITIONAL([TUMBLER_XDG_CACHE], [test x"$ac_tumbler_xdg_cache" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_xdg_cache])
 ])
+
+dnl TUMBLER_DESKTOP_THUMBNAILER()
+dnl
+dnl Check whether to build and install the thumbnailers plugin support for .desktop thumbnailers.
+dnl
+AC_DEFUN([TUMBLER_DESKTOP_THUMBNAILER],
+[
+AC_ARG_ENABLE([desktop-thumbnailer], [AC_HELP_STRING([--disable-desktop-thumbnailer], [Don't build the plugin support for .desktop thumbnailers])],
+  [ac_tumbler_desktop_thumbnailer=$enableval], [ac_tumbler_desktop_thumbnailer=yes])
+if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], [], [ac_tumbler_desktop_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the plugin support for .desktop thumbnailer])
+AM_CONDITIONAL([TUMBLER_DESKTOP_THUMBNAILER], [test x"$ac_tumbler_desktop_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_desktop_thumbnailer])
+])
+

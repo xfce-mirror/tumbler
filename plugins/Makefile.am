@@ -27,4 +27,5 @@ SUBDIRS =								\
 	odf-thumbnailer							\
 	poppler-thumbnailer						\
 	raw-thumbnailer							\
+	desktop-thumbnailer						\
 	xdg-cache
