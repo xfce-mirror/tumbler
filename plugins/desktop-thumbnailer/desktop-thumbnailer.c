@@ -210,7 +210,6 @@ desktop_thumbnailer_get_pixbuf (GInputStream *stream,
   if (!source)
     {
       g_clear_error (&error);
-      g_print("Failed to load pixbuf");
       return NULL;
     }
 
@@ -398,8 +397,6 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GError                     *error  =  NULL;
   GdkPixbuf                  *pixbuf =  NULL;
 
-  g_print("Debug \n");
-
   g_return_if_fail (IS_DESKTOP_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
@@ -425,7 +422,6 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (pixbuf != NULL)
     {
-      g_print("Yay pixbuff != NULL\n");
       data.data = gdk_pixbuf_get_pixels (pixbuf);
       data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
       data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
@@ -440,8 +436,6 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       g_object_unref (pixbuf);
     }
-  else
-    g_print(":(\n");
 
   if (error != NULL)
     {
