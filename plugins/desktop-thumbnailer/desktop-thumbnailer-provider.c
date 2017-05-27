@@ -24,6 +24,7 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <glib/gi18n.h>
 
 #include <tumbler/tumbler.h>
 
@@ -93,31 +94,162 @@ desktop_thumbnailer_provider_init (DesktopThumbnailerProvider *provider)
 {
 }
 
-
-
-static GList *
-desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
+static DesktopThumbnailer *
+desktop_thumbnailer_get_from_desktop_file (GFile *file,
+                                           GStrv  uri_schemes)
 {
-  /* This list is mainly from Totem. Generating a list from
-   * GStreamer isn't realistic, so we have to hardcode it. */
-  /* See https://git.gnome.org/browse/totem/tree/data/mime-type-list.txt */
-  static const char *mime_types[] = {
-	  "dummy",
-	  NULL
-  };
+  DesktopThumbnailer *thumbnailer;
+  GKeyFile           *key_file;
+  GError             *error = NULL;
+  gchar              *filename;
+  gchar              *exec;
+  gchar             **mime_types;
 
-  DesktopThumbnailer    *thumbnailer;
-  GError                *error = NULL;
-  GStrv                  uri_schemes;
+  g_return_val_if_fail (G_IS_FILE (file), NULL);
 
-  uri_schemes = tumbler_util_get_supported_uri_schemes ();
+  /* determine the absolute filename of the input file */
+  filename = g_file_get_path (file);
+
+  /* allocate a new key file object */
+  key_file = g_key_file_new ();
+
+  /* try to load the key file data from the input file */
+  if (!g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error))
+    {
+      g_warning (_("Failed to load the file \"%s\": %s"), filename, error->message);
+      g_clear_error (&error);
+
+      g_key_file_free (key_file);
+      g_free (filename);
+
+      return NULL;
+    }
+
+  /* determine the Exec of the desktop thumbnailer */
+  exec = g_key_file_get_string (key_file, "Thumbnailer Entry",
+								"Exec", &error);
+  if (exec == NULL)
+    {
+      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_clear_error (&error);
+
+      g_key_file_free (key_file);
+      g_free (filename);
+
+      return NULL;
+    }
+
+  /* determine the MIME types supported by this thumbnailer */
+  mime_types = g_key_file_get_string_list (key_file, "Thumbnailer Entry",
+                                           "MimeType", NULL, &error);
+  if (mime_types == NULL)
+    {
+      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_clear_error (&error);
+
+      g_free (exec);
+      g_key_file_free (key_file);
+      g_free (filename);
+
+      return NULL;
+    }
 
   thumbnailer = g_object_new (TYPE_DESKTOP_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types,
+                              "exec", exec,
                               NULL);
+  g_key_file_free (key_file);
+  g_strfreev(mime_types);
+
+  g_print("Registered thumbailer %s\n", exec);
+  g_free(exec);
+
+  return thumbnailer;
+}
+
+static GList *
+desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
+                                               GFile  *directory,
+                                               GStrv   uri_schemes)
+{
+  const gchar *base_name;
+  gchar       *dirname;
+  GDir        *dir;
+
+  /* determine the absolute path to the directory */
+  dirname = g_file_get_path (directory);
+
+  /* try to open the directory for reading */
+  dir = g_dir_open (dirname, 0, NULL);
+  if (dir == NULL)
+    {
+      g_free (dirname);
+      return thumbnailers;
+    }
+
+  /* iterate over all files in the directory */
+  for (base_name = g_dir_read_name (dir);
+       base_name != NULL;
+       base_name = g_dir_read_name (dir))
+    {
+	  GFileType    type;
+	  GFile       *file;
+	  DesktopThumbnailer *thumbnailer = NULL;
+
+	  /* skip files that don't end with the .thumbnailer extension */
+      if (!g_str_has_suffix (base_name, ".thumbnailer"))
+        continue;
+
+      file = g_file_get_child (directory, base_name);
+      type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
+
+      /* try to load the file if it is regular */
+      if (type == G_FILE_TYPE_REGULAR)
+	    thumbnailer = desktop_thumbnailer_get_from_desktop_file (file, uri_schemes);
+
+      g_object_unref (file);
+
+      if (thumbnailer)
+		{
+		  thumbnailers = g_list_append (thumbnailers, thumbnailer);
+		}
+	}
+  return thumbnailers;
+}
+
+static GList *
+desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
+{
+  const gchar *const *data_dirs;
+  gchar              *dirname;
+  GStrv               uri_schemes;
+  GList              *iter;
+  int                 n;
+  GList              *thumbnailers = NULL;
+  GList              *directories = NULL;
+
+  uri_schemes = tumbler_util_get_supported_uri_schemes ();
+
+  /* build $XDG_DATA_DIRS/thumbnailers dirnames and prepend them to the list */
+  data_dirs = g_get_system_data_dirs ();
+
+  for (n = 0; data_dirs[n] != NULL; ++n)
+    {
+      dirname = g_build_filename (data_dirs[n], "thumbnailers", NULL);
+      directories = g_list_prepend (directories, g_file_new_for_path (dirname));
+      g_free (dirname);
+    }
+
+  /* reverse the directory list so that the directories with highest
+   * priority come first */
+  directories = g_list_reverse (directories);
+
+  for (iter = directories; iter != NULL; iter = iter->next)
+	{
+	  thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data, uri_schemes);
+	}
 
   g_strfreev (uri_schemes);
-
-  return g_list_append (NULL, thumbnailer);
+  return thumbnailers;
 }
