@@ -25,13 +25,14 @@ m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
 m4_define([tumbler_version_minor], [1])
-m4_define([tumbler_version_micro], [90])
+m4_define([tumbler_version_micro], [92])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
+AC_COPYRIGHT([Copyright (c) 2016-2017 Ali Abdallah <ali@xfce.org>])
 AC_INIT([tumbler], [tumbler_version], [http://bugzilla.xfce.org/])
 AC_PREREQ([2.60])
 AC_CANONICAL_TARGET()
@@ -265,8 +266,8 @@ else
 echo "  * Freedesktop.org cache plugin:                     no"
 fi
 if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
-echo "  * Loading thumbnailers from .desktop file:          yes"
+echo "  * Loading thumbnailers from .thumbnailer files:     yes"
 else
-echo "  * Loading thumbnailers from .desktop file:          no"
+echo "  * Loading thumbnailers from .thumbnailer files:     no"
 fi
 echo
