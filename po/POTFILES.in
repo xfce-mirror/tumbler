@@ -44,3 +44,6 @@ plugins/raw-thumbnailer/raw-thumbnailer-plugin.c
 plugins/xdg-cache/xdg-cache-thumbnail.c
 plugins/xdg-cache/xdg-cache-plugin.c
 plugins/xdg-cache/xdg-cache-cache.c
+plugins/desktop-thumbnailer/desktop-thumbnailer.c
+plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c
+plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c
