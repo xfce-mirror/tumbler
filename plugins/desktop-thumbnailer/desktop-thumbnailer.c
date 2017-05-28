@@ -221,7 +221,7 @@ desktop_thumbnailer_get_pixbuf (GInputStream *stream,
 
   /* return the same pixbuf if no scaling is required */
   if (source_width <= dest_width && source_height <= dest_height)
-    return g_object_ref (source);
+    return source;
 
   /* determine which axis needs to be scaled down more */
   wratio = (gdouble) source_width / (gdouble) dest_width;

@@ -246,9 +246,9 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
   directories = g_list_reverse (directories);
 
   for (iter = directories; iter != NULL; iter = iter->next)
-	{
-	  thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data, uri_schemes);
-	}
+    {
+      thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data, uri_schemes);
+    }
 
   g_strfreev (uri_schemes);
   return thumbnailers;
