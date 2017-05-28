@@ -95,3 +95,10 @@ Disabled=false
 Priority=1
 Locations=
 MaxFileSize=0
+
+# thumnailers provided by .thumbnailer desktop files
+[DesktopThumbnailer]
+Disabled=false
+Priority=1
+Locations=
+MaxFileSize=0
