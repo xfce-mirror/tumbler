@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-16 04:30+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-05-29 08:38+0000\n"
 "Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/xfce/tumbler/language/id/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Gagal memanggil pemroses thumbnail khusus: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Gagal memuat berkas: \"%s\": %s"
@@ -60,6 +61,8 @@ msgstr "Terdapat bagian cacat \"%s\" pada berkas \"%s\": Ketidakcocokan antara n
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Terdapat cacat pada berkas \"%s\": %s"
@@ -135,6 +138,7 @@ msgstr "Gagal memuat plugin \"%s\": %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Versi tidak sama: %s"
@@ -220,3 +224,8 @@ msgstr "Hanya berkas lokal yang didukung"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Tidak dapat menyimpan thumbnail ke \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Baris perintah salah \"%s\": %s"
