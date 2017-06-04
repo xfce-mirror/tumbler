@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-24 15:46+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-06-04 10:06+0000\n"
 "Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/xfce/tumbler/language/th/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "เรียกใช้เครื่องมือสร้างภาพย่อเฉพาะทางไม่สำเร็จ: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "โหลดแฟ้ม \"%s\" ไม่สำเร็จ: %s"
@@ -62,6 +63,8 @@ msgstr "หัวข้อ \"%s\" ในแฟ้ม \"%s\" ผิดรูป�
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "แฟ้ม \"%s\" ผิดรูปแบบ: %s"
@@ -137,6 +140,7 @@ msgstr "โหลดปลั๊กอิน \"%s\" ไม่สำเร็จ:
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "รุ่นไม่ตรงกัน: %s"
@@ -222,3 +226,8 @@ msgstr "รองรับแฟ้มในเครื่องเท่าน
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "ไม่สามารถบันทึกภาพย่อลงใน \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "บรรทัดคำสั่ง \"%s\" ผิดรูปแบบ: %s"
