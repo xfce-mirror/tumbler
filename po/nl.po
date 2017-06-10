@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-06-10 10:30+0000\n"
+"PO-Revision-Date: 2017-06-10 10:31+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/xfce/tumbler/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Het opslag-invoegsel '%s' ontbeert de vereiste symbolen"
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Kon de opslag-invoegtoepassing '%s' niet laden: %s"
+msgstr "Kon het opslag-invoegsel '%s' niet laden: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -123,12 +123,12 @@ msgstr "Het bestand '%s' is zelf een miniatuur"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Invoegtoepassing '%s' heeft de vereiste symbolen niet."
+msgstr "Invoegsel '%s' heeft de vereiste symbolen niet."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Kon invoegtoepassing '%s' niet laden: %s"
+msgstr "Kon invoegsel '%s' niet laden: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
