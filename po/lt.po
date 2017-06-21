@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-06-07 20:00+0000\n"
+"PO-Revision-Date: 2017-06-20 22:57+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/tumbler/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -52,14 +52,14 @@ msgstr "Nepavyko įkelti failo „%s“: %s"
 #: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Netaisyklinga sritis „%s“ faile „%s“: %s"
+msgstr "Netaisyklinga sekcija „%s“ faile „%s“: %s"
 
 #: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Netaisyklinga sritis „%s“ faile „%s“: Nesutampa srities vardas ir Urischeme/MimeType"
+msgstr "Netaisyklinga sekcija „%s“ faile „%s“: Nesutampa sekcijos pavadinimas ir Urischeme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
