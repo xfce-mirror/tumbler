@@ -1,6 +1,29 @@
+0.2.0
+=====
+- Stable release of tumbler ported to GDbus, in addition
+  also fixes the bugs fixed by the version 0.1.32.
+
+0.1.92.1
+========
+- Fixe missing entry of the new desktop thumbnailer plugin
+  in tumbler.rc.
+
+0.1.92
+======
+- Add support for loading thumbnailers from *.thumbnailer files 
+  (enhancement bug #7475)
+
 0.1.90
 ======
 - Tumbler relies now on gdbus instead of dbus-glib
+
+0.1.32
+======
+- #13618 avoid loading specialized tumbnailers twice on system with
+  duplication path entry in $XDG_DATA_HOME (causes assertion failure)
+- #13360 don't close GdkPixbufLoader on error (causes sigabrt)
+- #13240 fix typo in exif tag for image height
+- #13201 fix finding of libopenraw-0.1.0
 
 0.1.31
 ======
