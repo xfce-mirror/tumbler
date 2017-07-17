@@ -332,7 +332,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
     {
       if (g_variant_is_of_type (parameters, G_VARIANT_TYPE ("(u)"))) 
         {
-          g_variant_get (parameters, "(&u)", &handle);
+          g_variant_get (parameters, "(u)", &handle);
           if (info->handle == handle) 
             {
               tumbler_mutex_lock (info->mutex);
