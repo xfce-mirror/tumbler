@@ -393,11 +393,12 @@ tumbler_service_error_idle (gpointer user_data)
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
   /* signal variant */
-  signal_variant = g_variant_ref_sink (g_variant_new ("(u^asis)",
-                                                      info->handle,
-                                                      info->uris,
-                                                      info->error_code,
-                                                      info->message));
+  signal_variant = g_variant_new ("(u^asis)",
+                                  info->handle,
+                                  info->uris,
+                                  info->error_code,
+                                  info->message);
+
   /* send the signal message over D-Bus */
   g_dbus_connection_emit_signal (info->service->connection,
                                  info->origin, 
@@ -406,8 +407,6 @@ tumbler_service_error_idle (gpointer user_data)
                                  "Error",
                                  signal_variant, 
                                  NULL);
-
-  g_variant_unref (signal_variant);
 
   scheduler_idle_info_free (info);
 
@@ -458,8 +457,9 @@ tumbler_service_finished_idle (gpointer user_data)
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
   
-  signal_variant = g_variant_ref_sink (g_variant_new ("(u)",
-                                                      info->handle));
+  signal_variant = g_variant_new ("(u)",
+                                  info->handle);
+
   /* send the signal message over D-Bus */
   g_dbus_connection_emit_signal (info->service->connection,
                                  info->origin, 
@@ -468,8 +468,6 @@ tumbler_service_finished_idle (gpointer user_data)
                                  "Finished",
                                  signal_variant, 
                                  NULL);
-
-  g_variant_unref (signal_variant);
 
   /* allow the lifecycle manager to shut down the service again (unless there
    * are other requests still being processed) */
@@ -518,9 +516,9 @@ tumbler_service_ready_idle (gpointer user_data)
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
-  signal_variant = g_variant_ref_sink (g_variant_new ("(u^as)",
-                                                      info->handle,
-                                                      info->uris));
+  signal_variant = g_variant_new ("(u^as)",
+                                  info->handle,
+                                  info->uris);
  
   /* send the signal message over D-Bus */
   g_dbus_connection_emit_signal (info->service->connection,
@@ -531,8 +529,6 @@ tumbler_service_ready_idle (gpointer user_data)
                                  signal_variant, 
                                  NULL);
   
-  g_variant_unref (signal_variant);
-   
   scheduler_idle_info_free (info);
 
   return FALSE;
@@ -578,8 +574,7 @@ tumbler_service_started_idle (gpointer user_data)
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
 
-  signal_variant = g_variant_ref_sink (g_variant_new ("(u)", info->handle));
-                                                      
+  signal_variant = g_variant_new ("(u)", info->handle);
  
   /* send the signal message over D-Bus */
   g_dbus_connection_emit_signal (info->service->connection,
@@ -589,8 +584,6 @@ tumbler_service_started_idle (gpointer user_data)
                                  "Started",
                                  signal_variant, 
                                  NULL);
-  
-  g_variant_unref (signal_variant);
   
   scheduler_idle_info_free (info);
 
