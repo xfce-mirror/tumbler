@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-05-31 06:41+0000\n"
+"PO-Revision-Date: 2017-07-18 07:44+0000\n"
 "Last-Translator: Pablo Roberto “Jristz” Lezaeta Reyes <prflr88@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/tumbler/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -35,18 +35,18 @@ msgstr "Se solicitó un tipo de miniaturas no compatible"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Error al llamar al previsualizador especializado: tiempo de espera terminado."
+msgstr "No se pudo llamar al previsualizador especializado: tiempo de espera terminado."
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Error al llamar al previsualizador especializado: %s"
+msgstr "No se pudo llamar al previsualizador especializado: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Error al cargar el archivo «%s»: %s"
+msgstr "No se pudo cargar el archivo «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
 #: ../tumblerd/tumbler-manager.c:594
@@ -59,7 +59,7 @@ msgstr "Sección «%s» mal formada en el archivo «%s»: %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Sección mal formada «%s» en el archivo «%s»: el nombre de la sección y EsquemaURI/TipoMime no coinciden"
+msgstr "Sección «%s» mal formada en el archivo «%s»: el nombre de la sección y EsquemaURI/TipoMime no coinciden"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -103,7 +103,7 @@ msgstr ".PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "Espacio de color RGB"
+msgstr "Espacio de color RVA"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
@@ -113,7 +113,7 @@ msgstr "El complemento de la caché «%s» carece de los símbolos necesarios"
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Falló al cargar el complemento de la caché «%s»: %s"
+msgstr "No se pudo cargar el complemento de la caché «%s»: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -128,7 +128,7 @@ msgstr "El complemento «%s» carece de los símbolos necesarios."
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Falló al cargar el complemento «%s»: %s"
+msgstr "No se pudo cargar el complemento «%s»: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -159,7 +159,7 @@ msgstr "No se pudo cargar los metadatos de «%s»"
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Clave API no válida, debe otorgársele una clave válida. Se desactivará el motor The Movie DB."
+msgstr "Clave API no válida, debe otorgársele una clave válida. Se desactivará el motor de «The Movie DB»."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
