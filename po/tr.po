@@ -3,25 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# volkangezer <volkangezer@gmail.com>, 2013
+# Necdet Yücel <necdetyucel@gmail.com>, 2017
+# Volkan Gezer <volkangezer@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-08-12 18:15+0000\n"
-"Last-Translator: volkangezer <volkangezer@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/xfce/language/tr/)\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-07-24 08:10+0000\n"
+"Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/xfce/tumbler/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
-msgid "Another thumbnail cache service is already running"
-msgstr "Başka bir önizleyici servisi zaten çalışıyor"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -33,91 +29,69 @@ msgstr "\"%s\" için önizleyici bulunmamaktadır"
 msgid "The thumbnailer service is shutting down"
 msgstr "Önizleyici servisi kapatılıyor"
 
-#: ../tumblerd/tumbler-service.c:758
-#, c-format
-msgid "Another generic thumbnailer is already running"
-msgstr "Başka bir önizleyici zaten çalışıyor"
-
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Desteklenmeyen bir küçük resim türü talep edildi."
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Özelleştirilmiş küçük resim üretici çağırılamadı: zaman aşımı"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Özelleştirilmiş küçük resim üretici çağırılamadı: %s"
 
-#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "\"%s\" dosyası yüklenemedi: %s"
 
-#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
-#: ../tumblerd/tumbler-manager.c:535
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "\"%2$s\" dosyasındaki %1$s bölümünde yanlış biçimlendirme: \"%3$s\""
 
-#: ../tumblerd/tumbler-manager.c:548
+#: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr "\"%2$s\" dosyasındaki \"%1$s\" bölümünde yanlış biçimlendirme: İsim ile UriScheme/MimeType arasında yanlış eşleme."
 
-#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
-#: ../tumblerd/tumbler-manager.c:936
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Bozuk dosya \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:962
+#: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "\"%s\"'nin son değiştirme tarihi belirlenemedi"
 
-#: ../tumblerd/tumbler-manager.c:1868
+#: ../tumblerd/main.c:223
 #, c-format
-msgid "Another thumbnailer manager is already running"
-msgstr "Başka bir önizleyici yöneticisi zaten çalışıyor"
+msgid "Name %s lost on the message dbus, exiting."
+msgstr "%s adı dbus mesajında kayboldu, kapatılıyor."
 
-#: ../tumblerd/main.c:249
+#: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
 msgstr "Sürecin iyi değeri değiştirilemedi"
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler Önizleme Servisi"
 
-#: ../tumblerd/main.c:280
-#, c-format
-msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "D-BUS oturum servisine bağlanılamadı: %s"
-
-#: ../tumblerd/main.c:363
+#: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Özelleştirilmiş önizleyiciler kayıt defterine yüklenemedi: %s"
-
-#: ../tumblerd/main.c:375
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Önizleme önbellek servisi çalıştırılamadı: %s"
-
-#: ../tumblerd/main.c:385
-#, c-format
-msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Önizleyici yöneticisi çalıştırılamadı: %s"
-
-#: ../tumblerd/main.c:395
-#, c-format
-msgid "Failed to start the thumbnailer service: %s"
-msgstr "Önizleyici servisi çalıştırılamadı: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -166,6 +140,7 @@ msgstr "\"%s\" eklentisi yüklenemedi: %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Sürüm çakışması: %s"
@@ -251,3 +226,8 @@ msgstr "Sadece yerel dosyalar destekleniyor."
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Önizleme \"%s\" konumuna kaydedilemedi"
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Hatalı biçimlendirilmiş komut satırı \"%s\": %s"
