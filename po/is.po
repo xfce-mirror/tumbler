@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Sveinn í Felli <sv1@fellsnet.is>, 2017
 # Sveinn í Felli <sv1@fellsnet.is>, 2014-2015
 # Sveinn í Felli <sv1@fellsnet.is>, 2011-2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2015-12-13 12:46+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-05 10:07+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/tumbler/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
-
-#: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
-msgid "Another thumbnail cache service is already running"
-msgstr "Önnur smámyndagerðarþjónusta er þegar í keyrslu"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -34,91 +30,69 @@ msgstr "Ekkert smámyndagerðaforrit til fyrir \"%s\""
 msgid "The thumbnailer service is shutting down"
 msgstr "Þjónustu fyrir gerð smámynda er að slökkva á sér"
 
-#: ../tumblerd/tumbler-service.c:758
-#, c-format
-msgid "Another generic thumbnailer is already running"
-msgstr "Annað almennt smámyndagerðarforrit er þegar í keyrslu"
-
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Beðið um óstutt snið smámyndar"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Mistókst að hlaða inn sértæku smámyndagerðaforriti: féll á tíma"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Mistókst að hlaða inn sértæku smámyndagerðaforriti: %s"
 
-#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Mistókst að hlaða inn skránna \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
-#: ../tumblerd/tumbler-manager.c:535
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Rangt formaður hluti \"%s\" í skrá \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:548
+#: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr "Rangt formaður hluti \"%s\" í skrá \"%s\": Ekki er samsvörun á milli nafns hluta og UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
-#: ../tumblerd/tumbler-manager.c:936
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Gölluð skrá \"%s\": %s"
 
-#: ../tumblerd/tumbler-manager.c:962
+#: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Tókst ekki að finna síðasta breytingartíma \"%s\""
 
-#: ../tumblerd/tumbler-manager.c:1868
+#: ../tumblerd/main.c:223
 #, c-format
-msgid "Another thumbnailer manager is already running"
-msgstr "Annað eintak smámyndagerðar er þegar í keyrslu"
+msgid "Name %s lost on the message dbus, exiting."
+msgstr "Heitið %s týndist á dbus fyrir tilkynningar, hætti."
 
-#: ../tumblerd/main.c:249
+#: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
 msgstr "Gat ekki breytt forgangsgildi (nice value) ferlis."
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler smámyndaþjónusta"
 
-#: ../tumblerd/main.c:280
-#, c-format
-msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Mistókst að tengjast D-BUS seturásinni: %s"
-
-#: ../tumblerd/main.c:363
+#: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Mistókst að hlaða inn sértækum smámyndagerðaforritum í kerfisskrá (registry): %s"
-
-#: ../tumblerd/main.c:375
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Mistókst að ræsa þjónustu fyrir skyndiminni smámynda: %s"
-
-#: ../tumblerd/main.c:385
-#, c-format
-msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Mistókst að ræsa smámyndastýringu: %s"
-
-#: ../tumblerd/main.c:395
-#, c-format
-msgid "Failed to start the thumbnailer service: %s"
-msgstr "Mistókst að ræsa þjónustu fyrir gerð smámynda: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -167,6 +141,7 @@ msgstr "Mistókst að hlaða inn viðbótinni \"%s\": %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Ósamræmi í útgáfum: %s"
@@ -252,3 +227,8 @@ msgstr "Aðeins er stuðningur við skrár á þessu skráakerfi"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Gat ekki vistað smámynd í \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Rangt formuð skipanalína \"%s\": %s"
