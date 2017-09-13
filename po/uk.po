@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-16 08:48+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-13 20:35+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/xfce/tumbler/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Не можу викликати визначений створювач мініатюр: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Не вдалось завантажити файл \"%s\": %s"
@@ -62,6 +63,8 @@ msgstr "Неправильна секція \"%s\" у файлі \"%s\": нем�
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Неправильний файл \"%s\": %s"
@@ -137,6 +140,7 @@ msgstr "Не вдалося завантажити додаток \"%s\": %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Версія не збігаються: %s"
@@ -222,3 +226,8 @@ msgstr "Тільки локальні файли підтримуються"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Не вдалось зберегти мініатюри в \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Неправильно сформований командний рядок \"%s\": %s"
