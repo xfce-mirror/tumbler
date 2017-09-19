@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-16 03:34+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-19 18:02+0000\n"
 "Last-Translator: 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/tumbler/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "특화된 섬네일러를 호출하는데 실패했습니다: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "\"%s\" 파일을 불러오는데 실패했습니다: %s"
@@ -61,6 +62,8 @@ msgstr "변형된 \"%s\" 섹션이 \"%s\" 파일에 위치합니다: 섹션 명�
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "변형된 파일 \"%s\": %s"
@@ -136,6 +139,7 @@ msgstr "\"%s\" 플러그인을 불러오는데 실패했습니다: %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "버전이 맞지 않습니다: %s"
@@ -221,3 +225,8 @@ msgstr "로컬 파일만 지원합니다"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "\"%s\"에 섬네일을 저장할 수 없습니다"
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "이상한 커맨드 라인 \"%s\": %s"
