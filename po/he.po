@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-25 22:05+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-19 18:02+0000\n"
 "Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/tumbler/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "אירע כשל בקריאה למנהל התמונות הממוזערות המיוחד: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "אירע כשל בטעינת הקובץ \"%s\":‏ %s"
@@ -63,6 +64,8 @@ msgstr "סעיף פגום \"%s\" בקובץ \"%s\":‏ חוסר התאמה בי�
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "קובץ פגום \"%s\":‏ %s"
@@ -138,6 +141,7 @@ msgstr "אירע כשל בטעינת התוסף \"%s\":‏ %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "אי התאמה בגרסה: %s"
@@ -223,3 +227,8 @@ msgstr "התמיכה היא בקבצים מקומיים בלבד"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "לא ניתן לשמור את התמונה הממוזערת אל \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "שורת פקודה מעוותת \"%s\": %s "
