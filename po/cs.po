@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-16 22:13+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-19 18:02+0000\n"
 "Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/tumbler/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Načtení souboru \"%s\" se nezdařilo: %s"
@@ -62,6 +63,8 @@ msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje 
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Poškozený soubor \"%s\": %s"
@@ -137,6 +140,7 @@ msgstr "Načtení zásuvného modulu \"%s\" se nezdařilo: %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Verze se neshodují: %s"
@@ -222,3 +226,8 @@ msgstr "Podporovány jsou pouze místní soubory"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nelze uložit náhled do \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Nesprávný zápis na příkazovém řádku \"%s\": %s"
