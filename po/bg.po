@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 18:30+0200\n"
-"PO-Revision-Date: 2017-05-16 06:13+0000\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-19 18:02+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/xfce/tumbler/language/bg/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,7 @@ msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Не мога да се свържа със специалната услуга за умалени изображения: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Не може да се зареди файла „%s“: %s"
@@ -62,6 +63,8 @@ msgstr "Деформирана секция „%s“ във файла „%s“:
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Деформиран файл „%s“: %s"
@@ -137,6 +140,7 @@ msgstr "Не може да се зареди добавката „%s“: %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Несъвместимост на версиите: %s"
@@ -222,3 +226,8 @@ msgstr "Поддържат се само локални файлове"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Умаленото изображение не може да се запази в „%s“"
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Деформиран команден ред \"%s\": %s"
