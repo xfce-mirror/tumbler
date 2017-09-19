@@ -3,27 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# cri <cri.penta@gmail.com>, 2010
-# cri <cri.penta@gmail.com>, 2013
-# edmael <edoardo.elidoro@gmail.com>, 2013
+# Cristian Marchi <cri.penta@gmail.com>, 2010
+# Cristian Marchi <cri.penta@gmail.com>, 2013
+# Edoardo Maria Elidoro <edoardo.elidoro@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:38+0200\n"
-"PO-Revision-Date: 2013-08-13 13:05+0000\n"
-"Last-Translator: cri <cri.penta@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/xfce/language/it/)\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-19 18:02+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"Language-Team: Italian (http://www.transifex.com/xfce/tumbler/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
-msgid "Another thumbnail cache service is already running"
-msgstr "Un altro servizio di cache delle miniature è già in esecuzione"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -35,91 +30,69 @@ msgstr "Nessun creatore di miniature disponibile per \"%s\""
 msgid "The thumbnailer service is shutting down"
 msgstr "Il servizio delle miniature si sta spegnendo"
 
-#: ../tumblerd/tumbler-service.c:758
-#, c-format
-msgid "Another generic thumbnailer is already running"
-msgstr "Un altro creatore di miniature generico è già in esecuzione"
-
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Richiesta di tipo di miniatura non valida"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Chiamata del creatore di miniature specializzato non riuscita: tempo scaduto"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Chiamata del creatore di miniature specializzato non riuscita: %s"
 
-#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Caricamento del file «%s» non riuscito: %s"
 
-#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
-#: ../tumblerd/tumbler-manager.c:535
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Sezione malformata \"%s\" nel file «%s»: %s"
 
-#: ../tumblerd/tumbler-manager.c:548
+#: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr "Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il nome della sezione e UriScheme/MimeType"
 
-#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
-#: ../tumblerd/tumbler-manager.c:936
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "File «%s» formattato non correttamente: %s"
 
-#: ../tumblerd/tumbler-manager.c:962
+#: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Impossibile determinare la data dell'ultima modifica di «%s»"
 
-#: ../tumblerd/tumbler-manager.c:1868
+#: ../tumblerd/main.c:223
 #, c-format
-msgid "Another thumbnailer manager is already running"
-msgstr "Un altro gestore di miniature è già in esecuzione"
+msgid "Name %s lost on the message dbus, exiting."
+msgstr ""
 
-#: ../tumblerd/main.c:249
+#: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
 msgstr "Non è possibile modificare la priorità del processo."
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
 msgstr "Servizio di miniaturizzazione Tumbler"
 
-#: ../tumblerd/main.c:280
-#, c-format
-msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Connessione al bus della sessione di D-Bus non riuscita: %s"
-
-#: ../tumblerd/main.c:363
+#: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Caricamento del creatore di miniature specializzato nel registro non riuscito:%s"
-
-#: ../tumblerd/main.c:375
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Avvio del servizio di cache per le miniature non riuscito: %s"
-
-#: ../tumblerd/main.c:385
-#, c-format
-msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Avvio del gestore di miniature non riuscito: %s"
-
-#: ../tumblerd/main.c:395
-#, c-format
-msgid "Failed to start the thumbnailer service: %s"
-msgstr "Avvio del servizio di creazione delle miniature non riuscito: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -168,6 +141,7 @@ msgstr "Caricamento del plugin \"%s\" non riuscito: %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Versioni non corrispondenti: %s"
@@ -253,3 +227,8 @@ msgstr "Sono supportati solo i file locali"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Impossibile salvare la miniatura in \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr ""
