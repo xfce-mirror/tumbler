@@ -1,25 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the libxfce4util package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012, 2013.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012-2013
 msgid ""
 msgstr ""
-"Project-Id-Version: tumbler.master\n"
+"Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-05 14:15+0000\n"
-"PO-Revision-Date: 2013-01-23 11:54+0200\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2017-09-19 18:02+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"Language-Team: Serbian (http://www.transifex.com/xfce/tumbler/language/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sr\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#: ../tumblerd/tumbler-cache-service.c:413
-#, c-format
-msgid "Another thumbnail cache service is already running"
-msgstr "Нека друга услуга оставе сличица је већ покренута"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
@@ -31,93 +28,69 @@ msgstr "Није доступан сличичар за „%s“"
 msgid "The thumbnailer service is shutting down"
 msgstr "Услуга сличичара се гаси"
 
-#: ../tumblerd/tumbler-service.c:758
-#, c-format
-msgid "Another generic thumbnailer is already running"
-msgstr "Други општи сличичар је већ покренут"
-
-#: ../tumblerd/tumbler-service.c:867
+#: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Затражена је неподржана особеност сличице"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:485
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Нисам успео да позовем специјализираног сличичара: време је истекло"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:494
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Нисам успео да позовем  специјализираног сличичара: %s"
 
-#: ../tumblerd/tumbler-manager.c:489 ../tumblerd/tumbler-manager.c:895
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "Нисам успео да учитам датотеку „%s“: %s"
 
-#: ../tumblerd/tumbler-manager.c:507 ../tumblerd/tumbler-manager.c:521
-#: ../tumblerd/tumbler-manager.c:535
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Лоше обликован одељак „%s“ у датотеци „%s“: %s"
 
-#: ../tumblerd/tumbler-manager.c:548
+#: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
-"Лоше обликован одељак „%s“ у датотеци „%s“: Неподударање између назива "
-"одељка и Шеме адресе/Миме врсте"
+msgstr "Лоше обликован одељак „%s“ у датотеци „%s“: Неподударање између назива одељка и Шеме адресе/Миме врсте"
 
-#: ../tumblerd/tumbler-manager.c:908 ../tumblerd/tumbler-manager.c:922
-#: ../tumblerd/tumbler-manager.c:936
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Лоше обликована датотека „%s“: %s"
 
-#: ../tumblerd/tumbler-manager.c:962
+#: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Нисам успео да одредим последње време измене за „%s“"
 
-#: ../tumblerd/tumbler-manager.c:1868
+#: ../tumblerd/main.c:223
 #, c-format
-msgid "Another thumbnailer manager is already running"
-msgstr "Неки други управник сличичара је већ покренут"
+msgid "Name %s lost on the message dbus, exiting."
+msgstr ""
 
-#: ../tumblerd/main.c:249
+#: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
 msgstr "Нисам успео да изменим вредност предности процеса."
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
 msgstr "Услуга стварања сличица „Tumbler“"
 
-#: ../tumblerd/main.c:280
-#, c-format
-msgid "Failed to connect to the D-Bus session bus: %s"
-msgstr "Нисам успео да се повежем на сабирницу сесије Д-сабирнице: %s"
-
-#: ../tumblerd/main.c:363
+#: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "Нисам успео да учитам специјализоване сличичаре у регистар: %s"
-
-#: ../tumblerd/main.c:375
-#, c-format
-msgid "Failed to start the thumbnail cache service: %s"
-msgstr "Нисам успео да покренем услугу оставе сличица: %s"
-
-#: ../tumblerd/main.c:385
-#, c-format
-msgid "Failed to start the thumbnailer manager: %s"
-msgstr "Нисам успео да покренем управника сличичара: %s"
-
-#: ../tumblerd/main.c:395
-#, c-format
-msgid "Failed to start the thumbnailer service: %s"
-msgstr "Нисам успео да покренем услугу сличичара: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -166,33 +139,32 @@ msgstr "Нисам успео да учитам прикључак „%s“: %s"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Неслагање издања: %s"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:391
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Нисам успео да учитам постер слику „%s“"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:427
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Нисам успео да учитам метаподатак „%s“"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:623
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
-"Неисправан АПИ кључ, мора вам бити одобрен исправан кључ. Позадинац базе "
-"података филмова ће бити искључен."
+msgstr "Неисправан АПИ кључ, мора вам бити одобрен исправан кључ. Позадинац базе података филмова ће бити искључен."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:631
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
 msgstr "Није пронађен кључ плаката у метаподацима"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:686
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
 msgstr "Наслов филма је прекратак"
 
@@ -253,3 +225,8 @@ msgstr "Само локалне датотеке су подржане"
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Не могу да сачувам сличицу у „%s“"
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr ""
