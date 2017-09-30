@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-19 18:02+0000\n"
+"PO-Revision-Date: 2017-09-30 12:41+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -109,12 +109,12 @@ msgstr "RGB-farverum"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Udvidelsesmodul til mellemlager \"%s\" mangler krævede symboler"
+msgstr "Plugin til mellemlager \"%s\" mangler krævede symboler"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Kunne ikke indlæse udvidelsesmodul til mellemlager \"%s\": %s"
+msgstr "Kunne ikke indlæse plugin til mellemlager \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -124,12 +124,12 @@ msgstr "Filen \"%s\" er selv en miniature"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Udvidelsesmodul \"%s\" mangler krævede symboler."
+msgstr "Pluginet \"%s\" mangler krævede symboler."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Kunne ikke indlæse udvidelsesmodul \"%s\": %s"
+msgstr "Kunne ikke indlæse pluginet \"%s\": %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -160,7 +160,7 @@ msgstr "Kunne ikke indlæse metadataene fra \"%s\""
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Ugyldig API-nøgle - du skal være tildelt en gyldig nøgle. Motoren for Movie DB vil blive slået fra."
+msgstr "Ugyldig API-nøgle - du skal være tildelt en gyldig nøgle. Motoren for Movie DB vil blive deaktiveret."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
