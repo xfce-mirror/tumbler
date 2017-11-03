@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-30 12:41+0000\n"
+"PO-Revision-Date: 2017-11-03 18:20+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -53,14 +53,14 @@ msgstr "Kunne ikke indlæse filen \"%s\": %s"
 #: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Misdannet sektion \"%s\" i filen \"%s\": %s"
+msgstr "Forkert udformet sektion \"%s\" i filen \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
+msgstr "Forkert udformet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -68,7 +68,7 @@ msgstr "Misdannet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsn
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Misdannet fil \"%s\": %s"
+msgstr "Forkert udformet fil \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
