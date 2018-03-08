@@ -5,13 +5,13 @@
 # Translators:
 # Aputsiak Niels Janussen (Skjalden) <aj@isit.gl>, 2013
 # Per Kongstad <p_kongstad@op.pl>, 2009
-# scootergrisen, 2017
+# scootergrisen, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-11-03 18:20+0000\n"
+"PO-Revision-Date: 2018-03-08 15:35+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -198,7 +198,7 @@ msgstr "Kunne ikke indstille til tegntilknytningen: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Kunne ikke rendere glyphs: %s"
+msgstr "Kunne ikke rendere glyffer: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
