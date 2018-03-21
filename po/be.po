@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2018-03-21 22:06+0000\n"
+"Last-Translator: Zmicer Turok <zmicerturok@gmail.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/xfce/tumbler/language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Убудова мініяцюр для \"%s\" адсутнічае"
+
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
+msgid "The thumbnailer service is shutting down"
+msgstr "Сэрвіс стварэння мініяцюр выключаецца"
+
+#: ../tumblerd/tumbler-service.c:775
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Запытаны непадтрымліваемы тып мініяцюр"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Не атрымалася выклікаць адмысловую ўбудову мініяцюр: час выйшаў"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Не атрымалася выклікаць адмысловую ўбудову мініяцюр: %s"
+
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "Не атрымалася загрузіць файл \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "Хібны раздзел \"%s\" у файле \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:607
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr "Хібны раздзел \"%s\" у файле \"%s\" : назва і UriScheme/MimeType адрозніваюцца"
+
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "Хібны файл \"%s\": %s"
+
+#: ../tumblerd/tumbler-manager.c:1021
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "Не атрымалася вызначыць час змены \"%s\""
+
+#: ../tumblerd/main.c:223
+#, c-format
+msgid "Name %s lost on the message dbus, exiting."
+msgstr "Назва %s згублена ў паведамленні dbus, выхад."
+
+#: ../tumblerd/main.c:258
+msgid "Couldn't change nice value of process."
+msgstr "Не атрымалася змяніць прыярытэт працэсу."
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:267
+msgid "Tumbler Thumbnailing Service"
+msgstr "Сэрвіс стварэння мініяцюр Tumbler"
+
+#: ../tumblerd/main.c:368
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "Не атрымалася выклікаць адмысловую ўбудову мініяцюр у рэгістр: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Хібны фармат"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "Каляровая пастора RGB"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "Ва ўбудове кэшу \"%s\" адсутнічаюць патрэбныя сімвалы"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "Не атрымалася загрузіць убудову кэшу \"%s\": %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Файл \"%s\" сам з'яўляецца мініяцюрай"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "Ва ўбудове \"%s\" адсутнічаюць патрэбныя сімвалы."
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "Не атрымалася загрузіць убудову \"%s\": %s"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "Хібная версія: %s"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Не атрымалася загрузіць выяву \"%s\""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Не атрымалася загрузіць метаданыя з  \"%s\""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Хібны ключ API. Вы мусіце даць сапраўдны ключ. База даных будзе выключана."
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr "Ключ выявы не знойдзены ў метаданых"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr "Загаловак відэа занадта кароткі"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Не атрымалася ініцыязаваць freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Не атрымалася загрузіць змесціва файла: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Не атрымалася адкрыць файл шрыфту : %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Не атрымалася задаць мапу сімвалаў: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Не атрымалася адмаляваць гліфы: %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Не атрымалася стварыць мініяцюру са змесціва файла"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+msgid "The document is empty"
+msgstr "Дакумент пусты"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
+msgid "First page of the document could not be read"
+msgstr "Немагчыма прачытаць першую старонку дакумента"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "Падтрымліваюцца толькі лакальныя файлы"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Не атрымалася захаваць мініяцюру ў \"%s\""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "Хібны загадны радок \"%s\": %s"
