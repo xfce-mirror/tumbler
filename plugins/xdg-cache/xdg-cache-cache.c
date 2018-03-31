@@ -199,68 +199,91 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
       g_object_unref (parent);
       g_object_unref (dummy_file);
 
-      /* attempt to open the directory for reading */
-      dir = g_dir_open (dirname, 0, NULL);
-      if (dir != NULL)
+      if (since != 0)
         {
-          /* iterate over all files in the directory */
-          file_basename = g_dir_read_name (dir);
-          while (file_basename != NULL)
+          /* attempt to open the directory for reading */
+          dir = g_dir_open (dirname, 0, NULL);
+          if (dir != NULL)
             {
-              /* build the thumbnail filename */
-              filename = g_build_filename (dirname, file_basename, NULL);
-
-              /* read thumbnail information from the file */
-              if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime,
-                                                       NULL, NULL))
+              /* iterate over all files in the directory */
+              file_basename = g_dir_read_name (dir);
+              while (file_basename != NULL)
                 {
-                  /* check if the thumbnail information is valid or the mtime
-                   * is too old */
-                  if (uri == NULL || mtime <= since)
-                    {
-                      /* it's invalid, so let's remove the thumbnail */
-                      g_unlink (filename);
-                    }
-                  else
-                    {
-                      /* create a GFile for the original URI. we need this for
-                       * reliably checking the ancestor/descendant relationship */
-                      original_file = g_file_new_for_uri (uri);
+                  /* build the thumbnail filename */
+                  filename = g_build_filename (dirname, file_basename, NULL);
 
-                      for (n = 0; base_uris != NULL && base_uris[n] != NULL; ++n)
+                  /* read thumbnail information from the file */
+                  if (xdg_cache_cache_read_thumbnail_info (filename, &uri, &mtime,
+                                                           NULL, NULL))
+                    {
+                      /* check if the thumbnail information is valid or the mtime
+                       * is too old */
+                      if (uri == NULL || mtime <= since)
                         {
-                          /* create a GFile for the base URI */
-                          base_file = g_file_new_for_uri (base_uris[n]);
+                          /* it's invalid, so let's remove the thumbnail */
+                          g_unlink (filename);
+                        }
+                      else
+                        {
+                           /* create a GFile for the original URI. we need this for
+                            * reliably checking the ancestor/descendant relationship */
+                          original_file = g_file_new_for_uri (uri);
 
-                          /* delete the file if it is a descendant of the base URI */
-                          if (g_file_equal (original_file, base_file)
-                              || g_file_has_prefix (original_file, base_file))
+                          for (n = 0; base_uris != NULL && base_uris[n] != NULL; ++n)
                             {
-                              g_unlink (filename);
+                              /* create a GFile for the base URI */
+                              base_file = g_file_new_for_uri (base_uris[n]);
+
+                              /* delete the file if it is a descendant of the base URI */
+                              if (g_file_equal (original_file, base_file)
+                                  || g_file_has_prefix (original_file, base_file))
+                                {
+                                  g_unlink (filename);
+                                }
+
+                              /* releas the base file */
+                              g_object_unref(base_file);
                             }
 
-                          /* releas the base file */
-                          g_object_unref(base_file);
+                          /* release the original file */
+                          g_object_unref (original_file);
                         }
-
-                      /* release the original file */
-                      g_object_unref (original_file);
                     }
+
+                  /* free the thumbnail filename */
+                  g_free (filename);
+
+                  /* try to determine the next filename in the directory */
+                  file_basename = g_dir_read_name (dir);
                 }
 
-              /* free the thumbnail filename */
-              g_free (filename);
-
-              /* try to determine the next filename in the directory */
-              file_basename = g_dir_read_name (dir);
+              /* close the handle used to reading from the directory */
+              g_dir_close (dir);
             }
 
-          /* close the handle used to reading from the directory */
-          g_dir_close (dir);
+          /* free the thumbnail flavor directory filename */
+          g_free (dirname);
         }
+      /* According to the spec, mtime since can be 0 to ignore the threshold and
+       * only cleanup based on the URI prefix array. */
+      else
+        {
+          for (n = 0; base_uris != NULL && base_uris[n] != NULL; ++n)
+            {
+              base_file = xdg_cache_cache_get_file (base_uris[n], iter->data);
 
-      /* free the thumbnail flavor directory filename */
-      g_free (dirname);
+              filename = g_file_get_path (base_file);
+              if (g_file_test (filename, G_FILE_TEST_IS_REGULAR))
+              {
+                g_unlink (filename);
+              }
+
+              g_free(filename);
+
+              /* releas the base file */
+              g_object_unref(base_file);
+            }
+        }
     }
 }
 
