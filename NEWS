@@ -1,3 +1,17 @@
+0.1.33
+======
+- #9231 Handle 0 mtime threshold on Cleanup DBus method. This fixes
+  running across all thumbnails that was causing very high I/O bandwidth 
+  usage when a file with a thumbnail gets deleted. (On dbus Cleanup method).
+
+0.1.32
+======
+- #13618 avoid loading specialized tumbnailers twice on system with
+  duplication path entry in $XDG_DATA_HOME (causes assertion failure)
+- #13360 don't close GdkPixbufLoader on error (causes sigabrt)
+- #13240 fix typo in exif tag for image height
+- #13201 fix finding of libopenraw-0.1.0
+
 0.1.31
 ======
 - Use $XDG_CACHE_HOME/thumbnails as per spec change (bug #10613)
