@@ -1,3 +1,9 @@
+0.2.1
+=====
+- #9231 Handle 0 mtime threshold on Cleanup DBus method. This fixes
+  running across all thumbnails that was causing very high I/O bandwidth 
+  usage when a file with a thumbnail gets deleted. (On dbus Cleanup method).
+
 0.2.0
 =====
 - Stable release of tumbler ported to GDbus, in addition
