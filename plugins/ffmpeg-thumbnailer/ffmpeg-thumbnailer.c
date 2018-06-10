@@ -196,14 +196,11 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   uri = tumbler_file_info_get_uri (info);
 
-  /* try to open the source file for reading */
+  /* get the local absolute path to the source file */
   file = g_file_new_for_uri (uri);
+  path = g_file_get_path (file);
 
-  if (g_file_is_native (file))
-    {
-      path = g_file_get_path (file);
-    }
-  else
+  if (path == NULL)
     {
       /* there was an error, emit error signal */
       g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
