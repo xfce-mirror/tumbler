@@ -52,23 +52,7 @@ if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
   [
     dnl Check for FreeType 2.x
-    FREETYPE_LIBS=""
-    FREETYPE_CFLAGS=""
-    AC_PATH_PROG([FREETYPE_CONFIG], [freetype-config], [no])
-    if test x"$FREETYPE_CONFIG" != x"no"; then
-      AC_MSG_CHECKING([FREETYPE_CFLAGS])
-      FREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
-      AC_MSG_RESULT([$FREETYPE_CFLAGS])
-    
-      AC_MSG_CHECKING([FREETYPE_LIBS])
-      FREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
-      AC_MSG_RESULT([$FREETYPE_LIBS])
-    else
-      dnl We can only build the font thumbnailer if FreeType 2.x is available
-      ac_tumbler_font_thumbnailer=no
-    fi
-    AC_SUBST([FREETYPE_CFLAGS])
-    AC_SUBST([FREETYPE_LIBS])
+    PKG_CHECK_MODULES([FREETYPE], [freetype2], [], [ac_tumbler_font_thumbnailer=no])
   ], [ac_tumbler_font_thumbnailer=no])
 fi
 
