@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-03-31 10:55+0000\n"
+"PO-Revision-Date: 2018-06-16 16:09+0000\n"
 "Last-Translator: Emanuele Petriglia <inbox@emanuelepetriglia.me>\n"
 "Language-Team: Italian (http://www.transifex.com/xfce/tumbler/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Nessun creatore di miniature disponibile per \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "Il servizio delle miniature si sta spegnendo"
+msgstr "Il servizio delle miniature si sta arrestando"
 
 #: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
@@ -37,31 +37,31 @@ msgstr "Richiesta di tipo di miniatura non valida"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Chiamata del creatore di miniature specializzato non riuscita: tempo scaduto"
+msgstr "Impossibile chiamare il creatore di miniature specializzato: tempo scaduto"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Chiamata del creatore di miniature specializzato non riuscita: %s"
+msgstr "Impossibile chiamare il creatore di miniature specializzato: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Caricamento del file «%s» non riuscito: %s"
+msgstr "Impossibile caricare il file \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
 #: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Sezione malformata \"%s\" nel file «%s»: %s"
+msgstr "Sezione malformata \"%s\" nel file \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il nome della sezione e UriScheme/MimeType"
+msgstr "Sezione malformata \"%s\" nel file \"%s\": mancata corrispondenza tra il nome della sezione e UriScheme/MimeType"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -69,12 +69,12 @@ msgstr "Sezione malformata \"%s\" nel file «%s»: mancata corrispondenza tra il
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "File «%s» formattato non correttamente: %s"
+msgstr "File \"%s\" malformato: %s"
 
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Impossibile determinare la data dell'ultima modifica di «%s»"
+msgstr "Impossibile determinare la data dell'ultima modifica di \"%s\""
 
 #: ../tumblerd/main.c:223
 #, c-format
@@ -83,7 +83,7 @@ msgstr "Nome %s perso nel messaggio dbus, uscita in corso."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
-msgstr "Non è possibile modificare la priorità del processo."
+msgstr "Impossibile modificare la priorità del processo."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
@@ -93,7 +93,7 @@ msgstr "Servizio di miniaturizzazione Tumbler"
 #: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Caricamento del creatore di miniature specializzato nel registro non riuscito:%s"
+msgstr "Impossibile caricare il creatore di miniature specializzato nel registro: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -115,12 +115,12 @@ msgstr "Il plugin per la cache \"%s\" non ha i simboli necessari"
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Caricamento del plugin \"%s\" per la cache non riuscito: %s"
+msgstr "Impossibile caricare il plugin per la cache \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Il file «%s» è già una miniatura"
+msgstr "Il file \"%s\" è già una miniatura"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
@@ -130,7 +130,7 @@ msgstr "Il plugin \"%s\" non ha i simboli necessari."
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Caricamento del plugin \"%s\" non riuscito: %s"
+msgstr "Impossibile caricare il plugin \"%s\": %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -150,12 +150,12 @@ msgstr "Versioni non corrispondenti: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Caricamento dell'immagine di copertina \"%s\" non riuscito"
+msgstr "Impossibile caricare l'immagine di copertina \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Caricamento dei metadati da «%s» non riuscito"
+msgstr "Impossibile caricare i metadati da \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
