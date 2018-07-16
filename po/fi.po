@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ammuu5, 2018
 # Juhani Numminen <juhaninumminen0@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-19 18:02+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2018-07-16 15:31+0000\n"
+"Last-Translator: Ammuu5\n"
 "Language-Team: Finnish (http://www.transifex.com/xfce/tumbler/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +77,7 @@ msgstr "Tiedoston ”%s” viimeisen muokkausajan selvitys epäonnistui"
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr ""
+msgstr "Nimi %s menetettiin viestintärajapinnalla, poistutaan."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
