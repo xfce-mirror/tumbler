@@ -5,25 +5,26 @@
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
 # Michal Várady <miko.vaji@gmail.com>, 2017
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-19 18:02+0000\n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>\n"
+"PO-Revision-Date: 2018-08-01 14:51+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/tumbler/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 #: ../tumblerd/tumbler-group-scheduler.c:486
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Pro položku \"%s\" není dostupný žádný nástroj pro vytváření náhledů"
+msgstr "Pro položku „%s“ není k dispozici žádný nástroj pro vytváření náhledů"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
@@ -46,7 +47,7 @@ msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezda
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Načtení souboru \"%s\" se nezdařilo: %s"
+msgstr "Načtení souboru „%s“ se nezdařilo: %s"
 
 #: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
 #: ../tumblerd/tumbler-manager.c:594
@@ -108,7 +109,7 @@ msgstr "Barevný prostor RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Zásuvný modul pro mezipaměť \"%s\" postrádá požadované symboly"
+msgstr "Zásuvný modul pro mezipaměť „%s“ postrádá požadované symboly"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
@@ -118,7 +119,7 @@ msgstr "Načtení zásuvného modulu pro mezipaměť \"%s\" se nezdařilo: %s"
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Soubor \"%s\" je již náhledem"
+msgstr "Soubor „%s“ je už náhledem"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
