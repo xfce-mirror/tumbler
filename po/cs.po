@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-08-01 14:51+0000\n"
+"PO-Revision-Date: 2018-08-02 06:26+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/tumbler/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Byla vyžádána nepodporovaná metoda náhledu"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: Časový limit vypršel."
+msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: překročen časový limit"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
@@ -53,14 +53,14 @@ msgstr "Načtení souboru „%s“ se nezdařilo: %s"
 #: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": %s"
+msgstr "Poškozená sekce „%s“ v souboru „%s“: %s"
 
 #: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje se schématem URI nebo typem MIME"
+msgstr "Poškozená sekce „%s“ v souboru „%s“: Název sekce se neshoduje se schématem URI nebo MIME typem"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -68,21 +68,21 @@ msgstr "Poškozený oddíl \"%s\" v souboru \"%s\": Název oddílu se neshoduje 
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Poškozený soubor \"%s\": %s"
+msgstr "Neplatný soubor „%s“: %s"
 
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Zjištění času poslední změny položky \"%s\" se nezdařilo"
+msgstr "Nepodařilo se zjistit čas poslední změny „%s“"
 
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr "Název %s ztracen na sběrnici zpráv dbus, ukončování."
+msgstr "Název %s ztracen na sběrnici zpráv dbus, ukončuje se."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
-msgstr "Nelze změnit hodnotu nice procesu."
+msgstr "Nedaří se změnit hodnotu priority (nice) procesu."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
@@ -114,7 +114,7 @@ msgstr "Zásuvný modul pro mezipaměť „%s“ postrádá požadované symboly
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Načtení zásuvného modulu pro mezipaměť \"%s\" se nezdařilo: %s"
+msgstr "Načtení zásuvného modulu pro mezipaměť „%s“ se nezdařilo: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -124,12 +124,12 @@ msgstr "Soubor „%s“ je už náhledem"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Zásuvný modul \"%s\" postrádá požadované symboly."
+msgstr "Zásuvný modul „%s“ postrádá požadované symboly."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Načtení zásuvného modulu \"%s\" se nezdařilo: %s"
+msgstr "Načtení zásuvného modulu „%s“ se nezdařilo: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -149,7 +149,7 @@ msgstr "Verze se neshodují: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Načtení plakátu z umístění %s se nezdařilo"
+msgstr "Načtení plakátu z umístění „%s“ se nezdařilo"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
@@ -160,7 +160,7 @@ msgstr "Načtení metadat z umístění %s se nezdařilo"
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Neplatný klíč rozhraní API, musíte obdržet platný klíč. Služba Movie DB bude zakázána."
+msgstr "Neplatný klíč rozhraní API, je třeba obdržet platný klíč. Podpůrná vrstva pro službu Movie DB bude vypnuta."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
@@ -174,31 +174,31 @@ msgstr "Titulek filmu je příliš krátký"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr "Nelze inicializovat modul freetype: %s"
+msgstr "Nedaří se inicializovat modul freetype: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "Nelze načíst obsah souboru: %s"
+msgstr "Nedaří se načíst obsah souboru: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Nelze otevřít soubor s písmem: %s"
+msgstr "Nedaří se otevřít soubor s písmem: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Nelze nastavit mapu znaků: %s"
+msgstr "Nedaří se nastavit mapu znaků: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Nelze vykreslit piktogramy: %s"
+msgstr "Nedaří se vykreslit piktogramy: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
@@ -209,7 +209,7 @@ msgstr "Nelze vykreslit piktogramy: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "Odvození náhledu z obsahu souboru nelze provést"
+msgstr "Odvození náhledu z obsahu souboru se nezdařilo"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
@@ -217,18 +217,18 @@ msgstr "Dokument je prázdný"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
-msgstr "Nelze načíst první stranu dokumentu"
+msgstr "Nedaří se načíst první stranu dokumentu"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr "Podporovány jsou pouze místní soubory"
+msgstr "Podporovány jsou pouze soubory, nacházející se přímo v počítači"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Nelze uložit náhled do \"%s\""
+msgstr "Nedaří se uložit náhled do „%s“"
 
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr "Nesprávný zápis na příkazovém řádku \"%s\": %s"
+msgstr "Nesprávný zápis na příkazovém řádku „%s“: %s"
