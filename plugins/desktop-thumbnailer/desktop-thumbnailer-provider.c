@@ -127,7 +127,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
 
   /* determine the Exec of the desktop thumbnailer */
   exec = g_key_file_get_string (key_file, "Thumbnailer Entry",
-								"Exec", &error);
+                                "Exec", &error);
   if (exec == NULL)
     {
       g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
@@ -193,11 +193,11 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
        base_name != NULL;
        base_name = g_dir_read_name (dir))
     {
-	  GFileType    type;
-	  GFile       *file;
-	  DesktopThumbnailer *thumbnailer = NULL;
+      GFileType    type;
+      GFile       *file;
+      DesktopThumbnailer *thumbnailer = NULL;
 
-	  /* skip files that don't end with the .thumbnailer extension */
+      /* skip files that don't end with the .thumbnailer extension */
       if (!g_str_has_suffix (base_name, ".thumbnailer"))
         continue;
 
@@ -206,15 +206,19 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 
       /* try to load the file if it is regular */
       if (type == G_FILE_TYPE_REGULAR)
-	    thumbnailer = desktop_thumbnailer_get_from_desktop_file (file, uri_schemes);
+        thumbnailer = desktop_thumbnailer_get_from_desktop_file (file, uri_schemes);
 
       g_object_unref (file);
 
       if (thumbnailer)
-		{
-		  thumbnailers = g_list_append (thumbnailers, thumbnailer);
-		}
-	}
+        {
+
+          thumbnailers = g_list_append (thumbnailers, thumbnailer);
+        }
+    }
+
+  g_dir_close(dir);
+
   return thumbnailers;
 }
 
