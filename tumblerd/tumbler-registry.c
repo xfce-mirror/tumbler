@@ -1,6 +1,7 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
+ * Copyright (c) 2018      Ali Abdallah    <ali@xfce.org>
  *
  * This program is free software; you can redistribute it and/or 
  * modify it under the terms of the GNU General Public License as
@@ -25,13 +26,16 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <sys/stat.h>
+
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
 #include <tumblerd/tumbler-utils.h>
 
-
+/* Float block size used in the stat struct */
+#define TUMBLER_STAT_BLKSIZE 512.
 
 static void                tumbler_registry_finalize                  (GObject            *object);
 static void                tumbler_registry_remove_thumbnailer        (const gchar        *key,
@@ -461,10 +465,36 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   /* iterate over all URIs */
   for (n = 0; n < length; ++n)
     {
+      gchar *filename;
+      struct stat sb;
+
       g_assert (TUMBLER_IS_FILE_INFO (infos[n]));
 
       /* reset */
       file_size = 0;
+
+      filename = g_filename_from_uri (tumbler_file_info_get_uri (infos[n]), NULL, NULL);
+
+      if (G_LIKELY(filename))
+      {
+        stat (filename, &sb);
+
+        g_free (filename);
+
+        if (!S_ISREG (sb.st_mode))
+          continue;
+
+        if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
+        {
+          g_debug ("'%s' is probably a sparse file, skipping\n", tumbler_file_info_get_uri (infos[n]));
+          continue;
+        }
+      }
+      else
+      {
+        g_warning ("Failed to get filename from uri for '%s', skipping\n", tumbler_file_info_get_uri (infos[n]));
+        continue;
+      }
 
       /* determine the URI scheme and generate a hash key */
       gfile = g_file_new_for_uri (tumbler_file_info_get_uri (infos[n]));
