@@ -422,7 +422,7 @@ tumbler_group_scheduler_thread (gpointer data,
   GList                   *missing_uris = NULL;
   GList                   *lp;
   guint                    n;
-  gint                     error_code;
+  gint                     error_code = 0;
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
