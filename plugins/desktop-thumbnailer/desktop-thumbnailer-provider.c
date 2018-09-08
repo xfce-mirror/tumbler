@@ -240,7 +240,10 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
   data_dirs = g_get_system_data_dirs ();
 
   /* Create a ghash table to insert loaded directory path to avoid duplication */
-  single_path = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, NULL);
+  single_path = g_hash_table_new_full (g_file_hash,
+                                       (GEqualFunc)g_file_equal,
+                                       g_object_unref,
+                                       NULL);
 
   for (n = 0; data_dirs[n] != NULL; ++n)
     {
@@ -252,6 +255,7 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
         {
           dirname = g_build_filename (data_dirs[n], "thumbnailers", NULL);
           directories = g_list_prepend (directories, g_file_new_for_path (dirname));
+          g_hash_table_insert (single_path, path, path);
           g_free (dirname);
         }
       else
