@@ -4,13 +4,13 @@
 # 
 # Translators:
 # José Vieira <jvieira33@sapo.pt>, 2017
-# Nuno Miguel <nunomgue@gmail.com>, 2017
+# Nuno Miguel <nunomgue@gmail.com>, 2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-19 18:02+0000\n"
+"PO-Revision-Date: 2018-09-09 11:47+0000\n"
 "Last-Translator: Nuno Miguel <nunomgue@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/xfce/tumbler/language/pt/)\n"
 "MIME-Version: 1.0\n"
@@ -77,7 +77,7 @@ msgstr "Falha ao determinar a data de modificação de \"%s\" "
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr "O nome %s foi perdido no dbus da mensagem; a sair."
+msgstr "O nome %s foi perdido no dbus da mensagem, a sair."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
