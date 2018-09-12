@@ -481,13 +481,14 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
 
         g_free (filename);
 
-        if (!S_ISREG (sb.st_mode))
-          continue;
-
-        if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
+        /* Test sparse files on regular ones */
+        if (S_ISREG (sb.st_mode))
         {
-          g_debug ("'%s' is probably a sparse file, skipping\n", tumbler_file_info_get_uri (infos[n]));
-          continue;
+          if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
+          {
+            g_debug ("'%s' is probably a sparse file, skipping\n", tumbler_file_info_get_uri (infos[n]));
+            continue;
+          }
         }
       }
       else
