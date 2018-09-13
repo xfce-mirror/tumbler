@@ -1,3 +1,8 @@
+0.2.3
+=====
+- Test sparse files only for regular files (bug #14693).
+- Fix uninitialized variable (bug #14688)
+
 0.2.2
 =====
 - Added check to avoid sparse files, that cause high cpu and
