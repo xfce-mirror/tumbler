@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-02-21 21:44+0000\n"
+"PO-Revision-Date: 2018-09-14 00:17+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/xfce/tumbler/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr ""
+msgstr "Emri %s humbi në dbus mesazhi, po dilet."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
