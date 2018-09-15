@@ -7,14 +7,14 @@
 # Carles Muñoz Gorriz <carlesmu@internautas.org>, 2009,2011
 # Harald Servat <redcrash@gmail.com>, 2009
 # Davidmp <medipas@gmail.com>, 2015,2017
-# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017-2018
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-12-14 08:12+0000\n"
+"PO-Revision-Date: 2018-09-15 20:48+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/xfce/tumbler/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -234,4 +234,4 @@ msgstr "No s'ha pogut desar la miniatura a «%s»"
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr "Línia d'ordre amb format erroni \"%s\": %s"
+msgstr "Línia d'ordres amb format erroni «%s»: %s"
