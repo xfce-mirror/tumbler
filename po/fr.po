@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Charles Monzat <c.monzat@laposte.net>, 2018
+# Charles Monzat <c.monzat@laposte.net>, 2018
 # jc1 <jc1.quebecos@gmail.com>, 2013,2017
 # jc1 <jc1.quebecos@gmail.com>, 2013,2017
 # Yannick Le Guen <leguen.yannick@gmail.com>, 2014-2015,2017
@@ -12,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-09-14 00:17+0000\n"
+"PO-Revision-Date: 2018-10-08 13:47+0000\n"
 "Last-Translator: Charles Monzat <c.monzat@laposte.net>\n"
 "Language-Team: French (http://www.transifex.com/xfce/tumbler/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +98,7 @@ msgstr "Impossible de charger les générateurs de miniatures spécialisés dans
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
-msgstr "Format invalide"
+msgstr "Format non valide"
 
 #: ../tumbler/tumbler-enum-types.c:50
 msgid "PNG"
