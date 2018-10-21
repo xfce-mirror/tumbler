@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -23,11 +23,15 @@
 
 #include <glib.h>
 
+#include <tumbler/tumbler-file-info.h>
+
 G_BEGIN_DECLS
 
 gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 
 GKeyFile *tumbler_util_get_settings (void) G_GNUC_MALLOC;
+
+gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info);
 
 G_END_DECLS
 

@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -29,8 +29,12 @@
 #include <glib.h>
 #include <gio/gio.h>
 
+#include <sys/stat.h>
+
 #include <tumbler/tumbler-util.h>
 
+/* Float block size used in the stat struct */
+#define TUMBLER_STAT_BLKSIZE 512.
 
 
 gchar **
@@ -130,3 +134,34 @@ tumbler_util_get_settings (void)
 
   return settings;
 }
+
+
+gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info)
+{
+  gchar *filename;
+  struct stat sb;
+  gboolean ret_val = FALSE;
+
+  g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), FALSE);
+
+  filename = g_filename_from_uri (tumbler_file_info_get_uri (info), NULL, NULL);
+
+  if (G_LIKELY(filename))
+  {
+    stat (filename, &sb);
+
+    g_free (filename);
+
+    /* Test sparse files on regular ones */
+    if (S_ISREG (sb.st_mode))
+    {
+      if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
+      {
+        ret_val = TRUE;
+      }
+    }
+  }
+
+  return ret_val;
+}
+

@@ -10,11 +10,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -149,7 +149,7 @@ generate_pixbuf (GdkPixbuf *source,
     dest_height = rint (source_height / wratio);
 
   /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1), MAX (dest_height, 1), 
+  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1), MAX (dest_height, 1),
                                   GDK_INTERP_BILINEAR);
 }
 
@@ -180,8 +180,16 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
-  if (g_cancellable_is_cancelled (cancellable)) 
+  if (g_cancellable_is_cancelled (cancellable))
     return;
+
+  /* Check if is a sparse video file */
+  if (tumbler_util_guess_is_sparse (info))
+  {
+    g_debug ("Video file '%s' is probably sparse, skipping\n",
+             tumbler_file_info_get_uri (info));
+    return;
+  }
 
   /* fetch required info */
   thumbnail = tumbler_file_info_get_thumbnail (info);

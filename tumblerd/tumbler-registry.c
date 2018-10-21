@@ -3,18 +3,18 @@
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  * Copyright (c) 2018      Ali Abdallah    <ali@xfce.org>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -26,7 +26,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <sys/stat.h>
 
 #include <tumbler/tumbler.h>
 
@@ -34,8 +33,6 @@
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
 #include <tumblerd/tumbler-utils.h>
 
-/* Float block size used in the stat struct */
-#define TUMBLER_STAT_BLKSIZE 512.
 
 static void                tumbler_registry_finalize                  (GObject            *object);
 static void                tumbler_registry_remove_thumbnailer        (const gchar        *key,
@@ -83,11 +80,11 @@ tumbler_registry_class_init (TumblerRegistryClass *klass)
   GObjectClass *gobject_class;
 
   /* pre-allocate the required quarks */
-  tumbler_registry_visited_quark = 
+  tumbler_registry_visited_quark =
     g_quark_from_static_string ("tumbler-registry-visited-quark");
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_registry_finalize; 
+  gobject_class->finalize = tumbler_registry_finalize;
 }
 
 
@@ -174,7 +171,7 @@ tumbler_registry_compare (TumblerThumbnailer *a,
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (a), 0);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (b), 0);
 
-  /* TODO Rewrite this based on a single get_registered() time function 
+  /* TODO Rewrite this based on a single get_registered() time function
    * for all thumbnailer types */
 
   if (!TUMBLER_IS_SPECIALIZED_THUMBNAILER (a) || !TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))
@@ -367,7 +364,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
 
       if (list != NULL)
         {
-          /* we already have thumbnailers for this combination. insert the new 
+          /* we already have thumbnailers for this combination. insert the new
            * one at the right position in the list */
           *list = g_list_insert_sorted (*list, g_object_ref (thumbnailer),
                                         (GCompareFunc) tumbler_registry_compare);
@@ -386,7 +383,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
     }
 
   /* connect to the unregister signal of the thumbnailer */
-  g_signal_connect_swapped (thumbnailer, "unregister", 
+  g_signal_connect_swapped (thumbnailer, "unregister",
                             G_CALLBACK (tumbler_registry_remove), registry);
 
   g_strfreev (hash_keys);
@@ -409,11 +406,11 @@ tumbler_registry_remove (TumblerRegistry    *registry,
 
   tumbler_mutex_lock (registry->mutex);
 
-  g_signal_handlers_disconnect_matched (thumbnailer, G_SIGNAL_MATCH_DATA, 
+  g_signal_handlers_disconnect_matched (thumbnailer, G_SIGNAL_MATCH_DATA,
                                         0, 0, NULL, NULL, registry);
-                                        
+
   /* remove the thumbnailer from all hash key lists */
-  g_hash_table_foreach (registry->thumbnailers, 
+  g_hash_table_foreach (registry->thumbnailers,
                         (GHFunc) tumbler_registry_remove_thumbnailer, thumbnailer);
 
   tumbler_mutex_unlock (registry->mutex);
@@ -465,42 +462,15 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   /* iterate over all URIs */
   for (n = 0; n < length; ++n)
     {
-      gchar *filename;
-      struct stat sb;
-
       g_assert (TUMBLER_IS_FILE_INFO (infos[n]));
 
       /* reset */
       file_size = 0;
 
-      filename = g_filename_from_uri (tumbler_file_info_get_uri (infos[n]), NULL, NULL);
-
-      if (G_LIKELY(filename))
-      {
-        stat (filename, &sb);
-
-        g_free (filename);
-
-        /* Test sparse files on regular ones */
-        if (S_ISREG (sb.st_mode))
-        {
-          if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
-          {
-            g_debug ("'%s' is probably a sparse file, skipping\n", tumbler_file_info_get_uri (infos[n]));
-            continue;
-          }
-        }
-      }
-      else
-      {
-        g_warning ("Failed to get filename from uri for '%s', skipping\n", tumbler_file_info_get_uri (infos[n]));
-        continue;
-      }
-
       /* determine the URI scheme and generate a hash key */
       gfile = g_file_new_for_uri (tumbler_file_info_get_uri (infos[n]));
       scheme = g_file_get_uri_scheme (gfile);
-      hash_key = g_strdup_printf ("%s-%s", scheme, 
+      hash_key = g_strdup_printf ("%s-%s", scheme,
                                   tumbler_file_info_get_mime_type (infos[n]));
 
       /* get list of thumbnailer that can handle this URI/MIME type pair */
@@ -593,8 +563,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
     g_object_set_qdata (lp->data, tumbler_registry_visited_quark, NULL);
 
   /* create a hash table to collect unique URI scheme / MIME type pairs */
-  unique_pairs = g_hash_table_new_full (g_str_hash, g_str_equal, 
-                                        (GDestroyNotify) g_free, 
+  unique_pairs = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                        (GDestroyNotify) g_free,
                                         (GDestroyNotify) free_pair);
 
   /* prepare array */
@@ -611,8 +581,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
       uri_schemes = tumbler_thumbnailer_get_uri_schemes (lp->data);
 
       /* insert all MIME types & URI schemes into the hash table */
-      for (n = 0; 
-           mime_types != NULL && uri_schemes != NULL && mime_types[n] != NULL; 
+      for (n = 0;
+           mime_types != NULL && uri_schemes != NULL && mime_types[n] != NULL;
            ++n)
         {
           /* remember the MIME type so that we can later reuse it without copying */
@@ -620,8 +590,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
 
           for (u = 0; uri_schemes[u] != NULL; ++u)
             {
-              /* remember the URI scheme for this pair so that we can later reuse it 
-               * without copying. Only remember it once (n==0) to avoid segmentation 
+              /* remember the URI scheme for this pair so that we can later reuse it
+               * without copying. Only remember it once (n==0) to avoid segmentation
                * faults when freeing the list */
               if (n == 0)
                 g_ptr_array_add (used_strings, uri_schemes[u]);
@@ -646,9 +616,9 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
       g_free (mime_types);
       g_free (uri_schemes);
 
-      /* mark the thumbnailer as visited so we don't generate its 
+      /* mark the thumbnailer as visited so we don't generate its
        * MIME type & URI scheme pairs multiple times */
-      g_object_set_qdata (lp->data, tumbler_registry_visited_quark, 
+      g_object_set_qdata (lp->data, tumbler_registry_visited_quark,
                           GUINT_TO_POINTER (1));
     }
 
@@ -667,7 +637,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   /* insert all unique URI scheme / MIME type pairs into string arrays */
   n = 0;
   g_hash_table_iter_init (&iter, unique_pairs);
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer) &pair)) 
+  while (g_hash_table_iter_next (&iter, NULL, (gpointer) &pair))
     {
       /* fill the cache arrays with copied values */
       registry->uri_schemes[n] = g_strdup (pair[0]);
@@ -700,7 +670,7 @@ tumbler_registry_get_supported (TumblerRegistry     *registry,
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
 
   tumbler_mutex_lock (registry->mutex);
-  
+
   if (uri_schemes != NULL)
     *uri_schemes = (const gchar *const *)registry->uri_schemes;
 
@@ -740,14 +710,14 @@ tumbler_registry_set_preferred (TumblerRegistry    *registry,
   g_return_if_fail (thumbnailer == NULL || TUMBLER_IS_THUMBNAILER (thumbnailer));
 
   tumbler_mutex_lock (registry->mutex);
-  
+
   if (thumbnailer == NULL)
     {
       g_hash_table_remove (registry->preferred_thumbnailers, hash_key);
     }
   else
     {
-      g_hash_table_insert (registry->preferred_thumbnailers, 
+      g_hash_table_insert (registry->preferred_thumbnailers,
                            g_strdup (hash_key), g_object_ref (thumbnailer));
     }
 
