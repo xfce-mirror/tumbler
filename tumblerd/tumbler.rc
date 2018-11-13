@@ -26,21 +26,21 @@
 Disabled=false
 Priority=3
 Locations=
-MaxFileSize=0
+MaxFileSize=209715200
 
 # Supports all type GdkPixbuf supports
 [PixbufThumbnailer]
 Disabled=false
 Priority=2
 Locations=
-MaxFileSize=0
+MaxFileSize=209715200
 
 # RAW image files using libopenraw
 [RawThumbnailer]
 Disabled=false
 Priority=1
 Locations=
-MaxFileSize=0
+MaxFileSize=209715200
 
 ###
 # Video Thumbnailers
@@ -61,14 +61,14 @@ MaxFileSize=0
 Disabled=false
 Priority=2
 Locations=
-MaxFileSize=0
+MaxFileSize=2147483648
 
 # GStreamer plugin
 [GstThumbnailer]
 Disabled=false
 Priority=1
 Locations=
-MaxFileSize=0
+MaxFileSize=2147483648
 
 ###
 # Other Thumbnailers
@@ -79,7 +79,7 @@ MaxFileSize=0
 Disabled=false
 Priority=1
 Locations=
-MaxFileSize=0
+MaxFileSize=209715200
 
 
 # PDF/PS thumbnailer
@@ -87,18 +87,18 @@ MaxFileSize=0
 Disabled=false
 Priority=1
 Locations=
-MaxFileSize=0
+MaxFileSize=209715200
 
 # Open document thumbnailer (ODF)
 [OdfThumbnailer]
 Disabled=false
 Priority=1
 Locations=
-MaxFileSize=0
+MaxFileSize=209715200
 
 # thumnailers provided by .thumbnailer desktop files
 [DesktopThumbnailer]
 Disabled=false
 Priority=1
 Locations=
-MaxFileSize=0
+MaxFileSize=2147483648
