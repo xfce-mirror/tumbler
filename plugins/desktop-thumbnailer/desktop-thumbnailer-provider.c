@@ -162,7 +162,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
   g_key_file_free (key_file);
   g_strfreev(mime_types);
 
-  g_print("Registered thumbailer %s\n", exec);
+  g_print("Registered thumbnailer %s\n", exec);
   g_free(exec);
 
   return thumbnailer;
