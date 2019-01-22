@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Zmicer Turok <zmicerturok@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-03-21 22:06+0000\n"
+"PO-Revision-Date: 2019-01-22 10:40+0000\n"
 "Last-Translator: Zmicer Turok <zmicerturok@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/xfce/tumbler/language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +34,7 @@ msgstr "Запытаны непадтрымліваемы тып мініяцю�
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Не атрымалася выклікаць адмысловую ўбудову мініяцюр: час выйшаў"
+msgstr "Не атрымалася выклікаць адмысловую ўбудову мініяцюр: час сышоў"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
@@ -75,7 +76,7 @@ msgstr "Не атрымалася вызначыць час змены \"%s\""
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr "Назва %s згублена ў паведамленні dbus, выхад."
+msgstr "Назва %s згубленая ў паведамленні dbus, выхад."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
@@ -101,7 +102,7 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "Каляровая пастора RGB"
+msgstr "Каляровая прастора RGB"
 
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
@@ -157,7 +158,7 @@ msgstr "Не атрымалася загрузіць метаданыя з  \"%s
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Хібны ключ API. Вы мусіце даць сапраўдны ключ. База даных будзе выключана."
+msgstr "Хібны ключ API. Вы мусіце даць сапраўдны ключ. База даных будзе выключаная."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
