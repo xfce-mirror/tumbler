@@ -117,6 +117,7 @@ raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
     "image/x-pentax-pef",
     "image/x-sony-arw",
     "image/x-minolta-mrw",
+    "image/x-fuji-raf",
     NULL
   };
 
