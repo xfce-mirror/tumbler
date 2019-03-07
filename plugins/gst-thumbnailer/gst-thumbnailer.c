@@ -138,15 +138,16 @@ gst_thumbnailer_cover_from_tags (GstTagList   *tags,
 {
   GstSample          *cover = NULL;
   guint               i;
-  GstSample          *sample;
   GstCaps            *caps;
   const GstStructure *caps_struct;
-  gint                type;
+  gint                type = GST_TAG_IMAGE_TYPE_UNDEFINED;
   GstBuffer          *buffer;
   GdkPixbuf          *pixbuf = NULL;
 
   for (i = 0; ; i++)
     {
+      GstSample	*sample;
+
       if (g_cancellable_is_cancelled (cancellable))
         break;
 
@@ -161,14 +162,13 @@ gst_thumbnailer_cover_from_tags (GstTagList   *tags,
                               GST_TYPE_TAG_IMAGE_TYPE,
                               &type);
 
-      if (type == GST_TAG_IMAGE_TYPE_FRONT_COVER)
-        {
-          /* found the cover */
-          cover = sample;
-          break;
-        }
+      if (cover != NULL)
+	gst_sample_unref (cover);
+      cover = sample;
 
-      gst_sample_unref (sample);
+      /* prefer the from cover image if specified */
+     if (type == GST_TAG_IMAGE_TYPE_FRONT_COVER)
+	break;
     }
 
   if (cover == NULL
