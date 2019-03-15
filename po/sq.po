@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Besnik <besnik@programeshqip.org>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-09-14 00:17+0000\n"
+"PO-Revision-Date: 2019-03-15 11:21+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/xfce/tumbler/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -21,30 +22,30 @@ msgstr ""
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr ""
+msgstr "S’ka krijues miniaturash për \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr ""
+msgstr "Shërbimi i krijimit të miniaturave po mbyllet"
 
 #: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "U kërkua lloj miniaturash i pambuluar"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "S’u arrit të thirrej shërbimi i specializuar i krijimit të miniaturave: mbarim kohe"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "S’u arrit të thirrej shërbimi i specializuar i krijimit të miniaturave: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Dështoi në ngarkimin e kartelës \"%s\": %s"
+msgstr "S’u arrit të ngarkohej kartela \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
 #: ../tumblerd/tumbler-manager.c:594
@@ -57,7 +58,7 @@ msgstr "Ndarje \"%s\" e keqformuar te kartela \"%s\": %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr ""
+msgstr "Pjesë e keqformuar \"%s\" te kartela \"%s\": Mospërputhje mes emrit të pjesës dhe UriScheme/MimeType-it"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -70,7 +71,7 @@ msgstr "Kartelë \"%s\" e keqformuar: %s"
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr ""
+msgstr "S’u arrit të përcaktohej koha e ndryshimit të fundit të \"%s\""
 
 #: ../tumblerd/main.c:223
 #, c-format
@@ -89,7 +90,7 @@ msgstr "Shërbim Miniaturizimi Tumbler"
 #: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr ""
+msgstr "S’u arrit të ngarkohej shërbimi i specializuar i krijimit të miniaturave te regjistri: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -106,12 +107,12 @@ msgstr "Paletë RGB"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr ""
+msgstr "Shtojcës së fshehtinës \"%s\" i mungojnë simbole të domosdoshëm"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Dështoi në ngarkimin e shtojcës së fshehtinës \"%s\": %s"
+msgstr "S’u arrit të ngarkohej shtojca e fshehtinës \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -126,7 +127,7 @@ msgstr ""
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
 msgid "Failed to load plugin \"%s\": %s"
-msgstr "Dështoi në ngarkimin e shtojcës \"%s\": %s"
+msgstr "S’u arrit të ngarkohej shtojca \"%s\": %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
 #: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
@@ -146,12 +147,12 @@ msgstr "Mospërputhje versionesh: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Dështoi në ngarkimin e figurës poster \"%s\""
+msgstr "S’u arrit të ngarkohej figura e afishes \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Dështoi në ngarkim tejtëdhënash kartela \"%s\""
+msgstr "S’u arrit të ngarkoheshin tejtëdhënat nga \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
