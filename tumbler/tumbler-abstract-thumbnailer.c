@@ -31,10 +31,6 @@
 
 
 
-#define TUMBLER_ABSTRACT_THUMBNAILER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_ABSTRACT_THUMBNAILER, TumblerAbstractThumbnailerPrivate))
-
-
-
 /* Property identifiers */
 enum
 {
@@ -83,7 +79,8 @@ G_DEFINE_TYPE_EXTENDED (TumblerAbstractThumbnailer,
                         G_TYPE_OBJECT,
                         G_TYPE_FLAG_ABSTRACT,
                         G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_THUMBNAILER,
-                                               tumbler_abstract_thumbnailer_thumbnailer_init));
+                                               tumbler_abstract_thumbnailer_thumbnailer_init)
+                        G_ADD_PRIVATE (TumblerAbstractThumbnailer));
 
 
 
@@ -91,8 +88,6 @@ static void
 tumbler_abstract_thumbnailer_class_init (TumblerAbstractThumbnailerClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerAbstractThumbnailerPrivate));
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->constructed = tumbler_abstract_thumbnailer_constructed; 
@@ -121,7 +116,7 @@ tumbler_abstract_thumbnailer_thumbnailer_init (TumblerThumbnailerIface *iface)
 static void
 tumbler_abstract_thumbnailer_init (TumblerAbstractThumbnailer *thumbnailer)
 {
-  thumbnailer->priv = TUMBLER_ABSTRACT_THUMBNAILER_GET_PRIVATE (thumbnailer);
+  thumbnailer->priv = tumbler_abstract_thumbnailer_get_instance_private (thumbnailer);
 }
 
 

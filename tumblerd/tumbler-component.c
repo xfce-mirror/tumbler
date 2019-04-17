@@ -30,10 +30,6 @@
 
 
 
-#define TUMBLER_COMPONENT_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), TUMBLER_TYPE_COMPONENT, TumblerComponentPrivate))
-
-
-
 /* property identifiers */
 enum
 {
@@ -62,7 +58,7 @@ struct _TumblerComponentPrivate
 
 
 
-G_DEFINE_TYPE (TumblerComponent, tumbler_component, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (TumblerComponent, tumbler_component, G_TYPE_OBJECT)
 
 
 
@@ -70,8 +66,6 @@ static void
 tumbler_component_class_init (TumblerComponentClass *klass)
 {
   GObjectClass *gobject_class;
-
-  g_type_class_add_private (klass, sizeof (TumblerComponentPrivate));
 
   /* Determine the parent type class */
   tumbler_component_parent_class = g_type_class_peek_parent (klass);
@@ -96,7 +90,7 @@ tumbler_component_class_init (TumblerComponentClass *klass)
 static void
 tumbler_component_init (TumblerComponent *component)
 {
-  component->priv = TUMBLER_COMPONENT_GET_PRIVATE (component);
+  component->priv = tumbler_component_get_instance_private (component);
 }
 
 
