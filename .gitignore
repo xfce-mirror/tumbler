@@ -30,9 +30,10 @@ stamp-h1
 .deps
 .libs
 stamp-*.h
-tumbler-manager-dbus-bindings.h
-tumbler-marshal.c
-tumbler-marshal.h
+tumbler-marshal.[ch]
+tumbler-cache-service-gdbus.[ch]
+tumbler-manager-gdbus.[ch]
+tumbler-service-gdbus.[ch]
 *.swp
 commit-msg
 *.lo
