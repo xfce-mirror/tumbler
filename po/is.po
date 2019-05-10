@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Sveinn í Felli <sv1@fellsnet.is>, 2017
-# Sveinn í Felli <sv1@fellsnet.is>, 2014-2015
+# Sveinn í Felli <sv1@fellsnet.is>, 2014-2015,2019
 # Sveinn í Felli <sv1@fellsnet.is>, 2011-2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-19 18:02+0000\n"
+"PO-Revision-Date: 2019-05-10 11:28+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic (http://www.transifex.com/xfce/tumbler/language/is/)\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgstr "Ekki var hægt að útbúa smámynd út frá innihaldi skráar"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
-msgstr "Skráin er tóm"
+msgstr "Skkjalið er tómt"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
 msgid "First page of the document could not be read"
