@@ -1,3 +1,17 @@
+0.2.4
+=====
+- Check for sparse video files only on plugin side
+- Set Max file sizes
+- Add Fujifilm RAF support (Bug #14522)
+- Add more media types for audio cover thumbnails (Bug #12041)
+- Fix a typo in desktop-thumbnailer-provider.c (Bug #14925)
+- Update URLs in README and configure.ac
+- Fix g_type_class_add_private is deprecated
+- Bump glib version
+- Translation Updates: Albanian, Basque, Belarusian, Catalan, Dutch (Flemish),
+  Finnish, French, Galician, Hebrew, Italian, Kazakh, Lithuanian, Polish,
+  Portuguese (Brazilian), Romanian, Russian, Slovak, Swedish, Ukrainian
+
 0.2.3
 =====
 - Test sparse files only for regular files (bug #14693).
