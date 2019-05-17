@@ -47,6 +47,7 @@ tumblerd/tumblerd
 *-dbus-bindings.h
 docs/reference/tumbler/xml/
 docs/reference/tumbler/tumbler-decl.txt.bak
+docs/reference/tumbler/tumbler-decl-list.txt.bak
 version.xml
 *.prerequisites
 *.signals
