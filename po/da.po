@@ -5,13 +5,13 @@
 # Translators:
 # Aputsiak Niels Janussen (Skjalden) <aj@isit.gl>, 2013
 # Per Kongstad <p_kongstad@op.pl>, 2009
-# scootergrisen, 2017-2018
+# scootergrisen, 2017-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-03-08 15:35+0000\n"
+"PO-Revision-Date: 2019-05-24 11:48+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -28,20 +28,20 @@ msgstr "Ingen miniaturetjeneste tilgængelig for \"%s\""
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "Tjenesten til miniaturer lukker ned"
+msgstr "Miniaturetjenesten lukker ned"
 
 #: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Anmodet ikke understøttet miniature"
+msgstr "Anmodede om miniaturetype som ikke understøttes"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Kunne ikke kalde den specialiserede miniature: tidsudløb"
+msgstr "Kunne ikke kalde den specialiserede miniaturetjeneste: timeout"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Kunne ikke kalde den specialiserede miniature: %s"
+msgstr "Kunne ikke kalde den specialiserede miniaturetjeneste: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
@@ -60,7 +60,7 @@ msgstr "Forkert udformet sektion \"%s\" i filen \"%s\": %s"
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Forkert udformet sektion \"%s\" i filen \"%s\": Der er forskel mellem sektionsnavn og Uri-skema/MIME-type"
+msgstr "Forkert udformet sektion \"%s\" i filen \"%s\": Sektionsnavn og Uri-skema/MIME-type passer ikke sammen"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -73,12 +73,12 @@ msgstr "Forkert udformet fil \"%s\": %s"
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Kunne ikke bestemme sidste tid for ændring af \"%s\""
+msgstr "Kunne ikke bestemme sidste ændringstidspunkt for \"%s\""
 
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr "Navn %s tabt på meddelelse-dbus'en, afslutter."
+msgstr "Navnet %s gik tabt på meddelelses-dbus'en, afslutter."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
@@ -87,12 +87,12 @@ msgstr "Kunne ikke ændre processens venlighedsværdi."
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
-msgstr "Tumbler tjeneste til miniaturer"
+msgstr "Tumbler-miniaturetjeneste"
 
 #: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Kunne ikke indlæse specialiserede miniaturer ind i registret: %s"
+msgstr "Kunne ikke indlæse specialiserede miniaturetjenester ind i registret: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -109,12 +109,12 @@ msgstr "RGB-farverum"
 #: ../tumbler/tumbler-cache-plugin.c:145
 #, c-format
 msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Plugin til mellemlager \"%s\" mangler krævede symboler"
+msgstr "Mellemlager-pluginet \"%s\" mangler krævede symboler"
 
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Kunne ikke indlæse plugin til mellemlager \"%s\": %s"
+msgstr "Kunne ikke indlæse mellemlager-pluginet \"%s\": %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -144,7 +144,7 @@ msgstr "Kunne ikke indlæse pluginet \"%s\": %s"
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
 #, c-format
 msgid "Version mismatch: %s"
-msgstr "Version uoverensstemmelse: %s"
+msgstr "Version passer ikke: %s"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
@@ -160,11 +160,11 @@ msgstr "Kunne ikke indlæse metadataene fra \"%s\""
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Ugyldig API-nøgle - du skal være tildelt en gyldig nøgle. Motoren for Movie DB vil blive deaktiveret."
+msgstr "Ugyldig API-nøgle - du skal være tildelt en gyldig nøgle. Filmdatabase-motoren vil blive deaktiveret."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr "Ingen plakatnøgle fundet i metadata"
+msgstr "Ingen plakatnøgle i metadataene"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
@@ -192,13 +192,13 @@ msgstr "Kunne ikke åbne skrifttypefil: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Kunne ikke indstille til tegntilknytningen: %s"
+msgstr "Kunne ikke indstille tegnkortet: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Kunne ikke rendere glyffer: %s"
+msgstr "Kunne ikke gengive glyffer: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
@@ -209,7 +209,7 @@ msgstr "Kunne ikke rendere glyffer: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "Miniature kunne ikke blive bestemt ud fra filindholdet"
+msgstr "Miniaturen kunne ikke udledes fra filindholdet"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
@@ -221,7 +221,7 @@ msgstr "Første side af dokumentet kunne ikke læses"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr "Kun lokale filer er understøttet"
+msgstr "Kun lokale filer understøttes"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
