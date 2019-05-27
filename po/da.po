@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2019-05-24 11:48+0000\n"
+"PO-Revision-Date: 2019-05-27 11:26+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/xfce/tumbler/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Navnet %s gik tabt på meddelelses-dbus'en, afslutter."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
-msgstr "Kunne ikke ændre processens venlighedsværdi."
+msgstr "Kunne ikke ændre processens nice-værdi."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
