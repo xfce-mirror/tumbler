@@ -4,12 +4,13 @@
 # 
 # Translators:
 # E-Hayq LLC <www.ehayq.am>, 2018
+# Hayk Andreasyan <hayk.andreasyan@realschool.am>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2019-06-12 10:40+0000\n"
+"PO-Revision-Date: 2019-06-13 08:13+0000\n"
 "Last-Translator: Hayk Andreasyan <hayk.andreasyan@realschool.am>\n"
 "Language-Team: Armenian (Armenia) (http://www.transifex.com/xfce/tumbler/language/hy_AM/)\n"
 "MIME-Version: 1.0\n"
@@ -26,15 +27,15 @@ msgstr "\"%s\"֊ի համար հասանելի փոքրապատկերներ չկ
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "Փոքրապատկերի ծառայութիւնը անջատուում է"
+msgstr "Փոքրապատկերների ծառայութիւնը անջատուում է"
 
 #: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Հարցուել է փոքրապատկերի չսատարուող տարր"
+msgstr "Յայտ է ներկայացուել չսատարուող տարրի համար"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Չյաջողուեց կանչել յատկացուած փոքրապատկերը․ ժամանակի սպառում"
+msgstr "Չյաջողուեց կանչել յատկացուած փոքրապատկերը․ սպառում"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
@@ -71,7 +72,7 @@ msgstr "Այլափոխուած նիշ \"%s\"․ %s"
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Չյաջողուեց որոշել \"%s\"֊ի փոփոխման վերջին անգամը"
+msgstr "Չյաջողուեց որոշել \"%s\"֊ի վերջին փոփոխութեան ամսաթիւը "
 
 #: ../tumblerd/main.c:223
 #, c-format
@@ -229,4 +230,4 @@ msgstr "Չյաջողուեց պահել փոքրապատկերը \"%s\"֊ում"
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr ""
+msgstr "Այլափոխուած %s հրամանտող․ %s"
