@@ -16,6 +16,7 @@ TUMBLER_ABSTRACT_THUMBNAILER
 TUMBLER_ABSTRACT_THUMBNAILER_CLASS
 TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS
 TUMBLER_IS_ABSTRACT_THUMBNAILER
+TUMBLER_IS_ABSTRACT_THUMBNAILER_CLASS
 TUMBLER_TYPE_ABSTRACT_THUMBNAILER
 TumblerAbstractThumbnailer
 TumblerAbstractThumbnailerClass
@@ -47,6 +48,7 @@ tumbler_cache_get_type
 
 <SECTION>
 <FILE>tumbler-cache-plugin</FILE>
+<TITLE>TumblerCachePlugin</TITLE>
 tumbler_cache_plugin_get_default
 tumbler_cache_plugin_get_cache
 <SUBSECTION Standard>
@@ -54,6 +56,7 @@ TUMBLER_CACHE_PLUGIN
 TUMBLER_CACHE_PLUGIN_CLASS
 TUMBLER_CACHE_PLUGIN_GET_CLASS
 TUMBLER_IS_CACHE_PLUGIN
+TUMBLER_IS_CACHE_PLUGIN_CLASS
 TUMBLER_TYPE_CACHE_PLUGIN
 TumblerCachePlugin
 TumblerCachePluginClass
@@ -95,6 +98,7 @@ TumblerErrorEnum
 
 <SECTION>
 <FILE>tumbler-file-info</FILE>
+<TITLE>TumblerFileInfo</TITLE>
 tumbler_file_info_new
 tumbler_file_info_load
 tumbler_file_info_get_uri
@@ -110,6 +114,7 @@ TUMBLER_FILE_INFO
 TUMBLER_FILE_INFO_CLASS
 TUMBLER_FILE_INFO_GET_CLASS
 TUMBLER_IS_FILE_INFO
+TUMBLER_IS_FILE_INFO_CLASS
 TUMBLER_TYPE_FILE_INFO
 TumblerFileInfo
 TumblerFileInfoClass
@@ -133,10 +138,12 @@ tumbler_marshal_VOID__UINT_POINTER_INT_STRING
 
 <SECTION>
 <FILE>tumbler-provider-factory</FILE>
+<TITLE>TumblerProviderFactory</TITLE>
 tumbler_provider_factory_get_default
 tumbler_provider_factory_get_providers
 <SUBSECTION Standard>
 TUMBLER_IS_PROVIDER_FACTORY
+TUMBLER_IS_PROVIDER_FACTORY_CLASS
 TUMBLER_PROVIDER_FACTORY
 TUMBLER_PROVIDER_FACTORY_CLASS
 TUMBLER_PROVIDER_FACTORY_GET_CLASS
@@ -148,10 +155,12 @@ tumbler_provider_factory_get_type
 
 <SECTION>
 <FILE>tumbler-provider-plugin</FILE>
+<TITLE>TumblerProviderPlugin</TITLE>
 tumbler_provider_plugin_new
 tumbler_provider_plugin_get_types
 <SUBSECTION Standard>
 TUMBLER_IS_PROVIDER_PLUGIN
+TUMBLER_IS_PROVIDER_PLUGIN_CLASS
 TUMBLER_PROVIDER_PLUGIN
 TUMBLER_PROVIDER_PLUGIN_CLASS
 TUMBLER_PROVIDER_PLUGIN_GET_CLASS
@@ -182,6 +191,7 @@ tumbler_thumbnail_get_type
 
 <SECTION>
 <FILE>tumbler-thumbnail-flavor</FILE>
+<TITLE>TumblerThumbnailFlavor</TITLE>
 tumbler_thumbnail_flavor_new
 tumbler_thumbnail_flavor_new_normal
 tumbler_thumbnail_flavor_new_large
@@ -189,6 +199,7 @@ tumbler_thumbnail_flavor_get_name
 tumbler_thumbnail_flavor_get_size
 <SUBSECTION Standard>
 TUMBLER_IS_THUMBNAIL_FLAVOR
+TUMBLER_IS_THUMBNAIL_FLAVOR_CLASS
 TUMBLER_THUMBNAIL_FLAVOR
 TUMBLER_THUMBNAIL_FLAVOR_CLASS
 TUMBLER_THUMBNAIL_FLAVOR_GET_CLASS
