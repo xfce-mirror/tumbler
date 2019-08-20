@@ -236,6 +236,11 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
 
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
+  /* prepend $XDG_DATA_HOME/thumbnailers/ to the directory list */
+  dirname = g_build_filename (g_get_user_data_dir (), "thumbnailers", NULL);
+  directories = g_list_prepend (directories, g_file_new_for_path (dirname));
+  g_free (dirname);
+
   /* build $XDG_DATA_DIRS/thumbnailers dirnames and prepend them to the list */
   data_dirs = g_get_system_data_dirs ();
 
