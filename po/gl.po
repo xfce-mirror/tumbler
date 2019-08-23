@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2019-07-31 09:36+0000\n"
+"PO-Revision-Date: 2019-08-23 12:48+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>\n"
 "Language-Team: Galician (http://www.transifex.com/xfce/tumbler/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,18 +37,18 @@ msgstr "Solicitouse un tipo de miniatura non admitida"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Produciuse un erro ao chamar ao miniaturizador especializado: sobrepasouse o tempo de espera"
+msgstr "Produciuse un fallo ao chamar ao miniaturizador especializado: sobrepasouse o tempo de espera"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Produciuse un erro ao chamar ao miniaturizador especializado: %s"
+msgstr "Produciuse un fallo ao chamar ao miniaturizador especializado: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
-msgstr "Produciuse un erro ao cargar o ficheiro «%s»: %s"
+msgstr "Produciuse un fallo ao cargar o ficheiro «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
 #: ../tumblerd/tumbler-manager.c:594
@@ -74,7 +74,7 @@ msgstr "Ficheiro «%s» mal escrito: %s"
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
-msgstr "Produciuse un erro ao determinar a hora da última modificación de «%s»"
+msgstr "Produciuse un fallo ao determinar a hora da última modificación de «%s»"
 
 #: ../tumblerd/main.c:223
 #, c-format
@@ -83,7 +83,7 @@ msgstr "O nome%s perdeuse na mensaxe dbus, saíndo."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
-msgstr "Non foi posíbel cambiar o valor nice do proceso."
+msgstr "Non se puido cambiar o valor «nice» do proceso."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
@@ -93,7 +93,7 @@ msgstr "Servizo de miniaturas Tumbler"
 #: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Produciuse un erro ao cargar os miniaturizadores especializados no rexistro: %s"
+msgstr "Produciuse un fallo ao cargar os miniaturizadores especializados no rexistro: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -115,7 +115,7 @@ msgstr "O engadido de caché «%s» carece dos símbolos requiridos."
 #: ../tumbler/tumbler-cache-plugin.c:153
 #, c-format
 msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Produciuse un erro ao cargar o engadido de caché «%s»: %s"
+msgstr "Produciuse un fallo ao cargar o engadido de caché «%s»: %s"
 
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
@@ -150,18 +150,18 @@ msgstr "As versións non coinciden: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Produciuse un erro ao cargar a imaxe de póster «%s»"
+msgstr "Produciuse un fallo ao cargar a imaxe de póster «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Produciuse un erro ao cargar os metadatos desde «%s»"
+msgstr "Produciuse un fallo ao cargar os metadatos desde «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "A chave da API é incorrecta; ten que contar cunha chave válida. Vaise desactivar a infraestrutura de Movie DB."
+msgstr "A chave da API é incorrecta; ten que contar cunha chave correcta. Vaise desactivar a infraestrutura de Movie DB."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
