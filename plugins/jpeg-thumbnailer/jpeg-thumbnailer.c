@@ -378,23 +378,21 @@ typedef struct
   guint         data_len;
 
   guint         thumb_compression;
-  union
+
+  struct /* thumbnail JPEG */
   {
-    struct /* thumbnail JPEG */
-    {
-      guint     length;
-      guint     offset;
-      guint     orientation;
-    } thumb_jpeg;
-    struct /* thumbnail TIFF */
-    {
-      guint     length;
-      guint     offset;
-      guint     interp;
-      guint     height;
-      guint     width;
-    } thumb_tiff;
-  } thumb;
+    guint     length;
+    guint     offset;
+    guint     orientation;
+  } thumb_jpeg;
+  struct /* thumbnail TIFF */
+  {
+    guint     length;
+    guint     offset;
+    guint     interp;
+    guint     height;
+    guint     width;
+  } thumb_tiff;
 
   gboolean      big_endian;
 } TvtjExif;
@@ -496,15 +494,15 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
 
           /* and remember it appropriately */
           if (tag == 0x0100)
-            exif->thumb.thumb_tiff.width = value;
+            exif->thumb_tiff.width = value;
           else if (tag == 0x0101)
-            exif->thumb.thumb_tiff.height = value;
+            exif->thumb_tiff.height = value;
           else if (tag == 0x0106)
-            exif->thumb.thumb_tiff.interp = value;
+            exif->thumb_tiff.interp = value;
           else if (tag == 0x0111)
-            exif->thumb.thumb_tiff.offset = value;
+            exif->thumb_tiff.offset = value;
           else
-            exif->thumb.thumb_tiff.length = value;
+            exif->thumb_tiff.length = value;
         }
       else if (tag == 0x0201 || tag == 0x0202)
         {
@@ -516,9 +514,9 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
 
               /* and remember it appropriately */
               if (G_LIKELY (tag == 0x201))
-                exif->thumb.thumb_jpeg.offset = value;
+                exif->thumb_jpeg.offset = value;
               else
-                exif->thumb.thumb_jpeg.length = value;
+                exif->thumb_jpeg.length = value;
             }
         }
       else if (tag == 0x112)
@@ -529,7 +527,7 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
             {
               /* determine the orientation value */
               value = tvtj_exif_get_ushort (exif, ifd_ptr + 8);
-              exif->thumb.thumb_jpeg.orientation = MIN (value, 8);
+              exif->thumb_jpeg.orientation = MIN (value, 8);
             }
         }
     }
@@ -655,34 +653,34 @@ tvtj_exif_extract_thumbnail (const guchar *data,
       if (G_LIKELY (exif.thumb_compression == 6)) /* JPEG */
         {
           /* check if we have a valid thumbnail JPEG */
-          if (exif.thumb.thumb_jpeg.offset > 0 && exif.thumb.thumb_jpeg.length > 0
-              && exif.thumb.thumb_jpeg.offset + exif.thumb.thumb_jpeg.length <= length)
+          if (exif.thumb_jpeg.offset > 0 && exif.thumb_jpeg.length > 0
+              && exif.thumb_jpeg.offset + exif.thumb_jpeg.length <= length)
             {
               /* try to load the embedded thumbnail JPEG */
-              thumb = tvtj_jpeg_load (data + exif.thumb.thumb_jpeg.offset, exif.thumb.thumb_jpeg.length, size);
+              thumb = tvtj_jpeg_load (data + exif.thumb_jpeg.offset, exif.thumb_jpeg.length, size);
             }
         }
       else if (exif.thumb_compression == 1) /* Uncompressed */
         {
           /* check if we have a valid thumbnail (current only RGB interpretations) */
-          if (G_LIKELY (exif.thumb.thumb_tiff.interp == 2)
-              && exif.thumb.thumb_tiff.offset > 0 && exif.thumb.thumb_tiff.length > 0
-              && exif.thumb.thumb_tiff.offset + exif.thumb.thumb_tiff.length <= length
-              && exif.thumb.thumb_tiff.height * exif.thumb.thumb_tiff.width == exif.thumb.thumb_tiff.length)
+          if (G_LIKELY (exif.thumb_tiff.interp == 2)
+              && exif.thumb_tiff.offset > 0 && exif.thumb_tiff.length > 0
+              && exif.thumb_tiff.offset + exif.thumb_tiff.length <= length
+              && exif.thumb_tiff.height * exif.thumb_tiff.width == exif.thumb_tiff.length)
             {
               /* plain RGB data, just what we need for a GdkPixbuf */
-              thumb = gdk_pixbuf_new_from_data (g_memdup (data + exif.thumb.thumb_tiff.offset, exif.thumb.thumb_tiff.length),
-                                                GDK_COLORSPACE_RGB, FALSE, 8, exif.thumb.thumb_tiff.width,
-                                                exif.thumb.thumb_tiff.height, exif.thumb.thumb_tiff.width,
+              thumb = gdk_pixbuf_new_from_data (g_memdup (data + exif.thumb_tiff.offset, exif.thumb_tiff.length),
+                                                GDK_COLORSPACE_RGB, FALSE, 8, exif.thumb_tiff.width,
+                                                exif.thumb_tiff.height, exif.thumb_tiff.width,
                                                 (GdkPixbufDestroyNotify) g_free, NULL);
             }
         }
 
      if (thumb != NULL
-         && exif.thumb.thumb_jpeg.orientation > 1)
+         && exif.thumb_jpeg.orientation > 1)
        {
          /* rotate thumbnail */
-         rotated = tvtj_rotate_pixbuf (thumb, exif.thumb.thumb_jpeg.orientation);
+         rotated = tvtj_rotate_pixbuf (thumb, exif.thumb_jpeg.orientation);
          g_object_unref (thumb);
          thumb = rotated;
        }
