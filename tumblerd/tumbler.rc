@@ -96,7 +96,7 @@ Priority=1
 Locations=
 MaxFileSize=209715200
 
-# thumnailers provided by .thumbnailer desktop files
+# thumbnailers provided by .thumbnailer desktop files
 [DesktopThumbnailer]
 Disabled=false
 Priority=1
