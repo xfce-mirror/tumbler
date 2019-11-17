@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2013-2015
-# Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>, 2017
+# prflr88 <prflr88@gmail.com>, 2013-2015
+# prflr88 <prflr88@gmail.com>, 2017
+# Toni Estévez <toni.estevez@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2017-09-19 18:02+0000\n"
-"Last-Translator: Pablo Lezaeta Reyes [pˈaβ̞lo lˌe̞θaˈeta rˈejɛ] <prflr88@gmail.com>\n"
+"PO-Revision-Date: 2019-11-17 15:51+0000\n"
+"Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/tumbler/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,11 +24,11 @@ msgstr ""
 #: ../tumblerd/tumbler-lifo-scheduler.c:422
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "No hay un miniaturizador disponible para «%s»"
+msgstr "No hay ningún generador de miniaturas disponible para «%s»"
 
 #: ../tumblerd/tumbler-lifecycle-manager.c:208
 msgid "The thumbnailer service is shutting down"
-msgstr "El servicio de miniaturas se está cerrando"
+msgstr "Se está apagando el servicio de miniaturas"
 
 #: ../tumblerd/tumbler-service.c:775
 msgid "Unsupported thumbnail flavor requested"
@@ -35,12 +36,12 @@ msgstr "Se solicitó un tipo de miniaturas no compatible"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:462
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "No se pudo llamar al previsualizador especializado: tiempo de espera terminado."
+msgstr "No se pudo invocar el generador de miniaturas especializado: tiempo de espera agotado"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:471
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "No se pudo llamar al previsualizador especializado: %s"
+msgstr "No se pudo invocar el generador de miniaturas especializado: %s"
 
 #: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
@@ -52,14 +53,14 @@ msgstr "No se pudo cargar el archivo «%s»: %s"
 #: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Sección «%s» mal formada en el archivo «%s»: %s"
+msgstr "Sección incorrecta «%s» en el archivo «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:607
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
-msgstr "Sección «%s» mal formada en el archivo «%s»: el nombre de la sección y EsquemaURI/TipoMime no coinciden"
+msgstr "Sección incorrecta «%s» en el archivo «%s»: el nombre de la sección y el esquema URI o el tipo MIME no coinciden"
 
 #: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
 #: ../tumblerd/tumbler-manager.c:995
@@ -67,7 +68,7 @@ msgstr "Sección «%s» mal formada en el archivo «%s»: el nombre de la secci�
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
-msgstr "Archivo «%s» mal formado: %s"
+msgstr "Archivo incorrecto «%s»: %s"
 
 #: ../tumblerd/tumbler-manager.c:1021
 #, c-format
@@ -77,7 +78,7 @@ msgstr "No se pudo determinar la fecha de modificación de «%s»"
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr "Nombre %s perdido en el mensaje dbus, saliendo."
+msgstr "Nombre perdido %s en el mensaje dbus, saliendo."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
@@ -86,16 +87,16 @@ msgstr "No se pudo cambiar el valor NICE del proceso."
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
-msgstr "Servicio de miniaturización Tumbler"
+msgstr "Servicio de miniaturas Tumbler"
 
 #: ../tumblerd/main.c:368
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "No se pudo cargar previsualizadores especializados dentro del registro: %s"
+msgstr "No se pudieron cargar generadores de miniaturas especializados en el registro: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
-msgstr "Formato no válido"
+msgstr "El formato no es válido"
 
 #: ../tumbler/tumbler-enum-types.c:50
 msgid "PNG"
@@ -118,7 +119,7 @@ msgstr "No se pudo cargar el complemento de la caché «%s»: %s"
 #: ../tumbler/tumbler-file-info.c:297
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "El archivo «%s» ya es una previsualización"
+msgstr "El archivo «%s» ya es una miniatura"
 
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
@@ -148,26 +149,26 @@ msgstr "Las versiones no coinciden: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "No se pudo cargar la imagen del publicador «%s»"
+msgstr "No se pudo cargar la imagen del cartel «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "No se pudo cargar los metadatos de «%s»"
+msgstr "No se pudieron cargar los metadatos de «%s»"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Clave API no válida, debe otorgársele una clave válida. Se desactivará el motor de «The Movie DB»."
+msgstr "La clave de la API no es válida, se le debe asignar una clave válida. Se desactivará el motor de la base de datos de películas."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr "No se encontró ninguna clave de publicador en los metadatos"
+msgstr "No se encontró ninguna clave del cartel en los metadatos"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
-msgstr "El título de la película es muy corto"
+msgstr "El título de la película es demasiado corto"
 
 #. there was an error in the freetype initialization, abort
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
@@ -179,25 +180,25 @@ msgstr "No se pudo inicializar freetype: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "No se pueden cargar los contenidos del archivo: %s"
+msgstr "No se pudo cargar el contenido del archivo: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "No se pudo abrir el archivo de tipo de letra: %s"
+msgstr "No se pudo abrir el archivo de tipografía: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "No se pudo definir el mapa de caracteres: %s"
+msgstr "No se pudo configurar el mapa de caracteres: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "No se pudieron renderizar los glifos: %s"
+msgstr "No se pudieron representar los glifos: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
@@ -208,7 +209,7 @@ msgstr "No se pudieron renderizar los glifos: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
 #, c-format
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "No se puede generar previsualización a partir de los contenidos del archivo"
+msgstr "No se pudo extraer la miniatura del contenido del archivo"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
 msgid "The document is empty"
@@ -220,14 +221,14 @@ msgstr "No se pudo leer la primera página del documento"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr "Solamente se permiten los archivos locales"
+msgstr "Solamente se admiten archivos locales"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "No se puede guardar la miniatura en «%s»"
+msgstr "No se pudo guardar la miniatura en «%s»"
 
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr "Línea de órdenes «%s» mal formada: %s"
+msgstr "Línea de órdenes incorrecta «%s»: %s"
