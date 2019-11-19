@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2019-11-19 11:30+0000\n"
+"PO-Revision-Date: 2019-11-19 11:31+0000\n"
 "Last-Translator: Arnold Marko <arnold.marko@gmail.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/xfce/tumbler/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -198,7 +198,7 @@ msgstr "Neuspešna določitev znakovne mape: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "Izris glyphov ni uspel: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
@@ -231,4 +231,4 @@ msgstr "Sličice ni bilo mogoče shraniti v \"%s\""
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr ""
+msgstr "Napačno oblikovana ukazna vrstica \"%s\":%s"
