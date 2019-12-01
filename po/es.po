@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2019-11-17 15:51+0000\n"
+"PO-Revision-Date: 2019-12-01 09:44+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/tumbler/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,7 @@ msgstr "No se pudo leer la primera página del documento"
 
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
 msgid "Only local files are supported"
-msgstr "Solamente se admiten archivos locales"
+msgstr "Solo se admiten archivos locales"
 
 #: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
 #, c-format
