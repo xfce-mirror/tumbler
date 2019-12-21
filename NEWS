@@ -1,3 +1,9 @@
+0.2.8
+======
+- Fix thumbnail orientation (Bug #15011)
+- prepend $XDG_DATA_HOME/thumbnailers/ to thumbnailers directory (Bug #15858)
+- Translation Updates: Galician, Portuguese, Slovenian, Spanish
+
 0.2.7
 ======
 - Translation Updates: Galician
