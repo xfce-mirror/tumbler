@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Besnik <besnik@programeshqip.org>, 2018-2020
 # Besnik <besnik@programeshqip.org>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2019-03-15 18:08+0000\n"
+"PO-Revision-Date: 2020-01-28 17:06+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (http://www.transifex.com/xfce/tumbler/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +52,7 @@ msgstr "S’u arrit të ngarkohej kartela \"%s\": %s"
 #: ../tumblerd/tumbler-manager.c:594
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Ndarje \"%s\" e keqformuar te kartela \"%s\": %s"
+msgstr "Pjesë \"%s\" e keqformuar te kartela \"%s\": %s"
 
 #: ../tumblerd/tumbler-manager.c:607
 #, c-format
@@ -80,12 +81,12 @@ msgstr "Emri %s humbi në dbus mesazhi, po dilet."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
-msgstr ""
+msgstr "S\"u ndryshua dot vlera nice e procesit."
 
 #. set the application name. Translators: Don't translate "Tumbler".
 #: ../tumblerd/main.c:267
 msgid "Tumbler Thumbnailing Service"
-msgstr "Shërbim Miniaturizimi Tumbler"
+msgstr "Shërbim Miniaturizimesh Tumbler"
 
 #: ../tumblerd/main.c:368
 #, c-format
@@ -158,7 +159,7 @@ msgstr "S’u arrit të ngarkoheshin tejtëdhënat nga \"%s\""
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
+msgstr "Kyç API i pavlefshëm, duhet t’ju akordohet një kyç i vlefshëm. Pjesa për Movie DB do të çaktivizohet."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
@@ -172,7 +173,7 @@ msgstr "Titulli i filmit është shumë i shkurtër"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr ""
+msgstr "S’u gatit dot freetype-i: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
@@ -190,13 +191,13 @@ msgstr "S’u hap dot kartela e shkronjave: %s"
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "S’u caktua dot hartë shkronjash: %s"
+msgstr "S’u caktua dot tabelë shkronjash: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr ""
+msgstr "S’u vizatuan dot glife: %s"
 
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
 #: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
