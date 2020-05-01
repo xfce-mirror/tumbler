@@ -40,7 +40,8 @@ enum
   PROP_HASH_KEYS,
   PROP_PRIORITY,
   PROP_MAX_FILE_SIZE,
-  PROP_LOCATIONS
+  PROP_LOCATIONS,
+  PROP_EXCLUDES
 };
 
 
@@ -70,6 +71,7 @@ struct _TumblerAbstractThumbnailerPrivate
   gint    priority;
   gint64  max_file_size;
   GSList *locations;
+  GSList *excludes;
 };
 
 
@@ -101,6 +103,7 @@ tumbler_abstract_thumbnailer_class_init (TumblerAbstractThumbnailerClass *klass)
   g_object_class_override_property (gobject_class, PROP_PRIORITY, "priority");
   g_object_class_override_property (gobject_class, PROP_MAX_FILE_SIZE, "max-file-size");
   g_object_class_override_property (gobject_class, PROP_LOCATIONS, "locations");
+  g_object_class_override_property (gobject_class, PROP_EXCLUDES, "excludes");
 }
 
 
@@ -180,6 +183,9 @@ tumbler_abstract_thumbnailer_finalize (GObject *object)
   g_slist_foreach (thumbnailer->priv->locations, (GFunc) g_object_unref, NULL);
   g_slist_free (thumbnailer->priv->locations);
 
+  g_slist_foreach (thumbnailer->priv->excludes, (GFunc) g_object_unref, NULL);
+  g_slist_free (thumbnailer->priv->excludes);
+
   (*G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->finalize) (object);
 }
 
@@ -218,6 +224,12 @@ tumbler_abstract_thumbnailer_get_property (GObject    *object,
 
     case PROP_LOCATIONS:
       dup = g_slist_copy (thumbnailer->priv->locations);
+      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      g_value_set_pointer (value, dup);
+      break;
+
+    case PROP_EXCLUDES:
+      dup = g_slist_copy (thumbnailer->priv->excludes);
       g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
       g_value_set_pointer (value, dup);
       break;
@@ -265,6 +277,12 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
       dup = g_slist_copy (g_value_get_pointer (value));
       g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
       thumbnailer->priv->locations = dup;
+      break;
+
+    case PROP_EXCLUDES:
+      dup = g_slist_copy (g_value_get_pointer (value));
+      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      thumbnailer->priv->excludes = dup;
       break;
 
     default:

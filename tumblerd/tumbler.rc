@@ -10,6 +10,10 @@
 #              priority will be tried.
 #              Absolute paths, environement variables, ~/ and ~username/
 #              are allowed. Leave empty to allow all locations.
+# Excludes:    ;-separated path list the plugin will not be used in.
+#              Absolute paths, environement variables, ~/ and ~username/
+#              are allowed. Leave empty to exclude nothing. Please note
+#              that paths in Excludes precede those in Locations.
 # MaxFileSize: Maximum size of the source file the plugin will still
 #              try to generate a plugin for. The size is in bytes,
 #              0 disabled the check.
@@ -26,6 +30,7 @@
 Disabled=false
 Priority=3
 Locations=
+Excludes=
 MaxFileSize=209715200
 
 # Supports all type GdkPixbuf supports
@@ -33,6 +38,7 @@ MaxFileSize=209715200
 Disabled=false
 Priority=2
 Locations=
+Excludes=
 MaxFileSize=209715200
 
 # RAW image files using libopenraw
@@ -40,6 +46,7 @@ MaxFileSize=209715200
 Disabled=false
 Priority=1
 Locations=
+Excludes=
 MaxFileSize=209715200
 
 ###
@@ -53,6 +60,7 @@ MaxFileSize=209715200
 Disabled=true
 Priority=3
 Locations=~/movies
+Excludes=
 MaxFileSize=0
 #APIKey=your-api-key-from-themoviedb.org
 
@@ -61,6 +69,7 @@ MaxFileSize=0
 Disabled=false
 Priority=2
 Locations=
+Excludes=
 MaxFileSize=2147483648
 
 # GStreamer plugin
@@ -68,6 +77,7 @@ MaxFileSize=2147483648
 Disabled=false
 Priority=1
 Locations=
+Excludes=
 MaxFileSize=2147483648
 
 ###
@@ -79,6 +89,7 @@ MaxFileSize=2147483648
 Disabled=false
 Priority=1
 Locations=
+Excludes=
 MaxFileSize=209715200
 
 
@@ -87,6 +98,7 @@ MaxFileSize=209715200
 Disabled=false
 Priority=1
 Locations=
+Excludes=
 MaxFileSize=209715200
 
 # Open document thumbnailer (ODF)
@@ -94,6 +106,7 @@ MaxFileSize=209715200
 Disabled=false
 Priority=1
 Locations=
+Excludes=
 MaxFileSize=209715200
 
 # thumbnailers provided by .thumbnailer desktop files
@@ -101,4 +114,5 @@ MaxFileSize=209715200
 Disabled=false
 Priority=1
 Locations=
+Excludes=
 MaxFileSize=2147483648

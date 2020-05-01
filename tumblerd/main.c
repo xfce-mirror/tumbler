@@ -249,6 +249,7 @@ main (int    argc,
   const gchar             *type_name;
   gchar                  **paths;
   GSList                  *locations;
+  GSList                  *excludes;
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
@@ -322,10 +323,15 @@ main (int    argc,
           locations = locations_from_strv (paths);
           g_strfreev (paths);
 
+          paths = g_key_file_get_string_list (rc, type_name, "Excludes", NULL, NULL);
+          excludes = locations_from_strv (paths);
+          g_strfreev (paths);
+
           g_object_set (G_OBJECT (tp->data),
                         "priority", priority,
                         "max-file-size", file_size,
                         "locations", locations,
+                        "excludes", excludes,
                         NULL);
 
           /* ready for usage */
@@ -335,6 +341,8 @@ main (int    argc,
           g_object_unref (tp->data);
           g_slist_foreach (locations, (GFunc) g_object_unref, NULL);
           g_slist_free (locations);
+          g_slist_foreach (excludes, (GFunc) g_object_unref, NULL);
+          g_slist_free (excludes);
         }
 
       /* free the thumbnailer list */

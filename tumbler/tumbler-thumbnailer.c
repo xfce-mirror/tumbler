@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -51,7 +51,7 @@ GType
 tumbler_thumbnailer_get_type (void)
 {
   static volatile gsize g_define_type_id__volatile = 0;
-  
+
   if (g_once_init_enter (&g_define_type_id__volatile))
     {
       GType g_define_type_id =
@@ -117,7 +117,13 @@ tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
                                                              "locations",
                                                              G_PARAM_READWRITE));
 
-  tumbler_thumbnailer_signals[SIGNAL_READY] = 
+  g_object_interface_install_property (klass,
+                                       g_param_spec_pointer ("excludes",
+                                                             "excludes",
+                                                             "excludes",
+                                                             G_PARAM_READWRITE));
+
+  tumbler_thumbnailer_signals[SIGNAL_READY] =
     g_signal_new ("ready",
                   TUMBLER_TYPE_THUMBNAILER,
                   G_SIGNAL_RUN_LAST,
@@ -242,11 +248,25 @@ gboolean
 tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
                                        GFile              *file)
 {
-  GSList   *locations, *lp;
+  GSList   *locations, *excludes, *lp, *ep;
   gboolean  supported = FALSE;
+  gboolean  excluded  = FALSE;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), FALSE);
   g_return_val_if_fail (G_IS_FILE (file), FALSE);
+
+  /* check first if file is excluded */
+  g_object_get (thumbnailer, "excludes", &excludes, NULL);
+  if (excludes != NULL)
+  {
+    for (ep = excludes; !excluded && ep != NULL; ep = ep->next)
+      if (g_file_has_prefix (file, G_FILE (ep->data)))
+        excluded = TRUE;
+  }
+
+  /* Path is excluded */
+  if (excluded)
+    return FALSE;
 
   /* we're cool if no locations are set */
   g_object_get (thumbnailer, "locations", &locations, NULL);
