@@ -261,7 +261,7 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
                                const gchar         *origin)
 {
   TumblerSchedulerRequest *request = NULL;
-  static gint              handle  = 0;
+  static gint              handle  = 1;
   guint                    n;
 
   g_return_val_if_fail (infos != NULL, NULL);
