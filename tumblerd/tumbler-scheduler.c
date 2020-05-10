@@ -261,7 +261,7 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
                                const gchar         *origin)
 {
   TumblerSchedulerRequest *request = NULL;
-  static gint              handle  = 1;
+  static guint             handle  = 0;
   guint                    n;
 
   g_return_val_if_fail (infos != NULL, NULL);
@@ -272,6 +272,8 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
     request->origin = g_strdup (origin);
   request->dequeued = FALSE;
   request->scheduler = NULL;
+  if (handle == 0)
+    handle++;
   request->handle = handle++;
   request->infos = tumbler_file_info_array_copy (infos, length);
   request->thumbnailers = tumbler_thumbnailer_array_copy (thumbnailers, length);
