@@ -93,23 +93,23 @@ static gboolean tumbler_service_get_flavors_cb  (TumblerExportedService  *skelet
                                                  GDBusMethodInvocation   *invocation,
                                                  TumblerService          *service);
 static void tumbler_service_scheduler_error    (TumblerScheduler   *scheduler,
-                                                guint               handle,
+                                                guint32             handle,
                                                 const gchar *const *failed_uris,
                                                 gint                error_code,
                                                 const gchar        *message,
                                                 const gchar        *origin,
                                                 TumblerService     *service);
 static void tumbler_service_scheduler_finished (TumblerScheduler   *scheduler,
-                                                guint               handle,
+                                                guint32             handle,
                                                 const gchar        *origin,
                                                 TumblerService     *service);
 static void tumbler_service_scheduler_ready    (TumblerScheduler   *scheduler,
-                                                guint               handle,
+                                                guint32             handle,
                                                 const gchar *const *uris,
                                                 const gchar        *origin,
                                                 TumblerService     *service);
 static void tumbler_service_scheduler_started  (TumblerScheduler   *scheduler,
-                                                guint               handle,
+                                                guint32             handle,
                                                 const gchar        *origin,
                                                 TumblerService     *service);
 static void tumbler_service_pre_unmount        (TumblerService     *service,
@@ -417,7 +417,7 @@ tumbler_service_error_idle (gpointer user_data)
 
 static void
 tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
-                                 guint               handle,
+                                 guint32             handle,
                                  const gchar *const *failed_uris,
                                  gint                error_code,
                                  const gchar        *message,
@@ -482,7 +482,7 @@ tumbler_service_finished_idle (gpointer user_data)
 
 static void
 tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
-                                    guint             handle,
+                                    guint32           handle,
                                     const gchar      *origin,
                                     TumblerService   *service)
 {
@@ -538,7 +538,7 @@ tumbler_service_ready_idle (gpointer user_data)
 
 static void
 tumbler_service_scheduler_ready (TumblerScheduler   *scheduler,
-                                 guint               handle,
+                                 guint32             handle,
                                  const gchar *const *uris,
                                  const gchar        *origin,
                                  TumblerService     *service)
@@ -594,7 +594,7 @@ tumbler_service_started_idle (gpointer user_data)
 
 static void
 tumbler_service_scheduler_started (TumblerScheduler *scheduler,
-                                   guint             handle,
+                                   guint32           handle,
                                    const gchar      *origin,
                                    TumblerService   *service)
 {
@@ -678,7 +678,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
                           const gchar *const      *mime_hints,
                           const gchar             *flavor_name,
                           const gchar             *scheduler_name,
-                          guint                    handle_to_dequeue,
+                          guint32                  handle_to_dequeue,
                           TumblerService          *service)
 {
   TumblerSchedulerRequest *scheduler_request;
@@ -690,7 +690,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
   GList                   *iter;
   gchar                   *name;
   const gchar             *origin;
-  guint                    handle;
+  guint32                  handle;
   guint                    length;
 
   g_dbus_async_return_val_if_fail (TUMBLER_IS_SERVICE (service), invocation, FALSE);
@@ -800,7 +800,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
 static gboolean 
 tumbler_service_dequeue_cb (TumblerExportedService  *skeleton,
                             GDBusMethodInvocation   *invocation,
-                            guint                    handle,
+                            guint32                  handle,
                             TumblerService          *service)
 {
   GList *iter;

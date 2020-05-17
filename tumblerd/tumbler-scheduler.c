@@ -189,7 +189,7 @@ tumbler_scheduler_push (TumblerScheduler        *scheduler,
 
 void
 tumbler_scheduler_dequeue (TumblerScheduler *scheduler,
-                           guint             handle)
+                           guint32           handle)
 {
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
@@ -261,7 +261,7 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
                                const gchar         *origin)
 {
   TumblerSchedulerRequest *request = NULL;
-  static guint             handle  = 0;
+  static guint32           handle  = 0;
   guint                    n;
 
   g_return_val_if_fail (infos != NULL, NULL);

@@ -64,7 +64,7 @@ static void tumbler_group_scheduler_set_property      (GObject                  
 static void tumbler_group_scheduler_push              (TumblerScheduler          *scheduler,
                                                        TumblerSchedulerRequest   *request);
 static void tumbler_group_scheduler_dequeue           (TumblerScheduler          *scheduler,
-                                                       guint                      handle);
+                                                       guint32                    handle);
 static void tumbler_group_scheduler_cancel_by_mount   (TumblerScheduler          *scheduler,
                                                        GMount                    *mount);
 static void tumbler_group_scheduler_finish_request    (TumblerGroupScheduler     *scheduler,
@@ -265,7 +265,7 @@ tumbler_group_scheduler_push (TumblerScheduler        *scheduler,
 
 static void
 tumbler_group_scheduler_dequeue (TumblerScheduler *scheduler,
-                                 guint             handle)
+                                 guint32           handle)
 {
   TumblerGroupScheduler *group_scheduler = 
     TUMBLER_GROUP_SCHEDULER (scheduler);

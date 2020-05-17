@@ -103,7 +103,7 @@ struct _SpecializedInfo
   const gchar        *uri;
   const gchar        *mime_type;
   gboolean            had_callback;
-  guint               handle;
+  guint32             handle;
 };
 
 
@@ -326,7 +326,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
                                gpointer user_data) 
 {
   SpecializedInfo *info = user_data;  
-  guint handle;
+  guint32 handle;
   
   if (strcmp (signal_name, "Finished") == 0) 
     {

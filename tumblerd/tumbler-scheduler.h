@@ -43,22 +43,22 @@ struct _TumblerSchedulerIface
 
   /* signals */
   void (*error)    (TumblerScheduler        *scheduler,
-                    guint                    handle,
+                    guint32                  handle,
                     const gchar *const      *failed_uris,
                     gint                     error_code,
                     const gchar             *message);
   void (*finished) (TumblerScheduler        *scheduler,
-                    guint                    handle);
+                    guint32                  handle);
   void (*ready)    (TumblerScheduler        *scheduler,
                     const gchar *const      *uris);
   void (*started)  (TumblerScheduler        *scheduler,
-                    guint                    handle);
+                    guint32                  handle);
 
   /* virtual methods */
   void (*push)            (TumblerScheduler        *scheduler,
                            TumblerSchedulerRequest *request);
   void (*dequeue)         (TumblerScheduler        *scheduler,
-                           guint                    handle);
+                           guint32                  handle);
   void (*cancel_by_mount) (TumblerScheduler        *scheduler,
                            GMount                  *mount);
 };
@@ -68,7 +68,7 @@ GType                    tumbler_scheduler_get_type              (void) G_GNUC_C
 void                     tumbler_scheduler_push                  (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);
 void                     tumbler_scheduler_dequeue               (TumblerScheduler        *scheduler,
-                                                                  guint                    handle);
+                                                                  guint32                  handle);
 void                     tumbler_scheduler_cancel_by_mount       (TumblerScheduler        *scheduler,
                                                                   GMount                  *mount);
 gchar*                   tumbler_scheduler_get_name              (TumblerScheduler        *scheduler);
@@ -96,7 +96,7 @@ struct _TumblerSchedulerRequest
   TumblerFileInfo    **infos;
   GCancellable       **cancellables;
   gboolean             dequeued;
-  guint                handle;
+  guint32              handle;
   gchar               *origin;
   guint                length;
 };

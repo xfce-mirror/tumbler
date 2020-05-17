@@ -60,7 +60,7 @@ static void tumbler_lifo_scheduler_set_property      (GObject                   
 static void tumbler_lifo_scheduler_push              (TumblerScheduler          *scheduler,
                                                       TumblerSchedulerRequest   *request);
 static void tumbler_lifo_scheduler_dequeue           (TumblerScheduler          *scheduler,
-                                                      guint                      handle);
+                                                      guint32                    handle);
 static void tumbler_lifo_scheduler_cancel_by_mount   (TumblerScheduler          *scheduler,
                                                       GMount                    *mount);
 static void tumbler_lifo_scheduler_finish_request    (TumblerLifoScheduler *scheduler,
@@ -244,7 +244,7 @@ tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
 
 static void
 tumbler_lifo_scheduler_dequeue (TumblerScheduler *scheduler,
-                                guint             handle)
+                                guint32           handle)
 {
   TumblerLifoScheduler *lifo_scheduler = TUMBLER_LIFO_SCHEDULER (scheduler);
 
