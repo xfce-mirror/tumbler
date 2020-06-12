@@ -5,14 +5,15 @@
 # Translators:
 # Elishai Eliyahu <e1907@mm.st>, 2016-2017
 # Hezy Amiel <open@hezyamiel.com>, 2010
+# Omer, 2020
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2010,2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-09-14 00:17+0000\n"
-"Last-Translator: Elishai Eliyahu <e1907@mm.st>\n"
+"PO-Revision-Date: 2020-06-12 10:47+0000\n"
+"Last-Translator: Omer\n"
 "Language-Team: Hebrew (http://www.transifex.com/xfce/tumbler/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,7 +79,7 @@ msgstr "אירע כשל במציאת זמן השינוי האחרון של \"%s\
 #: ../tumblerd/main.c:223
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
-msgstr "שם %s אבד ב-message dbus, יוצא."
+msgstr "השם %s אבד ב-message dbus, יוצא."
 
 #: ../tumblerd/main.c:258
 msgid "Couldn't change nice value of process."
