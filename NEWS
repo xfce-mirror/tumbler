@@ -1,3 +1,7 @@
+0.2.9
+=====
+- Fix jpeg thumbnail orientation when fallback code is taken place (Bug #28).
+
 0.2.8
 ======
 - Fix thumbnail orientation (Bug #15011)
