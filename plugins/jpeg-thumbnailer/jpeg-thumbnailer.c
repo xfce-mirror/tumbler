@@ -604,7 +604,8 @@ tvtj_rotate_pixbuf (GdkPixbuf *src,
 static GdkPixbuf*
 tvtj_exif_extract_thumbnail (const guchar *data,
                              guint         length,
-                             gint          size)
+                             gint          size,
+                             guint        *exif_orientation)
 {
   TvtjExif   exif;
   guint      offset;
@@ -676,6 +677,8 @@ tvtj_exif_extract_thumbnail (const guchar *data,
             }
         }
 
+     *exif_orientation = exif.thumb_jpeg.orientation;
+
      if (thumb != NULL
          && exif.thumb_jpeg.orientation > 1)
        {
@@ -694,7 +697,8 @@ tvtj_exif_extract_thumbnail (const guchar *data,
 static GdkPixbuf*
 tvtj_jpeg_load_thumbnail (const JOCTET *content,
                           gsize         length,
-                          gint          size)
+                          gint          size,
+                          guint        *exif_orientation)
 {
   guint marker_len;
   guint marker;
@@ -735,7 +739,7 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
           if (marker == 0xe1 && n + marker_len <= length)
             {
               /* try to extract the Exif thumbnail */
-              return tvtj_exif_extract_thumbnail (content + n + 2, marker_len - 2, size);
+              return tvtj_exif_extract_thumbnail (content + n + 2, marker_len - 2, size, exif_orientation);
             }
 
           /* try next one then */
@@ -848,18 +852,27 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
               /* verify whether the mmap was successful */
               if (G_LIKELY (content != (JOCTET *) MAP_FAILED))
                 {
+                  guint exif_orientation = 0;
+
                   /* try to load the embedded thumbnail first */
-                  pixbuf = tvtj_jpeg_load_thumbnail (content, statb.st_size, size);
+                  pixbuf = tvtj_jpeg_load_thumbnail (content, statb.st_size, size, &exif_orientation);
                   if (pixbuf == NULL)
                     {
                       /* fall back to loading and scaling the image itself */
                       pixbuf = tvtj_jpeg_load (content, statb.st_size, size);
 
-                      if (pixbuf == NULL)
+                      if (G_UNLIKELY(pixbuf == NULL))
                         {
                           g_set_error (&error, TUMBLER_ERROR, 
                                        TUMBLER_ERROR_INVALID_FORMAT,
                                        _("Thumbnail could not be inferred from file contents"));
+                        }
+                      else if (exif_orientation > 1)
+                        {
+                          GdkPixbuf *rotated;
+                          rotated = tvtj_rotate_pixbuf (pixbuf, exif_orientation);
+                          g_object_unref (pixbuf);
+                          pixbuf = rotated;
                         }
                     }
 
@@ -889,15 +902,23 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       if (error == NULL)
         {
-          pixbuf = tvtj_jpeg_load_thumbnail (content, length, size);
+          guint exif_orientation = 0;
+          pixbuf = tvtj_jpeg_load_thumbnail (content, length, size, &exif_orientation);
 
           if (pixbuf == NULL)
             {
               pixbuf = tvtj_jpeg_load (content, length, size);
-              if (pixbuf == NULL)
+              if (G_UNLIKELY(pixbuf == NULL))
                 {
                   g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
                                _("Thumbnail could not be inferred from file contents"));
+                }
+              else if (exif_orientation > 1)
+                {
+                  GdkPixbuf *rotated;
+                  rotated = tvtj_rotate_pixbuf (pixbuf, exif_orientation);
+                  g_object_unref (pixbuf);
+                  pixbuf = rotated;
                 }
             }
         }
