@@ -24,6 +24,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <glib/gprintf.h>
 #include <glib-object.h>
 
 #include <tumbler/tumbler.h>
@@ -537,19 +538,20 @@ tumbler_specialized_thumbnailer_new_foreign (GDBusConnection    *connection,
                                              const gchar *const *mime_types)
 {
   TumblerSpecializedThumbnailer *thumbnailer;
-  GTimeVal                       current_time;
+  gint64                         current_time;
 
   g_return_val_if_fail (connection != NULL, NULL);
   g_return_val_if_fail (name != NULL, NULL);
   g_return_val_if_fail (uri_schemes != NULL, NULL);
   g_return_val_if_fail (mime_types != NULL, NULL);
 
-  g_get_current_time (&current_time);
+  current_time = g_get_real_time ();
 
   thumbnailer = g_object_new (TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, 
                               "connection", connection, "foreign", TRUE, "name", name, 
                               "uri-schemes", uri_schemes, "mime-types", mime_types,
-                              "modified", current_time.tv_sec, NULL);
+                              "modified", current_time / G_USEC_PER_SEC,
+                              NULL);
 
   return TUMBLER_THUMBNAILER (thumbnailer);
 }
