@@ -27,6 +27,7 @@
 
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <glib/gprintf.h>
 #include <glib-object.h>
 #include <gio/gio.h>
 
@@ -618,7 +619,7 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
 {
   const gchar *cachedir;
   const gchar *dirname;
-  GTimeVal     current_time = { 0, 0 };
+  gint64       current_time;
   GFile       *file;
   gchar       *filename;
   gchar       *md5_hash;
@@ -630,11 +631,11 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
   cachedir = g_get_user_cache_dir ();
   dirname = tumbler_thumbnail_flavor_get_name (flavor);
 
-  g_get_current_time (&current_time);
+  current_time = g_get_real_time ();
 
   md5_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, uri, -1);
-  filename = g_strdup_printf ("%s-%ld-%ld.png", md5_hash,
-                              current_time.tv_sec, current_time.tv_usec);
+  filename = g_strdup_printf ("%s-%ld.png", md5_hash,
+                              current_time / G_USEC_PER_SEC);
   path = g_build_filename (cachedir, "thumbnails", dirname, filename, NULL);
 
   file = g_file_new_for_path (path);
