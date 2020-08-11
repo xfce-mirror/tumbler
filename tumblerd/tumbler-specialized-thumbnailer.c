@@ -24,6 +24,7 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
+#include <glib/gprintf.h>
 #include <glib-object.h>
 
 #include <tumbler/tumbler.h>
@@ -94,11 +95,7 @@ struct _TumblerSpecializedThumbnailer
 struct _SpecializedInfo
 {
   TumblerThumbnailer *thumbnailer;
-#if GLIB_CHECK_VERSION (2, 32, 0)
   GCond               condition;
-#else
-  GCond              *condition;
-#endif
   TUMBLER_MUTEX       (mutex);
   const gchar        *uri;
   const gchar        *mime_type;
@@ -336,11 +333,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
           if (info->handle == handle) 
             {
               tumbler_mutex_lock (info->mutex);
-#if GLIB_CHECK_VERSION (2, 32, 0)
               g_cond_broadcast (&info->condition);
-#else
-              g_cond_broadcast (info->condition);
-#endif
               info->had_callback = TRUE;
               tumbler_mutex_unlock (info->mutex);
             }  
@@ -383,11 +376,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 {
   TumblerSpecializedThumbnailer *s;
   SpecializedInfo                sinfo;
-#if GLIB_CHECK_VERSION (2, 32, 0)
   gint64                         end_time;
-#else
-  GTimeVal                       timev;
-#endif
   TumblerThumbnail              *thumbnail;
   TumblerThumbnailFlavor        *flavor;
   GVariant                      *result;
@@ -406,11 +395,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 
   s = TUMBLER_SPECIALIZED_THUMBNAILER (thumbnailer);
 
-#if GLIB_CHECK_VERSION (2, 32, 0)
   g_cond_init (&sinfo.condition);
-#else
-  sinfo.condition = g_cond_new ();
-#endif
   sinfo.had_callback = FALSE;
   tumbler_mutex_create (sinfo.mutex);
   sinfo.uri = uri;
@@ -440,12 +425,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
       g_variant_unref (result);
         
       /* 100 seconds worth of timeout */
-#if GLIB_CHECK_VERSION (2, 32, 0)
      end_time = g_get_monotonic_time () + 100 * G_TIME_SPAN_SECOND;
-#else
-      g_get_current_time (&timev);
-      g_time_val_add  (&timev, 100000000); 
-#endif
 
       tumbler_mutex_lock (sinfo.mutex);
 
@@ -453,11 +433,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
        * be running to receive the error and ready signals */
       if (!sinfo.had_callback)
         {
-#if GLIB_CHECK_VERSION (2, 32, 0)
           if (!g_cond_wait_until (&sinfo.condition, &sinfo.mutex, end_time))
-#else
-          if (!g_cond_timed_wait (sinfo.condition, sinfo.mutex, &timev))
-#endif
             {
               message = g_strdup (_("Failed to call the specialized thumbnailer: timeout"));
               g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
@@ -477,11 +453,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   
   g_signal_handler_disconnect (s->proxy, handler_id);
 
-#if GLIB_CHECK_VERSION (2, 32, 0)
   g_cond_clear (&sinfo.condition);
-#else
-  g_cond_free (sinfo.condition);
-#endif
 }
 
 static void
@@ -537,19 +509,20 @@ tumbler_specialized_thumbnailer_new_foreign (GDBusConnection    *connection,
                                              const gchar *const *mime_types)
 {
   TumblerSpecializedThumbnailer *thumbnailer;
-  GTimeVal                       current_time;
+  gint64                         current_time;
 
   g_return_val_if_fail (connection != NULL, NULL);
   g_return_val_if_fail (name != NULL, NULL);
   g_return_val_if_fail (uri_schemes != NULL, NULL);
   g_return_val_if_fail (mime_types != NULL, NULL);
 
-  g_get_current_time (&current_time);
+  current_time = g_get_real_time ();
 
   thumbnailer = g_object_new (TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, 
                               "connection", connection, "foreign", TRUE, "name", name, 
                               "uri-schemes", uri_schemes, "mime-types", mime_types,
-                              "modified", current_time.tv_sec, NULL);
+                              "modified", current_time / G_USEC_PER_SEC,
+                              NULL);
 
   return TUMBLER_THUMBNAILER (thumbnailer);
 }
