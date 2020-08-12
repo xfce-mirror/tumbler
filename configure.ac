@@ -41,7 +41,7 @@ dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
 AM_INIT_AUTOMAKE([1.11 dist-bzip2 tar-ustar no-dist-gzip])
-AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIRS([m4])
 AC_SUBST([ACLOCAL_AMFLAGS], ["$ACLOCAL_FLAGS -I m4"])
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
