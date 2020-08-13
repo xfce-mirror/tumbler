@@ -1,3 +1,13 @@
+0.3.0
+=====
+- Fix jpeg thumbnail orientation when fallback code is taken place (Bug #28).
+- Use AC_CONFIG_MACRO_DIRS instead of AC_CONFIG_MACRO_DIR
+- Fix GTimeVal deprecation
+- Drop support of GLib < 2.32
+- Use guint32 for request handle and fix its further occurrences of 0
+- Implement Excludes paths in tumbler.rc
+- Translation Updates: be, da, el, es, he, hu, hye, it, nl, pl, sq, zh_TW, zh_HK
+
 0.2.8
 ======
 - Fix thumbnail orientation (Bug #15011)
