@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Algimantas Margevičius <margevicius.algimantas@gmail.com>, 2012
-# Moo, 2015-2017
+# Moo, 2015-2017,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-09-14 00:17+0000\n"
+"PO-Revision-Date: 2020-08-20 09:34+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/xfce/tumbler/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -148,12 +148,12 @@ msgstr "Versijos nesutampa: %s"
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Nepavyko įkelti plakato paveikslo \"%s\""
+msgstr "Nepavyko įkelti plakato paveikslo „%s“"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Nepavyko įkelti meta duomenų iš \"%s\""
+msgstr "Nepavyko įkelti meta duomenų iš „%s“"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
 msgid ""
@@ -230,4 +230,4 @@ msgstr "Nepavyko įrašyti miniatiūros į „%s“"
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr "Netaisyklinga komandų eilutė \"%s\": %s"
+msgstr "Netaisyklinga komandų eilutė „%s“: %s"
