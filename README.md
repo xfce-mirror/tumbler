@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.xfce.org/xfce/tumbler/COPYING)
 
-tumbler
-====================
+# tumbler
+
 
 Tumbler is a D-Bus service for applications to request thumbnails for
 various URI schemes and MIME types. It provides plugin interfaces for 
@@ -28,6 +28,7 @@ See [NEWS](https://gitlab.xfce.org/xfce/tumbler/-/blob/master/NEWS) for details 
 [tumbler archive](https://archive.xfce.org/src/xfce/tumbler)
     or
 [tumbler tags](https://gitlab.xfce.org/xfce/tumbler/-/tags)
+
 ### Installation
 
 From source: 
