@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.xfce.org/xfce/tumbler/COPYING)
+[![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.xfce.org/xfce/tumbler/-/blob/master/COPYING)
 
 # tumbler
 
@@ -13,7 +13,7 @@ store the thumbnails on disk.
 
 ### Homepage
 
-[tumbler documentation](https://docs.xfce.org/xfce/tumbler/start)
+[Tumbler documentation](https://docs.xfce.org/xfce/tumbler/start)
 
 ### Changelog
 
@@ -21,13 +21,13 @@ See [NEWS](https://gitlab.xfce.org/xfce/tumbler/-/blob/master/NEWS) for details 
 
 ### Source Code Repository
 
-[tumbler source code](https://gitlab.xfce.org/xfce/tumbler)
+[Tumbler source code](https://gitlab.xfce.org/xfce/tumbler)
 
-### Download A Release Tarball
+### Download a Release Tarball
 
-[tumbler archive](https://archive.xfce.org/src/xfce/tumbler)
+[Tumbler archive](https://archive.xfce.org/src/xfce/tumbler)
     or
-[tumbler tags](https://gitlab.xfce.org/xfce/tumbler/-/tags)
+[Tumbler tags](https://gitlab.xfce.org/xfce/tumbler/-/tags)
 
 ### Installation
 
