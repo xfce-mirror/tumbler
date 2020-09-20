@@ -1,0 +1,232 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Panwar108 <caspian7pena@gmail.com>, 2018,2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-28 12:30+0200\n"
+"PO-Revision-Date: 2020-09-20 12:26+0000\n"
+"Last-Translator: Panwar108 <caspian7pena@gmail.com>\n"
+"Language-Team: Hindi (http://www.transifex.com/xfce/tumbler/language/hi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../tumblerd/tumbler-group-scheduler.c:486
+#: ../tumblerd/tumbler-lifo-scheduler.c:422
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "\"%s\" हेतु कोई लघुछवि साधन उपलब्ध नहीं है"
+
+#: ../tumblerd/tumbler-lifecycle-manager.c:208
+msgid "The thumbnailer service is shutting down"
+msgstr "लघुछवि साधन सेवा बंद हो रही है"
+
+#: ../tumblerd/tumbler-service.c:775
+msgid "Unsupported thumbnail flavor requested"
+msgstr "असमर्थित लघुछवि प्रकार अनुरोधित"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "विशिष्ट लघुछवि साधन हेतु अनुरोध विफल : समयसीमा समाप्त"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "विशिष्ट लघुछवि साधन हेतु अनुरोध विफल : %s"
+
+#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
+#, c-format
+msgid "Failed to load the file \"%s\": %s"
+msgstr "फाइल \"%s\" लोड करना विफल : %s"
+
+#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
+#: ../tumblerd/tumbler-manager.c:594
+#, c-format
+msgid "Malformed section \"%s\" in file \"%s\": %s"
+msgstr "विकृत अनुभाग \"%s\" फाइल \"%s\" का : %s"
+
+#: ../tumblerd/tumbler-manager.c:607
+#, c-format
+msgid ""
+"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
+"UriScheme/MimeType"
+msgstr "विकृत अनुभाग \"%s\" फाइल \"%s\" का : अनुभाग नाम व यूआरआई पद्धति/Mime प्रकार मेल नहीं खाता है"
+
+#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
+#: ../tumblerd/tumbler-manager.c:995
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
+#, c-format
+msgid "Malformed file \"%s\": %s"
+msgstr "विकृत फाइल \"%s\" : %s"
+
+#: ../tumblerd/tumbler-manager.c:1021
+#, c-format
+msgid "Failed to determine last modified time of \"%s\""
+msgstr "\"%s\" हेतु अंतिम परिवर्तन समय प्राप्त करना विफल"
+
+#: ../tumblerd/main.c:223
+#, c-format
+msgid "Name %s lost on the message dbus, exiting."
+msgstr "संदेश में नाम %s अनुपस्थित, प्रक्रिया निरस्त हो रही है।"
+
+#: ../tumblerd/main.c:258
+msgid "Couldn't change nice value of process."
+msgstr "प्रक्रिया हेतु सुगमता मान बदलना विफल।"
+
+#. set the application name. Translators: Don't translate "Tumbler".
+#: ../tumblerd/main.c:267
+msgid "Tumbler Thumbnailing Service"
+msgstr "Tumbler लघुछवि सेवा"
+
+#: ../tumblerd/main.c:368
+#, c-format
+msgid "Failed to load specialized thumbnailers into the registry: %s"
+msgstr "रजिस्ट्री में विशिष्ट लघुछवि साधन लोड करना विफल : %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "अमान्य प्रारूप"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "पीएनजी"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "आरजीबी रंग व्यवस्था"
+
+#: ../tumbler/tumbler-cache-plugin.c:145
+#, c-format
+msgid "Cache plugin \"%s\" lacks required symbols"
+msgstr "कैश प्लगिन \"%s\" हेतु आवश्यक प्रतीक अनुपलब्ध"
+
+#: ../tumbler/tumbler-cache-plugin.c:153
+#, c-format
+msgid "Failed to load the cache plugin \"%s\": %s"
+msgstr "कैश प्लगिन \"%s\" लोड करना विफल : %s"
+
+#: ../tumbler/tumbler-file-info.c:297
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "फाइल \"%s\" स्वयं एक लघुछवि है"
+
+#: ../tumbler/tumbler-provider-plugin.c:135
+#, c-format
+msgid "Plugin \"%s\" lacks required symbols."
+msgstr "प्लगिन \"%s\" हेतु आवश्यक प्रतीक अनुपलब्ध।"
+
+#: ../tumbler/tumbler-provider-plugin.c:143
+#, c-format
+msgid "Failed to load plugin \"%s\": %s"
+msgstr "प्लगिन \"%s\" लोड करना विफल : %s"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
+#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
+#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
+#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
+#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
+#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
+#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
+#, c-format
+msgid "Version mismatch: %s"
+msgstr "संस्करण मिलान विफल : %s"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "पोस्टर चित्र \"%s\" लोड करना विफल"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "\"%s\" से मेटाडेटा लोड करना विफल"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "अमान्य एपीआई कुंजी, मान्य कुंजी प्रदान करना आवश्यक है। फिल्म डेटाबेस बैकएंड निष्क्रिय होगा।"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+msgid "No poster key found in metadata"
+msgstr "मेटाडेटा में पोस्टर कुंजी अनुपस्थित"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+msgid "Movie title is too short"
+msgstr "फिल्म शीर्षक काफी छोटा है"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "फ्री-टाइप आरंभ विफल : %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "फाइल सामग्री लोड करना विफल : %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "मुद्रलिपि फ़ाइल खोलना विफल : %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "अक्षर अभिन्यास सेट करना विफल : %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "चित्रलेख प्रस्तुतिकरण विफल : %s"
+
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
+#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
+#, c-format
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "फाइल सामग्री से लघुछवि अनुमान लगाना विफल"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+msgid "The document is empty"
+msgstr "प्रलेख रिक्त है"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
+msgid "First page of the document could not be read"
+msgstr "प्रलेख का प्रथम पृष्ठ रीड करना विफल"
+
+#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
+msgid "Only local files are supported"
+msgstr "केवल लोकल फाइलें ही समर्थित हैं"
+
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "\"%s\" में लघुछवि संचित करना विफल"
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#, c-format
+msgid "Malformed command line \"%s\": %s"
+msgstr "विकृत कमांड लाइन \"%s\" : %s"
