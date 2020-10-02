@@ -4,10 +4,11 @@
 
 
 Tumbler is a D-Bus service for applications to request thumbnails for
-various URI schemes and MIME types. It provides plugin interfaces for 
-extending the URI schemes and MIME types for which thumbnails can be 
-generated as well as for replacing the storage backend that is used to 
-store the thumbnails on disk.
+various URI schemes and MIME types. It is an implementations of the 
+thumbnail management D-Bud specification as described [here](https://wiki.gnome.org/DraftSpecs/ThumbnailerSpec)
+Tumbler provides plugin interfaces for extending the URI schemes and MIME types
+for which thumbnails can be generated as well as for replacing the storage
+backend that is used to store the thumbnails on disk.
 
 ----
 
