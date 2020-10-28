@@ -163,6 +163,7 @@ TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_RAW_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 TUMBLER_DESKTOP_THUMBNAILER()
+TUMBLER_WEBP_THUMBNAILER()
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -198,6 +199,7 @@ plugins/poppler-thumbnailer/Makefile
 plugins/raw-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 plugins/desktop-thumbnailer/Makefile
+plugins/webp-thumbnailer/Makefile
 po/Makefile.in
 tumbler/Makefile
 tumbler/tumbler-1.pc
@@ -269,5 +271,10 @@ if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
 echo "  * Loading thumbnailers from .thumbnailer files:     yes"
 else
 echo "  * Loading thumbnailers from .thumbnailer files:     no"
+fi
+if test x"$ac_tumbler_webp_thumbnailer" = x"yes"; then
+echo "  * WebP thumbnailer using libwebp:                   yes"
+else
+echo "  * WebP thumbnailer using libwebp:                   no"
 fi
 echo
