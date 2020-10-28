@@ -49,6 +49,14 @@ Locations=
 Excludes=
 MaxFileSize=209715200
 
+# WebP support using libwebp
+[WebPThumbnailer]
+Disabled=false
+Priority=1
+Locations=
+Excludes=
+MaxFileSize=209715200
+
 ###
 # Video Thumbnailers
 ###
