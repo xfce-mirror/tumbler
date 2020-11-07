@@ -49,6 +49,14 @@ Locations=
 Excludes=
 MaxFileSize=209715200
 
+# SVG/SVGZ thumbnailer using librsvg
+[RsvgThumbnailer]
+Disabled=false
+Priority=3
+Locations=
+Excludes=
+MaxFileSize=209715200
+
 ###
 # Video Thumbnailers
 ###

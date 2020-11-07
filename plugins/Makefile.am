@@ -28,4 +28,5 @@ SUBDIRS =								\
 	poppler-thumbnailer						\
 	raw-thumbnailer							\
 	desktop-thumbnailer						\
+	rsvg-thumbnailer                                                \
 	xdg-cache
