@@ -186,6 +186,8 @@ docs/Makefile
 docs/reference/Makefile
 docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
+icons/Makefile
+icons/32x32/Makefile
 plugins/Makefile
 plugins/cover-thumbnailer/Makefile
 plugins/font-thumbnailer/Makefile
@@ -203,6 +205,7 @@ tumbler/Makefile
 tumbler/tumbler-1.pc
 tumbler/tumbler-config.h
 tumblerd/Makefile
+
 ])
 
 dnl ***************************
