@@ -321,7 +321,7 @@ if test x"$ac_tumbler_rsvg_thumbnailer" = x"yes"; then
     dnl Check for cairo
     PKG_CHECK_MODULES([CAIRO], [cairo >= 1.16.0])
     dnl Check for GDK 3 library
-    PKG_CHECK_MODULES([GDK], [gdk-3.0 >= 3.22.0])
+    PKG_CHECK_MODULES([GDK3], [gdk-3.0 >= 3.22.0])
   ], [ac_tumbler_rsvg_thumbnailer=no])
 fi
 
