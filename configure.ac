@@ -26,14 +26,15 @@ m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
 m4_define([tumbler_version_minor], [2])
 m4_define([tumbler_version_micro], [8])
-m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
+m4_define([tumbler_version_nano], [])
+m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()ifelse(tumbler_version_nano(), [], [], [.tumbler_version_nano()])])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
 AC_COPYRIGHT([Copyright (c) 2016-2017 Ali Abdallah <ali@xfce.org>])
-AC_INIT([tumbler], [tumbler_version], [https://bugzilla.xfce.org/])
+AC_INIT([tumbler], [tumbler_version], [https://gitlab.xfce.org/xfce/tumbler])
 AC_PREREQ([2.60])
 AC_CANONICAL_TARGET()
 
