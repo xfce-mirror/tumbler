@@ -317,7 +317,7 @@ if test x"$ac_tumbler_webp_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
   [
     dnl Check for libwebp
-    PKG_CHECK_MODULES([WEBP], [libwebp])
+    PKG_CHECK_MODULES([WEBP], [libwebp >= 1.0.0 libwebpdemux >= 1.0.0])
     dnl Check for cairo
     PKG_CHECK_MODULES([CAIRO], [cairo >= 1.16.0])
     dnl Check for GDK 3 library

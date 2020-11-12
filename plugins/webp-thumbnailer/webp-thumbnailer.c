@@ -34,6 +34,7 @@
 #include <gdk/gdk.h>
 #include <cairo.h>
 #include <webp/decode.h>
+#include <webp/demux.h>
 
 #include "webp-thumbnailer.h"
 
@@ -143,19 +144,156 @@ webp_thumbnailer_scale_pixbuf (GdkPixbuf        *source,
 
 
 static GdkPixbuf *
-webp_thumbnailer_pixbuf_from_surface (cairo_surface_t  *surface,
-                                      TumblerThumbnail *thumbnail)
+webp_thumbnailer_decode_frame (const uint8_t     *data,
+                               size_t             data_size,
+                               WebPDecoderConfig *config,
+                               GError           **error)
 {
-  GdkPixbuf *pixbuf = NULL;
-  gint       width, height;
+  gint             width, height;
+  gint             stride;
+  cairo_surface_t *surface;
+  GdkPixbuf       *pixbuf = NULL;
+  GError          *err = NULL;
 
-  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-  width = cairo_image_surface_get_width (surface);
-  height = cairo_image_surface_get_height (surface);
+  if (WebPGetFeatures (data, data_size, &config->input)
+      != VP8_STATUS_OK)
+    {
+      g_set_error (&err, TUMBLER_ERROR,
+                   TUMBLER_ERROR_NO_CONTENT,
+                   _("It seems not a valid WebP image"));
+      g_propagate_error (error, err);
+      return NULL;
+    }
 
-  pixbuf = gdk_pixbuf_get_from_surface (surface, 0, 0,
+  width = config->input.width;
+  height = config->input.height;
+  config->options.no_fancy_upsampling = 1;
+
+  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
                                         width, height);
+  cairo_surface_flush (surface);
+
+#if G_BYTE_ORDER == G_LITTLE_ENDIAN
+  config->output.colorspace = MODE_BGRA;
+#elif G_BYTE_ORDER == G_BIG_ENDIAN
+  config->output.colorspace = MODE_ARGB;
+#endif
+  config->output.u.RGBA.rgba = (uint8_t *) cairo_image_surface_get_data (surface);
+  stride = cairo_image_surface_get_stride (surface);
+  config->output.u.RGBA.stride = stride;
+  config->output.u.RGBA.size = stride * height;
+  config->output.is_external_memory = 1;
+
+  if (WebPDecode (data, data_size, config) != VP8_STATUS_OK)
+    {
+      g_set_error (&err, TUMBLER_ERROR,
+                   TUMBLER_ERROR_NO_CONTENT,
+                   _("Unable to decode WebP image"));
+      g_propagate_error (error, err);
+
+      WebPFreeDecBuffer (&config->output);
+      cairo_surface_destroy (surface);
+      return NULL;
+    }
+
+  cairo_surface_mark_dirty (surface);
+  if (cairo_surface_status (surface) == CAIRO_STATUS_SUCCESS)
+    pixbuf = gdk_pixbuf_get_from_surface (surface, 0, 0,
+                                          width, height);
+
+  WebPFreeDecBuffer (&config->output);
+  cairo_surface_destroy (surface);
+
+  if (err != NULL)
+    g_propagate_error (error, err);
+
+  return pixbuf;
+}
+
+
+
+static GdkPixbuf *
+webp_thumbnailer_get_pixbuf (GFile            *file,
+                             TumblerThumbnail *thumbnail,
+                             GError          **error)
+{
+  WebPDecoderConfig config;
+  WebPData          data;
+  WebPDemuxer      *demux;
+  WebPIterator      iter;
+  uint32_t          flags;
+  GError           *err = NULL;
+  uint8_t          *content;
+  gsize             length;
+  GdkPixbuf        *pixbuf = NULL;
+
+  g_return_val_if_fail (G_IS_FILE (file), NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
+  g_return_val_if_fail (error == NULL || *error == NULL, NULL);
+
+  if (! WebPInitDecoderConfig (&config))
+    {
+      g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                   _("Could not initialize WebP configuration object"));
+      g_propagate_error (error, err);
+      return NULL;
+    }
+
+  if (! g_file_load_contents (file, NULL,
+                              (gchar **)&content,
+                              &length, NULL,
+                              &err))
+    {
+      g_propagate_error (error, err);
+      return NULL;
+    }
+
+  data.bytes = content;
+  data.size = length;
+
+  demux = WebPDemux (&data);
+  flags = WebPDemuxGetI (demux, WEBP_FF_FORMAT_FLAGS);
+  if (flags & ANIMATION_FLAG)
+    {
+      WebPData frame;
+      /* only the first frame! */
+      if (! WebPDemuxGetFrame (demux, 1, &iter))
+        {
+          g_set_error (&err, TUMBLER_ERROR,
+                       TUMBLER_ERROR_NO_CONTENT,
+                       _("Unable to retrieve WebP frame"));
+          g_propagate_error (error, err);
+
+          WebPDemuxDelete (demux);
+          g_free (content);
+          return NULL;
+        }
+      else
+        {
+          frame = iter.fragment;
+          pixbuf = webp_thumbnailer_decode_frame (frame.bytes,
+                                                  frame.size,
+                                                  &config,
+                                                  &err);
+
+          WebPDemuxReleaseIterator (&iter);
+        }
+    }
+  else
+    {
+      pixbuf = webp_thumbnailer_decode_frame (data.bytes,
+                                              data.size,
+                                              &config, &err);
+    }
+
+  WebPDemuxDelete (demux);
+  g_free (content);
+
+  if (err != NULL)
+    g_propagate_error (error, err);
+
   if (pixbuf != NULL)
     return webp_thumbnailer_scale_pixbuf (pixbuf, thumbnail);
   else
@@ -175,12 +313,6 @@ webp_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GFile            *file;
   GError           *error = NULL;
   GdkPixbuf        *pixbuf = NULL;
-  WebPDecoderConfig config;
-  uint8_t          *content;
-  gsize             length;
-  gint              width, height;
-  gint              stride;
-  cairo_surface_t  *surface;
 
   g_return_if_fail (IS_WEBP_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -190,94 +322,15 @@ webp_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_cancellable_is_cancelled (cancellable))
     return;
 
-  /* initialize configuration object */
-  if (! WebPInitDecoderConfig (&config))
-    return;
-
   uri = tumbler_file_info_get_uri (info);
 
   /* try to load the WebP file based on the URI */
   file = g_file_new_for_uri (uri);
 
-  if (! g_file_load_contents (file, cancellable,
-                              (gchar **)&content,
-                              &length, NULL, &error))
-    {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
-                             error->code, error->message);
-      g_error_free (error);
-
-      g_clear_object (&file);
-      return;
-    }
-
-  if (WebPGetFeatures (content, length,
-                       &config.input) != VP8_STATUS_OK)
-    {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
-                             TUMBLER_ERROR_NO_CONTENT,
-                             "Unable to retrieve features from the bitstream");
-
-      g_free (content);
-      g_clear_object (&file);
-      return;
-    }
-
-  width = config.input.width;
-  height = config.input.height;
-  config.options.no_fancy_upsampling = 1;
-
-  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                        width, height);
-  cairo_surface_flush (surface);
-
-#if G_BYTE_ORDER == G_LITTLE_ENDIAN
-  config.output.colorspace = MODE_BGRA;
-#elif G_BYTE_ORDER == G_BIG_ENDIAN
-  config.output.colorspace = MODE_ARGB;
-#endif
-  config.output.u.RGBA.rgba = (uint8_t *) cairo_image_surface_get_data (surface);
-  stride = cairo_image_surface_get_stride (surface);
-  config.output.u.RGBA.stride = stride;
-  config.output.u.RGBA.size = stride * height;
-  config.output.is_external_memory = 1;
-
-  if (WebPDecode (content, length, &config) != VP8_STATUS_OK)
-    {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
-                             TUMBLER_ERROR_NO_CONTENT,
-                             "Can't decode WebP image");
-
-      WebPFreeDecBuffer (&config.output);
-      cairo_surface_destroy (surface);
-
-      g_free (content);
-      g_clear_object (&file);
-      return;
-    }
-
-  cairo_surface_mark_dirty (surface);
-  if (cairo_surface_status (surface) != CAIRO_STATUS_SUCCESS)
-    {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
-                             TUMBLER_ERROR_NO_CONTENT,
-                             "Not enough memory for Cairo object");
-
-      WebPFreeDecBuffer (&config.output);
-      cairo_surface_destroy (surface);
-
-      g_free (content);
-      g_clear_object (&file);
-      return;
-    }
-
   thumbnail = tumbler_file_info_get_thumbnail (info);
 
-  pixbuf = webp_thumbnailer_pixbuf_from_surface (surface, thumbnail);
+  pixbuf = webp_thumbnailer_get_pixbuf (file, thumbnail, &error);
 
-  WebPFreeDecBuffer (&config.output);
-  cairo_surface_destroy (surface);
-  g_free (content);
   g_clear_object (&file);
 
   if (pixbuf != NULL)
