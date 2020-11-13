@@ -24,9 +24,12 @@ SUBDIRS =								\
 	tumbler								\
 	plugins								\
 	tumblerd							\
-	docs                                				\
+	docs								\
 	icons
-	
+
+EXTRA_DIST = 								\
+	README.md
+
 distclean-local:
 	rm -rf *.spec *.cache *~
 
