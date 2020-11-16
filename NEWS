@@ -1,3 +1,11 @@
+0.3.1
+=====
+- New plugin, libgepub thumbnailer plugin
+- Fix documentation URL
+- Add README.md and EXTRA_DIST
+- Add new icon needed for xfce4-about-dialog
+- Translation Updates: lt, oc, he, hi, hu, sk, tr, ug
+
 0.3.0
 =====
 - Fix jpeg thumbnail orientation when fallback code is taken place (Bug #28).

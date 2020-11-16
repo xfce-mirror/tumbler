@@ -304,6 +304,28 @@ AM_CONDITIONAL([TUMBLER_DESKTOP_THUMBNAILER], [test x"$ac_tumbler_desktop_thumbn
 AC_MSG_RESULT([$ac_tumbler_desktop_thumbnailer])
 ])
 
+dnl TUMBLER_GEPUB_THUMBNAILER()
+dnl
+dnl Check whether to build the libgepub thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_GEPUB_THUMBNAILER],
+[
+AC_ARG_ENABLE([gepub-thumbnailer], [AC_HELP_STRING([--disable-gepub-thumbnailer], [Don't build the libgepub thumbnailer plugin])],
+  [ac_tumbler_gepub_thumbnailer=$enableval], [ac_tumbler_gepub_thumbnailer=yes])
+if test x"$ac_tumbler_gepub_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  [
+    dnl Check for libgepub
+    PKG_CHECK_MODULES([GEPUB], [libgepub-0.6 >= 0.6.0], [], [ac_tumbler_gepub_thumbnailer=no])
+  ], [ac_tumbler_gepub_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([whether to build the libgepub thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_GEPUB_THUMBNAILER], [test x"$ac_tumbler_gepub_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_gepub_thumbnailer])
+])
+
 dnl TUMBLER_RSVG_THUMBNAILER()
 dnl
 dnl Check whether to build the librsvg thumbnailer plugin.

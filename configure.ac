@@ -24,8 +24,8 @@ dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [0])
-m4_define([tumbler_version_minor], [2])
-m4_define([tumbler_version_micro], [8])
+m4_define([tumbler_version_minor], [3])
+m4_define([tumbler_version_micro], [1])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
 dnl ***************************
@@ -163,6 +163,7 @@ TUMBLER_POPPLER_THUMBNAILER()
 TUMBLER_RAW_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 TUMBLER_DESKTOP_THUMBNAILER()
+TUMBLER_GEPUB_THUMBNAILER()
 TUMBLER_RSVG_THUMBNAILER()
 
 dnl ***********************************
@@ -201,6 +202,7 @@ plugins/poppler-thumbnailer/Makefile
 plugins/raw-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 plugins/desktop-thumbnailer/Makefile
+plugins/gepub-thumbnailer/Makefile
 plugins/rsvg-thumbnailer/Makefile
 po/Makefile.in
 tumbler/Makefile
@@ -274,6 +276,11 @@ if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
 echo "  * Loading thumbnailers from .thumbnailer files:     yes"
 else
 echo "  * Loading thumbnailers from .thumbnailer files:     no"
+fi
+if test x"$ac_tumbler_gepub_thumbnailer" = x"yes"; then
+echo "  * EPUB thumbnailer using libgepub:                  yes"
+else
+echo "  * EPUB thumbnailer using libgepub:                  no"
 fi
 if test x"$ac_tumbler_rsvg_thumbnailer" = x"yes"; then
 echo "  * SVG/SVGZ thumbnailer using librsvg:               yes"

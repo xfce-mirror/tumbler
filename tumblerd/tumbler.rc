@@ -124,3 +124,11 @@ Priority=1
 Locations=
 Excludes=
 MaxFileSize=2147483648
+
+# Epub thumbnailer
+[EpubThumbnailer]
+Disabled=false
+Priority=1
+Locations=
+Excludes=
+MaxFileSize=209715200
