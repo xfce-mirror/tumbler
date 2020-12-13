@@ -125,9 +125,9 @@ tumbler_lifecycle_manager_finalize (GObject *object)
 
 
 static gboolean
-tumbler_lifecycle_manager_timeout (TumblerLifecycleManager *manager)
+tumbler_lifecycle_manager_timeout (gpointer user_data)
 {
-  g_return_val_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager), FALSE);
+  TumblerLifecycleManager *manager = user_data;
 
   tumbler_mutex_lock (manager->lock);
 
@@ -179,7 +179,7 @@ tumbler_lifecycle_manager_start (TumblerLifecycleManager *manager)
 
   manager->timeout_id = 
     g_timeout_add_seconds (SHUTDOWN_TIMEOUT_SECONDS, 
-                           (GSourceFunc) tumbler_lifecycle_manager_timeout, 
+                           tumbler_lifecycle_manager_timeout, 
                            manager);
 
   tumbler_mutex_unlock (manager->lock);
@@ -218,7 +218,7 @@ tumbler_lifecycle_manager_keep_alive (TumblerLifecycleManager *manager,
   /* reschedule the shutdown timeout */
   manager->timeout_id = 
     g_timeout_add_seconds (SHUTDOWN_TIMEOUT_SECONDS, 
-                           (GSourceFunc) tumbler_lifecycle_manager_timeout, 
+                           tumbler_lifecycle_manager_timeout, 
                            manager);
 
   tumbler_mutex_unlock (manager->lock);
