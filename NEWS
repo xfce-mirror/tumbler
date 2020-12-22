@@ -1,3 +1,11 @@
+4.16.0
+======
+- Remove GLIB_CHECK_VERSION IFDEFs which are obsolete after glib bump
+- bump glib (and gio, gthread, etc) minimum to 2.50.0
+- Adjust bug report URL
+- Translation Updates:
+  Estonian, Turkish
+
 0.3.1
 =====
 - New plugin, libgepub thumbnailer plugin
