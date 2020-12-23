@@ -147,7 +147,7 @@ PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.50.0])
 PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.50.0])
 PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.50.0])
 PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.50.0])
-PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.5ß.0])
+PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.50.0])
 
 dnl *************************
 dnl *** Check for plugins ***
