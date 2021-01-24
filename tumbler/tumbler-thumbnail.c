@@ -27,40 +27,42 @@
 
 
 
-static void tumbler_thumbnail_class_init (TumblerThumbnailIface *klass);
+static void tumbler_thumbnail_class_init (gpointer g_class,
+                                          gpointer class_data);
 
 
 
 GType
 tumbler_thumbnail_get_type (void)
 {
-  static volatile gsize g_define_type_id__volatile = 0;
-  
-  if (g_once_init_enter (&g_define_type_id__volatile))
+  static gsize g_define_type_id__static = 0;
+
+  if (g_once_init_enter (&g_define_type_id__static))
     {
       GType g_define_type_id =
         g_type_register_static_simple (G_TYPE_INTERFACE,
                                        "TumblerThumbnail",
                                        sizeof (TumblerThumbnailIface),
-                                       (GClassInitFunc) tumbler_thumbnail_class_init,
+                                       tumbler_thumbnail_class_init,
                                        0,
                                        NULL,
                                        0);
 
       g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
 
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
+      g_once_init_leave (&g_define_type_id__static, g_define_type_id);
     }
 
-  return g_define_type_id__volatile;
+  return g_define_type_id__static;
 }
 
 
 
 static void
-tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
+tumbler_thumbnail_class_init (gpointer g_class,
+                              gpointer class_data)
 {
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_object ("cache",
                                                             "cache",
                                                             "cache",
@@ -68,7 +70,7 @@ tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
                                                             G_PARAM_READWRITE |
                                                             G_PARAM_CONSTRUCT_ONLY));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_string ("uri",
                                                             "uri",
                                                             "uri",
@@ -76,7 +78,7 @@ tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
                                                             G_PARAM_READWRITE |
                                                             G_PARAM_CONSTRUCT_ONLY));
   
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_object ("flavor",
                                                             "flavor",
                                                             "flavor",

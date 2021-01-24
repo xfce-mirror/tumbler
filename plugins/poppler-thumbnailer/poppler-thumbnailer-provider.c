@@ -34,8 +34,9 @@
 
 
 
-static void   poppler_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *poppler_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void   poppler_thumbnailer_provider_thumbnailer_provider_init (gpointer                    g_iface,
+                                                                      gpointer                    iface_data);
+static GList *poppler_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider *provider);
 
 
 
@@ -83,8 +84,11 @@ poppler_thumbnailer_provider_class_finalize (PopplerThumbnailerProviderClass *kl
 
 
 static void
-poppler_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface)
+poppler_thumbnailer_provider_thumbnailer_provider_init (gpointer g_iface,
+                                                        gpointer iface_data)
 {
+  TumblerThumbnailerProviderIface *iface = g_iface;
+
   iface->get_thumbnailers = poppler_thumbnailer_provider_get_thumbnailers;
 }
 

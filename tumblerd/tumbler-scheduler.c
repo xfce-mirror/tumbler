@@ -76,38 +76,41 @@ enum
 };
 
 
-static void tumbler_scheduler_class_init (TumblerSchedulerIface *klass);
+static void tumbler_scheduler_class_init (gpointer g_class,
+                                          gpointer class_data);
+
 static guint tumbler_scheduler_signals[LAST_SIGNAL];
 
 GType
 tumbler_scheduler_get_type (void)
 {
-  static volatile gsize g_define_type_id__volatile = 0;
-  
-  if (g_once_init_enter (&g_define_type_id__volatile))
+  static gsize g_define_type_id__static = 0;
+
+  if (g_once_init_enter (&g_define_type_id__static))
     {
       GType g_define_type_id =
         g_type_register_static_simple (G_TYPE_INTERFACE,
                                        "TumblerScheduler",
                                        sizeof (TumblerSchedulerIface),
-                                       (GClassInitFunc) tumbler_scheduler_class_init,
+                                       tumbler_scheduler_class_init,
                                        0,
                                        NULL,
                                        0);
 
       g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
 
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
+      g_once_init_leave (&g_define_type_id__static, g_define_type_id);
     }
 
-  return g_define_type_id__volatile;
+  return g_define_type_id__static;
 }
 
 
 static void
-tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
+tumbler_scheduler_class_init (gpointer g_class,
+                              gpointer class_data)
 {
-  g_object_interface_install_property (klass, 
+  g_object_interface_install_property (g_class,
                                        g_param_spec_string ("name",
                                                             "name",
                                                             "name",
@@ -292,9 +295,10 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
 
 
 void
-tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
+tumbler_scheduler_request_free (gpointer data)
 {
-  gint n;
+  TumblerSchedulerRequest *request = data;
+  gint                     n;
 
   g_return_if_fail (request != NULL);
 
