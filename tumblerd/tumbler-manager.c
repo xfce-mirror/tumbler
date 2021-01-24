@@ -248,8 +248,7 @@ tumbler_manager_finalize (GObject *object)
   g_list_free (manager->monitors);
 
   /* release all directory objects */
-  g_list_foreach (manager->directories, (GFunc) g_object_unref, NULL);
-  g_list_free (manager->directories);
+  g_list_free_full (manager->directories, g_object_unref);
 
   /* destroy the hash tables */
   g_hash_table_unref (manager->thumbnailers);
