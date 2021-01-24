@@ -928,10 +928,7 @@ tumbler_service_get_flavors_cb  (TumblerExportedService  *skeleton,
       tumbler_exported_service_complete_get_flavors (skeleton, invocation, flavor_strings);
       
       g_free (flavor_strings);
-
-      g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
-      g_list_free (flavors);
-
+      g_list_free_full (flavors, g_object_unref);
       g_object_unref (cache);
     }
   else
