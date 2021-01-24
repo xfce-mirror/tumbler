@@ -39,7 +39,8 @@ G_BEGIN_DECLS
 
 typedef struct _TumblerImageData      TumblerImageData;
 typedef struct _TumblerThumbnail      TumblerThumbnail;
-typedef struct _TumblerThumbnailIface TumblerThumbnailIface;
+typedef struct _TumblerThumbnailIface TumblerThumbnailInterface;
+typedef TumblerThumbnailInterface     TumblerThumbnailIface;
 
 struct _TumblerImageData
 {

@@ -82,8 +82,8 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (XDGCacheCache,
                                 xdg_cache_cache,
                                 G_TYPE_OBJECT,
                                 0,
-                                TUMBLER_ADD_INTERFACE (TUMBLER_TYPE_CACHE,
-                                                       xdg_cache_cache_iface_init));
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (TUMBLER_TYPE_CACHE,
+                                                               xdg_cache_cache_iface_init));
 
 
 
@@ -146,8 +146,7 @@ xdg_cache_cache_finalize (GObject *object)
 {
   XDGCacheCache *cache = XDG_CACHE_CACHE (object);
 
-  g_list_foreach (cache->flavors, (GFunc) g_object_unref, NULL);
-  g_list_free (cache->flavors);
+  g_list_free_full (cache->flavors, g_object_unref);
 }
 
 
