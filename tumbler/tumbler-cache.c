@@ -199,8 +199,7 @@ tumbler_cache_get_flavor (TumblerCache *cache,
     if (g_strcmp0 (tumbler_thumbnail_flavor_get_name (iter->data), name) == 0)
       flavor = g_object_ref (iter->data);
 
-  g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
-  g_list_free (flavors);
+  g_list_free_full (flavors, g_object_unref);
 
   return flavor;
 }

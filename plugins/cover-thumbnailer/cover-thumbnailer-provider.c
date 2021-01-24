@@ -35,9 +35,10 @@
 
 
 
-static void   cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *cover_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
-static void   cover_thumbnailer_provider_finalize                  (GObject                         *object);
+static void   cover_thumbnailer_provider_thumbnailer_provider_init (gpointer                    g_iface,
+                                                                    gpointer                    iface_data);
+static GList *cover_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider *provider);
+static void   cover_thumbnailer_provider_finalize                  (GObject                    *object);
 
 
 
@@ -89,8 +90,11 @@ cover_thumbnailer_provider_class_finalize (CoverThumbnailerProviderClass *klass)
 
 
 static void
-cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface)
+cover_thumbnailer_provider_thumbnailer_provider_init (gpointer g_iface,
+                                                      gpointer iface_data)
 {
+  TumblerThumbnailerProviderIface *iface = g_iface;
+
   iface->get_thumbnailers = cover_thumbnailer_provider_get_thumbnailers;
 }
 
