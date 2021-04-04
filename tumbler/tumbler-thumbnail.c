@@ -27,7 +27,8 @@
 
 
 
-static void tumbler_thumbnail_class_init (TumblerThumbnailIface *klass);
+static void tumbler_thumbnail_class_init (gpointer g_class,
+                                          gpointer class_data);
 
 
 
@@ -42,7 +43,7 @@ tumbler_thumbnail_get_type (void)
         g_type_register_static_simple (G_TYPE_INTERFACE,
                                        "TumblerThumbnail",
                                        sizeof (TumblerThumbnailIface),
-                                       (GClassInitFunc) tumbler_thumbnail_class_init,
+                                       tumbler_thumbnail_class_init,
                                        0,
                                        NULL,
                                        0);
@@ -58,9 +59,10 @@ tumbler_thumbnail_get_type (void)
 
 
 static void
-tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
+tumbler_thumbnail_class_init (gpointer g_class,
+                              gpointer class_data)
 {
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_object ("cache",
                                                             "cache",
                                                             "cache",
@@ -68,7 +70,7 @@ tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
                                                             G_PARAM_READWRITE |
                                                             G_PARAM_CONSTRUCT_ONLY));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_string ("uri",
                                                             "uri",
                                                             "uri",
@@ -76,7 +78,7 @@ tumbler_thumbnail_class_init (TumblerThumbnailIface *klass)
                                                             G_PARAM_READWRITE |
                                                             G_PARAM_CONSTRUCT_ONLY));
   
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_object ("flavor",
                                                             "flavor",
                                                             "flavor",

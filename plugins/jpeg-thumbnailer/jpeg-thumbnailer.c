@@ -75,6 +75,8 @@
 
 
 static void fatal_error_handler     (j_common_ptr                cinfo) G_GNUC_NORETURN;
+static void tvtj_free               (guchar                     *pixels,
+                                     gpointer                    data);
 static void jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                      GCancellable               *cancellable,
                                      TumblerFileInfo            *info);
@@ -152,6 +154,15 @@ fatal_error_handler (j_common_ptr cinfo)
 {
   TvtjErrorHandler *handler = (TvtjErrorHandler *) cinfo->err;
   longjmp (handler->setjmp_buffer, 1);
+}
+
+
+
+static void
+tvtj_free (guchar   *pixels,
+           gpointer  data)
+{
+  g_free (pixels);
 }
 
 
@@ -361,7 +372,7 @@ tvtj_jpeg_load (const JOCTET *content,
                                    (cinfo.out_color_components == 4), 8,
                                    cinfo.output_width, cinfo.output_height,
                                    cinfo.output_width * out_num_components,
-                                   (GdkPixbufDestroyNotify) g_free, NULL);
+                                   tvtj_free, NULL);
 
 error:
   jpeg_destroy_decompress (&cinfo);
@@ -673,7 +684,7 @@ tvtj_exif_extract_thumbnail (const guchar *data,
               thumb = gdk_pixbuf_new_from_data (g_memdup (data + exif.thumb_tiff.offset, exif.thumb_tiff.length),
                                                 GDK_COLORSPACE_RGB, FALSE, 8, exif.thumb_tiff.width,
                                                 exif.thumb_tiff.height, exif.thumb_tiff.width,
-                                                (GdkPixbufDestroyNotify) g_free, NULL);
+                                                tvtj_free, NULL);
             }
         }
 
