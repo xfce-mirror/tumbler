@@ -164,6 +164,7 @@ TUMBLER_RAW_THUMBNAILER()
 TUMBLER_XDG_CACHE()
 TUMBLER_DESKTOP_THUMBNAILER()
 TUMBLER_GEPUB_THUMBNAILER()
+TUMBLER_RSVG_THUMBNAILER()
 
 dnl ***********************************
 dnl *** Check for debugging support ***
@@ -202,6 +203,7 @@ plugins/raw-thumbnailer/Makefile
 plugins/xdg-cache/Makefile
 plugins/desktop-thumbnailer/Makefile
 plugins/gepub-thumbnailer/Makefile
+plugins/rsvg-thumbnailer/Makefile
 po/Makefile.in
 tumbler/Makefile
 tumbler/tumbler-1.pc
@@ -279,5 +281,10 @@ if test x"$ac_tumbler_gepub_thumbnailer" = x"yes"; then
 echo "  * EPUB thumbnailer using libgepub:                  yes"
 else
 echo "  * EPUB thumbnailer using libgepub:                  no"
+fi
+if test x"$ac_tumbler_rsvg_thumbnailer" = x"yes"; then
+echo "  * SVG/SVGZ thumbnailer using librsvg:               yes"
+else
+echo "  * SVG/SVGZ thumbnailer using librsvg:               no"
 fi
 echo
