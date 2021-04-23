@@ -174,12 +174,12 @@ render_glyph (GdkPixbuf *pixbuf,
   height = gdk_pixbuf_get_height (pixbuf);
   rowstride = gdk_pixbuf_get_rowstride (pixbuf);
 
-  for (j = 0; j < slot->bitmap.rows; ++j)
+  for (j = 0; (guint) j < slot->bitmap.rows; ++j)
     {
       if (j + off_y < 0 || j + off_y >= height)
         continue;
 
-      for (i = 0; i < slot->bitmap.width; ++i)
+      for (i = 0; (guint) i < slot->bitmap.width; ++i)
         {
           if (i + off_x < 0 || i + off_x >= width)
             continue;
