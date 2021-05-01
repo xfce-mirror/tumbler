@@ -6,13 +6,14 @@
 # Ignacio Poggi <ignaciop.3@gmail.com>, 2020
 # prflr88 <prflr88@gmail.com>, 2013-2015
 # prflr88 <prflr88@gmail.com>, 2017
+# prflr88 <prflr88@gmail.com>, 2017
 # Toni Estévez <toni.estevez@gmail.com>, 2019,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2021-04-03 14:10+0000\n"
+"PO-Revision-Date: 2021-05-01 06:20+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/xfce/tumbler/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +126,7 @@ msgstr "El archivo «%s» ya es una miniatura"
 #: ../tumbler/tumbler-provider-plugin.c:135
 #, c-format
 msgid "Plugin \"%s\" lacks required symbols."
-msgstr "El complemento «%s» carece de los símbolos requeridos"
+msgstr "El complemento «%s» carece de los símbolos requeridos."
 
 #: ../tumbler/tumbler-provider-plugin.c:143
 #, c-format
