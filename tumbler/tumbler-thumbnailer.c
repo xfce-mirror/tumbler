@@ -39,7 +39,8 @@ enum
 
 
 
-static void  tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass);
+static void  tumbler_thumbnailer_class_init (gpointer g_class,
+                                             gpointer class_data);
 
 
 
@@ -58,7 +59,7 @@ tumbler_thumbnailer_get_type (void)
         g_type_register_static_simple (G_TYPE_INTERFACE,
                                        "TumblerThumbnailer",
                                        sizeof (TumblerThumbnailerIface),
-                                       (GClassInitFunc) tumbler_thumbnailer_class_init,
+                                       tumbler_thumbnailer_class_init,
                                        0,
                                        NULL,
                                        0);
@@ -74,50 +75,51 @@ tumbler_thumbnailer_get_type (void)
 
 
 static void
-tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
+tumbler_thumbnailer_class_init (gpointer g_class,
+                                gpointer class_data)
 {
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_pointer ("mime-types",
                                                              "mime-types",
                                                              "mime-types",
                                                              G_PARAM_CONSTRUCT_ONLY |
                                                              G_PARAM_READWRITE));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_pointer ("uri-schemes",
                                                              "uri-schemes",
                                                              "uri-schemes",
                                                              G_PARAM_CONSTRUCT_ONLY |
                                                              G_PARAM_READWRITE));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_pointer ("hash-keys",
                                                              "hash-keys",
                                                              "hash-keys",
                                                              G_PARAM_CONSTRUCT_ONLY |
                                                              G_PARAM_READWRITE));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_int ("priority",
                                                          "priority",
                                                          "priority",
                                                          0, G_MAXINT, 0,
                                                          G_PARAM_READWRITE));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_int64 ("max-file-size",
                                                            "max-file-size",
                                                            "max-file-size",
                                                            0, G_MAXINT64, 0,
                                                            G_PARAM_READWRITE));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_pointer ("locations",
                                                              "locations",
                                                              "locations",
                                                              G_PARAM_READWRITE));
 
-  g_object_interface_install_property (klass,
+  g_object_interface_install_property (g_class,
                                        g_param_spec_pointer ("excludes",
                                                              "excludes",
                                                              "excludes",
@@ -278,8 +280,7 @@ tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
     if (g_file_has_prefix (file, G_FILE (lp->data)))
       supported = TRUE;
 
-  g_slist_foreach (locations, (GFunc) g_object_unref, NULL);
-  g_slist_free (locations);
+  g_slist_free_full (locations, g_object_unref);
 
   return supported;
 }

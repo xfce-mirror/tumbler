@@ -158,11 +158,8 @@ tumbler_lifo_scheduler_finalize (GObject *object)
   /* destroy both thread pools */
   g_thread_pool_free (scheduler->pool, TRUE, TRUE);
 
-  /* release all pending requests */
-  g_list_foreach (scheduler->requests, (GFunc) tumbler_scheduler_request_free, NULL);
-
-  /* destroy the request list */
-  g_list_free (scheduler->requests);
+  /* release all pending requests and destroy the request list */
+  g_list_free_full (scheduler->requests, tumbler_scheduler_request_free);
 
   /* free the scheduler name */
   g_free (scheduler->name);

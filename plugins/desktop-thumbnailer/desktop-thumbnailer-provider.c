@@ -33,8 +33,9 @@
 
 
 
-static void   desktop_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *desktop_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void   desktop_thumbnailer_provider_thumbnailer_provider_init (gpointer                    g_iface,
+                                                                      gpointer                    iface_data);
+static GList *desktop_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider *provider);
 
 
 
@@ -82,8 +83,11 @@ desktop_thumbnailer_provider_class_finalize (DesktopThumbnailerProviderClass *kl
 
 
 static void
-desktop_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface)
+desktop_thumbnailer_provider_thumbnailer_provider_init (gpointer g_iface,
+                                                        gpointer iface_data)
 {
+  TumblerThumbnailerProviderIface *iface = g_iface;
+
   iface->get_thumbnailers = desktop_thumbnailer_provider_get_thumbnailers;
 }
 

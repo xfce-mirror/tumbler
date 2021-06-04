@@ -42,7 +42,8 @@
 
 
 
-static void              xdg_cache_cache_iface_init         (TumblerCacheIface      *iface);
+static void              xdg_cache_cache_iface_init         (gpointer                g_iface,
+                                                             gpointer                iface_data);
 static void              xdg_cache_cache_finalize           (GObject                *object);
 static TumblerThumbnail *xdg_cache_cache_get_thumbnail      (TumblerCache           *cache,
                                                              const gchar            *uri,
@@ -114,8 +115,11 @@ xdg_cache_cache_class_finalize (XDGCacheCacheClass *klass)
 
 
 static void
-xdg_cache_cache_iface_init (TumblerCacheIface *iface)
+xdg_cache_cache_iface_init (gpointer g_iface,
+                            gpointer iface_data)
 {
+  TumblerCacheIface *iface = g_iface;
+
   iface->get_thumbnail = xdg_cache_cache_get_thumbnail;
   iface->cleanup = xdg_cache_cache_cleanup;
   iface->do_delete = xdg_cache_cache_delete;
@@ -146,8 +150,7 @@ xdg_cache_cache_finalize (GObject *object)
 {
   XDGCacheCache *cache = XDG_CACHE_CACHE (object);
 
-  g_list_foreach (cache->flavors, (GFunc) g_object_unref, NULL);
-  g_list_free (cache->flavors);
+  g_list_free_full (cache->flavors, g_object_unref);
 }
 
 
