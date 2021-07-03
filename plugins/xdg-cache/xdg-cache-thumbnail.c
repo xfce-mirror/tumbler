@@ -266,23 +266,85 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
 
 
 static gboolean
+has_valid_shared_thumbnail (const gchar *uri,
+                            const gchar *size,
+                            guint64      mtime)
+{
+  GChecksum   *checksum;
+  GFile       *file;
+  GFile       *original_dir_file;
+  gchar       *original_dir_path;
+  gchar       *name;
+  gchar       *filename;
+  gchar       *thumbnail_path;
+  gboolean     found;
+
+  file = g_file_new_for_uri (uri);
+  checksum = g_checksum_new (G_CHECKSUM_MD5);
+  name = g_file_get_basename (file);
+  g_checksum_update (checksum, (const guchar *) name, strlen (name));
+
+  filename = g_strconcat (g_checksum_get_string (checksum), ".png", NULL);
+  original_dir_file = g_file_get_parent (file);
+  original_dir_path = g_file_get_path (original_dir_file);
+
+  thumbnail_path = g_build_filename ("/", original_dir_path, ".sh_thumbnails", size,
+                                           filename, NULL);
+
+  if (g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
+    {
+      guint64        thumb_mtime;
+      gchar         *thumb_uri;
+
+      if (xdg_cache_cache_read_thumbnail_info (thumbnail_path, &thumb_uri, &thumb_mtime, NULL, NULL))
+        found = mtime == thumb_mtime;
+      else
+        found = FALSE;
+    }
+  else
+      found = FALSE;
+
+  /* free memory */
+  g_free (name);
+  g_free (filename);
+  g_free (thumbnail_path);
+  g_free (original_dir_path);
+  g_object_unref (original_dir_file);
+  g_object_unref (file);
+  g_checksum_free (checksum);
+
+  return found;
+}
+
+
+
+static gboolean
 xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
                                   const gchar      *uri,
                                   guint64           mtime)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
+  gboolean           is_valid        = TRUE;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (uri != NULL && *uri != '\0', FALSE);
 
-  if (cache_thumbnail->cached_uri == NULL)
-    return TRUE;
+  if (cache_thumbnail->cached_uri == NULL
+    || cache_thumbnail->cached_mtime == 0
+    || strcmp (cache_thumbnail->uri, uri) != 0
+    || cache_thumbnail->cached_mtime != mtime)
+    {
+      printf ("Invalid personal thumbnail\n");
+      is_valid = FALSE;
+    }
 
-  if (cache_thumbnail->cached_mtime == 0)
-    return TRUE;
+  if (!is_valid) /* if the personal repository is invalid, look for a shared thumbnail repository */
+    {
+      if (has_valid_shared_thumbnail (uri, tumbler_thumbnail_flavor_get_name(cache_thumbnail->flavor), mtime))
+        return FALSE;
+    }
 
-  return strcmp (cache_thumbnail->uri, uri) != 0
-    || cache_thumbnail->cached_mtime != mtime;
+  return !is_valid;
 }
 
 
