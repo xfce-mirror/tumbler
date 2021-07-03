@@ -293,8 +293,13 @@ has_valid_shared_thumbnail (const gchar *uri,
 
   if (g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
     {
-      printf ("Shared thumbnail exists\n");
-      found = TRUE;
+      guint64        thumb_mtime;
+      gchar         *thumb_uri;
+
+      if (xdg_cache_cache_read_thumbnail_info (thumbnail_path, &thumb_uri, &thumb_mtime, NULL, NULL))
+        found = mtime == thumb_mtime;
+      else
+        found = FALSE;
     }
   else
       found = FALSE;
