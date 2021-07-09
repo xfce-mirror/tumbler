@@ -270,26 +270,10 @@ has_valid_shared_thumbnail (const gchar *uri,
                             const gchar *size,
                             guint64      mtime)
 {
-  GChecksum   *checksum;
-  GFile       *file;
-  GFile       *original_dir_file;
-  gchar       *original_dir_path;
-  gchar       *name;
-  gchar       *filename;
   gchar       *thumbnail_path;
   gboolean     found;
 
-  file = g_file_new_for_uri (uri);
-  checksum = g_checksum_new (G_CHECKSUM_MD5);
-  name = g_file_get_basename (file);
-  g_checksum_update (checksum, (const guchar *) name, strlen (name));
-
-  filename = g_strconcat (g_checksum_get_string (checksum), ".png", NULL);
-  original_dir_file = g_file_get_parent (file);
-  original_dir_path = g_file_get_path (original_dir_file);
-
-  thumbnail_path = g_build_filename ("/", original_dir_path, ".sh_thumbnails", size,
-                                           filename, NULL);
+  thumbnail_path = xfce_create_shared_thumbnail_path (uri, size);
 
   if (g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
     {
@@ -305,13 +289,7 @@ has_valid_shared_thumbnail (const gchar *uri,
       found = FALSE;
 
   /* free memory */
-  g_free (name);
-  g_free (filename);
   g_free (thumbnail_path);
-  g_free (original_dir_path);
-  g_object_unref (original_dir_file);
-  g_object_unref (file);
-  g_checksum_free (checksum);
 
   return found;
 }
@@ -334,7 +312,6 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
     || strcmp (cache_thumbnail->uri, uri) != 0
     || cache_thumbnail->cached_mtime != mtime)
     {
-      printf ("Invalid personal thumbnail\n");
       is_valid = FALSE;
     }
 
