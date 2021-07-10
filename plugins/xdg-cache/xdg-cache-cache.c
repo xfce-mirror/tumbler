@@ -537,7 +537,7 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
   GFile         *flavor_dir;
   GFile         *file;
   gchar         *path;
-  gchar         *uri_copy;
+  gchar         *needle;
   gchar         *token;
 
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), FALSE);
@@ -561,21 +561,13 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
       g_free (path);
     }
 
-  /* check if it is a thumbnail in a shared repository */
   if (is_thumbnail)
     return TRUE;
 
-  uri_copy = g_strdup(uri);
-  token = strtok (uri_copy, "/");
-  while (token != NULL)
-    {
-      if (strcmp (token, ".sh_thumbnails") == 0)
-          return TRUE;
-      token = strtok (NULL, "/");
-    }
-  g_free(uri_copy);
+  /* check if it is a thumbnail in a shared repository */
+  needle = g_strrstr (uri, "/.sh_thumbnails/");
 
-  return FALSE;
+  return needle != NULL;
 }
 
 
