@@ -42,6 +42,7 @@ tumbler_xdg_cache_la_CFLAGS =						\
 	$(GLIB_CFLAGS)							\
 	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)						\
+	$(LIBXFCE4UTIL_CFLAGS)                  \
 	$(PNG_CFLAGS)
 
 tumbler_xdg_cache_la_LDFLAGS =						\
@@ -55,6 +56,7 @@ tumbler_xdg_cache_la_LIBADD =						\
 	$(GDK_PIXBUF_LIBS)						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
+	$(LIBXFCE4UTIL_LIBS)						\
 	$(PNG_LIBS)
 
 tumbler_xdg_cache_la_DEPENDENCIES =					\
