@@ -288,7 +288,7 @@ has_valid_shared_thumbnail (const gchar *uri,
         found = FALSE;
     }
   else
-      found = FALSE;
+    found = FALSE;
 
   /* free memory */
   g_free (thumbnail_path);
