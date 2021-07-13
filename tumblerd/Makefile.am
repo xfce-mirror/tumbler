@@ -67,6 +67,7 @@ tumblerd_CFLAGS =							\
 	$(GLIB_CFLAGS)							\
 	$(GTHREAD_CFLAGS)						\
 	$(PLATFORM_CFLAGS)						\
+	$(LIBXFCE4UTIL_CFLAGS)                  \
 	$(PLATFORM_CPPFLAGS)
 
 tumblerd_LDFLAGS =							\
@@ -82,6 +83,7 @@ tumblerd_LDADD =							\
 	$(GIO_UNIX_LIBS)                                                \
 	$(GLIB_LIBS)							\
 	$(GTHREAD_LIBS)							\
+	$(LIBXFCE4UTIL_LIBS)						\
 	$(top_builddir)/tumbler/libtumbler-$(TUMBLER_VERSION_API).la
 
 servicedir = $(datadir)/dbus-1/services
