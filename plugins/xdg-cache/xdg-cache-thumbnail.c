@@ -37,6 +37,8 @@
 #include <xdg-cache/xdg-cache-cache.h>
 #include <xdg-cache/xdg-cache-thumbnail.h>
 
+#include <libxfce4util/libxfce4util.h>
+
 
 
 /* Property identifiers */
