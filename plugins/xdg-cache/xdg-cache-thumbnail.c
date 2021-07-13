@@ -37,6 +37,8 @@
 #include <xdg-cache/xdg-cache-cache.h>
 #include <xdg-cache/xdg-cache-thumbnail.h>
 
+#include <libxfce4util/libxfce4util.h>
+
 
 
 /* Property identifiers */
@@ -266,23 +268,62 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
 
 
 static gboolean
+has_valid_shared_thumbnail (const gchar *uri,
+                            const gchar *size,
+                            guint64      mtime)
+{
+  gchar       *thumbnail_path;
+  gboolean     found;
+
+  thumbnail_path = xfce_create_shared_thumbnail_path (uri, size);
+
+  if (g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
+    {
+      guint64        thumb_mtime;
+      gchar         *thumb_uri;
+
+      if (xdg_cache_cache_read_thumbnail_info (thumbnail_path, &thumb_uri, &thumb_mtime, NULL, NULL))
+        found = mtime == thumb_mtime;
+      else
+        found = FALSE;
+    }
+  else
+      found = FALSE;
+
+  /* free memory */
+  g_free (thumbnail_path);
+
+  return found;
+}
+
+
+
+static gboolean
 xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
                                   const gchar      *uri,
                                   guint64           mtime)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
+  gboolean           is_valid        = TRUE;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (uri != NULL && *uri != '\0', FALSE);
 
-  if (cache_thumbnail->cached_uri == NULL)
-    return TRUE;
+  if (cache_thumbnail->cached_uri == NULL
+    || cache_thumbnail->cached_mtime == 0
+    || strcmp (cache_thumbnail->uri, uri) != 0
+    || cache_thumbnail->cached_mtime != mtime)
+    {
+      is_valid = FALSE;
+    }
 
-  if (cache_thumbnail->cached_mtime == 0)
-    return TRUE;
+  if (!is_valid) /* if the personal repository is invalid, look for a shared thumbnail repository */
+    {
+      if (has_valid_shared_thumbnail (uri, tumbler_thumbnail_flavor_get_name(cache_thumbnail->flavor), mtime))
+        return FALSE;
+    }
 
-  return strcmp (cache_thumbnail->uri, uri) != 0
-    || cache_thumbnail->cached_mtime != mtime;
+  return !is_valid;
 }
 
 
