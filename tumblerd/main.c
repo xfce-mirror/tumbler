@@ -47,6 +47,8 @@
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-service.h>
 
+#include <libxfce4util/libxfce4util.h>
+
 
 
 static void
@@ -71,124 +73,6 @@ xfce_is_valid_tilde_prefix (const gchar *p)
     return TRUE;
 
   return FALSE;
-}
-
-
-/* from libxfce4util */
-static gchar *
-xfce_expand_variables (const gchar *command,
-                       gchar      **envp)
-{
-  GString        *buf;
-  const gchar    *start;
-  gchar          *variable;
-  const gchar    *p;
-  const gchar    *value;
-  gchar         **ep;
-  guint           len;
-#ifdef HAVE_GETPWNAM
-  struct passwd  *pw;
-  gchar          *username;
-#endif
-
-  if (G_UNLIKELY (command == NULL))
-    return NULL;
-
-  buf = g_string_sized_new (strlen (command));
-
-  for (p = command; *p != '\0'; ++p)
-    {
-      continue_without_increase:
-
-      if (*p == '~'
-          && (p == command
-              || xfce_is_valid_tilde_prefix (p - 1)))
-        {
-          /* walk to the end of the string or to a directory separator */
-          for (start = ++p; *p != '\0' && *p != G_DIR_SEPARATOR; ++p);
-
-          if (G_LIKELY (start == p))
-            {
-              /* add the current user directory */
-              buf = g_string_append (buf, g_get_home_dir ());
-            }
-          else
-            {
-#ifdef HAVE_GETPWNAM
-              username = g_strndup (start, p - start);
-              pw = getpwnam (username);
-              g_free (username);
-
-              /* add the users' home directory if found, fallback to the
-               * not-expanded string */
-              if (pw != NULL && pw->pw_dir != NULL)
-                buf = g_string_append (buf, pw->pw_dir);
-              else
-#endif
-                buf = g_string_append_len (buf, start - 1, p - start + 1);
-            }
-
-          /* we are either at the end of the string or *p is a separator,
-           * so continue to add it to the result buffer */
-        }
-      else if (*p == '$')
-        {
-          /* walk to the end of a valid variable name */
-          for (start = ++p; *p != '\0' && (g_ascii_isalnum (*p) || *p == '_'); ++p);
-
-          if (start < p)
-            {
-              value = NULL;
-              len = p - start;
-
-              /* lookup the variable in the environment supplied by the user */
-              if (envp != NULL)
-                {
-                  /* format is NAME=VALUE */
-                  for (ep = envp; *ep != NULL; ++ep)
-                    if (strncmp (*ep, start, len) == 0
-                        && (*ep)[len] == '=')
-                      {
-                        value = (*ep) + len + 1;
-                        break;
-                      }
-                }
-
-              /* fallback to the environment */
-              if (value == NULL)
-                {
-                  variable = g_strndup (start, len);
-                  value = g_getenv (variable);
-                  g_free (variable);
-                }
-
-              if (G_LIKELY (value != NULL))
-                {
-                  buf = g_string_append (buf, value);
-                }
-              else
-                {
-                  /* the variable name was valid, but no value was
-                   * found, insert nothing and continue */
-                }
-
-              /* *p is at the start of the charater after the variable,
-               * so continue scanning without advancing the string offset
-               * so two variables are replaced properly */
-              goto continue_without_increase;
-            }
-          else
-            {
-              /* invalid variable format, add the
-               * $ character and continue */
-              --p;
-            }
-        }
-
-      buf = g_string_append_c (buf, *p);
-    }
-
-  return g_string_free (buf, FALSE);
 }
 
 
