@@ -559,7 +559,13 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
       g_free (path);
     }
 
-  return is_thumbnail;
+  if (is_thumbnail)
+    return TRUE;
+
+  /* check if it is a thumbnail in a shared repository */
+  needle = g_strrstr (uri, "/.sh_thumbnails/");
+
+  return needle != NULL;
 }
 
 
