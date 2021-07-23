@@ -178,11 +178,8 @@ tumbler_group_scheduler_finalize (GObject *object)
   /* destroy both thread pools */
   g_thread_pool_free (scheduler->pool, TRUE, TRUE);
 
-  /* release all pending requests */
-  g_list_foreach (scheduler->requests, (GFunc) tumbler_scheduler_request_free, NULL);
-
-  /* destroy the request list */
-  g_list_free (scheduler->requests);
+  /* release all pending requests and destroy the request list */
+  g_list_free_full (scheduler->requests, tumbler_scheduler_request_free);
 
   /* free the scheduler name */
   g_free (scheduler->name);
@@ -392,8 +389,10 @@ uri_error_new (gint         code,
 
 
 static void
-uri_error_free (UriError *error)
+uri_error_free (gpointer data)
 {
+  UriError *error = data;
+
   g_free (error->message);
   g_free (error->failed_uri);
 
@@ -619,8 +618,7 @@ tumbler_group_scheduler_thread (gpointer data,
     }
 
   /* free all URI errors and the error URI list */
-  g_list_foreach (uri_errors, (GFunc) uri_error_free, NULL);
-  g_list_free (uri_errors);
+  g_list_free_full (uri_errors, uri_error_free);
 
   /* check if we have any successfully processed URIs */
   if (ready_uris != NULL)
@@ -644,8 +642,7 @@ tumbler_group_scheduler_thread (gpointer data,
     }
 
   /* free the ready URIs */
-  g_list_foreach (ready_uris, (GFunc) g_free, NULL);
-  g_list_free (ready_uris); 
+  g_list_free_full (ready_uris, g_free);
 
   /* notify others that we're finished processing the request */
   tumbler_group_scheduler_finish_request (scheduler, request);

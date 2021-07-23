@@ -76,7 +76,9 @@ enum
 };
 
 
-static void tumbler_scheduler_class_init (TumblerSchedulerIface *klass);
+static void tumbler_scheduler_class_init (gpointer g_class,
+                                          gpointer class_data);
+
 static guint tumbler_scheduler_signals[LAST_SIGNAL];
 
 GType
@@ -90,7 +92,7 @@ tumbler_scheduler_get_type (void)
         g_type_register_static_simple (G_TYPE_INTERFACE,
                                        "TumblerScheduler",
                                        sizeof (TumblerSchedulerIface),
-                                       (GClassInitFunc) tumbler_scheduler_class_init,
+                                       tumbler_scheduler_class_init,
                                        0,
                                        NULL,
                                        0);
@@ -105,9 +107,10 @@ tumbler_scheduler_get_type (void)
 
 
 static void
-tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
+tumbler_scheduler_class_init (gpointer g_class,
+                              gpointer class_data)
 {
-  g_object_interface_install_property (klass, 
+  g_object_interface_install_property (g_class,
                                        g_param_spec_string ("name",
                                                             "name",
                                                             "name",
@@ -292,9 +295,10 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
 
 
 void
-tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
+tumbler_scheduler_request_free (gpointer data)
 {
-  gint n;
+  TumblerSchedulerRequest *request = data;
+  gint                     n;
 
   g_return_if_fail (request != NULL);
 

@@ -327,10 +327,8 @@ main (int    argc,
 
           /* cleanup */
           g_object_unref (tp->data);
-          g_slist_foreach (locations, (GFunc) g_object_unref, NULL);
-          g_slist_free (locations);
-          g_slist_foreach (excludes, (GFunc) g_object_unref, NULL);
-          g_slist_free (excludes);
+          g_slist_free_full (locations, g_object_unref);
+          g_slist_free_full (excludes, g_object_unref);
         }
 
       /* free the thumbnailer list */
@@ -340,8 +338,7 @@ main (int    argc,
   g_key_file_free (rc);
 
   /* release all providers and free the provider list */
-  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
-  g_list_free (providers);
+  g_list_free_full (providers, g_object_unref);
 
   /* drop the reference on the provider factory */
   g_object_unref (provider_factory);
