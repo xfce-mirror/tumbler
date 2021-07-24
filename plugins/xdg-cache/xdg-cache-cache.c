@@ -537,6 +537,7 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
   GFile         *flavor_dir;
   GFile         *file;
   gchar         *path;
+  gchar         *needle;
 
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
