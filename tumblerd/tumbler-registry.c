@@ -221,11 +221,8 @@ static void tumbler_registry_list_free (gpointer data)
 {
   GList **list = data;
 
-  /* make sure to release all thumbnailers */
-  g_list_foreach (*list, (GFunc) g_object_unref, NULL);
-
-  /* free the list and the pointer to it */
-  g_list_free (*list);
+  /* free the list, its contents and the pointer to it */
+  g_list_free_full (*list, g_object_unref);
   g_free (list);
 }
 
@@ -502,8 +499,7 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
       g_free (hash_key);
       g_free (scheme);
       g_object_unref (gfile);
-      g_list_foreach (list, (GFunc) g_object_unref, NULL);
-      g_list_free (list);
+      g_list_free_full (list, g_object_unref);
     }
 
   /* NULL-terminate the array */
@@ -568,7 +564,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
                                         (GDestroyNotify) free_pair);
 
   /* prepare array */
-  used_strings = g_ptr_array_sized_new (150);
+  used_strings = g_ptr_array_new_full (150, g_free);
 
   /* iterate over all of them */
   for (lp = thumbnailers; lp != NULL; lp = lp->next)
@@ -623,8 +619,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
     }
 
   /* relase the thumbnailer list */
-  g_list_foreach (thumbnailers, (GFunc) g_object_unref, NULL);
-  g_list_free (thumbnailers);
+  g_list_free_full (thumbnailers, g_object_unref);
 
   n = g_hash_table_size (unique_pairs);
 
@@ -656,7 +651,6 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   g_hash_table_unref (unique_pairs);
 
   /* free all strings we used but haven't freed yet */
-  g_ptr_array_foreach (used_strings, (GFunc) g_free, NULL);
   g_ptr_array_free (used_strings, TRUE);
 }
 

@@ -52,7 +52,8 @@ enum
 
 
 
-static void     xdg_cache_thumbnail_thumbnail_init  (TumblerThumbnailIface  *iface);
+static void     xdg_cache_thumbnail_thumbnail_init  (gpointer                g_iface,
+                                                     gpointer                iface_data);
 static void     xdg_cache_thumbnail_finalize        (GObject                *object);
 static void     xdg_cache_thumbnail_get_property    (GObject                *object,
                                                      guint                   prop_id,
@@ -136,8 +137,11 @@ xdg_cache_thumbnail_class_finalize (XDGCacheThumbnailClass *klass)
 
 
 static void
-xdg_cache_thumbnail_thumbnail_init (TumblerThumbnailIface *iface)
+xdg_cache_thumbnail_thumbnail_init (gpointer g_iface,
+                                    gpointer iface_data)
 {
+  TumblerThumbnailIface *iface = g_iface;
+
   iface->load = xdg_cache_thumbnail_load;
   iface->needs_update = xdg_cache_thumbnail_needs_update;
   iface->save_image_data = xdg_cache_thumbnail_save_image_data;

@@ -34,8 +34,9 @@
 
 
 
-static void   jpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *jpeg_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void   jpeg_thumbnailer_provider_thumbnailer_provider_init (gpointer                   g_iface,
+                                                                   gpointer                   iface_data);
+static GList *jpeg_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider *provider);
 
 
 
@@ -83,8 +84,11 @@ jpeg_thumbnailer_provider_class_finalize (JPEGThumbnailerProviderClass *klass)
 
 
 static void
-jpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface)
+jpeg_thumbnailer_provider_thumbnailer_provider_init (gpointer g_iface,
+                                                     gpointer iface_data)
 {
+  TumblerThumbnailerProviderIface *iface = g_iface;
+
   iface->get_thumbnailers = jpeg_thumbnailer_provider_get_thumbnailers;
 }
 
