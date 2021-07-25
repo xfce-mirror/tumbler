@@ -82,7 +82,7 @@ TumblerSchedulerRequest *tumbler_scheduler_request_new           (TumblerFileInf
                                                                   TumblerThumbnailer     **thumbnailers,
                                                                   guint                    length,
                                                                   const gchar             *origin);
-void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
+void                     tumbler_scheduler_request_free          (gpointer                 data);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
                                                                   gconstpointer            b,
                                                                   gpointer                 user_data);
