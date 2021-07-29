@@ -48,3 +48,4 @@ plugins/desktop-thumbnailer/desktop-thumbnailer.c
 plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c
 plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c
 plugins/gepub-thumbnailer/gepub-thumbnailer-plugin.c
+plugins/rsvg-thumbnailer/rsvg-thumbnailer-plugin.c
