@@ -25,7 +25,7 @@ dnl Check whether to build and install the GdkPibuxf thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_PIXBUF_THUMBNAILER],
 [
-AC_ARG_ENABLE([pixbuf-thumbnailer], [AC_HELP_STRING([--disable-pixbuf-thumbnailer], [Don't build the GdkPixbuf thumbnailer plugin])],
+AC_ARG_ENABLE([pixbuf-thumbnailer], [AS_HELP_STRING([--disable-pixbuf-thumbnailer], [Don't build the GdkPixbuf thumbnailer plugin])],
   [ac_tumbler_pixbuf_thumbnailer=$enableval], [ac_tumbler_pixbuf_thumbnailer=yes])
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -45,7 +45,7 @@ dnl Check whether to build and install the FreeType2 font thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_FONT_THUMBNAILER],
 [
-AC_ARG_ENABLE([font-thumbnailer], [AC_HELP_STRING([--disable-font-thumbnailer], [Don't build the FreeType font thumbnailer plugin])],
+AC_ARG_ENABLE([font-thumbnailer], [AS_HELP_STRING([--disable-font-thumbnailer], [Don't build the FreeType font thumbnailer plugin])],
   [ac_tumbler_font_thumbnailer=$enableval], [ac_tumbler_font_thumbnailer=yes])
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf 
@@ -70,7 +70,7 @@ dnl EXIF support.
 dnl
 AC_DEFUN([TUMBLER_JPEG_THUMBNAILER],
 [
-AC_ARG_ENABLE([jpeg-thumbnailer], [AC_HELP_STRING([--disable-jpeg-thumbnailer], [Don't build the JPEG thumbnailer plugin with EXIF support])],
+AC_ARG_ENABLE([jpeg-thumbnailer], [AS_HELP_STRING([--disable-jpeg-thumbnailer], [Don't build the JPEG thumbnailer plugin with EXIF support])],
   [ac_tumbler_jpeg_thumbnailer=$enableval], [ac_tumbler_jpeg_thumbnailer=yes])
 if test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf 
@@ -111,7 +111,7 @@ dnl Check whether to build and install the ffmpeg video thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_FFMPEG_THUMBNAILER],
 [
-AC_ARG_ENABLE([ffmpeg-thumbnailer], [AC_HELP_STRING([--disable-ffmpeg-thumbnailer], [Don't build the ffmpeg video thumbnailer plugin])],
+AC_ARG_ENABLE([ffmpeg-thumbnailer], [AS_HELP_STRING([--disable-ffmpeg-thumbnailer], [Don't build the ffmpeg video thumbnailer plugin])],
   [ac_tumbler_ffmpeg_thumbnailer=$enableval], [ac_tumbler_ffmpeg_thumbnailer=yes])
 if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -135,7 +135,7 @@ dnl Check whether to build and install the gstreamer video thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_GSTREAMER_THUMBNAILER],
 [
-AC_ARG_ENABLE([gstreamer-thumbnailer], [AC_HELP_STRING([--disable-gstreamer-thumbnailer], [Don't build the GStreamer video thumbnailer plugin])],
+AC_ARG_ENABLE([gstreamer-thumbnailer], [AS_HELP_STRING([--disable-gstreamer-thumbnailer], [Don't build the GStreamer video thumbnailer plugin])],
   [ac_tumbler_gstreamer_thumbnailer=$enableval], [ac_tumbler_gstreamer_thumbnailer=yes])
 if test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -162,7 +162,7 @@ dnl Check whether to build and install the poppler PDF/PS thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_POPPLER_THUMBNAILER],
 [
-AC_ARG_ENABLE([poppler-thumbnailer], [AC_HELP_STRING([--disable-poppler-thumbnailer], [Don't build the poppler PDF/PS thumbnailer plugin])],
+AC_ARG_ENABLE([poppler-thumbnailer], [AS_HELP_STRING([--disable-poppler-thumbnailer], [Don't build the poppler PDF/PS thumbnailer plugin])],
   [ac_tumbler_poppler_thumbnailer=$enableval], [ac_tumbler_poppler_thumbnailer=yes])
 if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -186,7 +186,7 @@ dnl Check whether to build and install the ODF thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_ODF_THUMBNAILER],
 [
-AC_ARG_ENABLE([odf-thumbnailer], [AC_HELP_STRING([--disable-odf-thumbnailer], [Don't build the office thumbnailer plugin])],
+AC_ARG_ENABLE([odf-thumbnailer], [AS_HELP_STRING([--disable-odf-thumbnailer], [Don't build the office thumbnailer plugin])],
   [ac_tumbler_odf_thumbnailer=$enableval], [ac_tumbler_odf_thumbnailer=yes])
 if test x"$ac_tumbler_odf_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -210,7 +210,7 @@ dnl Check whether to build and install the libopenraw thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_RAW_THUMBNAILER],
 [
-AC_ARG_ENABLE([raw-thumbnailer], [AC_HELP_STRING([--disable-raw-thumbnailer], [Don't build the RAW image thumbnailer plugin])],
+AC_ARG_ENABLE([raw-thumbnailer], [AS_HELP_STRING([--disable-raw-thumbnailer], [Don't build the RAW image thumbnailer plugin])],
   [ac_tumbler_raw_thumbnailer=$enableval], [ac_tumbler_raw_thumbnailer=yes])
 if test x"$ac_tumbler_raw_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -238,7 +238,7 @@ dnl Check whether to build and install the Open Movie Database thumbnailer plugi
 dnl
 AC_DEFUN([TUMBLER_COVER_THUMBNAILER],
 [
-AC_ARG_ENABLE([cover-thumbnailer], [AC_HELP_STRING([--disable-cover-thumbnailer], [Don't build the Cover thumbnailer plugin])],
+AC_ARG_ENABLE([cover-thumbnailer], [AS_HELP_STRING([--disable-cover-thumbnailer], [Don't build the Cover thumbnailer plugin])],
   [ac_tumbler_cover_thumbnailer=$enableval], [ac_tumbler_cover_thumbnailer=yes])
 if test x"$ac_tumbler_cover_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -262,7 +262,7 @@ dnl Check whether to build and install the freedesktop.org cache plugin.
 dnl
 AC_DEFUN([TUMBLER_XDG_CACHE],
 [
-AC_ARG_ENABLE([xdg-cache], [AC_HELP_STRING([--disable-xdg-cache], [Don't build the freedesktop.org cache plugin])],
+AC_ARG_ENABLE([xdg-cache], [AS_HELP_STRING([--disable-xdg-cache], [Don't build the freedesktop.org cache plugin])],
   [ac_tumbler_xdg_cache=$enableval], [ac_tumbler_xdg_cache=yes])
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
   dnl Check for gdk-pixbuf 
@@ -292,7 +292,7 @@ dnl Check whether to build and install the thumbnailers plugin support for loadi
 dnl
 AC_DEFUN([TUMBLER_DESKTOP_THUMBNAILER],
 [
-AC_ARG_ENABLE([desktop-thumbnailer], [AC_HELP_STRING([--disable-desktop-thumbnailer], [Don't build the plugin support for loading thumbnailers *.thumbnailer files])],
+AC_ARG_ENABLE([desktop-thumbnailer], [AS_HELP_STRING([--disable-desktop-thumbnailer], [Don't build the plugin support for loading thumbnailers *.thumbnailer files])],
   [ac_tumbler_desktop_thumbnailer=$enableval], [ac_tumbler_desktop_thumbnailer=yes])
 if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
@@ -310,7 +310,7 @@ dnl Check whether to build the libgepub thumbnailer plugin.
 dnl
 AC_DEFUN([TUMBLER_GEPUB_THUMBNAILER],
 [
-AC_ARG_ENABLE([gepub-thumbnailer], [AC_HELP_STRING([--disable-gepub-thumbnailer], [Don't build the libgepub thumbnailer plugin])],
+AC_ARG_ENABLE([gepub-thumbnailer], [AS_HELP_STRING([--disable-gepub-thumbnailer], [Don't build the libgepub thumbnailer plugin])],
   [ac_tumbler_gepub_thumbnailer=$enableval], [ac_tumbler_gepub_thumbnailer=yes])
 if test x"$ac_tumbler_gepub_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf

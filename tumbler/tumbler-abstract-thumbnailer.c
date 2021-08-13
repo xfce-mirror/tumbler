@@ -180,13 +180,19 @@ tumbler_abstract_thumbnailer_finalize (GObject *object)
   g_strfreev (thumbnailer->priv->mime_types);
   g_strfreev (thumbnailer->priv->uri_schemes);
 
-  g_slist_foreach (thumbnailer->priv->locations, (GFunc) g_object_unref, NULL);
-  g_slist_free (thumbnailer->priv->locations);
-
-  g_slist_foreach (thumbnailer->priv->excludes, (GFunc) g_object_unref, NULL);
-  g_slist_free (thumbnailer->priv->excludes);
+  g_slist_free_full (thumbnailer->priv->locations, g_object_unref);
+  g_slist_free_full (thumbnailer->priv->excludes, g_object_unref);
 
   (*G_OBJECT_CLASS (tumbler_abstract_thumbnailer_parent_class)->finalize) (object);
+}
+
+
+
+static gpointer
+tumbler_object_ref (gconstpointer object,
+                    gpointer      data)
+{
+  return g_object_ref ((gpointer) object);
 }
 
 
@@ -223,14 +229,12 @@ tumbler_abstract_thumbnailer_get_property (GObject    *object,
       break;
 
     case PROP_LOCATIONS:
-      dup = g_slist_copy (thumbnailer->priv->locations);
-      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      dup = g_slist_copy_deep (thumbnailer->priv->locations, tumbler_object_ref, NULL);
       g_value_set_pointer (value, dup);
       break;
 
     case PROP_EXCLUDES:
-      dup = g_slist_copy (thumbnailer->priv->excludes);
-      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      dup = g_slist_copy_deep (thumbnailer->priv->excludes, tumbler_object_ref, NULL);
       g_value_set_pointer (value, dup);
       break;
 
@@ -274,14 +278,12 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
       break;
 
     case PROP_LOCATIONS:
-      dup = g_slist_copy (g_value_get_pointer (value));
-      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      dup = g_slist_copy_deep (g_value_get_pointer (value), tumbler_object_ref, NULL);
       thumbnailer->priv->locations = dup;
       break;
 
     case PROP_EXCLUDES:
-      dup = g_slist_copy (g_value_get_pointer (value));
-      g_slist_foreach (dup, (GFunc) g_object_ref, NULL);
+      dup = g_slist_copy_deep (g_value_get_pointer (value), tumbler_object_ref, NULL);
       thumbnailer->priv->excludes = dup;
       break;
 

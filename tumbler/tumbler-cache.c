@@ -34,9 +34,9 @@
 GType
 tumbler_cache_get_type (void)
 {
-  static volatile gsize g_define_type_id__volatile = 0;
-  
-  if (g_once_init_enter (&g_define_type_id__volatile))
+  static gsize g_define_type_id__static = 0;
+
+  if (g_once_init_enter (&g_define_type_id__static))
     {
       GType g_define_type_id =
         g_type_register_static_simple (G_TYPE_INTERFACE,
@@ -49,10 +49,10 @@ tumbler_cache_get_type (void)
 
       g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
 
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
+      g_once_init_leave (&g_define_type_id__static, g_define_type_id);
     }
 
-  return g_define_type_id__volatile;
+  return g_define_type_id__static;
 }
 
 
@@ -199,8 +199,7 @@ tumbler_cache_get_flavor (TumblerCache *cache,
     if (g_strcmp0 (tumbler_thumbnail_flavor_get_name (iter->data), name) == 0)
       flavor = g_object_ref (iter->data);
 
-  g_list_foreach (flavors, (GFunc) g_object_unref, NULL);
-  g_list_free (flavors);
+  g_list_free_full (flavors, g_object_unref);
 
   return flavor;
 }
