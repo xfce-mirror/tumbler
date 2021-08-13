@@ -35,8 +35,9 @@
 
 
 
-static void   ffmpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *ffmpeg_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void   ffmpeg_thumbnailer_provider_thumbnailer_provider_init (gpointer                    g_iface,
+                                                                     gpointer                    iface_data);
+static GList *ffmpeg_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider *provider);
 
 
 
@@ -84,8 +85,11 @@ ffmpeg_thumbnailer_provider_class_finalize (FfmpegThumbnailerProviderClass *klas
 
 
 static void
-ffmpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface)
+ffmpeg_thumbnailer_provider_thumbnailer_provider_init (gpointer g_iface,
+                                                       gpointer iface_data)
 {
+  TumblerThumbnailerProviderIface *iface = g_iface;
+
   iface->get_thumbnailers = ffmpeg_thumbnailer_provider_get_thumbnailers;
 }
 

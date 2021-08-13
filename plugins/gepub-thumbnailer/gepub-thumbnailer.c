@@ -252,28 +252,29 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       pixbuf = gepub_thumbnailer_create_from_mime (cover_mime, content,
                                                    thumbnail,
                                                    &error);
+      if (pixbuf != NULL)
+        {
+          data.data = gdk_pixbuf_get_pixels (pixbuf);
+          data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
+          data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
+          data.width = gdk_pixbuf_get_width (pixbuf);
+          data.height = gdk_pixbuf_get_height (pixbuf);
+          data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
+          data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
+
+          tumbler_thumbnail_save_image_data (thumbnail, &data,
+                                             tumbler_file_info_get_mtime (info),
+                                             NULL, &error);
+
+          g_object_unref (pixbuf);
+        }
+
       g_free (cover_mime);
       g_free (path);
       g_object_unref (doc);
+      g_object_unref (thumbnail);
     }
   g_object_unref (file);
-
-  if (pixbuf != NULL)
-    {
-      data.data = gdk_pixbuf_get_pixels (pixbuf);
-      data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
-      data.bits_per_sample = gdk_pixbuf_get_bits_per_sample (pixbuf);
-      data.width = gdk_pixbuf_get_width (pixbuf);
-      data.height = gdk_pixbuf_get_height (pixbuf);
-      data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
-      data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
-
-      tumbler_thumbnail_save_image_data (thumbnail, &data,
-                                         tumbler_file_info_get_mtime (info),
-                                         NULL, &error);
-
-      g_object_unref (pixbuf);
-    }
 
   if (error != NULL)
     {
@@ -285,6 +286,4 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     {
       g_signal_emit_by_name (thumbnailer, "ready", uri);
     }
-
-  g_object_unref (thumbnail);
 }
