@@ -35,7 +35,6 @@ libtumbler_headers =							\
 	tumbler-enum-types.h						\
 	tumbler-error.h							\
 	tumbler-file-info.h						\
-	tumbler-glib-extensions.h					\
 	tumbler-marshal.h						\
 	tumbler-provider-factory.h					\
 	tumbler-provider-plugin.h					\

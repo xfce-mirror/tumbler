@@ -70,9 +70,8 @@ AC_SUBST([TUMBLER_VERSION_API])
 dnl *******************************
 dnl *** Check for UNIX variants ***
 dnl *******************************
-AC_AIX()
-AC_ISC_POSIX()
-AC_MINIX()
+AC_USE_SYSTEM_EXTENSIONS
+AC_SEARCH_LIBS([strerror],[cposix])
 
 dnl ********************************
 dnl *** Check for Win32 variants ***
@@ -93,7 +92,7 @@ dnl ********************************
 dnl *** Check for basic programs ***
 dnl ********************************
 AM_PROG_AS()
-AC_PROG_CC_C99
+AC_PROG_CC()
 AM_PROG_CC_C_O()
 AC_PROG_INSTALL()
 IT_PROG_INTLTOOL([0.35.0], [no-xml])
@@ -107,7 +106,6 @@ LT_INIT([disable-static])
 dnl ***************************************
 dnl *** Check for standard header files ***
 dnl ***************************************
-AC_HEADER_STDC()
 AC_CHECK_HEADERS([fcntl.h linux/sched.h memory.h sched.h setjmp.h stdio.h \
                   stdlib.h string.h syscall.h sys/mman.h sys/types.h \
                   sys/stat.h unistd.h sys/select.h pwd.h])
@@ -182,7 +180,7 @@ dnl *************************************
 XDT_SUPPORTED_FLAGS([GTK_DOC_EXTRA_CFLAGS], [-Wno-sign-compare])
 AC_SUBST([GTK_DOC_EXTRA_CFLAGS])
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 docs/Makefile
 docs/reference/Makefile
@@ -208,8 +206,8 @@ tumbler/Makefile
 tumbler/tumbler-1.pc
 tumbler/tumbler-config.h
 tumblerd/Makefile
-
 ])
+AC_OUTPUT
 
 dnl ***************************
 dnl *** Print configuration ***

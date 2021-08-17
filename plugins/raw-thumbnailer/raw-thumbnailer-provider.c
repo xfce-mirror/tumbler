@@ -55,8 +55,8 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (RawThumbnailerProvider,
                                 raw_thumbnailer_provider,
                                 G_TYPE_OBJECT,
                                 0,
-                                TUMBLER_ADD_INTERFACE (TUMBLER_TYPE_THUMBNAILER_PROVIDER,
-                                                       raw_thumbnailer_provider_thumbnailer_provider_init));
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (TUMBLER_TYPE_THUMBNAILER_PROVIDER,
+                                                               raw_thumbnailer_provider_thumbnailer_provider_init));
 
 
 

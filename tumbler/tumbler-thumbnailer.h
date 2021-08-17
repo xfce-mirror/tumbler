@@ -38,7 +38,8 @@ G_BEGIN_DECLS
 #define TUMBLER_THUMBNAILER_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_THUMBNAILER, TumblerThumbnailerIface))
 
 typedef struct _TumblerThumbnailer      TumblerThumbnailer;
-typedef struct _TumblerThumbnailerIface TumblerThumbnailerIface;
+typedef struct _TumblerThumbnailerIface TumblerThumbnailerInterface;
+typedef TumblerThumbnailerInterface     TumblerThumbnailerIface;
 
 struct _TumblerThumbnailerIface
 {
