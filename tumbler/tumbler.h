@@ -30,7 +30,6 @@
 #include <tumbler/tumbler-enum-types.h>
 #include <tumbler/tumbler-error.h>
 #include <tumbler/tumbler-file-info.h>
-#include <tumbler/tumbler-glib-extensions.h>
 #include <tumbler/tumbler-marshal.h>
 #include <tumbler/tumbler-provider-factory.h>
 #include <tumbler/tumbler-provider-plugin.h>
