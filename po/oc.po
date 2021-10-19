@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Cédric Valmary <cvalmary@yahoo.fr>, 2013
+# Quentin PAGÈS, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2020-09-14 14:54+0000\n"
+"PO-Revision-Date: 2021-10-19 18:29+0000\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/xfce/tumbler/language/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -229,4 +230,4 @@ msgstr "Impossible d'enregistrar la miniatura dins « %s »"
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
 #, c-format
 msgid "Malformed command line \"%s\": %s"
-msgstr ""
+msgstr "Linha de comanda maridament formada « %s » : %s"
