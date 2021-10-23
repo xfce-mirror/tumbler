@@ -35,7 +35,8 @@ typedef struct _TumblerSchedulerRequest TumblerSchedulerRequest;
 #define TUMBLER_SCHEDULER_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_SCHEDULER, TumblerSchedulerIface))
 
 typedef struct _TumblerScheduler      TumblerScheduler;
-typedef struct _TumblerSchedulerIface TumblerSchedulerIface;
+typedef struct _TumblerSchedulerIface TumblerSchedulerInterface;
+typedef TumblerSchedulerInterface     TumblerSchedulerIface;
 
 struct _TumblerSchedulerIface
 {
@@ -82,7 +83,7 @@ TumblerSchedulerRequest *tumbler_scheduler_request_new           (TumblerFileInf
                                                                   TumblerThumbnailer     **thumbnailers,
                                                                   guint                    length,
                                                                   const gchar             *origin);
-void                     tumbler_scheduler_request_free          (TumblerSchedulerRequest *request);
+void                     tumbler_scheduler_request_free          (gpointer                 data);
 gint                     tumbler_scheduler_request_compare       (gconstpointer            a,
                                                                   gconstpointer            b,
                                                                   gpointer                 user_data);

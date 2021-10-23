@@ -25,7 +25,6 @@
 #include <stdlib.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <glib-object.h>
 #include <gio/gio.h>
@@ -98,8 +97,8 @@ G_DEFINE_DYNAMIC_TYPE_EXTENDED (XDGCacheThumbnail,
                                 xdg_cache_thumbnail,
                                 G_TYPE_OBJECT,
                                 0,
-                                TUMBLER_ADD_INTERFACE (TUMBLER_TYPE_THUMBNAIL,
-                                                       xdg_cache_thumbnail_thumbnail_init));
+                                G_IMPLEMENT_INTERFACE_DYNAMIC (TUMBLER_TYPE_THUMBNAIL,
+                                                               xdg_cache_thumbnail_thumbnail_init));
 
 
 

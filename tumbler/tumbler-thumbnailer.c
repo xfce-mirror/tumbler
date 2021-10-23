@@ -37,44 +37,16 @@ enum
   LAST_SIGNAL,
 };
 
-
-
-static void  tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass);
-
-
-
 static guint tumbler_thumbnailer_signals[LAST_SIGNAL];
 
 
 
-GType
-tumbler_thumbnailer_get_type (void)
-{
-  static volatile gsize g_define_type_id__volatile = 0;
-
-  if (g_once_init_enter (&g_define_type_id__volatile))
-    {
-      GType g_define_type_id =
-        g_type_register_static_simple (G_TYPE_INTERFACE,
-                                       "TumblerThumbnailer",
-                                       sizeof (TumblerThumbnailerIface),
-                                       (GClassInitFunc) tumbler_thumbnailer_class_init,
-                                       0,
-                                       NULL,
-                                       0);
-
-      g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
-
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
-    }
-
-  return g_define_type_id__volatile;
-}
+G_DEFINE_INTERFACE (TumblerThumbnailer, tumbler_thumbnailer, G_TYPE_OBJECT)
 
 
 
 static void
-tumbler_thumbnailer_class_init (TumblerThumbnailerIface *klass)
+tumbler_thumbnailer_default_init (TumblerThumbnailerIface *klass)
 {
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("mime-types",
@@ -278,8 +250,7 @@ tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
     if (g_file_has_prefix (file, G_FILE (lp->data)))
       supported = TRUE;
 
-  g_slist_foreach (locations, (GFunc) g_object_unref, NULL);
-  g_slist_free (locations);
+  g_slist_free_full (locations, g_object_unref);
 
   return supported;
 }

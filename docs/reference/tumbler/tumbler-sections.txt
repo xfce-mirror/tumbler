@@ -122,11 +122,6 @@ tumbler_file_info_get_type
 </SECTION>
 
 <SECTION>
-<FILE>tumbler-glib-extensions</FILE>
-TUMBLER_ADD_INTERFACE
-</SECTION>
-
-<SECTION>
 <FILE>tumbler-marshal</FILE>
 tumbler_marshal_VOID__STRING_INT_STRING
 tumbler_marshal_VOID__UINT_STRING_INT_STRING

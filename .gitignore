@@ -1,3 +1,4 @@
+*~
 *.o
 *.service
 Makefile.in
@@ -38,7 +39,6 @@ tumbler-service-gdbus.[ch]
 commit-msg
 *.lo
 *.pc
-*.*~
 *.la
 tumbler-config.h
 gtk-doc.make
