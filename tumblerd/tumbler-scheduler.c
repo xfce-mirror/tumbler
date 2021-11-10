@@ -56,8 +56,6 @@ enum
   IOPRIO_CLASS_IDLE,
 };
 
-
-
 enum 
 {
   IOPRIO_WHO_PROCESS = 1,
@@ -75,39 +73,18 @@ enum
   LAST_SIGNAL,
 };
 
-
-static void tumbler_scheduler_class_init (TumblerSchedulerIface *klass);
 static guint tumbler_scheduler_signals[LAST_SIGNAL];
 
-GType
-tumbler_scheduler_get_type (void)
-{
-  static volatile gsize g_define_type_id__volatile = 0;
-  
-  if (g_once_init_enter (&g_define_type_id__volatile))
-    {
-      GType g_define_type_id =
-        g_type_register_static_simple (G_TYPE_INTERFACE,
-                                       "TumblerScheduler",
-                                       sizeof (TumblerSchedulerIface),
-                                       (GClassInitFunc) tumbler_scheduler_class_init,
-                                       0,
-                                       NULL,
-                                       0);
 
-      g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
 
-      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);
-    }
+G_DEFINE_INTERFACE (TumblerScheduler, tumbler_scheduler, G_TYPE_OBJECT)
 
-  return g_define_type_id__volatile;
-}
 
 
 static void
-tumbler_scheduler_class_init (TumblerSchedulerIface *klass)
+tumbler_scheduler_default_init (TumblerSchedulerIface *klass)
 {
-  g_object_interface_install_property (klass, 
+  g_object_interface_install_property (klass,
                                        g_param_spec_string ("name",
                                                             "name",
                                                             "name",
@@ -292,9 +269,10 @@ tumbler_scheduler_request_new (TumblerFileInfo    **infos,
 
 
 void
-tumbler_scheduler_request_free (TumblerSchedulerRequest *request)
+tumbler_scheduler_request_free (gpointer data)
 {
-  gint n;
+  TumblerSchedulerRequest *request = data;
+  gint                     n;
 
   g_return_if_fail (request != NULL);
 

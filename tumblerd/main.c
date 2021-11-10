@@ -36,7 +36,6 @@
 #include <stdlib.h>
 
 #include <glib.h>
-#include <glib/gi18n.h>
 #include <glib-object.h>
 
 #include <tumbler/tumbler.h>
@@ -60,19 +59,6 @@ shutdown_tumbler (TumblerLifecycleManager *lifecycle_manager,
 
   /* exit the main loop */
   g_main_loop_quit (main_loop);
-}
-
-
-
-static inline gboolean
-xfce_is_valid_tilde_prefix (const gchar *p)
-{
-  if (g_ascii_isspace (*p) /* thunar ~/music */
-      || *p == '=' /* terminal --working-directory=~/ */
-      || *p == '\'' || *p == '"') /* terminal --working-directory '~my music' */
-    return TRUE;
-
-  return FALSE;
 }
 
 
@@ -211,10 +197,8 @@ main (int    argc,
 
           /* cleanup */
           g_object_unref (tp->data);
-          g_slist_foreach (locations, (GFunc) g_object_unref, NULL);
-          g_slist_free (locations);
-          g_slist_foreach (excludes, (GFunc) g_object_unref, NULL);
-          g_slist_free (excludes);
+          g_slist_free_full (locations, g_object_unref);
+          g_slist_free_full (excludes, g_object_unref);
         }
 
       /* free the thumbnailer list */
@@ -224,8 +208,7 @@ main (int    argc,
   g_key_file_free (rc);
 
   /* release all providers and free the provider list */
-  g_list_foreach (providers, (GFunc) g_object_unref, NULL);
-  g_list_free (providers);
+  g_list_free_full (providers, g_object_unref);
 
   /* drop the reference on the provider factory */
   g_object_unref (provider_factory);
