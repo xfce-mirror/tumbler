@@ -138,6 +138,7 @@ pixbuf_thumbnailer_size_prepared (GdkPixbufLoader  *loader,
 static GdkPixbuf *
 pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
                                     TumblerThumbnail  *thumbnail,
+                                    const gchar       *mime_type,
                                     GCancellable      *cancellable,
                                     GError           **error)
 {
@@ -152,8 +153,12 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-  /* prepare the loader */
-  loader = gdk_pixbuf_loader_new ();
+  /* try to use a pixbuf loader specific to the mime type, falling back on the
+   * generic loader in case of error */
+  loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, NULL);
+  if (loader == NULL)
+    loader = gdk_pixbuf_loader_new ();
+
   g_signal_connect (loader, "size-prepared",
       G_CALLBACK (pixbuf_thumbnailer_size_prepared), thumbnail);
 
@@ -257,6 +262,7 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
    * gdk_pixbuf_new_from_file_at_scale(), but without increasing the
    * pixbuf size. */
   pixbuf = pixbuf_thumbnailer_new_from_stream (G_INPUT_STREAM (stream), thumbnail,
+                                               tumbler_file_info_get_mime_type (info),
                                                cancellable, &error);
 
   g_object_unref (stream);

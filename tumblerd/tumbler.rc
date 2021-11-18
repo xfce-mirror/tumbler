@@ -33,16 +33,17 @@ Locations=
 Excludes=
 MaxFileSize=209715200
 
-# Supports all type GdkPixbuf supports
-[PixbufThumbnailer]
+# RAW image files using libopenraw (the libopenraw pixbuf loader is kind of
+# broken, hence the priority)
+[RawThumbnailer]
 Disabled=false
 Priority=2
 Locations=
 Excludes=
 MaxFileSize=209715200
 
-# RAW image files using libopenraw
-[RawThumbnailer]
+# Supports all type GdkPixbuf supports
+[PixbufThumbnailer]
 Disabled=false
 Priority=1
 Locations=
