@@ -141,6 +141,8 @@ fi
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
+AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_50, Warn when using post 2_50 APIs)
+AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_50, Don't warn about post 2_50 deprecations)
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.50.0])
 PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.50.0])
 PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.50.0])
