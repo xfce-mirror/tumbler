@@ -752,7 +752,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
 
   /* default to the first scheduler in the list if we couldn't find
    * the scheduler with the desired name */
-  if (scheduler == NULL) 
+  if (scheduler == NULL && service->schedulers != NULL)
     scheduler = TUMBLER_SCHEDULER (service->schedulers->data);
 
   /* report unsupported flavors back to the client */

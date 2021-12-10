@@ -247,6 +247,8 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (v_stream == NULL)
     {
       /* there was an error, emit error signal */
+      g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
+                   _("Thumbnail could not be inferred from file contents"));
       g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
 

@@ -342,7 +342,7 @@ tvtj_jpeg_load (const JOCTET *content,
       jpeg_read_scanlines (&cinfo, lines, 1);
 
       /* convert the data to RGB */
-      if (cinfo.num_components == 1)
+      if (cinfo.num_components == 1 && buffer != NULL)
         {
           for (n = 0; n < cinfo.output_width; ++n)
             {
