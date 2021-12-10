@@ -665,8 +665,8 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
   png_structp png_ptr;
   png_infop   info_ptr;
   png_textp   text_ptr;
-  gboolean    has_uri = FALSE;
-  gboolean    has_mtime = FALSE;
+  gboolean    has_uri;
+  gboolean    has_mtime;
   FILE       *png;
   gint        num_text;
   gint        i;
@@ -716,7 +716,8 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
               if (png_get_text (png_ptr, info_ptr, &text_ptr, &num_text) > 0)
                 {
                   /* iterate over all text keys */
-                  for (i = 0; !(has_uri && has_mtime) && i < num_text; ++i)
+                  for (i = 0, has_uri = FALSE, has_mtime = FALSE;
+                       !(has_uri && has_mtime) && i < num_text; ++i)
                     {
                       if (!text_ptr[i].key)
                         continue;

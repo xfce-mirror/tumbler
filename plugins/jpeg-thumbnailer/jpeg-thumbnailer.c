@@ -324,6 +324,7 @@ tvtj_jpeg_load (const JOCTET *content,
   if (G_LIKELY (cinfo.num_components != 1))
     {
       pixels = g_malloc (cinfo.output_width * cinfo.output_height * cinfo.num_components);
+      buffer = NULL;
       out_num_components = cinfo.num_components;
       lines[0] = pixels;
     }
