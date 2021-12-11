@@ -35,6 +35,20 @@
 
 
 
+/*
+ * A buffer size of 1 MiB makes it possible to load a lot of current images in only
+ * a few iterations, which can significantly improve performance for some formats
+ * like GIF, without being too big, which on the contrary would degrade performance.
+ * On the other hand, it ensures that a cancelled load will end fairly quickly at
+ * the end of the current iteration, instead of continuing almost indefinitely as
+ * can be the case for some images, again in GIF format.
+ * See https://gitlab.xfce.org/apps/ristretto/-/issues/16 for an example of such an
+ * image.
+ */
+#define LOADER_BUFFER_SIZE 1048576
+
+
+
 static void pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                        GCancellable               *cancellable,
                                        TumblerFileInfo            *info);
@@ -148,7 +162,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   gboolean         loader_write_error;
   GdkPixbuf       *src;
   GdkPixbuf       *pixbuf = NULL;
-  guchar           buffer[65536];
+  guchar          *buffer;
 
   g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -164,9 +178,10 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
 
   result = TRUE;
   loader_write_error = FALSE;
+  buffer = g_new (guchar, LOADER_BUFFER_SIZE);
   for (;;)
     {
-      n_read = g_input_stream_read (stream, buffer, sizeof (buffer),
+      n_read = g_input_stream_read (stream, buffer, LOADER_BUFFER_SIZE,
                                     cancellable, error);
 
       if (n_read < 0)
@@ -203,6 +218,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
     }
 
   g_object_unref (loader);
+  g_free (buffer);
 
   return pixbuf;
 }
