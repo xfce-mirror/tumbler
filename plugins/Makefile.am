@@ -29,4 +29,5 @@ SUBDIRS =								\
 	raw-thumbnailer							\
 	desktop-thumbnailer						\
 	gepub-thumbnailer                                               \
+	rsvg-thumbnailer                                                \
 	xdg-cache

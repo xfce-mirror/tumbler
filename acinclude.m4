@@ -332,3 +332,29 @@ AC_MSG_CHECKING([whether to build the libgepub thumbnailer plugin])
 AM_CONDITIONAL([TUMBLER_GEPUB_THUMBNAILER], [test x"$ac_tumbler_gepub_thumbnailer" = x"yes"])
 AC_MSG_RESULT([$ac_tumbler_gepub_thumbnailer])
 ])
+
+dnl TUMBLER_RSVG_THUMBNAILER()
+dnl
+dnl Check whether to build the librsvg thumbnailer plugin.
+dnl
+AC_DEFUN([TUMBLER_RSVG_THUMBNAILER],
+[
+AC_ARG_ENABLE([rsvg-thumbnailer], [AC_HELP_STRING([--disable-rsvg-thumbnailer], [Don't build the librsvg thumbnailer plugin])],
+  [ac_tumbler_rsvg_thumbnailer=$enableval], [ac_tumbler_rsvg_thumbnailer=yes])
+if test x"$ac_tumbler_rsvg_thumbnailer" = x"yes"; then
+  dnl Check for gdk-pixbuf
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  [
+    dnl Check for librsvg
+    PKG_CHECK_MODULES([RSVG], [librsvg-2.0 >= 2.40])
+    dnl Check for cairo
+    PKG_CHECK_MODULES([CAIRO], [cairo >= 1.16.0])
+    dnl Check for GDK 3 library
+    PKG_CHECK_MODULES([GDK3], [gdk-3.0 >= 3.22.0])
+  ], [ac_tumbler_rsvg_thumbnailer=no])
+fi
+
+AC_MSG_CHECKING([Whether to build the librsvg thumbnailer plugin])
+AM_CONDITIONAL([TUMBLER_RSVG_THUMBNAILER], [test x"$ac_tumbler_rsvg_thumbnailer" = x"yes"])
+AC_MSG_RESULT([$ac_tumbler_rsvg_thumbnailer])
+])
