@@ -212,8 +212,7 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 
       if (thumbnailer)
         {
-
-          thumbnailers = g_list_append (thumbnailers, thumbnailer);
+          thumbnailers = g_list_prepend (thumbnailers, thumbnailer);
         }
     }
 
@@ -276,6 +275,8 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
    * priority come first */
   directories = g_list_reverse (directories);
 
+  /* thumbnailers end up in reverse order here, since they are prepended, but the list must
+   * not be reversed: this will happen during sorted insertion in tumbler_registry_add() */
   for (iter = directories; iter != NULL; iter = iter->next)
     {
       thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data, uri_schemes);

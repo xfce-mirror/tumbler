@@ -179,7 +179,7 @@ tumbler_registry_compare (TumblerThumbnailer *a,
       /* sort by priority */
       insert_a_before_b = tumbler_thumbnailer_get_priority (a) >= tumbler_thumbnailer_get_priority (b);
     }
-  else if (TUMBLER_IS_SPECIALIZED_THUMBNAILER (b))
+  else
     {
       a_specialized = TUMBLER_SPECIALIZED_THUMBNAILER (a);
       b_specialized = TUMBLER_SPECIALIZED_THUMBNAILER (b);
@@ -195,8 +195,8 @@ tumbler_registry_compare (TumblerThumbnailer *a,
         }
       else
         {
-          b_modified = tumbler_specialized_thumbnailer_get_modified (a_specialized);
           a_modified = tumbler_specialized_thumbnailer_get_modified (a_specialized);
+          b_modified = tumbler_specialized_thumbnailer_get_modified (b_specialized);
 
           if (a_modified > b_modified)
             {
@@ -205,11 +205,6 @@ tumbler_registry_compare (TumblerThumbnailer *a,
               insert_a_before_b = TRUE;
             }
         }
-    }
-  else
-    {
-      /* we have no other thumbnailer types at the moment */
-      g_assert_not_reached ();
     }
 
   return insert_a_before_b ? -1 : 1;

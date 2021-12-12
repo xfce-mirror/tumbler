@@ -37,7 +37,7 @@ MaxFileSize=209715200
 # broken, hence the priority)
 [RawThumbnailer]
 Disabled=false
-Priority=2
+Priority=3
 Locations=
 Excludes=
 MaxFileSize=209715200
@@ -45,7 +45,7 @@ MaxFileSize=209715200
 # Supports all type GdkPixbuf supports
 [PixbufThumbnailer]
 Disabled=false
-Priority=1
+Priority=2
 Locations=
 Excludes=
 MaxFileSize=209715200
