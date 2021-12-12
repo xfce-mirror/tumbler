@@ -76,7 +76,7 @@ void
 tumbler_plugin_shutdown (void)
 {
 #ifdef DEBUG
-  g_print ("Shutting down the Tumbler Pixbuf Thumbnailer plugin\n");
+  g_print ("Shutting down the Tumbler Poppler PDF/PS Thumbnailer plugin\n");
 #endif
 }
 

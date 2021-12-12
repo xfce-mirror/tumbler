@@ -74,7 +74,7 @@ void
 tumbler_plugin_shutdown (void)
 {
 #ifdef DEBUG
-  g_print ("Shutting down the Tumbler GStreamer Thumbnailer plugin\n");
+  g_print ("Shutting down the Tumbler Desktop Thumbnailer plugin\n");
 #endif
 }
 
