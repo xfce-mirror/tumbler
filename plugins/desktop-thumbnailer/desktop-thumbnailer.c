@@ -196,27 +196,22 @@ static GdkPixbuf *
 desktop_thumbnailer_get_pixbuf (GInputStream *stream,
                                 int dest_width,
                                 int dest_height,
-                                GCancellable *cancellable)
+                                GCancellable *cancellable,
+                                GError **error)
 {
   GdkPixbuf *source;
   gdouble    hratio;
   gdouble    wratio;
   gint       source_width;
   gint       source_height;
-  GError    *error = NULL;
 
-  source = gdk_pixbuf_new_from_stream (stream, cancellable, &error);
-
-  if (!source)
-    {
-      g_clear_error (&error);
-      return NULL;
-    }
+  source = gdk_pixbuf_new_from_stream (stream, cancellable, error);
+  if (source == NULL)
+    return NULL;
 
   /* determine the source pixbuf dimensions */
   source_width = gdk_pixbuf_get_width (source);
   source_height = gdk_pixbuf_get_height (source);
-
 
   /* return the same pixbuf if no scaling is required */
   if (source_width <= dest_width && source_height <= dest_height)
@@ -236,7 +231,6 @@ desktop_thumbnailer_get_pixbuf (GInputStream *stream,
   return gdk_pixbuf_scale_simple (source,
                                   MAX (dest_width, 1), MAX (dest_height, 1),
                                   GDK_INTERP_BILINEAR);
-
 }
 
 
@@ -305,7 +299,8 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
                                     const gchar        *path,
                                     gint                width,
                                     gint                height,
-                                    GCancellable       *cancellable)
+                                    GCancellable       *cancellable,
+                                    GError            **error)
 {
   GFileIOStream *stream;
   GFile     *tmpfile;
@@ -317,11 +312,10 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
   gint       size;
   gchar     *working_directory = NULL;
   GdkPixbuf *pixbuf            = NULL;
-  GError    *error             = NULL;
 
   g_object_get (G_OBJECT (thumbnailer), "exec", &exec, NULL);
 
-  tmpfile = g_file_new_tmp ("tumbler-XXXXXXX.png", &stream, NULL);
+  tmpfile = g_file_new_tmp ("tumbler-XXXXXX.png", &stream, error);
 
   if ( G_LIKELY (tmpfile) )
     {
@@ -336,12 +330,11 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
                                             tmpfilepath,
                                             &cmd_argc,
                                             &cmd_argv,
-                                            &error);
+                                            error);
 
       if (G_LIKELY (res))
         {
           working_directory = g_path_get_dirname (path);
-
 
           res = g_spawn_sync (working_directory,
                               cmd_argv, NULL,
@@ -349,14 +342,15 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
                               NULL, NULL,
                               NULL, NULL,
                               NULL,
-                              &error);
+                              error);
 
           if (G_LIKELY (res))
             {
               pixbuf = desktop_thumbnailer_get_pixbuf (g_io_stream_get_input_stream(G_IO_STREAM(stream)),
                                                        width,
                                                        height,
-                                                       cancellable);
+                                                       cancellable,
+                                                       error);
               g_unlink (tmpfilepath);
             }
 
@@ -364,10 +358,8 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
           g_strfreev (cmd_argv);
         }
       else
-        {
-          g_warning (_("Malformed command line \"%s\": %s"), exec, error->message);
-          g_clear_error (&error);
-        }
+          g_warning (_("Malformed command line \"%s\": %s"), exec, (*error)->message);
+
       g_free (tmpfilepath);
       g_object_unref (tmpfile);
       g_object_unref (stream);
@@ -418,7 +410,8 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
 
-  pixbuf = desktop_thumbnailer_load_thumbnail (DESKTOP_THUMBNAILER(thumbnailer), uri, path, width, height, cancellable);
+  pixbuf = desktop_thumbnailer_load_thumbnail (DESKTOP_THUMBNAILER(thumbnailer),
+                                               uri, path, width, height, cancellable, &error);
 
   if (pixbuf != NULL)
     {
