@@ -118,7 +118,19 @@ if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
   [
     dnl Check for libffmpegthumbnailer
-    PKG_CHECK_MODULES([FFMPEGTHUMBNAILER], [libffmpegthumbnailer >= 2.0.0], [], [ac_tumbler_ffmpeg_thumbnailer=no])
+    FFMPEG_REQUIRED_VERSION="2.0.0"
+    PKG_CHECK_MODULES([FFMPEGTHUMBNAILER], [libffmpegthumbnailer >= $FFMPEG_REQUIRED_VERSION], [
+      dnl To build our own CHECK_VERSION, not provided at least until 2.2.2
+      FFMPEG_VERSION=$($PKG_CONFIG --modversion libffmpegthumbnailer)
+      echo "$FFMPEG_VERSION" | $EGREP ['^[0-9]+\.[0-9]+\.[0-9]+$'] >/dev/null || FFMPEG_VERSION=$FFMPEG_REQUIRED_VERSION
+      FFMPEG_MAJOR_VERSION=${FFMPEG_VERSION%%.*}
+      FFMPEG_MICRO_VERSION=${FFMPEG_VERSION##*.}
+      FFMPEG_MINOR_VERSION=${FFMPEG_VERSION#*.}
+      FFMPEG_MINOR_VERSION=${FFMPEG_MINOR_VERSION%.*}
+      AC_DEFINE_UNQUOTED([TUMBLER_FFMPEG_MAJOR_VERSION], [$FFMPEG_MAJOR_VERSION], [For libffmpegthumbnailer version check])
+      AC_DEFINE_UNQUOTED([TUMBLER_FFMPEG_MINOR_VERSION], [$FFMPEG_MINOR_VERSION], [For libffmpegthumbnailer version check])
+      AC_DEFINE_UNQUOTED([TUMBLER_FFMPEG_MICRO_VERSION], [$FFMPEG_MICRO_VERSION], [For libffmpegthumbnailer version check])
+    ], [ac_tumbler_ffmpeg_thumbnailer=no])
   ], [ac_tumbler_ffmpeg_thumbnailer=no])
 fi
 
