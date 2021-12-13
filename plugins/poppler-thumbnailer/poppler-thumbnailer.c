@@ -244,6 +244,17 @@ generate_pixbuf (GdkPixbuf              *source,
 
 
 
+/* to be removed when Poppler version >= 0.82: GBytes takes care of that */
+static void
+poppler_thumbnailer_free (gpointer data)
+{
+#if ! POPPLER_CHECK_VERSION (0, 82, 0)
+  g_free (data);
+#endif
+}
+
+
+
 static void
 poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                             GCancellable               *cancellable,
@@ -260,6 +271,9 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GdkPixbuf              *pixbuf;
   GError                 *error = NULL;
   GFile                  *file;
+#if POPPLER_CHECK_VERSION (0, 82, 0)
+  GBytes                 *bytes;
+#endif
   gchar                  *contents = NULL;
   gsize                   length;
 
@@ -297,7 +311,13 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_object_unref (file);
 
       /* try to create a poppler document based on the file contents */
+#if POPPLER_CHECK_VERSION (0, 82, 0)
+      bytes = g_bytes_new_take (contents, length);
+      document = poppler_document_new_from_bytes (bytes, NULL, &error);
+      g_bytes_unref (bytes);
+#else
       document = poppler_document_new_from_data (contents, length, NULL, &error);
+#endif
     }
 
   /* emit an error if both ways to load the document failed */
@@ -306,7 +326,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_INVALID_FORMAT,
                              error->message);
       g_error_free (error);
-      g_free (contents);
+      poppler_thumbnailer_free (contents);
       return;
     }
 
@@ -316,7 +336,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
                              _("The document is empty"));
       g_object_unref (document);
-      g_free (contents);
+      poppler_thumbnailer_free (contents);
       return;
     }
 
@@ -328,7 +348,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
                              _("First page of the document could not be read"));
       g_object_unref (document);
-      g_free (contents);
+      poppler_thumbnailer_free (contents);
       return;
     }
 
@@ -387,5 +407,5 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (thumbnail);
   g_object_unref (pixbuf);
   g_object_unref (source_pixbuf);
-  g_free (contents);
+  poppler_thumbnailer_free (contents);
 }
