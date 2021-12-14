@@ -269,6 +269,7 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
           g_object_unref (pixbuf);
         }
 
+      g_bytes_unref (content);
       g_free (cover_mime);
       g_free (path);
       g_object_unref (doc);
