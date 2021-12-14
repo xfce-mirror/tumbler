@@ -164,6 +164,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
 
   g_print("Registered thumbnailer %s\n", exec);
   g_free(exec);
+  g_free (filename);
 
   return thumbnailer;
 }
@@ -182,11 +183,9 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 
   /* try to open the directory for reading */
   dir = g_dir_open (dirname, 0, NULL);
+  g_free (dirname);
   if (dir == NULL)
-    {
-      g_free (dirname);
-      return thumbnailers;
-    }
+    return thumbnailers;
 
   /* iterate over all files in the directory */
   for (base_name = g_dir_read_name (dir);
@@ -283,5 +282,7 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
     }
 
   g_strfreev (uri_schemes);
+  g_list_free_full (directories, g_object_unref);
+
   return thumbnailers;
 }
