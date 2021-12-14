@@ -147,6 +147,8 @@ xdg_cache_cache_finalize (GObject *object)
   XDGCacheCache *cache = XDG_CACHE_CACHE (object);
 
   g_list_free_full (cache->flavors, g_object_unref);
+
+  G_OBJECT_CLASS (xdg_cache_cache_parent_class)->finalize (object);
 }
 
 
