@@ -170,7 +170,11 @@ desktop_thumbnailer_class_finalize (DesktopThumbnailerClass *klass)
 static void
 desktop_thumbnailer_finalize(GObject *object)
 {
+  DesktopThumbnailer *thumbnailer = DESKTOP_THUMBNAILER (object);
 
+  g_free (thumbnailer->exec);
+
+  G_OBJECT_CLASS (desktop_thumbnailer_parent_class)->finalize (object);
 }
 
 static void
