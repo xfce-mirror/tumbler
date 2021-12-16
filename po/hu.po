@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-28 12:30+0200\n"
-"PO-Revision-Date: 2018-04-28 19:32+0000\n"
-"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
+"POT-Creation-Date: 2021-12-16 12:47+0100\n"
+"PO-Revision-Date: 2021-12-16 11:47+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Hungarian (http://www.transifex.com/xfce/tumbler/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-group-scheduler.c:486
-#: ../tumblerd/tumbler-lifo-scheduler.c:422
+#: ../tumblerd/tumbler-group-scheduler.c:485
+#: ../tumblerd/tumbler-lifo-scheduler.c:419
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "Nem érhető el bélyegképkészítő ehhez: „%s”"
@@ -30,66 +30,66 @@ msgstr "Nem érhető el bélyegképkészítő ehhez: „%s”"
 msgid "The thumbnailer service is shutting down"
 msgstr "A bélyegkép-szolgáltatás leáll"
 
-#: ../tumblerd/tumbler-service.c:775
+#: ../tumblerd/tumbler-service.c:768
 msgid "Unsupported thumbnail flavor requested"
 msgstr "A kért bélyegkép-fajta nem támogatott"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:462
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:438
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "A specializált bélyegkép-készítő hívása meghiúsult: időtúllépés"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:471
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:447
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "A specializált bélyegkép-készítő hívása meghiúsult: %s"
 
-#: ../tumblerd/tumbler-manager.c:548 ../tumblerd/tumbler-manager.c:954
+#: ../tumblerd/tumbler-manager.c:547 ../tumblerd/tumbler-manager.c:953
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
 #, c-format
 msgid "Failed to load the file \"%s\": %s"
 msgstr "A fájl („%s”) betöltése meghiúsult: %s"
 
-#: ../tumblerd/tumbler-manager.c:566 ../tumblerd/tumbler-manager.c:580
-#: ../tumblerd/tumbler-manager.c:594
+#: ../tumblerd/tumbler-manager.c:565 ../tumblerd/tumbler-manager.c:579
+#: ../tumblerd/tumbler-manager.c:593
 #, c-format
 msgid "Malformed section \"%s\" in file \"%s\": %s"
 msgstr "Rosszul formázott szakasz („%s”) a(z) „%s” fájlban: %s"
 
-#: ../tumblerd/tumbler-manager.c:607
+#: ../tumblerd/tumbler-manager.c:606
 #, c-format
 msgid ""
 "Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
 "UriScheme/MimeType"
 msgstr "Rosszul formázott szakasz („%s”) a(z) „%s” fájlban: eltérés a szakasznév és az UriScheme/MimeType között"
 
-#: ../tumblerd/tumbler-manager.c:967 ../tumblerd/tumbler-manager.c:981
-#: ../tumblerd/tumbler-manager.c:995
+#: ../tumblerd/tumbler-manager.c:966 ../tumblerd/tumbler-manager.c:980
+#: ../tumblerd/tumbler-manager.c:994
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
 #, c-format
 msgid "Malformed file \"%s\": %s"
 msgstr "Rosszul formázott fájl („%s”): %s"
 
-#: ../tumblerd/tumbler-manager.c:1021
+#: ../tumblerd/tumbler-manager.c:1020
 #, c-format
 msgid "Failed to determine last modified time of \"%s\""
 msgstr "Nem sikerült meghatározni a(z) „%s” utolsó módosításának idejét"
 
-#: ../tumblerd/main.c:223
+#: ../tumblerd/main.c:93
 #, c-format
 msgid "Name %s lost on the message dbus, exiting."
 msgstr "A(z) „%s” név elveszett az üzenetbuszon, kilépés."
 
-#: ../tumblerd/main.c:258
+#: ../tumblerd/main.c:129
 msgid "Couldn't change nice value of process."
 msgstr "A folyamat nice értéke nem módosítható."
 
 #. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:267
+#: ../tumblerd/main.c:138
 msgid "Tumbler Thumbnailing Service"
 msgstr "Tumbler bélyegkép-készítő szolgáltatás"
 
-#: ../tumblerd/main.c:368
+#: ../tumblerd/main.c:231
 #, c-format
 msgid "Failed to load specialized thumbnailers into the registry: %s"
 msgstr "A specializált bélyegkép-készítők betöltése a nyilvántartásba meghiúsult: %s"
@@ -142,6 +142,7 @@ msgstr "A bővítmény („%s”) betöltése meghiúsult: %s"
 #: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
 #: ../plugins/xdg-cache/xdg-cache-plugin.c:52
 #: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
+#: ../plugins/gepub-thumbnailer/gepub-thumbnailer-plugin.c:59
 #, c-format
 msgid "Version mismatch: %s"
 msgstr "Verzióeltérés: %s"
@@ -200,10 +201,11 @@ msgstr "Nem állítható be a karaktertérkép: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nem jeleníthetők meg a szimbólumok: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:864
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:902
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:210
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:227
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:880
+#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:926
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:225
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:242
+#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:261
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
 #: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
 #: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
@@ -211,11 +213,11 @@ msgstr "Nem jeleníthetők meg a szimbólumok: %s"
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "A bélyegkép nem készíthető el a fájl tartalmából"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:317
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
 msgid "The document is empty"
 msgstr "A dokumentum üres"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:329
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
 msgid "First page of the document could not be read"
 msgstr "A dokumentum első oldala nem olvasható"
 
@@ -223,12 +225,17 @@ msgstr "A dokumentum első oldala nem olvasható"
 msgid "Only local files are supported"
 msgstr "Csak a helyi fájlok támogatottak"
 
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:382
+#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:422
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "Nem menthető a bélyegkép ide: „%s”"
 
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:368
+#: ../plugins/xdg-cache/xdg-cache-cache.c:715
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr ""
+
+#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:365
 #, c-format
 msgid "Malformed command line \"%s\": %s"
 msgstr "Rosszul formázott sor: „%s”: %s"
