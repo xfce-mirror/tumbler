@@ -178,6 +178,9 @@ odf_thumbnailer_create_from_data (const guchar     *data,
           pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
           if (pixbuf != NULL)
             g_object_ref (G_OBJECT (pixbuf));
+          else
+            g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                         _("Thumbnail could not be inferred from file contents"));
         }
     }
   else
@@ -213,7 +216,7 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
   if (thumb_file == NULL)
     {
       /* microsoft office-x thumbnails */
-      thumb_file = gsf_open_pkg_open_rel_by_type (GSF_INPUT (infile), OPEN_XML_SCHEMA, NULL);
+      thumb_file = gsf_open_pkg_open_rel_by_type (GSF_INPUT (infile), OPEN_XML_SCHEMA, error);
       if (thumb_file == NULL)
         return NULL;
     }
@@ -223,6 +226,9 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
   data = gsf_input_read (thumb_file, bytes, NULL);
   if (data != NULL)
     pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail, error);
+  else
+    g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                 _("Thumbnail could not be inferred from file contents"));
 
   g_object_unref (thumb_file);
 
@@ -282,17 +288,19 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
           if (gsf_clip_data_get_format (clip_data) != GSF_CLIP_FORMAT_WINDOWS_CLIPBOARD
               && gsf_clip_data_get_windows_clipboard_format (clip_data, NULL) != GSF_CLIP_FORMAT_WINDOWS_ERROR)
             {
-              data = gsf_clip_data_peek_real_data (GSF_CLIP_DATA (clip_data), &bytes, NULL);
+              data = gsf_clip_data_peek_real_data (GSF_CLIP_DATA (clip_data), &bytes, error);
               if (data != NULL)
-                pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail, &err);
+                pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail, error);
             }
         }
     }
 
   g_object_unref (meta_data);
 
-  if (err != NULL)
-    g_propagate_error (error, err);
+  /* set default error */
+  if (error != NULL && *error == NULL && pixbuf == NULL)
+    g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                 _("Thumbnail could not be inferred from file contents"));
 
   return pixbuf;
 }
