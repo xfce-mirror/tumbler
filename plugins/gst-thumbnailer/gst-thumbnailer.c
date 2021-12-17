@@ -29,6 +29,7 @@
 #include <math.h>
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <tumbler/tumbler.h>
@@ -565,16 +566,24 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gint                    width, height;
   TumblerThumbnailFlavor *flavor;
   GdkPixbuf              *scaled;
+  const gchar            *uri;
 
   /* check for early cancellation */
   if (g_cancellable_is_cancelled (cancellable))
     return;
 
   /* Check if is a sparse video file */
+  uri = tumbler_file_info_get_uri (info);
   if (tumbler_util_guess_is_sparse (info))
   {
-    g_debug ("Video file '%s' is probably sparse, skipping\n",
-             tumbler_file_info_get_uri (info));
+    g_debug ("Video file '%s' is probably sparse, skipping\n", uri);
+
+    /* there was an error, emit error signal */
+    g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                 TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
+    g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+    g_error_free (error);
+
     return;
   }
 
@@ -633,17 +642,25 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       if (error != NULL)
         {
-          g_signal_emit_by_name (thumbnailer, "error",
-                                 tumbler_file_info_get_uri (info),
-                                 error->code, error->message);
+          g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
           g_error_free (error);
         }
       else
         {
-          g_signal_emit_by_name (thumbnailer, "ready",
-                                 tumbler_file_info_get_uri (info));
+          g_signal_emit_by_name (thumbnailer, "ready", uri);
         }
     }
+  else
+    {
+      /* there was an error, emit error signal */
+      if (! g_cancellable_set_error_if_cancelled (cancellable, &error))
+        g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                     TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
+
+      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+      g_error_free (error);
+    }
+
 
   g_object_unref (thumbnail);
 }
