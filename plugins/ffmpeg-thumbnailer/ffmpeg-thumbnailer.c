@@ -190,10 +190,17 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     return;
 
   /* Check if is a sparse video file */
+  uri = tumbler_file_info_get_uri (info);
   if (tumbler_util_guess_is_sparse (info))
   {
-    g_debug ("Video file '%s' is probably sparse, skipping\n",
-             tumbler_file_info_get_uri (info));
+    g_debug ("Video file '%s' is probably sparse, skipping\n", uri);
+
+    /* there was an error, emit error signal */
+    g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                 TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
+    g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+    g_error_free (error);
+
     return;
   }
 
@@ -211,8 +218,6 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   ffmpeg_thumbnailer->video->thumbnail_size = MAX (dest_width, dest_height);
 #endif
   v_data = video_thumbnailer_create_image_data ();
-
-  uri = tumbler_file_info_get_uri (info);
 
   /* get the local absolute path to the source file */
   file = g_file_new_for_uri (uri);
