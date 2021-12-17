@@ -180,7 +180,7 @@ odf_thumbnailer_create_from_data (const guchar     *data,
             g_object_ref (G_OBJECT (pixbuf));
           else
             g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                         _("Thumbnail could not be inferred from file contents"));
+                         TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
         }
     }
   else
@@ -228,7 +228,7 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
     pixbuf = odf_thumbnailer_create_from_data (data, bytes, thumbnail, error);
   else
     g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                 _("Thumbnail could not be inferred from file contents"));
+                 TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
   g_object_unref (thumb_file);
 
@@ -260,7 +260,7 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
   if (summary == NULL)
     {
       g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                   _("Thumbnail could not be inferred from file contents"));
+                   TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
       g_propagate_error (error, err);
       return NULL;
     }
@@ -300,7 +300,7 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
   /* set default error */
   if (error != NULL && *error == NULL && pixbuf == NULL)
     g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                 _("Thumbnail could not be inferred from file contents"));
+                 TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
   return pixbuf;
 }
@@ -376,7 +376,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       else
         {
           g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                       _("Thumbnail could not be inferred from file contents"));
+                       TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
         }
     }
 

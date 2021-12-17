@@ -294,7 +294,7 @@ tumbler_file_info_load (TumblerFileInfo *info,
         {
           /* we don't allow the generation of thumbnails for thumbnails */
           g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_IS_THUMBNAIL,
-                       _("The file \"%s\" is a thumbnail itself"), info->uri);
+                       TUMBLER_ERROR_MESSAGE_NO_THUMB_OF_THUMB, info->uri);
         }
 
       /* release the cache */

@@ -38,6 +38,14 @@ G_BEGIN_DECLS
 #define TUMBLER_ERROR_DOMAIN "Tumbler"
 #define TUMBLER_ERROR        (g_quark_from_static_string (TUMBLER_ERROR_DOMAIN))
 
+#define TUMBLER_ERROR_MESSAGE_CREATION_FAILED _("Thumbnail could not be inferred from file contents")
+#define TUMBLER_ERROR_MESSAGE_LOCAL_ONLY _("Only local files are supported")
+#define TUMBLER_ERROR_MESSAGE_CORRUPT_THUMBNAIL _("Corrupt thumbnail PNG: '%s'")
+#define TUMBLER_ERROR_MESSAGE_SAVE_FAILED _("Could not save thumbnail to \"%s\"")
+#define TUMBLER_ERROR_MESSAGE_NO_THUMB_OF_THUMB _("The file \"%s\" is a thumbnail itself")
+#define TUMBLER_ERROR_MESSAGE_NO_THUMBNAILER _("No thumbnailer available for \"%s\"")
+#define TUMBLER_ERROR_MESSAGE_SHUT_DOWN _("The thumbnailer service is shutting down")
+
 typedef enum /*< enum >*/
 {
   TUMBLER_ERROR_UNSUPPORTED,

@@ -205,7 +205,7 @@ tumbler_lifecycle_manager_keep_alive (TumblerLifecycleManager *manager,
       if (error != NULL)
         {
           g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_SHUTTING_DOWN,
-                       "%s", _("The thumbnailer service is shutting down"));
+                       "%s", TUMBLER_ERROR_MESSAGE_SHUT_DOWN);
         }
       return FALSE;
     }

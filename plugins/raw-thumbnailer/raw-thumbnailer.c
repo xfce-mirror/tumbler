@@ -182,13 +182,13 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       if (pixbuf == NULL)
         {
           g_set_error_literal (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                               _("Thumbnail could not be inferred from file contents"));
+                               TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
         }
     }
   else
     {
       g_set_error_literal (&error, TUMBLER_ERROR, TUMBLER_ERROR_UNSUPPORTED,
-                           _("Only local files are supported"));
+                           TUMBLER_ERROR_MESSAGE_LOCAL_ONLY);
     }
 
   g_free (path);

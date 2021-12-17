@@ -416,7 +416,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
             {
               /* no thumbnailer for this URI, we need to emit an error */
               g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_UNSUPPORTED,
-                           _("No thumbnailer available for \"%s\""), 
+                           TUMBLER_ERROR_MESSAGE_NO_THUMBNAILER,
                            tumbler_file_info_get_uri (request->infos[n]));
             }
         }

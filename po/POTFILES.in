@@ -20,6 +20,7 @@ tumbler/tumbler-thumbnail.c
 tumbler/tumbler-file-info.c
 tumbler/tumbler-thumbnailer.c
 tumbler/tumbler-provider-plugin.c
+tumbler/tumbler-error.h
 plugins/cover-thumbnailer/cover-thumbnailer-plugin.c
 plugins/cover-thumbnailer/cover-thumbnailer.c
 plugins/gst-thumbnailer/gst-thumbnailer-plugin.c

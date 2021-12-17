@@ -875,9 +875,8 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
                       if (G_UNLIKELY(pixbuf == NULL))
                         {
-                          g_set_error (&error, TUMBLER_ERROR, 
-                                       TUMBLER_ERROR_INVALID_FORMAT,
-                                       _("Thumbnail could not be inferred from file contents"));
+                          g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
+                                       TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
                         }
                       else if (exif_orientation > 1)
                         {
@@ -923,7 +922,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
               if (G_UNLIKELY(pixbuf == NULL))
                 {
                   g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
-                               _("Thumbnail could not be inferred from file contents"));
+                               TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
                 }
               else if (exif_orientation > 1)
                 {

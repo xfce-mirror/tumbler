@@ -712,7 +712,7 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
 
                   /* set an error */
                   g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
-                               _("Corrupt thumbnail PNG: '%s'"), filename);
+                               TUMBLER_ERROR_MESSAGE_CORRUPT_THUMBNAIL, filename);
 
                   return FALSE;
                 }
