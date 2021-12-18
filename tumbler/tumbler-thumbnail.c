@@ -79,7 +79,7 @@ tumbler_thumbnail_load (TumblerThumbnail *thumbnail,
 gboolean
 tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
                                 const gchar      *uri,
-                                guint64           mtime)
+                                gdouble           mtime)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
@@ -93,7 +93,7 @@ tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 gboolean
 tumbler_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
                                    TumblerImageData *data,
-                                   guint64           mtime,
+                                   gdouble           mtime,
                                    GCancellable     *cancellable,
                                    GError          **error)
 {
@@ -112,7 +112,7 @@ tumbler_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
 gboolean
 tumbler_thumbnail_save_file (TumblerThumbnail *thumbnail,
                              GFile            *file,
-                             guint64           mtime,
+                             gdouble           mtime,
                              GCancellable     *cancellable,
                              GError          **error)
 {
