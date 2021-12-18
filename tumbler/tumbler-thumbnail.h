@@ -65,15 +65,15 @@ struct _TumblerThumbnailIface
                                GError          **error);
   gboolean (*needs_update)    (TumblerThumbnail *thumbnail,
                                const gchar      *uri,
-                               guint64           mtime);
+                               gdouble           mtime);
   gboolean (*save_image_data) (TumblerThumbnail *thumbnail,
                                TumblerImageData *data,
-                               guint64           mtime,
+                               gdouble           mtime,
                                GCancellable     *cancellable,
                                GError          **error);
   gboolean (*save_file)       (TumblerThumbnail *thumbnail,
                                GFile            *file,
-                               guint64           mtime,
+                               gdouble           mtime,
                                GCancellable     *cancellable,
                                GError          **error);
 };
@@ -85,15 +85,15 @@ gboolean                tumbler_thumbnail_load            (TumblerThumbnail     
                                                            GError               **error);
 gboolean                tumbler_thumbnail_needs_update    (TumblerThumbnail      *thumbnail,
                                                            const gchar           *uri,
-                                                           guint64                mtime);
+                                                           gdouble                mtime);
 gboolean                tumbler_thumbnail_save_image_data (TumblerThumbnail      *thumbnail,
                                                            TumblerImageData      *data,
-                                                           guint64                mtime,
+                                                           gdouble                mtime,
                                                            GCancellable          *cancellable,
                                                            GError               **error);
 gboolean                tumbler_thumbnail_save_file       (TumblerThumbnail      *thumbnail,
                                                            GFile                 *file,
-                                                           guint64                mtime,
+                                                           gdouble                mtime,
                                                            GCancellable          *cancellable,
                                                            GError               **error);
 TumblerThumbnailFlavor *tumbler_thumbnail_get_flavor      (TumblerThumbnail      *thumbnail);

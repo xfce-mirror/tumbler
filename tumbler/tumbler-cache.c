@@ -105,7 +105,7 @@ tumbler_cache_get_thumbnail (TumblerCache           *cache,
 void
 tumbler_cache_cleanup (TumblerCache       *cache,
                        const gchar *const *base_uris,
-                       guint64             since)
+                       gdouble             since)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->cleanup != NULL);

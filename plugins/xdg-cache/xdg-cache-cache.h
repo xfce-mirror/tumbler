@@ -46,12 +46,12 @@ GFile   *xdg_cache_cache_get_temp_file        (const gchar            *uri,
                                                TumblerThumbnailFlavor  *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 gboolean xdg_cache_cache_read_thumbnail_info  (const gchar            *filename,
                                                gchar                 **uri,
-                                               guint64                *mtime,
+                                               gdouble                *mtime,
                                                GCancellable           *cancellable,
                                                GError                **error);
 gboolean xdg_cache_cache_write_thumbnail_info (const gchar            *filename,
                                                const gchar            *uri,
-                                               guint64                 mtime,
+                                               gdouble                 mtime,
                                                GCancellable           *cancellable,
                                                GError                **error);
 
