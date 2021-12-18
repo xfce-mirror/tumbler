@@ -362,7 +362,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
           g_strfreev (cmd_argv);
         }
       else
-          g_warning (_("Malformed command line \"%s\": %s"), exec, (*error)->message);
+          g_warning ("Malformed command line \"%s\": %s", exec, (*error)->message);
 
       g_free (tmpfilepath);
       g_object_unref (tmpfile);

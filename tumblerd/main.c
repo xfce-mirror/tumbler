@@ -90,7 +90,7 @@ on_dbus_name_lost (GDBusConnection *connection,
 {
   GMainLoop *main_loop;
 
-  g_critical (_("Name %s lost on the message dbus, exiting."),name);
+  g_critical ("Name %s lost on the message dbus, exiting.",name);
   main_loop = (GMainLoop*)user_data;
   g_main_loop_quit(main_loop);
 }
@@ -126,7 +126,7 @@ main (int    argc,
 
 #ifdef G_OS_UNIX
   if (nice (19) != 19)
-    g_warning (_("Couldn't change nice value of process."));
+    g_warning ("Couldn't change nice value of process.");
 #endif
 
 #ifdef DEBUG
@@ -135,7 +135,7 @@ main (int    argc,
 #endif
 
   /* set the application name. Translators: Don't translate "Tumbler". */
-  g_set_application_name (_("Tumbler Thumbnailing Service"));
+  g_set_application_name ("Tumbler Thumbnailing Service");
 
   connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
   
@@ -228,7 +228,7 @@ main (int    argc,
   /* try to load specialized thumbnailers and exit if that fails */
   if (!tumbler_registry_load (registry, &error))
     {
-      g_warning (_("Failed to load specialized thumbnailers into the registry: %s"),
+      g_warning ("Failed to load specialized thumbnailers into the registry: %s",
                  error->message);
       g_error_free (error);
 

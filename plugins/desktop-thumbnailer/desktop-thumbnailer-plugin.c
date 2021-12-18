@@ -53,7 +53,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
                                     TUMBLER_MICRO_VERSION);
   if (G_UNLIKELY (mismatch != NULL))
     {
-      g_warning (_("Version mismatch: %s"), mismatch);
+      g_warning (TUMBLER_WARNING_VERSION_MISMATCH, mismatch);
       return;
     }
 

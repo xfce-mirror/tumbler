@@ -765,7 +765,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
       /* emit an error signal */
       tumbler_service_scheduler_error (scheduler, handle, uris, 
                                        TUMBLER_ERROR_UNSUPPORTED_FLAVOR, 
-                                       _("Unsupported thumbnail flavor requested"),
+                                       TUMBLER_ERROR_MESSAGE_UNSUPPORTED_FLAVOR,
                                        scheduler_request->origin,
                                        service);
 

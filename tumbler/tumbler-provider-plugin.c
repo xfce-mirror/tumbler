@@ -28,6 +28,7 @@
 #include <gmodule.h>
 
 #include "tumbler/tumbler-provider-plugin.h"
+#include <tumbler/tumbler-error.h>
 
 
 
@@ -132,7 +133,7 @@ tumbler_provider_plugin_load (GTypeModule *type_module)
         }
       else
         {
-          g_warning (_("Plugin \"%s\" lacks required symbols."), type_module->name);
+          g_warning (TUMBLER_WARNING_PLUGIN_LACKS_SYMBOLS, type_module->name);
           g_module_close (plugin->library);
           plugin->library = NULL;
           return FALSE;
@@ -140,8 +141,7 @@ tumbler_provider_plugin_load (GTypeModule *type_module)
     }
   else
     {
-      g_warning (_("Failed to load plugin \"%s\": %s"), type_module->name, 
-                 g_module_error ());
+      g_warning (TUMBLER_WARNING_LOAD_PLUGIN_FAILED, type_module->name, g_module_error ());
       return FALSE;
     }
 }

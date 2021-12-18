@@ -45,6 +45,13 @@ G_BEGIN_DECLS
 #define TUMBLER_ERROR_MESSAGE_NO_THUMB_OF_THUMB _("The file \"%s\" is a thumbnail itself")
 #define TUMBLER_ERROR_MESSAGE_NO_THUMBNAILER _("No thumbnailer available for \"%s\"")
 #define TUMBLER_ERROR_MESSAGE_SHUT_DOWN _("The thumbnailer service is shutting down")
+#define TUMBLER_ERROR_MESSAGE_UNSUPPORTED_FLAVOR _("Unsupported thumbnail flavor requested")
+
+#define TUMBLER_WARNING_VERSION_MISMATCH "Version mismatch: %s"
+#define TUMBLER_WARNING_MALFORMED_FILE "Malformed file \"%s\": %s"
+#define TUMBLER_WARNING_LOAD_FILE_FAILED "Failed to load the file \"%s\": %s"
+#define TUMBLER_WARNING_LOAD_PLUGIN_FAILED "Failed to load plugin \"%s\": %s"
+#define TUMBLER_WARNING_PLUGIN_LACKS_SYMBOLS "Plugin \"%s\" lacks required symbols"
 
 typedef enum /*< enum >*/
 {

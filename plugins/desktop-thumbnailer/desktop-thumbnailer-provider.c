@@ -116,7 +116,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
   /* try to load the key file data from the input file */
   if (!g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error))
     {
-      g_warning (_("Failed to load the file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
       g_clear_error (&error);
 
       g_key_file_free (key_file);
@@ -130,7 +130,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
                                 "Exec", &error);
   if (exec == NULL)
     {
-      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
 
       g_key_file_free (key_file);
@@ -144,7 +144,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
                                            "MimeType", NULL, &error);
   if (mime_types == NULL)
     {
-      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
 
       g_free (exec);

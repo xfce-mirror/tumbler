@@ -43,6 +43,7 @@
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
 #include <tumblerd/tumbler-utils.h>
 
+#define WARNING_MALFORMED_SECTION "Malformed section \"%s\" in file \"%s\": %s"
 
 /* Property identifiers */
 enum
@@ -544,7 +545,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
   /* try to load the key file from the overrides file */
   if (!g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error))
     {
-      g_warning (_("Failed to load the file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
       g_clear_error (&error);
       g_key_file_free (key_file);
       g_free (filename);
@@ -562,8 +563,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
       info->name = g_key_file_get_string (key_file, sections[n], "Name", &error);
       if (info->name == NULL)
         {
-          g_warning (_("Malformed section \"%s\" in file \"%s\": %s"),
-                     sections[n], filename, error->message);
+          g_warning (WARNING_MALFORMED_SECTION, sections[n], filename, error->message);
           g_clear_error (&error);
 
           override_info_free (info);
@@ -576,8 +576,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
                                                 "UriScheme", &error);
       if (info->uri_scheme == NULL)
         {
-          g_warning (_("Malformed section \"%s\" in file \"%s\": %s"),
-                     sections[n], filename, error->message);
+          g_warning (WARNING_MALFORMED_SECTION, sections[n], filename, error->message);
           g_clear_error (&error);
 
           override_info_free (info);
@@ -590,8 +589,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
                                                "MimeType", &error);
       if (info->mime_type == NULL)
         {
-          g_warning (_("Malformed section \"%s\" in file \"%s\": %s"),
-                     sections[n], filename, error->message);
+          g_warning (WARNING_MALFORMED_SECTION, sections[n], filename, error->message);
           g_clear_error (&error);
 
           override_info_free (info);
@@ -603,9 +601,8 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
       uri_type = g_strdup_printf ("%s-%s", info->uri_scheme, info->mime_type);
       if (g_strcmp0 (sections[n], uri_type) != 0)
         {
-          g_warning (_("Malformed section \"%s\" in file \"%s\": "
-                       "Mismatch between section name and UriScheme/MimeType"),
-                     sections[n], filename);
+          g_warning (WARNING_MALFORMED_SECTION, sections[n], filename,
+                     "Mismatch between section name and UriScheme/MimeType");
 
           g_free (uri_type);
           override_info_free (info);
@@ -950,7 +947,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   /* try to load the key file data from the input file */
   if (!g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error))
     {
-      g_warning (_("Failed to load the file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
       g_clear_error (&error);
 
       g_key_file_free (key_file);
@@ -963,7 +960,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   name = g_key_file_get_string (key_file, "Specialized Thumbnailer", "Name", &error);
   if (name == NULL)
     {
-      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
 
       g_key_file_free (key_file);
@@ -977,7 +974,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
                                        "ObjectPath", &error);
   if (object_path == NULL)
     {
-      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
 
       g_key_file_free (key_file);
@@ -991,7 +988,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
                                            "MimeTypes", NULL, &error);
   if (mime_types == NULL)
     {
-      g_warning (_("Malformed file \"%s\": %s"), filename, error->message);
+      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
 
       g_free (object_path);
@@ -1017,7 +1014,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   /* determine the time the file was last modified */
   if (g_stat (filename, &file_stat) != 0)
     {
-      g_warning (_("Failed to determine last modified time of \"%s\""), filename); 
+      g_warning ("Failed to determine last modified time of \"%s\"", filename);
 
       g_strfreev (uri_schemes);
       g_strfreev (mime_types);
