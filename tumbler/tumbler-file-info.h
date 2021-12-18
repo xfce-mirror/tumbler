@@ -51,7 +51,7 @@ gboolean          tumbler_file_info_load                  (TumblerFileInfo      
                                                            GError                **error);
 const gchar      *tumbler_file_info_get_uri               (TumblerFileInfo        *info);
 const gchar      *tumbler_file_info_get_mime_type         (TumblerFileInfo        *info);
-guint64           tumbler_file_info_get_mtime             (TumblerFileInfo        *info);
+gdouble           tumbler_file_info_get_mtime             (TumblerFileInfo        *info);
 gboolean          tumbler_file_info_needs_update          (TumblerFileInfo        *info);
 TumblerThumbnail *tumbler_file_info_get_thumbnail         (TumblerFileInfo        *info) G_GNUC_WARN_UNUSED_RESULT;
 
