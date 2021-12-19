@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 12:47+0100\n"
-"PO-Revision-Date: 2021-12-16 11:47+0000\n"
+"POT-Creation-Date: 2021-12-19 00:47+0100\n"
+"PO-Revision-Date: 2021-12-18 23:47+0000\n"
 "Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Czech (http://www.transifex.com/xfce/tumbler/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -19,20 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:419
-#, c-format
-msgid "No thumbnailer available for \"%s\""
-msgstr "Pro položku „%s“ není k dispozici žádný nástroj pro vytváření náhledů"
-
-#: ../tumblerd/tumbler-lifecycle-manager.c:208
-msgid "The thumbnailer service is shutting down"
-msgstr "Služba náhledů se vypíná"
-
-#: ../tumblerd/tumbler-service.c:768
-msgid "Unsupported thumbnail flavor requested"
-msgstr "Byla vyžádána nepodporovaná metoda náhledu"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:438
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -42,57 +28,6 @@ msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezda
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
-
-#: ../tumblerd/tumbler-manager.c:547 ../tumblerd/tumbler-manager.c:953
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
-#, c-format
-msgid "Failed to load the file \"%s\": %s"
-msgstr "Načtení souboru „%s“ se nezdařilo: %s"
-
-#: ../tumblerd/tumbler-manager.c:565 ../tumblerd/tumbler-manager.c:579
-#: ../tumblerd/tumbler-manager.c:593
-#, c-format
-msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Poškozená sekce „%s“ v souboru „%s“: %s"
-
-#: ../tumblerd/tumbler-manager.c:606
-#, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr "Poškozená sekce „%s“ v souboru „%s“: Název sekce se neshoduje se schématem URI nebo MIME typem"
-
-#: ../tumblerd/tumbler-manager.c:966 ../tumblerd/tumbler-manager.c:980
-#: ../tumblerd/tumbler-manager.c:994
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
-#, c-format
-msgid "Malformed file \"%s\": %s"
-msgstr "Neplatný soubor „%s“: %s"
-
-#: ../tumblerd/tumbler-manager.c:1020
-#, c-format
-msgid "Failed to determine last modified time of \"%s\""
-msgstr "Nepodařilo se zjistit čas poslední změny „%s“"
-
-#: ../tumblerd/main.c:93
-#, c-format
-msgid "Name %s lost on the message dbus, exiting."
-msgstr "Název %s ztracen na sběrnici zpráv dbus, ukončuje se."
-
-#: ../tumblerd/main.c:129
-msgid "Couldn't change nice value of process."
-msgstr "Nedaří se změnit hodnotu priority (nice) procesu."
-
-#. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:138
-msgid "Tumbler Thumbnailing Service"
-msgstr "Služba vytváření náhledů Tumbler"
-
-#: ../tumblerd/main.c:231
-#, c-format
-msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Načtení specializovaných nástrojů pro vytváření náhledů do registru se nezdařilo: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -106,46 +41,41 @@ msgstr "PNG"
 msgid "RGB Colorspace"
 msgstr "Barevný prostor RGB"
 
-#: ../tumbler/tumbler-cache-plugin.c:145
-#, c-format
-msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Zásuvný modul pro mezipaměť „%s“ postrádá požadované symboly"
+#: ../tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Odvození náhledu z obsahu souboru se nezdařilo"
 
-#: ../tumbler/tumbler-cache-plugin.c:153
-#, c-format
-msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Načtení zásuvného modulu pro mezipaměť „%s“ se nezdařilo: %s"
+#: ../tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "Podporovány jsou pouze soubory, nacházející se přímo v počítači"
 
-#: ../tumbler/tumbler-file-info.c:297
+#: ../tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr ""
+
+#: ../tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Nedaří se uložit náhled do „%s“"
+
+#: ../tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "Soubor „%s“ je už náhledem"
 
-#: ../tumbler/tumbler-provider-plugin.c:135
+#: ../tumbler/tumbler-error.h:46
 #, c-format
-msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Zásuvný modul „%s“ postrádá požadované symboly."
+msgid "No thumbnailer available for \"%s\""
+msgstr "Pro položku „%s“ není k dispozici žádný nástroj pro vytváření náhledů"
 
-#: ../tumbler/tumbler-provider-plugin.c:143
-#, c-format
-msgid "Failed to load plugin \"%s\": %s"
-msgstr "Načtení zásuvného modulu „%s“ se nezdařilo: %s"
+#: ../tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "Služba náhledů se vypíná"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
-#: ../plugins/gepub-thumbnailer/gepub-thumbnailer-plugin.c:59
-#, c-format
-msgid "Version mismatch: %s"
-msgstr "Verze se neshodují: %s"
+#: ../tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Byla vyžádána nepodporovaná metoda náhledu"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
@@ -201,18 +131,6 @@ msgstr "Nedaří se nastavit mapu znaků: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Nedaří se vykreslit piktogramy: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:880
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:926
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:225
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:242
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:261
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
-#, c-format
-msgid "Thumbnail could not be inferred from file contents"
-msgstr "Odvození náhledu z obsahu souboru se nezdařilo"
-
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
 msgid "The document is empty"
 msgstr "Dokument je prázdný"
@@ -220,22 +138,3 @@ msgstr "Dokument je prázdný"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
 msgid "First page of the document could not be read"
 msgstr "Nedaří se načíst první stranu dokumentu"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
-msgid "Only local files are supported"
-msgstr "Podporovány jsou pouze soubory, nacházející se přímo v počítači"
-
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:422
-#, c-format
-msgid "Could not save thumbnail to \"%s\""
-msgstr "Nedaří se uložit náhled do „%s“"
-
-#: ../plugins/xdg-cache/xdg-cache-cache.c:715
-#, c-format
-msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
-
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:365
-#, c-format
-msgid "Malformed command line \"%s\": %s"
-msgstr "Nesprávný zápis na příkazovém řádku „%s“: %s"
