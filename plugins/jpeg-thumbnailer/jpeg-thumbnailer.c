@@ -709,9 +709,11 @@ tvtj_exif_extract_thumbnail (const guchar *data,
 static GdkPixbuf*
 tvtj_jpeg_load_thumbnail (const JOCTET *content,
                           gsize         length,
-                          gint          size,
+                          gint          width,
+                          gint          height,
                           guint        *exif_orientation)
 {
+  GdkPixbuf *pixbuf = NULL;
   guint marker_len;
   guint marker;
   gsize n;
@@ -751,7 +753,13 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
           if (marker == 0xe1 && n + marker_len <= length)
             {
               /* try to extract the Exif thumbnail */
-              return tvtj_exif_extract_thumbnail (content + n + 2, marker_len - 2, size, exif_orientation);
+              pixbuf = tvtj_exif_extract_thumbnail (content + n + 2, marker_len - 2,
+                                                    MIN (width, height), exif_orientation);
+
+              /* do not use low quality embedded thumbnail */
+              if (gdk_pixbuf_get_width (pixbuf) < width
+                  && gdk_pixbuf_get_height (pixbuf) < height)
+                g_clear_object (&pixbuf);
             }
 
           /* try next one then */
@@ -759,7 +767,7 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
         }
     }
 
-  return NULL;
+  return pixbuf;
 }
 
 
@@ -867,7 +875,8 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                   guint exif_orientation = 0;
 
                   /* try to load the embedded thumbnail first */
-                  pixbuf = tvtj_jpeg_load_thumbnail (content, statb.st_size, size, &exif_orientation);
+                  pixbuf = tvtj_jpeg_load_thumbnail (content, statb.st_size, width, height,
+                                                     &exif_orientation);
                   if (pixbuf == NULL)
                     {
                       /* fall back to loading and scaling the image itself */
@@ -914,7 +923,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       if (error == NULL)
         {
           guint exif_orientation = 0;
-          pixbuf = tvtj_jpeg_load_thumbnail (content, length, size, &exif_orientation);
+          pixbuf = tvtj_jpeg_load_thumbnail (content, length, width, height, &exif_orientation);
 
           if (pixbuf == NULL)
             {
