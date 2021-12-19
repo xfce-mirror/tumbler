@@ -9,29 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 12:47+0100\n"
-"PO-Revision-Date: 2021-12-17 06:27+0000\n"
-"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>\n"
+"POT-Creation-Date: 2021-12-19 00:47+0100\n"
+"PO-Revision-Date: 2021-12-18 23:47+0000\n"
+"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Japanese (http://www.transifex.com/xfce/tumbler/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:419
-#, c-format
-msgid "No thumbnailer available for \"%s\""
-msgstr "\"%s\" 用のサムネイラーはありません"
-
-#: ../tumblerd/tumbler-lifecycle-manager.c:208
-msgid "The thumbnailer service is shutting down"
-msgstr "サムネイラーサービスを終了しています"
-
-#: ../tumblerd/tumbler-service.c:768
-msgid "Unsupported thumbnail flavor requested"
-msgstr "サポートしていないサムネイルフレーバーが要求されました"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:438
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -41,57 +27,6 @@ msgstr "特殊サムネイラーの呼び出しに失敗しました: タイム�
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "特殊サムネイラーの呼び出しに失敗しました: %s"
-
-#: ../tumblerd/tumbler-manager.c:547 ../tumblerd/tumbler-manager.c:953
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
-#, c-format
-msgid "Failed to load the file \"%s\": %s"
-msgstr "ファイル \"%s\" の読み込みに失敗しました: %s"
-
-#: ../tumblerd/tumbler-manager.c:565 ../tumblerd/tumbler-manager.c:579
-#: ../tumblerd/tumbler-manager.c:593
-#, c-format
-msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: %3$s"
-
-#: ../tumblerd/tumbler-manager.c:606
-#, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr "ファイル \"%2$s\" のセクション \"%1$s\" は不正な形式です: セクション名と UriScheme/MimeType が一致しません"
-
-#: ../tumblerd/tumbler-manager.c:966 ../tumblerd/tumbler-manager.c:980
-#: ../tumblerd/tumbler-manager.c:994
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
-#, c-format
-msgid "Malformed file \"%s\": %s"
-msgstr "ファイル \"%s\" は不正な形式です: %s"
-
-#: ../tumblerd/tumbler-manager.c:1020
-#, c-format
-msgid "Failed to determine last modified time of \"%s\""
-msgstr "\"%s\" の最終変更日時の決定に失敗しました"
-
-#: ../tumblerd/main.c:93
-#, c-format
-msgid "Name %s lost on the message dbus, exiting."
-msgstr "名前 %s は dbus メッセージで失われ、終了します。"
-
-#: ../tumblerd/main.c:129
-msgid "Couldn't change nice value of process."
-msgstr "プロセスの nice 値を変更できませんでした。"
-
-#. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:138
-msgid "Tumbler Thumbnailing Service"
-msgstr "Tumbler サムネイルサービス"
-
-#: ../tumblerd/main.c:231
-#, c-format
-msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "特殊サムネイラーのレジストリへの読み込みに失敗しました: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -105,46 +40,41 @@ msgstr "PNG"
 msgid "RGB Colorspace"
 msgstr "RGB 色空間"
 
-#: ../tumbler/tumbler-cache-plugin.c:145
-#, c-format
-msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "キャッシュプラグイン \"%s\" に必要なシンボルが不足しています。"
+#: ../tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "ファイル内容からサムネイルを推測できませんでした"
 
-#: ../tumbler/tumbler-cache-plugin.c:153
-#, c-format
-msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "キャッシュプラグイン \"%s\" の読み込みに失敗しました: %s"
+#: ../tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "ローカルファイルのみサポートされます"
 
-#: ../tumbler/tumbler-file-info.c:297
+#: ../tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr "破損したサムネイルPNG: '%s'"
+
+#: ../tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "サムネイルを \"%s\" へ保存できませんでした"
+
+#: ../tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "ファイル \"%s\" はサムネイル自身です"
 
-#: ../tumbler/tumbler-provider-plugin.c:135
+#: ../tumbler/tumbler-error.h:46
 #, c-format
-msgid "Plugin \"%s\" lacks required symbols."
-msgstr "プラグイン \"%s\" には必要なシンボルが不足しています。"
+msgid "No thumbnailer available for \"%s\""
+msgstr "\"%s\" 用のサムネイラーはありません"
 
-#: ../tumbler/tumbler-provider-plugin.c:143
-#, c-format
-msgid "Failed to load plugin \"%s\": %s"
-msgstr "プラグイン \"%s\" の読み込みに失敗しました: %s"
+#: ../tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "サムネイラーサービスを終了しています"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
-#: ../plugins/gepub-thumbnailer/gepub-thumbnailer-plugin.c:59
-#, c-format
-msgid "Version mismatch: %s"
-msgstr "バージョン不整合です: %s"
+#: ../tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "サポートしていないサムネイルフレーバーが要求されました"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
@@ -200,18 +130,6 @@ msgstr "キャラクターマップを設定できませんでした: %s"
 msgid "Could not render glyphs: %s"
 msgstr "グリフをレンダリングできませんでした: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:880
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:926
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:225
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:242
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:261
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
-#, c-format
-msgid "Thumbnail could not be inferred from file contents"
-msgstr "ファイル内容からサムネイルを推測できませんでした"
-
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
 msgid "The document is empty"
 msgstr "ドキュメントは空です"
@@ -219,22 +137,3 @@ msgstr "ドキュメントは空です"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
 msgid "First page of the document could not be read"
 msgstr "ドキュメントの最初のページを読み込めませんでした"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
-msgid "Only local files are supported"
-msgstr "ローカルファイルのみサポートされます"
-
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:422
-#, c-format
-msgid "Could not save thumbnail to \"%s\""
-msgstr "サムネイルを \"%s\" へ保存できませんでした"
-
-#: ../plugins/xdg-cache/xdg-cache-cache.c:715
-#, c-format
-msgid "Corrupt thumbnail PNG: '%s'"
-msgstr "破損したサムネイルPNG: '%s'"
-
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:365
-#, c-format
-msgid "Malformed command line \"%s\": %s"
-msgstr "不正な形式のコマンドライン \"%s\": %s"
