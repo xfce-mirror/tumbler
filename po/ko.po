@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 12:47+0100\n"
-"PO-Revision-Date: 2021-12-16 11:47+0000\n"
+"POT-Creation-Date: 2021-12-19 00:47+0100\n"
+"PO-Revision-Date: 2021-12-18 23:47+0000\n"
 "Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/tumbler/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -17,20 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:419
-#, c-format
-msgid "No thumbnailer available for \"%s\""
-msgstr "\"%s\"이(가) 사용할 수 있는 섬네일 프로그램이 없습니다."
-
-#: ../tumblerd/tumbler-lifecycle-manager.c:208
-msgid "The thumbnailer service is shutting down"
-msgstr "섬네일러 서비스를 종료하는 중입니다"
-
-#: ../tumblerd/tumbler-service.c:768
-msgid "Unsupported thumbnail flavor requested"
-msgstr "지원하지 않는 섬네일 방식을 요청했습니다"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:438
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -40,57 +26,6 @@ msgstr "특화된 섬네일러를 호출하는데 실패했습니다: 시간 초
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "특화된 섬네일러를 호출하는데 실패했습니다: %s"
-
-#: ../tumblerd/tumbler-manager.c:547 ../tumblerd/tumbler-manager.c:953
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
-#, c-format
-msgid "Failed to load the file \"%s\": %s"
-msgstr "\"%s\" 파일을 불러오는데 실패했습니다: %s"
-
-#: ../tumblerd/tumbler-manager.c:565 ../tumblerd/tumbler-manager.c:579
-#: ../tumblerd/tumbler-manager.c:593
-#, c-format
-msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "변형된 \"%s\" 섹션이 \"%s\" 파일에 위치합니다: %s"
-
-#: ../tumblerd/tumbler-manager.c:606
-#, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr "변형된 \"%s\" 섹션이 \"%s\" 파일에 위치합니다: 섹션 명칭과 UriScheme 또는 MimeType이 일치하지 않습니다"
-
-#: ../tumblerd/tumbler-manager.c:966 ../tumblerd/tumbler-manager.c:980
-#: ../tumblerd/tumbler-manager.c:994
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
-#, c-format
-msgid "Malformed file \"%s\": %s"
-msgstr "변형된 파일 \"%s\": %s"
-
-#: ../tumblerd/tumbler-manager.c:1020
-#, c-format
-msgid "Failed to determine last modified time of \"%s\""
-msgstr "\"%s\"의 최종 수정 시간을 결정하는데 실패했습니다"
-
-#: ../tumblerd/main.c:93
-#, c-format
-msgid "Name %s lost on the message dbus, exiting."
-msgstr "메시지 dbus에서 %s를 찾을 수 없습니다, 마무리하겠습니다."
-
-#: ../tumblerd/main.c:129
-msgid "Couldn't change nice value of process."
-msgstr "프로세스의 nice 값을 바꿀 수 없습니다."
-
-#. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:138
-msgid "Tumbler Thumbnailing Service"
-msgstr "텀블러 섬네일링 서비스"
-
-#: ../tumblerd/main.c:231
-#, c-format
-msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "특화된 섬네일러를 레지스트리에 불러오는데 실패했습니다: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -104,46 +39,41 @@ msgstr "PNG"
 msgid "RGB Colorspace"
 msgstr "RGB 색상 영역"
 
-#: ../tumbler/tumbler-cache-plugin.c:145
-#, c-format
-msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "\"%s\" 캐시 플러그인에서 필요한 심볼을 누락했습니다"
+#: ../tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "파일 내용을 섬네일로 표현할 수 없습니다"
 
-#: ../tumbler/tumbler-cache-plugin.c:153
-#, c-format
-msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "\"%s\" 캐시 플러그인을 불러오는데 실패했습니다: %s"
+#: ../tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "로컬 파일만 지원합니다"
 
-#: ../tumbler/tumbler-file-info.c:297
+#: ../tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr ""
+
+#: ../tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "\"%s\"에 섬네일을 저장할 수 없습니다"
+
+#: ../tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "\"%s\"파일은 섬네일 그 자체입니다"
 
-#: ../tumbler/tumbler-provider-plugin.c:135
+#: ../tumbler/tumbler-error.h:46
 #, c-format
-msgid "Plugin \"%s\" lacks required symbols."
-msgstr "\"%s\" 플러그인에서 필요한 심볼을 누락했습니다."
+msgid "No thumbnailer available for \"%s\""
+msgstr "\"%s\"이(가) 사용할 수 있는 섬네일 프로그램이 없습니다."
 
-#: ../tumbler/tumbler-provider-plugin.c:143
-#, c-format
-msgid "Failed to load plugin \"%s\": %s"
-msgstr "\"%s\" 플러그인을 불러오는데 실패했습니다: %s"
+#: ../tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "섬네일러 서비스를 종료하는 중입니다"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
-#: ../plugins/gepub-thumbnailer/gepub-thumbnailer-plugin.c:59
-#, c-format
-msgid "Version mismatch: %s"
-msgstr "버전이 맞지 않습니다: %s"
+#: ../tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "지원하지 않는 섬네일 방식을 요청했습니다"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
@@ -199,18 +129,6 @@ msgstr "문자 맵을 설정할 수 없습니다: %s"
 msgid "Could not render glyphs: %s"
 msgstr "글리프를 렌더링 할 수 없습니다: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:880
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:926
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:225
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:242
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:261
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
-#, c-format
-msgid "Thumbnail could not be inferred from file contents"
-msgstr "파일 내용을 섬네일로 표현할 수 없습니다"
-
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
 msgid "The document is empty"
 msgstr "문서가 비어 있습니다"
@@ -218,22 +136,3 @@ msgstr "문서가 비어 있습니다"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
 msgid "First page of the document could not be read"
 msgstr "문서의 첫 페이지를 읽어들일 수 없습니다"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
-msgid "Only local files are supported"
-msgstr "로컬 파일만 지원합니다"
-
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:422
-#, c-format
-msgid "Could not save thumbnail to \"%s\""
-msgstr "\"%s\"에 섬네일을 저장할 수 없습니다"
-
-#: ../plugins/xdg-cache/xdg-cache-cache.c:715
-#, c-format
-msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
-
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:365
-#, c-format
-msgid "Malformed command line \"%s\": %s"
-msgstr "이상한 커맨드 라인 \"%s\": %s"
