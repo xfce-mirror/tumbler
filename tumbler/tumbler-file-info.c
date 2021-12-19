@@ -70,7 +70,7 @@ struct _TumblerFileInfo
   TumblerThumbnailFlavor *flavor;
   TumblerThumbnail       *thumbnail;
 
-  guint64                 mtime; 
+  gdouble                 mtime;
   gchar                  *uri;
   gchar                  *mime_type;
 };
@@ -93,10 +93,10 @@ tumbler_file_info_class_init (TumblerFileInfoClass *klass)
   gobject_class->set_property = tumbler_file_info_set_property;
 
   g_object_class_install_property (gobject_class, PROP_MTIME,
-                                   g_param_spec_uint64 ("mtime",
+                                   g_param_spec_double ("mtime",
                                                         "mtime",
                                                         "mtime",
-                                                        0, G_MAXUINT64, 0,
+                                                        0, G_MAXDOUBLE, 0,
                                                         G_PARAM_READABLE));
 
   g_object_class_install_property (gobject_class, PROP_URI,
@@ -167,7 +167,7 @@ tumbler_file_info_get_property (GObject    *object,
   switch (prop_id)
     {
     case PROP_MTIME:
-      g_value_set_uint64 (value, info->mtime);
+      g_value_set_double (value, info->mtime);
       break;
     case PROP_URI:
       g_value_set_string (value, info->uri);
@@ -197,7 +197,7 @@ tumbler_file_info_set_property (GObject      *object,
   switch (prop_id)
     {
     case PROP_MTIME:
-      info->mtime = g_value_get_uint64 (value);
+      info->mtime = g_value_get_double (value);
       break;
     case PROP_URI:
       info->uri = g_value_dup_string (value);
@@ -249,7 +249,9 @@ tumbler_file_info_load (TumblerFileInfo *info,
   file = g_file_new_for_uri (info->uri);
 
   /* query the modified time from the file */
-  file_info = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED, 
+  file_info = g_file_query_info (file,
+                                 G_FILE_ATTRIBUTE_TIME_MODIFIED
+                                   "," G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC,
                                  G_FILE_QUERY_INFO_NONE, cancellable, &err);
 
   /* destroy the GFile */
@@ -263,8 +265,9 @@ tumbler_file_info_load (TumblerFileInfo *info,
     }
 
   /* read and remember the modified time */
-  info->mtime = g_file_info_get_attribute_uint64 (file_info,
-                                                        G_FILE_ATTRIBUTE_TIME_MODIFIED);
+  info->mtime = g_file_info_get_attribute_uint64 (file_info, G_FILE_ATTRIBUTE_TIME_MODIFIED)
+                + 0.000001 * g_file_info_get_attribute_uint32 (file_info,
+                                                               G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC);
 
   /* we no longer need the file information */
   g_object_unref (file_info);
@@ -341,7 +344,7 @@ tumbler_file_info_get_mime_type (TumblerFileInfo *info)
 
 
 
-guint64
+gdouble
 tumbler_file_info_get_mtime (TumblerFileInfo *info)
 {
   g_return_val_if_fail (TUMBLER_IS_FILE_INFO (info), 0);
