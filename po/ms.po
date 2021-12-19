@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 12:47+0100\n"
-"PO-Revision-Date: 2021-12-16 11:47+0000\n"
+"POT-Creation-Date: 2021-12-19 00:47+0100\n"
+"PO-Revision-Date: 2021-12-18 23:47+0000\n"
 "Last-Translator: Xfce Bot <transifex@xfce.org>\n"
 "Language-Team: Malay (http://www.transifex.com/xfce/tumbler/language/ms/)\n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ms\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../tumblerd/tumbler-group-scheduler.c:485
-#: ../tumblerd/tumbler-lifo-scheduler.c:419
-#, c-format
-msgid "No thumbnailer available for \"%s\""
-msgstr "Tiada lakaran kecil didapati untuk \"%s\""
-
-#: ../tumblerd/tumbler-lifecycle-manager.c:208
-msgid "The thumbnailer service is shutting down"
-msgstr "Servis lakaran kecil sedang ditutup"
-
-#: ../tumblerd/tumbler-service.c:768
-msgid "Unsupported thumbnail flavor requested"
-msgstr "Meminta lakaran kecil yang tidak disokong"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:438
 msgid "Failed to call the specialized thumbnailer: timeout"
@@ -41,57 +27,6 @@ msgstr "Gagal memanggil lakaran kecil khas: masa tamat"
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Gagal memanggil lakaran kecil khas: %s"
-
-#: ../tumblerd/tumbler-manager.c:547 ../tumblerd/tumbler-manager.c:953
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:119
-#, c-format
-msgid "Failed to load the file \"%s\": %s"
-msgstr "Gagal memuatkan fail \"%s\": %s"
-
-#: ../tumblerd/tumbler-manager.c:565 ../tumblerd/tumbler-manager.c:579
-#: ../tumblerd/tumbler-manager.c:593
-#, c-format
-msgid "Malformed section \"%s\" in file \"%s\": %s"
-msgstr "Seksyen cacat \"%s\" dalam fail \"%s\": %s"
-
-#: ../tumblerd/tumbler-manager.c:606
-#, c-format
-msgid ""
-"Malformed section \"%s\" in file \"%s\": Mismatch between section name and "
-"UriScheme/MimeType"
-msgstr "Seksyen cacat \"%s\" dalam fail \"%s\": Tidak sepadan antara nama seksyen dan UriScheme/MimeType"
-
-#: ../tumblerd/tumbler-manager.c:966 ../tumblerd/tumbler-manager.c:980
-#: ../tumblerd/tumbler-manager.c:994
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:133
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-provider.c:147
-#, c-format
-msgid "Malformed file \"%s\": %s"
-msgstr "Fail cacat \"%s\": %s"
-
-#: ../tumblerd/tumbler-manager.c:1020
-#, c-format
-msgid "Failed to determine last modified time of \"%s\""
-msgstr "Gagal untuk menentukan masa terakhir ubahsuai \"%s\""
-
-#: ../tumblerd/main.c:93
-#, c-format
-msgid "Name %s lost on the message dbus, exiting."
-msgstr "Nama %s hilang dalam dbus mesej, keluar."
-
-#: ../tumblerd/main.c:129
-msgid "Couldn't change nice value of process."
-msgstr "Tidak boleh mengubah nilai baik proses."
-
-#. set the application name. Translators: Don't translate "Tumbler".
-#: ../tumblerd/main.c:138
-msgid "Tumbler Thumbnailing Service"
-msgstr "Servis Lakaran Kecil Tumbler"
-
-#: ../tumblerd/main.c:231
-#, c-format
-msgid "Failed to load specialized thumbnailers into the registry: %s"
-msgstr "Gagal memuatkan lakaran kecil khas ke dalam daftar: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -105,46 +40,41 @@ msgstr "PNG"
 msgid "RGB Colorspace"
 msgstr "Ruang warna RGB"
 
-#: ../tumbler/tumbler-cache-plugin.c:145
-#, c-format
-msgid "Cache plugin \"%s\" lacks required symbols"
-msgstr "Cache plugin \"%s\" kekurangan simbol yang diperlukan"
+#: ../tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Lakaran kecil tidak boleh ditakbir daripada kandungan fail"
 
-#: ../tumbler/tumbler-cache-plugin.c:153
-#, c-format
-msgid "Failed to load the cache plugin \"%s\": %s"
-msgstr "Gagal memuatkan cache plugin \"%s\": %s"
+#: ../tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "Hanya fail tempatan disokong"
 
-#: ../tumbler/tumbler-file-info.c:297
+#: ../tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr ""
+
+#: ../tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Tidak dapat menyimpan lakaran kecil ke \"%s\""
+
+#: ../tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "Fail \"%s\" juga merupakan lakaran kecil"
 
-#: ../tumbler/tumbler-provider-plugin.c:135
+#: ../tumbler/tumbler-error.h:46
 #, c-format
-msgid "Plugin \"%s\" lacks required symbols."
-msgstr "Plugin \"%s\" kekurangan simbol yang diperlukan."
+msgid "No thumbnailer available for \"%s\""
+msgstr "Tiada lakaran kecil didapati untuk \"%s\""
 
-#: ../tumbler/tumbler-provider-plugin.c:143
-#, c-format
-msgid "Failed to load plugin \"%s\": %s"
-msgstr "Gagal memuatkan plugin \"%s\": %s"
+#: ../tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "Servis lakaran kecil sedang ditutup"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer-plugin.c:59
-#: ../plugins/gst-thumbnailer/gst-thumbnailer-plugin.c:59
-#: ../plugins/pixbuf-thumbnailer/pixbuf-thumbnailer-plugin.c:57
-#: ../plugins/font-thumbnailer/font-thumbnailer-plugin.c:57
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer-plugin.c:57
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer-plugin.c:58
-#: ../plugins/odf-thumbnailer/odf-thumbnailer-plugin.c:59
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer-plugin.c:57
-#: ../plugins/raw-thumbnailer/raw-thumbnailer-plugin.c:57
-#: ../plugins/xdg-cache/xdg-cache-plugin.c:52
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer-plugin.c:56
-#: ../plugins/gepub-thumbnailer/gepub-thumbnailer-plugin.c:59
-#, c-format
-msgid "Version mismatch: %s"
-msgstr "Versi tidak sepadan: %s"
+#: ../tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Meminta lakaran kecil yang tidak disokong"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
@@ -200,18 +130,6 @@ msgstr "Tidak dapat menetapkan peta aksara: %s"
 msgid "Could not render glyphs: %s"
 msgstr "Tidak dapat membentuk glyphs: %s"
 
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:880
-#: ../plugins/jpeg-thumbnailer/jpeg-thumbnailer.c:926
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:225
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:242
-#: ../plugins/ffmpeg-thumbnailer/ffmpeg-thumbnailer.c:261
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:257
-#: ../plugins/odf-thumbnailer/odf-thumbnailer.c:371
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:185
-#, c-format
-msgid "Thumbnail could not be inferred from file contents"
-msgstr "Lakaran kecil tidak boleh ditakbir daripada kandungan fail"
-
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
 msgid "The document is empty"
 msgstr "Dokumen adalah kosong"
@@ -219,22 +137,3 @@ msgstr "Dokumen adalah kosong"
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
 msgid "First page of the document could not be read"
 msgstr "Halaman pertama dokumen tidak dapat dibaca"
-
-#: ../plugins/raw-thumbnailer/raw-thumbnailer.c:191
-msgid "Only local files are supported"
-msgstr "Hanya fail tempatan disokong"
-
-#: ../plugins/xdg-cache/xdg-cache-thumbnail.c:422
-#, c-format
-msgid "Could not save thumbnail to \"%s\""
-msgstr "Tidak dapat menyimpan lakaran kecil ke \"%s\""
-
-#: ../plugins/xdg-cache/xdg-cache-cache.c:715
-#, c-format
-msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
-
-#: ../plugins/desktop-thumbnailer/desktop-thumbnailer.c:365
-#, c-format
-msgid "Malformed command line \"%s\": %s"
-msgstr "Baris perintah cacat \"%s\": %s"
