@@ -215,6 +215,9 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       src = gdk_pixbuf_loader_get_pixbuf (loader);
       if (G_LIKELY (src != NULL))
         pixbuf = gdk_pixbuf_apply_embedded_orientation (src);
+      else
+        g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                     "Failed to create pixbuf from stream");
     }
 
   g_object_unref (loader);
@@ -251,22 +254,14 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* try to open the source file for reading */
   file = g_file_new_for_uri (uri);
-  stream = g_file_read (file, NULL, &error);
+  stream = g_file_read (file, cancellable, &error);
   g_object_unref (file);
 
   if (stream == NULL)
     {
-      if (error != NULL)
-        {
-          g_signal_emit_by_name (thumbnailer, "error", uri, error->code,
-                                 error->message);
-          g_error_free (error);
-        }
-      else
-        {
-          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
-                                 "Failed to open pixbuf stream");
-        }
+      g_signal_emit_by_name (thumbnailer, "error", uri, error->code,
+                             error->message);
+      g_error_free (error);
 
       return;
     }
@@ -285,19 +280,11 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (pixbuf == NULL)
     {
-      if (error != NULL)
-        {
-          g_signal_emit_by_name (thumbnailer, "error", uri, error->code,
-                                 error->message);
-          g_error_free (error);
-        }
-      else
-        {
-          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT,
-                                 "Failed to create pixbuf from stream");
-        }
-
+      g_signal_emit_by_name (thumbnailer, "error", uri, error->code,
+                             error->message);
+      g_error_free (error);
       g_object_unref (thumbnail);
+
       return;
     }
 
