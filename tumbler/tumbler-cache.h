@@ -50,7 +50,7 @@ struct _TumblerCacheIface
                                       TumblerThumbnailFlavor *flavor);
   void              (*cleanup)       (TumblerCache           *cache,
                                       const gchar *const     *base_uris,
-                                      guint64                 since);
+                                      gdouble                 since);
   void              (*do_delete)     (TumblerCache           *cache,
                                       const gchar *const     *uris);
   void              (*copy)          (TumblerCache           *cache,
@@ -73,7 +73,7 @@ TumblerThumbnail       *tumbler_cache_get_thumbnail  (TumblerCache           *ca
                                                       TumblerThumbnailFlavor *flavor) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 void                    tumbler_cache_cleanup        (TumblerCache           *cache,
                                                       const gchar *const     *base_uris,
-                                                      guint64                 since);
+                                                      gdouble                 since);
 void                    tumbler_cache_delete         (TumblerCache           *cache,
                                                       const gchar *const     *uris);
 void                    tumbler_cache_copy           (TumblerCache           *cache,

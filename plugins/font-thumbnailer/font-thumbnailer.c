@@ -438,7 +438,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GdkPixbuf              *pixbuf;
   FT_Error                ft_error;
   FT_Face                 face;
-  guint64                 mtime;
   GError                 *error = NULL;
   GFile                  *file;
   gchar                  *error_msg;
@@ -558,9 +557,6 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* release the font face */
   FT_Done_Face (face);
 
-  /* determine when the URI was last modified */
-  mtime = tumbler_file_info_get_mtime (info);
-
   /* compose the image data */
   data.data = gdk_pixbuf_get_pixels (pixbuf);
   data.has_alpha = gdk_pixbuf_get_has_alpha (pixbuf);
@@ -571,7 +567,9 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
   /* save the thumbnail */
-  tumbler_thumbnail_save_image_data (thumbnail, &data, mtime, NULL, &error);
+  tumbler_thumbnail_save_image_data (thumbnail, &data,
+                                     tumbler_file_info_get_mtime (info),
+                                     NULL, &error);
 
   /* check if there was an error */
   if (error != NULL)

@@ -66,10 +66,10 @@ static gboolean xdg_cache_thumbnail_load            (TumblerThumbnail       *thu
                                                      GError                **error);
 static gboolean xdg_cache_thumbnail_needs_update    (TumblerThumbnail       *thumbnail,
                                                      const gchar            *uri,
-                                                     guint64                 mtime);
+                                                     gdouble                 mtime);
 static gboolean xdg_cache_thumbnail_save_image_data (TumblerThumbnail       *thumbnail,
                                                      TumblerImageData       *data,
-                                                     guint64                 mtime,
+                                                     gdouble                 mtime,
                                                      GCancellable           *cancellable,
                                                      GError                **error);
 
@@ -88,7 +88,7 @@ struct _XDGCacheThumbnail
   XDGCacheCache          *cache;
   gchar                  *uri;
   gchar                  *cached_uri;
-  guint64                 cached_mtime;
+  gdouble                 cached_mtime;
 };
 
 
@@ -269,7 +269,7 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
 static gboolean
 has_valid_shared_thumbnail (const gchar *uri,
                             const gchar *size,
-                            guint64      mtime)
+                            gdouble      mtime)
 {
   gchar       *thumbnail_path;
   gboolean     found;
@@ -278,7 +278,7 @@ has_valid_shared_thumbnail (const gchar *uri,
 
   if (g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
     {
-      guint64        thumb_mtime;
+      gdouble        thumb_mtime;
       gchar         *thumb_uri;
 
       if (xdg_cache_cache_read_thumbnail_info (thumbnail_path, &thumb_uri, &thumb_mtime, NULL, NULL))
@@ -300,7 +300,7 @@ has_valid_shared_thumbnail (const gchar *uri,
 static gboolean
 xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
                                   const gchar      *uri,
-                                  guint64           mtime)
+                                  gdouble           mtime)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
   gboolean           is_valid        = TRUE;
@@ -330,7 +330,7 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 static gboolean
 xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
                                      TumblerImageData *data,
-                                     guint64           mtime,
+                                     gdouble           mtime,
                                      GCancellable     *cancellable,
                                      GError          **error)
 {
@@ -398,7 +398,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
   if (stream != NULL)
     {
       /* convert the modified time of the source URI to a string */
-      mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT, mtime);
+      mtime_str = g_strdup_printf ("%.6f", mtime);
 
       /* try to save the pixbuf */
       if (gdk_pixbuf_save_to_stream (dest_pixbuf, G_OUTPUT_STREAM (stream), "png",

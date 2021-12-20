@@ -50,7 +50,7 @@ static TumblerThumbnail *xdg_cache_cache_get_thumbnail      (TumblerCache       
                                                              TumblerThumbnailFlavor *flavor);
 static void              xdg_cache_cache_cleanup            (TumblerCache           *cache,
                                                              const gchar *const     *base_uris,
-                                                             guint64                 since);
+                                                             gdouble                 since);
 static void              xdg_cache_cache_delete             (TumblerCache           *cache,
                                                              const gchar *const     *uris);
 static void              xdg_cache_cache_copy               (TumblerCache           *cache,
@@ -174,11 +174,11 @@ xdg_cache_cache_get_thumbnail (TumblerCache           *cache,
 static void
 xdg_cache_cache_cleanup (TumblerCache       *cache,
                          const gchar *const *base_uris,
-                         guint64             since)
+                         gdouble             since)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   const gchar   *file_basename;
-  guint64        mtime;
+  gdouble        mtime;
   GFile         *base_file;
   GFile         *dummy_file;
   GFile         *original_file;
@@ -323,7 +323,7 @@ xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
                                    gboolean                do_copy,
                                    const gchar            *from_uri,
                                    const gchar            *to_uri,
-                                   guint64                 mtime)
+                                   gdouble                 mtime)
 {
   GFile    *from_file;
   GFile    *temp_file;
@@ -392,7 +392,7 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
   GFileInfo     *info;
-  guint64        mtime;
+  gdouble        mtime;
   GFile         *dest_source_file;
   GList         *iter;
   guint          n;
@@ -417,8 +417,9 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
         {
           dest_source_file = g_file_new_for_uri (to_uris[n]);
           info = g_file_query_info (dest_source_file,
-                                    G_FILE_ATTRIBUTE_STANDARD_TYPE ","
-                                    G_FILE_ATTRIBUTE_TIME_MODIFIED,
+                                    G_FILE_ATTRIBUTE_STANDARD_TYPE
+                                      "," G_FILE_ATTRIBUTE_TIME_MODIFIED
+                                      "," G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC,
                                     G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
           if (info == NULL)
@@ -492,7 +493,9 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
             }
           else
             {
-              mtime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+              mtime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED)
+                      + 0.000001 * g_file_info_get_attribute_uint32 (info,
+                                                                     G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC);
               xdg_cache_cache_copy_or_move_file (cache, iter->data, do_copy,
                                                  from_uris[n], to_uris[n],
                                                  mtime);
@@ -664,7 +667,7 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
 gboolean
 xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
                                      gchar       **uri,
-                                     guint64      *mtime,
+                                     gdouble      *mtime,
                                      GCancellable *cancellable,
                                      GError      **error)
 {
@@ -743,7 +746,7 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
                           /* remember the Thumb::MTime value */
                           if (text_ptr[i].text != NULL)
                             {
-                              *mtime = atol (text_ptr[i].text);
+                              *mtime = g_ascii_strtod (text_ptr[i].text, NULL);
                               has_mtime = TRUE;
                             }
                         }
@@ -767,7 +770,7 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
 gboolean
 xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
                                       const gchar  *uri,
-                                      guint64       mtime,
+                                      gdouble       mtime,
                                       GCancellable *cancellable,
                                       GError      **error)
 {
@@ -788,7 +791,7 @@ xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
     {
       if (!g_cancellable_set_error_if_cancelled (cancellable, &err))
         {
-          mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT, mtime);
+          mtime_str = g_strdup_printf ("%.6f", mtime);
 
           gdk_pixbuf_save (pixbuf, filename, "png", &err,
                            "tEXt::Thumb::URI", uri,
