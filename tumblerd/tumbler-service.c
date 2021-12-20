@@ -382,6 +382,7 @@ tumbler_service_set_property (GObject      *object,
 static gboolean
 tumbler_service_error_idle (gpointer user_data)
 {
+  TumblerCache      *cache;
   SchedulerIdleInfo *info = user_data;
   GVariant          *signal_variant;
 
@@ -391,6 +392,11 @@ tumbler_service_error_idle (gpointer user_data)
   g_return_val_if_fail (info->message != NULL && *info->message != '\0', FALSE);
   g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
   g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
+
+  /* cache cleanup: any previous thumbnail is now invalid */
+  cache = tumbler_cache_get_default ();
+  tumbler_cache_delete (cache, (const gchar *const *) info->uris);
+  g_object_unref (cache);
 
   /* signal variant */
   signal_variant = g_variant_new ("(u^asis)",
