@@ -300,8 +300,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* try to load the file contents using GIO */
       if (!g_file_load_contents (file, cancellable, &contents, &length, NULL, &error))
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_UNSUPPORTED,
-                                 error->message);
+          g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
           g_error_free (error);
           g_object_unref (file);
           return;
@@ -323,8 +322,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* emit an error if both ways to load the document failed */
   if (document == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_INVALID_FORMAT,
-                             error->message);
+      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
       g_error_free (error);
       poppler_thumbnailer_free (contents);
       return;
