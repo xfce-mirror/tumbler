@@ -158,10 +158,13 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
                                     GError           **error)
 {
   GdkPixbufLoader *loader;
+  GdkPixbufAnimation *animation;
+  GdkPixbufAnimationIter *iter;
   gssize           n_read;
   GdkPixbuf       *pixbuf = NULL;
   guchar          *buffer;
   GError          *err = NULL;
+  gboolean         has_frame;
 
   g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -184,13 +187,27 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       /* read error (< 0), read finished (== 0) or write error */
       if (n_read <= 0 || ! gdk_pixbuf_loader_write (loader, buffer, n_read, &err))
         break;
+
+      /* we only need the first frame to generate a thumbnail in case of an animation */
+      animation = gdk_pixbuf_loader_get_animation (loader);
+      if (animation != NULL)
+        {
+          iter = gdk_pixbuf_animation_get_iter (animation, NULL);
+          has_frame = ! gdk_pixbuf_animation_iter_on_currently_loading_frame (iter);
+          g_object_unref (iter);
+
+          if (has_frame)
+            break;
+        }
     }
 
   /* close the pixbuf loader, ignoring errors if there has been one before */
   gdk_pixbuf_loader_close (loader, err == NULL ? &err : NULL);
 
-  /* some images reported as corrupt are still displayable */
-  if (err == NULL || g_error_matches (err, GDK_PIXBUF_ERROR, GDK_PIXBUF_ERROR_CORRUPT_IMAGE))
+  /* some images reported as corrupt are still displayable and we don't care about
+   * the rest of the animation */
+  if (err == NULL || g_error_matches (err, GDK_PIXBUF_ERROR, GDK_PIXBUF_ERROR_CORRUPT_IMAGE)
+      || g_error_matches (err, GDK_PIXBUF_ERROR, GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION))
     {
       pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
       if (G_LIKELY (pixbuf != NULL))
