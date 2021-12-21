@@ -757,7 +757,7 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
                                                     MIN (width, height), exif_orientation);
 
               /* do not use low quality embedded thumbnail */
-              if (gdk_pixbuf_get_width (pixbuf) < width
+              if (pixbuf != NULL && gdk_pixbuf_get_width (pixbuf) < width
                   && gdk_pixbuf_get_height (pixbuf) < height)
                 g_clear_object (&pixbuf);
             }
