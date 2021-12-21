@@ -25,6 +25,7 @@
 #include <math.h>
 
 #include <glib.h>
+#include <glib/gi18n.h>
 #include <glib-object.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -158,11 +159,9 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
 {
   GdkPixbufLoader *loader;
   gssize           n_read;
-  gboolean         result;
-  gboolean         loader_write_error;
-  GdkPixbuf       *src;
   GdkPixbuf       *pixbuf = NULL;
   guchar          *buffer;
+  GError          *err = NULL;
 
   g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -176,52 +175,39 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
   g_signal_connect (loader, "size-prepared",
       G_CALLBACK (pixbuf_thumbnailer_size_prepared), thumbnail);
 
-  result = TRUE;
-  loader_write_error = FALSE;
   buffer = g_new (guchar, LOADER_BUFFER_SIZE);
   for (;;)
     {
       n_read = g_input_stream_read (stream, buffer, LOADER_BUFFER_SIZE,
-                                    cancellable, error);
+                                    cancellable, &err);
 
-      if (n_read < 0)
-        {
-          result = FALSE;
-          error = NULL; /* ignore further errors in this function */
-          break;
-        }
-
-      if (n_read == 0)
+      /* read error (< 0), read finished (== 0) or write error */
+      if (n_read <= 0 || ! gdk_pixbuf_loader_write (loader, buffer, n_read, &err))
         break;
+    }
 
-      if (!gdk_pixbuf_loader_write (loader, buffer, n_read, error))
+  /* close the pixbuf loader, ignoring errors if there has been one before */
+  gdk_pixbuf_loader_close (loader, err == NULL ? &err : NULL);
+
+  /* some images reported as corrupt are still displayable */
+  if (err == NULL || g_error_matches (err, GDK_PIXBUF_ERROR, GDK_PIXBUF_ERROR_CORRUPT_IMAGE))
+    {
+      pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
+      if (G_LIKELY (pixbuf != NULL))
         {
-          result = FALSE;
-          loader_write_error = TRUE;
-          error = NULL; /* ignore further errors in this function */
-          break;
+          g_clear_error (&err);
+          pixbuf = gdk_pixbuf_apply_embedded_orientation (pixbuf);
         }
-    }
-
-  /* only close the pixbuf loader if no error has occured */
-  if (!loader_write_error && !gdk_pixbuf_loader_close (loader, error))
-    {
-      result = FALSE;
-      error = NULL; /* ignore further errors in this function */
-    }
-
-  if (result)
-    {
-      src = gdk_pixbuf_loader_get_pixbuf (loader);
-      if (G_LIKELY (src != NULL))
-        pixbuf = gdk_pixbuf_apply_embedded_orientation (src);
-      else
-        g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                     "Failed to create pixbuf from stream");
+      /* should not happend, just in case */
+      else if (err == NULL)
+        g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                     TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
     }
 
   g_object_unref (loader);
   g_free (buffer);
+  if (err != NULL)
+    g_propagate_error (error, err);
 
   return pixbuf;
 }
