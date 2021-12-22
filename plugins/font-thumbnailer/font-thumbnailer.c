@@ -325,7 +325,7 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
   if (gdk_pixbuf_get_width (subpixbuf) > dest_width 
       || gdk_pixbuf_get_height (subpixbuf) > dest_height)
     {
-      scaled = thumbler_util_scale_pixbuf (subpixbuf, dest_width, dest_height);
+      scaled = tumbler_util_scale_pixbuf (subpixbuf, dest_width, dest_height);
       g_object_unref (G_OBJECT (subpixbuf));
       subpixbuf = scaled;
     }

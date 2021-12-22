@@ -170,10 +170,10 @@ gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info)
 
 
 void
-thumbler_util_size_prepared (GdkPixbufLoader *loader,
-                             gint source_width,
-                             gint source_height,
-                             TumblerThumbnailFlavor *flavor)
+tumbler_util_size_prepared (GdkPixbufLoader *loader,
+                            gint source_width,
+                            gint source_height,
+                            TumblerThumbnailFlavor *flavor)
 {
   gdouble hratio, wratio;
   gint dest_width, dest_height;
@@ -209,9 +209,9 @@ thumbler_util_size_prepared (GdkPixbufLoader *loader,
 
 
 GdkPixbuf *
-thumbler_util_scale_pixbuf (GdkPixbuf *source,
-                            gint dest_width,
-                            gint dest_height)
+tumbler_util_scale_pixbuf (GdkPixbuf *source,
+                           gint dest_width,
+                           gint dest_height)
 {
   gdouble hratio, wratio;
   gint source_width, source_height;

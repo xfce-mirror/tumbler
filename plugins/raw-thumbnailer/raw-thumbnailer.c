@@ -159,7 +159,7 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (pixbuf != NULL)
     {
-      scaled = thumbler_util_scale_pixbuf (pixbuf, width, height);
+      scaled = tumbler_util_scale_pixbuf (pixbuf, width, height);
       g_object_unref (pixbuf);
       pixbuf = scaled;
 

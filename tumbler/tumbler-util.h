@@ -34,14 +34,14 @@ GKeyFile *tumbler_util_get_settings (void) G_GNUC_MALLOC;
 
 gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info);
 
-void thumbler_util_size_prepared (GdkPixbufLoader *loader,
-                                  gint source_width,
-                                  gint source_height,
-                                  TumblerThumbnailFlavor *flavor);
+void tumbler_util_size_prepared (GdkPixbufLoader *loader,
+                                 gint source_width,
+                                 gint source_height,
+                                 TumblerThumbnailFlavor *flavor);
 
-GdkPixbuf *thumbler_util_scale_pixbuf (GdkPixbuf *source,
-                                       gint dest_width,
-                                       gint dest_height);
+GdkPixbuf *tumbler_util_scale_pixbuf (GdkPixbuf *source,
+                                      gint dest_width,
+                                      gint dest_height);
 
 G_END_DECLS
 

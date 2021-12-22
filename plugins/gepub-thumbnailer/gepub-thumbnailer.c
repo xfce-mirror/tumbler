@@ -112,7 +112,7 @@ gepub_thumbnailer_create_from_mime (gchar             *mime_type,
     {
       loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, &err);
       g_signal_connect (loader, "size-prepared",
-                        G_CALLBACK (thumbler_util_size_prepared), thumbnail);
+                        G_CALLBACK (tumbler_util_size_prepared), thumbnail);
       if (gdk_pixbuf_loader_write_bytes (loader, content, &err))
         {
           if (gdk_pixbuf_loader_close (loader, &err))

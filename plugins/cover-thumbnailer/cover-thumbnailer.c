@@ -325,7 +325,7 @@ cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
   /* create a pixbuf loader */
   loader = gdk_pixbuf_loader_new ();
   g_signal_connect (loader, "size-prepared",
-                    G_CALLBACK (thumbler_util_size_prepared), flavor);
+                    G_CALLBACK (tumbler_util_size_prepared), flavor);
 
   /* download the image into a pixbuf loader */
   curl_handle = cover_thumbnailer_load_prepare (cover, url, cancellable);

@@ -585,7 +585,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (G_LIKELY (pixbuf != NULL))
     {
       /* scale to correct size if required */
-      scaled = thumbler_util_scale_pixbuf (pixbuf, width, height);
+      scaled = tumbler_util_scale_pixbuf (pixbuf, width, height);
       g_object_unref (pixbuf);
       pixbuf = scaled;
 

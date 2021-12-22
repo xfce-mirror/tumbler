@@ -254,7 +254,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     }
 
   /* generate a valid thumbnail */
-  pixbuf = thumbler_util_scale_pixbuf (v_pixbuf, dest_width, dest_height);
+  pixbuf = tumbler_util_scale_pixbuf (v_pixbuf, dest_width, dest_height);
 
   g_assert (pixbuf != NULL);
 

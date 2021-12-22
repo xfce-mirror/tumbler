@@ -125,7 +125,7 @@ odf_thumbnailer_create_from_data (const guchar     *data,
 
   loader = gdk_pixbuf_loader_new ();
   g_signal_connect (loader, "size-prepared",
-                    G_CALLBACK (thumbler_util_size_prepared), thumbnail);
+                    G_CALLBACK (tumbler_util_size_prepared), thumbnail);
   if (gdk_pixbuf_loader_write (loader, data, bytes, &err))
     {
       if (gdk_pixbuf_loader_close (loader, &err))

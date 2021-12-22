@@ -309,7 +309,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
                                                    cancellable, error);
               if (source != NULL)
                 {
-                  pixbuf = thumbler_util_scale_pixbuf (source, width, height);
+                  pixbuf = tumbler_util_scale_pixbuf (source, width, height);
                   g_object_unref (source);
                 }
 

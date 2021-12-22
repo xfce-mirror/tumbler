@@ -131,7 +131,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
     loader = gdk_pixbuf_loader_new ();
 
   g_signal_connect (loader, "size-prepared",
-                    G_CALLBACK (thumbler_util_size_prepared), thumbnail);
+                    G_CALLBACK (tumbler_util_size_prepared), thumbnail);
 
   buffer = g_new (guchar, LOADER_BUFFER_SIZE);
   for (;;)

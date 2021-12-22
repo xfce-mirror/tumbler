@@ -334,7 +334,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* generate the final pixbuf (involves rescaling etc.) */
   tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
-  pixbuf = thumbler_util_scale_pixbuf (source_pixbuf, width, height);
+  pixbuf = tumbler_util_scale_pixbuf (source_pixbuf, width, height);
   g_object_unref (flavor);
 
   g_assert (pixbuf != NULL);
