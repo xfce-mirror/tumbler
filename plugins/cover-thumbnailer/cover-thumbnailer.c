@@ -28,8 +28,6 @@
 #include <sys/select.h>
 #endif
 
-#include <math.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
@@ -156,48 +154,6 @@ cover_thumbnailer_finalize (GObject *object)
   curl_multi_cleanup (cover->curl_multi);
 
   (*G_OBJECT_CLASS (cover_thumbnailer_parent_class)->finalize) (object);
-}
-
-
-
-static void
-cover_thumbnailer_size_prepared (GdkPixbufLoader        *loader,
-                                 gint                    source_width,
-                                 gint                    source_height,
-                                 TumblerThumbnailFlavor *flavor)
-{
-
-  gint    dest_width;
-  gint    dest_height;
-  gdouble hratio;
-  gdouble wratio;
-
-  g_return_if_fail (GDK_IS_PIXBUF_LOADER (loader));
-  g_return_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor));
-
-  /* get the destination size */
-  tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
-
-  if (source_width <= dest_width && source_height <= dest_height)
-    {
-      /* do not scale the image */
-      dest_width = source_width;
-      dest_height = source_height;
-    }
-  else
-    {
-      /* determine which axis needs to be scaled down more */
-      wratio = (gdouble) source_width / (gdouble) dest_width;
-      hratio = (gdouble) source_height / (gdouble) dest_height;
-
-      /* adjust the other axis */
-      if (hratio > wratio)
-        dest_width = rint (source_width / hratio);
-     else
-        dest_height = rint (source_height / wratio);
-    }
-
-  gdk_pixbuf_loader_set_size (loader, MAX (dest_width, 1), MAX (dest_height, 1));
 }
 
 
@@ -369,7 +325,7 @@ cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
   /* create a pixbuf loader */
   loader = gdk_pixbuf_loader_new ();
   g_signal_connect (loader, "size-prepared",
-                    G_CALLBACK (cover_thumbnailer_size_prepared), flavor);
+                    G_CALLBACK (thumbler_util_size_prepared), flavor);
 
   /* download the image into a pixbuf loader */
   curl_handle = cover_thumbnailer_load_prepare (cover, url, cancellable);

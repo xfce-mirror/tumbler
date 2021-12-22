@@ -30,7 +30,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <math.h>
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -100,42 +99,6 @@ raw_thumbnailer_init (RawThumbnailer *thumbnailer)
 
 
 
-static GdkPixbuf*
-scale_pixbuf (GdkPixbuf *source,
-              gint       dest_width,
-              gint       dest_height)
-{
-  gdouble wratio;
-  gdouble hratio;
-  gint    source_width;
-  gint    source_height;
-
-  /* determine source pixbuf dimensions */
-  source_width  = gdk_pixbuf_get_width  (source);
-  source_height = gdk_pixbuf_get_height (source);
-
-  /* don't do anything if there is no need to resize */
-  if (source_width <= dest_width && source_height <= dest_height)
-    return g_object_ref (source);
-
-  /* determine which axis needs to be scaled down more */
-  wratio = (gdouble) source_width  / (gdouble) dest_width;
-  hratio = (gdouble) source_height / (gdouble) dest_height;
-
-  /* adjust the other axis */
-  if (hratio > wratio)
-    dest_width = rint (source_width / hratio);
-  else
-    dest_height = rint (source_height / wratio);
-
-  /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1),
-                                  MAX (dest_height, 1),
-                                  GDK_INTERP_BILINEAR);
-}
-
-
-
 static void
 raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                         GCancellable               *cancellable,
@@ -196,7 +159,7 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (pixbuf != NULL)
     {
-      scaled = scale_pixbuf (pixbuf, width, height);
+      scaled = thumbler_util_scale_pixbuf (pixbuf, width, height);
       g_object_unref (pixbuf);
       pixbuf = scaled;
 

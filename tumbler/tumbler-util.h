@@ -22,6 +22,7 @@
 #define __TUMBLER_UTIL_H__
 
 #include <glib.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <tumbler/tumbler-file-info.h>
 
@@ -32,6 +33,15 @@ gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 GKeyFile *tumbler_util_get_settings (void) G_GNUC_MALLOC;
 
 gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info);
+
+void thumbler_util_size_prepared (GdkPixbufLoader *loader,
+                                  gint source_width,
+                                  gint source_height,
+                                  TumblerThumbnailFlavor *flavor);
+
+GdkPixbuf *thumbler_util_scale_pixbuf (GdkPixbuf *source,
+                                       gint dest_width,
+                                       gint dest_height);
 
 G_END_DECLS
 

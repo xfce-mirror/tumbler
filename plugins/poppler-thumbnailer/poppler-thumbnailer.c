@@ -22,8 +22,6 @@
 #include <config.h>
 #endif
 
-#include <math.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
@@ -204,46 +202,6 @@ poppler_thumbnailer_pixbuf_from_page (PopplerPage *page)
 
 
 
-static GdkPixbuf *
-generate_pixbuf (GdkPixbuf              *source,
-                 TumblerThumbnailFlavor *flavor)
-{
-  gdouble    hratio;
-  gdouble    wratio;
-  gint       dest_width;
-  gint       dest_height;
-  gint       source_width;
-  gint       source_height;
-
-  /* determine the source pixbuf dimensions */
-  source_width = gdk_pixbuf_get_width (source);
-  source_height = gdk_pixbuf_get_height (source);
-
-  /* determine the desired size for this flavor */
-  tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
-
-  /* return the same pixbuf if no scaling is required */
-  if (source_width <= dest_width && source_height <= dest_height)
-    return g_object_ref (source);
-
-  /* determine which axis needs to be scaled down more */
-  wratio = (gdouble) source_width / (gdouble) dest_width;
-  hratio = (gdouble) source_height / (gdouble) dest_height;
-
-  /* adjust the other axis */
-  if (hratio > wratio)
-    dest_width = rint (source_width / hratio);
-  else
-    dest_height = rint (source_height / wratio);
-
-  /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source,
-                                  MAX (dest_width, 1), MAX (dest_height, 1),
-                                  GDK_INTERP_BILINEAR);
-}
-
-
-
 /* to be removed when Poppler version >= 0.82: GBytes takes care of that */
 static void
 poppler_thumbnailer_free (gpointer data)
@@ -276,6 +234,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 #endif
   gchar                  *contents = NULL;
   gsize                   length;
+  gint                    width, height;
 
   g_return_if_fail (IS_POPPLER_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -374,7 +333,8 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (document);
 
   /* generate the final pixbuf (involves rescaling etc.) */
-  pixbuf = generate_pixbuf (source_pixbuf, flavor);
+  tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
+  pixbuf = thumbler_util_scale_pixbuf (source_pixbuf, width, height);
   g_object_unref (flavor);
 
   g_assert (pixbuf != NULL);

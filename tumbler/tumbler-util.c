@@ -26,6 +26,8 @@
 #include <string.h>
 #endif
 
+#include <math.h>
+
 #include <glib.h>
 #include <gio/gio.h>
 
@@ -165,3 +167,76 @@ gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info)
   return ret_val;
 }
 
+
+
+void
+thumbler_util_size_prepared (GdkPixbufLoader *loader,
+                             gint source_width,
+                             gint source_height,
+                             TumblerThumbnailFlavor *flavor)
+{
+  gdouble hratio, wratio;
+  gint dest_width, dest_height;
+
+  g_return_if_fail (GDK_IS_PIXBUF_LOADER (loader));
+  g_return_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor));
+
+  /* get the destination size */
+  tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
+
+  if (source_width <= dest_width && source_height <= dest_height)
+    {
+      /* do not scale the image */
+      dest_width = source_width;
+      dest_height = source_height;
+    }
+  else
+    {
+      /* determine which axis needs to be scaled down more */
+      wratio = (gdouble) source_width / (gdouble) dest_width;
+      hratio = (gdouble) source_height / (gdouble) dest_height;
+
+      /* adjust the other axis */
+      if (hratio > wratio)
+        dest_width = rint (source_width / hratio);
+     else
+        dest_height = rint (source_height / wratio);
+    }
+
+  gdk_pixbuf_loader_set_size (loader, MAX (dest_width, 1), MAX (dest_height, 1));
+}
+
+
+
+GdkPixbuf *
+thumbler_util_scale_pixbuf (GdkPixbuf *source,
+                            gint dest_width,
+                            gint dest_height)
+{
+  gdouble hratio, wratio;
+  gint source_width, source_height;
+
+  g_return_val_if_fail (GDK_IS_PIXBUF (source), NULL);
+
+  /* determine the source pixbuf dimensions */
+  source_width  = gdk_pixbuf_get_width (source);
+  source_height = gdk_pixbuf_get_height (source);
+
+  /* return the same pixbuf if no scaling is required */
+  if (source_width <= dest_width && source_height <= dest_height)
+    return g_object_ref (source);
+
+  /* determine which axis needs to be scaled down more */
+  wratio = (gdouble) source_width / (gdouble) dest_width;
+  hratio = (gdouble) source_height / (gdouble) dest_height;
+
+  /* adjust the other axis */
+  if (hratio > wratio)
+    dest_width = rint (source_width / hratio);
+  else
+    dest_height = rint (source_height / wratio);
+
+  /* scale the pixbuf down to the desired size */
+  return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1), MAX (dest_height, 1),
+                                  GDK_INTERP_BILINEAR);
+}

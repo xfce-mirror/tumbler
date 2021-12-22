@@ -22,8 +22,6 @@
 #include <config.h>
 #endif
 
-#include <math.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
@@ -196,49 +194,6 @@ te_string_append_quoted (GString     *string,
 
 
 
-static GdkPixbuf *
-desktop_thumbnailer_get_pixbuf (GInputStream *stream,
-                                int dest_width,
-                                int dest_height,
-                                GCancellable *cancellable,
-                                GError **error)
-{
-  GdkPixbuf *source;
-  gdouble    hratio;
-  gdouble    wratio;
-  gint       source_width;
-  gint       source_height;
-
-  source = gdk_pixbuf_new_from_stream (stream, cancellable, error);
-  if (source == NULL)
-    return NULL;
-
-  /* determine the source pixbuf dimensions */
-  source_width = gdk_pixbuf_get_width (source);
-  source_height = gdk_pixbuf_get_height (source);
-
-  /* return the same pixbuf if no scaling is required */
-  if (source_width <= dest_width && source_height <= dest_height)
-    return source;
-
-  /* determine which axis needs to be scaled down more */
-  wratio = (gdouble) source_width / (gdouble) dest_width;
-  hratio = (gdouble) source_height / (gdouble) dest_height;
-
-  /* adjust the other axis */
-  if (hratio > wratio)
-    dest_width = rint (source_width / hratio);
-  else
-    dest_height = rint (source_height / wratio);
-
-  /* scale the pixbuf down to the desired size */
-  return gdk_pixbuf_scale_simple (source,
-                                  MAX (dest_width, 1), MAX (dest_height, 1),
-                                  GDK_INTERP_BILINEAR);
-}
-
-
-
 static gboolean
 desktop_thumbnailer_exec_parse (const gchar *exec,
                                 const gchar *file_path,
@@ -315,7 +270,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
   gint       cmd_argc;
   gint       size;
   gchar     *working_directory = NULL;
-  GdkPixbuf *pixbuf            = NULL;
+  GdkPixbuf *source, *pixbuf = NULL;
 
   g_object_get (G_OBJECT (thumbnailer), "exec", &exec, NULL);
 
@@ -350,11 +305,14 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
           if (G_LIKELY (res))
             {
-              pixbuf = desktop_thumbnailer_get_pixbuf (g_io_stream_get_input_stream(G_IO_STREAM(stream)),
-                                                       width,
-                                                       height,
-                                                       cancellable,
-                                                       error);
+              source = gdk_pixbuf_new_from_stream (g_io_stream_get_input_stream (G_IO_STREAM (stream)),
+                                                   cancellable, error);
+              if (source != NULL)
+                {
+                  pixbuf = thumbler_util_scale_pixbuf (source, width, height);
+                  g_object_unref (source);
+                }
+
               g_unlink (tmpfilepath);
             }
 

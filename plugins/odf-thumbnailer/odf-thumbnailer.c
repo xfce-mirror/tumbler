@@ -26,8 +26,6 @@
 #include <config.h>
 #endif
 
-#include <math.h>
-
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
@@ -112,49 +110,6 @@ odf_thumbnailer_init (OdfThumbnailer *thumbnailer)
 
 
 
-static void
-odf_thumbnailer_size_prepared (GdkPixbufLoader  *loader,
-                               gint              source_width,
-                               gint              source_height,
-                               TumblerThumbnail *thumbnail)
-{
-  TumblerThumbnailFlavor *flavor;
-  gint                    dest_width;
-  gint                    dest_height;
-  gdouble                 hratio;
-  gdouble                 wratio;
-
-  g_return_if_fail (GDK_IS_PIXBUF_LOADER (loader));
-  g_return_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail));
-
-  flavor = tumbler_thumbnail_get_flavor (thumbnail);
-  tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
-  g_object_unref (flavor);
-
-  if (source_width <= dest_width && source_height <= dest_height)
-    {
-      /* do not scale the image */
-      dest_width = source_width;
-      dest_height = source_height;
-    }
-  else
-    {
-      /* determine which axis needs to be scaled down more */
-      wratio = (gdouble) source_width / (gdouble) dest_width;
-      hratio = (gdouble) source_height / (gdouble) dest_height;
-
-      /* adjust the other axis */
-      if (hratio > wratio)
-        dest_width = rint (source_width / hratio);
-     else
-        dest_height = rint (source_height / wratio);
-    }
-
-  gdk_pixbuf_loader_set_size (loader, MAX (dest_width, 1), MAX (dest_height, 1));
-}
-
-
-
 static GdkPixbuf *
 odf_thumbnailer_create_from_data (const guchar     *data,
                                   gsize             bytes,
@@ -170,7 +125,7 @@ odf_thumbnailer_create_from_data (const guchar     *data,
 
   loader = gdk_pixbuf_loader_new ();
   g_signal_connect (loader, "size-prepared",
-      G_CALLBACK (odf_thumbnailer_size_prepared), thumbnail);
+                    G_CALLBACK (thumbler_util_size_prepared), thumbnail);
   if (gdk_pixbuf_loader_write (loader, data, bytes, &err))
     {
       if (gdk_pixbuf_loader_close (loader, &err))
