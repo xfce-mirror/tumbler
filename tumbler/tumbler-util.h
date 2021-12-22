@@ -37,7 +37,7 @@ gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info);
 void tumbler_util_size_prepared (GdkPixbufLoader *loader,
                                  gint source_width,
                                  gint source_height,
-                                 TumblerThumbnailFlavor *flavor);
+                                 TumblerThumbnail *thumbnail);
 
 GdkPixbuf *tumbler_util_scale_pixbuf (GdkPixbuf *source,
                                       gint dest_width,

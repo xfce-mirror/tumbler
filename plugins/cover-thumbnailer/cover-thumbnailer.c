@@ -305,7 +305,7 @@ cover_thumbnailer_load_perform (CoverThumbnailer  *cover,
 static GdkPixbuf *
 cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
                                const gchar             *url,
-                               TumblerThumbnailFlavor  *flavor,
+                               TumblerThumbnail        *thumbnail,
                                GCancellable            *cancellable,
                                GError                 **error)
 {
@@ -317,7 +317,7 @@ cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
   g_return_val_if_fail (url != NULL, NULL);
   g_return_val_if_fail (G_IS_CANCELLABLE (cancellable), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
-  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
+  g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
 
   if (g_cancellable_is_cancelled (cancellable))
     return NULL;
@@ -325,7 +325,7 @@ cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
   /* create a pixbuf loader */
   loader = gdk_pixbuf_loader_new ();
   g_signal_connect (loader, "size-prepared",
-                    G_CALLBACK (tumbler_util_size_prepared), flavor);
+                    G_CALLBACK (tumbler_util_size_prepared), thumbnail);
 
   /* download the image into a pixbuf loader */
   curl_handle = cover_thumbnailer_load_prepare (cover, url, cancellable);
@@ -635,7 +635,7 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       if (poster_url != NULL)
         {
           /* download poster and load it in a pixbuf */
-          pixbuf = cover_thumbnailer_load_pixbuf (cover, poster_url, flavor, cancellable, &error);
+          pixbuf = cover_thumbnailer_load_pixbuf (cover, poster_url, thumbnail, cancellable, &error);
           g_free (poster_url);
         }
     }

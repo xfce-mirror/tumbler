@@ -173,16 +173,19 @@ void
 tumbler_util_size_prepared (GdkPixbufLoader *loader,
                             gint source_width,
                             gint source_height,
-                            TumblerThumbnailFlavor *flavor)
+                            TumblerThumbnail *thumbnail)
 {
+  TumblerThumbnailFlavor *flavor;
   gdouble hratio, wratio;
   gint dest_width, dest_height;
 
   g_return_if_fail (GDK_IS_PIXBUF_LOADER (loader));
-  g_return_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor));
+  g_return_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail));
 
   /* get the destination size */
+  flavor = tumbler_thumbnail_get_flavor (thumbnail);
   tumbler_thumbnail_flavor_get_size (flavor, &dest_width, &dest_height);
+  g_object_unref (flavor);
 
   if (source_width <= dest_width && source_height <= dest_height)
     {
