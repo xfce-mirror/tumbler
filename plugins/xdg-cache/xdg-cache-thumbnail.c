@@ -392,8 +392,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
   g_object_unref (flavor_dir);
 
   /* open a stream to write to (and possibly replace) the temp file */
-  stream = g_file_replace (temp_file, NULL, FALSE, G_FILE_CREATE_NONE, cancellable, 
-                           &err);
+  stream = g_file_replace (temp_file, NULL, FALSE, G_FILE_CREATE_PRIVATE, cancellable, &err);
 
   if (stream != NULL)
     {
