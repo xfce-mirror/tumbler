@@ -31,7 +31,7 @@ Disabled=false
 Priority=3
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
 
 # RAW image files using libopenraw (the libopenraw pixbuf loader is kind of
 # broken, hence the priority)
@@ -40,7 +40,7 @@ Disabled=false
 Priority=3
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
 
 # Supports all type GdkPixbuf supports
 [PixbufThumbnailer]
@@ -48,7 +48,7 @@ Disabled=false
 Priority=2
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
 
 ###
 # Video Thumbnailers
@@ -71,7 +71,7 @@ Disabled=false
 Priority=2
 Locations=
 Excludes=
-MaxFileSize=2147483648
+MaxFileSize=0
 
 # GStreamer plugin
 [GstThumbnailer]
@@ -79,7 +79,7 @@ Disabled=false
 Priority=1
 Locations=
 Excludes=
-MaxFileSize=2147483648
+MaxFileSize=0
 
 ###
 # Other Thumbnailers
@@ -91,7 +91,7 @@ Disabled=false
 Priority=1
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
 
 
 # PDF/PS thumbnailer
@@ -100,7 +100,7 @@ Disabled=false
 Priority=1
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
 
 # Open document thumbnailer (ODF)
 [OdfThumbnailer]
@@ -108,7 +108,7 @@ Disabled=false
 Priority=1
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
 
 # thumbnailers provided by .thumbnailer desktop files
 [DesktopThumbnailer]
@@ -116,7 +116,7 @@ Disabled=false
 Priority=1
 Locations=
 Excludes=
-MaxFileSize=2147483648
+MaxFileSize=0
 
 # Epub thumbnailer
 [EpubThumbnailer]
@@ -124,4 +124,4 @@ Disabled=false
 Priority=1
 Locations=
 Excludes=
-MaxFileSize=209715200
+MaxFileSize=0
