@@ -16,7 +16,7 @@
 #              that paths in Excludes precede those in Locations.
 # MaxFileSize: Maximum size of the source file the plugin will still
 #              try to generate a plugin for. The size is in bytes,
-#              0 disabled the check.
+#              0 disables the check.
 #
 # For more information see https://docs.xfce.org/xfce/tumbler/start
 ###
@@ -82,7 +82,7 @@ Excludes=
 MaxFileSize=0
 
 ###
-# Other Thumbnailers
+# Document Thumbnailers
 ###
 
 # FreeType thumbnailer
@@ -110,18 +110,27 @@ Locations=
 Excludes=
 MaxFileSize=0
 
-# thumbnailers provided by .thumbnailer desktop files
-[DesktopThumbnailer]
+# Epub thumbnailer
+[EpubThumbnailer]
 Disabled=false
 Priority=1
 Locations=
 Excludes=
 MaxFileSize=0
 
-# Epub thumbnailer
-[EpubThumbnailer]
+###
+# External Thumbnailers
+###
+
+# Thumbnailers provided by .thumbnailer desktop files.
+# They can handle any mime type, depending on the contents of each particular desktop file.
+# Their priority is defined globally and by default lower than that of all internal thumbnailers.
+# These priorities should in any case remain different, otherwise there is no way to know in
+# advance which of the internal or external thumbnailer will be prioritized in case of a mime type
+# match.
+[DesktopThumbnailer]
 Disabled=false
-Priority=1
+Priority=0
 Locations=
 Excludes=
 MaxFileSize=0
