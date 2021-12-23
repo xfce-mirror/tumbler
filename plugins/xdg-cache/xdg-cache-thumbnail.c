@@ -276,7 +276,7 @@ has_valid_shared_thumbnail (const gchar *uri,
 
   thumbnail_path = xfce_create_shared_thumbnail_path (uri, size);
 
-  if (g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
+  if (thumbnail_path != NULL && g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
     {
       gdouble        thumb_mtime;
       gchar         *thumb_uri;
