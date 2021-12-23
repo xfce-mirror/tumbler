@@ -419,6 +419,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
             {
               g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_SAVE_FAILED,
                            TUMBLER_ERROR_MESSAGE_SAVE_FAILED, dest_path);
+              g_file_delete (temp_file, NULL, NULL);
             }
 
           /* free strings */
