@@ -101,14 +101,14 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
   DesktopThumbnailer *thumbnailer;
   GKeyFile           *key_file;
   GError             *error = NULL;
-  gchar              *filename;
+  const gchar        *filename;
   gchar              *exec;
   gchar             **mime_types;
 
   g_return_val_if_fail (G_IS_FILE (file), NULL);
 
   /* determine the absolute filename of the input file */
-  filename = g_file_get_path (file);
+  filename = g_file_peek_path (file);
 
   /* allocate a new key file object */
   key_file = g_key_file_new ();
@@ -118,9 +118,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
     {
       g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
       g_clear_error (&error);
-
       g_key_file_free (key_file);
-      g_free (filename);
 
       return NULL;
     }
@@ -132,9 +130,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
     {
       g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
-
       g_key_file_free (key_file);
-      g_free (filename);
 
       return NULL;
     }
@@ -146,10 +142,8 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
     {
       g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
       g_clear_error (&error);
-
       g_free (exec);
       g_key_file_free (key_file);
-      g_free (filename);
 
       return NULL;
     }
@@ -164,7 +158,6 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
 
   g_print("Registered thumbnailer %s\n", exec);
   g_free(exec);
-  g_free (filename);
 
   return thumbnailer;
 }
@@ -175,15 +168,10 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
                                                GStrv   uri_schemes)
 {
   const gchar *base_name;
-  gchar       *dirname;
   GDir        *dir;
 
-  /* determine the absolute path to the directory */
-  dirname = g_file_get_path (directory);
-
   /* try to open the directory for reading */
-  dir = g_dir_open (dirname, 0, NULL);
-  g_free (dirname);
+  dir = g_dir_open (g_file_peek_path (directory), 0, NULL);
   if (dir == NULL)
     return thumbnailers;
 

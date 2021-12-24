@@ -145,7 +145,6 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   const gchar      *uri;
   GFile            *file;
   GError           *error = NULL;
-  gchar            *path;
   GdkPixbuf        *pixbuf = NULL;
   GepubDoc         *doc;
   gchar            *cover;
@@ -166,15 +165,13 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_file_is_native (file))
     {
       /* try to load the EPUB file */
-      path = g_file_get_path (file);
-      doc = gepub_doc_new (path, &error);
+      doc = gepub_doc_new (g_file_peek_path (file), &error);
       if (error != NULL)
         {
           g_signal_emit_by_name (thumbnailer, "error", uri,
                                  error->code, error->message);
           g_error_free (error);
 
-          g_free (path);
           g_object_unref (file);
           return;
         }
@@ -190,7 +187,6 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                  "Cover not found");
 
           g_free (cover);
-          g_free (path);
           g_object_unref (doc);
           g_object_unref (file);
           return;
@@ -224,7 +220,6 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       g_bytes_unref (content);
       g_free (cover_mime);
-      g_free (path);
       g_object_unref (doc);
       g_object_unref (thumbnail);
     }

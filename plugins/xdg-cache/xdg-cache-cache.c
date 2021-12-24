@@ -275,13 +275,11 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
             {
               base_file = xdg_cache_cache_get_file (base_uris[n], iter->data);
 
-              filename = g_file_get_path (base_file);
+              filename = (gchar *) g_file_peek_path (base_file);
               if (g_file_test (filename, G_FILE_TEST_IS_REGULAR))
               {
                 g_unlink (filename);
               }
-
-              g_free(filename);
 
               /* releas the base file */
               g_object_unref(base_file);
@@ -327,9 +325,8 @@ xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
 {
   GFile    *from_file;
   GFile    *temp_file;
-  gchar    *temp_path;
-  gchar    *dest_path;
-  gchar    *from_path;
+  const gchar *temp_path;
+  const gchar *dest_path;
   gboolean  result;
   GFile    *dest_file;
 
@@ -349,33 +346,28 @@ xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
 
   if (result)
     {
-      temp_path = g_file_get_path (temp_file);
+      temp_path = g_file_peek_path (temp_file);
 
       if (xdg_cache_cache_write_thumbnail_info (temp_path, to_uri, mtime,
                                                 NULL, NULL))
         {
           dest_file = xdg_cache_cache_get_file (to_uri, flavor);
-          dest_path = g_file_get_path (dest_file);
+          dest_path = g_file_peek_path (dest_file);
 
           if (g_rename (temp_path, dest_path) != 0)
             g_unlink (temp_path);
 
-          g_free (dest_path);
           g_object_unref (dest_file);
         }
       else
         {
           g_unlink (temp_path);
         }
-
-      g_free (temp_path);
     }
   else if (!do_copy)
     {
       /* if the move failed, drop the old cache file */
-      from_path = g_file_get_path (from_file);
-      g_unlink (from_path);
-      g_free (from_path);
+      g_unlink (g_file_peek_path (from_file));
     }
 
   g_object_unref (temp_file);

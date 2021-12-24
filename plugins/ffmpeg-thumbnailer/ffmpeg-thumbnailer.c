@@ -185,6 +185,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* get the local absolute path to the source file */
   file = g_file_new_for_uri (uri);
   path = g_file_get_path (file);
+  g_object_unref (file);
 
   if (path == NULL)
     {
@@ -195,12 +196,10 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                              g_error_free (error);
 
       /* clean up */
-      g_object_unref (file);
       g_object_unref (thumbnail);
       video_thumbnailer_destroy_image_data (v_data);
       return;
     }
-  g_object_unref (file);
 
   /* try to generate a thumbnail */
   if (video_thumbnailer_generate_thumbnail_to_buffer (ffmpeg_thumbnailer->video, path, v_data) != 0)
@@ -217,7 +216,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       video_thumbnailer_destroy_image_data (v_data);
       return;
     }
-    g_free (path);
+  g_free (path);
 
   v_stream = g_memory_input_stream_new_from_data (v_data->image_data_ptr,
                                                   v_data->image_data_size, NULL);

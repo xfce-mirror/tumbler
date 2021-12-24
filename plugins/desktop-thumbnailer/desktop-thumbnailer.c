@@ -265,7 +265,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
   GFile     *tmpfile;
   gchar     *exec;
   gchar    **cmd_argv;
-  gchar     *tmpfilepath;
+  const gchar *tmpfilepath;
   gboolean   res;
   gint       cmd_argc;
   gint       size;
@@ -278,7 +278,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
   if ( G_LIKELY (tmpfile) )
     {
-      tmpfilepath = g_file_get_path (tmpfile);
+      tmpfilepath = g_file_peek_path (tmpfile);
 
       size = MIN (width, height);
 
@@ -322,7 +322,6 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
       else
           g_warning ("Malformed command line \"%s\": %s", exec, (*error)->message);
 
-      g_free (tmpfilepath);
       g_object_unref (tmpfile);
       g_object_unref (stream);
     }
@@ -344,7 +343,6 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnailFlavor     *flavor;
   TumblerImageData            data;
   const gchar                *uri;
-  gchar                      *path;
   GFile                      *file;
   gint                        height;
   gint                        width;
@@ -360,9 +358,7 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     return;
 
   uri = tumbler_file_info_get_uri (info);
-
   file = g_file_new_for_uri (uri);
-  path = g_file_get_path (file);
 
   thumbnail = tumbler_file_info_get_thumbnail (info);
   g_assert (thumbnail != NULL);
@@ -372,8 +368,9 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
 
-  pixbuf = desktop_thumbnailer_load_thumbnail (DESKTOP_THUMBNAILER(thumbnailer),
-                                               uri, path, width, height, cancellable, &error);
+  pixbuf = desktop_thumbnailer_load_thumbnail (DESKTOP_THUMBNAILER (thumbnailer),
+                                               uri, g_file_peek_path (file),
+                                               width, height, cancellable, &error);
 
   if (pixbuf != NULL)
     {
@@ -401,8 +398,6 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     {
       g_signal_emit_by_name (thumbnailer, "ready", uri);
     }
-
-  g_free (path);
 
   g_object_unref (thumbnail);
   g_object_unref (flavor);

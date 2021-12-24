@@ -108,7 +108,7 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerImageData        data;
   TumblerThumbnail       *thumbnail;
   const gchar            *uri;
-  gchar                  *path;
+  const gchar            *path;
   GdkPixbuf              *pixbuf = NULL;
   GError                 *error = NULL;
   GFile                  *file;
@@ -137,7 +137,7 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (flavor);
 
   /* libopenraw only handles local IO */
-  path = g_file_get_path (file);
+  path = g_file_peek_path (file);
   if (path != NULL && g_path_is_absolute (path))
     {
       pixbuf = or_gdkpixbuf_extract_rotated_thumbnail (path, MIN (width, height));
@@ -154,7 +154,6 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                            TUMBLER_ERROR_MESSAGE_LOCAL_ONLY);
     }
 
-  g_free (path);
   g_object_unref (file);
 
   if (pixbuf != NULL)

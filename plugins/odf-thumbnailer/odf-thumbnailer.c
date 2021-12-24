@@ -272,7 +272,6 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   const gchar      *uri;
   GFile            *file;
   GError           *error = NULL;
-  gchar            *path;
   GsfInfile        *infile;
   GdkPixbuf        *pixbuf = NULL;
   TumblerImageData  data;
@@ -291,9 +290,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_file_is_native (file))
     {
       /* try to mmap the file */
-      path = g_file_get_path (file);
-      input = gsf_input_mmap_new (path, NULL);
-      g_free (path);
+      input = gsf_input_mmap_new (g_file_peek_path (file), NULL);
     }
 
   if (input == NULL)
@@ -304,6 +301,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
         {
           g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
           g_error_free (error);
+          g_object_unref (file);
           return;
         }
     }
@@ -362,6 +360,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_signal_emit_by_name (thumbnailer, "ready", uri);
     }
 
+  g_object_unref (file);
   g_object_unref (input);
   g_object_unref (thumbnail);
 }

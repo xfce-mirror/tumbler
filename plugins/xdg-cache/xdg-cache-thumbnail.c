@@ -228,7 +228,6 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
   GError            *err = NULL;
   GFile             *file;
-  gchar             *path;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -238,20 +237,16 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
 
   file = xdg_cache_cache_get_file (cache_thumbnail->uri, 
                                    cache_thumbnail->flavor);
-  path = g_file_get_path (file);
-  g_object_unref (file);
 
   g_free (cache_thumbnail->cached_uri);
   cache_thumbnail->cached_uri = NULL;
   cache_thumbnail->cached_mtime = 0;
 
-  xdg_cache_cache_read_thumbnail_info (path, 
+  xdg_cache_cache_read_thumbnail_info (g_file_peek_path (file),
                                        &cache_thumbnail->cached_uri,
                                        &cache_thumbnail->cached_mtime,
                                        cancellable, &err);
-
-  /* free the filename */
-  g_free (path);
+  g_object_unref (file);
 
   if (err != NULL)
     {
@@ -342,9 +337,8 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
   GFile             *dest_file;
   GFile             *flavor_dir;
   GFile             *temp_file;
-  gchar             *dest_path;
-  gchar             *flavor_dir_path;
-  gchar             *temp_path;
+  const gchar       *dest_path;
+  const gchar       *temp_path;
   gchar             *mtime_str;
   gint               width;
   gint               height;
@@ -380,15 +374,13 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
   temp_file = xdg_cache_cache_get_temp_file (cache_thumbnail->uri,
                                              cache_thumbnail->flavor);
   
-  /* determine the flavor directory and its path */
+  /* determine the flavor directory */
   flavor_dir = g_file_get_parent (temp_file);
-  flavor_dir_path = g_file_get_path (flavor_dir);
 
   /* create the flavor directory with user-only read/write/execute permissions */
-  g_mkdir_with_parents (flavor_dir_path, S_IRWXU);
+  g_mkdir_with_parents (g_file_peek_path (flavor_dir), S_IRWXU);
 
-  /* free the flavor dir path and GFile */
-  g_free (flavor_dir_path);
+  /* free the flavor dir GFile */
   g_object_unref (flavor_dir);
 
   /* open a stream to write to (and possibly replace) the temp file */
@@ -411,8 +403,8 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
                                                 cache_thumbnail->flavor);
 
           /* determine temp and destination paths */
-          temp_path = g_file_get_path (temp_file);
-          dest_path = g_file_get_path (dest_file);
+          temp_path = g_file_peek_path (temp_file);
+          dest_path = g_file_peek_path (dest_file);
 
           /* try to rename the thumbnail */
           if (g_rename (temp_path, dest_path) == -1)
@@ -421,10 +413,6 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
                            TUMBLER_ERROR_MESSAGE_SAVE_FAILED, dest_path);
               g_file_delete (temp_file, NULL, NULL);
             }
-
-          /* free strings */
-          g_free (dest_path);
-          g_free (temp_path);
 
           /* destroy the destination GFile */
           g_object_unref (dest_file);

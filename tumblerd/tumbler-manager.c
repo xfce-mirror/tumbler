@@ -524,20 +524,17 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
   GList    *overrides = NULL;
   GFile    *directory;
   gchar   **sections;
-  gchar    *filename;
+  const gchar *filename;
   gchar    *uri_type;
   guint     n;
 
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), NULL);
   g_return_val_if_fail (G_IS_FILE (file), NULL);
   
-  filename = g_file_get_path (file);
+  filename = g_file_peek_path (file);
 
   if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR))
-    {
-      g_free (filename);
-      return NULL;
-    }
+    return NULL;
 
   /* allocate the key file */
   key_file = g_key_file_new ();
@@ -548,7 +545,6 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
       g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
       g_clear_error (&error);
       g_key_file_free (key_file);
-      g_free (filename);
       return NULL;
     }
 
@@ -623,7 +619,6 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
 
   g_free (sections);
   g_key_file_free (key_file);
-  g_free (filename);
 
   return overrides;
 }
@@ -928,7 +923,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   GList           *lp;
   gchar          **hash_keys;
   gchar           *base_name;
-  gchar           *filename;
+  const gchar     *filename;
   gchar           *name;
   gchar           *object_path;
   gchar          **uri_schemes;
@@ -939,7 +934,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   g_return_if_fail (G_IS_FILE (file));
 
   /* determine the absolute filename of the input file */
-  filename = g_file_get_path (file);
+  filename = g_file_peek_path (file);
 
   /* allocate a new key file object */
   key_file = g_key_file_new ();
@@ -951,7 +946,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
       g_clear_error (&error);
 
       g_key_file_free (key_file);
-      g_free (filename);
 
       return;
     }
@@ -964,7 +958,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
       g_clear_error (&error);
 
       g_key_file_free (key_file);
-      g_free (filename);
 
       return;
     }
@@ -978,7 +971,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
       g_clear_error (&error);
 
       g_key_file_free (key_file);
-      g_free (filename);
 
       return;
     }
@@ -994,7 +986,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
       g_free (object_path);
       g_free (name);
       g_key_file_free (key_file);
-      g_free (filename);
 
       return;
     }
@@ -1021,7 +1012,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
       g_free (object_path);
       g_free (name);
       g_key_file_free (key_file);
-      g_free (filename);
 
       return;
     }
@@ -1051,7 +1041,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   g_free (object_path);
   g_free (name);
   g_key_file_free (key_file);
-  g_free (filename);
   
   /* determine the basename of the file */
   base_name = g_file_get_basename (file);
@@ -1176,22 +1165,15 @@ tumbler_manager_load_thumbnailers (TumblerManager *manager,
   const gchar *base_name;
   GFileType    type;
   GFile       *file;
-  gchar       *dirname;
   GDir        *dir;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (directory));
 
-  /* determine the absolute path to the directory */
-  dirname = g_file_get_path (directory);
-
   /* try to open the directory for reading */
-  dir = g_dir_open (dirname, 0, NULL);
+  dir = g_dir_open (g_file_peek_path (directory), 0, NULL);
   if (dir == NULL)
-    {
-      g_free (dirname);
-      return;
-    }
+    return;
 
   /* iterate over all files in the directory */
   for (base_name = g_dir_read_name (dir); 
@@ -1216,9 +1198,6 @@ tumbler_manager_load_thumbnailers (TumblerManager *manager,
 
   /* close the directory handle */
   g_dir_close (dir);
-
-  /* free memory used for the directory path */
-  g_free (dirname);
 }
 
 
@@ -1637,7 +1616,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
       if (g_strcmp0 (base_name, "overrides") == 0)
         {
 #ifdef DEBUG
-          g_debug ("  %s deleted", g_file_get_path (file));
+          g_debug ("  %s deleted", g_file_peek_path (file));
 #endif
           tumbler_mutex_lock (manager->mutex);
           tumbler_manager_unload_overrides_file (manager, file);
@@ -1650,7 +1629,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
       else if (g_str_has_suffix (base_name, ".service"))
         {
 #ifdef DEBUG
-          g_debug ("  %s deleted", g_file_get_path (file));
+          g_debug ("  %s deleted", g_file_peek_path (file));
 #endif
           tumbler_mutex_lock (manager->mutex);
           tumbler_manager_thumbnailer_file_deleted (manager, file);
@@ -1663,7 +1642,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
       else
         {
 #ifdef DEBUG
-          g_debug ("  %s deleted", g_file_get_path (file));
+          g_debug ("  %s deleted", g_file_peek_path (file));
 #endif
           tumbler_mutex_lock (manager->mutex);
           dir_index = tumbler_manager_get_dir_index (manager, file);
@@ -1695,7 +1674,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
               if (event_type == G_FILE_MONITOR_EVENT_CREATED)
                 {
 #ifdef DEBUG
-                  g_debug ("  %s created", g_file_get_path (file));
+                  g_debug ("  %s created", g_file_peek_path (file));
 #endif
                   tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_load_overrides_file (manager, file);
@@ -1708,7 +1687,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
               else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
                 {
 #ifdef DEBUG
-                  g_debug ("  %s changed", g_file_get_path (file));
+                  g_debug ("  %s changed", g_file_peek_path (file));
 #endif
                   tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_unload_overrides_file (manager, file);
@@ -1725,7 +1704,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
               if (event_type == G_FILE_MONITOR_EVENT_CREATED)
                 {
 #ifdef DEBUG
-                  g_debug ("  %s created", g_file_get_path (file));
+                  g_debug ("  %s created", g_file_peek_path (file));
 #endif
                   tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_load_thumbnailer (manager, file);
@@ -1738,7 +1717,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
               else if (event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT)
                 {
 #ifdef DEBUG
-                  g_debug ("  %s changed", g_file_get_path (file));
+                  g_debug ("  %s changed", g_file_peek_path (file));
 #endif
                   tumbler_mutex_lock (manager->mutex);
                   tumbler_manager_thumbnailer_file_deleted (manager, file);
@@ -1760,7 +1739,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
           if (dir_index >= 0)
             {
 #ifdef DEBUG
-              g_debug ("  %s created", g_file_get_path (file));
+              g_debug ("  %s created", g_file_peek_path (file));
 #endif
 
               tumbler_mutex_lock (manager->mutex);
@@ -1895,7 +1874,7 @@ dump_thumbnailers (TumblerManager *manager)
     {
       g_print ("  %s:\n", base_name);
       for (iter = *list; iter != NULL; iter = iter->next)
-        g_print ("    %s\n", g_file_get_path (((ThumbnailerInfo *)iter->data)->file));
+        g_print ("    %s\n", g_file_peek_path (((ThumbnailerInfo *)iter->data)->file));
     }
 
   g_print ("\n");

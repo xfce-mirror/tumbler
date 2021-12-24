@@ -786,7 +786,6 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   JOCTET                 *content;
   GError                 *error = NULL;
   GFile                  *file;
-  gchar                  *path;
   gsize                   length;
   gint                    fd;
   gint                    height;
@@ -818,10 +817,8 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 #ifdef HAVE_MMAP
   if (g_file_is_native (file))
     {
-      path = g_file_get_path (file);
-
       /* try to open the file at the given path */
-      fd = open (path, O_RDONLY);
+      fd = open (g_file_peek_path (file), O_RDONLY);
       if (G_LIKELY (fd >= 0))
         {
           /* determine the status of the file */
@@ -872,8 +869,6 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
           /* close the file */
           close (fd);
         }
-
-      g_free (path);
     }
 #endif
 
