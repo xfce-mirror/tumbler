@@ -39,6 +39,26 @@
 #define TUMBLER_STAT_BLKSIZE 512.
 
 
+
+/* that's what `! g_log_writer_default_would_drop (G_LOG_LEVEL_DEBUG, log_domain)` leads to:
+ * it is defined only from GLib 2.68, and it might be better to keep this anyway */
+gboolean
+tumbler_util_is_debug_logging_enabled (const gchar *log_domain)
+{
+  const gchar *domains;
+
+  domains = g_getenv ("G_MESSAGES_DEBUG");
+  if (domains == NULL)
+    return FALSE;
+
+  if (strcmp (domains, "all") == 0 || (log_domain != NULL && strstr (domains, log_domain)))
+    return TRUE;
+
+  return FALSE;
+}
+
+
+
 gchar **
 tumbler_util_get_supported_uri_schemes (void)
 {

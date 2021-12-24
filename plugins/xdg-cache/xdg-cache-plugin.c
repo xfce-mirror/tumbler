@@ -53,9 +53,7 @@ tumbler_plugin_initialize (TumblerCachePlugin *plugin)
       return;
     }
 
-#ifdef DEBUG
-  g_print ("Initializing the Tumbler XDG cache plugin\n");
-#endif
+  g_debug ("Initializing the Tumbler XDG cache plugin");
 
   /* register the types provided by this plugin */
   xdg_cache_cache_register (plugin);
@@ -67,9 +65,7 @@ tumbler_plugin_initialize (TumblerCachePlugin *plugin)
 void
 tumbler_plugin_shutdown (void)
 {
-#ifdef DEBUG
-  g_print ("Shutting down the Tumbler XDG cache plugin\n");
-#endif
+  g_debug ("Shutting down the Tumbler XDG cache plugin");
 }
 
 

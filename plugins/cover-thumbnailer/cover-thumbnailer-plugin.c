@@ -60,9 +60,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
       return;
     }
 
-#ifdef DEBUG
-  g_print ("Initializing the Tumbler Cover Thumbnailer plugin\n");
-#endif
+  g_debug ("Initializing the Tumbler Cover Thumbnailer plugin");
 
   /* register the types provided by this plugin */
   cover_thumbnailer_register (plugin);
@@ -77,9 +75,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
 void
 tumbler_plugin_shutdown (void)
 {
-#ifdef DEBUG
-  g_print ("Shutting down the Tumbler Cover Thumbnailer plugin\n");
-#endif
+  g_debug ("Shutting down the Tumbler Cover Thumbnailer plugin");
 }
 
 

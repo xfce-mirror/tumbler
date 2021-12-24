@@ -539,7 +539,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   uri = tumbler_file_info_get_uri (info);
   if (tumbler_util_guess_is_sparse (info))
   {
-    g_debug ("Video file '%s' is probably sparse, skipping\n", uri);
+    g_debug ("Video file '%s' is probably sparse, skipping", uri);
 
     /* there was an error, emit error signal */
     g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,

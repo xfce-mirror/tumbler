@@ -45,6 +45,9 @@ static gint                tumbler_registry_compare                   (TumblerTh
 static GList              *tumbler_registry_lookup                    (TumblerRegistry    *registry,
                                                                        const gchar        *hash_key);
 
+/* debug */
+static void                dump_registry                              (TumblerRegistry *registry);
+
 
 
 struct _TumblerRegistryClass
@@ -122,17 +125,18 @@ tumbler_registry_finalize (GObject *object)
 
 
 
-#ifdef DEBUG
 static void
 dump_registry (TumblerRegistry *registry)
 {
+  if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
+    return;
+
   g_print ("Registry:\n");
   g_print ("  Preferred Thumbnailers: %d\n",
            g_hash_table_size (registry->preferred_thumbnailers));
   g_print ("  Registry Thumbnailers: %d\n",g_hash_table_size (registry->thumbnailers));
   g_print ("\n");
 }
-#endif
 
 
 
@@ -380,9 +384,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
 
   g_strfreev (hash_keys);
 
-#ifdef DEBUG
   dump_registry (registry);
-#endif
 
   tumbler_mutex_unlock (registry->mutex);
 }
@@ -710,9 +712,7 @@ tumbler_registry_set_preferred (TumblerRegistry    *registry,
                            g_strdup (hash_key), g_object_ref (thumbnailer));
     }
 
-#ifdef DEBUG
   dump_registry (registry);
-#endif
 
   tumbler_mutex_unlock (registry->mutex);
 }
