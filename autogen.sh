@@ -19,25 +19,16 @@
 # Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-test -d m4 || mkdir m4
-
-which xdt-autogen
-if test x"$?" = x"0"; then
-  echo "Building using the Xfce development environment"
-  ./autogen-xfce.sh $@
-  exit $?
-fi
-
-which gnome-autogen.sh
-if test x"$?" = x"0"; then
-  echo "Building using the GNOME development environment"
-  ./autogen-gnome.sh $@
-  exit $?
-fi
-
-cat >&2 <<EOF
-You need to have either the Xfce or the GNOME development enviroment
-installed. Check for xfce4-dev-tools or gnome-autogen.sh in your 
-package manager.
+type xdt-autogen >/dev/null 2>&1 || {
+  cat >&2 <<EOF
+autogen.sh: You don't seem to have the Xfce development tools installed on
+            your system, which are required to build this software.
+            Please install the xfce4-dev-tools package first, it is available
+            from http://www.xfce.org/.
 EOF
-exit 1
+  exit 1
+}
+
+mkdir -p m4 || exit $?
+
+XDT_AUTOGEN_REQUIRED_VERSION="4.16.0" exec xdt-autogen "$@"
