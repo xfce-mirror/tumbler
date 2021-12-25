@@ -1822,21 +1822,24 @@ dump_overrides (TumblerManager *manager)
   const gchar   *hash_key;
   GList        **list;
   GList         *iter;
+  GString       *string;
 
   if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
-  g_print ("Overrides:\n");
+  string = g_string_new ("Overrides:\n");
 
   g_hash_table_iter_init (&table_iter, manager->overrides);
   while (g_hash_table_iter_next (&table_iter, (gpointer) &hash_key, (gpointer) &list))
     {
-      g_print ("  %s:\n", hash_key);
+      g_string_append_printf (string, "  %s:\n", hash_key);
       for (iter = *list; iter != NULL; iter = iter->next)
-        g_print ("    %s\n", ((OverrideInfo *)iter->data)->name);
+        g_string_append_printf (string, "    %s\n", ((OverrideInfo *) iter->data)->name);
     }
 
-  g_print ("\n");
+  g_string_truncate (string, string->len - 1);
+  g_debug ("%s", string->str);
+  g_string_free (string, TRUE);
 }
 
 
@@ -1848,21 +1851,25 @@ dump_thumbnailers (TumblerManager *manager)
   const gchar   *base_name;
   GList        **list;
   GList         *iter;
+  GString       *string;
 
   if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
-  g_print ("Thumbnailers:\n");
+  string = g_string_new ("Thumbnailers:\n");
 
   g_hash_table_iter_init (&table_iter, manager->thumbnailers);
   while (g_hash_table_iter_next (&table_iter, (gpointer) &base_name, (gpointer) &list))
     {
-      g_print ("  %s:\n", base_name);
+      g_string_append_printf (string, "  %s:\n", base_name);
       for (iter = *list; iter != NULL; iter = iter->next)
-        g_print ("    %s\n", g_file_peek_path (((ThumbnailerInfo *)iter->data)->file));
+        g_string_append_printf (string, "    %s\n",
+                                g_file_peek_path (((ThumbnailerInfo *) iter->data)->file));
     }
 
-  g_print ("\n");
+  g_string_truncate (string, string->len - 1);
+  g_debug ("%s", string->str);
+  g_string_free (string, TRUE);
 }
 
 

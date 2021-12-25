@@ -128,14 +128,21 @@ tumbler_registry_finalize (GObject *object)
 static void
 dump_registry (TumblerRegistry *registry)
 {
+  GString *string;
+
   if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
-  g_print ("Registry:\n");
-  g_print ("  Preferred Thumbnailers: %d\n",
-           g_hash_table_size (registry->preferred_thumbnailers));
-  g_print ("  Registry Thumbnailers: %d\n",g_hash_table_size (registry->thumbnailers));
-  g_print ("\n");
+  string = g_string_new ("Registry:\n");
+
+  g_string_append_printf (string, "  Preferred Thumbnailers: %d\n",
+                          g_hash_table_size (registry->preferred_thumbnailers));
+  g_string_append_printf (string, "  Registry Thumbnailers: %d\n",
+                          g_hash_table_size (registry->thumbnailers));
+
+  g_string_truncate (string, string->len - 1);
+  g_debug ("%s", string->str);
+  g_string_free (string, TRUE);
 }
 
 
