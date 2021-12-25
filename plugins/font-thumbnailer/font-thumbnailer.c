@@ -429,7 +429,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* there was an error in the freetype initialization, abort */
       error_msg = g_strdup_printf (_("Could not initialize freetype: %s"),
                                    ft_strerror (font_thumbnailer->library_error));
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_UNSUPPORTED, error_msg);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             TUMBLER_ERROR, TUMBLER_ERROR_UNSUPPORTED, error_msg);
       g_free (error_msg);
       return;
     }
@@ -441,7 +442,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* there was an error, emit error signal */
       error_msg = g_strdup_printf (_("Could not load file contents: %s"), 
                                    error->message);
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error_msg);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             error->domain, error->code, error_msg);
       g_free (error_msg);
 
       /* clean up */
@@ -460,7 +462,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* the font file could not be loaded, emit an error signal */
       error_msg = g_strdup_printf (_("Could not open font file: %s"),
                                    ft_strerror (ft_error));
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_NO_CONTENT, error_msg);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT, error_msg);
       g_free (error_msg);
 
       /* clean up */
@@ -485,7 +488,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
               error_msg = g_strdup_printf (_("Could not set the character map: %s"),
                                            ft_strerror (ft_error));
               g_signal_emit_by_name (thumbnailer, "error", uri,
-                                     TUMBLER_ERROR_INVALID_FORMAT, error_msg);
+                                     TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT, error_msg);
               g_free (error_msg);
 
               /* clean up */
@@ -512,7 +515,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* emit an error signal */
       error_msg = g_strdup_printf (_("Could not render glyphs: %s"),
                                    ft_strerror (ft_error));
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR_INVALID_FORMAT, error_msg);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT, error_msg);
       g_free (error_msg);
 
       /* clean up */
@@ -543,7 +547,8 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (error != NULL)
     {
       /* emit an error signal */
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             error->domain, error->code, error->message);
       g_error_free (error);
     }
   else

@@ -300,7 +300,8 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       input = gsf_input_gio_new (file, &error);
       if (G_UNLIKELY (input == NULL))
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+          g_signal_emit_by_name (thumbnailer, "error", uri,
+                                 error->domain, error->code, error->message);
           g_error_free (error);
           g_object_unref (file);
           return;
@@ -353,7 +354,8 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (error != NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri, error->code, error->message);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             error->domain, error->code, error->message);
       g_error_free (error);
     }
   else

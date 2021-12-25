@@ -361,7 +361,8 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
           g_variant_get (parameters, "(u&si&s)", &handle, &uri, &error_code, &error_msg);
           if (info->handle == handle) 
             {
-              g_signal_emit_by_name (info->thumbnailer, "error", uri, error_code, error_msg);
+              g_signal_emit_by_name (info->thumbnailer, "error", uri,
+                                     TUMBLER_ERROR, error_code, error_msg);
             }
         }
     }
@@ -436,7 +437,8 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
           if (!g_cond_wait_until (&sinfo.condition, &sinfo.mutex, end_time))
             {
               message = g_strdup (_("Failed to call the specialized thumbnailer: timeout"));
-              g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
+              g_signal_emit_by_name (thumbnailer, "error", uri,
+                                     TUMBLER_ERROR, TUMBLER_ERROR_CONNECTION_ERROR, message);
               g_free (message);
             }
         }
@@ -446,7 +448,8 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
     {
       message = g_strdup_printf (_("Failed to call the specialized thumbnailer: %s"),
                                  error->message);
-      g_signal_emit_by_name (thumbnailer, "error", uri, 1, message);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             TUMBLER_ERROR, TUMBLER_ERROR_CONNECTION_ERROR, message);
       g_free (message);
       g_clear_error (&error);
     }

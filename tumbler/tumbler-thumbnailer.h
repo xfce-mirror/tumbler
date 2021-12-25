@@ -50,6 +50,7 @@ struct _TumblerThumbnailerIface
                       const gchar        *uri);
   void (*error)      (TumblerThumbnailer *thumbnailer,
                       const gchar        *failed_uri,
+                      GQuark              error_domain,
                       gint                error_code,
                       const gchar        *message);
   void (*unregister) (TumblerThumbnailer *thumbnailer);

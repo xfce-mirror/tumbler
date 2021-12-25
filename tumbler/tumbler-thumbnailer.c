@@ -114,10 +114,11 @@ tumbler_thumbnailer_default_init (TumblerThumbnailerIface *klass)
                   G_STRUCT_OFFSET (TumblerThumbnailerIface, error),
                   NULL,
                   NULL,
-                  tumbler_marshal_VOID__STRING_INT_STRING,
+                  tumbler_marshal_VOID__STRING_UINT_INT_STRING,
                   G_TYPE_NONE,
-                  3,
+                  4,
                   G_TYPE_STRING,
+                  G_TYPE_UINT,
                   G_TYPE_INT,
                   G_TYPE_STRING);
 

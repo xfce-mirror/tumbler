@@ -673,7 +673,7 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (error != NULL)
     {
       g_signal_emit_by_name (thumbnailer, "error", uri,
-                             error->code, error->message);
+                             error->domain, error->code, error->message);
       g_error_free (error);
     }
   else

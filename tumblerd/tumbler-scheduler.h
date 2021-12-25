@@ -46,6 +46,7 @@ struct _TumblerSchedulerIface
   void (*error)    (TumblerScheduler        *scheduler,
                     guint32                  handle,
                     const gchar *const      *failed_uris,
+                    GQuark                   error_domain,
                     gint                     error_code,
                     const gchar             *message);
   void (*finished) (TumblerScheduler        *scheduler,

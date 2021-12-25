@@ -75,6 +75,7 @@ static void tumbler_group_scheduler_thread            (gpointer                 
                                                        gpointer                   user_data);
 static void tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
                                                        const gchar               *failed_uri,
+                                                       GQuark                     error_domain,
                                                        gint                       error_code,
                                                        const gchar               *message,
                                                        GList                    **uri_errors);
@@ -105,6 +106,7 @@ struct _TumblerGroupScheduler
 struct _UriError
 {
   guint  error_code;
+  GQuark error_domain;
   gchar *message;
   gchar *failed_uri;
 };
@@ -373,12 +375,14 @@ tumbler_group_scheduler_dequeue_request (TumblerSchedulerRequest *request,
 
 static UriError *
 uri_error_new (gint         code,
+               GQuark       domain,
                const gchar *uri,
                const gchar *message)
 {
   UriError *error;
 
   error = g_slice_new0 (UriError);
+  error->error_domain = domain;
   error->error_code = code;
   error->failed_uri = g_strdup (uri);
   error->message = g_strdup (message);
@@ -422,6 +426,7 @@ tumbler_group_scheduler_thread (gpointer data,
   GList                   *lp;
   guint                    n;
   gint                     error_code = 0;
+  GQuark                   error_domain = 0;
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
@@ -585,8 +590,11 @@ tumbler_group_scheduler_thread (gpointer data,
           uri_error = iter->data;
 
           /* we use the error code of the first failed URI */
-          if (iter == uri_errors) 
-            error_code = uri_error->error_code;
+          if (iter == uri_errors)
+            {
+              error_domain = uri_error->error_domain;
+              error_code = uri_error->error_code;
+            }
 
           if (uri_error->message != NULL)
             {
@@ -607,7 +615,7 @@ tumbler_group_scheduler_thread (gpointer data,
 
       /* forward the error signal */
       g_signal_emit_by_name (request->scheduler, "error", request->handle, 
-                             failed_uris, error_code, message->str, 
+                             failed_uris, error_domain, error_code, message->str,
                              request->origin);
 
       /* free the failed URIs array. Its contents are owned by the URI errors */
@@ -655,6 +663,7 @@ tumbler_group_scheduler_thread (gpointer data,
 static void
 tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
                                            const gchar        *failed_uri,
+                                           GQuark              error_domain,
                                            gint                error_code,
                                            const gchar        *message,
                                            GList             **uri_errors)
@@ -667,7 +676,7 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
   g_return_if_fail (uri_errors != NULL);
 
   /* allocate a new URI error */
-  error = uri_error_new (error_code, failed_uri, message);
+  error = uri_error_new (error_code, error_domain, failed_uri, message);
 
   /* add the error to the list */
   *uri_errors = g_list_prepend (*uri_errors, error);

@@ -71,6 +71,7 @@ static void tumbler_lifo_scheduler_thread            (gpointer                  
                                                       gpointer                   user_data);
 static void tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
                                                       const gchar               *failed_uri,
+                                                      GQuark                     error_domain,
                                                       gint                       error_code,
                                                       const gchar               *message,
                                                       TumblerSchedulerRequest   *request);
@@ -515,6 +516,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
 static void
 tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
                                           const gchar             *failed_uri,
+                                          GQuark                   error_domain,
                                           gint                     error_code,
                                           const gchar             *message,
                                           TumblerSchedulerRequest *request)
@@ -528,7 +530,7 @@ tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
 
   /* forward the error signal */
   g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris, 
-                         error_code, message, request->origin);
+                         error_domain, error_code, message, request->origin);
 }
 
 

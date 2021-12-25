@@ -95,6 +95,7 @@ static gboolean tumbler_service_get_flavors_cb  (TumblerExportedService  *skelet
 static void tumbler_service_scheduler_error    (TumblerScheduler   *scheduler,
                                                 guint32             handle,
                                                 const gchar *const *failed_uris,
+                                                GQuark              error_domain,
                                                 gint                error_code,
                                                 const gchar        *message,
                                                 const gchar        *origin,
@@ -425,6 +426,7 @@ static void
 tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
                                  guint32             handle,
                                  const gchar *const *failed_uris,
+                                 GQuark              error_domain,
                                  gint                error_code,
                                  const gchar        *message,
                                  const gchar        *origin,
@@ -437,20 +439,34 @@ tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
   g_return_if_fail (message != NULL && *message != '\0');
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
-  
-  g_debug ("Error signal for job %d: Code %d, message: %s",
-           handle, error_code, message);
-  tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", failed_uris);
+
+  /* request cancelled at some level after being handled by the thumbnailer: no signal,
+   * just as if it had been cancelled before */
+  if (error_domain == G_IO_ERROR && error_code == G_IO_ERROR_CANCELLED)
+    return;
 
   info = g_slice_new0 (SchedulerIdleInfo);
 
   info->scheduler = g_object_ref (scheduler);
   info->handle = handle;
   info->uris = g_strdupv ((gchar **)failed_uris);
-  info->error_code = error_code;
-  info->message = g_strdup (message);
   info->origin = g_strdup (origin);
   info->service = g_object_ref (service);
+  if (error_domain == TUMBLER_ERROR)
+    {
+      info->error_code = error_code;
+      info->message = g_strdup (message);
+    }
+  else
+    {
+      info->error_code = TUMBLER_ERROR_OTHER_ERROR_DOMAIN;
+      info->message = g_strdup_printf ("(%s error, code %d) %s",
+                                       g_quark_to_string (error_domain), error_code, message);
+    }
+
+  g_debug ("Error signal for job %d: Code %d, message: %s",
+           handle, info->error_code, info->message);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", failed_uris);
 
   g_idle_add (tumbler_service_error_idle, info);
 }
@@ -783,7 +799,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
                                          service);
 
       /* emit an error signal */
-      tumbler_service_scheduler_error (scheduler, handle, uris, 
+      tumbler_service_scheduler_error (scheduler, handle, uris, TUMBLER_ERROR,
                                        TUMBLER_ERROR_UNSUPPORTED_FLAVOR, 
                                        TUMBLER_ERROR_MESSAGE_UNSUPPORTED_FLAVOR,
                                        scheduler_request->origin,
