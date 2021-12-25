@@ -153,10 +153,13 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
                               "mime-types", mime_types,
                               "exec", exec,
                               NULL);
+
+  g_debug ("Registered thumbnailer '%s'", filename);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types",
+                          (const gchar *const *) mime_types);
+
   g_key_file_free (key_file);
   g_strfreev(mime_types);
-
-  g_debug ("Registered thumbnailer %s", exec);
   g_free(exec);
 
   return thumbnailer;
@@ -261,6 +264,9 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
   /* reverse the directory list so that the directories with highest
    * priority come first */
   directories = g_list_reverse (directories);
+
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
+                          (const gchar *const *) uri_schemes);
 
   /* thumbnailers end up in reverse order here, since they are prepended, but the list must
    * not be reversed: this will happen during sorted insertion in tumbler_registry_add() */

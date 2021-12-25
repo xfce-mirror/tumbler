@@ -162,6 +162,11 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
                               "uri-schemes", uri_schemes, "mime-types", mime_types, 
                               NULL);
 
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
+                          (const gchar *const *) uri_schemes);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types",
+                          (const gchar *const *) mime_types);
+
   /* free URI schemes and MIME types */
   g_strfreev (uri_schemes);
   g_strfreev (mime_types);

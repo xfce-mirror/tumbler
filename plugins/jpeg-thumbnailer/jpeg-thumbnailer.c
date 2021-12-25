@@ -801,6 +801,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     return;
 
   uri = tumbler_file_info_get_uri (info);
+  g_debug ("Handling URI '%s'", uri);
 
   /* try to open the source file for reading */
   file = g_file_new_for_uri (uri);

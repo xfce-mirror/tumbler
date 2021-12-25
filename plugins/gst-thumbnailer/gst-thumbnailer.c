@@ -535,8 +535,10 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_cancellable_is_cancelled (cancellable))
     return;
 
-  /* Check if is a sparse video file */
   uri = tumbler_file_info_get_uri (info);
+  g_debug ("Handling URI '%s'", uri);
+
+  /* Check if is a sparse video file */
   if (tumbler_util_guess_is_sparse (info))
   {
     g_debug ("Video file '%s' is probably sparse, skipping", uri);

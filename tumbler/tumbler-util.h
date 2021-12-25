@@ -30,6 +30,10 @@ G_BEGIN_DECLS
 
 gboolean tumbler_util_is_debug_logging_enabled (const gchar *log_domain);
 
+void tumbler_util_dump_strv (const gchar *log_domain,
+                             const gchar *label,
+                             const gchar *const *strv);
+
 gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 
 GKeyFile *tumbler_util_get_settings (void) G_GNUC_MALLOC;

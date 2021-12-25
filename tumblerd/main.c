@@ -284,6 +284,8 @@ main (int    argc,
       /* start the lifecycle manager */
       tumbler_lifecycle_manager_start (lifecycle_manager);
 
+      g_debug ("Ready to handle requests\n");
+
       /* enter the main loop, thereby making the tumbler service available */
       g_main_loop_run (main_loop);
     }

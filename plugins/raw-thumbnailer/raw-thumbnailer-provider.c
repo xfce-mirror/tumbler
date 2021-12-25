@@ -130,5 +130,8 @@ raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
   /* add the thumbnailer to the list */
   thumbnailers = g_list_append (thumbnailers, thumbnailer);
 
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes", uri_schemes);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types", mime_types);
+
   return thumbnailers;
 }

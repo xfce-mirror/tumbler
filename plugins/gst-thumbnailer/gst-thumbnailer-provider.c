@@ -243,6 +243,10 @@ gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
                               "mime-types", mime_types,
                               NULL);
 
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
+                          (const gchar *const *) uri_schemes);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types", mime_types);
+
   g_strfreev (uri_schemes);
 
   return g_list_append (NULL, thumbnailer);

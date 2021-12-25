@@ -340,7 +340,11 @@ tumbler_manager_register_cb (TumblerExportedManager *skeleton,
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
   g_return_val_if_fail (uri_schemes != NULL, FALSE);
   g_return_val_if_fail (mime_types != NULL, FALSE);
-  
+
+  g_debug ("Registering new specialized thumbnailer");
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes", uri_schemes);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types", mime_types);
+
   sender_name = g_dbus_method_invocation_get_sender (invocation);
 
   tumbler_mutex_lock (manager->mutex);
@@ -1827,7 +1831,10 @@ dump_overrides (TumblerManager *manager)
   if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
-  string = g_string_new ("Overrides:\n");
+  if (g_hash_table_size (manager->overrides) == 0)
+    return;
+
+  string = g_string_new ("Specialized thumbnailer overrides:\n");
 
   g_hash_table_iter_init (&table_iter, manager->overrides);
   while (g_hash_table_iter_next (&table_iter, (gpointer) &hash_key, (gpointer) &list))
@@ -1856,7 +1863,10 @@ dump_thumbnailers (TumblerManager *manager)
   if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
-  string = g_string_new ("Thumbnailers:\n");
+  if (g_hash_table_size (manager->thumbnailers) == 0)
+    return;
+
+  string = g_string_new ("Specialized thumbnailers:\n");
 
   g_hash_table_iter_init (&table_iter, manager->thumbnailers);
   while (g_hash_table_iter_next (&table_iter, (gpointer) &base_name, (gpointer) &list))

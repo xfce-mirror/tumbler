@@ -45,9 +45,6 @@ static gint                tumbler_registry_compare                   (TumblerTh
 static GList              *tumbler_registry_lookup                    (TumblerRegistry    *registry,
                                                                        const gchar        *hash_key);
 
-/* debug */
-static void                dump_registry                              (TumblerRegistry *registry);
-
 
 
 struct _TumblerRegistryClass
@@ -121,28 +118,6 @@ tumbler_registry_finalize (GObject *object)
   tumbler_mutex_free (registry->mutex);
 
   (*G_OBJECT_CLASS (tumbler_registry_parent_class)->finalize) (object);
-}
-
-
-
-static void
-dump_registry (TumblerRegistry *registry)
-{
-  GString *string;
-
-  if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
-    return;
-
-  string = g_string_new ("Registry:\n");
-
-  g_string_append_printf (string, "  Preferred Thumbnailers: %d\n",
-                          g_hash_table_size (registry->preferred_thumbnailers));
-  g_string_append_printf (string, "  Registry Thumbnailers: %d\n",
-                          g_hash_table_size (registry->thumbnailers));
-
-  g_string_truncate (string, string->len - 1);
-  g_debug ("%s", string->str);
-  g_string_free (string, TRUE);
 }
 
 
@@ -390,8 +365,6 @@ tumbler_registry_add (TumblerRegistry    *registry,
                             G_CALLBACK (tumbler_registry_remove), registry);
 
   g_strfreev (hash_keys);
-
-  dump_registry (registry);
 
   tumbler_mutex_unlock (registry->mutex);
 }
@@ -718,8 +691,6 @@ tumbler_registry_set_preferred (TumblerRegistry    *registry,
       g_hash_table_insert (registry->preferred_thumbnailers,
                            g_strdup (hash_key), g_object_ref (thumbnailer));
     }
-
-  dump_registry (registry);
 
   tumbler_mutex_unlock (registry->mutex);
 }

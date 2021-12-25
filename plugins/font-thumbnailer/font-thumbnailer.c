@@ -421,6 +421,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     return;
 
   uri = tumbler_file_info_get_uri (info);
+  g_debug ("Handling URI '%s'", uri);
 
   /* check if we have a valid freetype library object */
   if (font_thumbnailer->library_error != 0)

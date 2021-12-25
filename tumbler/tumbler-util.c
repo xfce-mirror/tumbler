@@ -59,6 +59,32 @@ tumbler_util_is_debug_logging_enabled (const gchar *log_domain)
 
 
 
+void
+tumbler_util_dump_strv (const gchar *log_domain,
+                        const gchar *label,
+                        const gchar *const *strv)
+{
+  GString *string;
+  const gchar *const *p;
+
+  g_return_if_fail (label != NULL && strv != NULL);
+
+  if (! tumbler_util_is_debug_logging_enabled (log_domain))
+    return;
+
+  string = g_string_new (label);
+  g_string_append (string, ":\n");
+
+  for (p = strv; *p != NULL; p++)
+    g_string_append_printf (string, "  %s\n", *p);
+
+  g_string_truncate (string, string->len - 1);
+  g_log (log_domain, G_LOG_LEVEL_DEBUG, "%s", string->str);
+  g_string_free (string, TRUE);
+}
+
+
+
 gchar **
 tumbler_util_get_supported_uri_schemes (void)
 {

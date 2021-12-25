@@ -615,9 +615,15 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnailFlavor *flavor;
   GFile                  *gfile;
 
+  /* do nothing if cancelled */
+  if (g_cancellable_is_cancelled (cancellable))
+    return;
+
   /* source file */
   uri = tumbler_file_info_get_uri (info);
   gfile = g_file_new_for_uri (uri);
+
+  g_debug ("Handling URI '%s'", uri);
 
   /* target data */
   thumbnail = tumbler_file_info_get_thumbnail (info);

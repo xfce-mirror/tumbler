@@ -244,11 +244,11 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_cancellable_is_cancelled (cancellable))
     return;
 
-  /* try to load the PDF/PS file based on the URI */
   uri = tumbler_file_info_get_uri (info);
-  document = poppler_document_new_from_file (uri, NULL, &error);
+  g_debug ("Handling URI '%s'", uri);
 
-  /* check if that failed */
+  /* try to load the PDF/PS file based on the URI */
+  document = poppler_document_new_from_file (uri, NULL, &error);
   if (document == NULL)
     {
       /* make sure to free error data */

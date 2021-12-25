@@ -438,6 +438,10 @@ tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
   
+  g_debug ("Error signal for job %d: Code %d, message: %s",
+           handle, error_code, message);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", failed_uris);
+
   info = g_slice_new0 (SchedulerIdleInfo);
 
   info->scheduler = g_object_ref (scheduler);
@@ -497,7 +501,9 @@ tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
-  
+
+  g_debug ("Finishing job %d\n", handle);
+
   info = g_slice_new0 (SchedulerIdleInfo);
 
   info->scheduler = g_object_ref (scheduler);
@@ -555,7 +561,10 @@ tumbler_service_scheduler_ready (TumblerScheduler   *scheduler,
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (uris != NULL && uris[0] != NULL && *uris[0] != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
-  
+
+  g_debug ("Ready signal for job %d", handle);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", uris);
+
   info = g_slice_new0 (SchedulerIdleInfo);
 
   info->scheduler = g_object_ref (scheduler);
@@ -609,6 +618,8 @@ tumbler_service_scheduler_started (TumblerScheduler *scheduler,
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
+
+  g_debug ("Starting job %d", handle);
 
   info = g_slice_new0 (SchedulerIdleInfo);
 
@@ -737,6 +748,9 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
   /* get the request handle */
   handle = scheduler_request->handle;
 
+  g_debug ("Handling request %d", handle);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", uris);
+
   /* iterate over all schedulers */
   for (iter = service->schedulers; iter != NULL; iter = iter->next)
     {
@@ -815,6 +829,8 @@ tumbler_service_dequeue_cb (TumblerExportedService  *skeleton,
 
   if (handle != 0) 
     {
+      g_debug ("Dequeuing files for job %d", handle);
+
       /* iterate over all available schedulers */
       for (iter = service->schedulers; iter != NULL; iter = iter->next)
         {

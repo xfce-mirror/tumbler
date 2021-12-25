@@ -121,6 +121,10 @@ gepub_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provide
   /* add the thumbnailer to the list */
   thumbnailers = g_list_append (thumbnailers, thumbnailer);
 
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
+                          (const gchar *const *) uri_schemes);
+  tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types", mime_types);
+
   /* free URI schemes and MIME types */
   g_strfreev (uri_schemes);
 

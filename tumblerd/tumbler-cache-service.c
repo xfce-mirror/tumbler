@@ -330,6 +330,12 @@ tumbler_cache_service_move_thread (gpointer data,
 
   if (service->cache != NULL)
     {
+      g_debug ("Moving files in cache for moved source files");
+      tumbler_util_dump_strv (G_LOG_DOMAIN, "From URIs",
+                              (const gchar *const *) request->from_uris);
+      tumbler_util_dump_strv (G_LOG_DOMAIN, "To URIs",
+                              (const gchar *const *) request->to_uris);
+
       tumbler_cache_move (service->cache, 
                           (const gchar *const *)request->from_uris, 
                           (const gchar *const *)request->to_uris);
@@ -364,6 +370,12 @@ tumbler_cache_service_copy_thread (gpointer data,
 
   if (service->cache != NULL)
     {
+      g_debug ("Copying files in cache for copied source files");
+      tumbler_util_dump_strv (G_LOG_DOMAIN, "From URIs",
+                              (const gchar *const *) request->from_uris);
+      tumbler_util_dump_strv (G_LOG_DOMAIN, "To URIs",
+                              (const gchar *const *) request->to_uris);
+
       tumbler_cache_copy (service->cache, 
                           (const gchar *const *)request->from_uris, 
                           (const gchar *const *)request->to_uris);
@@ -397,7 +409,12 @@ tumbler_cache_service_delete_thread (gpointer data,
   tumbler_mutex_lock (service->mutex);
 
   if (service->cache != NULL)
-    tumbler_cache_delete (service->cache, (const gchar *const *)request->uris);
+    {
+      g_debug ("Removing files from cache for deleted source files");
+      tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", (const gchar *const *) request->uris);
+
+      tumbler_cache_delete (service->cache, (const gchar *const *)request->uris);
+    }
 
   tumbler_exported_cache_service_complete_delete (request->skeleton, request->invocation);
 
@@ -427,6 +444,12 @@ tumbler_cache_service_cleanup_thread (gpointer data,
 
   if (service->cache != NULL)
     {
+      g_debug (request->since > 0 ? "Removing files older than %d from cache"
+                                  : "Removing files from cache regardless of mtime%.0d",
+               request->since);
+      tumbler_util_dump_strv (G_LOG_DOMAIN, "URI schemes",
+                              (const gchar *const *) request->base_uris);
+
       tumbler_cache_cleanup (service->cache, 
                              (const gchar *const *)request->base_uris, 
                              request->since);
