@@ -424,6 +424,7 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   GFile               *gfile;
   gint64               file_size;
   gint64               max_file_size;
+  const gchar         *uri;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (infos != NULL, NULL);
@@ -442,7 +443,8 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
       file_size = 0;
 
       /* determine the URI scheme and generate a hash key */
-      gfile = g_file_new_for_uri (tumbler_file_info_get_uri (infos[n]));
+      uri = tumbler_file_info_get_uri (infos[n]);
+      gfile = g_file_new_for_uri (uri);
       scheme = g_file_get_uri_scheme (gfile);
       hash_key = g_strdup_printf ("%s-%s", scheme,
                                   tumbler_file_info_get_mime_type (infos[n]));
@@ -459,12 +461,18 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
               if (file_size == 0)
                 file_size = tumbler_registry_get_file_size (gfile);
               if (file_size > max_file_size)
-                continue;
+                {
+                  g_debug ("URI '%s' filtered by size in config file", uri);
+                  continue;
+                }
             }
 
           /* check if the location is supported */
           if (!tumbler_thumbnailer_supports_location (lp->data, gfile))
-            continue;
+            {
+              g_debug ("URI '%s' filtered by location in config file", uri);
+              continue;
+            }
 
           /* found a usable thumbnailer */
           thumbnailers[n] = g_object_ref (lp->data);

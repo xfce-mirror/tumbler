@@ -282,9 +282,13 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
       g_assert (g_str_has_suffix (type_name, "Provider"));
       name = g_strndup (type_name, strlen (type_name) - 8);
       disabled = g_key_file_get_boolean (rc, name, "Disabled", NULL);
-      g_free (name);
       if (disabled)
-        continue;
+        {
+          g_debug ("Thumbnailer \"%s\" disabled in config file", name);
+          g_free (name);
+          continue;
+        }
+      g_free (name);
 
       /* check if the provider type implements the given type */
       if (G_LIKELY (g_type_is_a (info->type, type)))
