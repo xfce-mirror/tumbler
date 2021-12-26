@@ -29,6 +29,11 @@ DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.xml
 # Extra options to pass to gtkdoc-scangobj
 SCANGOBJ_OPTIONS=
 
+# Extra options to supply to gtkdoc-scan
+# e.g. SCAN_OPTIONS=--rebuild-sections --rebuild-types to update files under
+# version control, or SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED"
+SCAN_OPTIONS=
+
 # Directory containing the source code
 DOC_SOURCE_DIR=$(top_srcdir)/tumbler
 

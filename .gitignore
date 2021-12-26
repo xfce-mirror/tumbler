@@ -48,6 +48,8 @@ tumblerd/tumblerd
 docs/reference/tumbler/xml/
 docs/reference/tumbler/tumbler-decl.txt.bak
 docs/reference/tumbler/tumbler-decl-list.txt.bak
+docs/reference/tumbler/tumbler.actions
+docs/reference/tumbler/tumbler.types.bak
 version.xml
 *.prerequisites
 *.signals

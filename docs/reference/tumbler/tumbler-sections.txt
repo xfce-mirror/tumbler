@@ -93,6 +93,19 @@ tumbler_thumbnail_format_get_type
 <FILE>tumbler-error</FILE>
 TUMBLER_ERROR_DOMAIN
 TUMBLER_ERROR
+TUMBLER_ERROR_MESSAGE_CREATION_FAILED
+TUMBLER_ERROR_MESSAGE_LOCAL_ONLY
+TUMBLER_ERROR_MESSAGE_CORRUPT_THUMBNAIL
+TUMBLER_ERROR_MESSAGE_SAVE_FAILED
+TUMBLER_ERROR_MESSAGE_NO_THUMB_OF_THUMB
+TUMBLER_ERROR_MESSAGE_NO_THUMBNAILER
+TUMBLER_ERROR_MESSAGE_SHUT_DOWN
+TUMBLER_ERROR_MESSAGE_UNSUPPORTED_FLAVOR
+TUMBLER_WARNING_VERSION_MISMATCH
+TUMBLER_WARNING_MALFORMED_FILE
+TUMBLER_WARNING_LOAD_FILE_FAILED
+TUMBLER_WARNING_LOAD_PLUGIN_FAILED
+TUMBLER_WARNING_PLUGIN_LACKS_SYMBOLS
 TumblerErrorEnum
 </SECTION>
 
@@ -123,12 +136,10 @@ tumbler_file_info_get_type
 
 <SECTION>
 <FILE>tumbler-marshal</FILE>
-tumbler_marshal_VOID__STRING_INT_STRING
-tumbler_marshal_VOID__UINT_STRING_INT_STRING
-tumbler_marshal_VOID__UINT_BOXED_INT_STRING_STRING
+tumbler_marshal_VOID__STRING_UINT_INT_STRING
+tumbler_marshal_VOID__UINT_BOXED_UINT_INT_STRING_STRING
 tumbler_marshal_VOID__UINT_BOXED_STRING
 tumbler_marshal_VOID__UINT_STRING
-tumbler_marshal_VOID__UINT_POINTER_INT_STRING
 </SECTION>
 
 <SECTION>
@@ -181,6 +192,7 @@ TUMBLER_THUMBNAIL_GET_IFACE
 TUMBLER_TYPE_THUMBNAIL
 TumblerThumbnail
 TumblerThumbnailIface
+TumblerThumbnailInterface
 tumbler_thumbnail_get_type
 </SECTION>
 
@@ -225,6 +237,7 @@ TUMBLER_THUMBNAILER_GET_IFACE
 TUMBLER_TYPE_THUMBNAILER
 TumblerThumbnailer
 TumblerThumbnailerIface
+TumblerThumbnailerInterface
 tumbler_thumbnailer_get_type
 </SECTION>
 
@@ -244,8 +257,12 @@ tumbler_thumbnailer_provider_get_type
 
 <SECTION>
 <FILE>tumbler-util</FILE>
+tumbler_util_is_debug_logging_enabled
+tumbler_util_dump_strv
 tumbler_util_get_supported_uri_schemes
 tumbler_util_get_settings
 tumbler_util_guess_is_sparse
+tumbler_util_size_prepared
+tumbler_util_scale_pixbuf
 </SECTION>
 
