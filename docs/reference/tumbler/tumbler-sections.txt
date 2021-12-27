@@ -259,6 +259,7 @@ tumbler_thumbnailer_provider_get_type
 <FILE>tumbler-util</FILE>
 tumbler_util_is_debug_logging_enabled
 tumbler_util_dump_strv
+tumbler_util_toggle_stderr
 tumbler_util_get_supported_uri_schemes
 tumbler_util_get_settings
 tumbler_util_guess_is_sparse

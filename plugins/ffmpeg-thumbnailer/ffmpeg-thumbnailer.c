@@ -143,6 +143,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gint                    dest_height;
   gchar                  *path;
   const gchar            *uri;
+  gint                    res;
 
   g_return_if_fail (IS_FFMPEG_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -206,7 +207,10 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
     }
 
   /* try to generate a thumbnail */
-  if (video_thumbnailer_generate_thumbnail_to_buffer (ffmpeg_thumbnailer->video, path, v_data) != 0)
+  tumbler_util_toggle_stderr (G_LOG_DOMAIN);
+  res = video_thumbnailer_generate_thumbnail_to_buffer (ffmpeg_thumbnailer->video, path, v_data);
+  tumbler_util_toggle_stderr (G_LOG_DOMAIN);
+  if (res != 0)
     {
       /* there was an error, emit error signal */
       g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,

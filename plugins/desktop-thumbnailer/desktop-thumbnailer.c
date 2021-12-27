@@ -263,7 +263,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 {
   GFileIOStream *stream;
   GFile     *tmpfile;
-  gchar     *exec;
+  gchar     *exec, *std_err;
   gchar    **cmd_argv;
   const gchar *tmpfilepath;
   gboolean   res;
@@ -271,6 +271,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
   gint       size;
   gchar     *working_directory = NULL;
   GdkPixbuf *source, *pixbuf = NULL;
+  gboolean verbose;
 
   g_object_get (G_OBJECT (thumbnailer), "exec", &exec, NULL);
 
@@ -295,13 +296,20 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
         {
           working_directory = g_path_get_dirname (path);
 
+          verbose = tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN);
           res = g_spawn_sync (working_directory,
                               cmd_argv, NULL,
-                              G_SPAWN_SEARCH_PATH,
+                              verbose ? G_SPAWN_SEARCH_PATH
+                                      : G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL,
                               NULL, NULL,
-                              NULL, NULL,
+                              NULL, verbose ? &std_err : NULL,
                               NULL,
                               error);
+          if (verbose)
+            {
+              g_printerr ("%s", std_err);
+              g_free (std_err);
+            }
 
           if (G_LIKELY (res))
             {

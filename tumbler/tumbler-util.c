@@ -85,6 +85,43 @@ tumbler_util_dump_strv (const gchar *log_domain,
 
 
 
+/*
+ * This is intended to be used around too verbose third-party APIs we can't silence by
+ * another means:
+ *   tumbler_util_toggle_stderr (G_LOG_DOMAIN);
+ *   … = too_verbose_api (…);
+ *   tumbler_util_toggle_stderr (G_LOG_DOMAIN);
+ * When debug logging is enabled, it does nothing.
+ */
+void
+tumbler_util_toggle_stderr (const gchar *log_domain)
+{
+  static gint stderr_save = -2;
+
+  /* do nothing in case of previous error or if debug logging is enabled */
+  if (stderr_save == -1 || tumbler_util_is_debug_logging_enabled (log_domain))
+    return;
+
+  /* redirect stderr to /dev/null */
+  if (stderr_save == -2)
+    {
+      fflush (stderr);
+      stderr_save = dup (STDERR_FILENO);
+      if (stderr_save != -1 && freopen ("/dev/null", "a", stderr) == NULL)
+        stderr_save = -1;
+    }
+  /* restore stderr to stderr_save */
+  else
+    {
+      fflush (stderr);
+      stderr_save = dup2 (stderr_save, STDERR_FILENO);
+      if (stderr_save != -1)
+        stderr_save = -2;
+    }
+}
+
+
+
 gchar **
 tumbler_util_get_supported_uri_schemes (void)
 {
