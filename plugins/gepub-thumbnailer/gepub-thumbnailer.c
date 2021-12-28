@@ -179,9 +179,8 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       /* find cover file and its mime type */
       cover = gepub_doc_get_cover (doc);
-      cover_mime = gepub_doc_get_resource_mime_by_id (doc, cover);
-
-      if (cover_mime == NULL)
+      if (cover == NULL
+          || (cover_mime = gepub_doc_get_resource_mime_by_id (doc, cover)) == NULL)
         {
           g_signal_emit_by_name (thumbnailer, "error", uri,
                                  TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
