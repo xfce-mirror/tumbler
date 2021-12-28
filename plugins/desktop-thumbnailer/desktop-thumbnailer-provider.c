@@ -167,11 +167,13 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
 
 static GList *
 desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
-                                               GFile  *directory,
-                                               GStrv   uri_schemes)
+                                               GFile *directory,
+                                               GStrv uri_schemes,
+                                               GHashTable **single_name)
 {
   const gchar *base_name;
-  GDir        *dir;
+  gchar *name;
+  GDir *dir;
 
   /* try to open the directory for reading */
   dir = g_dir_open (g_file_peek_path (directory), 0, NULL);
@@ -187,8 +189,9 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
       GFile       *file;
       DesktopThumbnailer *thumbnailer = NULL;
 
-      /* skip files that don't end with the .thumbnailer extension */
-      if (!g_str_has_suffix (base_name, ".thumbnailer"))
+      /* skip files that don't end with the .thumbnailer extension or already added */
+      if (! g_str_has_suffix (base_name, ".thumbnailer")
+          || g_hash_table_lookup (*single_name, base_name))
         continue;
 
       file = g_file_get_child (directory, base_name);
@@ -203,6 +206,8 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
       if (thumbnailer)
         {
           thumbnailers = g_list_prepend (thumbnailers, thumbnailer);
+          name = g_strdup (base_name);
+          g_hash_table_insert (*single_name, name, name);
         }
     }
 
@@ -214,6 +219,7 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 static GList *
 desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
+  GHashTable *single_name;
   GList *directories, *iter, *thumbnailers = NULL;
   GStrv uri_schemes;
 
@@ -223,15 +229,18 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
   tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
                           (const gchar *const *) uri_schemes);
 
+  /* use a ghash table to avoid duplication and allow for thumbnailer override */
+  single_name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
   /* thumbnailers end up in reverse order here, since they are prepended, but the list must
    * not be reversed: this will happen during sorted insertion in tumbler_registry_add() */
   for (iter = directories; iter != NULL; iter = iter->next)
-    {
-      thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data, uri_schemes);
-    }
+    thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data,
+                                                                  uri_schemes, &single_name);
 
   g_strfreev (uri_schemes);
   g_list_free_full (directories, g_object_unref);
+  g_hash_table_destroy (single_name);
 
   return thumbnailers;
 }

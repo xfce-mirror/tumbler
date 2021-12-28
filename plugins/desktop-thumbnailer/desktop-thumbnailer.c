@@ -368,7 +368,7 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   uri = tumbler_file_info_get_uri (info);
   file = g_file_new_for_uri (uri);
 
-  g_debug ("Handling URI '%s'", uri);
+  g_debug ("'Exec=%s': Handling URI '%s'", DESKTOP_THUMBNAILER (thumbnailer)->exec, uri);
 
   thumbnail = tumbler_file_info_get_thumbnail (info);
   g_assert (thumbnail != NULL);
