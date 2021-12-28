@@ -40,6 +40,8 @@ gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;
 
 GKeyFile *tumbler_util_get_settings (void) G_GNUC_MALLOC;
 
+GList *tumbler_util_get_thumbnailer_dirs (void);
+
 gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info);
 
 void tumbler_util_size_prepared (GdkPixbufLoader *loader,

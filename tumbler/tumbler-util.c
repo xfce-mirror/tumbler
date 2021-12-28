@@ -221,6 +221,54 @@ tumbler_util_get_settings (void)
 }
 
 
+
+GList *
+tumbler_util_get_thumbnailer_dirs (void)
+{
+  GHashTable *single_path;
+  GFile *path;
+  GList *dirs = NULL;
+  const gchar *const *data_dirs;
+  gchar *dirname;
+  guint n;
+
+  /* prepend $XDG_DATA_HOME/thumbnailers/ to the directory list */
+  dirname = g_build_filename (g_get_user_data_dir (), "thumbnailers", NULL);
+  dirs = g_list_prepend (dirs, g_file_new_for_path (dirname));
+  g_free (dirname);
+
+  /* determine system data dirs */
+  data_dirs = g_get_system_data_dirs ();
+
+  /* create a ghash table to insert loaded directory path to avoid duplication */
+  single_path = g_hash_table_new (g_file_hash, (GEqualFunc) g_file_equal);
+
+  /* build $XDG_DATA_DIRS/thumbnailers dirnames and prepend them to the list */
+  for (n = 0; data_dirs[n] != NULL; ++n)
+    {
+      dirname = g_build_filename (data_dirs[n], "thumbnailers", NULL);
+      path = g_file_new_for_path (dirname);
+
+      if (! g_hash_table_lookup (single_path, path))
+        {
+          g_hash_table_insert (single_path, path, path);
+          dirs = g_list_prepend (dirs, path);
+        }
+      else
+        g_object_unref (path);
+
+      g_free (dirname);
+    }
+
+  /* destroy the hash table used for loading single pathes */
+  g_hash_table_destroy (single_path);
+
+  /* reverse the directory list so that the dirs with highest priority come first */
+  return g_list_reverse (dirs);
+}
+
+
+
 gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info)
 {
   gchar *filename;

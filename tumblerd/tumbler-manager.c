@@ -1213,13 +1213,8 @@ tumbler_manager_load_thumbnailers (TumblerManager *manager,
 void
 tumbler_manager_load (TumblerManager *manager)
 {
-  GHashTable         *single_path;
-  const gchar *const *data_dirs;
-  GFileMonitor       *monitor;
-  GList              *directories = NULL;
-  GList              *iter;
-  gchar              *dirname;
-  guint               n;
+  GFileMonitor *monitor;
+  GList *directories, *iter;
 
   g_return_if_fail (TUMBLER_MANAGER (manager));
 
@@ -1231,47 +1226,7 @@ tumbler_manager_load (TumblerManager *manager)
 
   tumbler_mutex_unlock (manager->mutex);
 
-  /* prepend $XDG_DATA_HOME/thumbnailers/ to the directory list */
-  dirname = g_build_filename (g_get_user_data_dir (), "thumbnailers", NULL);
-  directories = g_list_prepend (directories, g_file_new_for_path (dirname));
-  g_free (dirname);
-
-  /* determine system data dirs */
-  data_dirs = g_get_system_data_dirs ();
-
-  /* Create a ghash table to insert loaded directory path to avoid duplication */
-  single_path = g_hash_table_new_full (g_file_hash, (GEqualFunc)g_file_equal, g_object_unref, NULL);
-
-  /* build $XDG_DATA_DIRS/thumbnailers dirnames and prepend them to the list */
-  for (n = 0; data_dirs[n] != NULL; ++n)
-    {
-      GFile *path;
-
-      path = g_file_new_for_path(data_dirs[n]);
-
-      if (!g_hash_table_lookup (single_path, path))
-        {
-          /* Save it in the hash table so we can relocate it */
-          /* path will be free automatically by g_hash_table_destroy */
-          g_hash_table_insert (single_path, path, path);
-
-          dirname = g_build_filename (data_dirs[n], "thumbnailers", NULL);
-          directories = g_list_prepend (directories, g_file_new_for_path (dirname));
-          g_free (dirname);
-        }
-      else
-        {
-          /* Free the path GFile object */
-          g_object_unref(path);
-        }
-    }
-
-  /* destroy the hash table used for loading single pathes */
-  g_hash_table_destroy (single_path);
-
-  /* reverse the directory list so that the directories with highest 
-   * priority come first */
-  directories = g_list_reverse (directories);
+  directories = tumbler_util_get_thumbnailer_dirs ();
 
   tumbler_mutex_lock (manager->mutex);
 

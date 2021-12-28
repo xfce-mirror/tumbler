@@ -214,56 +214,11 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 static GList *
 desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  GHashTable         *single_path;
-  const gchar *const *data_dirs;
-  gchar              *dirname;
-  GStrv               uri_schemes;
-  GList              *iter;
-  int                 n;
-  GList              *thumbnailers = NULL;
-  GList              *directories = NULL;
+  GList *directories, *iter, *thumbnailers = NULL;
+  GStrv uri_schemes;
 
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
-
-  /* prepend $XDG_DATA_HOME/thumbnailers/ to the directory list */
-  dirname = g_build_filename (g_get_user_data_dir (), "thumbnailers", NULL);
-  directories = g_list_prepend (directories, g_file_new_for_path (dirname));
-  g_free (dirname);
-
-  /* build $XDG_DATA_DIRS/thumbnailers dirnames and prepend them to the list */
-  data_dirs = g_get_system_data_dirs ();
-
-  /* Create a ghash table to insert loaded directory path to avoid duplication */
-  single_path = g_hash_table_new_full (g_file_hash,
-                                       (GEqualFunc)g_file_equal,
-                                       g_object_unref,
-                                       NULL);
-
-  for (n = 0; data_dirs[n] != NULL; ++n)
-    {
-      GFile *path;
-
-      path = g_file_new_for_path(data_dirs[n]);
-
-      if (!g_hash_table_lookup (single_path, path))
-        {
-          dirname = g_build_filename (data_dirs[n], "thumbnailers", NULL);
-          directories = g_list_prepend (directories, g_file_new_for_path (dirname));
-          g_hash_table_insert (single_path, path, path);
-          g_free (dirname);
-        }
-      else
-        {
-          /* Free the path GFile object */
-          g_object_unref(path);
-        }
-    }
-  /* destroy the hash table used for loading single pathes */
-  g_hash_table_destroy (single_path);
-
-  /* reverse the directory list so that the directories with highest
-   * priority come first */
-  directories = g_list_reverse (directories);
+  directories = tumbler_util_get_thumbnailer_dirs ();
 
   tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
                           (const gchar *const *) uri_schemes);
