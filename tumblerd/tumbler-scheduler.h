@@ -81,7 +81,7 @@ void                     tumbler_scheduler_emit_uri_error        (TumblerSchedul
                                                                   const gchar             *uri,
                                                                   GError                  *error);
 TumblerSchedulerRequest *tumbler_scheduler_request_new           (TumblerFileInfo        **infos,
-                                                                  TumblerThumbnailer     **thumbnailers,
+                                                                  GList                  **thumbnailers,
                                                                   guint                    length,
                                                                   const gchar             *origin);
 void                     tumbler_scheduler_request_free          (gpointer                 data);
@@ -91,9 +91,17 @@ gint                     tumbler_scheduler_request_compare       (gconstpointer 
 
 void                     tumbler_scheduler_thread_use_lower_priority (void);
 
+/* debug */
+void                     tumbler_scheduler_thumberr_debuglog     (TumblerThumbnailer      *thumbnailer,
+                                                                  const gchar             *failed_uri,
+                                                                  GQuark                   error_domain,
+                                                                  gint                     error_code,
+                                                                  const gchar             *message,
+                                                                  TumblerSchedulerRequest *request);
+
 struct _TumblerSchedulerRequest
 {
-  TumblerThumbnailer **thumbnailers;
+  GList              **thumbnailers;
   TumblerScheduler    *scheduler;
   TumblerFileInfo    **infos;
   GCancellable       **cancellables;

@@ -362,7 +362,7 @@ tumbler_lifo_scheduler_thread (gpointer data,
   GError                  *error = NULL;
   GList                   *cached_uris = NULL;
   GList                   *missing_uris = NULL;
-  GList                   *lp;
+  GList                   *lp, *lq;
   guint                    n;
 
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
@@ -475,29 +475,35 @@ tumbler_lifo_scheduler_thread (gpointer data,
           return;
         }
 
-      /* We immediately forward error and ready so that clients rapidly know
-       * when individual thumbnails are ready. It's a LIFO for better inter-
-       * activity with the clients, so we assume this behaviour to be desired. */
+      for (lq = request->thumbnailers[n]; lq != NULL; lq = lq->next)
+        {
+          /* We immediately forward error and ready so that clients rapidly know
+           * when individual thumbnails are ready. It's a LIFO for better inter-
+           * activity with the clients, so we assume this behaviour to be desired. */
 
-      /* connect to the error signal of the thumbnailer */
-      g_signal_connect (request->thumbnailers[n], "error", 
-                        G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_error),
-                        request);
+          /* forward only the error signal of the last thumbnailer */
+          if (lq->next == NULL)
+            g_signal_connect (lq->data, "error",
+                              G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_error), request);
+          else if (tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
+            g_signal_connect (lq->data, "error",
+                              G_CALLBACK (tumbler_scheduler_thumberr_debuglog), request);
 
-      /* connect to the ready signal of the thumbnailer */
-      g_signal_connect (request->thumbnailers[n], "ready",
-                        G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_ready),
-                        request);
+          /* connect to the ready signal of the thumbnailer */
+          g_signal_connect (lq->data, "ready",
+                            G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_ready), request);
 
-      /* tell the thumbnailer to generate the thumbnail */
-      tumbler_thumbnailer_create (request->thumbnailers[n], 
-                                  request->cancellables[n],
-                                  request->infos[n]);
+          /* cancel lower priority thumbnailers for this uri on ready signal */
+          g_signal_connect_swapped (lq->data, "ready", G_CALLBACK (g_cancellable_cancel),
+                                    request->cancellables[n]);
 
-      /* disconnect from all signals when we're finished */
-      g_signal_handlers_disconnect_matched (request->thumbnailers[n],
-                                            G_SIGNAL_MATCH_DATA,
-                                            0, 0, NULL, NULL, request);
+          /* tell the thumbnailer to generate the thumbnail */
+          tumbler_thumbnailer_create (lq->data, request->cancellables[n], request->infos[n]);
+
+          /* disconnect from all signals when we're finished */
+          g_signal_handlers_disconnect_by_data (lq->data, request);
+          g_signal_handlers_disconnect_by_data (lq->data, request->cancellables[n]);
+        }
     }
 
   /* free list */

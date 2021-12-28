@@ -234,7 +234,7 @@ tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
 
 TumblerSchedulerRequest *
 tumbler_scheduler_request_new (TumblerFileInfo    **infos,
-                               TumblerThumbnailer **thumbnailers,
+                               GList              **thumbnailers,
                                guint                length,
                                const gchar         *origin)
 {
@@ -334,4 +334,38 @@ tumbler_scheduler_thread_use_lower_priority (void)
   if (sched_getparam (0, &sp) == 0) 
     sched_setscheduler (0, SCHED_IDLE, &sp);
 #endif
+}
+
+
+
+void
+tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer      *thumbnailer,
+                                     const gchar             *failed_uri,
+                                     GQuark                   error_domain,
+                                     gint                     error_code,
+                                     const gchar             *message,
+                                     TumblerSchedulerRequest *request)
+{
+  gchar *text;
+
+  g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
+  g_return_if_fail (failed_uri != NULL);
+  g_return_if_fail (request != NULL);
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (request->scheduler));
+
+  if (error_domain == G_IO_ERROR && error_code == G_IO_ERROR_CANCELLED)
+    return;
+
+  if (error_domain == TUMBLER_ERROR)
+    text = g_strdup (message);
+  else
+    {
+      error_code = TUMBLER_ERROR_OTHER_ERROR_DOMAIN;
+      text = g_strdup_printf ("(domain %s, code %d) %s",
+                              g_quark_to_string (error_domain), error_code, message);
+    }
+
+  g_debug ("Failed attempt for job %d, URI '%s': Code %d, message: %s",
+           request->handle, failed_uri, error_code, text);
+  g_free (text);
 }

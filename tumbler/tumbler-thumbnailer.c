@@ -282,20 +282,28 @@ tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer *thumbnailer,
 
 
 
-TumblerThumbnailer **
-tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers,
-                                guint                length)
+static gpointer
+tumbler_thumbnailer_object_ref (gconstpointer src,
+                                gpointer data)
 {
-  TumblerThumbnailer **copy;
-  guint                n;
+  return g_object_ref ((gpointer) src);
+}
+
+
+
+GList **
+tumbler_thumbnailer_array_copy (GList **thumbnailers,
+                                guint length)
+{
+  GList **copy;
+  guint n;
 
   g_return_val_if_fail (thumbnailers != NULL, NULL);
 
-  copy = g_new0 (TumblerThumbnailer *, length + 1);
+  copy = g_new0 (GList *, length + 1);
 
   for (n = 0; n < length; ++n)
-    if (thumbnailers[n] != NULL)
-      copy[n] = g_object_ref (thumbnailers[n]);
+    copy[n] = g_list_copy_deep (thumbnailers[n], tumbler_thumbnailer_object_ref, NULL);
 
   copy[n] = NULL;
 
@@ -305,14 +313,13 @@ tumbler_thumbnailer_array_copy (TumblerThumbnailer **thumbnailers,
 
 
 void
-tumbler_thumbnailer_array_free (TumblerThumbnailer **thumbnailers,
-                                guint                length)
+tumbler_thumbnailer_array_free (GList **thumbnailers,
+                                guint length)
 {
   guint n;
 
   for (n = 0; thumbnailers != NULL && n < length; ++n)
-    if (thumbnailers[n] != NULL)
-      g_object_unref (thumbnailers[n]);
+    g_list_free_full (thumbnailers[n], g_object_unref);
 
   g_free (thumbnailers);
 }

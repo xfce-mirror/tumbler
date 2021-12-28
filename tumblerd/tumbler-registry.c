@@ -411,12 +411,12 @@ tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
 
 
 
-TumblerThumbnailer **
+GList **
 tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
                                         TumblerFileInfo   **infos,
                                         guint               length)
 {
-  TumblerThumbnailer **thumbnailers = NULL;
+  GList              **thumbnailers = NULL;
   gchar               *hash_key;
   gchar               *scheme;
   guint                n;
@@ -432,7 +432,7 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
   tumbler_mutex_lock (registry->mutex);
 
   /* allocate the thumbnailer array */
-  thumbnailers = g_new0 (TumblerThumbnailer *, length + 1);
+  thumbnailers = g_new0 (GList *, length + 1);
 
   /* iterate over all URIs */
   for (n = 0; n < length; ++n)
@@ -475,10 +475,11 @@ tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
             }
 
           /* found a usable thumbnailer */
-          thumbnailers[n] = g_object_ref (lp->data);
-
-          break;
+          thumbnailers[n] = g_list_prepend (thumbnailers[n], g_object_ref (lp->data));
         }
+
+      /* restore thumbnailer priority */
+      thumbnailers[n] = g_list_reverse (thumbnailers[n]);
 
       /* cleanup */
       g_free (hash_key);

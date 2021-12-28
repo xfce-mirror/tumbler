@@ -460,7 +460,7 @@ tumbler_service_scheduler_error (TumblerScheduler   *scheduler,
   else
     {
       info->error_code = TUMBLER_ERROR_OTHER_ERROR_DOMAIN;
-      info->message = g_strdup_printf ("(%s error, code %d) %s",
+      info->message = g_strdup_printf ("(domain %s, code %d) %s",
                                        g_quark_to_string (error_domain), error_code, message);
     }
 
@@ -716,10 +716,10 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
 {
   TumblerSchedulerRequest *scheduler_request;
   TumblerThumbnailFlavor  *flavor;
-  TumblerThumbnailer     **thumbnailers;
   TumblerScheduler        *scheduler = NULL;
   TumblerFileInfo        **infos;
   TumblerCache            *cache;
+  GList                  **thumbnailers;
   GList                   *iter;
   gchar                   *name;
   const gchar             *origin;

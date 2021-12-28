@@ -78,9 +78,9 @@ gboolean             tumbler_thumbnailer_supports_location (TumblerThumbnailer  
 gboolean             tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer  *thumbnailer,
                                                             const gchar         *hash_key);
 
-TumblerThumbnailer **tumbler_thumbnailer_array_copy        (TumblerThumbnailer **thumbnailers,
+GList              **tumbler_thumbnailer_array_copy        (GList              **thumbnailers,
                                                             guint                length);
-void                 tumbler_thumbnailer_array_free        (TumblerThumbnailer **thumbnailers,
+void                 tumbler_thumbnailer_array_free        (GList              **thumbnailers,
                                                             guint                length);
 
 G_END_DECLS

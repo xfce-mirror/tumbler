@@ -45,7 +45,7 @@ void                 tumbler_registry_add                   (TumblerRegistry    
 void                 tumbler_registry_remove                (TumblerRegistry     *registry,
                                                              TumblerThumbnailer  *thumbnailer);
 GList               *tumbler_registry_get_thumbnailers      (TumblerRegistry     *registry) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-TumblerThumbnailer **tumbler_registry_get_thumbnailer_array (TumblerRegistry     *registry,
+GList              **tumbler_registry_get_thumbnailer_array (TumblerRegistry     *registry,
                                                              TumblerFileInfo    **infos,
                                                              guint                length) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 void                 tumbler_registry_update_supported      (TumblerRegistry     *registry);
