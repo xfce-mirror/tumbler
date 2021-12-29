@@ -112,6 +112,14 @@ main (int    argc,
   g_log_set_always_fatal (G_LOG_LEVEL_CRITICAL);
 #endif
 
+#if GLIB_CHECK_VERSION (2, 68, 0)
+  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  /* to avoid overlap between stderr and stdout, e.g. when third party APIs write to
+   * stderr, or if debugging macros writing to stderr are used in addition to g_debug() */
+  g_log_writer_default_set_use_stderr (TRUE);
+  G_GNUC_END_IGNORE_DEPRECATIONS
+#endif
+
   /* set the application name. Translators: Don't translate "Tumbler". */
   g_set_application_name ("Tumbler Thumbnailing Service");
 
