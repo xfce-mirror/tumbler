@@ -227,7 +227,7 @@ tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
   g_return_if_fail (error != NULL);
 
   g_signal_emit (scheduler, tumbler_scheduler_signals[SIGNAL_ERROR], 0, request->handle,
-                 uris, error->code, error->message, request->origin);
+                 uris, error->domain, error->code, error->message, request->origin);
 }
 
 
