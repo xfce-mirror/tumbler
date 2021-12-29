@@ -47,6 +47,8 @@ TumblerThumbnailFlavor *tumbler_thumbnail_flavor_new        (const gchar        
                                                              gint                    height) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 TumblerThumbnailFlavor *tumbler_thumbnail_flavor_new_normal (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 TumblerThumbnailFlavor *tumbler_thumbnail_flavor_new_large  (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailFlavor *tumbler_thumbnail_flavor_new_x_large (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerThumbnailFlavor *tumbler_thumbnail_flavor_new_xx_large (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 const gchar            *tumbler_thumbnail_flavor_get_name   (TumblerThumbnailFlavor *flavor);
 void                    tumbler_thumbnail_flavor_get_size   (TumblerThumbnailFlavor *flavor,
                                                              gint                   *width,
