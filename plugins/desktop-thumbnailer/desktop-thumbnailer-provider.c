@@ -48,6 +48,14 @@ struct _DesktopThumbnailerProvider
   GObject __parent__;
 };
 
+typedef struct
+{
+  gint priority;
+  GSList *locations;
+  GSList *excludes;
+  gint64 max_file_size;
+} TumblerThumbnailerSettings;
+
 
 
 G_DEFINE_DYNAMIC_TYPE_EXTENDED (DesktopThumbnailerProvider,
@@ -96,14 +104,19 @@ desktop_thumbnailer_provider_init (DesktopThumbnailerProvider *provider)
 
 static DesktopThumbnailer *
 desktop_thumbnailer_get_from_desktop_file (GFile *file,
-                                           GStrv  uri_schemes)
+                                           GStrv uri_schemes,
+                                           TumblerThumbnailerSettings *settings)
 {
   DesktopThumbnailer *thumbnailer;
-  GKeyFile           *key_file;
-  GError             *error = NULL;
-  const gchar        *filename;
-  gchar              *exec;
-  gchar             **mime_types;
+  GKeyFile *rc;
+  GSList *locations;
+  GSList *excludes;
+  GError *error = NULL;
+  gchar **mime_types, **paths;
+  const gchar *filename;
+  gchar *exec = NULL;
+  gint64 max_file_size;
+  gint priority;
 
   g_return_val_if_fail (G_IS_FILE (file), NULL);
 
@@ -111,56 +124,81 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
   filename = g_file_peek_path (file);
 
   /* allocate a new key file object */
-  key_file = g_key_file_new ();
+  rc = g_key_file_new ();
 
-  /* try to load the key file data from the input file */
-  if (!g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error))
+  /* try to load the mandatory key file data from the input file */
+  if (! g_key_file_load_from_file (rc, filename, G_KEY_FILE_NONE, &error)
+      || (exec = g_key_file_get_string (rc, "Thumbnailer Entry", "Exec", &error)) == NULL
+      || (mime_types = g_key_file_get_string_list (rc, "Thumbnailer Entry",
+                                                   "MimeType", NULL, &error)) == NULL)
     {
       g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
-      g_clear_error (&error);
-      g_key_file_free (key_file);
-
-      return NULL;
-    }
-
-  /* determine the Exec of the desktop thumbnailer */
-  exec = g_key_file_get_string (key_file, "Thumbnailer Entry",
-                                "Exec", &error);
-  if (exec == NULL)
-    {
-      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
-      g_clear_error (&error);
-      g_key_file_free (key_file);
-
-      return NULL;
-    }
-
-  /* determine the MIME types supported by this thumbnailer */
-  mime_types = g_key_file_get_string_list (key_file, "Thumbnailer Entry",
-                                           "MimeType", NULL, &error);
-  if (mime_types == NULL)
-    {
-      g_warning (TUMBLER_WARNING_MALFORMED_FILE, filename, error->message);
-      g_clear_error (&error);
+      g_error_free (error);
+      g_key_file_free (rc);
       g_free (exec);
-      g_key_file_free (key_file);
 
       return NULL;
     }
 
-  thumbnailer = g_object_new (TYPE_DESKTOP_THUMBNAILER,
-                              "uri-schemes", uri_schemes,
-                              "mime-types", mime_types,
-                              "exec", exec,
-                              NULL);
+  /* return if disabled */
+  if (g_key_file_get_boolean (rc, "X-Tumbler Settings", "Disabled", &error) && error == NULL)
+    return NULL;
+  else if (error != NULL)
+    g_clear_error (&error);
+
+  /* try to load the settings */
+  priority = g_key_file_get_integer (rc, "X-Tumbler Settings", "Priority", &error);
+  if (error != NULL)
+    {
+      priority = settings->priority;
+      g_clear_error (&error);
+    }
+
+  max_file_size = g_key_file_get_int64 (rc, "X-Tumbler Settings", "MaxFileSize", &error);
+  if (error != NULL)
+    {
+      max_file_size = settings->max_file_size;
+      g_clear_error (&error);
+    }
+
+  paths = g_key_file_get_string_list (rc, "X-Tumbler Settings", "Locations", NULL, &error);
+  if (error != NULL)
+    {
+      locations = g_slist_copy_deep (settings->locations, tumbler_util_object_ref, NULL);
+      g_clear_error (&error);
+    }
+  else
+    {
+      locations = tumbler_util_locations_from_strv (paths);
+      g_strfreev (paths);
+    }
+
+  paths = g_key_file_get_string_list (rc, "X-Tumbler Settings", "Excludes", NULL, &error);
+  if (error != NULL)
+    {
+      excludes = g_slist_copy_deep (settings->excludes, tumbler_util_object_ref, NULL);
+      g_clear_error (&error);
+    }
+  else
+    {
+      excludes = tumbler_util_locations_from_strv (paths);
+      g_strfreev (paths);
+    }
+
+  thumbnailer = g_object_new (TYPE_DESKTOP_THUMBNAILER, "uri-schemes", uri_schemes,
+                              "mime-types", mime_types, "priority", priority,
+                              "max-file-size", max_file_size, "locations", locations,
+                              "excludes", excludes, "exec", exec, NULL);
 
   g_debug ("Registered thumbnailer '%s'", filename);
   tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported mime types",
                           (const gchar *const *) mime_types);
 
-  g_key_file_free (key_file);
-  g_strfreev(mime_types);
-  g_free(exec);
+  g_key_file_free (rc);
+  g_strfreev (mime_types);
+  g_free (exec);
+  g_slist_free_full (locations, g_object_unref);
+  g_slist_free_full (excludes, g_object_unref);
 
   return thumbnailer;
 }
@@ -169,6 +207,7 @@ static GList *
 desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
                                                GFile *directory,
                                                GStrv uri_schemes,
+                                               TumblerThumbnailerSettings *settings,
                                                GHashTable **single_name)
 {
   const gchar *base_name;
@@ -199,7 +238,7 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 
       /* try to load the file if it is regular */
       if (type == G_FILE_TYPE_REGULAR)
-        thumbnailer = desktop_thumbnailer_get_from_desktop_file (file, uri_schemes);
+        thumbnailer = desktop_thumbnailer_get_from_desktop_file (file, uri_schemes, settings);
 
       g_object_unref (file);
 
@@ -219,15 +258,33 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
 static GList *
 desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
+  TumblerThumbnailerSettings *settings;
   GHashTable *single_name;
+  GKeyFile *rc;
   GList *directories, *iter, *thumbnailers = NULL;
-  GStrv uri_schemes;
+  GStrv uri_schemes, paths;
+  const gchar *type = "DesktopThumbnailer";
 
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
   directories = tumbler_util_get_thumbnailer_dirs ();
 
   tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",
                           (const gchar *const *) uri_schemes);
+
+  /* get settings from rc file */
+  rc = tumbler_util_get_settings ();
+  settings = g_new (TumblerThumbnailerSettings, 1);
+
+  settings->priority = g_key_file_get_integer (rc, type, "Priority", NULL);
+  settings->max_file_size = g_key_file_get_int64 (rc, type, "MaxFileSize", NULL);
+
+  paths = g_key_file_get_string_list (rc, type, "Locations", NULL, NULL);
+  settings->locations = tumbler_util_locations_from_strv (paths);
+  g_strfreev (paths);
+
+  paths = g_key_file_get_string_list (rc, type, "Excludes", NULL, NULL);
+  settings->excludes = tumbler_util_locations_from_strv (paths);
+  g_strfreev (paths);
 
   /* use a ghash table to avoid duplication and allow for thumbnailer override */
   single_name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -236,11 +293,16 @@ desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
    * not be reversed: this will happen during sorted insertion in tumbler_registry_add() */
   for (iter = directories; iter != NULL; iter = iter->next)
     thumbnailers = desktop_thumbnailer_get_thumbnailers_from_dir (thumbnailers, iter->data,
-                                                                  uri_schemes, &single_name);
+                                                                  uri_schemes, settings,
+                                                                  &single_name);
 
   g_strfreev (uri_schemes);
   g_list_free_full (directories, g_object_unref);
   g_hash_table_destroy (single_name);
+  g_key_file_free (rc);
+  g_slist_free_full (settings->locations, g_object_unref);
+  g_slist_free_full (settings->excludes, g_object_unref);
+  g_free (settings);
 
   return thumbnailers;
 }

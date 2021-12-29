@@ -83,6 +83,7 @@ libtumbler_1_la_CFLAGS =						\
 	$(GLIB_CFLAGS)							\
 	$(GMODULE_CFLAGS)						\
 	$(GTHREAD_CFLAGS)						\
+	$(LIBXFCE4UTIL_CFLAGS) \
 	$(PLATFORM_CFLAGS)						\
 	$(PLATFORM_CPPFLAGS)
 
@@ -97,7 +98,8 @@ libtumbler_1_la_LIBADD =						\
 	$(GIO_LIBS)							\
 	$(GLIB_LIBS)							\
 	$(GMODULE_LIBS)							\
-	$(GTHREAD_LIBS)
+	$(GTHREAD_LIBS) \
+	$(LIBXFCE4UTIL_LIBS)
 
 EXTRA_DIST =								\
 	tumbler-config.h.in						\

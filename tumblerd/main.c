@@ -46,8 +46,6 @@
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-service.h>
 
-#include <libxfce4util/libxfce4util.h>
-
 
 
 static void
@@ -62,26 +60,6 @@ shutdown_tumbler (TumblerLifecycleManager *lifecycle_manager,
 }
 
 
-
-static GSList *
-locations_from_strv (gchar **array)
-{
-  GSList *locations = NULL;
-  guint   n;
-  gchar  *path;
-
-  if (array == NULL)
-    return NULL;
-
-  for (n = 0; array[n] != NULL; n++)
-    {
-      path = xfce_expand_variables (array[n], NULL);
-      locations = g_slist_prepend (locations, g_file_new_for_commandline_arg (path));
-      g_free (path);
-    }
-
-  return locations;
-}
 
 static void
 on_dbus_name_lost (GDBusConnection *connection,
@@ -172,37 +150,36 @@ main (int    argc,
       /* add all thumbnailers to the registry */
       for (tp = thumbnailers; tp != NULL; tp = tp->next)
         {
-          /* set settings from rc file */
-          type_name = G_OBJECT_TYPE_NAME (tp->data);
-          priority = g_key_file_get_integer (rc, type_name, "Priority", NULL);
-          file_size = g_key_file_get_int64 (rc, type_name, "MaxFileSize", NULL);
+          /* desktop thumbnailers are set up per desktop file */
+          if (g_object_class_find_property (G_OBJECT_GET_CLASS (tp->data), "exec") == NULL)
+            {
+              /* set settings from rc file */
+              type_name = G_OBJECT_TYPE_NAME (tp->data);
+              priority = g_key_file_get_integer (rc, type_name, "Priority", NULL);
+              file_size = g_key_file_get_int64 (rc, type_name, "MaxFileSize", NULL);
 
-          paths = g_key_file_get_string_list (rc, type_name, "Locations", NULL, NULL);
-          locations = locations_from_strv (paths);
-          g_strfreev (paths);
+              paths = g_key_file_get_string_list (rc, type_name, "Locations", NULL, NULL);
+              locations = tumbler_util_locations_from_strv (paths);
+              g_strfreev (paths);
 
-          paths = g_key_file_get_string_list (rc, type_name, "Excludes", NULL, NULL);
-          excludes = locations_from_strv (paths);
-          g_strfreev (paths);
+              paths = g_key_file_get_string_list (rc, type_name, "Excludes", NULL, NULL);
+              excludes = tumbler_util_locations_from_strv (paths);
+              g_strfreev (paths);
 
-          g_object_set (G_OBJECT (tp->data),
-                        "priority", priority,
-                        "max-file-size", file_size,
-                        "locations", locations,
-                        "excludes", excludes,
-                        NULL);
+              g_object_set (tp->data, "priority", priority, "max-file-size", file_size,
+                            "locations", locations, "excludes", excludes, NULL);
+
+              /* cleanup */
+              g_slist_free_full (locations, g_object_unref);
+              g_slist_free_full (excludes, g_object_unref);
+            }
 
           /* ready for usage */
           tumbler_registry_add (registry, tp->data);
-
-          /* cleanup */
-          g_object_unref (tp->data);
-          g_slist_free_full (locations, g_object_unref);
-          g_slist_free_full (excludes, g_object_unref);
         }
 
       /* free the thumbnailer list */
-      g_list_free (thumbnailers);
+      g_list_free_full (thumbnailers, g_object_unref);
     }
 
   g_key_file_free (rc);

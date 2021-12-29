@@ -22,9 +22,8 @@
 #include <config.h>
 #endif
 
-#include <tumbler/tumbler-marshal.h>
-#include <tumbler/tumbler-file-info.h>
 #include <tumbler/tumbler-thumbnailer.h>
+#include <tumbler/tumbler.h>
 
 
 
@@ -282,15 +281,6 @@ tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer *thumbnailer,
 
 
 
-static gpointer
-tumbler_thumbnailer_object_ref (gconstpointer src,
-                                gpointer data)
-{
-  return g_object_ref ((gpointer) src);
-}
-
-
-
 GList **
 tumbler_thumbnailer_array_copy (GList **thumbnailers,
                                 guint length)
@@ -303,7 +293,7 @@ tumbler_thumbnailer_array_copy (GList **thumbnailers,
   copy = g_new0 (GList *, length + 1);
 
   for (n = 0; n < length; ++n)
-    copy[n] = g_list_copy_deep (thumbnailers[n], tumbler_thumbnailer_object_ref, NULL);
+    copy[n] = g_list_copy_deep (thumbnailers[n], tumbler_util_object_ref, NULL);
 
   copy[n] = NULL;
 

@@ -122,12 +122,24 @@ MaxFileSize=0
 # External Thumbnailers
 ###
 
-# Thumbnailers provided by .thumbnailer desktop files.
+# Thumbnailers provided by .thumbnailer desktop files located in $XDG_HOME_DIR/thumbnailers/ and
+# $XDG_DATA_DIRS/thumbnailers/
+#
 # They can handle any mime type, depending on the contents of each particular desktop file.
-# Their priority is defined globally and by default lower than that of all internal thumbnailers.
+# Their priority is defined here globally and by default lower than that of all internal
+# thumbnailers.
 # These priorities should in any case remain different, otherwise there is no way to know in
 # advance which of the internal or external thumbnailer will be prioritized in case of a mime type
 # match.
+#
+# In case of several desktop files with the same name in the thumbnailer directories, the one
+# placed in the highest priority directory override all the others.
+#
+# All the properties below can be overridden per desktop file, in the "X-Tumbler Settings" group,
+# for example:
+# [X-Tumbler Settings]
+# Priority=4
+# MaxFileSize=104857600
 [DesktopThumbnailer]
 Disabled=false
 Priority=0

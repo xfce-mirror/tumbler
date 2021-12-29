@@ -35,6 +35,8 @@
 
 #include <tumbler/tumbler-util.h>
 
+#include <libxfce4util/libxfce4util.h>
+
 /* Float block size used in the stat struct */
 #define TUMBLER_STAT_BLKSIZE 512.
 
@@ -222,6 +224,28 @@ tumbler_util_get_settings (void)
 
 
 
+GSList *
+tumbler_util_locations_from_strv (gchar **array)
+{
+  GSList *locations = NULL;
+  guint   n;
+  gchar  *path;
+
+  if (array == NULL)
+    return NULL;
+
+  for (n = 0; array[n] != NULL; n++)
+    {
+      path = xfce_expand_variables (array[n], NULL);
+      locations = g_slist_prepend (locations, g_file_new_for_commandline_arg (path));
+      g_free (path);
+    }
+
+  return locations;
+}
+
+
+
 GList *
 tumbler_util_get_thumbnailer_dirs (void)
 {
@@ -373,4 +397,13 @@ tumbler_util_scale_pixbuf (GdkPixbuf *source,
   /* scale the pixbuf down to the desired size */
   return gdk_pixbuf_scale_simple (source, MAX (dest_width, 1), MAX (dest_height, 1),
                                   GDK_INTERP_BILINEAR);
+}
+
+
+
+gpointer
+tumbler_util_object_ref (gconstpointer src,
+                         gpointer data)
+{
+  return g_object_ref ((gpointer) src);
 }

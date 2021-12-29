@@ -262,9 +262,11 @@ tumbler_util_dump_strv
 tumbler_util_toggle_stderr
 tumbler_util_get_supported_uri_schemes
 tumbler_util_get_settings
+tumbler_util_locations_from_strv
 tumbler_util_get_thumbnailer_dirs
 tumbler_util_guess_is_sparse
 tumbler_util_size_prepared
 tumbler_util_scale_pixbuf
+tumbler_util_object_ref
 </SECTION>
 
