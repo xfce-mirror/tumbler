@@ -34,6 +34,12 @@ void tumbler_util_dump_strv (const gchar *log_domain,
                              const gchar *label,
                              const gchar *const *strv);
 
+void tumbler_util_dump_strvs_side_by_side (const gchar *log_domain,
+                                           const gchar *label_1,
+                                           const gchar *label_2,
+                                           const gchar *const *strv_1,
+                                           const gchar *const *strv_2);
+
 void tumbler_util_toggle_stderr (const gchar *log_domain);
 
 gchar **tumbler_util_get_supported_uri_schemes (void) G_GNUC_MALLOC;

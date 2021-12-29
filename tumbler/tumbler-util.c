@@ -87,6 +87,37 @@ tumbler_util_dump_strv (const gchar *log_domain,
 
 
 
+void
+tumbler_util_dump_strvs_side_by_side (const gchar *log_domain,
+                                      const gchar *label_1,
+                                      const gchar *label_2,
+                                      const gchar *const *strv_1,
+                                      const gchar *const *strv_2)
+{
+  GString *string;
+  const gchar *const *p, *const *q;
+
+  g_return_if_fail (label_1 != NULL && label_2 != NULL && strv_1 != NULL && strv_2 != NULL);
+
+  if (! tumbler_util_is_debug_logging_enabled (log_domain))
+    return;
+
+  if (g_strv_length ((GStrv) strv_1) != g_strv_length ((GStrv) strv_2))
+    g_warn_if_reached ();
+
+  string = g_string_new (NULL);
+  g_string_append_printf (string, "%s | %s:\n", label_1, label_2);
+
+  for (p = strv_1, q = strv_2; *p != NULL && *q != NULL; p++, q++)
+    g_string_append_printf (string, "  %s | %s\n", *p, *q);
+
+  g_string_truncate (string, string->len - 1);
+  g_log (log_domain, G_LOG_LEVEL_DEBUG, "%s", string->str);
+  g_string_free (string, TRUE);
+}
+
+
+
 /*
  * This is intended to be used around too verbose third-party APIs we can't silence by
  * another means:

@@ -331,10 +331,9 @@ tumbler_cache_service_move_thread (gpointer data,
   if (service->cache != NULL)
     {
       g_debug ("Moving files in cache for moved source files");
-      tumbler_util_dump_strv (G_LOG_DOMAIN, "From URIs",
-                              (const gchar *const *) request->from_uris);
-      tumbler_util_dump_strv (G_LOG_DOMAIN, "To URIs",
-                              (const gchar *const *) request->to_uris);
+      tumbler_util_dump_strvs_side_by_side (G_LOG_DOMAIN, "From URIs", "To URIs",
+                                            (const gchar *const *) request->from_uris,
+                                            (const gchar *const *) request->to_uris);
 
       tumbler_cache_move (service->cache, 
                           (const gchar *const *)request->from_uris, 
@@ -371,10 +370,9 @@ tumbler_cache_service_copy_thread (gpointer data,
   if (service->cache != NULL)
     {
       g_debug ("Copying files in cache for copied source files");
-      tumbler_util_dump_strv (G_LOG_DOMAIN, "From URIs",
-                              (const gchar *const *) request->from_uris);
-      tumbler_util_dump_strv (G_LOG_DOMAIN, "To URIs",
-                              (const gchar *const *) request->to_uris);
+      tumbler_util_dump_strvs_side_by_side (G_LOG_DOMAIN, "From URIs", "To URIs",
+                                            (const gchar *const *) request->from_uris,
+                                            (const gchar *const *) request->to_uris);
 
       tumbler_cache_copy (service->cache, 
                           (const gchar *const *)request->from_uris, 

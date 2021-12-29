@@ -765,7 +765,7 @@ tumbler_service_queue_cb (TumblerExportedService  *skeleton,
   handle = scheduler_request->handle;
 
   g_debug ("Handling request %d", handle);
-  tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", uris);
+  tumbler_util_dump_strvs_side_by_side (G_LOG_DOMAIN, "URIs", "Mime types", uris, mime_hints);
 
   /* iterate over all schedulers */
   for (iter = service->schedulers; iter != NULL; iter = iter->next)
