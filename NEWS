@@ -1,4 +1,84 @@
-4.16.0
+4.17.0 (2022-01-01)
+======
+- Dependency Changes:
+  - GLib >= 2.56.0
+  - gdk-pixbuf >= 2.36.2
+  - libxfce4util >= 4.17.1
+
+- New Features:
+  - Add support for thumbnail size x-large and xx-large (#51)
+  - desktop-thumbnailer: Allow to override configuration in desktop files (#52)
+  - desktop-thumbnailer: Allow for thumbnailer override (#53)
+  - Try all available thumbnailers before declaring failure (#50)
+  - Add a corresponding systemd user service for the D-Bus session services (#14)
+  - Support shared thumbnail repositories of the freedesktop.org thumbnail spec
+
+- Performance Improvement:
+  - pixbuf-thumbnailer: Stop animated image loading at first frame (#48)
+  - pixbuf-thumbnailer: Increase loader buffer size (!19)
+
+- Code Refactoring:
+  - Cleanup: Avoid code duplication
+  - Use GLib structured logging
+  - Debug: Add some config-file-related messages (#23)
+  - Error handling: Fit to the spec and complete message if needed (#49)
+  - Debug: Add or adjust some traces and dumps
+  - Debug: Convert dump functions to `GString, g_debug()`
+  - Debug: Prefer runtime to compile-time check for logging
+  - Cleanup: Use `g_file_peek_path()` when appropriate
+  - Cleanup: Remove deprecated GNOME build and TODO file
+  - Do not translate warning messages
+  - Define error messages in `tumbler/tumbler-error.h`
+  - poppler-thumbnailer: Fix deprecation warning
+  - ffmpeg-thumbnailer: Fix deprecation warning
+  - Fix warnings from scan-build (Clang 13.0)
+  - Fix `-Wclobbered` compilation warnings
+  - Use GLIB_VERSION_MIN/MAX_REQUIRED/ALLOWED
+  - Remove TUMBLER_ADD_INTERFACE (!16)
+  - Fix compilation warnings (!16)
+  - autoconf: Some updates (!16)
+  - Remove GSourceFunc casts (!13)
+
+- Bug Fixes:
+  - gepub-thumbnailer: Add missing sanity check
+  - Reserve some third-party API messages to debug logging (#10, #29)
+  - Set the priority of external thumbnailers to 0
+  - Revert "Set Max file sizes."
+  - xdg-cache: Add missing sanity check
+  - xdg-cache: Remove temporary file when saving failed
+  - xdg-cache: Set thumbnail permissions to 600
+  - pixbuf-thumbnailer: Try to ignore `GDK_PIXBUF_ERROR_CORRUPT_IMAGE`
+  - Use microsecond precision for last modification time (#15, !20)
+  - poppler-thumbnailer: Fix error handling
+  - pixbuf-thumbnailer: Simplify error handling
+  - font-thumbnailer: Fix error handling
+  - Cache cleanup when a request for a URI fails (#22)
+  - jpeg-thumbnailer: Do not use low quality embedded thumbnail (#37)
+  - gst-thumbnailer: Fix error handling
+  - ffmpeg-thumbnailer: Fix error handling
+  - odf-thumbnailer: Fix error handling
+  - xdg-cache: Ensure read_thumbnail_info() always sets an error on failure
+  - xdg-cache: Chain-up to parent in `finalize()`
+  - desktop-thumbnailer: Fill in `finalize()`
+  - gepub-thumbnailer: Fix a memory leak
+  - desktop-thumbnailer: Fix some memory leaks
+  - desktop-thumbnailer: Fix error handling
+  - Fix some priority issues
+  - pixbuf-thumbnailer: Use a mime-type-specific loader when possible (#20, #32, #36, !18)
+  - raw-thumbnailer: Check for all possible pkg-config files (#44, !18)
+
+- Translation Updates:
+  Albanian, Arabic, Armenian (Armenia), Basque, Belarusian, Bengali,
+  Bulgarian, Catalan, Chinese (China), Chinese (Hong Kong), Chinese
+  (Taiwan), Croatian, Czech, Danish, Dutch, Eastern Armenian, English
+  (Australia), English (United Kingdom), Estonian, Finnish, French,
+  Galician, German, Greek, Hebrew, Hindi, Hungarian, Icelandic,
+  Indonesian, Italian, Japanese, Kabyle, Kazakh, Korean, Lithuanian,
+  Malay, Norwegian Bokmål, Norwegian Nynorsk, Occitan (post 1500),
+  Polish, Portuguese, Portuguese (Brazil), Romanian, Russian, Serbian,
+  Slovak, Slovenian, Spanish, Swedish, Thai, Turkish, Ukrainian, Uyghur
+
+4.16.0 (2020-12-23)
 ======
 - Remove GLIB_CHECK_VERSION IFDEFs which are obsolete after glib bump
 - bump glib (and gio, gthread, etc) minimum to 2.50.0
@@ -6,7 +86,7 @@
 - Translation Updates:
   Estonian, Turkish
 
-0.3.1
+0.3.1 (2020-11-15)
 =====
 - New plugin, libgepub thumbnailer plugin
 - Fix documentation URL
@@ -14,7 +94,7 @@
 - Add new icon needed for xfce4-about-dialog
 - Translation Updates: lt, oc, he, hi, hu, sk, tr, ug
 
-0.3.0
+0.3.0 (2020-08-13)
 =====
 - Fix jpeg thumbnail orientation when fallback code is taken place (Bug #28).
 - Use AC_CONFIG_MACRO_DIRS instead of AC_CONFIG_MACRO_DIR
@@ -24,25 +104,25 @@
 - Implement Excludes paths in tumbler.rc
 - Translation Updates: be, da, el, es, he, hu, hye, it, nl, pl, sq, zh_TW, zh_HK
 
-0.2.8
+0.2.8 (2019-12-21)
 ======
 - Fix thumbnail orientation (Bug #15011)
 - prepend $XDG_DATA_HOME/thumbnailers/ to thumbnailers directory (Bug #15858)
 - Translation Updates: Galician, Portuguese, Slovenian, Spanish
 
-0.2.7
+0.2.7 (2019-08-12)
 ======
 - Translation Updates: Galician
 
-0.2.6
+0.2.6 (2019-07-28)
 ======
 - Translation Updates: Finnish, Norwegian Bokmål
 
-0.2.5
+0.2.5 (2019-06-30)
 =====
 - Translation Updates: Armenian, Danish
 
-0.2.4
+0.2.4 (2019-05-17)
 =====
 - Check for sparse video files only on plugin side
 - Set Max file sizes
@@ -56,12 +136,12 @@
   Finnish, French, Galician, Hebrew, Italian, Kazakh, Lithuanian, Polish,
   Portuguese (Brazilian), Romanian, Russian, Slovak, Swedish, Ukrainian
 
-0.2.3
+0.2.3 (2018-09-13)
 =====
 - Test sparse files only for regular files (bug #14693).
 - Fix uninitialized variable (bug #14688)
 
-0.2.2
+0.2.2 (2018-09-08)
 =====
 - Added check to avoid sparse files, that cause high cpu and
   memory load. (bug #12259).
@@ -73,40 +153,37 @@
 - Translation Updates: Czech, Finnish, Hungarian, Italian,
   Greek and English (Australia).
 
-0.2.1
+0.2.1 (2018-03-31)
 =====
 - #9231 Handle 0 mtime threshold on Cleanup DBus method. This fixes
   running across all thumbnails that was causing very high I/O bandwidth 
   usage when a file with a thumbnail gets deleted. (On dbus Cleanup method).
 
-0.2.0
+0.2.0 (2017-07-17)
 =====
 - Stable release of tumbler ported to GDbus, in addition
   also fixes the bugs fixed by the version 0.1.32.
-
-0.1.92.1
-========
-- Fixe missing entry of the new desktop thumbnailer plugin
-  in tumbler.rc.
-
-0.1.92
-======
-- Add support for loading thumbnailers from *.thumbnailer files 
-  (enhancement bug #7475)
-
-0.1.90
-======
-- Tumbler relies now on gdbus instead of dbus-glib
-
-0.1.32
-======
 - #13618 avoid loading specialized tumbnailers twice on system with
   duplication path entry in $XDG_DATA_HOME (causes assertion failure)
 - #13360 don't close GdkPixbufLoader on error (causes sigabrt)
 - #13240 fix typo in exif tag for image height
 - #13201 fix finding of libopenraw-0.1.0
 
-0.1.31
+0.1.92.1 (2017-05-28)
+========
+- Fixe missing entry of the new desktop thumbnailer plugin
+  in tumbler.rc.
+
+0.1.92 (2017-05-28)
+======
+- Add support for loading thumbnailers from *.thumbnailer files 
+  (enhancement bug #7475)
+
+0.1.90 (2017-05-11)
+======
+- Tumbler relies now on gdbus instead of dbus-glib
+
+0.1.31 (2015-02-28)
 ======
 - Use $XDG_CACHE_HOME/thumbnails as per spec change (bug #10613)
 - Move xdt m4 macros into separate directory
@@ -118,7 +195,7 @@
 - Translation updates: Asturian, Bulgarian, Croatian, French, German,
   Greek, Norwegian Bokmål, Polish, Romanian, Slovak, Spanish
 
-0.1.30
+0.1.30 (2014-02-23)
 ======
 - Only enable keepalive in curl >= 7.25.
 - Support move/copy operations on directories in the cache.
@@ -133,12 +210,12 @@
   Swedish, Thai, Turkish, Uyghur, Ukrainian, Chinese (China), Chinese
   (Hong Kong), Chinese (Taiwan).
 
-0.1.29
+0.1.29 (2013-05-05)
 ======
 - Fix memory corruption on 64bit (bug #9766).
 - Translation updates: Japanese, Dutch (Flemish), Serbian.
 
-0.1.28
+0.1.28 (2013-05-05)
 ======
 - Set nice value of tumblerd to 19 (bug #9627).
 - Fix rendering from pdfs with thumbnail (bug #9972).
@@ -152,7 +229,7 @@
   Romanian, Russian, Serbian, Swedish, Uyghur, Ukrainian, Chinese
   (China), Chinese (Taiwan).
 
-0.1.27
+0.1.27 (2013-01-12)
 ======
 - Autotools updates.
 - Remove unmaintained translations.
@@ -161,7 +238,7 @@
 - Add config file system to control thumbnailing plugins.
 - Release thumbnail in gst thumbnailer.
 
-0.1.26
+0.1.26 (2012-12-09)
 ======
 - Remove INSTALL
 - Directly render the capture in the correct size.
@@ -183,7 +260,7 @@
 - Translation updates: Arabic, Spanish (Castilian), Icelandic,
   Korean, Dutch (Flemish), Serbian, Uyghur.
 
-0.1.25
+0.1.25 (2012-04-28)
 ======
 - Remove some unused m4 macros.
 - Add or fix missing licenses.
@@ -191,7 +268,7 @@
   Japanese, Kazakh, Korean, Dutch (Flemish), Polish, Portuguese,
   Portuguese (Brazilian), Romanian, Chinese (China).
 
-0.1.24
+0.1.24 (2012-03-28)
 ======
 - Update COPYING to the latest version of GPL2 (bug #7796).
 - Link all plugins that use rint() against libm (bug #8236).
@@ -203,7 +280,7 @@
 - Translation updates: bg, ca, cs, de, es, fi, he, id, is, kk, ko, lt,
   nn, pl, pt, pt_BR, zh_CN.
 
-0.1.23
+0.1.23 (2011-12-04)
 ======
 - Fix generation of video images by starting the pipeline (bug #7996).
 - Fix ownership race conditions when started twice (bug #8001).
@@ -220,7 +297,7 @@
   Italian, Japanese, Portuguese (Brazilian), Basque, Hungarian,
   Dutch (Flemish), Chinese (China), French.
 
-0.1.22
+0.1.22 (2011-09-21)
 ======
 - Add coding style documentation.
 - Fix compiler error on Sun Studio.
@@ -233,7 +310,7 @@
   Portuguese (Brazilian), Portuguese, Romanian, Russian, Slovak,
   Spanish (Castilian), Swedish, Telugu, Turkish, Ukrainian.
 
-0.1.21
+0.1.21 (2011-02-14)
 ======
 - Update to latest revision of the thumbnail management D-Bus
   specification where Cleanup() takes an array of base URIs instead
@@ -241,19 +318,19 @@
 - Get rid of the inherently broken GStrv type in function signatures.
 - Quit tumbler after at least 5 minutes of inactivity.
 
-0.1.20
+0.1.20 (2011-02-12)
 ======
 - Version bump to override incompatibly versioned packages for Maemo.
 - Translation updates: Swedish.
 
-0.1.6
+0.1.6 (2011-01-16)
 =====
 - Fix a possible segmentation fault in the JPEG thumbnailer plugin.
 - Translation updates: Arabic, Chinese (Taiwan), Czech, English (United
   Kingdom), Finnish, French, Galician, Greek, Hebrew, Indonesian,
   Japanese, Norwegian Bokmal, Polish, Romanian, Russian, Ukrainian.
 
-0.1.5
+0.1.5 (2010-12-05)
 =====
 - Fix a segmentation fault when one of the thumbnailer directories is
   deleted (bug #6134).
@@ -263,11 +340,11 @@
   Chinese (China), Catalan (Valencian), Italian, Basque, Kazakh,
   Portuguese, Danish.
 
-0.1.4
+0.1.4 (2010-11-07)
 =====
 - Use LGPL instead of GPL license headers in the library (bug #6781).
 
-0.1.3
+0.1.3 (2010-11-03)
 =====
 - Link plugins against libtumbler-1. Should fix builds with
   --as-needed.
@@ -277,7 +354,7 @@
   Galician, Uyghur, Chinese (Taiwan), Ukrainian, Finnish, Catalan
   (Valencian), Danish, Japanese, Kazakh, Italian, Portuguese,
 
-0.1.2
+0.1.2 (2010-07-16)
 =====
 - Add a new PDF/PostScript thumbnailer plugin based on poppler.
 - Add a new video thumbnailer plugin using libffmpegthumbnailer.
@@ -291,13 +368,13 @@
 - Translation updates: Traditional Chinese, Punjabi, Bengali, Sinhala,
   French, Chinese (China) and more.
 
-0.1.1
+0.1.1 (2010-01-07)
 =====
 - New fast JPEG thumbnailer with EXIF support
 - Report unsupported flavors back to clients via error signals
 - Translation updates: Swedish, Catalan, Galician, Japanese, Danish,
   Portuguese, Chinese
 
-0.1.0
+0.1.0 (2009-12-07)
 =====
 - Initial release
