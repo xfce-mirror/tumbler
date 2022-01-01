@@ -6,13 +6,14 @@
 # 8b03701f910565d01acaec9ce3f558ab_e9f0fee <b5b06e8f85fb8288fe43ad0bc2422d94_32848>, 2013,2017
 # Arnold Marko <arnold.marko@gmail.com>, 2019,2021
 # Kernc, 2015
+# Martin Srebotnjak <miles@filmsi.net>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-19 00:47+0100\n"
-"PO-Revision-Date: 2021-12-18 23:47+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2022-01-01 22:49+0000\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/xfce/tumbler/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +53,7 @@ msgstr "Podprte so samo lokalne datoteke"
 #: ../tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
+msgstr "Okvarjeni PNG ogledne sličice: %s"
 
 #: ../tumbler/tumbler-error.h:44
 #, c-format
