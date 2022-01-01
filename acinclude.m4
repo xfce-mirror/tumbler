@@ -29,7 +29,7 @@ AC_ARG_ENABLE([pixbuf-thumbnailer], [AS_HELP_STRING([--disable-pixbuf-thumbnaile
   [ac_tumbler_pixbuf_thumbnailer=$enableval], [ac_tumbler_pixbuf_thumbnailer=yes])
 if test x"$ac_tumbler_pixbuf_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], [], [ac_tumbler_pixbuf_thumbnailer=no])
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2], [], [ac_tumbler_pixbuf_thumbnailer=no])
 fi
 
 AC_MSG_CHECKING([whether to build the GdkPixbuf thumbnailer plugin])
@@ -49,7 +49,7 @@ AC_ARG_ENABLE([font-thumbnailer], [AS_HELP_STRING([--disable-font-thumbnailer], 
   [ac_tumbler_font_thumbnailer=$enableval], [ac_tumbler_font_thumbnailer=yes])
 if test x"$ac_tumbler_font_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf 
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for FreeType 2.x
     PKG_CHECK_MODULES([FREETYPE], [freetype2], [], [ac_tumbler_font_thumbnailer=no])
@@ -74,7 +74,7 @@ AC_ARG_ENABLE([jpeg-thumbnailer], [AS_HELP_STRING([--disable-jpeg-thumbnailer], 
   [ac_tumbler_jpeg_thumbnailer=$enableval], [ac_tumbler_jpeg_thumbnailer=yes])
 if test x"$ac_tumbler_jpeg_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf 
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libjpeg
     LIBJPEG_LIBS=""
@@ -115,7 +115,7 @@ AC_ARG_ENABLE([ffmpeg-thumbnailer], [AS_HELP_STRING([--disable-ffmpeg-thumbnaile
   [ac_tumbler_ffmpeg_thumbnailer=$enableval], [ac_tumbler_ffmpeg_thumbnailer=yes])
 if test x"$ac_tumbler_ffmpeg_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libffmpegthumbnailer
     FFMPEG_REQUIRED_VERSION="2.0.0"
@@ -151,7 +151,7 @@ AC_ARG_ENABLE([gstreamer-thumbnailer], [AS_HELP_STRING([--disable-gstreamer-thum
   [ac_tumbler_gstreamer_thumbnailer=$enableval], [ac_tumbler_gstreamer_thumbnailer=yes])
 if test x"$ac_tumbler_gstreamer_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libgstreamer
     PKG_CHECK_MODULES([GSTREAMER], [gstreamer-1.0], [
@@ -178,7 +178,7 @@ AC_ARG_ENABLE([poppler-thumbnailer], [AS_HELP_STRING([--disable-poppler-thumbnai
   [ac_tumbler_poppler_thumbnailer=$enableval], [ac_tumbler_poppler_thumbnailer=yes])
 if test x"$ac_tumbler_poppler_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for poppler-glib
     PKG_CHECK_MODULES([POPPLER_GLIB], [poppler-glib >= 0.12.0], [], [ac_tumbler_poppler_thumbnailer=no])
@@ -202,7 +202,7 @@ AC_ARG_ENABLE([odf-thumbnailer], [AS_HELP_STRING([--disable-odf-thumbnailer], [D
   [ac_tumbler_odf_thumbnailer=$enableval], [ac_tumbler_odf_thumbnailer=yes])
 if test x"$ac_tumbler_odf_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libgsf
     PKG_CHECK_MODULES([GSF], [libgsf-1 >= 1.14.9], [], [ac_tumbler_odf_thumbnailer=no])
@@ -226,7 +226,7 @@ AC_ARG_ENABLE([raw-thumbnailer], [AS_HELP_STRING([--disable-raw-thumbnailer], [D
   [ac_tumbler_raw_thumbnailer=$enableval], [ac_tumbler_raw_thumbnailer=yes])
 if test x"$ac_tumbler_raw_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libopenraw
     dnl From most recent to oldest, hopefully from most likely to least likely
@@ -261,7 +261,7 @@ AC_ARG_ENABLE([cover-thumbnailer], [AS_HELP_STRING([--disable-cover-thumbnailer]
   [ac_tumbler_cover_thumbnailer=$enableval], [ac_tumbler_cover_thumbnailer=yes])
 if test x"$ac_tumbler_cover_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for curl
     PKG_CHECK_MODULES([CURL], [libcurl], [], [ac_tumbler_cover_thumbnailer=no])
@@ -285,7 +285,7 @@ AC_ARG_ENABLE([xdg-cache], [AS_HELP_STRING([--disable-xdg-cache], [Don't build t
   [ac_tumbler_xdg_cache=$enableval], [ac_tumbler_xdg_cache=yes])
 if test x"$ac_tumbler_xdg_cache" = x"yes"; then
   dnl Check for gdk-pixbuf 
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], 
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for PNG libraries
     PKG_CHECK_MODULES(PNG, libpng >= 1.2.0, [have_libpng=yes], 
@@ -315,7 +315,7 @@ AC_ARG_ENABLE([desktop-thumbnailer], [AS_HELP_STRING([--disable-desktop-thumbnai
   [ac_tumbler_desktop_thumbnailer=$enableval], [ac_tumbler_desktop_thumbnailer=yes])
 if test x"$ac_tumbler_desktop_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14], [], [ac_tumbler_desktop_thumbnailer=no])
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2], [], [ac_tumbler_desktop_thumbnailer=no])
 fi
 
 AC_MSG_CHECKING([whether to build the plugin support for loading thumbnailers *.thumbnailer files])
@@ -333,7 +333,7 @@ AC_ARG_ENABLE([gepub-thumbnailer], [AS_HELP_STRING([--disable-gepub-thumbnailer]
   [ac_tumbler_gepub_thumbnailer=$enableval], [ac_tumbler_gepub_thumbnailer=yes])
 if test x"$ac_tumbler_gepub_thumbnailer" = x"yes"; then
   dnl Check for gdk-pixbuf
-  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.14],
+  PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libgepub
     PKG_CHECK_MODULES([GEPUB], [libgepub-0.6 >= 0.6.0], [], [ac_tumbler_gepub_thumbnailer=no])
