@@ -6,13 +6,14 @@
 # Andre Miranda <andre42m@gmail.com>, 2017
 # Michael Martins <michaelfm21@gmail.com>, 2011
 # secipolla <secipolla@gmail.com>, 2011
+# Wellington Almeida <wsalmeida6@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-19 00:47+0100\n"
-"PO-Revision-Date: 2021-12-18 23:47+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2022-01-03 20:56+0000\n"
+"Last-Translator: Wellington Almeida <wsalmeida6@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/xfce/tumbler/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +53,7 @@ msgstr "Somente arquivos locais são suportados"
 #: ../tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
+msgstr "PNG de miniatura corrompida: ' 1%s ' "
 
 #: ../tumbler/tumbler-error.h:44
 #, c-format
