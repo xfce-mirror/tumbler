@@ -1,4 +1,4 @@
 [D-BUS Service]
-Name=org.freedesktop.thumbnails.Manager1
+Name=@TUMBLER_SERVICE_NAME_PREFIX@.Manager1
 Exec=@libdir@/tumbler-@TUMBLER_VERSION_API@/tumblerd
 SystemdService=tumblerd.service

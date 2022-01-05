@@ -212,7 +212,7 @@ tumbler_specialized_thumbnailer_constructed (GObject *object)
                            NULL,
                            thumbnailer->name,
                            thumbnailer->object_path,
-                           "org.freedesktop.thumbnails.SpecializedThumbnailer1",
+                           TUMBLER_SERVICE_NAME_PREFIX ".SpecializedThumbnailer1",
                            NULL,
                            NULL);
     

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/org/freedesktop/thumbnails/Thumbnailer1">
-  	<interface name="org.freedesktop.thumbnails.Thumbnailer1">
-		
-	<annotation name="org.gtk.GDBus.C.Name" value="ExportedService" />
-		
+<node name="@TUMBLER_SERVICE_PATH_PREFIX@/Thumbnailer1">
+    <interface name="@TUMBLER_SERVICE_NAME_PREFIX@.Thumbnailer1">
+    <annotation name="org.gtk.GDBus.C.Name" value="ExportedService" />
     <method name="Queue">
       <arg type="as" name="uris" direction="in" />
       <arg type="as" name="mime_types" direction="in" />
