@@ -219,7 +219,7 @@ tumbler_manager_constructed (GObject *object)
 
   g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(manager->skeleton),
 				                            manager->connection,
-				                            "/org/freedesktop/thumbnails/Manager1",
+				                            TUMBLER_SERVICE_PATH_PREFIX "/Manager1",
 				                            &error);
 	
   if (error != NULL)

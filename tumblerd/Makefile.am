@@ -99,10 +99,22 @@ systemd_user_in_files = tumblerd.service.in
 
 systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
 
+dbus_xml_in_files = \
+	tumbler-cache-service-dbus.xml.in \
+	tumbler-manager-dbus.xml.in \
+	tumbler-service-dbus.xml.in
+
+dbus_xml_files = $(dbus_xml_in_files:.xml.in=.xml)
+
 %.service: %.service.in
 	$(SED) -e "s,\@libdir\@,$(libdir),g" \
-	       -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" < $< > $@
+	       -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" \
+	       -e "s,\@TUMBLER_SERVICE_NAME_PREFIX\@,$(TUMBLER_SERVICE_NAME_PREFIX),g" \
+	       -e "s,\@TUMBLER_SERVICE_PATH_PREFIX\@,$(TUMBLER_SERVICE_PATH_PREFIX),g" < $< > $@
 
+%.xml: %.xml.in
+	$(SED) -e "s,\@TUMBLER_SERVICE_NAME_PREFIX\@,$(TUMBLER_SERVICE_NAME_PREFIX),g" \
+	       -e "s,\@TUMBLER_SERVICE_PATH_PREFIX\@,$(TUMBLER_SERVICE_PATH_PREFIX),g" < $< > $@
 
 confdir = $(sysconfdir)/xdg/tumbler
 conf_DATA = \
@@ -116,12 +128,11 @@ EXTRA_DIST =								\
 	$(systemd_user_in_files)					\
 	$(service_in_files)						\
 	tumbler.rc							\
-	tumbler-cache-service-dbus.xml					\
-	tumbler-manager-dbus.xml					\
-	tumbler-service-dbus.xml
+	$(dbus_xml_in_files)
 
 DISTCLEANFILES =							\
-	$(tumblerd_built_sources)
+	$(tumblerd_built_sources) \
+	$(dbus_xml_files)
 
 BUILT_SOURCES =								\
 	$(tumblerd_built_sources)
@@ -129,7 +140,7 @@ BUILT_SOURCES =								\
 tumbler-manager-gdbus.h:
 tumbler-manager-gdbus.c: tumbler-manager-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.freedesktop.thumbnails.Manager1 \
+	--interface-prefix @TUMBLER_SERVICE_NAME_PREFIX@.Manager1 \
 	--c-namespace Tumbler 	\
 	--generate-c-code tumbler-manager-gdbus \
 	$(srcdir)/tumbler-manager-dbus.xml
@@ -137,7 +148,7 @@ tumbler-manager-gdbus.c: tumbler-manager-dbus.xml Makefile
 tumbler-service-gdbus.h:
 tumbler-service-gdbus.c: tumbler-service-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.freedesktop.thumbnails.Thumbnailer1 \
+	--interface-prefix @TUMBLER_SERVICE_NAME_PREFIX@.Thumbnailer1 \
 	--c-namespace Tumbler 	\
 	--generate-c-code tumbler-service-gdbus \
 	$(srcdir)/tumbler-service-dbus.xml
@@ -145,7 +156,7 @@ tumbler-service-gdbus.c: tumbler-service-dbus.xml Makefile
 tumbler-cache-service-gdbus.h:
 tumbler-cache-service-gdbus.c: tumbler-cache-service-dbus.xml Makefile
 	$(AM_V_GEN) $(GDBUS_CODEGEN) \
-	--interface-prefix org.freedesktop.thumbnails.Cache1 \
+	--interface-prefix @TUMBLER_SERVICE_NAME_PREFIX@.Cache1 \
 	--c-namespace Tumbler 	\
 	--generate-c-code tumbler-cache-service-gdbus \
 	$(srcdir)/tumbler-cache-service-dbus.xml
