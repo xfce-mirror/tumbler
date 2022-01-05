@@ -154,6 +154,20 @@ PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.56.0])
 PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.56.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.17.1])
 
+dnl ******************************************************************
+dnl *** Alternative service name prefix for e.g. Flatpak packaging ***
+dnl ******************************************************************
+AC_ARG_VAR([TUMBLER_SERVICE_NAME_PREFIX],
+           [Alternative prefix to org.freedesktop.thumbnails for Tumbler services])
+test -n "$TUMBLER_SERVICE_NAME_PREFIX" || TUMBLER_SERVICE_NAME_PREFIX='org.freedesktop.thumbnails'
+
+AC_SUBST([TUMBLER_SERVICE_PATH_PREFIX],
+         [$(printf '%s' $TUMBLER_SERVICE_NAME_PREFIX | $SED -E 's%(^|\.)%/%g')])
+AC_DEFINE_UNQUOTED(TUMBLER_SERVICE_NAME_PREFIX, "$TUMBLER_SERVICE_NAME_PREFIX",
+                   Name prefix for Tumbler services)
+AC_DEFINE_UNQUOTED(TUMBLER_SERVICE_PATH_PREFIX, "$TUMBLER_SERVICE_PATH_PREFIX",
+                   Path prefix for Tumbler services)
+
 dnl *************************
 dnl *** Check for plugins ***
 dnl *************************
