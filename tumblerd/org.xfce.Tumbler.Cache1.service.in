@@ -1,4 +1,4 @@
 [D-BUS Service]
-Name=org.freedesktop.thumbnails.Cache1
+Name=@TUMBLER_SERVICE_NAME_PREFIX@.Cache1
 Exec=@libdir@/tumbler-@TUMBLER_VERSION_API@/tumblerd
 SystemdService=tumblerd.service
