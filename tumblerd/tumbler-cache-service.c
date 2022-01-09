@@ -34,9 +34,9 @@
 #include <tumblerd/tumbler-cache-service-gdbus.h>
 #include <tumblerd/tumbler-utils.h>
 
-#define THUMBNAILER_CACHE_PATH    "/org/freedesktop/thumbnails/Cache1"
-#define THUMBNAILER_CACHE_SERVICE "org.freedesktop.thumbnails.Cache1"
-#define THUMBNAILER_CACHE_IFACE   "org.freedesktop.thumbnails.Cache1"
+#define THUMBNAILER_CACHE_PATH    TUMBLER_SERVICE_PATH_PREFIX "/Cache1"
+#define THUMBNAILER_CACHE_SERVICE TUMBLER_SERVICE_NAME_PREFIX ".Cache1"
+#define THUMBNAILER_CACHE_IFACE   TUMBLER_SERVICE_NAME_PREFIX ".Cache1"
 
 typedef struct _MoveRequest    MoveRequest;
 typedef struct _CopyRequest    CopyRequest;
