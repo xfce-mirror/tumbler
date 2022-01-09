@@ -35,6 +35,9 @@ tumbler-marshal.[ch]
 tumbler-cache-service-gdbus.[ch]
 tumbler-manager-gdbus.[ch]
 tumbler-service-gdbus.[ch]
+tumbler-cache-service-dbus.xml
+tumbler-manager-dbus.xml
+tumbler-service-dbus.xml
 *.swp
 commit-msg
 *.lo

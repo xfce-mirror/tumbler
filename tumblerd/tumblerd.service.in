@@ -5,5 +5,5 @@ Description=Thumbnailing service
 Type=dbus
 # This is deliberately the bus name that is the last one to be claimed;
 # if this is claimed, then everything is ready
-BusName=org.freedesktop.thumbnails.Thumbnailer1
+BusName=@TUMBLER_SERVICE_NAME_PREFIX@.Thumbnailer1
 ExecStart=@libdir@/tumbler-@TUMBLER_VERSION_API@/tumblerd

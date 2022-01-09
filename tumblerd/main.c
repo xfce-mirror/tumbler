@@ -228,7 +228,7 @@ main (int    argc,
   
   /* Acquire the cache service dbus name */
   g_bus_own_name_on_connection (connection,
-                                "org.freedesktop.thumbnails.Cache1",
+                                TUMBLER_SERVICE_NAME_PREFIX ".Cache1",
                                 G_BUS_NAME_OWNER_FLAGS_REPLACE,
                                 NULL, /* We dont need to do anything on name acquired*/
                                 on_dbus_name_lost,
@@ -237,7 +237,7 @@ main (int    argc,
 
   /* Acquire the manager dbus name */
   g_bus_own_name_on_connection (connection,
-                                "org.freedesktop.thumbnails.Manager1",
+                                TUMBLER_SERVICE_NAME_PREFIX ".Manager1",
                                 G_BUS_NAME_OWNER_FLAGS_REPLACE,
                                 NULL, /* We dont need to do anything on name acquired*/
                                 on_dbus_name_lost,
@@ -246,7 +246,7 @@ main (int    argc,
 
   /* Acquire the thumbnailer service dbus name */
   g_bus_own_name_on_connection (connection,
-                                "org.freedesktop.thumbnails.Thumbnailer1",
+                                TUMBLER_SERVICE_NAME_PREFIX ".Thumbnailer1",
                                 G_BUS_NAME_OWNER_FLAGS_REPLACE,
                                 NULL, /* We dont need to do anything on name acquired*/
                                 on_dbus_name_lost,
