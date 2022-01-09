@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/org/freedesktop/thumbnails/Manager1">
-  <interface name="org.freedesktop.thumbnails.Manager1">
-	
+<node name="@TUMBLER_SERVICE_PATH_PREFIX@/Manager1">
+  <interface name="@TUMBLER_SERVICE_NAME_PREFIX@.Manager1">
     <annotation name="org.gtk.GDBus.C.Name" value="ExportedManager" />
-    
     <method name="Register">
       <arg type="s" name="uri_scheme" direction="in" />
       <arg type="s" name="mime_type" direction="in" />
     </method>
-  
   </interface>
 </node>

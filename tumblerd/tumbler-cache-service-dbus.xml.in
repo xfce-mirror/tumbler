@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<node name="/org/freedesktop/thumbnails/Cache1">
-    
-  <interface name="org.freedesktop.thumbnails.Cache1">
-   	<annotation name="org.gtk.GDBus.C.Name" value="ExportedCacheService" />
+<node name="@TUMBLER_SERVICE_PATH_PREFIX@/Cache1">
+  <interface name="@TUMBLER_SERVICE_NAME_PREFIX@.Cache1">
+    <annotation name="org.gtk.GDBus.C.Name" value="ExportedCacheService" />
     <method name="Move">
       <arg type="as" name="from_uris" direction="in" />
       <arg type="as" name="to_uris" direction="in" />
@@ -14,7 +13,6 @@
     </method>
 
     <method name="Delete">
-
       <arg type="as" name="uris" direction="in" />
     </method>
 

@@ -40,9 +40,9 @@
 #include <tumblerd/tumbler-service-gdbus.h>
 
 
-#define THUMBNAILER_PATH    "/org/freedesktop/thumbnails/Thumbnailer1"
-#define THUMBNAILER_SERVICE "org.freedesktop.thumbnails.Thumbnailer1"
-#define THUMBNAILER_IFACE   "org.freedesktop.thumbnails.Thumbnailer1"
+#define THUMBNAILER_PATH    TUMBLER_SERVICE_PATH_PREFIX "/Thumbnailer1"
+#define THUMBNAILER_SERVICE TUMBLER_SERVICE_NAME_PREFIX ".Thumbnailer1"
+#define THUMBNAILER_IFACE   TUMBLER_SERVICE_NAME_PREFIX ".Thumbnailer1"
 
 
 
