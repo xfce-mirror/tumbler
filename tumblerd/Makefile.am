@@ -92,7 +92,7 @@ service_in_files = 							\
 	org.xfce.Tumbler.Manager1.service.in				\
 	org.xfce.Tumbler.Thumbnailer1.service.in
 
-service_DATA = $(service_in_files:.service.in=.service)
+service_DATA = $(service_in_files:org.xfce.Tumbler.%.service.in=@TUMBLER_SERVICE_FILENAME_PREFIX@.%.service)
 
 systemd_userdir = $(prefix)/lib/systemd/user
 systemd_user_in_files = tumblerd.service.in
@@ -106,7 +106,13 @@ dbus_xml_in_files = \
 
 dbus_xml_files = $(dbus_xml_in_files:.xml.in=.xml)
 
-%.service: %.service.in
+@TUMBLER_SERVICE_FILENAME_PREFIX@.%.service: org.xfce.Tumbler.%.service.in
+	$(SED) -e "s,\@libdir\@,$(libdir),g" \
+	       -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" \
+	       -e "s,\@TUMBLER_SERVICE_NAME_PREFIX\@,$(TUMBLER_SERVICE_NAME_PREFIX),g" \
+	       -e "s,\@TUMBLER_SERVICE_PATH_PREFIX\@,$(TUMBLER_SERVICE_PATH_PREFIX),g" < $< > $@
+
+tumblerd.service: tumblerd.service.in
 	$(SED) -e "s,\@libdir\@,$(libdir),g" \
 	       -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" \
 	       -e "s,\@TUMBLER_SERVICE_NAME_PREFIX\@,$(TUMBLER_SERVICE_NAME_PREFIX),g" \

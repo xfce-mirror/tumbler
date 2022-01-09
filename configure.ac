@@ -159,7 +159,12 @@ dnl *** Alternative service name prefix for e.g. Flatpak packaging ***
 dnl ******************************************************************
 AC_ARG_VAR([TUMBLER_SERVICE_NAME_PREFIX],
            [Alternative prefix to org.freedesktop.thumbnails for Tumbler services])
-test -n "$TUMBLER_SERVICE_NAME_PREFIX" || TUMBLER_SERVICE_NAME_PREFIX='org.freedesktop.thumbnails'
+if test -z "$TUMBLER_SERVICE_NAME_PREFIX"; then
+  TUMBLER_SERVICE_NAME_PREFIX='org.freedesktop.thumbnails'
+  AC_SUBST([TUMBLER_SERVICE_FILENAME_PREFIX], [org.xfce.Tumbler])
+else
+  AC_SUBST([TUMBLER_SERVICE_FILENAME_PREFIX], [$TUMBLER_SERVICE_NAME_PREFIX])
+fi
 
 AC_SUBST([TUMBLER_SERVICE_PATH_PREFIX],
          [$(printf '%s' $TUMBLER_SERVICE_NAME_PREFIX | $SED -E 's%(^|\.)%/%g')])
