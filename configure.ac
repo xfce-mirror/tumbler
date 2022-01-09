@@ -96,6 +96,9 @@ AC_PROG_CC()
 AM_PROG_CC_C_O()
 AC_PROG_INSTALL()
 IT_PROG_INTLTOOL([0.35.0], [no-xml])
+AC_PROG_GREP()
+AC_PROG_EGREP()
+AC_PROG_SED()
 
 dnl ***********************
 dnl *** Prepare libtool ***
@@ -119,7 +122,7 @@ AC_CHECK_FUNCS([sched_getparam sched_setscheduler getpwnam])
 dnl ******************************
 dnl *** Check for i18n support ***
 dnl ******************************
-linguas=`ls po/*.po | sed s/.po//g | sed sApo/AA | xargs`
+linguas=$(ls po/*.po | $SED s/.po//g | $SED sApo/AA | xargs)
 XDT_I18N([$linguas])
 
 dnl *************************

@@ -100,8 +100,9 @@ systemd_user_in_files = tumblerd.service.in
 systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
 
 %.service: %.service.in
-	sed -e "s,\@libdir\@,$(libdir),g"				\
-	    -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" < $< > $@
+	$(SED) -e "s,\@libdir\@,$(libdir),g" \
+	       -e "s,\@TUMBLER_VERSION_API\@,$(TUMBLER_VERSION_API),g" < $< > $@
+
 
 confdir = $(sysconfdir)/xdg/tumbler
 conf_DATA = \
