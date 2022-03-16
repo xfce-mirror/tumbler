@@ -546,6 +546,7 @@ tumbler_group_scheduler_thread (gpointer data,
       if (request->dequeued)
         {
           tumbler_group_scheduler_finish_request (scheduler, request);
+          tumbler_mutex_unlock (scheduler->mutex);
           return;
         }
       tumbler_mutex_unlock (scheduler->mutex);
@@ -680,7 +681,6 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
 
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (failed_uri != NULL);
-  g_return_if_fail (error_code < 0);
   g_return_if_fail (uri_errors != NULL);
 
   /* allocate a new URI error */
