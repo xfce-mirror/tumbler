@@ -38,6 +38,8 @@
 #include <glib.h>
 #include <glib-object.h>
 
+#include <libxfce4util/libxfce4util.h>
+
 #include <tumbler/tumbler.h>
 
 #include <tumblerd/tumbler-cache-service.h>
@@ -119,6 +121,9 @@ main (int    argc,
   g_log_writer_default_set_use_stderr (TRUE);
   G_GNUC_END_IGNORE_DEPRECATIONS
 #endif
+
+  /* initialize translations */
+  xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
 
   /* set the application name. Translators: Don't translate "Tumbler". */
   g_set_application_name ("Tumbler Thumbnailing Service");

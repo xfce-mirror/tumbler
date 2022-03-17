@@ -87,6 +87,12 @@ tumbler_file_info_class_init (TumblerFileInfoClass *klass)
 {
   GObjectClass *gobject_class;
 
+  /* make sure to use the translations from Tumbler */
+  bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
+  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#endif
+
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = tumbler_file_info_finalize; 
   gobject_class->get_property = tumbler_file_info_get_property;
