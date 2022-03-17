@@ -164,9 +164,9 @@ tumbler_group_scheduler_init (TumblerGroupScheduler *scheduler)
 
   scheduler->prioritized = FALSE;
 
-  /* allocate a pool with one thread for all requests */
+  /* allocate a pool with a number of threads depending on the system */
   scheduler->pool = g_thread_pool_new (tumbler_group_scheduler_thread, 
-                                       scheduler, 1, TRUE, NULL);
+                                       scheduler, g_get_num_processors (), TRUE, NULL);
 
 }
 

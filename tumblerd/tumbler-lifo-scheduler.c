@@ -140,9 +140,9 @@ tumbler_lifo_scheduler_init (TumblerLifoScheduler *scheduler)
   tumbler_mutex_create (scheduler->mutex);
   scheduler->requests = NULL;
 
-  /* allocate a thread pool with a maximum of one thread */
+  /* allocate a pool with a number of threads depending on the system */
   scheduler->pool = g_thread_pool_new (tumbler_lifo_scheduler_thread,
-                                       scheduler, 1, TRUE, NULL);
+                                       scheduler, g_get_num_processors (), TRUE, NULL);
 
   /* make the thread a LIFO */
   g_thread_pool_set_sort_function (scheduler->pool, 
