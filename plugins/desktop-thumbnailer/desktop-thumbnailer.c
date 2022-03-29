@@ -320,8 +320,6 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
                   pixbuf = tumbler_util_scale_pixbuf (source, width, height);
                   g_object_unref (source);
                 }
-
-              g_unlink (tmpfilepath);
             }
 
           g_free (working_directory);
@@ -330,6 +328,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
       else
           g_warning ("Malformed command line \"%s\": %s", exec, (*error)->message);
 
+      g_file_delete (tmpfile, NULL, NULL);
       g_object_unref (tmpfile);
       g_object_unref (stream);
     }
