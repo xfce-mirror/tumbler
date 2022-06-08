@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ápo. <apostolos.papadimitriu@gmail.com>, 2016-2017
 # Ápo. <apostolos.papadimitriu@gmail.com>, 2016
 # Ápo. <apostolos.papadimitriu@gmail.com>, 2017
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2014
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
 # Panagiotis Mantzios <pmantzios@hotmail.com>, 2018
 # Stelios Tsampas <zeronebones@gmail.com>, 2013
+# Stelios Tsampas <zeronebones@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-19 00:47+0100\n"
-"PO-Revision-Date: 2021-12-18 23:47+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"PO-Revision-Date: 2013-07-02 20:39+0000\n"
+"Last-Translator: Stelios Tsampas <zeronebones@gmail.com>, 2013\n"
 "Language-Team: Greek (http://www.transifex.com/xfce/tumbler/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,12 +27,12 @@ msgstr ""
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:438
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Αποτυχία καλέσματος της ειδικής επισκόπησης εικόνων: χρονικό όριο"
+msgstr "Απέτυχε η ειδική υπηρεσία δημιουργίας μικρογραφιών: όριο χρόνου"
 
 #: ../tumblerd/tumbler-specialized-thumbnailer.c:447
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Αποτυχία καλέσματος της ειδικής επισκόπησης εικόνων: %s"
+msgstr "Απέτυχε η ειδική υπηρεσία δημιουργίας μικρογραφιών: %s"
 
 #: ../tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -42,11 +44,11 @@ msgstr "PNG"
 
 #: ../tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr "Χώρος χρωμάτων RGB"
+msgstr "Χρωματισμοί RGB"
 
 #: ../tumbler/tumbler-error.h:41
 msgid "Thumbnail could not be inferred from file contents"
-msgstr "Η επισκόπηση εικόνας δεν ήταν δυνατό να γίνει από το περιεχόμενο του αρχείου"
+msgstr "Δεν μπορεί να δημιουργηθεί μικρογραφία από τα περιεχόμενα του αρχείου"
 
 #: ../tumbler/tumbler-error.h:42
 msgid "Only local files are supported"
@@ -55,35 +57,35 @@ msgstr "Υποστηρίζονται μόνο τοπικά αρχεία"
 #: ../tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
+msgstr "Κατεστραμμένη μικρογραφία PNG: '%s'"
 
 #: ../tumbler/tumbler-error.h:44
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Δεν ήταν δυνατή η αποθήκευση της επισκόπησης εικόνας στο \"%s\""
+msgstr "Δεν μπορεί να αποθηκευτεί μικρογραφία στο \"%s\""
 
 #: ../tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Το αρχείο  \"%s\" είναι αρχείο επισκόπησης εικόνας από μόνο του"
+msgstr "Το αρχείο  \"%s\" είναι ήδη μικρογραφία"
 
 #: ../tumbler/tumbler-error.h:46
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Δεν είναι διαθέσιμη η επισκόπηση εικόνων για το \"%s\""
+msgstr "Δεν είναι διαθέσιμη η υπηρεσία δημιουργίας μικρογραφιών για το \"%s\""
 
 #: ../tumbler/tumbler-error.h:47
 msgid "The thumbnailer service is shutting down"
-msgstr "Τερματίζεται η υπηρεσία thumbnailer"
+msgstr "Τερματίζεται η υπηρεσία δημιουργίας μικρογραφιών"
 
 #: ../tumbler/tumbler-error.h:48
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Ζητήθηκε μη υποστηριζόμενη έκδοση επισκόπησης εικόνων"
+msgstr "Ζητήθηκε μη υποστηριζόμενη μικρογραφία"
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr "Αδυναμία φόρτωσης της αφίσας \"%s\""
+msgstr "Αδυναμία φόρτωσης της εικόνας \"%s\""
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
 #, c-format
@@ -94,11 +96,11 @@ msgstr "Απέτυχε η φόρτωση των μεταδεδομένων απ�
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Άκυρο κλειδί API. Θα πρέπει να λάβετε ένα έγκυρο κλειδί. Το σύστημα υποστήριξης «The Movie DB» θα απενεργοποιηθεί."
+msgstr "Άκυρο κλειδί API, θα πρέπει να λάβετε ένα έγκυρο κλειδί. Θα απενεργοποιηθεί η βάση δεδομένων."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
 msgid "No poster key found in metadata"
-msgstr "Δεν βρέθηκε poster key στα μεταδεδομένα."
+msgstr "Δεν βρέθηκε κλειδί στα μεταδεδομένα."
 
 #: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
 msgid "Movie title is too short"
@@ -108,31 +110,31 @@ msgstr "Ο τίτλος της ταινίας είναι πολύ σύντομο
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr "Δεν ήταν δυνατή η προετοιμασία του freetype: %s"
+msgstr "Δεν ήταν δυνατή η προετοιμασία freetype: %s"
 
 #. there was an error, emit error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:475
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "Δεν ήταν δυνατή η φόρτωση του περιεχομένου του αρχείου: %s"
+msgstr "Δεν ήταν δυνατή η φόρτωση περιεχομένων του αρχείου: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:494
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου γραμματοσειράς: %s"
+msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου γραμματοσειρών: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:518
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Δεν ήταν δυνατός ο καθορισμός του χάρτη χαρακτήρων: %s"
+msgstr "Δεν ήταν δυνατός ο καθορισμός του πίνακα χαρακτήρων: %s"
 
 #. emit an error signal
 #: ../plugins/font-thumbnailer/font-thumbnailer.c:545
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Δεν ήταν δυνατή η αποτύπωση της γλυφής: %s"
+msgstr "Δεν ήταν δυνατή η αποτύπωση των γραφικών χαρακτήρων: %s"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
 msgid "The document is empty"
@@ -140,4 +142,4 @@ msgstr "Το έγγραφο είναι άδειο"
 
 #: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
 msgid "First page of the document could not be read"
-msgstr "Η πρώτη σελίδα του εγγράφου δε μπορεί να διαβαστεί"
+msgstr "Η πρώτη σελίδα του εγγράφου δε μπορεί να αναγνωριστεί"
