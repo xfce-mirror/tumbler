@@ -775,6 +775,7 @@ xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
   GdkPixbuf *pixbuf;
   GError    *err = NULL;
   gchar     *mtime_str;
+  guint64    mtime_int = (guint64) mtime;
 
   g_return_val_if_fail (filename != NULL, FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -789,7 +790,8 @@ xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
     {
       if (!g_cancellable_set_error_if_cancelled (cancellable, &err))
         {
-          mtime_str = g_strdup_printf ("%.6f", mtime);
+          mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT ".%" G_GUINT32_FORMAT,
+                                       mtime_int, (guint32) (1.e6 * (mtime - mtime_int)));
 
           gdk_pixbuf_save (pixbuf, filename, "png", &err,
                            "tEXt::Thumb::URI", uri,
