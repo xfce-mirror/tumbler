@@ -790,7 +790,7 @@ xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
     {
       if (!g_cancellable_set_error_if_cancelled (cancellable, &err))
         {
-          mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT ".%" G_GUINT32_FORMAT,
+          mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT ".%.6" G_GUINT32_FORMAT,
                                        mtime_int, (guint32) (1.e6 * (mtime - mtime_int)));
 
           gdk_pixbuf_save (pixbuf, filename, "png", &err,
