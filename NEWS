@@ -1,3 +1,22 @@
+4.17.1 (2022-06-12)
+======
+- New Features:
+  - Allow to choose an alternative service name prefix (!21)
+
+- Performance Improvement:
+  - scheduler: Enable multi-threading (#1)
+
+- Bug Fixes:
+  - Store modification time in locale independent format
+  - desktop-thumbnailer: Delete temp file at the same level it was created (#57)
+  - i18n: Add missing initialization
+  - Fix missing mutex unlock in group scheduler (#56)
+  - Build: Check for best possible grep, egrep, sed
+
+- Translation Updates:
+  Basque, Danish, English (United Kingdom), Greek, Malay, Portuguese
+  (Brazil), Romanian, Russian, Serbian, Slovenian, Ukrainian
+
 4.17.0 (2022-01-01)
 ======
 - Dependency Changes:
