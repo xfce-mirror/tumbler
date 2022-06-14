@@ -112,7 +112,8 @@ dnl *** Check for standard header files ***
 dnl ***************************************
 AC_CHECK_HEADERS([fcntl.h linux/sched.h memory.h sched.h setjmp.h stdio.h \
                   stdlib.h string.h syscall.h sys/mman.h sys/types.h \
-                  sys/stat.h unistd.h sys/select.h pwd.h])
+                  sys/stat.h unistd.h sys/select.h pwd.h math.h])
+AC_SEARCH_LIBS([round], [m], [], [AC_MSG_ERROR([unable to find the round() function in math library])])
 
 dnl ************************************
 dnl *** Check for standard functions ***
