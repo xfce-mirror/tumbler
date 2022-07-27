@@ -294,7 +294,8 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
       if (G_LIKELY (res))
         {
-          working_directory = g_path_get_dirname (path);
+          if (path != NULL)
+            working_directory = g_path_get_dirname (path);
 
           verbose = tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN);
           res = g_spawn_sync (working_directory,
