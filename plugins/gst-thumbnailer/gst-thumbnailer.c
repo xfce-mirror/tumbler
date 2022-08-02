@@ -40,6 +40,7 @@
 
 
 
+#define GUESS_BUFFER_SIZE           512
 #define BORING_IMAGE_VARIANCE       256.0    /* tweak this if necessary */
 #define TUMBLER_GST_PLAY_FLAG_VIDEO (1 << 0) /* from GstPlayFlags */
 #define TUMBLER_GST_PLAY_FLAG_AUDIO (1 << 1) /* from GstPlayFlags */
@@ -530,6 +531,12 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnailFlavor *flavor;
   GdkPixbuf              *scaled;
   const gchar            *uri;
+  GFile                  *file;
+  GFileInputStream       *stream;
+  guchar                  buffer[GUESS_BUFFER_SIZE];
+  gssize                  size;
+  gchar                  *guessed_type, *claimed_type;
+  gboolean                uncertain, equals;
 
   /* check for early cancellation */
   if (g_cancellable_is_cancelled (cancellable))
@@ -552,6 +559,49 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
     return;
   }
+
+  /* check if real mime type matches advertised mime type to avoid server-side request
+   * forgery: see https://gitlab.xfce.org/xfce/tumbler/-/issues/65 */
+  file = g_file_new_for_uri (uri);
+  stream = g_file_read (file, cancellable, &error);
+  g_object_unref (file);
+  if (stream == NULL)
+    {
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             error->domain, error->code, error->message);
+      g_error_free (error);
+
+      return;
+    }
+
+  size = g_input_stream_read (G_INPUT_STREAM (stream), buffer, GUESS_BUFFER_SIZE,
+                              cancellable, &error);
+  g_object_unref (stream);
+  if (size == -1)
+    {
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             error->domain, error->code, error->message);
+      g_error_free (error);
+
+      return;
+    }
+
+  guessed_type = g_content_type_guess (NULL, buffer, size, &uncertain);
+  claimed_type = g_content_type_from_mime_type (tumbler_file_info_get_mime_type (info));
+  equals = guessed_type != NULL && claimed_type != NULL
+           && g_content_type_equals (guessed_type, claimed_type);
+  g_free (guessed_type);
+  g_free (claimed_type);
+  if (uncertain || ! equals)
+    {
+      g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
+                   TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
+      g_signal_emit_by_name (thumbnailer, "error", uri,
+                             error->domain, error->code, error->message);
+      g_error_free (error);
+
+      return;
+    }
 
   /* get size of dest thumb */
   thumbnail = tumbler_file_info_get_thumbnail (info);
