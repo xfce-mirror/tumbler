@@ -1,3 +1,9 @@
+4.16.1 (2022-08-11)
+======
+- gst-thumbnailer: Add mime type check (Fixes #65)
+- desktop-thumbnailer: Guard against null path
+- Fix typo in gthread version (!14)
+
 4.16.0
 ======
 - Remove GLIB_CHECK_VERSION IFDEFs which are obsolete after glib bump
