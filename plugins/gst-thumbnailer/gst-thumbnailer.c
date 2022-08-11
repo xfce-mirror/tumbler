@@ -549,13 +549,8 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (tumbler_util_guess_is_sparse (info))
   {
     g_debug ("Video file '%s' is probably sparse, skipping", uri);
-
-    /* there was an error, emit error signal */
-    g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
-                 TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
-    g_signal_emit_by_name (thumbnailer, "error", uri,
-                           error->domain, error->code, error->message);
-    g_error_free (error);
+    g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR,
+                           TUMBLER_ERROR_NO_CONTENT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
     return;
   }
@@ -594,12 +589,8 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_free (claimed_type);
   if (uncertain || ! equals)
     {
-      g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
-                   TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
-      g_signal_emit_by_name (thumbnailer, "error", uri,
-                             error->domain, error->code, error->message);
-      g_error_free (error);
-
+      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR,
+                             TUMBLER_ERROR_INVALID_FORMAT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
       return;
     }
 
