@@ -1,14 +1,4 @@
 <SECTION>
-<FILE>stamp-tumbler-marshal</FILE>
-
-</SECTION>
-
-<SECTION>
-<FILE>tumbler</FILE>
-TUMBLER_INSIDE_TUMBLER_H
-</SECTION>
-
-<SECTION>
 <FILE>tumbler-abstract-thumbnailer</FILE>
 <TITLE>TumblerAbstractThumbnailer</TITLE>
 <SUBSECTION Standard>

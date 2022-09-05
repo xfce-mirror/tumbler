@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_H__
 #define __TUMBLER_H__
 
-#define TUMBLER_INSIDE_TUMBLER_H
+#define _TUMBLER_INSIDE_TUMBLER_H
 
 #include <tumbler/tumbler-abstract-thumbnailer.h>
 #include <tumbler/tumbler-cache.h>
@@ -39,6 +39,6 @@
 #include <tumbler/tumbler-thumbnailer.h>
 #include <tumbler/tumbler-util.h>
 
-#undef TUMBLER_INSIDE_TUMBLER_H
+#undef _TUMBLER_INSIDE_TUMBLER_H
 
 #endif /* !__TUMBLER_H__ */
