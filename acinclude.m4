@@ -336,7 +336,9 @@ if test x"$ac_tumbler_gepub_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.36.2],
   [
     dnl Check for libgepub
-    PKG_CHECK_MODULES([GEPUB], [libgepub-0.6 >= 0.6.0], [], [ac_tumbler_gepub_thumbnailer=no])
+    PKG_CHECK_MODULES([GEPUB], [libgepub-0.7 >= 0.7.0], [], [
+      PKG_CHECK_MODULES([GEPUB], [libgepub-0.6 >= 0.6.0], [], [ac_tumbler_gepub_thumbnailer=no])
+    ])
   ], [ac_tumbler_gepub_thumbnailer=no])
 fi
 
