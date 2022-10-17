@@ -273,6 +273,14 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
   GdkPixbuf *source, *pixbuf = NULL;
   gboolean verbose;
 
+  if (path != NULL && g_str_has_prefix (path, g_get_tmp_dir ())
+      && g_regex_match_simple ("/tumbler-.{6}\\.png$", path, 0, 0))
+    {
+      g_set_error (error, TUMBLER_ERROR, TUMBLER_ERROR_IS_THUMBNAIL,
+                   TUMBLER_ERROR_MESSAGE_NO_THUMB_OF_THUMB, path);
+      return NULL;
+    }
+
   tmpfile = g_file_new_tmp ("tumbler-XXXXXX.png", &stream, error);
 
   if ( G_LIKELY (tmpfile) )
