@@ -273,8 +273,6 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
   GdkPixbuf *source, *pixbuf = NULL;
   gboolean verbose;
 
-  g_object_get (G_OBJECT (thumbnailer), "exec", &exec, NULL);
-
   tmpfile = g_file_new_tmp ("tumbler-XXXXXX.png", &stream, error);
 
   if ( G_LIKELY (tmpfile) )
@@ -283,6 +281,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
       size = MIN (width, height);
 
+      g_object_get (G_OBJECT (thumbnailer), "exec", &exec, NULL);
       res = desktop_thumbnailer_exec_parse (exec,
                                             path,
                                             uri,
@@ -332,9 +331,8 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
       g_file_delete (tmpfile, NULL, NULL);
       g_object_unref (tmpfile);
       g_object_unref (stream);
+      g_free (exec);
     }
-
-  g_free (exec);
 
   return pixbuf;
 }
