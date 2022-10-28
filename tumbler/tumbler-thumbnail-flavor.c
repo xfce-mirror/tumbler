@@ -234,6 +234,24 @@ tumbler_thumbnail_flavor_new_xx_large (void)
 
 
 
+TumblerThumbnailFlavor *
+tumbler_thumbnail_flavor_new_xxx_large (void)
+{
+  return g_object_new (TUMBLER_TYPE_THUMBNAIL_FLAVOR, "name", "xxx-large",
+                       "width", 2048, "height", 2048, NULL);
+}
+
+
+
+TumblerThumbnailFlavor *
+tumbler_thumbnail_flavor_new_xxxx_large (void)
+{
+  return g_object_new (TUMBLER_TYPE_THUMBNAIL_FLAVOR, "name", "xxxx-large",
+                       "width", 4096, "height", 4096, NULL);
+}
+
+
+
 const gchar *
 tumbler_thumbnail_flavor_get_name (TumblerThumbnailFlavor *flavor)
 {
