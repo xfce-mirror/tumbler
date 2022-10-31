@@ -1,3 +1,20 @@
+4.17.3 (2022-10-31)
+======
+- Code Refactoring:
+  - cleanup: Do not set and free a GError unnecessarily
+
+- Bug Fixes:
+  - desktop-thumbnailer: Avoid recursion (Fixes #67)
+  - desktop-thumbnailer: allocate/free memory at the right level
+  - Allow libgepub 0.7 as well
+  - docs: Fix broken links
+  - docs: Remove pointless sections
+  - gst-thumbnailer: Add mime type check (Fixes #65)
+  - desktop-thumbnailer: Guard against null path
+
+- Translation Updates:
+  Galician, Kazakh, Russian
+
 4.17.2 (2022-06-19)
 ======
 - Bug Fixes:
