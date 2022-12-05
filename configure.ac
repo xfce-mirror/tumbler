@@ -146,14 +146,14 @@ fi
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_56, Warn when using post 2_56 APIs)
-AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_56, Don't warn about post 2_56 deprecations)
+AC_DEFINE(GLIB_VERSION_MAX_ALLOWED, GLIB_VERSION_2_66, Warn when using post 2_66 APIs)
+AC_DEFINE(GLIB_VERSION_MIN_REQUIRED, GLIB_VERSION_2_66, Don't warn about post 2_66 deprecations)
 AC_DEFINE(G_LOG_USE_STRUCTURED, 1, Use structured logging)
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.56.0])
-PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.56.0])
-PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.56.0])
-PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.56.0])
-PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.56.0])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.66.0])
+PKG_CHECK_MODULES([GIO], [gio-2.0 >= 2.66.0])
+PKG_CHECK_MODULES([GIO_UNIX], [gio-unix-2.0 >= 2.66.0])
+PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= 2.66.0])
+PKG_CHECK_MODULES([GTHREAD], [gthread-2.0 >= 2.66.0])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.17.1])
 
 dnl ******************************************************************
