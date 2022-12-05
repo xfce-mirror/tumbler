@@ -122,7 +122,7 @@ MaxFileSize=0
 # External Thumbnailers
 ###
 
-# Thumbnailers provided by .thumbnailer desktop files located in $XDG_HOME_DIR/thumbnailers/ and
+# Thumbnailers provided by .thumbnailer desktop files located in $XDG_DATA_HOME/thumbnailers/ and
 # $XDG_DATA_DIRS/thumbnailers/
 #
 # They can handle any mime type, depending on the contents of each particular desktop file.
