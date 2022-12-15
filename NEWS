@@ -1,3 +1,10 @@
+4.18.0 (2022-12-15)
+======
+- build: Bump requirements for Xfce 4.18
+- tumbler.rc: Fix typo in explanatory comment
+- Translation Updates:
+  Hungarian
+
 4.17.3 (2022-10-31)
 ======
 - Code Refactoring:

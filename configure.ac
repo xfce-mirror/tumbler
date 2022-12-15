@@ -24,8 +24,8 @@ dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([tumbler_version_major], [4])
-m4_define([tumbler_version_minor], [17])
-m4_define([tumbler_version_micro], [3])
+m4_define([tumbler_version_minor], [18])
+m4_define([tumbler_version_micro], [0])
 m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
 
 dnl ***************************
