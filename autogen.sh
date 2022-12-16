@@ -31,4 +31,4 @@ EOF
 
 mkdir -p m4 || exit $?
 
-XDT_AUTOGEN_REQUIRED_VERSION="4.16.0" exec xdt-autogen "$@"
+XDT_AUTOGEN_REQUIRED_VERSION="4.17.1" exec xdt-autogen "$@"
