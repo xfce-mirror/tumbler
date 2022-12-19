@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>, 2017
+# 1763f4a4329a2376c933c5e919a36cbc_341ca53 <1f851310383599d03339229d772e1290_119292>, 2017
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-19 00:47+0100\n"
-"PO-Revision-Date: 2021-12-18 23:47+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
+"POT-Creation-Date: 2022-11-28 14:59+0100\n"
+"PO-Revision-Date: 2013-07-02 20:39+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/xfce/tumbler/language/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,11 +19,11 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:438
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:439
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "특화된 섬네일러를 호출하는데 실패했습니다: 시간 초과"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:447
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:449
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "특화된 섬네일러를 호출하는데 실패했습니다: %s"
@@ -50,7 +51,7 @@ msgstr "로컬 파일만 지원합니다"
 #: ../tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
+msgstr "PNG 미리 보기 그림이 깨졌습니다: '%s'"
 
 #: ../tumbler/tumbler-error.h:44
 #, c-format
@@ -75,64 +76,64 @@ msgstr "섬네일러 서비스를 종료하는 중입니다"
 msgid "Unsupported thumbnail flavor requested"
 msgstr "지원하지 않는 섬네일 방식을 요청했습니다"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:350
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "\"%s\" 게시자 이미지를 불러오는데 실패했습니다"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:386
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "\"%s\"에서 메타데이터를 불러오는데 실패했습니다"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:582
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
 msgstr "잘못된 API 키입니다. 유효한 키를 허가 받아야 합니다. 동영상 DB 백엔드를 비활성화합니다."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:590
 msgid "No poster key found in metadata"
 msgstr "메타데이터에 게시자 키가 없습니다"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:651
 msgid "Movie title is too short"
 msgstr "동영상 제목이 너무 짧습니다"
 
 #. there was an error in the freetype initialization, abort
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:430
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr "freetype을 초기화 할 수 없습니다: %s"
 
 #. there was an error, emit error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:443
 #, c-format
 msgid "Could not load file contents: %s"
 msgstr "파일 내용을 불러올 수 없습니다: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not open font file: %s"
 msgstr "글꼴 파일을 열 수 없습니다: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:488
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr "문자 맵을 설정할 수 없습니다: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:516
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr "글리프를 렌더링 할 수 없습니다: %s"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:297
 msgid "The document is empty"
 msgstr "문서가 비어 있습니다"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:310
 msgid "First page of the document could not be read"
 msgstr "문서의 첫 페이지를 읽어들일 수 없습니다"
