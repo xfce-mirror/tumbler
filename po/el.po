@@ -8,6 +8,7 @@
 # Ápo. <apostolos.papadimitriu@gmail.com>, 2017
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2014
 # Efstathios Iosifidis <iosifidis@opensuse.org>, 2012
+# Ioannis LM, 2023
 # Panagiotis Mantzios <pmantzios@hotmail.com>, 2018
 # Stelios Tsampas <zeronebones@gmail.com>, 2013
 # Stelios Tsampas <zeronebones@gmail.com>, 2013
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-19 00:47+0100\n"
+"POT-Creation-Date: 2022-11-28 14:59+0100\n"
 "PO-Revision-Date: 2013-07-02 20:39+0000\n"
-"Last-Translator: Stelios Tsampas <zeronebones@gmail.com>, 2013\n"
+"Last-Translator: Ioannis LM, 2023\n"
 "Language-Team: Greek (http://www.transifex.com/xfce/tumbler/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,11 +26,11 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:438
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:439
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "Απέτυχε η ειδική υπηρεσία δημιουργίας μικρογραφιών: όριο χρόνου"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:447
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:449
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "Απέτυχε η ειδική υπηρεσία δημιουργίας μικρογραφιών: %s"
@@ -67,7 +68,7 @@ msgstr "Δεν μπορεί να αποθηκευτεί μικρογραφία �
 #: ../tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Το αρχείο  \"%s\" είναι ήδη μικρογραφία"
+msgstr "Το αρχείο \"%s\" είναι ήδη μικρογραφία"
 
 #: ../tumbler/tumbler-error.h:46
 #, c-format
@@ -82,64 +83,64 @@ msgstr "Τερματίζεται η υπηρεσία δημιουργίας μι
 msgid "Unsupported thumbnail flavor requested"
 msgstr "Ζητήθηκε μη υποστηριζόμενη μικρογραφία"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:350
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "Αδυναμία φόρτωσης της εικόνας \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:386
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "Απέτυχε η φόρτωση των μεταδεδομένων από το \"%s\""
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:582
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
 msgstr "Άκυρο κλειδί API, θα πρέπει να λάβετε ένα έγκυρο κλειδί. Θα απενεργοποιηθεί η βάση δεδομένων."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:590
 msgid "No poster key found in metadata"
 msgstr "Δεν βρέθηκε κλειδί στα μεταδεδομένα."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:651
 msgid "Movie title is too short"
 msgstr "Ο τίτλος της ταινίας είναι πολύ σύντομος"
 
 #. there was an error in the freetype initialization, abort
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:430
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr "Δεν ήταν δυνατή η προετοιμασία freetype: %s"
 
 #. there was an error, emit error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:443
 #, c-format
 msgid "Could not load file contents: %s"
 msgstr "Δεν ήταν δυνατή η φόρτωση περιεχομένων του αρχείου: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου γραμματοσειρών: %s"
+msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου γραμματοσειράς: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:488
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Δεν ήταν δυνατός ο καθορισμός του πίνακα χαρακτήρων: %s"
+msgstr "Δεν ήταν δυνατή η ενεργοποίηση του πίνακα χαρακτήρων: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:516
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr "Δεν ήταν δυνατή η αποτύπωση των γραφικών χαρακτήρων: %s"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:297
 msgid "The document is empty"
 msgstr "Το έγγραφο είναι άδειο"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:310
 msgid "First page of the document could not be read"
 msgstr "Η πρώτη σελίδα του εγγράφου δε μπορεί να αναγνωριστεί"
