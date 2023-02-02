@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Steve Harris <steve@jbs.ca>, 2023
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-28 14:59+0100\n"
+"PO-Revision-Date: 2013-07-02 20:39+0000\n"
+"Last-Translator: Steve Harris <steve@jbs.ca>, 2023\n"
+"Language-Team: English (Canada) (http://www.transifex.com/xfce/tumbler/language/en_CA/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_CA\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:439
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Failed to call the specialized thumbnailer: timeout"
+
+#: ../tumblerd/tumbler-specialized-thumbnailer.c:449
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Failed to call the specialized thumbnailer: %s"
+
+#: ../tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Invalid format"
+
+#: ../tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: ../tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "RGB Colourspace"
+
+#: ../tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Thumbnail could not be inferred from file contents"
+
+#: ../tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "Only local files are supported"
+
+#: ../tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr "Corrupt thumbnail PNG: '%s'"
+
+#: ../tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Could not save thumbnail to \"%s\""
+
+#: ../tumbler/tumbler-error.h:45
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "The file \"%s\" is a thumbnail itself"
+
+#: ../tumbler/tumbler-error.h:46
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "No thumbnailer available for \"%s\""
+
+#: ../tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "The thumbnailer service is shutting down"
+
+#: ../tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Unsupported thumbnail flavour requested"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:350
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Failed to load the poster image \"%s\""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:386
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Failed to load the metadata from \"%s\""
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:582
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Invalid API key, you must be granted a valid key. The Movie DB backend will be disabled."
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:590
+msgid "No poster key found in metadata"
+msgstr "No poster key found in metadata"
+
+#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:651
+msgid "Movie title is too short"
+msgstr "Movie title is too short"
+
+#. there was an error in the freetype initialization, abort
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:430
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Could not initialize freetype: %s"
+
+#. there was an error, emit error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:443
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Could not load file contents: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Could not open font file: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:488
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Could not set the character map: %s"
+
+#. emit an error signal
+#: ../plugins/font-thumbnailer/font-thumbnailer.c:516
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Could not render glyphs: %s"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:297
+msgid "The document is empty"
+msgstr "The document is empty"
+
+#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:310
+msgid "First page of the document could not be read"
+msgstr "First page of the document could not be read"
