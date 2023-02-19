@@ -22,8 +22,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
-
 #include <glib/gi18n.h>
 
 #include <tumbler/tumbler.h>
@@ -37,11 +35,6 @@ static void   desktop_thumbnailer_provider_thumbnailer_provider_init (TumblerThu
 static GList *desktop_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _DesktopThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _DesktopThumbnailerProvider
 {
@@ -185,7 +178,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
       g_strfreev (paths);
     }
 
-  thumbnailer = g_object_new (TYPE_DESKTOP_THUMBNAILER, "uri-schemes", uri_schemes,
+  thumbnailer = g_object_new (DESKTOP_TYPE_THUMBNAILER, "uri-schemes", uri_schemes,
                               "mime-types", mime_types, "priority", priority,
                               "max-file-size", max_file_size, "locations", locations,
                               "excludes", excludes, "exec", exec, NULL);

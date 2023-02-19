@@ -21,22 +21,14 @@
 #ifndef __JPEG_THUMBNAILER_H__
 #define __JPEG_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define TYPE_JPEG_THUMBNAILER            (jpeg_thumbnailer_get_type ())
-#define JPEG_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_JPEG_THUMBNAILER, JPEGThumbnailer))
-#define JPEG_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_JPEG_THUMBNAILER, JPEGThumbnailerClass))
-#define IS_JPEG_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_JPEG_THUMBNAILER))
-#define IS_JPEG_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_JPEG_THUMBNAILER)
-#define JPEG_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_JPEG_THUMBNAILER, JPEGThumbnailerClass))
+#define JPEG_TYPE_THUMBNAILER (jpeg_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (JPEGThumbnailer, jpeg_thumbnailer, JPEG, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _JPEGThumbnailerClass   JPEGThumbnailerClass;
-typedef struct _JPEGThumbnailer        JPEGThumbnailer;
-
-GType jpeg_thumbnailer_get_type (void) G_GNUC_CONST;
-void  jpeg_thumbnailer_register (TumblerProviderPlugin *plugin);
+void jpeg_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

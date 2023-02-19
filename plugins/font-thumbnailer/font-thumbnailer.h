@@ -21,22 +21,14 @@
 #ifndef __FONT_THUMBNAILER_H__
 #define __FONT_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define TYPE_FONT_THUMBNAILER            (font_thumbnailer_get_type ())
-#define FONT_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_FONT_THUMBNAILER, FontThumbnailer))
-#define FONT_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_FONT_THUMBNAILER, FontThumbnailerClass))
-#define IS_FONT_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_FONT_THUMBNAILER))
-#define IS_FONT_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_FONT_THUMBNAILER)
-#define FONT_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_FONT_THUMBNAILER, FontThumbnailerClass))
+#define FONT_TYPE_THUMBNAILER (font_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (FontThumbnailer, font_thumbnailer, FONT, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _FontThumbnailerClass   FontThumbnailerClass;
-typedef struct _FontThumbnailer        FontThumbnailer;
-
-GType font_thumbnailer_get_type (void) G_GNUC_CONST;
-void  font_thumbnailer_register (TumblerProviderPlugin *plugin);
+void font_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

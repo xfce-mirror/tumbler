@@ -26,13 +26,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <libffmpegthumbnailer/videothumbnailerc.h>
-
-#include <tumbler/tumbler.h>
-
 #include <ffmpeg-thumbnailer/ffmpeg-thumbnailer.h>
 
 
@@ -48,11 +44,6 @@ static void ffmpeg_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer
                                          TumblerFileInfo            *info);
 
 
-
-struct _FfmpegThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _FfmpegThumbnailer
 {
@@ -145,7 +136,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   const gchar            *uri;
   gint                    res;
 
-  g_return_if_fail (IS_FFMPEG_THUMBNAILER (thumbnailer));
+  g_return_if_fail (FFMPEG_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 

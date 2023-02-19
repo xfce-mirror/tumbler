@@ -29,17 +29,8 @@
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_PROVIDER_FACTORY            (tumbler_provider_factory_get_type ())
-#define TUMBLER_PROVIDER_FACTORY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_PROVIDER_FACTORY, TumblerProviderFactory))
-#define TUMBLER_PROVIDER_FACTORY_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_PROVIDER_FACTORY, TumblerProviderFactoryClass))
-#define TUMBLER_IS_PROVIDER_FACTORY(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_PROVIDER_FACTORY))
-#define TUMBLER_IS_PROVIDER_FACTORY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_PROVIDER_FACTORY)
-#define TUMBLER_PROVIDER_FACTORY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_PROVIDER_FACTORY, TumblerProviderFactoryClass))
-
-typedef struct _TumblerProviderFactoryClass   TumblerProviderFactoryClass;
-typedef struct _TumblerProviderFactory        TumblerProviderFactory;
-
-GType                   tumbler_provider_factory_get_type      (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_PROVIDER_FACTORY (tumbler_provider_factory_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerProviderFactory, tumbler_provider_factory, TUMBLER, PROVIDER_FACTORY, GObject)
 
 TumblerProviderFactory *tumbler_provider_factory_get_default   (void);
 GList                  *tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,

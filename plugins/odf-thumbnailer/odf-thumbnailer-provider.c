@@ -24,8 +24,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <tumbler/tumbler.h>
@@ -39,11 +37,6 @@ static void   odf_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbna
 static GList *odf_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _OdfThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _OdfThumbnailerProvider
 {
@@ -143,7 +136,7 @@ odf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
   /* create the pixbuf thumbnailer */
-  thumbnailer = g_object_new (TYPE_ODF_THUMBNAILER,
+  thumbnailer = g_object_new (ODF_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types,
                               NULL);

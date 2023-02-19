@@ -33,7 +33,6 @@
 #include <glib-object.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <tumbler/tumbler.h>
 #include <curl/curl.h>
 
 #include <cover-thumbnailer/cover-thumbnailer.h>
@@ -57,11 +56,6 @@ static void cover_thumbnailer_create       (TumblerAbstractThumbnailer *thumbnai
                                             TumblerFileInfo            *info);
 
 
-
-struct _CoverThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _CoverThumbnailer
 {
@@ -224,7 +218,7 @@ cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
 
   g_return_val_if_fail (g_str_has_prefix (url, "http://"), NULL);
   g_return_val_if_fail (G_IS_CANCELLABLE (cancellable), NULL);
-  g_return_val_if_fail (IS_COVER_THUMBNAILER (cover), NULL);
+  g_return_val_if_fail (COVER_IS_THUMBNAILER (cover), NULL);
 
   /* curl downloader */
   curl_handle = curl_easy_init ();
@@ -509,7 +503,7 @@ cover_thumbnailer_poster_url (CoverThumbnailer        *cover,
   gint         dest_size;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
-  g_return_val_if_fail (IS_COVER_THUMBNAILER (cover), NULL);
+  g_return_val_if_fail (COVER_IS_THUMBNAILER (cover), NULL);
 
   if (G_LIKELY (cover->api_key == NULL))
     {

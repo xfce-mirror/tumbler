@@ -67,7 +67,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
   gst_thumbnailer_provider_register (plugin);
 
   /* set up the plugin provider type list */
-  type_list[0] = TYPE_GST_THUMBNAILER_PROVIDER;
+  type_list[0] = GST_TYPE_THUMBNAILER_PROVIDER;
 }
 
 

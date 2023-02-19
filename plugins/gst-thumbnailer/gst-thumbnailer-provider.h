@@ -27,18 +27,10 @@
 
 G_BEGIN_DECLS
 
-#define TYPE_GST_THUMBNAILER_PROVIDER            (gst_thumbnailer_provider_get_type ())
-#define GST_THUMBNAILER_PROVIDER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_GST_THUMBNAILER_PROVIDER, GstThumbnailerProvider))
-#define GST_THUMBNAILER_PROVIDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_GST_THUMBNAILER_PROVIDER, GstThumbnailerProviderClass))
-#define IS_GST_THUMBNAILER_PROVIDER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_GST_THUMBNAILER_PROVIDER))
-#define IS_GST_THUMBNAILER_PROVIDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_GST_THUMBNAILER_PROVIDER)
-#define GST_THUMBNAILER_PROVIDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_GST_THUMBNAILER_PROVIDER, GstThumbnailerProviderClass))
+#define GST_TYPE_THUMBNAILER_PROVIDER (gst_thumbnailer_provider_get_type ())
+G_DECLARE_FINAL_TYPE (GstThumbnailerProvider, gst_thumbnailer_provider, GST, THUMBNAILER_PROVIDER, GObject)
 
-typedef struct _GstThumbnailerProviderClass GstThumbnailerProviderClass;
-typedef struct _GstThumbnailerProvider      GstThumbnailerProvider;
-
-GType gst_thumbnailer_provider_get_type (void) G_GNUC_CONST;
-void  gst_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void gst_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

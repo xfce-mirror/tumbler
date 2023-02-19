@@ -29,15 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_THUMBNAILER_PROVIDER           (tumbler_thumbnailer_provider_get_type ())
-#define TUMBLER_THUMBNAILER_PROVIDER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_THUMBNAILER_PROVIDER, TumblerThumbnailerProvider))
-#define TUMBLER_IS_THUMBNAILER_PROVIDER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_THUMBNAILER_PROVIDER))
-#define TUMBLER_THUMBNAILER_PROVIDER_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_THUMBNAILER_PROVIDER, TumblerThumbnailerProviderIface))
+#define TUMBLER_TYPE_THUMBNAILER_PROVIDER (tumbler_thumbnailer_provider_get_type ())
+G_DECLARE_INTERFACE (TumblerThumbnailerProvider, tumbler_thumbnailer_provider, TUMBLER, THUMBNAILER_PROVIDER, GObject)
 
-typedef struct _TumblerThumbnailerProvider      TumblerThumbnailerProvider;
-typedef struct _TumblerThumbnailerProviderIface TumblerThumbnailerProviderIface;
+typedef struct _TumblerThumbnailerProviderInterface TumblerThumbnailerProviderIface;
 
-struct _TumblerThumbnailerProviderIface
+struct _TumblerThumbnailerProviderInterface
 {
   GTypeInterface __parent__;
 
@@ -46,8 +43,6 @@ struct _TumblerThumbnailerProviderIface
   /* virtual methods */
   GList *(*get_thumbnailers) (TumblerThumbnailerProvider *provider);
 };
-
-GType  tumbler_thumbnailer_provider_get_type (void) G_GNUC_CONST;
 
 GList *tumbler_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 

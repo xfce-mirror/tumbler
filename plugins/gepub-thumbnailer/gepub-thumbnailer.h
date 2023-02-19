@@ -22,22 +22,14 @@
 #ifndef __GEPUB_THUMBNAILER_H__
 #define __GEPUB_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define TYPE_GEPUB_THUMBNAILER            (gepub_thumbnailer_get_type ())
-#define GEPUB_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_GEPUB_THUMBNAILER, GepubThumbnailer))
-#define GEPUB_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_GEPUB_THUMBNAILER, GepubThumbnailerClass))
-#define IS_GEPUB_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_GEPUB_THUMBNAILER))
-#define IS_GEPUB_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_GEPUB_THUMBNAILER))
-#define GEPUB_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_GEPUB_THUMBNAILER, GepubThumbnailerClass))
+#define GEPUB_TYPE_THUMBNAILER (gepub_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (GepubThumbnailer, gepub_thumbnailer, GEPUB, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _GepubThumbnailerClass   GepubThumbnailerClass;
-typedef struct _GepubThumbnailer        GepubThumbnailer;
-
-GType gepub_thumbnailer_get_type (void) G_GNUC_CONST;
-void  gepub_thumbnailer_register (TumblerProviderPlugin *plugin);
+void gepub_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

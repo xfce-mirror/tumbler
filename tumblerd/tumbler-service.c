@@ -31,7 +31,6 @@
 
 #include <tumbler/tumbler.h>
 
-#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-service.h>
 #include <tumblerd/tumbler-lifo-scheduler.h>
@@ -119,11 +118,6 @@ static void tumbler_service_pre_unmount        (TumblerService     *service,
 static void scheduler_idle_info_free           (SchedulerIdleInfo  *info);
 
 
-
-struct _TumblerServiceClass
-{
-  TumblerComponentClass __parent__;
-};
 
 struct _TumblerService
 {

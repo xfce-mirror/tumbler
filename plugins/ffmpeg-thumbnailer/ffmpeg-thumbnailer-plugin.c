@@ -66,7 +66,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
   ffmpeg_thumbnailer_provider_register (plugin);
 
   /* set up the plugin provider type list */
-  type_list[0] = TYPE_FFMPEG_THUMBNAILER_PROVIDER;
+  type_list[0] = FFMPEG_TYPE_THUMBNAILER_PROVIDER;
 }
 
 

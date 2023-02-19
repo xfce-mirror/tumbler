@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_SCHEDULER_H__
 #define __TUMBLER_SCHEDULER_H__
 
-#include <gio/gio.h>
+#include <glib-object.h>
 
 #include <tumbler/tumbler.h>
 
@@ -29,16 +29,10 @@ G_BEGIN_DECLS
 
 typedef struct _TumblerSchedulerRequest TumblerSchedulerRequest;
 
-#define TUMBLER_TYPE_SCHEDULER           (tumbler_scheduler_get_type ())
-#define TUMBLER_SCHEDULER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_SCHEDULER, TumblerScheduler))
-#define TUMBLER_IS_SCHEDULER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_SCHEDULER))
-#define TUMBLER_SCHEDULER_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_SCHEDULER, TumblerSchedulerIface))
+#define TUMBLER_TYPE_SCHEDULER (tumbler_scheduler_get_type ())
+G_DECLARE_INTERFACE (TumblerScheduler, tumbler_scheduler, TUMBLER, SCHEDULER, GObject)
 
-typedef struct _TumblerScheduler      TumblerScheduler;
-typedef struct _TumblerSchedulerIface TumblerSchedulerInterface;
-typedef TumblerSchedulerInterface     TumblerSchedulerIface;
-
-struct _TumblerSchedulerIface
+typedef struct _TumblerSchedulerInterface
 {
   GTypeInterface __parent__;
 
@@ -63,9 +57,7 @@ struct _TumblerSchedulerIface
                            guint32                  handle);
   void (*cancel_by_mount) (TumblerScheduler        *scheduler,
                            GMount                  *mount);
-};
-
-GType                    tumbler_scheduler_get_type              (void) G_GNUC_CONST;
+} TumblerSchedulerIface;
 
 void                     tumbler_scheduler_push                  (TumblerScheduler        *scheduler,
                                                                   TumblerSchedulerRequest *request);

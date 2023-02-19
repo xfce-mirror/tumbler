@@ -29,7 +29,6 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <gsf/gsf.h>
@@ -44,8 +43,6 @@
 #include <gsf/gsf-meta-names.h>
 #include <gsf/gsf-msole-utils.h>
 
-#include <tumbler/tumbler.h>
-
 #include <odf-thumbnailer/odf-thumbnailer.h>
 
 
@@ -58,11 +55,6 @@ static void odf_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
                                       TumblerFileInfo            *info);
 
 
-
-struct _OdfThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _OdfThumbnailer
 {
@@ -276,7 +268,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GdkPixbuf        *pixbuf = NULL;
   TumblerImageData  data;
 
-  g_return_if_fail (IS_ODF_THUMBNAILER (thumbnailer));
+  g_return_if_fail (ODF_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 

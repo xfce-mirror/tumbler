@@ -22,37 +22,18 @@
 #include <config.h>
 #endif
 
-#include <glib-object.h>
-
 #include <tumbler/tumbler-cache.h>
 #include <tumbler/tumbler-cache-plugin.h>
-#include <tumbler/tumbler-thumbnail.h>
-#include <tumbler/tumbler-thumbnail-flavor.h>
 
 
 
-GType
-tumbler_cache_get_type (void)
+G_DEFINE_INTERFACE(TumblerCache, tumbler_cache, G_TYPE_OBJECT)
+
+
+
+static void
+tumbler_cache_default_init (TumblerCacheIface *iface)
 {
-  static gsize g_define_type_id__static = 0;
-
-  if (g_once_init_enter (&g_define_type_id__static))
-    {
-      GType g_define_type_id =
-        g_type_register_static_simple (G_TYPE_INTERFACE,
-                                       "TumblerCache",
-                                       sizeof (TumblerCacheIface),
-                                       NULL,
-                                       0,
-                                       NULL,
-                                       0);
-
-      g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
-
-      g_once_init_leave (&g_define_type_id__static, g_define_type_id);
-    }
-
-  return g_define_type_id__static;
 }
 
 

@@ -24,10 +24,8 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gmodule.h>
 
-#include <tumbler/tumbler-cache.h>
 #include <tumbler/tumbler-cache-plugin.h>
 #include <tumbler/tumbler-error.h>
 
@@ -40,11 +38,6 @@ static gboolean tumbler_cache_plugin_load        (GTypeModule       *type_module
 static void     tumbler_cache_plugin_unload      (GTypeModule       *type_module);
 
 
-
-struct _TumblerCachePluginClass
-{
-  GTypeModuleClass __parent__;
-};
 
 struct _TumblerCachePlugin
 {

@@ -29,17 +29,8 @@
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_PROVIDER_PLUGIN            (tumbler_provider_plugin_get_type ())
-#define TUMBLER_PROVIDER_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_PROVIDER_PLUGIN, TumblerProviderPlugin))
-#define TUMBLER_PROVIDER_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_PROVIDER_PLUGIN, TumblerProviderPluginClass))
-#define TUMBLER_IS_PROVIDER_PLUGIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_PROVIDER_PLUGIN))
-#define TUMBLER_IS_PROVIDER_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_PROVIDER_PLUGIN)
-#define TUMBLER_PROVIDER_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_PROVIDER_PLUGIN, TumblerProviderPluginClass))
-
-typedef struct _TumblerProviderPluginClass   TumblerProviderPluginClass;
-typedef struct _TumblerProviderPlugin        TumblerProviderPlugin;
-
-GType                  tumbler_provider_plugin_get_type  (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_PROVIDER_PLUGIN (tumbler_provider_plugin_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerProviderPlugin, tumbler_provider_plugin, TUMBLER, PROVIDER_PLUGIN, GTypeModule)
 
 TumblerProviderPlugin *tumbler_provider_plugin_new       (const gchar                 *filename) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT G_GNUC_INTERNAL;
 void                   tumbler_provider_plugin_get_types (const TumblerProviderPlugin *plugin,

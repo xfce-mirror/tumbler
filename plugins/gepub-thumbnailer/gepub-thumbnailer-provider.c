@@ -24,7 +24,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler.h>
 
@@ -37,11 +36,6 @@ static void   gepub_thumbnailer_provider_thumbnailer_provider_init (TumblerThumb
 static GList *gepub_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _GepubThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _GepubThumbnailerProvider
 {
@@ -113,7 +107,7 @@ gepub_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provide
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
   /* create the pixbuf thumbnailer */
-  thumbnailer = g_object_new (TYPE_GEPUB_THUMBNAILER, 
+  thumbnailer = g_object_new (GEPUB_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types, 
                               NULL);

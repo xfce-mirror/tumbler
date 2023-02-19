@@ -26,18 +26,10 @@
 
 G_BEGIN_DECLS;
 
-#define TYPE_FFMPEG_THUMBNAILER_PROVIDER            (ffmpeg_thumbnailer_provider_get_type ())
-#define FFMPEG_THUMBNAILER_PROVIDER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_FFMPEG_THUMBNAILER_PROVIDER, FfmpegThumbnailerProvider))
-#define FFMPEG_THUMBNAILER_PROVIDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_FFMPEG_THUMBNAILER_PROVIDER, FfmpegThumbnailerProviderClass))
-#define IS_FFMPEG_THUMBNAILER_PROVIDER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_FFMPEG_THUMBNAILER_PROVIDER))
-#define IS_FFMPEG_THUMBNAILER_PROVIDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_FFMPEG_THUMBNAILER_PROVIDER)
-#define FFMPEG_THUMBNAILER_PROVIDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_FFMPEG_THUMBNAILER_PROVIDER, FfmpegThumbnailerProviderClass))
+#define FFMPEG_TYPE_THUMBNAILER_PROVIDER (ffmpeg_thumbnailer_provider_get_type ())
+G_DECLARE_FINAL_TYPE (FfmpegThumbnailerProvider, ffmpeg_thumbnailer_provider, FFMPEG, THUMBNAILER_PROVIDER, GObject)
 
-typedef struct _FfmpegThumbnailerProviderClass FfmpegThumbnailerProviderClass;
-typedef struct _FfmpegThumbnailerProvider      FfmpegThumbnailerProvider;
-
-GType ffmpeg_thumbnailer_provider_get_type (void) G_GNUC_CONST;
-void  ffmpeg_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void ffmpeg_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

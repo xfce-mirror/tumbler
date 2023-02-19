@@ -23,10 +23,8 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler-abstract-thumbnailer.h>
-#include <tumbler/tumbler-file-info.h>
 #include <tumbler/tumbler-thumbnailer.h>
 
 

@@ -35,8 +35,6 @@
 #include <syscall.h> 
 #endif
 
-#include <tumbler/tumbler.h>
-
 #include <tumblerd/tumbler-scheduler.h>
 
 

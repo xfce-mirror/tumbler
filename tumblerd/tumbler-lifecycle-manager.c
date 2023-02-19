@@ -24,7 +24,6 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler.h>
 
@@ -49,11 +48,6 @@ enum
 static void tumbler_lifecycle_manager_finalize (GObject *object);
 
 
-
-struct _TumblerLifecycleManagerClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerLifecycleManager
 {

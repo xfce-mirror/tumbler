@@ -25,12 +25,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <poppler.h>
-
-#include <tumbler/tumbler.h>
 
 #include <poppler-thumbnailer/poppler-thumbnailer.h>
 
@@ -41,11 +38,6 @@ static void poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                         TumblerFileInfo            *info);
 
 
-
-struct _PopplerThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _PopplerThumbnailer
 {
@@ -236,7 +228,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gsize                   length;
   gint                    width, height;
 
-  g_return_if_fail (IS_POPPLER_THUMBNAILER (thumbnailer));
+  g_return_if_fail (POPPLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 

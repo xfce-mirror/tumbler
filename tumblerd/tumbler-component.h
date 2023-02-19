@@ -25,18 +25,8 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_COMPONENT            (tumbler_component_get_type ())
-#define TUMBLER_COMPONENT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_COMPONENT, TumblerComponent))
-#define TUMBLER_COMPONENT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_COMPONENT, TumblerComponentClass))
-#define TUMBLER_IS_COMPONENT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_COMPONENT))
-#define TUMBLER_IS_COMPONENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_COMPONENT)
-#define TUMBLER_COMPONENT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_COMPONENT, TumblerComponentClass))
-
-typedef struct _TumblerComponentPrivate TumblerComponentPrivate;
-typedef struct _TumblerComponentClass   TumblerComponentClass;
-typedef struct _TumblerComponent        TumblerComponent;
-
-GType    tumbler_component_get_type            (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_COMPONENT (tumbler_component_get_type ())
+G_DECLARE_DERIVABLE_TYPE (TumblerComponent, tumbler_component, TUMBLER, COMPONENT, GObject)
 
 gboolean tumbler_component_keep_alive          (TumblerComponent *component,
                                                 GError          **error);
@@ -46,13 +36,6 @@ void     tumbler_component_decrement_use_count (TumblerComponent *component);
 struct _TumblerComponentClass
 {
   GObjectClass __parent__;
-};
-
-struct _TumblerComponent
-{
-  GObject                  __parent__;
-
-  TumblerComponentPrivate *priv;
 };
 
 G_END_DECLS

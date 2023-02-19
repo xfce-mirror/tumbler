@@ -29,7 +29,6 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <tumbler/tumbler.h>
 #include <gepub.h>
 
 #include "gepub-thumbnailer.h"
@@ -40,11 +39,6 @@ static void gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                       TumblerFileInfo            *info);
 
 
-
-struct _GepubThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _GepubThumbnailer
 {
@@ -151,7 +145,7 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gchar            *cover_mime;
   GBytes           *content;
 
-  g_return_if_fail (IS_GEPUB_THUMBNAILER (thumbnailer));
+  g_return_if_fail (GEPUB_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 

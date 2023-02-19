@@ -25,17 +25,8 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_SPECIALIZED_THUMBNAILER            (tumbler_specialized_thumbnailer_get_type ())
-#define TUMBLER_SPECIALIZED_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, TumblerSpecializedThumbnailer))
-#define TUMBLER_SPECIALIZED_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, TumblerSpecializedThumbnailerClass))
-#define TUMBLER_IS_SPECIALIZED_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER))
-#define TUMBLER_IS_SPECIALIZED_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER)
-#define TUMBLER_SPECIALIZED_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_SPECIALIZED_THUMBNAILER, TumblerSpecializedThumbnailerClass))
-
-typedef struct _TumblerSpecializedThumbnailerClass TumblerSpecializedThumbnailerClass;
-typedef struct _TumblerSpecializedThumbnailer      TumblerSpecializedThumbnailer;
-
-GType               tumbler_specialized_thumbnailer_get_type        (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_SPECIALIZED_THUMBNAILER (tumbler_specialized_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerSpecializedThumbnailer, tumbler_specialized_thumbnailer, TUMBLER, SPECIALIZED_THUMBNAILER, TumblerAbstractThumbnailer)
 
 TumblerThumbnailer *tumbler_specialized_thumbnailer_new             (GDBusConnection               *connection,
                                                                      const gchar                   *name,

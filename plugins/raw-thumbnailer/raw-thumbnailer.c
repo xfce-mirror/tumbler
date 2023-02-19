@@ -34,10 +34,8 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
+
 #include <libopenraw-gnome/gdkpixbuf.h>
 
 #include "raw-thumbnailer.h"
@@ -47,11 +45,6 @@ static void raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                     TumblerFileInfo            *info);
 
 
-
-struct _RawThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _RawThumbnailer
 {
@@ -116,7 +109,7 @@ raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gint                    width;
   GdkPixbuf              *scaled;
 
-  g_return_if_fail (IS_RAW_THUMBNAILER (thumbnailer));
+  g_return_if_fail (RAW_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 

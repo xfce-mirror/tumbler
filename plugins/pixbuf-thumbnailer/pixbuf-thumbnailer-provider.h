@@ -25,18 +25,10 @@
 
 G_BEGIN_DECLS;
 
-#define TYPE_PIXBUF_THUMBNAILER_PROVIDER            (pixbuf_thumbnailer_provider_get_type ())
-#define PIXBUF_THUMBNAILER_PROVIDER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PIXBUF_THUMBNAILER_PROVIDER, PixbufThumbnailerProvider))
-#define PIXBUF_THUMBNAILER_PROVIDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_PIXBUF_THUMBNAILER_PROVIDER, PixbufThumbnailerProviderClass))
-#define IS_PIXBUF_THUMBNAILER_PROVIDER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_PIXBUF_THUMBNAILER_PROVIDER))
-#define IS_PIXBUF_THUMBNAILER_PROVIDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_PIXBUF_THUMBNAILER_PROVIDER)
-#define PIXBUF_THUMBNAILER_PROVIDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_PIXBUF_THUMBNAILER_PROVIDER, PixbufThumbnailerProviderClass))
+#define PIXBUF_TYPE_THUMBNAILER_PROVIDER (pixbuf_thumbnailer_provider_get_type ())
+G_DECLARE_FINAL_TYPE (PixbufThumbnailerProvider, pixbuf_thumbnailer_provider, PIXBUF, THUMBNAILER_PROVIDER, GObject)
 
-typedef struct _PixbufThumbnailerProviderClass PixbufThumbnailerProviderClass;
-typedef struct _PixbufThumbnailerProvider      PixbufThumbnailerProvider;
-
-GType pixbuf_thumbnailer_provider_get_type (void) G_GNUC_CONST;
-void  pixbuf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void pixbuf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

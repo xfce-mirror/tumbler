@@ -25,20 +25,18 @@
 #ifndef __TUMBLER_CACHE_H__
 #define __TUMBLER_CACHE_H__
 
+#include <glib-object.h>
 #include <tumbler/tumbler-thumbnail.h>
 #include <tumbler/tumbler-thumbnail-flavor.h>
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_CACHE           (tumbler_cache_get_type ())
-#define TUMBLER_CACHE(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_CACHE, TumblerCache))
-#define TUMBLER_IS_CACHE(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_CACHE))
-#define TUMBLER_CACHE_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_CACHE, TumblerCacheIface))
+#define TUMBLER_TYPE_CACHE (tumbler_cache_get_type ())
+G_DECLARE_INTERFACE (TumblerCache, tumbler_cache, TUMBLER, CACHE, GObject)
 
-typedef struct _TumblerCache      TumblerCache;
-typedef struct _TumblerCacheIface TumblerCacheIface;
+typedef struct _TumblerCacheInterface TumblerCacheIface;
 
-struct _TumblerCacheIface
+struct _TumblerCacheInterface
 {
   GTypeInterface __parent__;
 
@@ -63,8 +61,6 @@ struct _TumblerCacheIface
                                       const gchar            *uri);
   GList            *(*get_flavors)   (TumblerCache           *cache);
 };
-
-GType                   tumbler_cache_get_type (void) G_GNUC_CONST;
 
 TumblerCache           *tumbler_cache_get_default    (void) G_GNUC_WARN_UNUSED_RESULT;
 

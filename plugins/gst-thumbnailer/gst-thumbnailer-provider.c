@@ -25,7 +25,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 #include <gst/gst.h>
 
 #include <tumbler/tumbler.h>
@@ -39,11 +38,6 @@ static void   gst_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbna
 static GList *gst_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _GstThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _GstThumbnailerProvider
 {
@@ -238,7 +232,7 @@ gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
-  thumbnailer = g_object_new (TYPE_GST_THUMBNAILER,
+  thumbnailer = g_object_new (GST_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types,
                               NULL);

@@ -25,11 +25,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-#include <gio/gio.h>
 
 #include <tumbler/tumbler.h>
 
-#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-cache-service.h>
 #include <tumblerd/tumbler-cache-service-gdbus.h>
 #include <tumblerd/tumbler-utils.h>
@@ -96,11 +94,6 @@ static gboolean tumbler_cache_service_move    (TumblerExportedCacheService   *sk
                                                const gchar *const            *from_uris,
                                                const gchar *const            *to_uris,
                                                TumblerCacheService           *service);
-
-struct _TumblerCacheServiceClass
-{
-  TumblerComponentClass __parent__;
-};
 
 struct _TumblerCacheService
 {

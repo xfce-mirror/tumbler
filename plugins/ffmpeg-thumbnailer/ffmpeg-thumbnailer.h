@@ -22,22 +22,14 @@
 #ifndef __FFMPEG_THUMBNAILER_H__
 #define __FFMPEG_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define TYPE_FFMPEG_THUMBNAILER            (ffmpeg_thumbnailer_get_type ())
-#define FFMPEG_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_FFMPEG_THUMBNAILER, FfmpegThumbnailer))
-#define FFMPEG_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_FFMPEG_THUMBNAILER, FfmpegThumbnailerClass))
-#define IS_FFMPEG_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_FFMPEG_THUMBNAILER))
-#define IS_FFMPEG_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_FFMPEG_THUMBNAILER)
-#define FFMPEG_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_FFMPEG_THUMBNAILER, FfmpegThumbnailerClass))
+#define FFMPEG_TYPE_THUMBNAILER (ffmpeg_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (FfmpegThumbnailer, ffmpeg_thumbnailer, FFMPEG, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _FfmpegThumbnailerClass   FfmpegThumbnailerClass;
-typedef struct _FfmpegThumbnailer        FfmpegThumbnailer;
-
-GType ffmpeg_thumbnailer_get_type (void) G_GNUC_CONST;
-void  ffmpeg_thumbnailer_register (TumblerProviderPlugin *plugin);
+void ffmpeg_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

@@ -25,18 +25,10 @@
 
 G_BEGIN_DECLS
 
-#define TYPE_ODF_THUMBNAILER_PROVIDER            (odf_thumbnailer_provider_get_type ())
-#define ODF_THUMBNAILER_PROVIDER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_ODF_THUMBNAILER_PROVIDER, OdfThumbnailerProvider))
-#define ODF_THUMBNAILER_PROVIDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_ODF_THUMBNAILER_PROVIDER, OdfThumbnailerProviderClass))
-#define IS_ODF_THUMBNAILER_PROVIDER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_ODF_THUMBNAILER_PROVIDER))
-#define IS_ODF_THUMBNAILER_PROVIDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_ODF_THUMBNAILER_PROVIDER)
-#define ODF_THUMBNAILER_PROVIDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_ODF_THUMBNAILER_PROVIDER, OdfThumbnailerProviderClass))
+#define ODF_TYPE_THUMBNAILER_PROVIDER (odf_thumbnailer_provider_get_type ())
+G_DECLARE_FINAL_TYPE (OdfThumbnailerProvider, odf_thumbnailer_provider, ODF, THUMBNAILER_PROVIDER, GObject)
 
-typedef struct _OdfThumbnailerProviderClass OdfThumbnailerProviderClass;
-typedef struct _OdfThumbnailerProvider      OdfThumbnailerProvider;
-
-GType odf_thumbnailer_provider_get_type (void) G_GNUC_CONST;
-void  odf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void odf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

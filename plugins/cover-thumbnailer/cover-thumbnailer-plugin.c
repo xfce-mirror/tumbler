@@ -67,7 +67,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
   cover_thumbnailer_provider_register (plugin);
 
   /* set up the plugin provider type list */
-  type_list[0] = TYPE_COVER_THUMBNAILER_PROVIDER;
+  type_list[0] = COVER_TYPE_THUMBNAILER_PROVIDER;
 }
 
 

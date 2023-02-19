@@ -24,12 +24,10 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler-cache.h>
 #include <tumbler/tumbler-error.h>
 #include <tumbler/tumbler-file-info.h>
-#include <tumbler/tumbler-thumbnail.h>
 #include <tumbler/tumbler-thumbnail-flavor.h>
 
 
@@ -57,11 +55,6 @@ static void tumbler_file_info_set_property (GObject              *object,
                                             GParamSpec           *pspec);
 
 
-
-struct _TumblerFileInfoClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerFileInfo
 {

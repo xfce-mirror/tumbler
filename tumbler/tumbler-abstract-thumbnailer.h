@@ -32,16 +32,17 @@
 
 G_BEGIN_DECLS;
 
+typedef struct _TumblerAbstractThumbnailerPrivate TumblerAbstractThumbnailerPrivate;
+typedef struct _TumblerAbstractThumbnailerClass   TumblerAbstractThumbnailerClass;
+typedef struct _TumblerAbstractThumbnailer        TumblerAbstractThumbnailer;
+
 #define TUMBLER_TYPE_ABSTRACT_THUMBNAILER            (tumbler_abstract_thumbnailer_get_type ())
 #define TUMBLER_ABSTRACT_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_ABSTRACT_THUMBNAILER, TumblerAbstractThumbnailer))
 #define TUMBLER_ABSTRACT_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_ABSTRACT_THUMBNAILER, TumblerAbstractThumbnailerClass))
 #define TUMBLER_IS_ABSTRACT_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_ABSTRACT_THUMBNAILER))
 #define TUMBLER_IS_ABSTRACT_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_ABSTRACT_THUMBNAILER)
 #define TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_ABSTRACT_THUMBNAILER, TumblerAbstractThumbnailerClass))
-
-typedef struct _TumblerAbstractThumbnailerPrivate TumblerAbstractThumbnailerPrivate;
-typedef struct _TumblerAbstractThumbnailerClass   TumblerAbstractThumbnailerClass;
-typedef struct _TumblerAbstractThumbnailer        TumblerAbstractThumbnailer;
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (TumblerAbstractThumbnailer, g_object_unref)
 
 struct _TumblerAbstractThumbnailerClass
 {

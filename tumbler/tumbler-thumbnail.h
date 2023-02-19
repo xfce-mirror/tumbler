@@ -26,21 +26,18 @@
 #define __TUMBLER_THUMBNAIL_H__
 
 #include <gio/gio.h>
+#include <glib-object.h>
 
 #include <tumbler/tumbler-enum-types.h>
 #include <tumbler/tumbler-thumbnail-flavor.h>
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_THUMBNAIL           (tumbler_thumbnail_get_type ())
-#define TUMBLER_THUMBNAIL(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_THUMBNAIL, TumblerThumbnail))
-#define TUMBLER_IS_THUMBNAIL(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_THUMBNAIL))
-#define TUMBLER_THUMBNAIL_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_THUMBNAIL, TumblerThumbnailIface))
+#define TUMBLER_TYPE_THUMBNAIL (tumbler_thumbnail_get_type ())
+G_DECLARE_INTERFACE (TumblerThumbnail, tumbler_thumbnail, TUMBLER, THUMBNAIL, GObject)
 
-typedef struct _TumblerImageData      TumblerImageData;
-typedef struct _TumblerThumbnail      TumblerThumbnail;
-typedef struct _TumblerThumbnailIface TumblerThumbnailInterface;
-typedef TumblerThumbnailInterface     TumblerThumbnailIface;
+typedef struct _TumblerImageData TumblerImageData;
+typedef struct _TumblerThumbnailInterface TumblerThumbnailIface;
 
 struct _TumblerImageData
 {
@@ -53,7 +50,7 @@ struct _TumblerImageData
   gint              rowstride;
 };
 
-struct _TumblerThumbnailIface
+struct _TumblerThumbnailInterface
 {
   GTypeInterface __parent__;
 
@@ -77,8 +74,6 @@ struct _TumblerThumbnailIface
                                GCancellable     *cancellable,
                                GError          **error);
 };
-
-GType                   tumbler_thumbnail_get_type        (void) G_GNUC_CONST;
 
 gboolean                tumbler_thumbnail_load            (TumblerThumbnail      *thumbnail,
                                                            GCancellable          *cancellable,

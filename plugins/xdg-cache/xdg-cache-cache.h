@@ -21,23 +21,16 @@
 #ifndef __XDG_CACHE_CACHE_H__
 #define __XDG_CACHE_CACHE_H__
 
+#include <glib-object.h>
 #include <gio/gio.h>
 
 #include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define XDG_CACHE_TYPE_CACHE            (xdg_cache_cache_get_type ())
-#define XDG_CACHE_CACHE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), XDG_CACHE_TYPE_CACHE, XDGCacheCache))
-#define XDG_CACHE_CACHE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), XDG_CACHE_TYPE_CACHE, XDGCacheCacheClass))
-#define XDG_CACHE_IS_CACHE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XDG_CACHE_TYPE_CACHE))
-#define XDG_CACHE_IS_CACHE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), XDG_CACHE_TYPE_CACHE)
-#define XDG_CACHE_CACHE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), XDG_CACHE_TYPE_CACHE, XDGCacheCacheClass))
+#define XDG_CACHE_TYPE_CACHE (xdg_cache_cache_get_type ())
+G_DECLARE_FINAL_TYPE (XDGCacheCache, xdg_cache_cache, XDG_CACHE, CACHE, GObject)
 
-typedef struct _XDGCacheCacheClass XDGCacheCacheClass;
-typedef struct _XDGCacheCache      XDGCacheCache;
-
-GType    xdg_cache_cache_get_type             (void) G_GNUC_CONST;
 void     xdg_cache_cache_register             (TumblerCachePlugin     *plugin);
 
 GFile   *xdg_cache_cache_get_file             (const gchar            *uri,

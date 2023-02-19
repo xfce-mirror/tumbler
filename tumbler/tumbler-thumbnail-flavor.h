@@ -29,18 +29,8 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_THUMBNAIL_FLAVOR            (tumbler_thumbnail_flavor_get_type ())
-#define TUMBLER_THUMBNAIL_FLAVOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_THUMBNAIL_FLAVOR, TumblerThumbnailFlavor))
-#define TUMBLER_THUMBNAIL_FLAVOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_THUMBNAIL_FLAVOR, TumblerThumbnailFlavorClass))
-#define TUMBLER_IS_THUMBNAIL_FLAVOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_THUMBNAIL_FLAVOR))
-#define TUMBLER_IS_THUMBNAIL_FLAVOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_THUMBNAIL_FLAVOR)
-#define TUMBLER_THUMBNAIL_FLAVOR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_THUMBNAIL_FLAVOR, TumblerThumbnailFlavorClass))
-
-typedef struct _TumblerThumbnailFlavorPrivate TumblerThumbnailFlavorPrivate;
-typedef struct _TumblerThumbnailFlavorClass   TumblerThumbnailFlavorClass;
-typedef struct _TumblerThumbnailFlavor        TumblerThumbnailFlavor;
-
-GType                   tumbler_thumbnail_flavor_get_type     (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_THUMBNAIL_FLAVOR (tumbler_thumbnail_flavor_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerThumbnailFlavor, tumbler_thumbnail_flavor, TUMBLER, THUMBNAIL_FLAVOR, GObject)
 
 TumblerThumbnailFlavor *tumbler_thumbnail_flavor_new          (const gchar            *name,
                                                                gint                    width,
