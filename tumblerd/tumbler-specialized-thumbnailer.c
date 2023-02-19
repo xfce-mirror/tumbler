@@ -27,7 +27,6 @@
 #include <glib/gprintf.h>
 #include <glib-object.h>
 
-#include <tumbler/tumbler.h>
 #include <tumbler/tumbler-marshal.h>
 
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
@@ -72,11 +71,6 @@ static void tumbler_specialized_thumbnailer_proxy_name_owner_changed (GDBusProxy
                                                                       GParamSpec                    *spec,
                                                                       TumblerSpecializedThumbnailer *thumbnailer);
 
-
-struct _TumblerSpecializedThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _TumblerSpecializedThumbnailer
 {

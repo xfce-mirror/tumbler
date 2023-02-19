@@ -23,23 +23,15 @@
 #ifndef __TUMBLER_LIFO_SCHEDULER_H__
 #define __TUMBLER_LIFO_SCHEDULER_H__
 
+#include <glib-object.h>
 #include <tumblerd/tumbler-scheduler.h>
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_LIFO_SCHEDULER            (tumbler_lifo_scheduler_get_type ())
-#define TUMBLER_LIFO_SCHEDULER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_LIFO_SCHEDULER, TumblerLifoScheduler))
-#define TUMBLER_LIFO_SCHEDULER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_LIFO_SCHEDULER, TumblerLifoSchedulerClass))
-#define TUMBLER_IS_LIFO_SCHEDULER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_LIFO_SCHEDULER))
-#define TUMBLER_IS_LIFO_SCHEDULER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_LIFO_SCHEDULER)
-#define TUMBLER_LIFO_SCHEDULER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_LIFO_SCHEDULER, TumblerLifoSchedulerClass))
+#define TUMBLER_TYPE_LIFO_SCHEDULER (tumbler_lifo_scheduler_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerLifoScheduler, tumbler_lifo_scheduler, TUMBLER, LIFO_SCHEDULER, GObject)
 
-typedef struct _TumblerLifoSchedulerClass TumblerLifoSchedulerClass;
-typedef struct _TumblerLifoScheduler      TumblerLifoScheduler;
-
-GType             tumbler_lifo_scheduler_get_type (void) G_GNUC_CONST;
-
-TumblerScheduler *tumbler_lifo_scheduler_new      (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerScheduler *tumbler_lifo_scheduler_new (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS;
 

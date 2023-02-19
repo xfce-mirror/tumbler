@@ -23,7 +23,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 
 #include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-lifecycle-manager.h>
@@ -38,6 +37,8 @@ enum
 };
 
 
+#define get_instance_private(instance) ((TumblerComponentPrivate *) \
+  tumbler_component_get_instance_private (TUMBLER_COMPONENT (instance)))
 
 static void tumbler_component_finalize     (GObject      *object);
 static void tumbler_component_get_property (GObject      *object,
@@ -51,14 +52,14 @@ static void tumbler_component_set_property (GObject      *object,
 
 
 
-struct _TumblerComponentPrivate
+typedef struct _TumblerComponentPrivate
 {
   TumblerLifecycleManager *lifecycle_manager;
-};
+} TumblerComponentPrivate;
 
 
 
-G_DEFINE_TYPE_WITH_PRIVATE (TumblerComponent, tumbler_component, G_TYPE_OBJECT)
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (TumblerComponent, tumbler_component, G_TYPE_OBJECT)
 
 
 
@@ -90,7 +91,6 @@ tumbler_component_class_init (TumblerComponentClass *klass)
 static void
 tumbler_component_init (TumblerComponent *component)
 {
-  component->priv = tumbler_component_get_instance_private (component);
 }
 
 
@@ -98,9 +98,9 @@ tumbler_component_init (TumblerComponent *component)
 static void
 tumbler_component_finalize (GObject *object)
 {
-  TumblerComponent *component = TUMBLER_COMPONENT (object);
+  TumblerComponentPrivate *priv = get_instance_private (object);
 
-  g_object_unref (component->priv->lifecycle_manager);
+  g_object_unref (priv->lifecycle_manager);
 
   (*G_OBJECT_CLASS (tumbler_component_parent_class)->finalize) (object);
 }
@@ -113,12 +113,12 @@ tumbler_component_get_property (GObject    *object,
                                 GValue     *value,
                                 GParamSpec *pspec)
 {
-  TumblerComponent *component = TUMBLER_COMPONENT (object);
+  TumblerComponentPrivate *priv = get_instance_private (object);
 
   switch (prop_id)
     {
     case PROP_LIFECYCLE_MANAGER:
-      g_value_set_object (value, component->priv->lifecycle_manager);
+      g_value_set_object (value, priv->lifecycle_manager);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -134,12 +134,12 @@ tumbler_component_set_property (GObject      *object,
                                 const GValue *value,
                                 GParamSpec   *pspec)
 {
-  TumblerComponent *component = TUMBLER_COMPONENT (object);
+  TumblerComponentPrivate *priv = get_instance_private (object);
 
   switch (prop_id)
     {
     case PROP_LIFECYCLE_MANAGER:
-      component->priv->lifecycle_manager = g_value_dup_object(value);
+      priv->lifecycle_manager = g_value_dup_object(value);
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -156,7 +156,7 @@ tumbler_component_keep_alive (TumblerComponent *component,
   g_return_val_if_fail (TUMBLER_IS_COMPONENT (component), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
-  return tumbler_lifecycle_manager_keep_alive (component->priv->lifecycle_manager,
+  return tumbler_lifecycle_manager_keep_alive (get_instance_private (component)->lifecycle_manager,
                                                error);
 }
 
@@ -166,7 +166,7 @@ void
 tumbler_component_increment_use_count (TumblerComponent *component)
 {
   g_return_if_fail (TUMBLER_IS_COMPONENT (component));
-  tumbler_lifecycle_manager_increment_use_count (component->priv->lifecycle_manager);
+  tumbler_lifecycle_manager_increment_use_count (get_instance_private (component)->lifecycle_manager);
 }
 
 
@@ -175,5 +175,5 @@ void
 tumbler_component_decrement_use_count (TumblerComponent *component)
 {
   g_return_if_fail (TUMBLER_IS_COMPONENT (component));
-  tumbler_lifecycle_manager_decrement_use_count (component->priv->lifecycle_manager);
+  tumbler_lifecycle_manager_decrement_use_count (get_instance_private (component)->lifecycle_manager);
 }

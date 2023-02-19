@@ -24,11 +24,8 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
-
 
 #include <tumbler/tumbler.h>
-
 #include <tumblerd/tumbler-registry.h>
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
 #include <tumblerd/tumbler-utils.h>
@@ -46,11 +43,6 @@ static GList              *tumbler_registry_lookup                    (TumblerRe
                                                                        const gchar        *hash_key);
 
 
-
-struct _TumblerRegistryClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerRegistry
 {

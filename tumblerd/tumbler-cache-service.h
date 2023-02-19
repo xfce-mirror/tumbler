@@ -21,23 +21,15 @@
 #ifndef __TUMBLER_CACHE_SERVICE_H__
 #define __TUMBLER_CACHE_SERVICE_H__
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
+#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-lifecycle-manager.h>
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_CACHE_SERVICE            (tumbler_cache_service_get_type ())
-#define TUMBLER_CACHE_SERVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_CACHE_SERVICE, TumblerCacheService))
-#define TUMBLER_CACHE_SERVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_CACHE_SERVICE, TumblerCacheServiceClass))
-#define TUMBLER_IS_CACHE_SERVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_CACHE_SERVICE))
-#define TUMBLER_IS_CACHE_SERVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_CACHE_SERVICE)
-#define TUMBLER_CACHE_SERVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_CACHE_SERVICE, TumblerCacheServiceClass))
-
-typedef struct _TumblerCacheServiceClass TumblerCacheServiceClass;
-typedef struct _TumblerCacheService      TumblerCacheService;
-
-GType                tumbler_cache_service_get_type   (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_CACHE_SERVICE (tumbler_cache_service_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerCacheService, tumbler_cache_service, TUMBLER, CACHE_SERVICE, TumblerComponent)
 
 TumblerCacheService *tumbler_cache_service_new     (GDBusConnection         *connection,
                                                     TumblerLifecycleManager *lifecycle_manager) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;

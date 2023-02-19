@@ -22,23 +22,15 @@
 #ifndef __TUMBLER_GROUP_SCHEDULER_H__
 #define __TUMBLER_GROUP_SCHEDULER_H__
 
+#include <glib-object.h>
 #include <tumblerd/tumbler-scheduler.h>
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_GROUP_SCHEDULER            (tumbler_group_scheduler_get_type ())
-#define TUMBLER_GROUP_SCHEDULER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_GROUP_SCHEDULER, TumblerGroupScheduler))
-#define TUMBLER_GROUP_SCHEDULER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_GROUP_SCHEDULER, TumblerGroupSchedulerClass))
-#define TUMBLER_IS_GROUP_SCHEDULER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_GROUP_SCHEDULER))
-#define TUMBLER_IS_GROUP_SCHEDULER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_GROUP_SCHEDULER)
-#define TUMBLER_GROUP_SCHEDULER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_GROUP_SCHEDULER, TumblerGroupSchedulerClass))
+#define TUMBLER_TYPE_GROUP_SCHEDULER (tumbler_group_scheduler_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerGroupScheduler, tumbler_group_scheduler, TUMBLER, GROUP_SCHEDULER, GObject)
 
-typedef struct _TumblerGroupSchedulerClass TumblerGroupSchedulerClass;
-typedef struct _TumblerGroupScheduler      TumblerGroupScheduler;
-
-GType             tumbler_group_scheduler_get_type (void) G_GNUC_CONST;
-
-TumblerScheduler *tumbler_group_scheduler_new      (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+TumblerScheduler *tumbler_group_scheduler_new (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS;
 

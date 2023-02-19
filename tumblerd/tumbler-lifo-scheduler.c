@@ -28,12 +28,9 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler.h>
-
 #include <tumblerd/tumbler-lifo-scheduler.h>
-#include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
 
@@ -80,11 +77,6 @@ static void tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer        
                                                       TumblerSchedulerRequest   *request);
 
 
-
-struct _TumblerLifoSchedulerClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerLifoScheduler
 {

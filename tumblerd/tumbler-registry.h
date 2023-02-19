@@ -21,21 +21,13 @@
 #ifndef __TUMBLER_REGISTRY_H__
 #define __TUMBLER_REGISTRY_H__
 
+#include <glib-object.h>
 #include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_REGISTRY            (tumbler_registry_get_type ())
-#define TUMBLER_REGISTRY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_REGISTRY, TumblerRegistry))
-#define TUMBLER_REGISTRY_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_REGISTRY, TumblerRegistryClass))
-#define TUMBLER_IS_REGISTRY(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_REGISTRY))
-#define TUMBLER_IS_REGISTRY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_REGISTRY)
-#define TUMBLER_REGISTRY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_REGISTRY, TumblerRegistryClass))
-
-typedef struct _TumblerRegistryClass TumblerRegistryClass;
-typedef struct _TumblerRegistry      TumblerRegistry;
-
-GType                tumbler_registry_get_type              (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_REGISTRY (tumbler_registry_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerRegistry, tumbler_registry, TUMBLER, REGISTRY, GObject)
 
 TumblerRegistry     *tumbler_registry_new                   (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 gboolean             tumbler_registry_load                  (TumblerRegistry     *registry,

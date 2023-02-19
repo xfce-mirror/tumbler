@@ -22,22 +22,14 @@
 #ifndef __TUMBLER_SERVICE_H__
 #define __TUMBLER_SERVICE_H__
 
+#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-lifecycle-manager.h>
 #include <tumblerd/tumbler-registry.h>
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_SERVICE            (tumbler_service_get_type ())
-#define TUMBLER_SERVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_SERVICE, TumblerService))
-#define TUMBLER_SERVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_SERVICE, TumblerServiceClass))
-#define TUMBLER_IS_SERVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_SERVICE))
-#define TUMBLER_IS_SERVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_SERVICE)
-#define TUMBLER_SERVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_SERVICE, TumblerServiceClass))
-
-typedef struct _TumblerServiceClass TumblerServiceClass;
-typedef struct _TumblerService      TumblerService;
-
-GType           tumbler_service_get_type (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_SERVICE (tumbler_service_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerService, tumbler_service, TUMBLER, SERVICE, TumblerComponent)
 
 TumblerService *tumbler_service_new            (GDBusConnection         *connection,
                                                 TumblerLifecycleManager *lifecycle_manager,

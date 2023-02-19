@@ -34,10 +34,8 @@
 #include <glib-object.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
-
 #include <gio/gio.h>
 
-#include <tumblerd/tumbler-component.h>
 #include <tumblerd/tumbler-manager.h>
 #include <tumblerd/tumbler-manager-gdbus.h>
 #include <tumblerd/tumbler-specialized-thumbnailer.h>
@@ -97,11 +95,6 @@ static void             dump_overrides                    (TumblerManager   *man
 static void             dump_thumbnailers                 (TumblerManager   *manager);
 
 
-
-struct _TumblerManagerClass
-{
-  TumblerComponentClass __parent__;
-};
 
 struct _TumblerManager
 {

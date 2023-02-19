@@ -28,12 +28,9 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler.h>
-
 #include <tumblerd/tumbler-group-scheduler.h>
-#include <tumblerd/tumbler-scheduler.h>
 #include <tumblerd/tumbler-utils.h>
 
 
@@ -84,11 +81,6 @@ static void tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer       
                                                        GList                    **ready_uris);
 
 
-
-struct _TumblerGroupSchedulerClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerGroupScheduler
 {

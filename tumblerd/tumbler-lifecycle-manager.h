@@ -25,17 +25,8 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_LIFECYCLE_MANAGER            (tumbler_lifecycle_manager_get_type ())
-#define TUMBLER_LIFECYCLE_MANAGER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_LIFECYCLE_MANAGER, TumblerLifecycleManager))
-#define TUMBLER_LIFECYCLE_MANAGER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_LIFECYCLE_MANAGER, TumblerLifecycleManagerClass))
-#define TUMBLER_IS_LIFECYCLE_MANAGER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_LIFECYCLE_MANAGER))
-#define TUMBLER_IS_LIFECYCLE_MANAGER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_LIFECYCLE_MANAGER)
-#define TUMBLER_LIFECYCLE_MANAGER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_LIFECYCLE_MANAGER, TumblerLifecycleManagerClass))
-
-typedef struct _TumblerLifecycleManagerClass   TumblerLifecycleManagerClass;
-typedef struct _TumblerLifecycleManager        TumblerLifecycleManager;
-
-GType                    tumbler_lifecycle_manager_get_type            (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_LIFECYCLE_MANAGER (tumbler_lifecycle_manager_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerLifecycleManager, tumbler_lifecycle_manager, TUMBLER, LIFECYCLE_MANAGER, GObject)
 
 TumblerLifecycleManager *tumbler_lifecycle_manager_new                 (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 void                     tumbler_lifecycle_manager_start               (TumblerLifecycleManager *manager);
