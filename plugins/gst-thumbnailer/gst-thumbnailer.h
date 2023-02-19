@@ -23,22 +23,14 @@
 #ifndef __GST_THUMBNAILER_H__
 #define __GST_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
 
-#define TYPE_GST_THUMBNAILER            (gst_thumbnailer_get_type ())
-#define GST_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_GST_THUMBNAILER, GstThumbnailer))
-#define GST_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_GST_THUMBNAILER, GstThumbnailerClass))
-#define IS_GST_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_GST_THUMBNAILER))
-#define IS_GST_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_GST_THUMBNAILER)
-#define GST_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_GST_THUMBNAILER, GstThumbnailerClass))
+#define GST_TYPE_THUMBNAILER (gst_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (GstThumbnailer, gst_thumbnailer, GST, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _GstThumbnailerClass   GstThumbnailerClass;
-typedef struct _GstThumbnailer        GstThumbnailer;
-
-GType gst_thumbnailer_get_type (void) G_GNUC_CONST;
-void  gst_thumbnailer_register (TumblerProviderPlugin *plugin);
+void gst_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

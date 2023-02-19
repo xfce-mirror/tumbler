@@ -22,22 +22,14 @@
 #ifndef __ODF_THUMBNAILER_H__
 #define __ODF_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define TYPE_ODF_THUMBNAILER            (odf_thumbnailer_get_type ())
-#define ODF_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_ODF_THUMBNAILER, OdfThumbnailer))
-#define ODF_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_ODF_THUMBNAILER, OdfThumbnailerClass))
-#define IS_ODF_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_ODF_THUMBNAILER))
-#define IS_ODF_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_ODF_THUMBNAILER)
-#define ODF_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_ODF_THUMBNAILER, OdfThumbnailerClass))
+#define ODF_TYPE_THUMBNAILER (odf_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (OdfThumbnailer, odf_thumbnailer, ODF, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _OdfThumbnailerClass   OdfThumbnailerClass;
-typedef struct _OdfThumbnailer        OdfThumbnailer;
-
-GType odf_thumbnailer_get_type (void) G_GNUC_CONST;
-void  odf_thumbnailer_register (TumblerProviderPlugin *plugin);
+void odf_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

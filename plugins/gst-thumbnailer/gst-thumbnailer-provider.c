@@ -232,7 +232,7 @@ gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
-  thumbnailer = g_object_new (TYPE_GST_THUMBNAILER,
+  thumbnailer = g_object_new (GST_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types,
                               NULL);

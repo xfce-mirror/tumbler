@@ -122,7 +122,7 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
   /* create the pixbuf thumbnailer */
-  thumbnailer = g_object_new (TYPE_FFMPEG_THUMBNAILER,
+  thumbnailer = g_object_new (FFMPEG_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes, "mime-types", mime_types,
                               NULL);
 

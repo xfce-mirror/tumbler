@@ -21,22 +21,14 @@
 #ifndef __POPPLER_THUMBNAILER_H__
 #define __POPPLER_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS;
 
-#define TYPE_POPPLER_THUMBNAILER            (poppler_thumbnailer_get_type ())
-#define POPPLER_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_POPPLER_THUMBNAILER, PopplerThumbnailer))
-#define POPPLER_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_POPPLER_THUMBNAILER, PopplerThumbnailerClass))
-#define IS_POPPLER_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_POPPLER_THUMBNAILER))
-#define IS_POPPLER_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_POPPLER_THUMBNAILER)
-#define POPPLER_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_POPPLER_THUMBNAILER, PopplerThumbnailerClass))
+#define POPPLER_TYPE_THUMBNAILER (poppler_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (PopplerThumbnailer, poppler_thumbnailer, POPPLER, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _PopplerThumbnailerClass   PopplerThumbnailerClass;
-typedef struct _PopplerThumbnailer        PopplerThumbnailer;
-
-GType poppler_thumbnailer_get_type (void) G_GNUC_CONST;
-void  poppler_thumbnailer_register (TumblerProviderPlugin *plugin);
+void poppler_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

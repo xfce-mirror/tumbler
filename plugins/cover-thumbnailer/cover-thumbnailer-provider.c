@@ -138,7 +138,7 @@ cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provide
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
   /* create the pixbuf thumbnailer */
-  thumbnailer = g_object_new (TYPE_COVER_THUMBNAILER,
+  thumbnailer = g_object_new (COVER_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types,
                               NULL);

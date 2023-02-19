@@ -27,9 +27,7 @@
 
 #include <glib.h>
 #include <glib/gstdio.h>
-#include <glib-object.h>
 #include <gio/gio.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <tumbler/tumbler.h>
@@ -75,11 +73,6 @@ static gboolean xdg_cache_thumbnail_save_image_data (TumblerThumbnail       *thu
                                                      GError                **error);
 
 
-
-struct _XDGCacheThumbnailClass
-{
-  GObjectClass __parent__;
-};
 
 struct _XDGCacheThumbnail
 {

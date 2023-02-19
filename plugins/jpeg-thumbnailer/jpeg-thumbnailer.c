@@ -63,10 +63,7 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <tumbler/tumbler.h>
 
 #include <jpeg-thumbnailer/jpeg-thumbnailer.h>
 
@@ -80,11 +77,6 @@ static void jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                      TumblerFileInfo            *info);
 
 
-
-struct _JPEGThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _JPEGThumbnailer
 {
@@ -792,7 +784,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   gint                    width;
   gint                    size;
 
-  g_return_if_fail (IS_JPEG_THUMBNAILER (thumbnailer));
+  g_return_if_fail (JPEG_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 

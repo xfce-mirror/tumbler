@@ -31,7 +31,6 @@
 #include <glib/gi18n.h>
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <tumbler/tumbler.h>
 
 #include <gst/gst.h>
 #include <gst/tag/tag.h>
@@ -52,11 +51,6 @@ static void gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                     TumblerFileInfo            *info);
 
 
-
-struct _GstThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _GstThumbnailer
 {

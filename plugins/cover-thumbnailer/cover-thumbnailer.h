@@ -21,22 +21,14 @@
 #ifndef __COVER_THUMBNAILER_H__
 #define __COVER_THUMBNAILER_H__
 
-#include <glib-object.h>
+#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
 
-#define TYPE_COVER_THUMBNAILER            (cover_thumbnailer_get_type ())
-#define COVER_THUMBNAILER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_COVER_THUMBNAILER, CoverThumbnailer))
-#define COVER_THUMBNAILER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_COVER_THUMBNAILER, CoverThumbnailerClass))
-#define IS_COVER_THUMBNAILER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_COVER_THUMBNAILER))
-#define IS_COVER_THUMBNAILER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_COVER_THUMBNAILER)
-#define COVER_THUMBNAILER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_COVER_THUMBNAILER, CoverThumbnailerClass))
+#define COVER_TYPE_THUMBNAILER (cover_thumbnailer_get_type ())
+G_DECLARE_FINAL_TYPE (CoverThumbnailer, cover_thumbnailer, COVER, THUMBNAILER, TumblerAbstractThumbnailer)
 
-typedef struct _CoverThumbnailerClass   CoverThumbnailerClass;
-typedef struct _CoverThumbnailer        CoverThumbnailer;
-
-GType cover_thumbnailer_get_type (void) G_GNUC_CONST;
-void  cover_thumbnailer_register (TumblerProviderPlugin *plugin);
+void cover_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

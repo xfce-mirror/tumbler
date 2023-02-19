@@ -151,7 +151,7 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
   g_list_free (keys);
 
   /* create the pixbuf thumbnailer */
-  thumbnailer = g_object_new (TYPE_PIXBUF_THUMBNAILER, 
+  thumbnailer = g_object_new (PIXBUF_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes, "mime-types", mime_types, 
                               NULL);
 

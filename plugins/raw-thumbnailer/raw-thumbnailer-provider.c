@@ -114,7 +114,7 @@ raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
   };
 
   /* create the raw thumbnailer */
-  thumbnailer = g_object_new (TYPE_RAW_THUMBNAILER,
+  thumbnailer = g_object_new (RAW_TYPE_THUMBNAILER,
                               "uri-schemes", uri_schemes,
                               "mime-types", mime_types,
                               NULL);

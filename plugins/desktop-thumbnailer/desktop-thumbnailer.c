@@ -25,13 +25,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <glib-object.h>
-
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
 #include <gio/gio.h>
 #include <glib/gstdio.h>
-
-#include <tumbler/tumbler.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <desktop-thumbnailer/desktop-thumbnailer.h>
 
@@ -54,11 +50,6 @@ static void desktop_thumbnailer_set_property(GObject *object,
 static void desktop_thumbnailer_finalize(GObject *object);
 
 
-
-struct _DesktopThumbnailerClass
-{
-  TumblerAbstractThumbnailerClass __parent__;
-};
 
 struct _DesktopThumbnailer
 {
@@ -363,7 +354,7 @@ desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GError                     *error  =  NULL;
   GdkPixbuf                  *pixbuf =  NULL;
 
-  g_return_if_fail (IS_DESKTOP_THUMBNAILER (thumbnailer));
+  g_return_if_fail (DESKTOP_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
