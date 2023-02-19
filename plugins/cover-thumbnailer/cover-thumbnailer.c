@@ -238,7 +238,7 @@ cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
 #endif
 
   /* cancellable check */
-  curl_easy_setopt (curl_handle, CURLOPT_PROGRESSFUNCTION, cover_thumbnailer_check_progress);
+  curl_easy_setopt (curl_handle, CURLOPT_XFERINFOFUNCTION, cover_thumbnailer_check_progress);
   curl_easy_setopt (curl_handle, CURLOPT_PROGRESSDATA, cancellable);
   curl_easy_setopt (curl_handle, CURLOPT_NOPROGRESS, FALSE);
 

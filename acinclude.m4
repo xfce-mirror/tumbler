@@ -264,7 +264,7 @@ if test x"$ac_tumbler_cover_thumbnailer" = x"yes"; then
   PKG_CHECK_MODULES([GDK_PIXBUF], [gdk-pixbuf-2.0 >= 2.40.0],
   [
     dnl Check for curl
-    PKG_CHECK_MODULES([CURL], [libcurl], [], [ac_tumbler_cover_thumbnailer=no])
+    PKG_CHECK_MODULES([CURL], [libcurl], [7.32.0], [ac_tumbler_cover_thumbnailer=no])
   ], [ac_tumbler_cover_thumbnailer=no])
 fi
 
