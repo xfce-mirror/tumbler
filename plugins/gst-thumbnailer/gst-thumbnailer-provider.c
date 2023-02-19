@@ -25,7 +25,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 #include <gst/gst.h>
 
 #include <tumbler/tumbler.h>
@@ -39,11 +38,6 @@ static void   gst_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbna
 static GList *gst_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _GstThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _GstThumbnailerProvider
 {

@@ -30,9 +30,6 @@
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <glib/gprintf.h>
-#include <glib-object.h>
-#include <gio/gio.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <png.h>
@@ -65,11 +62,6 @@ static gboolean          xdg_cache_cache_is_thumbnail       (TumblerCache       
 static GList            *xdg_cache_cache_get_flavors        (TumblerCache           *cache);
 
 
-
-struct _XDGCacheCacheClass
-{
-  GObjectClass __parent__;
-};
 
 struct _XDGCacheCache
 {

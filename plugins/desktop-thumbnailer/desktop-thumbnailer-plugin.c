@@ -64,7 +64,7 @@ tumbler_plugin_initialize (TumblerProviderPlugin *plugin)
   desktop_thumbnailer_provider_register (plugin);
 
   /* set up the plugin provider type list */
-  type_list[0] = TYPE_DESKTOP_THUMBNAILER_PROVIDER;
+  type_list[0] = DESKTOP_TYPE_THUMBNAILER_PROVIDER;
 }
 
 

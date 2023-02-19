@@ -25,18 +25,10 @@
 
 G_BEGIN_DECLS;
 
-#define TYPE_FONT_THUMBNAILER_PROVIDER            (font_thumbnailer_provider_get_type ())
-#define FONT_THUMBNAILER_PROVIDER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_FONT_THUMBNAILER_PROVIDER, FontThumbnailerProvider))
-#define FONT_THUMBNAILER_PROVIDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_FONT_THUMBNAILER_PROVIDER, FontThumbnailerProviderClass))
-#define IS_FONT_THUMBNAILER_PROVIDER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_FONT_THUMBNAILER_PROVIDER))
-#define IS_FONT_THUMBNAILER_PROVIDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_FONT_THUMBNAILER_PROVIDER)
-#define FONT_THUMBNAILER_PROVIDER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_FONT_THUMBNAILER_PROVIDER, FontThumbnailerProviderClass))
+#define FONT_TYPE_THUMBNAILER_PROVIDER (font_thumbnailer_provider_get_type ())
+G_DECLARE_FINAL_TYPE (FontThumbnailerProvider, font_thumbnailer_provider, FONT, THUMBNAILER_PROVIDER, GObject)
 
-typedef struct _FontThumbnailerProviderClass FontThumbnailerProviderClass;
-typedef struct _FontThumbnailerProvider      FontThumbnailerProvider;
-
-GType font_thumbnailer_provider_get_type (void) G_GNUC_CONST;
-void  font_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void font_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

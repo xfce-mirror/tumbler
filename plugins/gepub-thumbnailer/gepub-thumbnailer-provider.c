@@ -24,7 +24,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler.h>
 
@@ -37,11 +36,6 @@ static void   gepub_thumbnailer_provider_thumbnailer_provider_init (TumblerThumb
 static GList *gepub_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _GepubThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _GepubThumbnailerProvider
 {

@@ -23,8 +23,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
-
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #include <tumbler/tumbler.h>
@@ -38,11 +36,6 @@ static void   poppler_thumbnailer_provider_thumbnailer_provider_init (TumblerThu
 static GList *poppler_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _PopplerThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _PopplerThumbnailerProvider
 {

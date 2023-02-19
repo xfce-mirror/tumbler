@@ -22,8 +22,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
-
 #include <glib/gi18n.h>
 
 #include <tumbler/tumbler.h>
@@ -37,11 +35,6 @@ static void   desktop_thumbnailer_provider_thumbnailer_provider_init (TumblerThu
 static GList *desktop_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
 
 
-
-struct _DesktopThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _DesktopThumbnailerProvider
 {

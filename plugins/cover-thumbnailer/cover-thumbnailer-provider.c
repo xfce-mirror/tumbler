@@ -23,7 +23,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 #include <glib/gi18n.h>
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -40,11 +39,6 @@ static GList *cover_thumbnailer_provider_get_thumbnailers          (TumblerThumb
 static void   cover_thumbnailer_provider_finalize                  (GObject                         *object);
 
 
-
-struct _CoverThumbnailerProviderClass
-{
-  GObjectClass __parent__;
-};
 
 struct _CoverThumbnailerProvider
 {
