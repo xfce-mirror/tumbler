@@ -27,7 +27,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler-provider-factory.h>
 #include <tumbler/tumbler-provider-plugin.h>
@@ -43,11 +42,6 @@ static void   tumbler_provider_factory_finalize     (GObject                    
 static GList *tumbler_provider_factory_load_plugins (TumblerProviderFactory      *factory);
 
 
-
-struct _TumblerProviderFactoryClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerProviderFactory
 {

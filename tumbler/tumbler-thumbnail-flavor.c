@@ -23,7 +23,6 @@
 #endif
 
 #include <glib.h>
-#include <glib-object.h>
 
 #include <tumbler/tumbler-thumbnail-flavor.h>
 
@@ -51,11 +50,6 @@ static void tumbler_thumbnail_flavor_set_property (GObject      *object,
                                                    GParamSpec   *pspec);
 
 
-
-struct _TumblerThumbnailFlavorClass
-{
-  GObjectClass __parent__;
-};
 
 struct _TumblerThumbnailFlavor
 {

@@ -24,7 +24,6 @@
 
 #include <glib.h>
 #include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gmodule.h>
 
 #include "tumbler/tumbler-provider-plugin.h"
@@ -45,11 +44,6 @@ static gboolean tumbler_provider_plugin_load         (GTypeModule               
 static void     tumbler_provider_plugin_unload       (GTypeModule                *type_module);
 
 
-
-struct _TumblerProviderPluginClass
-{
-  GTypeModuleClass __parent__;
-};
 
 struct _TumblerProviderPlugin
 {
@@ -188,7 +182,7 @@ tumbler_provider_plugin_get_types (const TumblerProviderPlugin *plugin,
                                    const GType                **types,
                                    gint                        *n_types)
 {
-  g_return_if_fail (TUMBLER_IS_PROVIDER_PLUGIN (plugin));
+  g_return_if_fail (TUMBLER_IS_PROVIDER_PLUGIN ((TumblerProviderPlugin *) plugin));
   g_return_if_fail (plugin->get_types != NULL);
   g_return_if_fail (types != NULL);
   g_return_if_fail (n_types != NULL);

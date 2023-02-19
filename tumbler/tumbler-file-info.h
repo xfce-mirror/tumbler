@@ -26,22 +26,14 @@
 #define __TUMBLER_FILE_INFO_H__
 
 #include <gio/gio.h>
+#include <glib-object.h>
 
 #include <tumbler/tumbler-thumbnail.h>
 
 G_BEGIN_DECLS;
 
-#define TUMBLER_TYPE_FILE_INFO            (tumbler_file_info_get_type ())
-#define TUMBLER_FILE_INFO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_FILE_INFO, TumblerFileInfo))
-#define TUMBLER_FILE_INFO_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_FILE_INFO, TumblerFileInfoClass))
-#define TUMBLER_IS_FILE_INFO(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_FILE_INFO))
-#define TUMBLER_IS_FILE_INFO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_FILE_INFO)
-#define TUMBLER_FILE_INFO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_FILE_INFO, TumblerFileInfoClass))
-
-typedef struct _TumblerFileInfoClass   TumblerFileInfoClass;
-typedef struct _TumblerFileInfo        TumblerFileInfo;
-
-GType             tumbler_file_info_get_type              (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_FILE_INFO (tumbler_file_info_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerFileInfo, tumbler_file_info, TUMBLER, FILE_INFO, GObject)
 
 TumblerFileInfo  *tumbler_file_info_new                   (const gchar            *uri,
                                                            const gchar            *mime_type,

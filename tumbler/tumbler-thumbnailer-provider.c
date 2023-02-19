@@ -26,28 +26,13 @@
 
 
 
-GType
-tumbler_thumbnailer_provider_get_type (void)
+G_DEFINE_INTERFACE (TumblerThumbnailerProvider, tumbler_thumbnailer_provider, G_TYPE_OBJECT)
+
+
+
+static void
+tumbler_thumbnailer_provider_default_init (TumblerThumbnailerProviderIface *iface)
 {
-  static gsize g_define_type_id__static = 0;
-
-  if (g_once_init_enter (&g_define_type_id__static))
-    {
-      GType g_define_type_id =
-        g_type_register_static_simple (G_TYPE_INTERFACE,
-                                       "TumblerThumbnailerProvider",
-                                       sizeof (TumblerThumbnailerProviderIface),
-                                       NULL,
-                                       0,
-                                       NULL,
-                                       0);
-
-      g_type_interface_add_prerequisite (g_define_type_id, G_TYPE_OBJECT);
-
-      g_once_init_leave (&g_define_type_id__static, g_define_type_id);
-    }
-
-  return g_define_type_id__static;
 }
 
 

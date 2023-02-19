@@ -21,22 +21,13 @@
 #ifndef __TUMBLER_CACHE_PLUGIN_H__
 #define __TUMBLER_CACHE_PLUGIN_H__
 
+#include <glib-object.h>
 #include <tumbler/tumbler-cache.h>
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_CACHE_PLUGIN            (tumbler_cache_plugin_get_type ())
-#define TUMBLER_CACHE_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_CACHE_PLUGIN, TumblerCachePlugin))
-#define TUMBLER_CACHE_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TUMBLER_TYPE_CACHE_PLUGIN, TumblerCachePluginClass))
-#define TUMBLER_IS_CACHE_PLUGIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_CACHE_PLUGIN))
-#define TUMBLER_IS_CACHE_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TUMBLER_TYPE_CACHE_PLUGIN)
-#define TUMBLER_CACHE_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TUMBLER_TYPE_CACHE_PLUGIN, TumblerCachePluginClass))
-
-typedef struct _TumblerCachePluginPrivate TumblerCachePluginPrivate;
-typedef struct _TumblerCachePluginClass   TumblerCachePluginClass;
-typedef struct _TumblerCachePlugin        TumblerCachePlugin;
-
-GType         tumbler_cache_plugin_get_type    (void) G_GNUC_CONST;
+#define TUMBLER_TYPE_CACHE_PLUGIN (tumbler_cache_plugin_get_type ())
+G_DECLARE_FINAL_TYPE (TumblerCachePlugin, tumbler_cache_plugin, TUMBLER, CACHE_PLUGIN, GTypeModule)
 
 GTypeModule  *tumbler_cache_plugin_get_default (void);
 TumblerCache *tumbler_cache_plugin_get_cache   (TumblerCachePlugin *plugin);

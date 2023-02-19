@@ -32,16 +32,12 @@
 
 G_BEGIN_DECLS
 
-#define TUMBLER_TYPE_THUMBNAILER           (tumbler_thumbnailer_get_type ())
-#define TUMBLER_THUMBNAILER(obj)           (G_TYPE_CHECK_INSTANCE_CAST ((obj), TUMBLER_TYPE_THUMBNAILER, TumblerThumbnailer))
-#define TUMBLER_IS_THUMBNAILER(obj)        (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TUMBLER_TYPE_THUMBNAILER))
-#define TUMBLER_THUMBNAILER_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), TUMBLER_TYPE_THUMBNAILER, TumblerThumbnailerIface))
+#define TUMBLER_TYPE_THUMBNAILER (tumbler_thumbnailer_get_type ())
+G_DECLARE_INTERFACE (TumblerThumbnailer, tumbler_thumbnailer, TUMBLER, THUMBNAILER, GObject)
 
-typedef struct _TumblerThumbnailer      TumblerThumbnailer;
-typedef struct _TumblerThumbnailerIface TumblerThumbnailerInterface;
-typedef TumblerThumbnailerInterface     TumblerThumbnailerIface;
+typedef struct _TumblerThumbnailerInterface TumblerThumbnailerIface;
 
-struct _TumblerThumbnailerIface
+struct _TumblerThumbnailerInterface
 {
   GTypeInterface __parent__;
 
@@ -60,8 +56,6 @@ struct _TumblerThumbnailerIface
                   GCancellable       *cancellable,
                   TumblerFileInfo    *info);
 };
-
-GType                tumbler_thumbnailer_get_type          (void) G_GNUC_CONST;
 
 void                 tumbler_thumbnailer_create            (TumblerThumbnailer     *thumbnailer,
                                                             GCancellable           *cancellable,
