@@ -25,6 +25,10 @@ m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 XDT_VERSION_INIT([4.18.0], [git])
 
+dnl minimum required versions
+m4_define([glib_min_version], [2.66.0])
+m4_define([libxfce4util_min_version], [4.17.1])
+
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
@@ -124,10 +128,12 @@ AC_SUBST([GETTEXT_PACKAGE])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.8])
 
-dnl *************************
-dnl *** Check for GTK-Doc ***
-dnl *************************
+dnl ***********************************************************
+dnl *** Check for GTK-Doc and compensate for broken feature ***
+dnl ***********************************************************
 GTK_DOC_CHECK(1.9)
+XDT_SUPPORTED_FLAGS([GTK_DOC_EXTRA_CFLAGS], [-Wno-sign-compare])
+AC_SUBST([GTK_DOC_EXTRA_CFLAGS])
 
 dnl ***********************************
 dnl *** Check for gdbus-codegen ***
@@ -137,12 +143,12 @@ XDT_CHECK_PACKAGE_BINARY([GDBUS_CODEGEN], [gio-2.0], [gdbus_codegen], [gdbus-cod
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GMODULE], [gmodule-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.17.1])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GMODULE], [gmodule-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [libxfce4util_min_version])
 
 dnl ******************************************************************
 dnl *** Alternative service name prefix for e.g. Flatpak packaging ***
@@ -188,12 +194,6 @@ dnl **************************************
 dnl *** Check for linker optimizations ***
 dnl **************************************
 XDT_FEATURE_LINKER_OPTS()
-
-dnl *************************************
-dnl *** Compensate for broken gtk-doc ***
-dnl *************************************
-XDT_SUPPORTED_FLAGS([GTK_DOC_EXTRA_CFLAGS], [-Wno-sign-compare])
-AC_SUBST([GTK_DOC_EXTRA_CFLAGS])
 
 AC_CONFIG_FILES([
 Makefile
