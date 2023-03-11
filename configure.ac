@@ -96,7 +96,6 @@ AM_PROG_AS()
 AC_PROG_CC()
 AM_PROG_CC_C_O()
 AC_PROG_INSTALL()
-IT_PROG_INTLTOOL([0.35.0], [no-xml])
 AC_PROG_GREP()
 AC_PROG_EGREP()
 AC_PROG_SED()
@@ -124,8 +123,11 @@ AC_CHECK_FUNCS([sched_getparam sched_setscheduler getpwnam bind_textdomain_codes
 dnl ******************************
 dnl *** Check for i18n support ***
 dnl ******************************
-linguas=$(ls po/*.po | $SED s/.po//g | $SED sApo/AA | xargs)
-XDT_I18N([$linguas])
+GETTEXT_PACKAGE="$PACKAGE"
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl *************************
 dnl *** Check for GTK-Doc ***
