@@ -23,27 +23,22 @@ dnl *** Version information ***
 dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
-m4_define([tumbler_version_major], [4])
-m4_define([tumbler_version_minor], [18])
-m4_define([tumbler_version_micro], [0])
-m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
+XDT_VERSION_INIT([4.18.0], [git])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
-AC_COPYRIGHT([Copyright (c) 2016-2017 Ali Abdallah <ali@xfce.org>])
-AC_COPYRIGHT([Copyright (c) 2018-2022 The Xfce development team])
-AC_INIT([tumbler], [tumbler_version], [https://gitlab.xfce.org/xfce/tumbler])
-AC_PREREQ([2.60])
-AC_CANONICAL_TARGET()
+AC_COPYRIGHT([Copyright (c) 2018-2023 The Xfce development team. All rights reserved.
+  Written for Xfce by Jannis Pohlmann <jannis@xfce.org>.])
+AC_INIT([tumbler], [xdt_version], [https://gitlab.xfce.org/xfce/tumbler])
+AC_PREREQ([2.69])
+AC_REVISION([xdt_version_build])
 
 dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
 AM_INIT_AUTOMAKE([1.11 dist-bzip2 tar-ustar no-dist-gzip foreign])
 AC_CONFIG_MACRO_DIRS([m4])
-AC_SUBST([ACLOCAL_AMFLAGS], ["$ACLOCAL_FLAGS -I m4"])
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
@@ -57,9 +52,9 @@ AC_SUBST([TUMBLER_VERINFO])
 dnl ****************************
 dnl *** Subst tumbler version ***
 dnl ****************************
-TUMBLER_VERSION_MAJOR=tumbler_version_major()
-TUMBLER_VERSION_MINOR=tumbler_version_minor()
-TUMBLER_VERSION_MICRO=tumbler_version_micro()
+TUMBLER_VERSION_MAJOR=xdt_version_major()
+TUMBLER_VERSION_MINOR=xdt_version_minor()
+TUMBLER_VERSION_MICRO=xdt_version_micro()
 TUMBLER_VERSION_API_MAJOR=tumbler_version_api_major()
 TUMBLER_VERSION_API=$TUMBLER_VERSION_API_MAJOR
 AC_SUBST([TUMBLER_VERSION_MAJOR])
@@ -193,7 +188,7 @@ TUMBLER_GEPUB_THUMBNAILER()
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG([xdt_debug_default])
 
 dnl **************************************
 dnl *** Check for linker optimizations ***
