@@ -23,27 +23,26 @@ dnl *** Version information ***
 dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
-m4_define([tumbler_version_major], [4])
-m4_define([tumbler_version_minor], [18])
-m4_define([tumbler_version_micro], [0])
-m4_define([tumbler_version], [tumbler_version_major().tumbler_version_minor().tumbler_version_micro()])
+XDT_VERSION_INIT([4.18.0], [git])
+
+dnl minimum required versions
+m4_define([glib_min_version], [2.66.0])
+m4_define([libxfce4util_min_version], [4.17.1])
 
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
-AC_COPYRIGHT([Copyright (c) 2016-2017 Ali Abdallah <ali@xfce.org>])
-AC_COPYRIGHT([Copyright (c) 2018-2022 The Xfce development team])
-AC_INIT([tumbler], [tumbler_version], [https://gitlab.xfce.org/xfce/tumbler])
-AC_PREREQ([2.60])
-AC_CANONICAL_TARGET()
+AC_COPYRIGHT([Copyright (c) 2018-2023 The Xfce development team. All rights reserved.
+  Written for Xfce by Jannis Pohlmann <jannis@xfce.org>.])
+AC_INIT([tumbler], [xdt_version], [https://gitlab.xfce.org/xfce/tumbler])
+AC_PREREQ([2.69])
+AC_REVISION([xdt_version_build])
 
 dnl ***************************
 dnl *** Initialize automake ***
 dnl ***************************
 AM_INIT_AUTOMAKE([1.11 dist-bzip2 tar-ustar no-dist-gzip foreign])
 AC_CONFIG_MACRO_DIRS([m4])
-AC_SUBST([ACLOCAL_AMFLAGS], ["$ACLOCAL_FLAGS -I m4"])
 AC_CONFIG_HEADERS([config.h])
 AM_MAINTAINER_MODE()
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
@@ -57,9 +56,9 @@ AC_SUBST([TUMBLER_VERINFO])
 dnl ****************************
 dnl *** Subst tumbler version ***
 dnl ****************************
-TUMBLER_VERSION_MAJOR=tumbler_version_major()
-TUMBLER_VERSION_MINOR=tumbler_version_minor()
-TUMBLER_VERSION_MICRO=tumbler_version_micro()
+TUMBLER_VERSION_MAJOR=xdt_version_major()
+TUMBLER_VERSION_MINOR=xdt_version_minor()
+TUMBLER_VERSION_MICRO=xdt_version_micro()
 TUMBLER_VERSION_API_MAJOR=tumbler_version_api_major()
 TUMBLER_VERSION_API=$TUMBLER_VERSION_API_MAJOR
 AC_SUBST([TUMBLER_VERSION_MAJOR])
@@ -96,7 +95,6 @@ AM_PROG_AS()
 AC_PROG_CC()
 AM_PROG_CC_C_O()
 AC_PROG_INSTALL()
-IT_PROG_INTLTOOL([0.35.0], [no-xml])
 AC_PROG_GREP()
 AC_PROG_EGREP()
 AC_PROG_SED()
@@ -124,34 +122,33 @@ AC_CHECK_FUNCS([sched_getparam sched_setscheduler getpwnam bind_textdomain_codes
 dnl ******************************
 dnl *** Check for i18n support ***
 dnl ******************************
-linguas=$(ls po/*.po | $SED s/.po//g | $SED sApo/AA | xargs)
-XDT_I18N([$linguas])
+GETTEXT_PACKAGE="$PACKAGE"
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_SUBST([GETTEXT_PACKAGE])
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
-dnl *************************
-dnl *** Check for GTK-Doc ***
-dnl *************************
+dnl ***********************************************************
+dnl *** Check for GTK-Doc and compensate for broken feature ***
+dnl ***********************************************************
 GTK_DOC_CHECK(1.9)
+XDT_SUPPORTED_FLAGS([GTK_DOC_EXTRA_CFLAGS], [-Wno-sign-compare])
+AC_SUBST([GTK_DOC_EXTRA_CFLAGS])
 
 dnl ***********************************
 dnl *** Check for gdbus-codegen ***
 dnl ***********************************
-AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
-AC_PATH_PROG([GDBUS_CODEGEN], [gdbus-codegen], [no])
-if test x"$GDBUS_CODEGEN" = x"no"; then
-  AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
-  ./configure GDBUS_CODEGEN=/path/to/gdbus-codegen to define 
-  a custom location for it.])
-fi
+XDT_CHECK_PACKAGE_BINARY([GDBUS_CODEGEN], [gio-2.0], [gdbus_codegen], [gdbus-codegen])
 
 dnl ***********************************
 dnl *** Check for required packages ***
 dnl ***********************************
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GIO], [gio-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GMODULE], [gmodule-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [2.66.0])
-XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.17.1])
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GIO_UNIX], [gio-unix-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GMODULE], [gmodule-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GTHREAD], [gthread-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [libxfce4util_min_version])
 
 dnl ******************************************************************
 dnl *** Alternative service name prefix for e.g. Flatpak packaging ***
@@ -191,18 +188,12 @@ TUMBLER_GEPUB_THUMBNAILER()
 dnl ***********************************
 dnl *** Check for debugging support ***
 dnl ***********************************
-XDT_FEATURE_DEBUG()
+XDT_FEATURE_DEBUG([xdt_debug_default])
 
 dnl **************************************
 dnl *** Check for linker optimizations ***
 dnl **************************************
 XDT_FEATURE_LINKER_OPTS()
-
-dnl *************************************
-dnl *** Compensate for broken gtk-doc ***
-dnl *************************************
-XDT_SUPPORTED_FLAGS([GTK_DOC_EXTRA_CFLAGS], [-Wno-sign-compare])
-AC_SUBST([GTK_DOC_EXTRA_CFLAGS])
 
 AC_CONFIG_FILES([
 Makefile
