@@ -132,13 +132,7 @@ GTK_DOC_CHECK(1.9)
 dnl ***********************************
 dnl *** Check for gdbus-codegen ***
 dnl ***********************************
-AC_ARG_VAR([GDBUS_CODEGEN], [D-Bus code and documentation generator from XML D-Bus interface definitions])
-AC_PATH_PROG([GDBUS_CODEGEN], [gdbus-codegen], [no])
-if test x"$GDBUS_CODEGEN" = x"no"; then
-  AC_MSG_ERROR([could not find gdbus-codegen in \$PATH. You can run
-  ./configure GDBUS_CODEGEN=/path/to/gdbus-codegen to define 
-  a custom location for it.])
-fi
+XDT_CHECK_PACKAGE_BINARY([GDBUS_CODEGEN], [gio-2.0], [gdbus_codegen], [gdbus-codegen])
 
 dnl ***********************************
 dnl *** Check for required packages ***
