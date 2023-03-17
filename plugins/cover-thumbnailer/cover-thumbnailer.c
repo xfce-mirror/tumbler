@@ -393,7 +393,7 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
 {
   gchar       *basename;
   gboolean     is_series;
-  GMatchInfo  *match_info;
+  GMatchInfo  *match_info = NULL;
   gint         start_pos;
   gint         end_pos;
   gchar       *year = NULL;
@@ -412,7 +412,7 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
   basename = g_file_get_basename (gfile);
 
   /* check if the title looks like a serie */
-  is_series = g_regex_match (cover->series_regex, basename, 0, &match_info);
+  is_series = g_regex_match (cover->series_regex, basename, 0, NULL);
 
   /* if this is not a serie, look for other filename crap */
   if (is_series
@@ -422,8 +422,9 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
       if (g_match_info_fetch_pos (match_info, 0, &start_pos, NULL)
           && start_pos > 0)
         basename[start_pos] = '\0';
-      g_match_info_free (match_info);
     }
+  g_match_info_free (match_info);
+  match_info = NULL;
 
   /* for non-series, look for a year in the title */
   if (!is_series
@@ -447,8 +448,9 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
               basename[start_pos] = '\0';
             }
         }
-      g_match_info_free (match_info);
     }
+  g_match_info_free (match_info);
+  match_info = NULL;
 
   /* append the possible title part of the filename */
   title = g_string_sized_new (strlen (basename));
