@@ -758,6 +758,8 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
               if (pixbuf != NULL && gdk_pixbuf_get_width (pixbuf) < width
                   && gdk_pixbuf_get_height (pixbuf) < height)
                 g_clear_object (&pixbuf);
+              else
+                break;
             }
 
           /* try next one then */
