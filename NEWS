@@ -1,3 +1,21 @@
+4.19.0 (2023-04-17)
+======
+- Fix memory leak in jpeg-thumbnailer
+- Fix memory leak in cover-thumbnailer
+- build: Use m4_defined min versions and cleanup
+- build: Use XDT_CHECK_PACKAGE_BINARY
+- build: Use XDT_VERSION_INIT
+- build: Switch from intltool to gettext
+- Fix previous commit
+- cover-thumbnailer: Fix deprecation warning
+- cleanup: tumblerd: Use G_DECLARE_FINAL_TYPE and friends
+- cleanup: tumbler: Use G_DECLARE_FINAL_TYPE and G_DECLARE_INTERFACE
+- cleanup: plugins: Use G_DECLARE_FINAL_TYPE for plugins
+- cleanup: plugins: Use G_DECLARE_FINAL_TYPE for providers
+- build: Let xdt-depends.m4 macros set GLib macros
+- Translation Updates:
+  English (Canada), Greek, Korean, Portuguese
+
 4.18.0 (2022-12-15)
 ======
 - build: Bump requirements for Xfce 4.18
