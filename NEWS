@@ -1,3 +1,13 @@
+4.18.1 (2023-04-17)
+======
+- Fix memory leak in jpeg-thumbnailer
+- Fix memory leak in cover-thumbnailer
+- Fix previous commit
+- cover-thumbnailer: Fix deprecation warning
+- build: Let xdt-depends.m4 macros set GLib macros
+- Translation Updates:
+  English (Canada), Greek, Korean, Portuguese
+
 4.18.0 (2022-12-15)
 ======
 - build: Bump requirements for Xfce 4.18
