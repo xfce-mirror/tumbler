@@ -212,6 +212,7 @@ docs/reference/tumbler/Makefile
 docs/reference/tumbler/version.xml
 icons/Makefile
 icons/32x32/Makefile
+icons/64x64/Makefile
 plugins/Makefile
 plugins/cover-thumbnailer/Makefile
 plugins/font-thumbnailer/Makefile
