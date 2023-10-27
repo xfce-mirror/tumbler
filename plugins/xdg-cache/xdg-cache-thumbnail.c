@@ -383,16 +383,23 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
 
   if (stream != NULL)
     {
+      gboolean saved;
+
       /* convert the modified time of the source URI to a string */
       mtime_str = g_strdup_printf ("%" G_GUINT64_FORMAT ".%.6" G_GUINT32_FORMAT,
                                    mtime_int, (guint32) round (1.e6 * (mtime - mtime_int)));
 
       /* try to save the pixbuf */
-      if (gdk_pixbuf_save_to_stream (dest_pixbuf, G_OUTPUT_STREAM (stream), "png",
-                                     cancellable, &err, 
-                                     "tEXt::Thumb::URI", cache_thumbnail->uri,
-                                     "tEXt::Thumb::MTime", mtime_str,
-                                     NULL))
+      saved = gdk_pixbuf_save_to_stream (dest_pixbuf, G_OUTPUT_STREAM (stream), "png",
+                                         cancellable, &err,
+                                         "tEXt::Thumb::URI", cache_thumbnail->uri,
+                                         "tEXt::Thumb::MTime", mtime_str,
+                                         NULL);
+
+      /* close and destroy the output stream */
+      g_object_unref (stream);
+
+      if (saved)
         {
           /* saving succeeded, termine the final destination of the thumbnail */
           dest_file = xdg_cache_cache_get_file (cache_thumbnail->uri, 
@@ -404,21 +411,18 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
 
           /* try to rename the thumbnail */
           if (g_rename (temp_path, dest_path) == -1)
-            {
-              g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_SAVE_FAILED,
-                           TUMBLER_ERROR_MESSAGE_SAVE_FAILED, dest_path);
-              g_file_delete (temp_file, NULL, NULL);
-            }
+            g_set_error (&err, TUMBLER_ERROR, TUMBLER_ERROR_SAVE_FAILED,
+                         TUMBLER_ERROR_MESSAGE_SAVE_FAILED, dest_path);
 
           /* destroy the destination GFile */
           g_object_unref (dest_file);
         }
 
+      /* delete temp file if there was an error */
+      g_file_delete (temp_file, NULL, NULL);
+
       /* free the modified time string */
       g_free (mtime_str);
-
-      /* close and destroy the output stream */
-      g_object_unref (stream);
     }
 
   /* destroy the source pixbuf, destination pixbuf and temporary GFile */
