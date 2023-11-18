@@ -291,7 +291,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
       g_object_get (G_OBJECT (thumbnailer), "exec", &exec, NULL);
       res = desktop_thumbnailer_exec_parse (exec,
-                                            path,
+                                            path != NULL ? path : "",
                                             uri,
                                             size,
                                             tmpfilepath,
