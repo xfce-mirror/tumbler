@@ -485,16 +485,11 @@ tumbler_lifo_scheduler_thread (gpointer data,
           g_signal_connect (lq->data, "ready",
                             G_CALLBACK (tumbler_lifo_scheduler_thumbnailer_ready), request);
 
-          /* cancel lower priority thumbnailers for this uri on ready signal */
-          g_signal_connect_swapped (lq->data, "ready", G_CALLBACK (g_cancellable_cancel),
-                                    request->cancellables[n]);
-
           /* tell the thumbnailer to generate the thumbnail */
           tumbler_thumbnailer_create (lq->data, request->cancellables[n], request->infos[n]);
 
           /* disconnect from all signals when we're finished */
           g_signal_handlers_disconnect_by_data (lq->data, request);
-          g_signal_handlers_disconnect_by_data (lq->data, request->cancellables[n]);
         }
     }
 
@@ -519,16 +514,22 @@ tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
                                           const gchar             *message,
                                           TumblerSchedulerRequest *request)
 {
-  const gchar *failed_uris[] = { failed_uri, NULL };
-
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (failed_uri != NULL);
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
   /* forward the error signal */
-  g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris, 
-                         error_domain, error_code, message, request->origin);
+  for (guint n = 0; n < request->length; n++)
+    {
+      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), failed_uri) == 0)
+        {
+          const gchar *failed_uris[] = { failed_uri, NULL };
+          g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris,
+                                 error_domain, error_code, message, request->origin);
+          break;
+        }
+    }
 }
 
 
@@ -538,16 +539,24 @@ tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
                                           const gchar             *uri,
                                           TumblerSchedulerRequest *request)
 {
-  const gchar *uris[] = { uri, NULL };
-
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
   /* forward the ready signal */
-  g_signal_emit_by_name (request->scheduler, "ready", request->handle, uris, 
-                         request->origin);
+  for (guint n = 0; n < request->length; n++)
+    {
+      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), uri) == 0)
+        {
+          const gchar *uris[] = { uri, NULL };
+          g_signal_emit_by_name (request->scheduler, "ready", request->handle, uris, request->origin);
+
+          /* cancel lower priority thumbnailers for this uri */
+          g_cancellable_cancel (request->cancellables[n]);
+          break;
+        }
+    }
 }
 
 

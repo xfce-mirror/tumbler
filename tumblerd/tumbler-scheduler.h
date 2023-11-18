@@ -101,6 +101,8 @@ struct _TumblerSchedulerRequest
   guint32              handle;
   gchar               *origin;
   guint                length;
+  GList               *uri_errors;
+  GList               *ready_uris;
 };
 
 G_END_DECLS
