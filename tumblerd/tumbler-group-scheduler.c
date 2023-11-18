@@ -78,10 +78,10 @@ static void tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer       
                                                        GQuark                     error_domain,
                                                        gint                       error_code,
                                                        const gchar               *message,
-                                                       GList                    **uri_errors);
+                                                       TumblerSchedulerRequest   *request);
 static void tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
                                                        const gchar               *uri,
-                                                       GList                    **ready_uris);
+                                                       TumblerSchedulerRequest   *request);
 
 
 
@@ -419,8 +419,6 @@ tumbler_group_scheduler_thread (gpointer data,
   GString                 *message;
   GError                  *error = NULL;
   GList                   *iter;
-  GList                   *uri_errors;
-  GList                   *ready_uris;
   GList                   *cached_uris = NULL;
   GList                   *missing_uris = NULL;
   GList                   *lp, *lq;
@@ -533,8 +531,8 @@ tumbler_group_scheduler_thread (gpointer data,
 
   /* initialize lists for grouping failed URIs and URIs for which 
    * thumbnails are ready */
-  uri_errors = NULL;
-  ready_uris = NULL;
+  request->uri_errors = NULL;
+  request->ready_uris = NULL;
 
   /* iterate over invalid/missing URI list */
   for (lp = g_list_last (missing_uris); lp != NULL; lp = lp->prev)
@@ -556,27 +554,20 @@ tumbler_group_scheduler_thread (gpointer data,
           /* forward only the error signal of the last thumbnailer */
           if (lq->next == NULL)
             g_signal_connect (lq->data, "error",
-                              G_CALLBACK (tumbler_group_scheduler_thumbnailer_error), &uri_errors);
+                              G_CALLBACK (tumbler_group_scheduler_thumbnailer_error), request);
           else if (tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
             g_signal_connect (lq->data, "error",
                               G_CALLBACK (tumbler_scheduler_thumberr_debuglog), request);
 
           /* connect to the ready signal of the thumbnailer */
           g_signal_connect (lq->data, "ready",
-                            G_CALLBACK (tumbler_group_scheduler_thumbnailer_ready), &ready_uris);
-
-          /* cancel lower priority thumbnailers for this uri on ready signal */
-          g_signal_connect_swapped (lq->data, "ready", G_CALLBACK (g_cancellable_cancel),
-                                    request->cancellables[n]);
+                            G_CALLBACK (tumbler_group_scheduler_thumbnailer_ready), request);
 
           /* tell the thumbnailer to generate the thumbnail */
           tumbler_thumbnailer_create (lq->data, request->cancellables[n], request->infos[n]);
 
           /* disconnect from all signals when we're finished */
-          g_signal_handlers_disconnect_by_data (lq->data, &uri_errors);
-          g_signal_handlers_disconnect_by_data (lq->data, &ready_uris);
           g_signal_handlers_disconnect_by_data (lq->data, request);
-          g_signal_handlers_disconnect_by_data (lq->data, request->cancellables[n]);
         }
     }
 
@@ -586,20 +577,20 @@ tumbler_group_scheduler_thread (gpointer data,
    * reduce the overall D-Bus traffic */
 
   /* check if we have any failed URIs */
-  if (uri_errors != NULL)
+  if (request->uri_errors != NULL)
     {
       /* allocate the failed URIs array */
-      failed_uris = g_new0 (const gchar *, g_list_length (uri_errors) + 1);
+      failed_uris = g_new0 (const gchar *, g_list_length (request->uri_errors) + 1);
 
       /* allocate the grouped error message */
       message = g_string_new ("");
 
-      for (iter = uri_errors, n = 0; iter != NULL; iter = iter->next, ++n) 
+      for (iter = request->uri_errors, n = 0; iter != NULL; iter = iter->next, ++n) 
         {
           uri_error = iter->data;
 
           /* we use the error code of the first failed URI */
-          if (iter == uri_errors)
+          if (iter == request->uri_errors)
             {
               error_domain = uri_error->error_domain;
               error_code = uri_error->error_code;
@@ -608,7 +599,7 @@ tumbler_group_scheduler_thread (gpointer data,
           if (uri_error->message != NULL)
             {
               /* we concatenate error messages with a newline inbetween */
-              if (iter != uri_errors && iter->next != NULL)
+              if (iter != request->uri_errors && iter->next != NULL)
                 g_string_append_c (message, '\n');
 
               /* append the current error message */
@@ -635,16 +626,16 @@ tumbler_group_scheduler_thread (gpointer data,
     }
 
   /* free all URI errors and the error URI list */
-  g_list_free_full (uri_errors, uri_error_free);
+  g_list_free_full (request->uri_errors, uri_error_free);
 
   /* check if we have any successfully processed URIs */
-  if (ready_uris != NULL)
+  if (request->ready_uris != NULL)
     {
       /* allocate a string array for successful URIs */
-      success_uris = g_new0 (const gchar *, g_list_length (ready_uris) + 1);
+      success_uris = g_new0 (const gchar *, g_list_length (request->ready_uris) + 1);
 
       /* fill the array with all ready URIs */
-      for (iter = ready_uris, n = 0; iter != NULL; iter = iter->next, ++n)
+      for (iter = request->ready_uris, n = 0; iter != NULL; iter = iter->next, ++n)
         success_uris[n] = iter->data;
 
       /* NULL-terminate the successful URI array */
@@ -659,7 +650,7 @@ tumbler_group_scheduler_thread (gpointer data,
     }
 
   /* free the ready URIs */
-  g_list_free_full (ready_uris, g_free);
+  g_list_free_full (request->ready_uris, g_free);
 
   /* notify others that we're finished processing the request */
   tumbler_group_scheduler_finish_request (scheduler, request);
@@ -675,19 +666,22 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
                                            GQuark              error_domain,
                                            gint                error_code,
                                            const gchar        *message,
-                                           GList             **uri_errors)
+                                           TumblerSchedulerRequest *request)
 {
-  UriError *error;
-
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (failed_uri != NULL);
-  g_return_if_fail (uri_errors != NULL);
+  g_return_if_fail (request != NULL);
 
-  /* allocate a new URI error */
-  error = uri_error_new (error_code, error_domain, failed_uri, message);
-
-  /* add the error to the list */
-  *uri_errors = g_list_prepend (*uri_errors, error);
+  for (guint n = 0; n < request->length; n++)
+    {
+      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), failed_uri) == 0)
+        {
+          /* add the error to the list */
+          UriError *error = uri_error_new (error_code, error_domain, failed_uri, message);
+          request->uri_errors = g_list_prepend (request->uri_errors, error);
+          break;
+        }
+    }
 }
 
 
@@ -695,13 +689,24 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
 static void
 tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer *thumbnailer,
                                            const gchar        *uri,
-                                           GList             **ready_uris)
+                                           TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (uri != NULL);
-  g_return_if_fail (ready_uris != NULL);
+  g_return_if_fail (request != NULL);
 
-  *ready_uris = g_list_prepend (*ready_uris, g_strdup (uri));
+  for (guint n = 0; n < request->length; n++)
+    {
+      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), uri) == 0)
+        {
+          /* add the uri to the list */
+          request->ready_uris = g_list_prepend (request->ready_uris, g_strdup (uri));
+
+          /* cancel lower priority thumbnailers for this uri */
+          g_cancellable_cancel (request->cancellables[n]);
+          break;
+        }
+    }
 }
 
 

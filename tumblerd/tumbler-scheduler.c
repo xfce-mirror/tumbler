@@ -365,7 +365,15 @@ tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer      *thumbnailer,
                               g_quark_to_string (error_domain), error_code, message);
     }
 
-  g_debug ("Failed attempt for job %d, URI '%s': Code %d, message: %s",
-           request->handle, failed_uri, error_code, text);
+  for (guint n = 0; n < request->length; n++)
+    {
+      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), failed_uri) == 0)
+        {
+          g_debug ("Failed attempt for job %d, URI '%s': Code %d, message: %s",
+                   request->handle, failed_uri, error_code, text);
+          break;
+        }
+    }
+
   g_free (text);
 }
