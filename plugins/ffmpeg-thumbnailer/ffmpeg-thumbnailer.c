@@ -160,7 +160,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (tumbler_util_guess_is_sparse (info))
   {
     g_debug ("Video file '%s' is probably sparse, skipping", uri);
-    g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR,
+    g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
                            TUMBLER_ERROR_NO_CONTENT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
     return;
@@ -189,7 +189,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (path == NULL)
     {
       /* there was an error, emit error signal */
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR,
+      g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
                              TUMBLER_ERROR_INVALID_FORMAT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
       /* clean up */
@@ -205,7 +205,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (res != 0)
     {
       /* there was an error, emit error signal */
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR,
+      g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
                              TUMBLER_ERROR_INVALID_FORMAT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
       /* clean up */
@@ -222,7 +222,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (v_stream == NULL)
     {
       /* there was an error, emit error signal */
-      g_signal_emit_by_name (thumbnailer, "error", uri, TUMBLER_ERROR,
+      g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
                              TUMBLER_ERROR_INVALID_FORMAT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
       /* clean up */
@@ -239,7 +239,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (v_pixbuf == NULL)
     {
       /* emit an error signal */
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
 
@@ -272,14 +272,14 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (error != NULL)
     {
       /* emit an error signal */
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
     }
   else
     {
       /* otherwise, the thumbnail is now ready */
-      g_signal_emit_by_name (thumbnailer, "ready", uri);
+      g_signal_emit_by_name (thumbnailer, "ready", info);
     }
 
   /* clean up */

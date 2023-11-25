@@ -93,7 +93,7 @@ void                     tumbler_scheduler_thread_use_lower_priority (void);
 
 /* debug */
 void                     tumbler_scheduler_thumberr_debuglog     (TumblerThumbnailer      *thumbnailer,
-                                                                  const gchar             *failed_uri,
+                                                                  TumblerFileInfo         *failed_info,
                                                                   GQuark                   error_domain,
                                                                   gint                     error_code,
                                                                   const gchar             *message,
