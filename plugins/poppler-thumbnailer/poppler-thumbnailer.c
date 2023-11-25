@@ -251,7 +251,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       /* try to load the file contents using GIO */
       if (!g_file_load_contents (file, cancellable, &contents, &length, NULL, &error))
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri,
+          g_signal_emit_by_name (thumbnailer, "error", info,
                                  error->domain, error->code, error->message);
           g_error_free (error);
           g_object_unref (file);
@@ -274,7 +274,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* emit an error if both ways to load the document failed */
   if (document == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
       poppler_thumbnailer_free (contents);
@@ -284,7 +284,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* check if the document has content (= at least one page) */
   if (poppler_document_get_n_pages (document) <= 0)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
                              _("The document is empty"));
       g_object_unref (document);
@@ -297,7 +297,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (page == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
                              _("First page of the document could not be read"));
       g_object_unref (document);
@@ -349,13 +349,13 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (error != NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
     }
   else
     {
-      g_signal_emit_by_name (thumbnailer, "ready", uri);
+      g_signal_emit_by_name (thumbnailer, "ready", info);
     }
 
 

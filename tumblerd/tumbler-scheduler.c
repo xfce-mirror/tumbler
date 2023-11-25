@@ -338,7 +338,7 @@ tumbler_scheduler_thread_use_lower_priority (void)
 
 void
 tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer      *thumbnailer,
-                                     const gchar             *failed_uri,
+                                     TumblerFileInfo         *failed_info,
                                      GQuark                   error_domain,
                                      gint                     error_code,
                                      const gchar             *message,
@@ -347,7 +347,7 @@ tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer      *thumbnailer,
   gchar *text;
 
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (failed_uri != NULL);
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (failed_info));
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_SCHEDULER (request->scheduler));
 
@@ -365,10 +365,10 @@ tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer      *thumbnailer,
 
   for (guint n = 0; n < request->length; n++)
     {
-      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), failed_uri) == 0)
+      if (request->infos[n] == failed_info)
         {
           g_debug ("Failed attempt for job %d, URI '%s': Code %d, message: %s",
-                   request->handle, failed_uri, error_code, text);
+                   request->handle, tumbler_file_info_get_uri (failed_info), error_code, text);
           break;
         }
     }

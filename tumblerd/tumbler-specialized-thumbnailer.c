@@ -91,8 +91,7 @@ struct _SpecializedInfo
   TumblerThumbnailer *thumbnailer;
   GCond               condition;
   TUMBLER_MUTEX       (mutex);
-  const gchar        *uri;
-  const gchar        *mime_type;
+  TumblerFileInfo    *info;
   gboolean            had_callback;
   guint32             handle;
 };
@@ -341,7 +340,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
           g_variant_get (parameters, "(u&s)", &handle, &uri);
           if (info->handle == handle) 
             {
-               g_signal_emit_by_name (info->thumbnailer, "ready", uri);
+               g_signal_emit_by_name (info->thumbnailer, "ready", info->info);
             }
         }
     }
@@ -355,7 +354,7 @@ thumbnailer_proxy_g_signal_cb (GDBusProxy *proxy,
           g_variant_get (parameters, "(u&si&s)", &handle, &uri, &error_code, &error_msg);
           if (info->handle == handle) 
             {
-              g_signal_emit_by_name (info->thumbnailer, "error", uri,
+              g_signal_emit_by_name (info->thumbnailer, "error", info->info,
                                      TUMBLER_ERROR, error_code, error_msg);
             }
         }
@@ -393,8 +392,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   g_cond_init (&sinfo.condition);
   sinfo.had_callback = FALSE;
   tumbler_mutex_create (sinfo.mutex);
-  sinfo.uri = uri;
-  sinfo.mime_type = tumbler_file_info_get_mime_type (info);
+  sinfo.info = info;
   sinfo.thumbnailer = thumbnailer;
 
   handler_id = g_signal_connect (s->proxy, "g-signal", 
@@ -404,7 +402,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
                                    "Queue", 
                                    g_variant_new("(sssb)",
                                                  uri,
-                                                 sinfo.mime_type,
+                                                 tumbler_file_info_get_mime_type (info),
                                                  flavor_name,
                                                  /* TODO: Get this bool from scheduler type */
                                                  FALSE),
@@ -431,7 +429,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
           if (!g_cond_wait_until (&sinfo.condition, &sinfo.mutex, end_time))
             {
               message = g_strdup (_("Failed to call the specialized thumbnailer: timeout"));
-              g_signal_emit_by_name (thumbnailer, "error", uri,
+              g_signal_emit_by_name (thumbnailer, "error", info,
                                      TUMBLER_ERROR, TUMBLER_ERROR_CONNECTION_ERROR, message);
               g_free (message);
             }
@@ -442,7 +440,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
     {
       message = g_strdup_printf (_("Failed to call the specialized thumbnailer: %s"),
                                  error->message);
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              TUMBLER_ERROR, TUMBLER_ERROR_CONNECTION_ERROR, message);
       g_free (message);
       g_clear_error (&error);

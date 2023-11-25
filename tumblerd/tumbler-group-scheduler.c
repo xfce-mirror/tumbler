@@ -71,13 +71,13 @@ static void tumbler_group_scheduler_dequeue_request   (TumblerSchedulerRequest  
 static void tumbler_group_scheduler_thread            (gpointer                   data,
                                                        gpointer                   user_data);
 static void tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
-                                                       const gchar               *failed_uri,
+                                                       TumblerFileInfo           *failed_info,
                                                        GQuark                     error_domain,
                                                        gint                       error_code,
                                                        const gchar               *message,
                                                        TumblerSchedulerRequest   *request);
 static void tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
-                                                       const gchar               *uri,
+                                                       TumblerFileInfo           *info,
                                                        TumblerSchedulerRequest   *request);
 
 
@@ -654,22 +654,24 @@ tumbler_group_scheduler_thread (gpointer data,
 
 static void
 tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
-                                           const gchar        *failed_uri,
+                                           TumblerFileInfo    *failed_info,
                                            GQuark              error_domain,
                                            gint                error_code,
                                            const gchar        *message,
                                            TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (failed_uri != NULL);
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (failed_info));
   g_return_if_fail (request != NULL);
 
   for (guint n = 0; n < request->length; n++)
     {
-      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), failed_uri) == 0)
+      if (request->infos[n] == failed_info)
         {
           /* add the error to the list */
-          UriError *error = uri_error_new (error_code, error_domain, failed_uri, message);
+          UriError *error = uri_error_new (error_code, error_domain,
+                                           tumbler_file_info_get_uri (failed_info),
+                                           message);
           request->uri_errors = g_list_prepend (request->uri_errors, error);
           break;
         }
@@ -680,19 +682,19 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
 
 static void
 tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer *thumbnailer,
-                                           const gchar        *uri,
+                                           TumblerFileInfo    *info,
                                            TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (uri != NULL);
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
   g_return_if_fail (request != NULL);
 
   for (guint n = 0; n < request->length; n++)
     {
-      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), uri) == 0)
+      if (request->infos[n] == info)
         {
           /* add the uri to the list */
-          request->ready_uris = g_list_prepend (request->ready_uris, g_strdup (uri));
+          request->ready_uris = g_list_prepend (request->ready_uris, g_strdup (tumbler_file_info_get_uri (info)));
 
           /* cancel lower priority thumbnailers for this uri */
           g_cancellable_cancel (request->cancellables[n]);

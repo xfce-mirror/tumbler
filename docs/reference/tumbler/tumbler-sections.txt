@@ -111,7 +111,7 @@ tumbler_file_info_get_type
 
 <SECTION>
 <FILE>tumbler-marshal</FILE>
-tumbler_marshal_VOID__STRING_UINT_INT_STRING
+tumbler_marshal_VOID__OBJECT_UINT_INT_STRING
 tumbler_marshal_VOID__UINT_BOXED_UINT_INT_STRING_STRING
 tumbler_marshal_VOID__UINT_BOXED_STRING
 tumbler_marshal_VOID__UINT_STRING

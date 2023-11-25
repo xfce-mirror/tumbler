@@ -163,7 +163,7 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       doc = gepub_doc_new (g_file_peek_path (file), &error);
       if (error != NULL)
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri,
+          g_signal_emit_by_name (thumbnailer, "error", info,
                                  error->domain, error->code, error->message);
           g_error_free (error);
 
@@ -176,7 +176,7 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       if (cover == NULL
           || (cover_mime = gepub_doc_get_resource_mime_by_id (doc, cover)) == NULL)
         {
-          g_signal_emit_by_name (thumbnailer, "error", uri,
+          g_signal_emit_by_name (thumbnailer, "error", info,
                                  TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
                                  "Cover not found");
 
@@ -221,12 +221,12 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (error != NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
     }
   else
     {
-      g_signal_emit_by_name (thumbnailer, "ready", uri);
+      g_signal_emit_by_name (thumbnailer, "ready", info);
     }
 }

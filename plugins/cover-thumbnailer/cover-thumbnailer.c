@@ -668,13 +668,13 @@ cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   /* return the status */
   if (error != NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
     }
   else
     {
-      g_signal_emit_by_name (thumbnailer, "ready", uri);
+      g_signal_emit_by_name (thumbnailer, "ready", info);
     }
 
   g_object_unref (thumbnail);

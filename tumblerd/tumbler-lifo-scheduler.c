@@ -67,13 +67,13 @@ static void tumbler_lifo_scheduler_dequeue_request   (TumblerSchedulerRequest   
 static void tumbler_lifo_scheduler_thread            (gpointer                   data,
                                                       gpointer                   user_data);
 static void tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
-                                                      const gchar               *failed_uri,
+                                                      TumblerFileInfo           *failed_info,
                                                       GQuark                     error_domain,
                                                       gint                       error_code,
                                                       const gchar               *message,
                                                       TumblerSchedulerRequest   *request);
 static void tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
-                                                      const gchar               *uri,
+                                                      TumblerFileInfo           *info,
                                                       TumblerSchedulerRequest   *request);
 
 
@@ -508,23 +508,23 @@ tumbler_lifo_scheduler_thread (gpointer data,
 
 static void
 tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
-                                          const gchar             *failed_uri,
+                                          TumblerFileInfo         *failed_info,
                                           GQuark                   error_domain,
                                           gint                     error_code,
                                           const gchar             *message,
                                           TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (failed_uri != NULL);
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (failed_info));
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
   /* forward the error signal */
   for (guint n = 0; n < request->length; n++)
     {
-      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), failed_uri) == 0)
+      if (request->infos[n] == failed_info)
         {
-          const gchar *failed_uris[] = { failed_uri, NULL };
+          const gchar *failed_uris[] = { tumbler_file_info_get_uri (failed_info), NULL };
           g_signal_emit_by_name (request->scheduler, "error", request->handle, failed_uris,
                                  error_domain, error_code, message, request->origin);
           break;
@@ -536,20 +536,20 @@ tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
 
 static void
 tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
-                                          const gchar             *uri,
+                                          TumblerFileInfo         *info,
                                           TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
-  g_return_if_fail (uri != NULL);
+  g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
   g_return_if_fail (request != NULL);
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (request->scheduler));
 
   /* forward the ready signal */
   for (guint n = 0; n < request->length; n++)
     {
-      if (g_strcmp0 (tumbler_file_info_get_uri (request->infos[n]), uri) == 0)
+      if (request->infos[n] == info)
         {
-          const gchar *uris[] = { uri, NULL };
+          const gchar *uris[] = { tumbler_file_info_get_uri (info), NULL };
           g_signal_emit_by_name (request->scheduler, "ready", request->handle, uris, request->origin);
 
           /* cancel lower priority thumbnailers for this uri */

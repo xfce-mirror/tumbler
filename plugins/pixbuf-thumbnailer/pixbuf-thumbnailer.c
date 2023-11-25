@@ -210,7 +210,7 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (stream == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
 
@@ -231,7 +231,7 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (pixbuf == NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
       g_object_unref (thumbnail);
@@ -255,13 +255,13 @@ pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (error != NULL)
     {
-      g_signal_emit_by_name (thumbnailer, "error", uri,
+      g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error->message);
       g_error_free (error);
     }
   else
     {
-      g_signal_emit_by_name (thumbnailer, "ready", uri);
+      g_signal_emit_by_name (thumbnailer, "ready", info);
     }
 
   g_object_unref (pixbuf);
