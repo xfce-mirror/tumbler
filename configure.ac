@@ -119,13 +119,16 @@ dnl ************************************
 dnl *** Check for standard functions ***
 dnl ************************************
 AC_FUNC_MMAP()
-AC_CHECK_FUNCS([sched_getparam sched_setscheduler getpwnam bind_textdomain_codeset])
+AC_CHECK_FUNCS([sched_getparam sched_setscheduler getpwnam])
 
 dnl ******************************
 dnl *** Check for i18n support ***
 dnl ******************************
 linguas=$(ls po/*.po | $SED s/.po//g | $SED sApo/AA | xargs)
 XDT_I18N([$linguas])
+AC_SEARCH_LIBS([bind_textdomain_codeset], [intl],
+  [AC_DEFINE([HAVE_BIND_TEXTDOMAIN_CODESET], [1], [Define to 1 if you have the 'bind_textdomain_codeset' function.])],
+  [])
 
 dnl *************************
 dnl *** Check for GTK-Doc ***
