@@ -188,7 +188,19 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
       /* content of cover image */
       content = gepub_doc_get_resource_by_id (doc, cover);
-      g_free (cover);
+      if (g_bytes_get_data (content, NULL) == NULL)
+        {
+          g_signal_emit_by_name (thumbnailer, "error", info,
+                                 TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
+                                 "Cover not found");
+
+          g_bytes_unref (content);
+          g_free (cover);
+          g_free (cover_mime);
+          g_object_unref (doc);
+          g_object_unref (file);
+          return;
+        }
 
       thumbnail = tumbler_file_info_get_thumbnail (info);
 
@@ -213,6 +225,7 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
         }
 
       g_bytes_unref (content);
+      g_free (cover);
       g_free (cover_mime);
       g_object_unref (doc);
       g_object_unref (thumbnail);
