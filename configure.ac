@@ -32,7 +32,7 @@ m4_define([libxfce4util_min_version], [4.17.1])
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2009-2023 The Xfce development team. All rights reserved.
+AC_COPYRIGHT([Copyright (c) 2009-2024 The Xfce development team. All rights reserved.
   Written for Xfce by Jannis Pohlmann <jannis@xfce.org>.])
 AC_INIT([tumbler], [xdt_version], [https://gitlab.xfce.org/xfce/tumbler])
 AC_PREREQ([2.69])
