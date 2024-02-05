@@ -33,7 +33,7 @@ dnl *** Initialize autoconf ***
 dnl ***************************
 AC_COPYRIGHT([Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>])
 AC_COPYRIGHT([Copyright (c) 2016-2017 Ali Abdallah <ali@xfce.org>])
-AC_COPYRIGHT([Copyright (c) 2018-2023 The Xfce development team])
+AC_COPYRIGHT([Copyright (c) 2018-2024 The Xfce development team])
 AC_INIT([tumbler], [tumbler_version], [https://gitlab.xfce.org/xfce/tumbler])
 AC_PREREQ([2.60])
 AC_CANONICAL_TARGET()
