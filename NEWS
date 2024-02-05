@@ -1,3 +1,19 @@
+4.19.1 (2024-02-05)
+======
+- Update copyright year
+- gepub-thumbnailer: Return if GBytes buffer is NULL
+- build: Search for bind_textdomain_codeset in libintl too
+- Disambiguate thumbnailer signals
+- scheduler: Fix ready/error signal forwarding
+- desktop-thumbnailer: Use empty path to build cmdline if it is null
+- Update spec link in README
+- xdg-cache: Fix temporary file management when saving thumbnail
+- Add icon at 64px, clean up SVG metadata
+- I18n: Update po/LINGUAS list
+- I18n: Update po/LINGUAS list
+- Translation Updates:
+  Catalan, Czech, Greek
+
 4.19.0 (2023-04-17)
 ======
 - Fix memory leak in jpeg-thumbnailer
