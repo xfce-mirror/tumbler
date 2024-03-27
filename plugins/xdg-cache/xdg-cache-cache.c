@@ -67,7 +67,9 @@ struct _XDGCacheCache
 {
   GObject __parent__;
 
-  GList  *flavors;
+  GList *flavors;
+  GList *dirs;
+  GList *shared_suffixes;
 };
 
 
@@ -125,6 +127,7 @@ static void
 xdg_cache_cache_init (XDGCacheCache *cache)
 {
   TumblerThumbnailFlavor *flavor;
+  const gchar *cachedir = g_get_user_cache_dir ();
 
   flavor = tumbler_thumbnail_flavor_new_normal ();
   cache->flavors = g_list_prepend (cache->flavors, flavor);
@@ -137,6 +140,16 @@ xdg_cache_cache_init (XDGCacheCache *cache)
 
   flavor = tumbler_thumbnail_flavor_new_xx_large ();
   cache->flavors = g_list_prepend (cache->flavors, flavor);
+
+  for (GList *lp = cache->flavors; lp != NULL; lp = lp->next)
+    {
+      const gchar *dirname = tumbler_thumbnail_flavor_get_name (lp->data);
+      gchar *path = g_build_filename (cachedir, "thumbnails", dirname, NULL);
+      gchar *suffix = g_strconcat (G_DIR_SEPARATOR_S, ".sh_thumbnails", G_DIR_SEPARATOR_S, dirname, NULL);
+      cache->dirs = g_list_prepend (cache->dirs, g_file_new_for_path (path));
+      cache->shared_suffixes = g_list_prepend (cache->shared_suffixes, suffix);
+      g_free (path);
+    }
 }
 
 
@@ -147,6 +160,8 @@ xdg_cache_cache_finalize (GObject *object)
   XDGCacheCache *cache = XDG_CACHE_CACHE (object);
 
   g_list_free_full (cache->flavors, g_object_unref);
+  g_list_free_full (cache->dirs, g_object_unref);
+  g_list_free_full (cache->shared_suffixes, g_free);
 
   G_OBJECT_CLASS (xdg_cache_cache_parent_class)->finalize (object);
 }
@@ -526,43 +541,41 @@ xdg_cache_cache_is_thumbnail (TumblerCache *cache,
                               const gchar  *uri)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  const gchar   *cachedir;
-  const gchar   *dirname;
   gboolean       is_thumbnail = FALSE;
-  GList         *iter;
-  GFile         *flavor_dir;
   GFile         *file;
-  gchar         *path;
-  gchar         *needle;
+  gchar         *uri_dir;
 
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
 
-  for (iter = xdg_cache->flavors; !is_thumbnail && iter != NULL; iter = iter->next)
+  /* check if it is a thumbnail in local cache */
+  file = g_file_new_for_uri (uri);
+  for (GList *lp = xdg_cache->dirs; lp != NULL; lp = lp->next)
     {
-      cachedir = g_get_user_cache_dir ();
-      dirname = tumbler_thumbnail_flavor_get_name (iter->data);
-      path = g_build_filename (cachedir, "thumbnails", dirname, NULL);
-
-      flavor_dir = g_file_new_for_path (path);
-      file = g_file_new_for_uri (uri);
-
-      if (g_file_has_prefix (file, flavor_dir))
-        is_thumbnail = TRUE;
-
-      g_object_unref (file);
-      g_object_unref (flavor_dir);
-
-      g_free (path);
+      if (g_file_has_parent (file, lp->data))
+        {
+          is_thumbnail = TRUE;
+          break;
+        }
     }
+  g_object_unref (file);
 
   if (is_thumbnail)
     return TRUE;
 
   /* check if it is a thumbnail in a shared repository */
-  needle = g_strrstr (uri, "/.sh_thumbnails/");
+  uri_dir = g_path_get_dirname (uri);
+  for (GList *lp = xdg_cache->shared_suffixes; lp != NULL; lp = lp->next)
+    {
+      if (g_str_has_suffix (uri_dir, lp->data))
+        {
+          is_thumbnail = TRUE;
+          break;
+        }
+    }
+  g_free (uri_dir);
 
-  return needle != NULL;
+  return is_thumbnail;
 }
 
 
