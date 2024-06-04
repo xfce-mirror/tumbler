@@ -42,5 +42,5 @@ ChangeLog: Makefile
 
 dist-hook: ChangeLog
 
-DISTCHECK_CONFIGURE_FLAGS =						\
+AM_DISTCHECK_CONFIGURE_FLAGS =						\
 	--enable-gtk-doc
