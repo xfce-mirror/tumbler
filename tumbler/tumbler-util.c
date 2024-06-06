@@ -129,14 +129,14 @@ tumbler_util_dump_strvs_side_by_side (const gchar *log_domain,
 void
 tumbler_util_toggle_stderr (const gchar *log_domain)
 {
-  static gint stderr_save = -2;
+  static gint stderr_save = STDERR_FILENO;
 
   /* do nothing in case of previous error or if debug logging is enabled */
   if (stderr_save == -1 || tumbler_util_is_debug_logging_enabled (log_domain))
     return;
 
   /* redirect stderr to /dev/null */
-  if (stderr_save == -2)
+  if (stderr_save == STDERR_FILENO)
     {
       fflush (stderr);
       stderr_save = dup (STDERR_FILENO);
@@ -146,10 +146,10 @@ tumbler_util_toggle_stderr (const gchar *log_domain)
   /* restore stderr to stderr_save */
   else
     {
+      gint temp = stderr_save;
       fflush (stderr);
       stderr_save = dup2 (stderr_save, STDERR_FILENO);
-      if (stderr_save != -1)
-        stderr_save = -2;
+      close (temp);
     }
 }
 
