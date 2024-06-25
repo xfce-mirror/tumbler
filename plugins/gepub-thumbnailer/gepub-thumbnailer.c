@@ -100,36 +100,22 @@ gepub_thumbnailer_create_from_mime (gchar             *mime_type,
 {
   GdkPixbufLoader *loader;
   GdkPixbuf       *pixbuf = NULL;
-  GError          *err = NULL;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
-  /* allow only some mime types */
-  if (g_strcmp0 (mime_type, "image/png") == 0 ||
-      g_strcmp0 (mime_type, "image/jpeg") == 0 ||
-      g_strcmp0 (mime_type, "image/gif") == 0)
+  loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, error);
+  if (loader != NULL)
     {
-      loader = gdk_pixbuf_loader_new_with_mime_type (mime_type, &err);
       g_signal_connect (loader, "size-prepared",
                         G_CALLBACK (tumbler_util_size_prepared), thumbnail);
-      if (gdk_pixbuf_loader_write_bytes (loader, content, &err))
-        {
-          if (gdk_pixbuf_loader_close (loader, &err))
-            {
-              pixbuf = gdk_pixbuf_loader_get_pixbuf (loader);
-              if (pixbuf != NULL)
-                g_object_ref (G_OBJECT (pixbuf));
-            }
-        }
-      else
-        gdk_pixbuf_loader_close (loader, NULL);
+      if (gdk_pixbuf_loader_write_bytes (loader, content, error))
+        pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
 
+      gdk_pixbuf_loader_close (loader, NULL);
       g_object_unref (loader);
-
-      if (err != NULL)
-        g_propagate_error (error, err);
     }
+
   return pixbuf;
 }
 
