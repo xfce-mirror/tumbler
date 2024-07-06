@@ -280,7 +280,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   file = g_file_new_for_uri (uri);
   g_debug ("Handling URI '%s'", uri);
 
-  if (g_file_is_native (file))
+  if (g_file_peek_path (file) != NULL)
     {
       /* try to mmap the file */
       input = gsf_input_mmap_new (g_file_peek_path (file), NULL);

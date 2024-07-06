@@ -810,7 +810,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   size = MIN (width, height);
 
 #ifdef HAVE_MMAP
-  if (g_file_is_native (file))
+  if (g_file_peek_path (file) != NULL)
     {
       /* try to open the file at the given path */
       fd = open (g_file_peek_path (file), O_RDONLY);
