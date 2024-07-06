@@ -215,8 +215,16 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_free (cover_mime);
       g_object_unref (doc);
       g_object_unref (thumbnail);
+      g_object_unref (file);
     }
-  g_object_unref (file);
+  else
+    {
+      g_signal_emit_by_name (thumbnailer, "error", info,
+                             TUMBLER_ERROR, TUMBLER_ERROR_UNSUPPORTED,
+                             TUMBLER_ERROR_MESSAGE_LOCAL_ONLY);
+      g_object_unref (file);
+      return;
+    }
 
   if (error != NULL)
     {
