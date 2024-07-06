@@ -149,7 +149,7 @@ gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   file = g_file_new_for_uri (uri);
   g_debug ("Handling URI '%s'", uri);
 
-  if (g_file_is_native (file))
+  if (g_file_peek_path (file) != NULL)
     {
       /* try to load the EPUB file */
       doc = gepub_doc_new (g_file_peek_path (file), &error);
