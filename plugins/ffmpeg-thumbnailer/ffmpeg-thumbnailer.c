@@ -20,16 +20,15 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include "ffmpeg-thumbnailer.h"
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 #include <libffmpegthumbnailer/videothumbnailerc.h>
-#include <ffmpeg-thumbnailer/ffmpeg-thumbnailer.h>
 
 
 #define TUMBLER_FFMPEG_CHECK_VERSION(major, minor, micro) \

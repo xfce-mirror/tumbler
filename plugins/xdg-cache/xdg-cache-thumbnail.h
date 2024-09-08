@@ -21,6 +21,8 @@
 #ifndef __XDG_CACHE_THUMBNAIL_H__
 #define __XDG_CACHE_THUMBNAIL_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS;

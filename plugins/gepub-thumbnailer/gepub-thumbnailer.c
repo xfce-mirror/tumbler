@@ -20,18 +20,17 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib/gprintf.h>
-#include <glib-object.h>
-#include <gio/gio.h>
+#include "gepub-thumbnailer.h"
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gepub.h>
-
-#include "gepub-thumbnailer.h"
+#include <gio/gio.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <glib/gprintf.h>
 
 
 static void gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,

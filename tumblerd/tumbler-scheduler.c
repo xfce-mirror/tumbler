@@ -19,8 +19,10 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-scheduler.h"
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -28,14 +30,12 @@
 #ifdef HAVE_SCHED_H
 #include <sched.h>
 #endif
-#ifdef HAVE_LINUX_SCHED_H 
+#ifdef HAVE_LINUX_SCHED_H
 #include <linux/sched.h>
 #endif
 #ifdef HAVE_SYSCALL_H
-#include <syscall.h> 
+#include <syscall.h>
 #endif
-
-#include <tumblerd/tumbler-scheduler.h>
 
 
 #define IOPRIO_CLASS_SHIFT 13

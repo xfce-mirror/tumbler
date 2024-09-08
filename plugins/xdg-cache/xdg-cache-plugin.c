@@ -19,17 +19,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "xdg-cache-cache.h"
+#include "xdg-cache-thumbnail.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <xdg-cache/xdg-cache-cache.h>
-#include <xdg-cache/xdg-cache-thumbnail.h>
 
 
 

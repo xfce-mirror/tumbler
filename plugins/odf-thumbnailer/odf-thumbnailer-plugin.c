@@ -20,17 +20,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "odf-thumbnailer-provider.h"
+#include "odf-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <odf-thumbnailer/odf-thumbnailer-provider.h>
-#include <odf-thumbnailer/odf-thumbnailer.h>
 
 
 

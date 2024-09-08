@@ -20,17 +20,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "ffmpeg-thumbnailer-provider.h"
+#include "ffmpeg-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <ffmpeg-thumbnailer/ffmpeg-thumbnailer-provider.h>
-#include <ffmpeg-thumbnailer/ffmpeg-thumbnailer.h>
 
 
 

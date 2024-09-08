@@ -21,17 +21,16 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
+#include "tumbler-lifo-scheduler.h"
+#include "tumbler-utils.h"
+
+#include "tumbler/tumbler.h"
+
 #include <float.h>
-
-#include <glib.h>
 #include <glib/gi18n.h>
-
-#include <tumbler/tumbler.h>
-#include <tumblerd/tumbler-lifo-scheduler.h>
-#include <tumblerd/tumbler-utils.h>
 
 
 

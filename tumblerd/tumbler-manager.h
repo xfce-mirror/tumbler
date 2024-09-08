@@ -22,9 +22,9 @@
 #ifndef __TUMBLER_MANAGER_H__
 #define __TUMBLER_MANAGER_H__
 
-#include <tumblerd/tumbler-component.h>
-#include <tumblerd/tumbler-lifecycle-manager.h>
-#include <tumblerd/tumbler-registry.h>
+#include "tumbler-component.h"
+#include "tumbler-lifecycle-manager.h"
+#include "tumbler-registry.h"
 
 G_BEGIN_DECLS;
 

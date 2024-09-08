@@ -19,12 +19,8 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
-
-#include <glib.h>
-
-#include <tumbler/tumbler.h>
 
 #include "raw-thumbnailer-provider.h"
 #include "raw-thumbnailer.h"

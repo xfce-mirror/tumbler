@@ -20,6 +20,8 @@
 #ifndef __DESKTOP_THUMBNAILER_PROVIDER_H__
 #define __DESKTOP_THUMBNAILER_PROVIDER_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS

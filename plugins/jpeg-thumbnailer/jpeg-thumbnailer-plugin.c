@@ -19,17 +19,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "jpeg-thumbnailer-provider.h"
+#include "jpeg-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <jpeg-thumbnailer/jpeg-thumbnailer-provider.h>
-#include <jpeg-thumbnailer/jpeg-thumbnailer.h>
 
 
 

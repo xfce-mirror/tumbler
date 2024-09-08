@@ -20,15 +20,12 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-
-#include <tumbler/tumbler.h>
-#include <tumblerd/tumbler-registry.h>
-#include <tumblerd/tumbler-specialized-thumbnailer.h>
-#include <tumblerd/tumbler-utils.h>
+#include "tumbler-registry.h"
+#include "tumbler-specialized-thumbnailer.h"
+#include "tumbler-utils.h"
 
 
 static void                tumbler_registry_finalize                  (GObject            *object);

@@ -21,7 +21,7 @@
 #ifndef __TUMBLER_SPECIALIZED_THUMBNAILER_H__
 #define __TUMBLER_SPECIALIZED_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS
 

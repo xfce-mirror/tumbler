@@ -19,23 +19,19 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-util.h"
+
+#include <gio/gio.h>
+#include <libxfce4util/libxfce4util.h>
+#include <math.h>
+#include <sys/stat.h>
 
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif
-
-#include <math.h>
-
-#include <glib.h>
-#include <gio/gio.h>
-
-#include <sys/stat.h>
-
-#include <tumbler/tumbler-util.h>
-
-#include <libxfce4util/libxfce4util.h>
 
 /* Float block size used in the stat struct */
 #define TUMBLER_STAT_BLKSIZE 512.

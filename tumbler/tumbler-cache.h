@@ -26,8 +26,8 @@
 #define __TUMBLER_CACHE_H__
 
 #include <glib-object.h>
-#include <tumbler/tumbler-thumbnail.h>
 #include <tumbler/tumbler-thumbnail-flavor.h>
+#include <tumbler/tumbler-thumbnail.h>
 
 G_BEGIN_DECLS
 

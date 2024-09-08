@@ -19,18 +19,16 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-provider-factory.h"
+#include "tumbler-provider-plugin.h"
+#include "tumbler-util.h"
 
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif
-
-#include <glib.h>
-
-#include <tumbler/tumbler-provider-factory.h>
-#include <tumbler/tumbler-provider-plugin.h>
-#include <tumbler/tumbler-util.h>
 
 
 

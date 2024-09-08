@@ -19,17 +19,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "desktop-thumbnailer-provider.h"
+#include "desktop-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <desktop-thumbnailer/desktop-thumbnailer-provider.h>
-#include <desktop-thumbnailer/desktop-thumbnailer.h>
 
 
 G_MODULE_EXPORT void tumbler_plugin_initialize (TumblerProviderPlugin *plugin);

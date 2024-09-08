@@ -20,8 +20,20 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-cache-service.h"
+#include "tumbler-lifecycle-manager.h"
+#include "tumbler-manager.h"
+#include "tumbler-registry.h"
+#include "tumbler-service.h"
+
+#include "tumbler/tumbler.h"
+
+#include <glib-object.h>
+#include <libxfce4util/libxfce4util.h>
+#include <stdlib.h>
 
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
@@ -32,21 +44,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-
-#include <stdlib.h>
-
-#include <glib.h>
-#include <glib-object.h>
-
-#include <libxfce4util/libxfce4util.h>
-
-#include <tumbler/tumbler.h>
-
-#include <tumblerd/tumbler-cache-service.h>
-#include <tumblerd/tumbler-lifecycle-manager.h>
-#include <tumblerd/tumbler-manager.h>
-#include <tumblerd/tumbler-registry.h>
-#include <tumblerd/tumbler-service.h>
 
 
 

@@ -19,25 +19,20 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
+#include "xdg-cache-cache.h"
+#include "xdg-cache-thumbnail.h"
+
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib/gi18n.h>
+#include <glib/gprintf.h>
+#include <glib/gstdio.h>
+#include <math.h>
+#include <png.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib/gstdio.h>
-#include <glib/gprintf.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <png.h>
-
-#include <tumbler/tumbler.h>
-
-#include <xdg-cache/xdg-cache-cache.h>
-#include <xdg-cache/xdg-cache-thumbnail.h>
 
 
 

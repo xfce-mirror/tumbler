@@ -19,13 +19,11 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-
-#include <tumblerd/tumbler-component.h>
-#include <tumblerd/tumbler-lifecycle-manager.h>
+#include "tumbler-component.h"
+#include "tumbler-lifecycle-manager.h"
 
 
 

@@ -22,21 +22,19 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "cover-thumbnailer.h"
+
+#include <curl/curl.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+
 #ifdef HAVE_SYS_SELECT_H
 #include <sys/select.h>
 #endif
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <curl/curl.h>
-
-#include <cover-thumbnailer/cover-thumbnailer.h>
-
 
 
 #define SERIES_PATTERN    "\\b((?:s\\d{1,2}e\\d{1,2}|\\d{1,2}x\\d{1,2}))\\b"

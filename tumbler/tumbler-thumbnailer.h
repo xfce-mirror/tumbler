@@ -25,9 +25,8 @@
 #ifndef __TUMBLER_THUMBNAILER_H__
 #define __TUMBLER_THUMBNAILER_H__
 
-#include <glib-object.h>
 #include <gio/gio.h>
-
+#include <glib-object.h>
 #include <tumbler/tumbler-file-info.h>
 
 G_BEGIN_DECLS

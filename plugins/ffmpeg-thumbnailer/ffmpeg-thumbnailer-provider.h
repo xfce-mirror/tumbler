@@ -22,6 +22,8 @@
 #ifndef __FFMPEG_THUMBNAILER_PROVIDER_H__
 #define __FFMPEG_THUMBNAILER_PROVIDER_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS;

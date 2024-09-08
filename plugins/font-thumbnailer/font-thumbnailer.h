@@ -21,7 +21,7 @@
 #ifndef __FONT_THUMBNAILER_H__
 #define __FONT_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS;
 

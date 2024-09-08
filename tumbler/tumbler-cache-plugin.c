@@ -19,15 +19,14 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "tumbler-cache-plugin.h"
+#include "tumbler-error.h"
+
 #include <glib/gi18n.h>
 #include <gmodule.h>
-
-#include <tumbler/tumbler-cache-plugin.h>
-#include <tumbler/tumbler-error.h>
 
 
 

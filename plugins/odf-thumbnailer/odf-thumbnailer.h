@@ -22,7 +22,7 @@
 #ifndef __ODF_THUMBNAILER_H__
 #define __ODF_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS;
 

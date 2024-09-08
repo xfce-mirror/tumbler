@@ -20,8 +20,18 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-manager-gdbus.h"
+#include "tumbler-manager.h"
+#include "tumbler-specialized-thumbnailer.h"
+#include "tumbler-utils.h"
+
+#include <gio/gio.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <glib/gstdio.h>
 
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
@@ -29,17 +39,6 @@
 #ifdef HAVE_SYS_STAT_H
 #include <sys/stat.h>
 #endif
-
-#include <glib.h>
-#include <glib-object.h>
-#include <glib/gi18n.h>
-#include <glib/gstdio.h>
-#include <gio/gio.h>
-
-#include <tumblerd/tumbler-manager.h>
-#include <tumblerd/tumbler-manager-gdbus.h>
-#include <tumblerd/tumbler-specialized-thumbnailer.h>
-#include <tumblerd/tumbler-utils.h>
 
 #define WARNING_MALFORMED_SECTION "Malformed section \"%s\" in file \"%s\": %s"
 

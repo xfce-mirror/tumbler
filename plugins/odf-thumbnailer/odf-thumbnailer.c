@@ -23,27 +23,25 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include "odf-thumbnailer.h"
 
-#include <gsf/gsf.h>
-#include <gsf/gsf-input-memory.h>
-#include <gsf/gsf-input-gio.h>
-#include <gsf/gsf-infile.h>
-#include <gsf/gsf-infile-msole.h>
-#include <gsf/gsf-infile-zip.h>
-#include <gsf/gsf-open-pkg-utils.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 #include <gsf/gsf-clip-data.h>
 #include <gsf/gsf-doc-meta-data.h>
+#include <gsf/gsf-infile-msole.h>
+#include <gsf/gsf-infile-zip.h>
+#include <gsf/gsf-infile.h>
+#include <gsf/gsf-input-gio.h>
+#include <gsf/gsf-input-memory.h>
 #include <gsf/gsf-meta-names.h>
 #include <gsf/gsf-msole-utils.h>
-
-#include <odf-thumbnailer/odf-thumbnailer.h>
+#include <gsf/gsf-open-pkg-utils.h>
+#include <gsf/gsf.h>
 
 
 #define OPEN_XML_SCHEMA "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail"

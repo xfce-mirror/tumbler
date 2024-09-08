@@ -19,17 +19,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "font-thumbnailer-provider.h"
+#include "font-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <font-thumbnailer/font-thumbnailer-provider.h>
-#include <font-thumbnailer/font-thumbnailer.h>
 
 
 

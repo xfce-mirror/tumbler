@@ -19,17 +19,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "poppler-thumbnailer-provider.h"
+#include "poppler-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <poppler-thumbnailer/poppler-thumbnailer-provider.h>
-#include <poppler-thumbnailer/poppler-thumbnailer.h>
 
 
 

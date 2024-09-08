@@ -21,9 +21,9 @@
 #ifndef __TUMBLER_SCHEDULER_H__
 #define __TUMBLER_SCHEDULER_H__
 
-#include <glib-object.h>
+#include "tumbler/tumbler.h"
 
-#include <tumbler/tumbler.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 

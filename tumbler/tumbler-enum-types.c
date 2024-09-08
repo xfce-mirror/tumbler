@@ -19,13 +19,12 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib/gi18n.h>
-#include <glib-object.h>
+#include "tumbler-enum-types.h"
 
-#include <tumbler/tumbler-enum-types.h>
+#include <glib/gi18n.h>
 
 
 

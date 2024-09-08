@@ -21,8 +21,9 @@
 #ifndef __TUMBLER_REGISTRY_H__
 #define __TUMBLER_REGISTRY_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
-#include <tumbler/tumbler.h>
 
 G_BEGIN_DECLS
 

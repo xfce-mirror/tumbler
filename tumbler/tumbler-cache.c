@@ -19,11 +19,11 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <tumbler/tumbler-cache.h>
-#include <tumbler/tumbler-cache-plugin.h>
+#include "tumbler-cache-plugin.h"
+#include "tumbler-cache.h"
 
 
 

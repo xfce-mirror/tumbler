@@ -19,17 +19,16 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gio/gio.h>
-#include <glib/gstdio.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include "desktop-thumbnailer.h"
 
-#include <desktop-thumbnailer/desktop-thumbnailer.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gio/gio.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <glib/gstdio.h>
 
 
 

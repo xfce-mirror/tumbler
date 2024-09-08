@@ -21,10 +21,10 @@
 #ifndef __TUMBLER_CACHE_SERVICE_H__
 #define __TUMBLER_CACHE_SERVICE_H__
 
-#include <gio/gio.h>
+#include "tumbler-component.h"
+#include "tumbler-lifecycle-manager.h"
 
-#include <tumblerd/tumbler-component.h>
-#include <tumblerd/tumbler-lifecycle-manager.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS;
 

@@ -22,20 +22,17 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <string.h>
+#include "gst-thumbnailer.h"
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
+#include <glib-object.h>
+#include <glib/gi18n.h>
 #include <gst/gst.h>
 #include <gst/tag/tag.h>
-
-#include "gst-thumbnailer.h"
+#include <string.h>
 
 
 

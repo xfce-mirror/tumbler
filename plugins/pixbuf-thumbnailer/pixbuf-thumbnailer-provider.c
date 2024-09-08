@@ -19,16 +19,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "pixbuf-thumbnailer-provider.h"
+#include "pixbuf-thumbnailer.h"
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <tumbler/tumbler.h>
-
-#include <pixbuf-thumbnailer/pixbuf-thumbnailer-provider.h>
-#include <pixbuf-thumbnailer/pixbuf-thumbnailer.h>
 
 
 

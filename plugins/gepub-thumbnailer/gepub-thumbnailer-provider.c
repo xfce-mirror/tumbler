@@ -20,12 +20,8 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
-
-#include <glib.h>
-
-#include <tumbler/tumbler.h>
 
 #include "gepub-thumbnailer-provider.h"
 #include "gepub-thumbnailer.h"

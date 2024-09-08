@@ -20,18 +20,16 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "font-thumbnailer.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <font-thumbnailer/font-thumbnailer.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 
 
 

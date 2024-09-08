@@ -21,16 +21,13 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "gst-thumbnailer-provider.h"
+#include "gst-thumbnailer.h"
+
 #include <gst/gst.h>
-
-#include <tumbler/tumbler.h>
-
-#include <gst-thumbnailer/gst-thumbnailer-provider.h>
-#include <gst-thumbnailer/gst-thumbnailer.h>
 
 
 

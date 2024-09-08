@@ -19,11 +19,11 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <tumbler/tumbler-thumbnailer.h>
-#include <tumbler/tumbler.h>
+#include "tumbler-thumbnailer.h"
+#include "tumbler.h"
 
 
 

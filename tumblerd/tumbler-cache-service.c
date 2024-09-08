@@ -19,18 +19,17 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
+#include "tumbler-cache-service-gdbus.h"
+#include "tumbler-cache-service.h"
+#include "tumbler-utils.h"
+
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <tumblerd/tumbler-cache-service.h>
-#include <tumblerd/tumbler-cache-service-gdbus.h>
-#include <tumblerd/tumbler-utils.h>
+#include <glib/gi18n.h>
 
 #define THUMBNAILER_CACHE_PATH    TUMBLER_SERVICE_PATH_PREFIX "/Cache1"
 #define THUMBNAILER_CACHE_SERVICE TUMBLER_SERVICE_NAME_PREFIX ".Cache1"

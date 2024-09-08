@@ -21,6 +21,8 @@
 #ifndef __PIXBUF_THUMBNAILER_PROVIDER_H__
 #define __PIXBUF_THUMBNAILER_PROVIDER_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS;

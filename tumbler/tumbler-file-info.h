@@ -27,7 +27,6 @@
 
 #include <gio/gio.h>
 #include <glib-object.h>
-
 #include <tumbler/tumbler-thumbnail.h>
 
 G_BEGIN_DECLS;

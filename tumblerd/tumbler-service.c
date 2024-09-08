@@ -20,23 +20,21 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
+#include "tumbler-group-scheduler.h"
+#include "tumbler-lifo-scheduler.h"
+#include "tumbler-scheduler.h"
+#include "tumbler-service-gdbus.h"
+#include "tumbler-service.h"
+#include "tumbler-utils.h"
+
+#include "tumbler/tumbler.h"
 
 #include <gio/gio.h>
-
-#include <tumbler/tumbler.h>
-
-#include <tumblerd/tumbler-scheduler.h>
-#include <tumblerd/tumbler-service.h>
-#include <tumblerd/tumbler-lifo-scheduler.h>
-#include <tumblerd/tumbler-group-scheduler.h>
-#include <tumblerd/tumbler-utils.h>
-#include <tumblerd/tumbler-service-gdbus.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 
 
 #define THUMBNAILER_PATH    TUMBLER_SERVICE_PATH_PREFIX "/Thumbnailer1"

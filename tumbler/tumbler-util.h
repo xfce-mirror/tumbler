@@ -25,9 +25,8 @@
 #ifndef __TUMBLER_UTIL_H__
 #define __TUMBLER_UTIL_H__
 
-#include <glib.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-
+#include <glib.h>
 #include <tumbler/tumbler-file-info.h>
 
 G_BEGIN_DECLS

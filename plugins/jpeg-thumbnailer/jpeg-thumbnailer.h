@@ -21,7 +21,7 @@
 #ifndef __JPEG_THUMBNAILER_H__
 #define __JPEG_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS;
 

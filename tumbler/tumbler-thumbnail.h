@@ -27,7 +27,6 @@
 
 #include <gio/gio.h>
 #include <glib-object.h>
-
 #include <tumbler/tumbler-enum-types.h>
 #include <tumbler/tumbler-thumbnail-flavor.h>
 

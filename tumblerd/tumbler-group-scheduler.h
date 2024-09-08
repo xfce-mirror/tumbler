@@ -22,8 +22,9 @@
 #ifndef __TUMBLER_GROUP_SCHEDULER_H__
 #define __TUMBLER_GROUP_SCHEDULER_H__
 
+#include "tumbler-scheduler.h"
+
 #include <glib-object.h>
-#include <tumblerd/tumbler-scheduler.h>
 
 G_BEGIN_DECLS;
 

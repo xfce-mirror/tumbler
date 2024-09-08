@@ -23,8 +23,15 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "jpeg-thumbnailer.h"
+
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <jpeglib.h>
 
 #ifdef HAVE_SYS_MMAN_H
 #include <sys/mman.h>
@@ -35,7 +42,6 @@
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
 #endif
-
 #ifdef HAVE_FCNTL_H
 #include <fcntl.h>
 #endif
@@ -57,15 +63,6 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-
-#include <jpeglib.h>
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <jpeg-thumbnailer/jpeg-thumbnailer.h>
 
 
 
