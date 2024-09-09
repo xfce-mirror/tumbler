@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -30,11 +30,16 @@
 
 
 
-static void     tumbler_cache_plugin_constructed (GObject           *object);
-static void     tumbler_cache_plugin_dispose     (GObject           *object);
-static void     tumbler_cache_plugin_finalize    (GObject           *object);
-static gboolean tumbler_cache_plugin_load        (GTypeModule       *type_module);
-static void     tumbler_cache_plugin_unload      (GTypeModule       *type_module);
+static void
+tumbler_cache_plugin_constructed (GObject *object);
+static void
+tumbler_cache_plugin_dispose (GObject *object);
+static void
+tumbler_cache_plugin_finalize (GObject *object);
+static gboolean
+tumbler_cache_plugin_load (GTypeModule *type_module);
+static void
+tumbler_cache_plugin_unload (GTypeModule *type_module);
 
 
 
@@ -42,11 +47,11 @@ struct _TumblerCachePlugin
 {
   GTypeModule __parent__;
 
-  GModule      *library;
+  GModule *library;
 
-  void          (*initialize) (TumblerCachePlugin *plugin);
-  void          (*shutdown)   (void);
-  TumblerCache *(*get_cache)  (void);
+  void (*initialize) (TumblerCachePlugin *plugin);
+  void (*shutdown) (void);
+  TumblerCache *(*get_cache) (void);
 };
 
 
@@ -59,15 +64,15 @@ static void
 tumbler_cache_plugin_class_init (TumblerCachePluginClass *klass)
 {
   GTypeModuleClass *gtype_module_class;
-  GObjectClass     *gobject_class;
+  GObjectClass *gobject_class;
 
   /* Determine the parent type class */
   tumbler_cache_plugin_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = tumbler_cache_plugin_constructed; 
-  gobject_class->dispose = tumbler_cache_plugin_dispose; 
-  gobject_class->finalize = tumbler_cache_plugin_finalize; 
+  gobject_class->constructed = tumbler_cache_plugin_constructed;
+  gobject_class->dispose = tumbler_cache_plugin_dispose;
+  gobject_class->finalize = tumbler_cache_plugin_finalize;
 
   gtype_module_class = G_TYPE_MODULE_CLASS (klass);
   gtype_module_class->load = tumbler_cache_plugin_load;
@@ -110,10 +115,10 @@ static gboolean
 tumbler_cache_plugin_load (GTypeModule *type_module)
 {
   TumblerCachePlugin *plugin = TUMBLER_CACHE_PLUGIN (type_module);
-  gchar              *path;
+  gchar *path;
 
   /* load the module using the runtime link eeditor */
-  path = g_build_filename (TUMBLER_PLUGIN_DIRECTORY, G_DIR_SEPARATOR_S, 
+  path = g_build_filename (TUMBLER_PLUGIN_DIRECTORY, G_DIR_SEPARATOR_S,
                            "cache", G_DIR_SEPARATOR_S, type_module->name, NULL);
   plugin->library = g_module_open (path, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
   g_free (path);
@@ -122,8 +127,8 @@ tumbler_cache_plugin_load (GTypeModule *type_module)
   if (G_LIKELY (plugin->library != NULL))
     {
       /* verify that all required public symbols are present in the plugin */
-      if (g_module_symbol (plugin->library, "tumbler_plugin_initialize", 
-                            (gpointer) &plugin->initialize)
+      if (g_module_symbol (plugin->library, "tumbler_plugin_initialize",
+                           (gpointer) &plugin->initialize)
           && g_module_symbol (plugin->library, "tumbler_plugin_shutdown",
                               (gpointer) &plugin->shutdown)
           && g_module_symbol (plugin->library, "tumbler_plugin_get_cache",
@@ -178,7 +183,7 @@ tumbler_cache_plugin_get_default (void)
   if (plugin == NULL)
     {
       plugin = g_object_new (TUMBLER_TYPE_CACHE_PLUGIN, NULL);
-      g_type_module_set_name (G_TYPE_MODULE (plugin), 
+      g_type_module_set_name (G_TYPE_MODULE (plugin),
                               "tumbler-cache-plugin." G_MODULE_SUFFIX);
       g_object_add_weak_pointer (G_OBJECT (plugin), (gpointer) &plugin);
 

@@ -30,8 +30,10 @@
 
 
 
-static void   ffmpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *ffmpeg_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+ffmpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -91,8 +93,7 @@ ffmpeg_thumbnailer_provider_init (FfmpegThumbnailerProvider *provider)
 static GList *
 ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  static const gchar *mime_types[] =
-  {
+  static const gchar *mime_types[] = {
     "video/jpeg",
     "video/mp4",
     "video/mp2t",
@@ -111,9 +112,9 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
     "video/webm",
     NULL
   };
-  FfmpegThumbnailer  *thumbnailer;
-  GList              *thumbnailers = NULL;
-  GStrv               uri_schemes;
+  FfmpegThumbnailer *thumbnailer;
+  GList *thumbnailers = NULL;
+  GStrv uri_schemes;
 
   /* determine the URI schemes supported by GIO */
   uri_schemes = tumbler_util_get_supported_uri_schemes ();

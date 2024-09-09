@@ -28,8 +28,10 @@
 
 
 
-static void   desktop_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *desktop_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+desktop_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+desktop_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -117,10 +119,9 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
   rc = g_key_file_new ();
 
   /* try to load the mandatory key file data from the input file */
-  if (! g_key_file_load_from_file (rc, filename, G_KEY_FILE_NONE, &error)
+  if (!g_key_file_load_from_file (rc, filename, G_KEY_FILE_NONE, &error)
       || (exec = g_key_file_get_string (rc, "Thumbnailer Entry", "Exec", &error)) == NULL
-      || (mime_types = g_key_file_get_string_list (rc, "Thumbnailer Entry",
-                                                   "MimeType", NULL, &error)) == NULL)
+      || (mime_types = g_key_file_get_string_list (rc, "Thumbnailer Entry", "MimeType", NULL, &error)) == NULL)
     {
       g_warning (TUMBLER_WARNING_LOAD_FILE_FAILED, filename, error->message);
       g_error_free (error);
@@ -214,12 +215,12 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
        base_name != NULL;
        base_name = g_dir_read_name (dir))
     {
-      GFileType    type;
-      GFile       *file;
+      GFileType type;
+      GFile *file;
       DesktopThumbnailer *thumbnailer = NULL;
 
       /* skip files that don't end with the .thumbnailer extension or already added */
-      if (! g_str_has_suffix (base_name, ".thumbnailer")
+      if (!g_str_has_suffix (base_name, ".thumbnailer")
           || g_hash_table_lookup (*single_name, base_name))
         continue;
 
@@ -240,7 +241,7 @@ desktop_thumbnailer_get_thumbnailers_from_dir (GList *thumbnailers,
         }
     }
 
-  g_dir_close(dir);
+  g_dir_close (dir);
 
   return thumbnailers;
 }

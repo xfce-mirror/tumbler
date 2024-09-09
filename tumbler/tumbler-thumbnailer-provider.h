@@ -9,16 +9,16 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
-#if !defined (_TUMBLER_INSIDE_TUMBLER_H) && !defined (TUMBLER_COMPILATION)
+#if !defined(_TUMBLER_INSIDE_TUMBLER_H) && !defined(TUMBLER_COMPILATION)
 #error "Only <tumbler/tumbler.h> may be included directly. This file might disappear or change contents."
 #endif
 
@@ -44,7 +44,8 @@ struct _TumblerThumbnailerProviderInterface
   GList *(*get_thumbnailers) (TumblerThumbnailerProvider *provider);
 };
 
-GList *tumbler_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GList *
+tumbler_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
 

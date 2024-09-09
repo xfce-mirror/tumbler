@@ -32,21 +32,25 @@
 
 
 
-static void desktop_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
-                                          GCancellable               *cancellable,
-                                          TumblerFileInfo            *info);
+static void
+desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                            GCancellable *cancellable,
+                            TumblerFileInfo *info);
 
-static void desktop_thumbnailer_get_property(GObject *object,
-                                             guint prop_id,
-                                             GValue *value,
-                                             GParamSpec *pspec);
+static void
+desktop_thumbnailer_get_property (GObject *object,
+                                  guint prop_id,
+                                  GValue *value,
+                                  GParamSpec *pspec);
 
-static void desktop_thumbnailer_set_property(GObject *object,
-                                             guint prop_id,
-                                             const GValue *value,
-                                             GParamSpec *pspec);
+static void
+desktop_thumbnailer_set_property (GObject *object,
+                                  guint prop_id,
+                                  const GValue *value,
+                                  GParamSpec *pspec);
 
-static void desktop_thumbnailer_finalize(GObject *object);
+static void
+desktop_thumbnailer_finalize (GObject *object);
 
 
 
@@ -80,42 +84,44 @@ desktop_thumbnailer_register (TumblerProviderPlugin *plugin)
 
 
 
-static void desktop_thumbnailer_get_property(GObject *object,
-                                             guint prop_id,
-                                             GValue *value,
-                                             GParamSpec *pspec)
+static void
+desktop_thumbnailer_get_property (GObject *object,
+                                  guint prop_id,
+                                  GValue *value,
+                                  GParamSpec *pspec)
 {
-  DesktopThumbnailer *thumbnailer = DESKTOP_THUMBNAILER(object);
+  DesktopThumbnailer *thumbnailer = DESKTOP_THUMBNAILER (object);
 
-  switch(prop_id)
+  switch (prop_id)
     {
     case PROP_EXEC:
-      g_value_set_string(value, thumbnailer->exec);
+      g_value_set_string (value, thumbnailer->exec);
       break;
 
     default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
 }
 
 
 
-static void desktop_thumbnailer_set_property(GObject *object,
-                                             guint prop_id,
-                                             const GValue *value,
-                                             GParamSpec *pspec)
+static void
+desktop_thumbnailer_set_property (GObject *object,
+                                  guint prop_id,
+                                  const GValue *value,
+                                  GParamSpec *pspec)
 {
-  DesktopThumbnailer *thumbnailer = DESKTOP_THUMBNAILER(object);
+  DesktopThumbnailer *thumbnailer = DESKTOP_THUMBNAILER (object);
 
-  switch(prop_id)
+  switch (prop_id)
     {
     case PROP_EXEC:
-      thumbnailer->exec = g_strdup(g_value_get_string(value));
+      thumbnailer->exec = g_strdup (g_value_get_string (value));
       break;
 
     default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
 }
@@ -126,21 +132,20 @@ static void
 desktop_thumbnailer_class_init (DesktopThumbnailerClass *klass)
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
-  GObjectClass                    *gobject_class;
+  GObjectClass *gobject_class;
 
-  gobject_class = G_OBJECT_CLASS(klass);
+  gobject_class = G_OBJECT_CLASS (klass);
 
   gobject_class->get_property = desktop_thumbnailer_get_property;
   gobject_class->set_property = desktop_thumbnailer_set_property;
 
   g_object_class_install_property (gobject_class,
                                    PROP_EXEC,
-                                   g_param_spec_string("exec",
-                                                       NULL,
-                                                       NULL,
-                                                       NULL,
-                                                       G_PARAM_CONSTRUCT_ONLY |
-                                                       G_PARAM_READWRITE));
+                                   g_param_spec_string ("exec",
+                                                        NULL,
+                                                        NULL,
+                                                        NULL,
+                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 
   gobject_class->finalize = desktop_thumbnailer_finalize;
   abstractthumbnailer_class = TUMBLER_ABSTRACT_THUMBNAILER_CLASS (klass);
@@ -156,7 +161,7 @@ desktop_thumbnailer_class_finalize (DesktopThumbnailerClass *klass)
 
 
 static void
-desktop_thumbnailer_finalize(GObject *object)
+desktop_thumbnailer_finalize (GObject *object)
 {
   DesktopThumbnailer *thumbnailer = DESKTOP_THUMBNAILER (object);
 
@@ -172,7 +177,7 @@ desktop_thumbnailer_init (DesktopThumbnailer *thumbnailer)
 
 
 static void
-te_string_append_quoted (GString     *string,
+te_string_append_quoted (GString *string,
                          const gchar *unquoted)
 {
   gchar *quoted;
@@ -188,15 +193,15 @@ static gboolean
 desktop_thumbnailer_exec_parse (const gchar *exec,
                                 const gchar *file_path,
                                 const gchar *file_uri,
-                                gint         desired_size,
+                                gint desired_size,
                                 const gchar *output_file,
-                                gint        *argc,
-                                gchar     ***argv,
-                                GError     **error)
+                                gint *argc,
+                                gchar ***argv,
+                                GError **error)
 {
   const gchar *p;
-  gboolean     result = FALSE;
-  GString     *command_line = g_string_new (NULL);
+  gboolean result = FALSE;
+  GString *command_line = g_string_new (NULL);
 
   for (p = exec; *p != '\0'; ++p)
     {
@@ -215,7 +220,7 @@ desktop_thumbnailer_exec_parse (const gchar *exec,
               break;
 
             case 's':
-              g_string_append_printf(command_line, "%d", desired_size);
+              g_string_append_printf (command_line, "%d", desired_size);
               break;
 
             case 'o':
@@ -244,22 +249,22 @@ desktop_thumbnailer_exec_parse (const gchar *exec,
 
 static GdkPixbuf *
 desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
-                                    const gchar        *uri,
-                                    const gchar        *path,
-                                    gint                width,
-                                    gint                height,
-                                    GCancellable       *cancellable,
-                                    GError            **error)
+                                    const gchar *uri,
+                                    const gchar *path,
+                                    gint width,
+                                    gint height,
+                                    GCancellable *cancellable,
+                                    GError **error)
 {
   GFileIOStream *stream;
-  GFile     *tmpfile;
-  gchar     *exec, *std_err;
-  gchar    **cmd_argv;
+  GFile *tmpfile;
+  gchar *exec, *std_err;
+  gchar **cmd_argv;
   const gchar *tmpfilepath;
-  gboolean   res;
-  gint       cmd_argc;
-  gint       size;
-  gchar     *working_directory = NULL;
+  gboolean res;
+  gint cmd_argc;
+  gint size;
+  gchar *working_directory = NULL;
   GdkPixbuf *source, *pixbuf = NULL;
   gboolean verbose;
 
@@ -273,7 +278,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
   tmpfile = g_file_new_tmp ("tumbler-XXXXXX.png", &stream, error);
 
-  if ( G_LIKELY (tmpfile) )
+  if (G_LIKELY (tmpfile))
     {
       tmpfilepath = g_file_peek_path (tmpfile);
 
@@ -324,7 +329,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
           g_strfreev (cmd_argv);
         }
       else
-          g_warning ("Malformed command line \"%s\": %s", exec, (*error)->message);
+        g_warning ("Malformed command line \"%s\": %s", exec, (*error)->message);
 
       g_file_delete (tmpfile, NULL, NULL);
       g_object_unref (tmpfile);
@@ -339,19 +344,18 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
 static void
 desktop_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                            GCancellable               *cancellable,
-                            TumblerFileInfo            *info)
+                            GCancellable *cancellable,
+                            TumblerFileInfo *info)
 {
-
-  TumblerThumbnail           *thumbnail;
-  TumblerThumbnailFlavor     *flavor;
-  TumblerImageData            data;
-  const gchar                *uri;
-  GFile                      *file;
-  gint                        height;
-  gint                        width;
-  GError                     *error  =  NULL;
-  GdkPixbuf                  *pixbuf =  NULL;
+  TumblerThumbnail *thumbnail;
+  TumblerThumbnailFlavor *flavor;
+  TumblerImageData data;
+  const gchar *uri;
+  GFile *file;
+  gint height;
+  gint width;
+  GError *error = NULL;
+  GdkPixbuf *pixbuf = NULL;
 
   g_return_if_fail (DESKTOP_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));

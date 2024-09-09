@@ -29,7 +29,8 @@ G_BEGIN_DECLS
 #define DESKTOP_TYPE_THUMBNAILER_PROVIDER (desktop_thumbnailer_provider_get_type ())
 G_DECLARE_FINAL_TYPE (DesktopThumbnailerProvider, desktop_thumbnailer_provider, DESKTOP, THUMBNAILER_PROVIDER, GObject)
 
-void desktop_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void
+desktop_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

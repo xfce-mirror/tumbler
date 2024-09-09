@@ -3,18 +3,18 @@
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -52,78 +52,94 @@ enum
 
 
 
-typedef struct _OverrideInfo    OverrideInfo;
+typedef struct _OverrideInfo OverrideInfo;
 typedef struct _ThumbnailerInfo ThumbnailerInfo;
 
 
 
-static void             tumbler_manager_constructed       (GObject          *object);
-static void             tumbler_manager_finalize          (GObject          *object);
-static void             tumbler_manager_get_property      (GObject          *object,
-                                                           guint             prop_id,
-                                                           GValue           *value,
-                                                           GParamSpec       *pspec);
-static void             tumbler_manager_set_property      (GObject          *object,
-                                                           guint             prop_id,
-                                                           const GValue     *value,
-                                                           GParamSpec       *pspec);
-static gboolean         tumbler_manager_register_cb       (TumblerExportedManager *skeleton,
-                                                           GDBusMethodInvocation  *invocation,
-                                                           const gchar *const     *uri_schemes, 
-                                                           const gchar *const     *mime_types,
-                                                           TumblerManager         *manager);
-static void             tumbler_manager_monitor_unref     (GFileMonitor     *monitor,
-                                                           TumblerManager   *manager);
-static void             tumbler_manager_load_thumbnailers (TumblerManager   *manager,
-                                                           GFile            *directory);
-static void             tumbler_manager_directory_changed (TumblerManager   *manager,
-                                                           GFile            *file,
-                                                           GFile            *other_file,
-                                                           GFileMonitorEvent event_type,
-                                                           GFileMonitor     *monitor);
+static void
+tumbler_manager_constructed (GObject *object);
+static void
+tumbler_manager_finalize (GObject *object);
+static void
+tumbler_manager_get_property (GObject *object,
+                              guint prop_id,
+                              GValue *value,
+                              GParamSpec *pspec);
+static void
+tumbler_manager_set_property (GObject *object,
+                              guint prop_id,
+                              const GValue *value,
+                              GParamSpec *pspec);
+static gboolean
+tumbler_manager_register_cb (TumblerExportedManager *skeleton,
+                             GDBusMethodInvocation *invocation,
+                             const gchar *const *uri_schemes,
+                             const gchar *const *mime_types,
+                             TumblerManager *manager);
+static void
+tumbler_manager_monitor_unref (GFileMonitor *monitor,
+                               TumblerManager *manager);
+static void
+tumbler_manager_load_thumbnailers (TumblerManager *manager,
+                                   GFile *directory);
+static void
+tumbler_manager_directory_changed (TumblerManager *manager,
+                                   GFile *file,
+                                   GFile *other_file,
+                                   GFileMonitorEvent event_type,
+                                   GFileMonitor *monitor);
 
-static OverrideInfo    *override_info_new                 (void);
-static void             override_info_free                (gpointer          pointer);
-static void             override_info_list_free           (gpointer          pointer);
-static ThumbnailerInfo *thumbnailer_info_new              (void);
-static void             thumbnailer_info_free             (ThumbnailerInfo  *info);
-static void             thumbnailer_info_list_free        (gpointer          pointer);
+static OverrideInfo *
+override_info_new (void);
+static void
+override_info_free (gpointer pointer);
+static void
+override_info_list_free (gpointer pointer);
+static ThumbnailerInfo *
+thumbnailer_info_new (void);
+static void
+thumbnailer_info_free (ThumbnailerInfo *info);
+static void
+thumbnailer_info_list_free (gpointer pointer);
 
 /* debug */
-static void             dump_overrides                    (TumblerManager   *manager);
-static void             dump_thumbnailers                 (TumblerManager   *manager);
+static void
+dump_overrides (TumblerManager *manager);
+static void
+dump_thumbnailers (TumblerManager *manager);
 
 
 
 struct _TumblerManager
 {
   TumblerComponent __parent__;
-  GDBusConnection        *connection;
+  GDBusConnection *connection;
   TumblerExportedManager *skeleton;
-  
-  gboolean                dbus_interface_exported;
-  
-  TumblerRegistry        *registry;
 
-  /* Directory and monitor objects for the thumbnailer dirs in 
+  gboolean dbus_interface_exported;
+
+  TumblerRegistry *registry;
+
+  /* Directory and monitor objects for the thumbnailer dirs in
    * XDG_DATA_HOME and XDG_DATA_DIRS */
-  GList           *directories;
-  GList           *monitors;
+  GList *directories;
+  GList *monitors;
 
   /* hash table for override information, mapping hash keys to lists
-   * of override infos. in each of these lists the infos are sorted by 
-   * the directory index, with higher priority directories (smaller 
+   * of override infos. in each of these lists the infos are sorted by
+   * the directory index, with higher priority directories (smaller
    * directory index) coming first */
-  GHashTable      *overrides;
+  GHashTable *overrides;
 
-  /* hash table for thumbnailer service information, mapping .service 
+  /* hash table for thumbnailer service information, mapping .service
    * basenames to lists of thumbnailer infos installed into the
    * system with these basenames. in each of these lists the infos are
-   * sorted by the directory index, with higher priority directories 
+   * sorted by the directory index, with higher priority directories
    * (smaller directory index) coming first */
-  GHashTable      *thumbnailers;
+  GHashTable *thumbnailers;
 
-  TUMBLER_MUTEX    (mutex);
+  TUMBLER_MUTEX (mutex);
 };
 
 struct _OverrideInfo
@@ -131,16 +147,16 @@ struct _OverrideInfo
   gchar *name;
   gchar *uri_scheme;
   gchar *mime_type;
-  gint   dir_index;
+  gint dir_index;
 };
 
 struct _ThumbnailerInfo
 {
   TumblerThumbnailer *thumbnailer;
-  gint                dir_index;
+  gint dir_index;
 
   /* debug */
-  GFile              *file;
+  GFile *file;
 };
 
 
@@ -153,10 +169,10 @@ static void
 tumbler_manager_class_init (TumblerManagerClass *klass)
 {
   GObjectClass *gobject_class;
-  
+
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->constructed = tumbler_manager_constructed;
-  gobject_class->finalize = tumbler_manager_finalize; 
+  gobject_class->finalize = tumbler_manager_finalize;
   gobject_class->get_property = tumbler_manager_get_property;
   gobject_class->set_property = tumbler_manager_set_property;
 
@@ -165,16 +181,14 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
                                                         "connection",
                                                         "connection",
                                                         G_TYPE_DBUS_CONNECTION,
-                                                        G_PARAM_READWRITE |
-                                                        G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_install_property (gobject_class, PROP_REGISTRY,
                                    g_param_spec_object ("registry",
                                                         "registry",
                                                         "registry",
                                                         TUMBLER_TYPE_REGISTRY,
-                                                        G_PARAM_READWRITE |
-                                                        G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
 
@@ -197,23 +211,21 @@ tumbler_manager_init (TumblerManager *manager)
 
 
 
-
-
 static void
 tumbler_manager_constructed (GObject *object)
 {
   TumblerManager *manager;
   GError *error = NULL;
-  
+
   manager = TUMBLER_MANAGER (object);
 
   manager->skeleton = tumbler_exported_manager_skeleton_new ();
 
-  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(manager->skeleton),
-				                            manager->connection,
-				                            TUMBLER_SERVICE_PATH_PREFIX "/Manager1",
-				                            &error);
-	
+  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (manager->skeleton),
+                                    manager->connection,
+                                    TUMBLER_SERVICE_PATH_PREFIX "/Manager1",
+                                    &error);
+
   if (error != NULL)
     {
       g_critical ("error exporting thumbnail manager on session bus: %s", error->message);
@@ -223,8 +235,8 @@ tumbler_manager_constructed (GObject *object)
   else
     {
       manager->dbus_interface_exported = TRUE;
-      g_signal_connect(manager->skeleton, "handle-register", 
-                       G_CALLBACK(tumbler_manager_register_cb), manager);
+      g_signal_connect (manager->skeleton, "handle-register",
+                        G_CALLBACK (tumbler_manager_register_cb), manager);
     }
 }
 
@@ -251,18 +263,16 @@ tumbler_manager_finalize (GObject *object)
 
   /* Unexport from dbus */
   if (manager->dbus_interface_exported)
-    g_dbus_interface_skeleton_unexport_from_connection 
-      (
-        G_DBUS_INTERFACE_SKELETON (manager->skeleton),
-        manager->connection
-      );
+    g_dbus_interface_skeleton_unexport_from_connection (
+      G_DBUS_INTERFACE_SKELETON (manager->skeleton),
+      manager->connection);
 
   /* release the Skeleton object */
   g_object_unref (manager->skeleton);
-  
+
   /* release the D-Bus connection object */
   g_object_unref (manager->connection);
-  
+
   tumbler_mutex_unlock (manager->mutex);
 
   /* destroy the mutex */
@@ -274,9 +284,9 @@ tumbler_manager_finalize (GObject *object)
 
 
 static void
-tumbler_manager_get_property (GObject    *object,
-                              guint       prop_id,
-                              GValue     *value,
+tumbler_manager_get_property (GObject *object,
+                              guint prop_id,
+                              GValue *value,
                               GParamSpec *pspec)
 {
   TumblerManager *manager = TUMBLER_MANAGER (object);
@@ -298,10 +308,10 @@ tumbler_manager_get_property (GObject    *object,
 
 
 static void
-tumbler_manager_set_property (GObject      *object,
-                              guint         prop_id,
+tumbler_manager_set_property (GObject *object,
+                              guint prop_id,
                               const GValue *value,
-                              GParamSpec   *pspec)
+                              GParamSpec *pspec)
 {
   TumblerManager *manager = TUMBLER_MANAGER (object);
 
@@ -318,16 +328,16 @@ tumbler_manager_set_property (GObject      *object,
       break;
     }
 }
- 
+
 static gboolean
 tumbler_manager_register_cb (TumblerExportedManager *skeleton,
-                             GDBusMethodInvocation  *invocation,
-                             const gchar *const     *uri_schemes, 
-                             const gchar *const     *mime_types,
-                             TumblerManager         *manager)
+                             GDBusMethodInvocation *invocation,
+                             const gchar *const *uri_schemes,
+                             const gchar *const *mime_types,
+                             TumblerManager *manager)
 {
   TumblerThumbnailer *thumbnailer;
-  const gchar        *sender_name;
+  const gchar *sender_name;
 
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
   g_return_val_if_fail (uri_schemes != NULL, FALSE);
@@ -342,7 +352,7 @@ tumbler_manager_register_cb (TumblerExportedManager *skeleton,
   tumbler_mutex_lock (manager->mutex);
 
   thumbnailer = tumbler_specialized_thumbnailer_new_foreign (manager->connection,
-                                                             sender_name, uri_schemes, 
+                                                             sender_name, uri_schemes,
                                                              mime_types);
 
   tumbler_registry_add (manager->registry, thumbnailer);
@@ -351,13 +361,13 @@ tumbler_manager_register_cb (TumblerExportedManager *skeleton,
 
   tumbler_mutex_unlock (manager->mutex);
 
-  tumbler_exported_manager_complete_register(skeleton, invocation);
-  
+  tumbler_exported_manager_complete_register (skeleton, invocation);
+
   return TRUE;
 }
- 
+
 static void
-tumbler_manager_monitor_unref (GFileMonitor   *monitor,
+tumbler_manager_monitor_unref (GFileMonitor *monitor,
                                TumblerManager *manager)
 {
   if (monitor != NULL)
@@ -379,8 +389,8 @@ tumbler_manager_monitor_unref (GFileMonitor   *monitor,
  * @directory : a #GFile pointing to a thumbnailer directory.
  *
  * This function returns the index of the @directory in the thumbnailer
- * directory list that is managed by the @manager. A low index means 
- * higher priority (e.g. XDG_DATA_HOME/thumbnailers comes before 
+ * directory list that is managed by the @manager. A low index means
+ * higher priority (e.g. XDG_DATA_HOME/thumbnailers comes before
  * any thumbnailer dir in XDG_DATA_DIRS in the list). An index of -1
  * means the directory is not a thumbnailer directory.
  *
@@ -390,11 +400,11 @@ tumbler_manager_monitor_unref (GFileMonitor   *monitor,
  */
 static gint
 tumbler_manager_get_dir_index (TumblerManager *manager,
-                               GFile          *directory)
+                               GFile *directory)
 {
   GList *lp;
-  gint   dir_index = -1;
-  gint   n;
+  gint dir_index = -1;
+  gint n;
 
   /* iterate over all thumbnailer directories */
   for (lp = manager->directories, n = 0; dir_index < 0 && lp != NULL; lp = lp->next, ++n)
@@ -404,7 +414,7 @@ tumbler_manager_get_dir_index (TumblerManager *manager,
         dir_index = n;
     }
 
-  /* return the index of the first thumbnailer directory that matches 
+  /* return the index of the first thumbnailer directory that matches
    * the input directory or -1 if there is no such directory */
   return dir_index;
 }
@@ -432,15 +442,15 @@ tumbler_manager_get_dir_index (TumblerManager *manager,
  */
 static void
 tumbler_manager_update_preferred (TumblerManager *manager,
-                                  const gchar    *hash_key)
+                                  const gchar *hash_key)
 {
   TumblerThumbnailer *thumbnailer = NULL;
-  ThumbnailerInfo    *info;
-  GHashTableIter      iter;
-  const gchar        *current_name;
-  const gchar        *name;
-  GList             **overrides;
-  GList             **thumbnailers;
+  ThumbnailerInfo *info;
+  GHashTableIter iter;
+  const gchar *current_name;
+  const gchar *name;
+  GList **overrides;
+  GList **thumbnailers;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (hash_key != NULL && *hash_key != '\0');
@@ -453,24 +463,24 @@ tumbler_manager_update_preferred (TumblerManager *manager,
        * to a non-empty override info list, otherwise there is a bug */
       g_assert (overrides != NULL && *overrides != NULL);
 
-      /* determine the name of the active (= the first) override info 
+      /* determine the name of the active (= the first) override info
        * for this hash key */
-      name = ((OverrideInfo *)(*overrides)->data)->name;
-      
+      name = ((OverrideInfo *) (*overrides)->data)->name;
+
       /* iterate over all thumbnailer info lists we have. stop as soon as we
        * have one matching thumbnailer info that has the correct name and
        * supports the hash key */
       g_hash_table_iter_init (&iter, manager->thumbnailers);
-      while (thumbnailer == NULL 
+      while (thumbnailer == NULL
              && g_hash_table_iter_next (&iter, NULL, (gpointer) &thumbnailers))
         {
-          /* each value in the thumbnailer info hash table has to be a 
+          /* each value in the thumbnailer info hash table has to be a
            * valid pointer to a non-empty thumbnailer info list, otherwise
            * there is a bug */
           g_assert (thumbnailers != NULL && *thumbnailers != NULL);
 
           /* get the active (= the first) thumbnailer info in the list */
-          info = (ThumbnailerInfo *)(*thumbnailers)->data;
+          info = (ThumbnailerInfo *) (*thumbnailers)->data;
 
           /* each element in the thumbnailer info list has to be a valid
            * thumbnailer info with a specialized thumbnailer object */
@@ -491,7 +501,7 @@ tumbler_manager_update_preferred (TumblerManager *manager,
         }
     }
 
-  /* update the preferred information of the registry. if no 
+  /* update the preferred information of the registry. if no
    * thumbnailer was found, this will reset the preferred information
    * for this hash key */
   tumbler_registry_set_preferred (manager->registry, hash_key, thumbnailer);
@@ -500,11 +510,11 @@ tumbler_manager_update_preferred (TumblerManager *manager,
 
 
 /**
- * tumbler_manager_parse_overrides: 
+ * tumbler_manager_parse_overrides:
  * @manager : a #TumblerManager.
  * @file    : a #GFile that is supposed to be parsed.
  *
- * Parses the override sections from @file into a list of 
+ * Parses the override sections from @file into a list of
  * #OverrideInfo<!---->s, one for each hash key in the @file. The caller
  * is responsible to free the returned infos with override_info_list_free().
  *
@@ -512,20 +522,20 @@ tumbler_manager_update_preferred (TumblerManager *manager,
  */
 static GList *
 tumbler_manager_parse_overrides (TumblerManager *manager,
-                                 GFile          *file)
+                                 GFile *file)
 {
   GKeyFile *key_file;
-  GError   *error = NULL;
-  GList    *overrides = NULL;
-  GFile    *directory;
-  gchar   **sections;
+  GError *error = NULL;
+  GList *overrides = NULL;
+  GFile *directory;
+  gchar **sections;
   const gchar *filename;
-  gchar    *uri_type;
-  guint     n;
+  gchar *uri_type;
+  guint n;
 
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), NULL);
   g_return_val_if_fail (G_IS_FILE (file), NULL);
-  
+
   filename = g_file_peek_path (file);
 
   if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR))
@@ -563,8 +573,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
           continue;
         }
 
-      info->uri_scheme = g_key_file_get_string (key_file, sections[n], 
-                                                "UriScheme", &error);
+      info->uri_scheme = g_key_file_get_string (key_file, sections[n], "UriScheme", &error);
       if (info->uri_scheme == NULL)
         {
           g_warning (WARNING_MALFORMED_SECTION, sections[n], filename, error->message);
@@ -576,8 +585,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
           continue;
         }
 
-      info->mime_type = g_key_file_get_string (key_file, sections[n], 
-                                               "MimeType", &error);
+      info->mime_type = g_key_file_get_string (key_file, sections[n], "MimeType", &error);
       if (info->mime_type == NULL)
         {
           g_warning (WARNING_MALFORMED_SECTION, sections[n], filename, error->message);
@@ -626,7 +634,7 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
  * @file    : an overrides GFile to load.
  *
  * This function tries to parse @file into a number of override infos, one
- * for each section in the @file. If this succeeds, it adds each info to 
+ * for each section in the @file. If this succeeds, it adds each info to
  * the correct override info list in the hash table that maps hash keys to
  * infos. The infos are inserted in sorted order (where the sort key is the
  * directory index). This ensures that infos from thumbnailer directories
@@ -634,19 +642,19 @@ tumbler_manager_parse_overrides (TumblerManager *manager,
  */
 static void
 tumbler_manager_load_overrides_file (TumblerManager *manager,
-                                     GFile          *file)
+                                     GFile *file)
 {
   OverrideInfo *info;
   OverrideInfo *info2;
-  gboolean      first = FALSE;
-  gboolean      inserted = FALSE;
-  GList        *overrides;
-  GList        *lp;
-  GList        *op;
-  GList       **list;
-  GFile        *directory;
-  gchar        *hash_key;
-  gint          dir_index;
+  gboolean first = FALSE;
+  gboolean inserted = FALSE;
+  GList *overrides;
+  GList *lp;
+  GList *op;
+  GList **list;
+  GFile *directory;
+  gchar *hash_key;
+  gint dir_index;
 
   g_return_if_fail (TUMBLER_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (file));
@@ -662,7 +670,7 @@ tumbler_manager_load_overrides_file (TumblerManager *manager,
 
   /* try parsing the file into override infos */
   overrides = tumbler_manager_parse_overrides (manager, file);
-  
+
   /* iterate over all override infos we parsed successfully */
   for (op = overrides; op != NULL; op = op->next)
     {
@@ -752,8 +760,8 @@ static void
 tumbler_manager_load_overrides (TumblerManager *manager)
 {
   GFileType type;
-  GFile    *file;
-  GList    *lp;
+  GFile *file;
+  GList *lp;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
 
@@ -794,23 +802,23 @@ tumbler_manager_load_overrides (TumblerManager *manager)
  * hash key.
  *
  * The function is supposed to be called when an overrides file is deleted
- * from the hard disk and we need to synchronize our internal 
+ * from the hard disk and we need to synchronize our internal
  * representation.
  */
 static void
 tumbler_manager_unload_overrides_file (TumblerManager *manager,
-                                       GFile          *file)
+                                       GFile *file)
 {
   GHashTableIter iter;
-  OverrideInfo  *info;
-  const gchar   *hash_key;
-  gboolean       first;
-  GFile         *directory;
-  GList         *delete_keys = NULL;
-  GList         *update_keys = NULL;
-  GList         *lp;
-  GList        **overrides;
-  gint           dir_index;
+  OverrideInfo *info;
+  const gchar *hash_key;
+  gboolean first;
+  GFile *directory;
+  GList *delete_keys = NULL;
+  GList *update_keys = NULL;
+  GList *lp;
+  GList **overrides;
+  gint dir_index;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (file));
@@ -839,7 +847,7 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
       /* iterate over all override infos in the current list */
       for (lp = *overrides; lp != NULL; lp = lp->next)
         {
-          info = (OverrideInfo *)lp->data;
+          info = (OverrideInfo *) lp->data;
 
           /* there should be no NULL elements in the list, otherwise... bug! */
           g_assert (info != NULL);
@@ -902,26 +910,26 @@ tumbler_manager_unload_overrides_file (TumblerManager *manager,
  */
 static void
 tumbler_manager_load_thumbnailer (TumblerManager *manager,
-                                  GFile          *file)
+                                  GFile *file)
 {
   ThumbnailerInfo *info;
   ThumbnailerInfo *info2;
-  struct stat      file_stat;
-  GKeyFile        *key_file;
-  gboolean         first = FALSE;
-  gboolean         inserted = FALSE;
-  GError          *error = NULL;
-  GFile           *directory;
-  GList          **list;
-  GList           *lp;
-  gchar          **hash_keys;
-  gchar           *base_name;
-  const gchar     *filename;
-  gchar           *name;
-  gchar           *object_path;
-  gchar          **uri_schemes;
-  gchar          **mime_types;
-  guint            n;
+  struct stat file_stat;
+  GKeyFile *key_file;
+  gboolean first = FALSE;
+  gboolean inserted = FALSE;
+  GError *error = NULL;
+  GFile *directory;
+  GList **list;
+  GList *lp;
+  gchar **hash_keys;
+  gchar *base_name;
+  const gchar *filename;
+  gchar *name;
+  gchar *object_path;
+  gchar **uri_schemes;
+  gchar **mime_types;
+  guint n;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (file));
@@ -956,7 +964,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
     }
 
   /* determine the D-Bus object path of the specialized thumbnailer */
-  object_path = g_key_file_get_string (key_file, "Specialized Thumbnailer", 
+  object_path = g_key_file_get_string (key_file, "Specialized Thumbnailer",
                                        "ObjectPath", &error);
   if (object_path == NULL)
     {
@@ -1021,10 +1029,10 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
 
   /* create a new specialized thumbnailer object and pass all the required
    * information on to it */
-  info->thumbnailer = 
+  info->thumbnailer =
     tumbler_specialized_thumbnailer_new (manager->connection, name, object_path,
-                                         (const gchar *const *)uri_schemes,
-                                         (const gchar *const *)mime_types,
+                                         (const gchar *const *) uri_schemes,
+                                         (const gchar *const *) mime_types,
                                          file_stat.st_mtime);
 
   /* free stuff */
@@ -1033,7 +1041,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   g_free (object_path);
   g_free (name);
   g_key_file_free (key_file);
-  
+
   /* determine the basename of the file */
   base_name = g_file_get_basename (file);
 
@@ -1054,7 +1062,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
       /* add the list to the hash table */
       g_hash_table_insert (manager->thumbnailers, base_name, list);
 
-      /* the new thumbnailer info is first in the new list, so we need to 
+      /* the new thumbnailer info is first in the new list, so we need to
        * update the preferred thumbnailer for all hash keys supported by
        * it */
       first = TRUE;
@@ -1080,7 +1088,7 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
           if (info2->dir_index > info->dir_index)
             {
               /* if the current item is the first in the list, we'll have
-               * to update the preferred thumbnailer for all hash keys 
+               * to update the preferred thumbnailer for all hash keys
                * supported by the new info later */
               if (lp == *list)
                 first = TRUE;
@@ -1104,8 +1112,8 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   if (first)
     {
       /* check if there is another element in the list. that one was the first
-       * info in the list before, thus its thumbnailer object should've been added 
-       * to the registry. we now have to remove it and replace it by the new first 
+       * info in the list before, thus its thumbnailer object should've been added
+       * to the registry. we now have to remove it and replace it by the new first
        * info */
       if ((*list)->next != NULL)
         {
@@ -1152,12 +1160,12 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
  */
 static void
 tumbler_manager_load_thumbnailers (TumblerManager *manager,
-                                   GFile          *directory)
+                                   GFile *directory)
 {
   const gchar *base_name;
-  GFileType    type;
-  GFile       *file;
-  GDir        *dir;
+  GFileType type;
+  GFile *file;
+  GDir *dir;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (directory));
@@ -1168,8 +1176,8 @@ tumbler_manager_load_thumbnailers (TumblerManager *manager,
     return;
 
   /* iterate over all files in the directory */
-  for (base_name = g_dir_read_name (dir); 
-       base_name != NULL; 
+  for (base_name = g_dir_read_name (dir);
+       base_name != NULL;
        base_name = g_dir_read_name (dir))
     {
       /* skip files that don't end with the .service extension */
@@ -1199,8 +1207,8 @@ tumbler_manager_load_thumbnailers (TumblerManager *manager,
  * @manager : a #TumblerManager.
  *
  * This function should only be called once. It initializes the thumbnailer
- * directory objects, directory monitors, override infos and thumbnailer 
- * infos. 
+ * directory objects, directory monitors, override infos and thumbnailer
+ * infos.
  */
 void
 tumbler_manager_load (TumblerManager *manager)
@@ -1243,7 +1251,7 @@ tumbler_manager_load (TumblerManager *manager)
     {
       /* allocate a monitor, connect to it and prepend it to the monitor list */
       monitor = g_file_monitor_directory (iter->data, G_FILE_MONITOR_NONE, NULL, NULL);
-      g_signal_connect_swapped (monitor, "changed", 
+      g_signal_connect_swapped (monitor, "changed",
                                 G_CALLBACK (tumbler_manager_directory_changed), manager);
       manager->monitors = g_list_prepend (manager->monitors, monitor);
     }
@@ -1260,7 +1268,7 @@ tumbler_manager_load (TumblerManager *manager)
  *
  * This function should be called when a thumbnailer service file has
  * been deleted and our internal representation needs to be updated.
- * 
+ *
  * If the corresponding thumbnailer info is the first in its basename
  * list, the preferred thumbnailers for all affected hash keys need
  * to be updated, and the corresponding thumbnailer has to be removed
@@ -1268,17 +1276,17 @@ tumbler_manager_load (TumblerManager *manager)
  */
 static void
 tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
-                                          GFile          *file)
+                                          GFile *file)
 {
   ThumbnailerInfo *info;
   ThumbnailerInfo *info2;
-  GFile           *directory;
-  GList          **list;
-  GList           *lp;
-  gchar          **hash_keys;
-  gchar           *base_name;
-  guint            n;
-  gint             dir_index;
+  GFile *directory;
+  GList **list;
+  GList *lp;
+  gchar **hash_keys;
+  gchar *base_name;
+  guint n;
+  gint dir_index;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (file));
@@ -1314,7 +1322,7 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
     {
       info = lp->data;
 
-      /* check if the current info comes from the thumbnailer file that was 
+      /* check if the current info comes from the thumbnailer file that was
        * deleted */
       if (info->dir_index == dir_index)
         {
@@ -1359,7 +1367,7 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
                * info from the list */
               *list = g_list_delete_link (*list, lp);
             }
-              
+
           /* the info was removed from the list and the registry was updated,
            * so destroy it now */
           thumbnailer_info_free (info);
@@ -1373,7 +1381,7 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
   /* remove the base name list from the hash table if it is empty now */
   if (*list == NULL)
     g_hash_table_remove (manager->thumbnailers, base_name);
-  
+
   /* free the base name string */
   g_free (base_name);
 }
@@ -1385,15 +1393,15 @@ tumbler_manager_thumbnailer_file_deleted (TumblerManager *manager,
  * @manager   : a #TumblerManager.
  * @directory : a #GFile pointing to the created thumbnailer directory.
  *
- * This function should be called when a new thumbnailer directory is 
- * created and the registry needs to be updated. All thumbnailers and 
+ * This function should be called when a new thumbnailer directory is
+ * created and the registry needs to be updated. All thumbnailers and
  * overrides information defined in this directory are loaded and
  * the registry is updated.
  */
 static void
 tumbler_manager_directory_created (TumblerManager *manager,
-                                   GFile          *directory,
-                                   gint            dir_index)
+                                   GFile *directory,
+                                   gint dir_index)
 {
   GFile *file;
 
@@ -1418,26 +1426,26 @@ tumbler_manager_directory_created (TumblerManager *manager,
  * @directory : a #GFile pointing to the deleted thumbnailer directory.
  *
  * This function should be called when a thumbnailer directory is deleted.
- * All thumbnailer and override infos from this directory are destroyed, 
+ * All thumbnailer and override infos from this directory are destroyed,
  * preferred thumbnailers updated and thumbnailers removed/added from the
  * registry.
  */
 static void
 tumbler_manager_directory_deleted (TumblerManager *manager,
-                                   GFile          *directory,
-                                   gint            dir_index)
+                                   GFile *directory,
+                                   gint dir_index)
 {
   ThumbnailerInfo *info;
   ThumbnailerInfo *info2;
-  GHashTableIter   iter;
-  const gchar     *hash_key;
-  GFile           *file;
-  GList           *delete_keys = NULL;
-  GList          **list;
-  GList           *lp;
-  GList           *next;
-  gchar          **hash_keys;
-  guint            n;
+  GHashTableIter iter;
+  const gchar *hash_key;
+  GFile *file;
+  GList *delete_keys = NULL;
+  GList **list;
+  GList *lp;
+  GList *next;
+  gchar **hash_keys;
+  guint n;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (directory));
@@ -1457,7 +1465,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
       g_assert (*list != NULL);
 
       /* iterate over all thumbnailers in the current list */
-      for (lp = *list; lp != NULL; )
+      for (lp = *list; lp != NULL;)
         {
           info = lp->data;
           next = lp->next;
@@ -1508,7 +1516,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
                    * remove it from the list */
                   *list = g_list_delete_link (*list, lp);
                 }
-                  
+
               /* destroy the thumbnailer info */
               thumbnailer_info_free (info);
             }
@@ -1522,7 +1530,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
     }
 
   for (lp = delete_keys; lp != NULL; lp = lp->next)
-    g_hash_table_remove (manager->thumbnailers, (const gchar *)lp->data);
+    g_hash_table_remove (manager->thumbnailers, (const gchar *) lp->data);
 
   g_list_free (delete_keys);
 }
@@ -1532,7 +1540,7 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
 /**
  * tumbler_manager_directory_changed:
  * @manager    : a #TumblerManager.
- * @file       : 
+ * @file       :
  * @other_file :
  * @event_type :
  * @monitor    :
@@ -1540,15 +1548,15 @@ tumbler_manager_directory_deleted (TumblerManager *manager,
  * TODO We can probably optimize the locking a little bit.
  */
 static void
-tumbler_manager_directory_changed (TumblerManager   *manager,
-                                   GFile            *file,
-                                   GFile            *other_file,
+tumbler_manager_directory_changed (TumblerManager *manager,
+                                   GFile *file,
+                                   GFile *other_file,
                                    GFileMonitorEvent event_type,
-                                   GFileMonitor     *monitor)
+                                   GFileMonitor *monitor)
 {
   GFileType type;
-  gchar    *base_name;
-  gint      dir_index;
+  gchar *base_name;
+  gint dir_index;
 
   g_return_if_fail (TUMBLER_IS_MANAGER (manager));
   g_return_if_fail (G_IS_FILE (file));
@@ -1598,7 +1606,7 @@ tumbler_manager_directory_changed (TumblerManager   *manager,
             }
         }
     }
-  else 
+  else
     {
       type = g_file_query_file_type (file, G_FILE_QUERY_INFO_NONE, NULL);
 
@@ -1717,7 +1725,7 @@ static void
 override_info_list_free (gpointer pointer)
 {
   GList **infos = pointer;
-  GList  *iter;
+  GList *iter;
 
   for (iter = *infos; iter != NULL; iter = iter->next)
     override_info_free (iter->data);
@@ -1755,7 +1763,7 @@ static void
 thumbnailer_info_list_free (gpointer pointer)
 {
   GList **infos = pointer;
-  GList  *iter;
+  GList *iter;
 
   for (iter = *infos; iter != NULL; iter = iter->next)
     thumbnailer_info_free (iter->data);
@@ -1770,12 +1778,12 @@ static void
 dump_overrides (TumblerManager *manager)
 {
   GHashTableIter table_iter;
-  const gchar   *hash_key;
-  GList        **list;
-  GList         *iter;
-  GString       *string;
+  const gchar *hash_key;
+  GList **list;
+  GList *iter;
+  GString *string;
 
-  if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
+  if (!tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
   if (g_hash_table_size (manager->overrides) == 0)
@@ -1802,12 +1810,12 @@ static void
 dump_thumbnailers (TumblerManager *manager)
 {
   GHashTableIter table_iter;
-  const gchar   *base_name;
-  GList        **list;
-  GList         *iter;
-  GString       *string;
+  const gchar *base_name;
+  GList **list;
+  GList *iter;
+  GString *string;
 
-  if (! tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
+  if (!tumbler_util_is_debug_logging_enabled (G_LOG_DOMAIN))
     return;
 
   if (g_hash_table_size (manager->thumbnailers) == 0)
@@ -1832,20 +1840,21 @@ dump_thumbnailers (TumblerManager *manager)
 
 
 TumblerManager *
-tumbler_manager_new (GDBusConnection         *connection,
+tumbler_manager_new (GDBusConnection *connection,
                      TumblerLifecycleManager *lifecycle_manager,
-                     TumblerRegistry         *registry)
+                     TumblerRegistry *registry)
 {
-  return g_object_new (TUMBLER_TYPE_MANAGER, 
-                       "connection", connection, 
-                       "registry", registry, 
-                       "lifecycle-manager", lifecycle_manager, 
+  return g_object_new (TUMBLER_TYPE_MANAGER,
+                       "connection", connection,
+                       "registry", registry,
+                       "lifecycle-manager", lifecycle_manager,
                        NULL);
 }
 
-gboolean tumbler_manager_is_exported (TumblerManager *manager) 
+gboolean
+tumbler_manager_is_exported (TumblerManager *manager)
 {
   g_return_val_if_fail (TUMBLER_IS_MANAGER (manager), FALSE);
- 
+
   return manager->dbus_interface_exported;
 }

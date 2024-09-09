@@ -38,9 +38,10 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-static void raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                    GCancellable               *cancellable,
-                                    TumblerFileInfo            *info);
+static void
+raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info);
 
 
 
@@ -92,20 +93,20 @@ raw_thumbnailer_init (RawThumbnailer *thumbnailer)
 
 static void
 raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                        GCancellable               *cancellable,
-                        TumblerFileInfo            *info)
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info)
 {
   TumblerThumbnailFlavor *flavor;
-  TumblerImageData        data;
-  TumblerThumbnail       *thumbnail;
-  const gchar            *uri;
-  const gchar            *path;
-  GdkPixbuf              *pixbuf = NULL;
-  GError                 *error = NULL;
-  GFile                  *file;
-  gint                    height;
-  gint                    width;
-  GdkPixbuf              *scaled;
+  TumblerImageData data;
+  TumblerThumbnail *thumbnail;
+  const gchar *uri;
+  const gchar *path;
+  GdkPixbuf *pixbuf = NULL;
+  GError *error = NULL;
+  GFile *file;
+  gint height;
+  gint width;
+  GdkPixbuf *scaled;
 
   g_return_if_fail (RAW_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));

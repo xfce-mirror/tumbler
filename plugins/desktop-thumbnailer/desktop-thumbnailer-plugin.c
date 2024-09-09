@@ -28,10 +28,13 @@
 #include <glib/gi18n.h>
 
 
-G_MODULE_EXPORT void tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
-G_MODULE_EXPORT void tumbler_plugin_shutdown   (void);
-G_MODULE_EXPORT void tumbler_plugin_get_types  (const GType          **types,
-                                                gint                  *n_types);
+G_MODULE_EXPORT void
+tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
+G_MODULE_EXPORT void
+tumbler_plugin_shutdown (void);
+G_MODULE_EXPORT void
+tumbler_plugin_get_types (const GType **types,
+                          gint *n_types);
 
 
 
@@ -74,7 +77,7 @@ tumbler_plugin_shutdown (void)
 
 void
 tumbler_plugin_get_types (const GType **types,
-                          gint         *n_types)
+                          gint *n_types)
 {
   *types = type_list;
   *n_types = G_N_ELEMENTS (type_list);

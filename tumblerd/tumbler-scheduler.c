@@ -2,18 +2,18 @@
 /*-
  * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -54,7 +54,7 @@ enum
   IOPRIO_CLASS_IDLE,
 };
 
-enum 
+enum
 {
   IOPRIO_WHO_PROCESS = 1,
   IOPRIO_WHO_PGRP,
@@ -87,8 +87,7 @@ tumbler_scheduler_default_init (TumblerSchedulerIface *klass)
                                                             "name",
                                                             "name",
                                                             NULL,
-                                                            G_PARAM_READWRITE |
-                                                            G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   tumbler_scheduler_signals[SIGNAL_ERROR] =
     g_signal_new ("error",
@@ -151,7 +150,7 @@ tumbler_scheduler_default_init (TumblerSchedulerIface *klass)
 
 
 void
-tumbler_scheduler_push (TumblerScheduler        *scheduler,
+tumbler_scheduler_push (TumblerScheduler *scheduler,
                         TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
@@ -165,7 +164,7 @@ tumbler_scheduler_push (TumblerScheduler        *scheduler,
 
 void
 tumbler_scheduler_dequeue (TumblerScheduler *scheduler,
-                           guint32           handle)
+                           guint32 handle)
 {
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
@@ -178,7 +177,7 @@ tumbler_scheduler_dequeue (TumblerScheduler *scheduler,
 
 void
 tumbler_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
-                                   GMount           *mount)
+                                   GMount *mount)
 {
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
   g_return_if_fail (G_IS_MOUNT (mount));
@@ -190,7 +189,7 @@ tumbler_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
 
 
 void
-tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
+tumbler_scheduler_take_request (TumblerScheduler *scheduler,
                                 TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_SCHEDULER (scheduler));
@@ -200,7 +199,7 @@ tumbler_scheduler_take_request (TumblerScheduler        *scheduler,
 }
 
 
-gchar*
+gchar *
 tumbler_scheduler_get_name (TumblerScheduler *scheduler)
 {
   gchar *name;
@@ -211,11 +210,11 @@ tumbler_scheduler_get_name (TumblerScheduler *scheduler)
   return name;
 }
 
-void 
-tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
-                                  TumblerSchedulerRequest *request, 
-                                  const gchar             *uri,
-                                  GError                  *error)
+void
+tumbler_scheduler_emit_uri_error (TumblerScheduler *scheduler,
+                                  TumblerSchedulerRequest *request,
+                                  const gchar *uri,
+                                  GError *error)
 {
   const gchar *uris[] = { uri, NULL };
 
@@ -231,14 +230,14 @@ tumbler_scheduler_emit_uri_error (TumblerScheduler        *scheduler,
 
 
 TumblerSchedulerRequest *
-tumbler_scheduler_request_new (TumblerFileInfo    **infos,
-                               GList              **thumbnailers,
-                               guint                length,
-                               const gchar         *origin)
+tumbler_scheduler_request_new (TumblerFileInfo **infos,
+                               GList **thumbnailers,
+                               guint length,
+                               const gchar *origin)
 {
   TumblerSchedulerRequest *request = NULL;
-  static guint32           handle  = 0;
-  guint                    n;
+  static guint32 handle = 0;
+  guint n;
 
   g_return_val_if_fail (infos != NULL, NULL);
   g_return_val_if_fail (thumbnailers != NULL, NULL);
@@ -271,7 +270,7 @@ void
 tumbler_scheduler_request_free (gpointer data)
 {
   TumblerSchedulerRequest *request = data;
-  gint                     n;
+  gint n;
 
   g_return_if_fail (request != NULL);
 
@@ -295,7 +294,7 @@ tumbler_scheduler_request_free (gpointer data)
 gint
 tumbler_scheduler_request_compare (gconstpointer a,
                                    gconstpointer b,
-                                   gpointer      user_data)
+                                   gpointer user_data)
 {
   const TumblerSchedulerRequest *request_a = a;
   const TumblerSchedulerRequest *request_b = b;
@@ -306,7 +305,7 @@ tumbler_scheduler_request_compare (gconstpointer a,
 static int
 ioprio_set (int which, int who, int ioprio_val)
 {
-#if defined (__NR_ioprio_set) && defined (HAVE_UNISTD_H)
+#if defined(__NR_ioprio_set) && defined(HAVE_UNISTD_H)
   return syscall (__NR_ioprio_set, which, who, ioprio_val);
 #else
   return 0;
@@ -317,19 +316,19 @@ ioprio_set (int which, int who, int ioprio_val)
 void
 tumbler_scheduler_thread_use_lower_priority (void)
 {
-#if defined (HAVE_sched_getparam) && defined (HAVE_sched_setscheduler)
+#if defined(HAVE_sched_getparam) && defined(HAVE_sched_setscheduler)
   struct sched_param sp;
 #endif
-  int                ioprio;
-  int                ioclass;
+  int ioprio;
+  int ioclass;
 
   ioprio = 7; /* priority is ignored with idle class */
   ioclass = IOPRIO_CLASS_IDLE << IOPRIO_CLASS_SHIFT;
 
   ioprio_set (IOPRIO_WHO_PROCESS, 0, ioprio | ioclass);
 
-#if defined (HAVE_sched_getparam) && defined (HAVE_sched_setscheduler)
-  if (sched_getparam (0, &sp) == 0) 
+#if defined(HAVE_sched_getparam) && defined(HAVE_sched_setscheduler)
+  if (sched_getparam (0, &sp) == 0)
     sched_setscheduler (0, SCHED_IDLE, &sp);
 #endif
 }
@@ -337,11 +336,11 @@ tumbler_scheduler_thread_use_lower_priority (void)
 
 
 void
-tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer      *thumbnailer,
-                                     TumblerFileInfo         *failed_info,
-                                     GQuark                   error_domain,
-                                     gint                     error_code,
-                                     const gchar             *message,
+tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer *thumbnailer,
+                                     TumblerFileInfo *failed_info,
+                                     GQuark error_domain,
+                                     gint error_code,
+                                     const gchar *message,
                                      TumblerSchedulerRequest *request)
 {
   gchar *text;

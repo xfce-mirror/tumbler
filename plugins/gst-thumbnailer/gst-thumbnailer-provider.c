@@ -11,11 +11,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -31,8 +31,10 @@
 
 
 
-static void   gst_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *gst_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+gst_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -92,7 +94,7 @@ gst_thumbnailer_provider_init (GstThumbnailerProvider *provider)
 static GList *
 gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  /* This list is mainly from Totem. Generating a list from 
+  /* This list is mainly from Totem. Generating a list from
    * GStreamer isn't realistic, so we have to hardcode it. */
   /* See https://git.gnome.org/browse/totem/tree/data/mime-type-list.txt */
   static const char *mime_types[] = {
@@ -216,14 +218,13 @@ gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
     "x-content/video-svcd",
     NULL
   };
-  GstThumbnailer    *thumbnailer;
-  GError            *error = NULL;
-  GStrv              uri_schemes;
+  GstThumbnailer *thumbnailer;
+  GError *error = NULL;
+  GStrv uri_schemes;
 
   if (!gst_init_check (0, NULL, &error))
     {
-      g_warning ("Cannot initialize GStreamer, thumbnailer not loaded: %s", 
-                 error->message);
+      g_warning ("Cannot initialize GStreamer, thumbnailer not loaded: %s", error->message);
       return NULL;
     }
 

@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -29,8 +29,10 @@
 
 
 
-static void   pixbuf_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *pixbuf_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+pixbuf_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -91,16 +93,16 @@ static GList *
 pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
   PixbufThumbnailer *thumbnailer;
-  GHashTable        *types;
-  GSList            *formats;
-  GSList            *fp;
-  GList             *keys;
-  GList             *lp;
-  GList             *thumbnailers = NULL;
-  GStrv              format_types;
-  GStrv              mime_types;
-  GStrv              uri_schemes;
-  guint              n;
+  GHashTable *types;
+  GSList *formats;
+  GSList *fp;
+  GList *keys;
+  GList *lp;
+  GList *thumbnailers = NULL;
+  GStrv format_types;
+  GStrv mime_types;
+  GStrv uri_schemes;
+  guint n;
 
   /* determine which URI schemes are supported by GIO */
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
@@ -128,7 +130,7 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
           g_strfreev (format_types);
         }
     }
-  
+
   /* free the format list */
   g_slist_free (formats);
 
@@ -149,7 +151,7 @@ pixbuf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
 
   /* create the pixbuf thumbnailer */
   thumbnailer = g_object_new (PIXBUF_TYPE_THUMBNAILER,
-                              "uri-schemes", uri_schemes, "mime-types", mime_types, 
+                              "uri-schemes", uri_schemes, "mime-types", mime_types,
                               NULL);
 
   tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",

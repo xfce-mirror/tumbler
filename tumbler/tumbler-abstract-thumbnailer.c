@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -42,20 +42,26 @@ enum
 
 
 
-static void tumbler_abstract_thumbnailer_thumbnailer_init (TumblerThumbnailerIface *iface);
-static void tumbler_abstract_thumbnailer_constructed      (GObject                 *object);
-static void tumbler_abstract_thumbnailer_finalize         (GObject                 *object);
-static void tumbler_abstract_thumbnailer_get_property     (GObject                 *object,
-                                                           guint                    prop_id,
-                                                           GValue                  *value,
-                                                           GParamSpec              *pspec);
-static void tumbler_abstract_thumbnailer_set_property     (GObject                 *object,
-                                                           guint                    prop_id,
-                                                           const GValue            *value,
-                                                           GParamSpec              *pspec);
-static void tumbler_abstract_thumbnailer_create           (TumblerThumbnailer      *thumbnailer,
-                                                           GCancellable            *cancellable,
-                                                           TumblerFileInfo         *info);
+static void
+tumbler_abstract_thumbnailer_thumbnailer_init (TumblerThumbnailerIface *iface);
+static void
+tumbler_abstract_thumbnailer_constructed (GObject *object);
+static void
+tumbler_abstract_thumbnailer_finalize (GObject *object);
+static void
+tumbler_abstract_thumbnailer_get_property (GObject *object,
+                                           guint prop_id,
+                                           GValue *value,
+                                           GParamSpec *pspec);
+static void
+tumbler_abstract_thumbnailer_set_property (GObject *object,
+                                           guint prop_id,
+                                           const GValue *value,
+                                           GParamSpec *pspec);
+static void
+tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
+                                     GCancellable *cancellable,
+                                     TumblerFileInfo *info);
 
 
 
@@ -64,8 +70,8 @@ struct _TumblerAbstractThumbnailerPrivate
   gchar **hash_keys;
   gchar **mime_types;
   gchar **uri_schemes;
-  gint    priority;
-  gint64  max_file_size;
+  gint priority;
+  gint64 max_file_size;
   GSList *locations;
   GSList *excludes;
 };
@@ -88,8 +94,8 @@ tumbler_abstract_thumbnailer_class_init (TumblerAbstractThumbnailerClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = tumbler_abstract_thumbnailer_constructed; 
-  gobject_class->finalize = tumbler_abstract_thumbnailer_finalize; 
+  gobject_class->constructed = tumbler_abstract_thumbnailer_constructed;
+  gobject_class->finalize = tumbler_abstract_thumbnailer_finalize;
   gobject_class->get_property = tumbler_abstract_thumbnailer_get_property;
   gobject_class->set_property = tumbler_abstract_thumbnailer_set_property;
 
@@ -124,12 +130,12 @@ static void
 tumbler_abstract_thumbnailer_constructed (GObject *object)
 {
   TumblerAbstractThumbnailer *thumbnailer = TUMBLER_ABSTRACT_THUMBNAILER (object);
-  gchar                       *hash_key;
-  guint                        num_hash_keys;
-  guint                        num_mime_types;
-  guint                        num_uri_schemes;
-  guint                        i;
-  guint                        j;
+  gchar *hash_key;
+  guint num_hash_keys;
+  guint num_mime_types;
+  guint num_uri_schemes;
+  guint i;
+  guint j;
 
   g_return_if_fail (TUMBLER_IS_ABSTRACT_THUMBNAILER (thumbnailer));
   g_return_if_fail (thumbnailer->priv->mime_types != NULL);
@@ -156,12 +162,12 @@ tumbler_abstract_thumbnailer_constructed (GObject *object)
     for (j = 0; thumbnailer->priv->mime_types[j] != NULL; ++j)
       {
         /* generate a hash key for the current pair */
-        hash_key =  g_strdup_printf ("%s-%s", 
-                                     thumbnailer->priv->uri_schemes[i],
-                                     thumbnailer->priv->mime_types[j]);
+        hash_key = g_strdup_printf ("%s-%s",
+                                    thumbnailer->priv->uri_schemes[i],
+                                    thumbnailer->priv->mime_types[j]);
 
         /* add the key to the array */
-        thumbnailer->priv->hash_keys[(j*num_uri_schemes)+i] = hash_key;
+        thumbnailer->priv->hash_keys[(j * num_uri_schemes) + i] = hash_key;
       }
 }
 
@@ -186,7 +192,7 @@ tumbler_abstract_thumbnailer_finalize (GObject *object)
 
 static gpointer
 tumbler_object_ref (gconstpointer object,
-                    gpointer      data)
+                    gpointer data)
 {
   return g_object_ref ((gpointer) object);
 }
@@ -194,13 +200,13 @@ tumbler_object_ref (gconstpointer object,
 
 
 static void
-tumbler_abstract_thumbnailer_get_property (GObject    *object,
-                                           guint       prop_id,
-                                           GValue     *value,
+tumbler_abstract_thumbnailer_get_property (GObject *object,
+                                           guint prop_id,
+                                           GValue *value,
                                            GParamSpec *pspec)
 {
   TumblerAbstractThumbnailer *thumbnailer = TUMBLER_ABSTRACT_THUMBNAILER (object);
-  GSList                     *dup;
+  GSList *dup;
 
   switch (prop_id)
     {
@@ -243,13 +249,13 @@ tumbler_abstract_thumbnailer_get_property (GObject    *object,
 
 
 static void
-tumbler_abstract_thumbnailer_set_property (GObject      *object,
-                                           guint         prop_id,
+tumbler_abstract_thumbnailer_set_property (GObject *object,
+                                           guint prop_id,
                                            const GValue *value,
-                                           GParamSpec   *pspec)
+                                           GParamSpec *pspec)
 {
   TumblerAbstractThumbnailer *thumbnailer = TUMBLER_ABSTRACT_THUMBNAILER (object);
-  GSList                     *dup;
+  GSList *dup;
 
   switch (prop_id)
     {
@@ -293,13 +299,12 @@ tumbler_abstract_thumbnailer_set_property (GObject      *object,
 
 static void
 tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
-                                     GCancellable       *cancellable,
-                                     TumblerFileInfo    *info)
+                                     GCancellable *cancellable,
+                                     TumblerFileInfo *info)
 {
   g_return_if_fail (TUMBLER_IS_ABSTRACT_THUMBNAILER (thumbnailer));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
   g_return_if_fail (TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create != NULL);
 
-  TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer),
-                                                                cancellable, info);
+  TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer), cancellable, info);
 }

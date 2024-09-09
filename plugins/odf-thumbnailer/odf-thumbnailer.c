@@ -48,9 +48,10 @@
 
 
 
-static void odf_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
-                                      GCancellable               *cancellable,
-                                      TumblerFileInfo            *info);
+static void
+odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info);
 
 
 
@@ -101,14 +102,14 @@ odf_thumbnailer_init (OdfThumbnailer *thumbnailer)
 
 
 static GdkPixbuf *
-odf_thumbnailer_create_from_data (const guchar     *data,
-                                  gsize             bytes,
+odf_thumbnailer_create_from_data (const guchar *data,
+                                  gsize bytes,
                                   TumblerThumbnail *thumbnail,
-                                  GError          **error)
+                                  GError **error)
 {
   GdkPixbufLoader *loader;
-  GdkPixbuf       *pixbuf = NULL;
-  GError          *err = NULL;
+  GdkPixbuf *pixbuf = NULL;
+  GError *err = NULL;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -144,14 +145,14 @@ odf_thumbnailer_create_from_data (const guchar     *data,
 
 
 static GdkPixbuf *
-odf_thumbnailer_create_zip (GsfInfile        *infile,
+odf_thumbnailer_create_zip (GsfInfile *infile,
                             TumblerThumbnail *thumbnail,
-                            GError          **error)
+                            GError **error)
 {
-  GsfInput     *thumb_file;
-  gsize         bytes;
+  GsfInput *thumb_file;
+  gsize bytes;
   const guint8 *data;
-  GdkPixbuf    *pixbuf = NULL;
+  GdkPixbuf *pixbuf = NULL;
 
   g_return_val_if_fail (GSF_IS_INFILE_ZIP (infile), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -183,19 +184,19 @@ odf_thumbnailer_create_zip (GsfInfile        *infile,
 
 
 static GdkPixbuf *
-odf_thumbnailer_create_msole (GsfInfile        *infile,
+odf_thumbnailer_create_msole (GsfInfile *infile,
                               TumblerThumbnail *thumbnail,
-                              GError          **error)
+                              GError **error)
 {
-  GsfInput       *summary;
+  GsfInput *summary;
   GsfDocMetaData *meta_data;
-  GError         *err = NULL;
-  GsfDocProp     *thumb_doc;
-  GdkPixbuf      *pixbuf = NULL;
-  GValue const   *thumb_value;
-  GsfClipData    *clip_data;
-  gsize           bytes;
-  const guchar   *data;
+  GError *err = NULL;
+  GsfDocProp *thumb_doc;
+  GdkPixbuf *pixbuf = NULL;
+  GValue const *thumb_value;
+  GsfClipData *clip_data;
+  gsize bytes;
+  const guchar *data;
 
   g_return_val_if_fail (GSF_IS_INFILE_MSOLE (infile), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -254,17 +255,17 @@ odf_thumbnailer_create_msole (GsfInfile        *infile,
 
 static void
 odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                        GCancellable               *cancellable,
-                        TumblerFileInfo            *info)
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info)
 {
-  GsfInput         *input = NULL;
+  GsfInput *input = NULL;
   TumblerThumbnail *thumbnail;
-  const gchar      *uri;
-  GFile            *file;
-  GError           *error = NULL;
-  GsfInfile        *infile;
-  GdkPixbuf        *pixbuf = NULL;
-  TumblerImageData  data;
+  const gchar *uri;
+  GFile *file;
+  GError *error = NULL;
+  GsfInfile *infile;
+  GdkPixbuf *pixbuf = NULL;
+  TumblerImageData data;
 
   g_return_if_fail (ODF_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));

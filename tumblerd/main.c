@@ -2,19 +2,19 @@
 /*-
  * Copyright (c) 2009-2012 Jannis Pohlmann <jannis@xfce.org>
  * Copyright (c) 2015      Ali Abdallah    <ali@xfce.org>
- *  
- * This program is free software; you can redistribute it and/or 
+ *
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -49,7 +49,7 @@
 
 static void
 shutdown_tumbler (TumblerLifecycleManager *lifecycle_manager,
-                  GMainLoop               *main_loop)
+                  GMainLoop *main_loop)
 {
   g_return_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (lifecycle_manager));
   g_return_if_fail (main_loop != NULL);
@@ -62,41 +62,41 @@ shutdown_tumbler (TumblerLifecycleManager *lifecycle_manager,
 
 static void
 on_dbus_name_lost (GDBusConnection *connection,
-                   const gchar     *name,
-                   gpointer         user_data)
+                   const gchar *name,
+                   gpointer user_data)
 {
   GMainLoop *main_loop;
 
-  g_critical ("Name %s lost on the message dbus, exiting.",name);
-  main_loop = (GMainLoop*)user_data;
-  g_main_loop_quit(main_loop);
+  g_critical ("Name %s lost on the message dbus, exiting.", name);
+  main_loop = (GMainLoop *) user_data;
+  g_main_loop_quit (main_loop);
 }
 
 int
-main (int    argc,
+main (int argc,
       char **argv)
 {
   TumblerLifecycleManager *lifecycle_manager;
-  TumblerProviderFactory  *provider_factory;
-  GDBusConnection         *connection;
-  TumblerRegistry         *registry;
-  TumblerManager          *manager;
-  TumblerService          *service;
-  TumblerCacheService     *cache_service;
-  GMainLoop               *main_loop;
-  GError                  *error = NULL;
-  GList                   *providers;
-  GList                   *thumbnailers;
-  GList                   *lp;
-  GList                   *tp;
-  gint                     retval = EXIT_SUCCESS;
-  GKeyFile                *rc;
-  gint64                   file_size;
-  gint                     priority;
-  const gchar             *type_name;
-  gchar                  **paths;
-  GSList                  *locations;
-  GSList                  *excludes;
+  TumblerProviderFactory *provider_factory;
+  GDBusConnection *connection;
+  TumblerRegistry *registry;
+  TumblerManager *manager;
+  TumblerService *service;
+  TumblerCacheService *cache_service;
+  GMainLoop *main_loop;
+  GError *error = NULL;
+  GList *providers;
+  GList *thumbnailers;
+  GList *lp;
+  GList *tp;
+  gint retval = EXIT_SUCCESS;
+  GKeyFile *rc;
+  gint64 file_size;
+  gint priority;
+  const gchar *type_name;
+  gchar **paths;
+  GSList *locations;
+  GSList *excludes;
 
   /* set the program name */
   g_set_prgname (G_LOG_DOMAIN);
@@ -106,7 +106,7 @@ main (int    argc,
     g_warning ("Couldn't change nice value of process.");
 #endif
 
-#if GLIB_CHECK_VERSION (2, 68, 0)
+#if GLIB_CHECK_VERSION(2, 68, 0)
   G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   /* to avoid overlap between stderr and stdout, e.g. when third party APIs write to
    * stderr, or if debugging macros writing to stderr are used in addition to g_debug() */
@@ -121,15 +121,15 @@ main (int    argc,
   g_set_application_name ("Tumbler Thumbnailing Service");
 
   connection = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
-  
+
   if (error != NULL)
     {
       g_critical ("error getting session bus: %s", error->message);
       g_error_free (error);
-      
-      return  EXIT_FAILURE;
+
+      return EXIT_FAILURE;
     }
-  
+
   /* create the lifecycle manager */
   lifecycle_manager = tumbler_lifecycle_manager_new ();
 
@@ -221,8 +221,7 @@ main (int    argc,
 
   /* create a new main loop */
   main_loop = g_main_loop_new (NULL, FALSE);
-      
-  
+
   /* Acquire the cache service dbus name */
   g_bus_own_name_on_connection (connection,
                                 TUMBLER_SERVICE_NAME_PREFIX ".Cache1",
@@ -249,18 +248,18 @@ main (int    argc,
                                 on_dbus_name_lost,
                                 main_loop,
                                 NULL);
-  
+
   /* check to see if all services are successfully exported on the bus */
-  if (tumbler_manager_is_exported(manager) &&
-      tumbler_service_is_exported(service) &&
-      tumbler_cache_service_is_exported(cache_service))
+  if (tumbler_manager_is_exported (manager)
+      && tumbler_service_is_exported (service)
+      && tumbler_cache_service_is_exported (cache_service))
     {
       /* Let the manager initializes the thumbnailer
        * directory objects, directory monitors */
       tumbler_manager_load (manager);
-        
+
       /* quit the main loop when the lifecycle manager asks us to shut down */
-      g_signal_connect (lifecycle_manager, "shutdown", 
+      g_signal_connect (lifecycle_manager, "shutdown",
                         G_CALLBACK (shutdown_tumbler), main_loop);
 
       /* start the lifecycle manager */
@@ -271,8 +270,8 @@ main (int    argc,
       /* enter the main loop, thereby making the tumbler service available */
       g_main_loop_run (main_loop);
     }
-  
-  exit_tumbler:
+
+exit_tumbler:
 
   /* shut our services down and release all objects */
   g_object_unref (service);

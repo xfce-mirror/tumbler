@@ -32,15 +32,16 @@
 
 
 #define TUMBLER_FFMPEG_CHECK_VERSION(major, minor, micro) \
-  (TUMBLER_FFMPEG_MAJOR_VERSION > (major) || \
-    (TUMBLER_FFMPEG_MAJOR_VERSION == (major) && TUMBLER_FFMPEG_MINOR_VERSION > (minor)) || \
-    (TUMBLER_FFMPEG_MAJOR_VERSION == (major) && TUMBLER_FFMPEG_MINOR_VERSION == (minor) && \
-      TUMBLER_FFMPEG_MICRO_VERSION >= (micro)))
+  (TUMBLER_FFMPEG_MAJOR_VERSION > (major) \
+   || (TUMBLER_FFMPEG_MAJOR_VERSION == (major) && TUMBLER_FFMPEG_MINOR_VERSION > (minor)) \
+   || (TUMBLER_FFMPEG_MAJOR_VERSION == (major) && TUMBLER_FFMPEG_MINOR_VERSION == (minor) && TUMBLER_FFMPEG_MICRO_VERSION >= (micro)))
 
-static void ffmpeg_thumbnailer_finalize (GObject                    *object);
-static void ffmpeg_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
-                                         GCancellable               *cancellable,
-                                         TumblerFileInfo            *info);
+static void
+ffmpeg_thumbnailer_finalize (GObject *object);
+static void
+ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                           GCancellable *cancellable,
+                           TumblerFileInfo *info);
 
 
 
@@ -71,7 +72,7 @@ static void
 ffmpeg_thumbnailer_class_init (FfmpegThumbnailerClass *klass)
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
-  GObjectClass                    *gobject_class;
+  GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = ffmpeg_thumbnailer_finalize;
@@ -116,24 +117,24 @@ ffmpeg_thumbnailer_finalize (GObject *object)
 
 static void
 ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                           GCancellable               *cancellable,
-                           TumblerFileInfo            *info)
+                           GCancellable *cancellable,
+                           TumblerFileInfo *info)
 {
-  image_data             *v_data;
-  GInputStream           *v_stream;
-  GdkPixbuf              *v_pixbuf;
-  FfmpegThumbnailer      *ffmpeg_thumbnailer = FFMPEG_THUMBNAILER (thumbnailer);
+  image_data *v_data;
+  GInputStream *v_stream;
+  GdkPixbuf *v_pixbuf;
+  FfmpegThumbnailer *ffmpeg_thumbnailer = FFMPEG_THUMBNAILER (thumbnailer);
   TumblerThumbnailFlavor *flavor;
-  TumblerThumbnail       *thumbnail;
-  TumblerImageData        data;
-  GdkPixbuf              *pixbuf;
-  GFile                  *file;
-  GError                 *error = NULL;
-  gint                    dest_width;
-  gint                    dest_height;
-  gchar                  *path;
-  const gchar            *uri;
-  gint                    res;
+  TumblerThumbnail *thumbnail;
+  TumblerImageData data;
+  GdkPixbuf *pixbuf;
+  GFile *file;
+  GError *error = NULL;
+  gint dest_width;
+  gint dest_height;
+  gchar *path;
+  const gchar *uri;
+  gint res;
 
   g_return_if_fail (FFMPEG_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -148,13 +149,13 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* Check if is a sparse video file */
   if (tumbler_util_guess_is_sparse (info))
-  {
-    g_debug ("Video file '%s' is probably sparse, skipping", uri);
-    g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
-                           TUMBLER_ERROR_NO_CONTENT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
+    {
+      g_debug ("Video file '%s' is probably sparse, skipping", uri);
+      g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
+                             TUMBLER_ERROR_NO_CONTENT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
-    return;
-  }
+      return;
+    }
 
   /* fetch required info */
   thumbnail = tumbler_file_info_get_thumbnail (info);
@@ -164,7 +165,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (flavor);
 
   /* prepare the video thumbnailer */
-#if TUMBLER_FFMPEG_CHECK_VERSION (2, 2, 1)
+#if TUMBLER_FFMPEG_CHECK_VERSION(2, 2, 1)
   video_thumbnailer_set_size (ffmpeg_thumbnailer->video, dest_width, dest_height);
 #else
   ffmpeg_thumbnailer->video->thumbnail_size = MAX (dest_width, dest_height);

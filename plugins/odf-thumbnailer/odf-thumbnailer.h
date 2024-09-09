@@ -29,7 +29,8 @@ G_BEGIN_DECLS;
 #define ODF_TYPE_THUMBNAILER (odf_thumbnailer_get_type ())
 G_DECLARE_FINAL_TYPE (OdfThumbnailer, odf_thumbnailer, ODF, THUMBNAILER, TumblerAbstractThumbnailer)
 
-void odf_thumbnailer_register (TumblerProviderPlugin *plugin);
+void
+odf_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

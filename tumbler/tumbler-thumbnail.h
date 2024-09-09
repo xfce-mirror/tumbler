@@ -9,16 +9,16 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
-#if !defined (_TUMBLER_INSIDE_TUMBLER_H) && !defined (TUMBLER_COMPILATION)
+#if !defined(_TUMBLER_INSIDE_TUMBLER_H) && !defined(TUMBLER_COMPILATION)
 #error "Only <tumbler/tumbler.h> may be included directly. This file might disappear or change contents."
 #endif
 
@@ -41,12 +41,12 @@ typedef struct _TumblerThumbnailInterface TumblerThumbnailIface;
 struct _TumblerImageData
 {
   TumblerColorspace colorspace;
-  const guchar     *data;
-  gboolean          has_alpha;
-  gint              bits_per_sample;
-  gint              width;
-  gint              height;
-  gint              rowstride;
+  const guchar *data;
+  gboolean has_alpha;
+  gint bits_per_sample;
+  gint width;
+  gint height;
+  gint rowstride;
 };
 
 struct _TumblerThumbnailInterface
@@ -56,41 +56,46 @@ struct _TumblerThumbnailInterface
   /* signals */
 
   /* virtual methods */
-  gboolean (*load)            (TumblerThumbnail *thumbnail,
-                               GCancellable     *cancellable,
-                               GError          **error);
-  gboolean (*needs_update)    (TumblerThumbnail *thumbnail,
-                               const gchar      *uri,
-                               gdouble           mtime);
+  gboolean (*load) (TumblerThumbnail *thumbnail,
+                    GCancellable *cancellable,
+                    GError **error);
+  gboolean (*needs_update) (TumblerThumbnail *thumbnail,
+                            const gchar *uri,
+                            gdouble mtime);
   gboolean (*save_image_data) (TumblerThumbnail *thumbnail,
                                TumblerImageData *data,
-                               gdouble           mtime,
-                               GCancellable     *cancellable,
-                               GError          **error);
-  gboolean (*save_file)       (TumblerThumbnail *thumbnail,
-                               GFile            *file,
-                               gdouble           mtime,
-                               GCancellable     *cancellable,
-                               GError          **error);
+                               gdouble mtime,
+                               GCancellable *cancellable,
+                               GError **error);
+  gboolean (*save_file) (TumblerThumbnail *thumbnail,
+                         GFile *file,
+                         gdouble mtime,
+                         GCancellable *cancellable,
+                         GError **error);
 };
 
-gboolean                tumbler_thumbnail_load            (TumblerThumbnail      *thumbnail,
-                                                           GCancellable          *cancellable,
-                                                           GError               **error);
-gboolean                tumbler_thumbnail_needs_update    (TumblerThumbnail      *thumbnail,
-                                                           const gchar           *uri,
-                                                           gdouble                mtime);
-gboolean                tumbler_thumbnail_save_image_data (TumblerThumbnail      *thumbnail,
-                                                           TumblerImageData      *data,
-                                                           gdouble                mtime,
-                                                           GCancellable          *cancellable,
-                                                           GError               **error);
-gboolean                tumbler_thumbnail_save_file       (TumblerThumbnail      *thumbnail,
-                                                           GFile                 *file,
-                                                           gdouble                mtime,
-                                                           GCancellable          *cancellable,
-                                                           GError               **error);
-TumblerThumbnailFlavor *tumbler_thumbnail_get_flavor      (TumblerThumbnail      *thumbnail);
+gboolean
+tumbler_thumbnail_load (TumblerThumbnail *thumbnail,
+                        GCancellable *cancellable,
+                        GError **error);
+gboolean
+tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
+                                const gchar *uri,
+                                gdouble mtime);
+gboolean
+tumbler_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
+                                   TumblerImageData *data,
+                                   gdouble mtime,
+                                   GCancellable *cancellable,
+                                   GError **error);
+gboolean
+tumbler_thumbnail_save_file (TumblerThumbnail *thumbnail,
+                             GFile *file,
+                             gdouble mtime,
+                             GCancellable *cancellable,
+                             GError **error);
+TumblerThumbnailFlavor *
+tumbler_thumbnail_get_flavor (TumblerThumbnail *thumbnail);
 
 G_END_DECLS
 

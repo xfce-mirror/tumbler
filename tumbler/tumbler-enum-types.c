@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -43,11 +43,10 @@ tumbler_thumbnail_format_get_type (void)
 
   if (G_UNLIKELY (type == G_TYPE_INVALID))
     {
-      static const GEnumValue values[] = 
-      {
-        { TUMBLER_THUMBNAIL_FORMAT_INVALID, "TUMBLER_THUMBNAIL_FORMAT_INVALID",  N_ ("Invalid format"), },
-        { TUMBLER_THUMBNAIL_FORMAT_PNG,     "TUMBLER_THUMBNAIL_FORMAT_PNG",      N_ ("PNG"), },
-        { 0,                                NULL,                                NULL,       },
+      static const GEnumValue values[] = {
+        { TUMBLER_THUMBNAIL_FORMAT_INVALID, "TUMBLER_THUMBNAIL_FORMAT_INVALID", N_ ("Invalid format") },
+        { TUMBLER_THUMBNAIL_FORMAT_PNG, "TUMBLER_THUMBNAIL_FORMAT_PNG", N_ ("PNG") },
+        { 0, NULL, NULL },
       };
 
       type = g_enum_register_static ("TumblerThumbnailFormat", values);
@@ -65,10 +64,9 @@ tumbler_colorspace_get_type (void)
 
   if (G_UNLIKELY (type == G_TYPE_INVALID))
     {
-      static const GEnumValue values[] = 
-      {
-        { TUMBLER_COLORSPACE_RGB, "TUMBLER_COLORSPACE_RGB", N_ ("RGB Colorspace"), },
-        { 0,                      NULL,                     NULL,                  },
+      static const GEnumValue values[] = {
+        { TUMBLER_COLORSPACE_RGB, "TUMBLER_COLORSPACE_RGB", N_ ("RGB Colorspace") },
+        { 0, NULL, NULL },
       };
 
       type = g_enum_register_static ("TumblerColorspace", values);

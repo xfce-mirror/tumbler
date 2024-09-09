@@ -2,18 +2,18 @@
 /*-
  * Copyright (c) 2009-2011 Jannis Pohlmann <jannis@xfce.org>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -31,13 +31,13 @@
 #include <glib-object.h>
 #include <glib/gi18n.h>
 
-#define THUMBNAILER_CACHE_PATH    TUMBLER_SERVICE_PATH_PREFIX "/Cache1"
+#define THUMBNAILER_CACHE_PATH TUMBLER_SERVICE_PATH_PREFIX "/Cache1"
 #define THUMBNAILER_CACHE_SERVICE TUMBLER_SERVICE_NAME_PREFIX ".Cache1"
-#define THUMBNAILER_CACHE_IFACE   TUMBLER_SERVICE_NAME_PREFIX ".Cache1"
+#define THUMBNAILER_CACHE_IFACE TUMBLER_SERVICE_NAME_PREFIX ".Cache1"
 
-typedef struct _MoveRequest    MoveRequest;
-typedef struct _CopyRequest    CopyRequest;
-typedef struct _DeleteRequest  DeleteRequest;
+typedef struct _MoveRequest MoveRequest;
+typedef struct _CopyRequest CopyRequest;
+typedef struct _DeleteRequest DeleteRequest;
 typedef struct _CleanupRequest CleanupRequest;
 
 
@@ -51,96 +51,108 @@ enum
 
 
 
-static void tumbler_cache_service_constructed    (GObject      *object);
-static void tumbler_cache_service_finalize       (GObject      *object);
-static void tumbler_cache_service_get_property   (GObject      *object,
-                                                  guint         prop_id,
-                                                  GValue       *value,
-                                                  GParamSpec   *pspec);
-static void tumbler_cache_service_set_property   (GObject      *object,
-                                                  guint         prop_id,
-                                                  const GValue *value,
-                                                  GParamSpec   *pspec);
-static void tumbler_cache_service_move_thread    (gpointer      data,
-                                                  gpointer      user_data);
-static void tumbler_cache_service_copy_thread    (gpointer      data,
-                                                  gpointer      user_data);
-static void tumbler_cache_service_delete_thread  (gpointer      data,
-                                                  gpointer      user_data);
-static void tumbler_cache_service_cleanup_thread (gpointer      data,
-                                                  gpointer      user_data);
+static void
+tumbler_cache_service_constructed (GObject *object);
+static void
+tumbler_cache_service_finalize (GObject *object);
+static void
+tumbler_cache_service_get_property (GObject *object,
+                                    guint prop_id,
+                                    GValue *value,
+                                    GParamSpec *pspec);
+static void
+tumbler_cache_service_set_property (GObject *object,
+                                    guint prop_id,
+                                    const GValue *value,
+                                    GParamSpec *pspec);
+static void
+tumbler_cache_service_move_thread (gpointer data,
+                                   gpointer user_data);
+static void
+tumbler_cache_service_copy_thread (gpointer data,
+                                   gpointer user_data);
+static void
+tumbler_cache_service_delete_thread (gpointer data,
+                                     gpointer user_data);
+static void
+tumbler_cache_service_cleanup_thread (gpointer data,
+                                      gpointer user_data);
 
 
 
-static gboolean tumbler_cache_service_cleanup (TumblerExportedCacheService   *skeleton,
-                                               GDBusMethodInvocation         *invocation,
-                                               const gchar *const            *base_uris,
-                                               guint32                       since,
-                                               TumblerCacheService           *service);
-static gboolean tumbler_cache_service_delete  (TumblerExportedCacheService   *skeleton,
-                                               GDBusMethodInvocation         *invocation,
-                                               const gchar *const            *uris,
-                                               TumblerCacheService           *service);
+static gboolean
+tumbler_cache_service_cleanup (TumblerExportedCacheService *skeleton,
+                               GDBusMethodInvocation *invocation,
+                               const gchar *const *base_uris,
+                               guint32 since,
+                               TumblerCacheService *service);
+static gboolean
+tumbler_cache_service_delete (TumblerExportedCacheService *skeleton,
+                              GDBusMethodInvocation *invocation,
+                              const gchar *const *uris,
+                              TumblerCacheService *service);
 
-static gboolean tumbler_cache_service_copy    (TumblerExportedCacheService   *skeleton,
-                                               GDBusMethodInvocation         *invocation,
-                                               const gchar *const            *from_uris,
-                                               const gchar *const            *to_uris,
-                                               TumblerCacheService           *service);
+static gboolean
+tumbler_cache_service_copy (TumblerExportedCacheService *skeleton,
+                            GDBusMethodInvocation *invocation,
+                            const gchar *const *from_uris,
+                            const gchar *const *to_uris,
+                            TumblerCacheService *service);
 
-static gboolean tumbler_cache_service_move    (TumblerExportedCacheService   *skeleton,
-                                               GDBusMethodInvocation         *invocation,
-                                               const gchar *const            *from_uris,
-                                               const gchar *const            *to_uris,
-                                               TumblerCacheService           *service);
+static gboolean
+tumbler_cache_service_move (TumblerExportedCacheService *skeleton,
+                            GDBusMethodInvocation *invocation,
+                            const gchar *const *from_uris,
+                            const gchar *const *to_uris,
+                            TumblerCacheService *service);
 
 struct _TumblerCacheService
 {
-  TumblerComponent            __parent__;
+  TumblerComponent __parent__;
 
-  GDBusConnection             *connection;
+  GDBusConnection *connection;
   TumblerExportedCacheService *skeleton;
-  gboolean                     dbus_interface_exported;
- 
-  TumblerCache                *cache;
+  gboolean dbus_interface_exported;
 
-  GThreadPool                 *move_pool;
-  GThreadPool                 *copy_pool;
-  GThreadPool                 *delete_pool;
-  GThreadPool                 *cleanup_pool;
+  TumblerCache *cache;
 
-  TUMBLER_MUTEX               (mutex);
+  GThreadPool *move_pool;
+  GThreadPool *copy_pool;
+  GThreadPool *delete_pool;
+  GThreadPool *cleanup_pool;
+
+  TUMBLER_MUTEX (mutex);
 };
 
 struct _MoveRequest
 {
-  TumblerExportedCacheService  *skeleton;
-  gchar                       **from_uris;
-  gchar                       **to_uris;
-  GDBusMethodInvocation        *invocation;
+  TumblerExportedCacheService *skeleton;
+  gchar **from_uris;
+  gchar **to_uris;
+  GDBusMethodInvocation *invocation;
 };
 
 struct _CopyRequest
 {
-  TumblerExportedCacheService  *skeleton;
-  gchar                       **from_uris;
-  gchar                       **to_uris;
-  GDBusMethodInvocation        *invocation;
+  TumblerExportedCacheService *skeleton;
+  gchar **from_uris;
+  gchar **to_uris;
+  GDBusMethodInvocation *invocation;
 };
 
 struct _DeleteRequest
 {
-  TumblerExportedCacheService  *skeleton;
-  gchar                       **uris;
-  GDBusMethodInvocation        *invocation;
+  TumblerExportedCacheService *skeleton;
+  gchar **uris;
+  GDBusMethodInvocation *invocation;
 };
 
 struct _CleanupRequest
 {
-  TumblerExportedCacheService  *skeleton;
-  guint32                       since;
-  gchar                       **base_uris;
-  GDBusMethodInvocation        *invocation;  
+  TumblerExportedCacheService *skeleton;
+  guint32 since;
+  gchar **base_uris;
+  GDBusMethodInvocation *invocation;
 };
 
 
@@ -155,18 +167,17 @@ tumbler_cache_service_class_init (TumblerCacheServiceClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->constructed = tumbler_cache_service_constructed; 
-  gobject_class->finalize = tumbler_cache_service_finalize; 
+  gobject_class->constructed = tumbler_cache_service_constructed;
+  gobject_class->finalize = tumbler_cache_service_finalize;
   gobject_class->get_property = tumbler_cache_service_get_property;
   gobject_class->set_property = tumbler_cache_service_set_property;
 
   g_object_class_install_property (gobject_class, PROP_CONNECTION,
                                    g_param_spec_object ("connection",
-                                                         "connection",
-                                                         "connection",
-                                                         G_TYPE_DBUS_CONNECTION,
-                                                         G_PARAM_READWRITE |
-                                                         G_PARAM_CONSTRUCT_ONLY));
+                                                        "connection",
+                                                        "connection",
+                                                        G_TYPE_DBUS_CONNECTION,
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
 
@@ -191,19 +202,19 @@ tumbler_cache_service_constructed (GObject *object)
 
   service->cache = tumbler_cache_get_default ();
 
-  service->move_pool = g_thread_pool_new (tumbler_cache_service_move_thread, 
+  service->move_pool = g_thread_pool_new (tumbler_cache_service_move_thread,
                                           service, 1, FALSE, NULL);
-  service->copy_pool = g_thread_pool_new (tumbler_cache_service_copy_thread, 
+  service->copy_pool = g_thread_pool_new (tumbler_cache_service_copy_thread,
                                           service, 1, FALSE, NULL);
   service->delete_pool = g_thread_pool_new (tumbler_cache_service_delete_thread,
                                             service, 1, FALSE, NULL);
-  service->cleanup_pool = g_thread_pool_new (tumbler_cache_service_cleanup_thread, 
+  service->cleanup_pool = g_thread_pool_new (tumbler_cache_service_cleanup_thread,
                                              service, 1, FALSE, NULL);
-  
-  service->skeleton = tumbler_exported_cache_service_skeleton_new();
-  
+
+  service->skeleton = tumbler_exported_cache_service_skeleton_new ();
+
   /* everything's fine, install the cache type D-Bus info */
-  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON(service->skeleton),
+  g_dbus_interface_skeleton_export (G_DBUS_INTERFACE_SKELETON (service->skeleton),
                                     service->connection,
                                     THUMBNAILER_CACHE_PATH,
                                     &error);
@@ -211,23 +222,23 @@ tumbler_cache_service_constructed (GObject *object)
     {
       g_critical ("error exporting thumbnail cache service on session bus: %s", error->message);
       g_error_free (error);
-      service->dbus_interface_exported = FALSE; 
+      service->dbus_interface_exported = FALSE;
     }
   else
     {
       service->dbus_interface_exported = TRUE;
-      
+
       g_signal_connect (service->skeleton, "handle-move",
-                        G_CALLBACK(tumbler_cache_service_move), service);
-      
+                        G_CALLBACK (tumbler_cache_service_move), service);
+
       g_signal_connect (service->skeleton, "handle-copy",
-                        G_CALLBACK(tumbler_cache_service_copy), service);
-      
+                        G_CALLBACK (tumbler_cache_service_copy), service);
+
       g_signal_connect (service->skeleton, "handle-delete",
-                        G_CALLBACK(tumbler_cache_service_delete), service);
-      
+                        G_CALLBACK (tumbler_cache_service_delete), service);
+
       g_signal_connect (service->skeleton, "handle-cleanup",
-                        G_CALLBACK(tumbler_cache_service_cleanup), service);
+                        G_CALLBACK (tumbler_cache_service_cleanup), service);
     }
 }
 
@@ -248,11 +259,9 @@ tumbler_cache_service_finalize (GObject *object)
 
   /* Unexport from dbus */
   if (service->dbus_interface_exported)
-    g_dbus_interface_skeleton_unexport_from_connection 
-      (
-        G_DBUS_INTERFACE_SKELETON (service->skeleton),
-        service->connection
-      );
+    g_dbus_interface_skeleton_unexport_from_connection (
+      G_DBUS_INTERFACE_SKELETON (service->skeleton),
+      service->connection);
 
   /* release the Skeleton object */
   g_object_unref (service->skeleton);
@@ -267,9 +276,9 @@ tumbler_cache_service_finalize (GObject *object)
 
 
 static void
-tumbler_cache_service_get_property (GObject    *object,
-                                    guint       prop_id,
-                                    GValue     *value,
+tumbler_cache_service_get_property (GObject *object,
+                                    guint prop_id,
+                                    GValue *value,
                                     GParamSpec *pspec)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (object);
@@ -288,10 +297,10 @@ tumbler_cache_service_get_property (GObject    *object,
 
 
 static void
-tumbler_cache_service_set_property (GObject      *object,
-                                    guint         prop_id,
+tumbler_cache_service_set_property (GObject *object,
+                                    guint prop_id,
                                     const GValue *value,
-                                    GParamSpec   *pspec)
+                                    GParamSpec *pspec)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (object);
 
@@ -313,7 +322,7 @@ tumbler_cache_service_move_thread (gpointer data,
                                    gpointer user_data)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
-  MoveRequest         *request = data;
+  MoveRequest *request = data;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -327,9 +336,9 @@ tumbler_cache_service_move_thread (gpointer data,
                                             (const gchar *const *) request->from_uris,
                                             (const gchar *const *) request->to_uris);
 
-      tumbler_cache_move (service->cache, 
-                          (const gchar *const *)request->from_uris, 
-                          (const gchar *const *)request->to_uris);
+      tumbler_cache_move (service->cache,
+                          (const gchar *const *) request->from_uris,
+                          (const gchar *const *) request->to_uris);
     }
 
   tumbler_exported_cache_service_complete_move (request->skeleton, request->invocation);
@@ -352,7 +361,7 @@ tumbler_cache_service_copy_thread (gpointer data,
                                    gpointer user_data)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
-  CopyRequest         *request = data;
+  CopyRequest *request = data;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -366,9 +375,9 @@ tumbler_cache_service_copy_thread (gpointer data,
                                             (const gchar *const *) request->from_uris,
                                             (const gchar *const *) request->to_uris);
 
-      tumbler_cache_copy (service->cache, 
-                          (const gchar *const *)request->from_uris, 
-                          (const gchar *const *)request->to_uris);
+      tumbler_cache_copy (service->cache,
+                          (const gchar *const *) request->from_uris,
+                          (const gchar *const *) request->to_uris);
     }
 
   tumbler_exported_cache_service_complete_copy (request->skeleton, request->invocation);
@@ -391,7 +400,7 @@ tumbler_cache_service_delete_thread (gpointer data,
                                      gpointer user_data)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
-  DeleteRequest       *request = data;
+  DeleteRequest *request = data;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -403,7 +412,7 @@ tumbler_cache_service_delete_thread (gpointer data,
       g_debug ("Removing files from cache for deleted source files");
       tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", (const gchar *const *) request->uris);
 
-      tumbler_cache_delete (service->cache, (const gchar *const *)request->uris);
+      tumbler_cache_delete (service->cache, (const gchar *const *) request->uris);
     }
 
   tumbler_exported_cache_service_complete_delete (request->skeleton, request->invocation);
@@ -425,7 +434,7 @@ tumbler_cache_service_cleanup_thread (gpointer data,
                                       gpointer user_data)
 {
   TumblerCacheService *service = TUMBLER_CACHE_SERVICE (user_data);
-  CleanupRequest      *request = data;
+  CleanupRequest *request = data;
 
   g_return_if_fail (TUMBLER_IS_CACHE_SERVICE (service));
   g_return_if_fail (request != NULL);
@@ -440,8 +449,8 @@ tumbler_cache_service_cleanup_thread (gpointer data,
       tumbler_util_dump_strv (G_LOG_DOMAIN, "URI schemes",
                               (const gchar *const *) request->base_uris);
 
-      tumbler_cache_cleanup (service->cache, 
-                             (const gchar *const *)request->base_uris, 
+      tumbler_cache_cleanup (service->cache,
+                             (const gchar *const *) request->base_uris,
                              request->since);
     }
 
@@ -460,92 +469,91 @@ tumbler_cache_service_cleanup_thread (gpointer data,
 
 
 TumblerCacheService *
-tumbler_cache_service_new (GDBusConnection         *connection,
+tumbler_cache_service_new (GDBusConnection *connection,
                            TumblerLifecycleManager *lifecycle_manager)
 {
-  return g_object_new (TUMBLER_TYPE_CACHE_SERVICE, 
-                       "connection", connection, 
+  return g_object_new (TUMBLER_TYPE_CACHE_SERVICE,
+                       "connection", connection,
                        "lifecycle-manager", lifecycle_manager,
                        NULL);
 }
 
 
 
-
 gboolean
-tumbler_cache_service_move (TumblerExportedCacheService   *skeleton,
-                            GDBusMethodInvocation         *invocation,
-                            const gchar *const            *from_uris,
-                            const gchar *const            *to_uris,
-                            TumblerCacheService           *service)
+tumbler_cache_service_move (TumblerExportedCacheService *skeleton,
+                            GDBusMethodInvocation *invocation,
+                            const gchar *const *from_uris,
+                            const gchar *const *to_uris,
+                            TumblerCacheService *service)
 {
   MoveRequest *request;
 
   g_dbus_async_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), invocation, FALSE);
   g_dbus_async_return_val_if_fail (from_uris != NULL, invocation, FALSE);
   g_dbus_async_return_val_if_fail (to_uris != NULL, invocation, FALSE);
-  g_dbus_async_return_val_if_fail (g_strv_length ((gchar **)from_uris) == g_strv_length ((gchar **)to_uris), invocation, FALSE);
+  g_dbus_async_return_val_if_fail (g_strv_length ((gchar **) from_uris) == g_strv_length ((gchar **) to_uris), invocation, FALSE);
 
   /* prevent the lifecycle manager to shut tumbler down before the
    * move request has been processed */
   tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
 
   request = g_slice_new0 (MoveRequest);
-  request->from_uris = g_strdupv ((gchar **)from_uris);
-  request->to_uris = g_strdupv ((gchar **)to_uris);
+  request->from_uris = g_strdupv ((gchar **) from_uris);
+  request->to_uris = g_strdupv ((gchar **) to_uris);
   request->invocation = invocation;
 
   g_thread_pool_push (service->move_pool, request, NULL);
 
   /* try to keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
-  
+
   return TRUE;
 }
 
 
 
 gboolean
-tumbler_cache_service_copy (TumblerExportedCacheService   *skeleton,
-                            GDBusMethodInvocation         *invocation,
-                            const gchar *const            *from_uris,
-                            const gchar *const            *to_uris,
-                            TumblerCacheService           *service)
+tumbler_cache_service_copy (TumblerExportedCacheService *skeleton,
+                            GDBusMethodInvocation *invocation,
+                            const gchar *const *from_uris,
+                            const gchar *const *to_uris,
+                            TumblerCacheService *service)
 {
   CopyRequest *request;
-  
+
   g_dbus_async_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), invocation, FALSE);
   g_dbus_async_return_val_if_fail (from_uris != NULL, invocation, FALSE);
   g_dbus_async_return_val_if_fail (to_uris != NULL, invocation, FALSE);
-  g_dbus_async_return_val_if_fail (g_strv_length ((gchar **)from_uris) == g_strv_length ((gchar **)to_uris), invocation, FALSE);
-  
+  g_dbus_async_return_val_if_fail (g_strv_length ((gchar **) from_uris) == g_strv_length ((gchar **) to_uris), invocation, FALSE);
+
   /* prevent the lifecycle manager to shut tumbler down before the
    * copy request has been processed */
   tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
 
   request = g_slice_new0 (CopyRequest);
-  request->from_uris = g_strdupv ((gchar **)from_uris);
-  request->to_uris = g_strdupv ((gchar **)to_uris);
+  request->from_uris = g_strdupv ((gchar **) from_uris);
+  request->to_uris = g_strdupv ((gchar **) to_uris);
   request->invocation = invocation;
 
   g_thread_pool_push (service->copy_pool, request, NULL);
 
   /* try to keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
-  
+
   return TRUE;
 }
 
 
 
 gboolean
-tumbler_cache_service_delete (TumblerExportedCacheService   *skeleton,
-                              GDBusMethodInvocation         *invocation,
-                              const gchar *const            *uris,
-                              TumblerCacheService           *service)
+tumbler_cache_service_delete (TumblerExportedCacheService *skeleton,
+                              GDBusMethodInvocation *invocation,
+                              const gchar *const *uris,
+                              TumblerCacheService *service)
 {
   DeleteRequest *request;
-  
+
   g_dbus_async_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), invocation, FALSE);
   g_dbus_async_return_val_if_fail (uris != NULL, invocation, FALSE);
 
@@ -554,36 +562,36 @@ tumbler_cache_service_delete (TumblerExportedCacheService   *skeleton,
   tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
 
   request = g_slice_new0 (DeleteRequest);
-  request->uris = g_strdupv ((gchar **)uris);
+  request->uris = g_strdupv ((gchar **) uris);
   request->invocation = invocation;
 
   g_thread_pool_push (service->delete_pool, request, NULL);
 
   /* try to keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
-  
+
   return TRUE;
 }
 
 
 
 gboolean
-tumbler_cache_service_cleanup (TumblerExportedCacheService   *skeleton,
-                               GDBusMethodInvocation         *invocation,
-                               const gchar *const            *base_uris,
-                               guint32                       since,
-                               TumblerCacheService           *service)
+tumbler_cache_service_cleanup (TumblerExportedCacheService *skeleton,
+                               GDBusMethodInvocation *invocation,
+                               const gchar *const *base_uris,
+                               guint32 since,
+                               TumblerCacheService *service)
 {
   CleanupRequest *request;
 
   g_dbus_async_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), invocation, FALSE);
-  
+
   /* prevent the lifecycle manager to shut tumbler down before the
    * cleanup request has been processed */
   tumbler_component_increment_use_count (TUMBLER_COMPONENT (service));
 
   request = g_slice_new0 (CleanupRequest);
-  request->base_uris = g_strdupv ((gchar **)base_uris);
+  request->base_uris = g_strdupv ((gchar **) base_uris);
   request->since = since;
   request->invocation = invocation;
 
@@ -591,12 +599,13 @@ tumbler_cache_service_cleanup (TumblerExportedCacheService   *skeleton,
 
   /* try to keep tumbler alive */
   tumbler_component_keep_alive (TUMBLER_COMPONENT (service), NULL);
-  
+
   return TRUE;
 }
 
-gboolean tumbler_cache_service_is_exported (TumblerCacheService *service)
+gboolean
+tumbler_cache_service_is_exported (TumblerCacheService *service)
 {
-  g_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE(service), FALSE);
+  g_return_val_if_fail (TUMBLER_IS_CACHE_SERVICE (service), FALSE);
   return service->dbus_interface_exported;
 }

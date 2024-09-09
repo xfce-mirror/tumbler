@@ -37,21 +37,23 @@
 #endif
 
 
-#define SERIES_PATTERN    "\\b((?:s\\d{1,2}e\\d{1,2}|\\d{1,2}x\\d{1,2}))\\b"
-#define ABBREV_PATTERN    "\\b(\\w{1,}(?:rip|scr)|r5|hdtv|(?:480|720|1080)p|\\w{3}$)\\b"
-#define YEAR_PATTERN      "\\b(\\d{4})\\b"
+#define SERIES_PATTERN "\\b((?:s\\d{1,2}e\\d{1,2}|\\d{1,2}x\\d{1,2}))\\b"
+#define ABBREV_PATTERN "\\b(\\w{1,}(?:rip|scr)|r5|hdtv|(?:480|720|1080)p|\\w{3}$)\\b"
+#define YEAR_PATTERN "\\b(\\d{4})\\b"
 
 #define OMDBAPI_QUERY_URL "http://www.omdbapi.com/?t="
 
-#define TMDB_BASE_URL     "http://cf2.imgobject.com/t/p/"
-#define TMDB_QUERY_URL    "http://api.themoviedb.org/3/search/movie?api_key="
+#define TMDB_BASE_URL "http://cf2.imgobject.com/t/p/"
+#define TMDB_QUERY_URL "http://api.themoviedb.org/3/search/movie?api_key="
 
 
 
-static void cover_thumbnailer_finalize     (GObject                    *object);
-static void cover_thumbnailer_create       (TumblerAbstractThumbnailer *thumbnailer,
-                                            GCancellable               *cancellable,
-                                            TumblerFileInfo            *info);
+static void
+cover_thumbnailer_finalize (GObject *object);
+static void
+cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                          GCancellable *cancellable,
+                          TumblerFileInfo *info);
 
 
 
@@ -60,7 +62,7 @@ struct _CoverThumbnailer
   TumblerAbstractThumbnailer __parent__;
 
   /* themoviedb api key */
-  gchar  *api_key;
+  gchar *api_key;
 
   /* precompiled */
   GRegex *series_regex;
@@ -91,7 +93,7 @@ static void
 cover_thumbnailer_class_init (CoverThumbnailerClass *klass)
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
-  GObjectClass                    *gobject_class;
+  GObjectClass *gobject_class;
 
   abstractthumbnailer_class = TUMBLER_ABSTRACT_THUMBNAILER_CLASS (klass);
   abstractthumbnailer_class->create = cover_thumbnailer_create;
@@ -152,13 +154,13 @@ cover_thumbnailer_finalize (GObject *object)
 
 static size_t
 cover_thumbnailer_load_pixbuf_write (gpointer data,
-                                     size_t   size,
-                                     size_t   nmemb,
+                                     size_t size,
+                                     size_t nmemb,
                                      gpointer user_data)
 {
   GdkPixbufLoader *loader = GDK_PIXBUF_LOADER (user_data);
-  size_t           len = size * nmemb;
-  GError          *err = NULL;
+  size_t len = size * nmemb;
+  GError *err = NULL;
 
   g_return_val_if_fail (GDK_IS_PIXBUF_LOADER (loader), 0);
 
@@ -176,12 +178,12 @@ cover_thumbnailer_load_pixbuf_write (gpointer data,
 
 static size_t
 cover_thumbnailer_load_contents_write (gpointer data,
-                                       size_t   size,
-                                       size_t   nmemb,
+                                       size_t size,
+                                       size_t nmemb,
                                        gpointer user_data)
 {
   GString *contents = user_data;
-  size_t   len = size * nmemb;
+  size_t len = size * nmemb;
 
   g_string_append_len (contents, data, len);
 
@@ -192,10 +194,10 @@ cover_thumbnailer_load_contents_write (gpointer data,
 
 static gint
 cover_thumbnailer_check_progress (gpointer user_data,
-                                  gdouble  dltotal,
-                                  gdouble  dlnow,
-                                  gdouble  ultotal,
-                                  gdouble  ulnow)
+                                  gdouble dltotal,
+                                  gdouble dlnow,
+                                  gdouble ultotal,
+                                  gdouble ulnow)
 {
   GCancellable *cancellable = G_CANCELLABLE (user_data);
 
@@ -209,8 +211,8 @@ cover_thumbnailer_check_progress (gpointer user_data,
 
 static CURL *
 cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
-                                const gchar      *url,
-                                GCancellable     *cancellable)
+                                const gchar *url,
+                                GCancellable *cancellable)
 {
   CURL *curl_handle;
 
@@ -240,24 +242,25 @@ cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
 
 
 static CURLcode
-cover_thumbnailer_load_perform (CoverThumbnailer  *cover,
-                                CURL              *curl_handle)
+cover_thumbnailer_load_perform (CoverThumbnailer *cover,
+                                CURL *curl_handle)
 {
-  gint            still_running;
-  struct timeval  timeout;
-  fd_set          fdread;
-  fd_set          fdwrite;
-  fd_set          fdexcep;
-  gint            rc = 0;
-  gint            maxfd;
-  CURLcode        code = CURLE_OK;
-  CURLMsg        *msg;
+  gint still_running;
+  struct timeval timeout;
+  fd_set fdread;
+  fd_set fdwrite;
+  fd_set fdexcep;
+  gint rc = 0;
+  gint maxfd;
+  CURLcode code = CURLE_OK;
+  CURLMsg *msg;
 
   do
     {
       /* start the action */
       while (curl_multi_perform (cover->curl_multi, &still_running)
-             == CURLM_CALL_MULTI_PERFORM);
+             == CURLM_CALL_MULTI_PERFORM)
+        ;
 
       if (!still_running)
         break;
@@ -295,16 +298,16 @@ cover_thumbnailer_load_perform (CoverThumbnailer  *cover,
 
 
 static GdkPixbuf *
-cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
-                               const gchar             *url,
-                               TumblerThumbnail        *thumbnail,
-                               GCancellable            *cancellable,
-                               GError                 **error)
+cover_thumbnailer_load_pixbuf (CoverThumbnailer *cover,
+                               const gchar *url,
+                               TumblerThumbnail *thumbnail,
+                               GCancellable *cancellable,
+                               GError **error)
 {
-  CURL            *curl_handle;
+  CURL *curl_handle;
   GdkPixbufLoader *loader;
-  GdkPixbuf       *pixbuf = NULL;
-  gint             ret;
+  GdkPixbuf *pixbuf = NULL;
+  gint ret;
 
   g_return_val_if_fail (url != NULL, NULL);
   g_return_val_if_fail (G_IS_CANCELLABLE (cancellable), NULL);
@@ -350,14 +353,14 @@ cover_thumbnailer_load_pixbuf (CoverThumbnailer        *cover,
 
 
 static gchar *
-cover_thumbnailer_load_contents (CoverThumbnailer  *cover,
-                                 const gchar       *uri,
-                                 GCancellable      *cancellable,
-                                 GError           **error)
+cover_thumbnailer_load_contents (CoverThumbnailer *cover,
+                                 const gchar *uri,
+                                 GCancellable *cancellable,
+                                 GError **error)
 {
   GString *contents;
-  CURL    *curl_handle;
-  gint     ret;
+  CURL *curl_handle;
+  gint ret;
 
   if (g_cancellable_is_cancelled (cancellable))
     return NULL;
@@ -384,23 +387,23 @@ cover_thumbnailer_load_contents (CoverThumbnailer  *cover,
 
 
 static gboolean
-cover_thumbnailer_get_title (CoverThumbnailer  *cover,
-                             GFile            *gfile,
-                             gchar           **ret_title,
-                             gchar           **ret_year)
+cover_thumbnailer_get_title (CoverThumbnailer *cover,
+                             GFile *gfile,
+                             gchar **ret_title,
+                             gchar **ret_year)
 {
-  gchar       *basename;
-  gboolean     is_series;
-  GMatchInfo  *match_info = NULL;
-  gint         start_pos;
-  gint         end_pos;
-  gchar       *year = NULL;
-  GString     *title;
+  gchar *basename;
+  gboolean is_series;
+  GMatchInfo *match_info = NULL;
+  gint start_pos;
+  gint end_pos;
+  gchar *year = NULL;
+  GString *title;
   const gchar *p;
-  gboolean     append_space;
-  gunichar     uchar;
-  gboolean     succeed;
-  gchar       *temp;
+  gboolean append_space;
+  gunichar uchar;
+  gboolean succeed;
+  gchar *temp;
 
   g_return_val_if_fail (G_IS_FILE (gfile), FALSE);
   g_return_val_if_fail (ret_title != NULL, FALSE);
@@ -486,21 +489,21 @@ cover_thumbnailer_get_title (CoverThumbnailer  *cover,
 
 
 static gchar *
-cover_thumbnailer_poster_url (CoverThumbnailer        *cover,
-                              const gchar             *title,
-                              const gchar             *year,
-                              TumblerThumbnailFlavor  *flavor,
-                              GCancellable            *cancellable,
-                              GError                 **error)
+cover_thumbnailer_poster_url (CoverThumbnailer *cover,
+                              const gchar *title,
+                              const gchar *year,
+                              TumblerThumbnailFlavor *flavor,
+                              GCancellable *cancellable,
+                              GError **error)
 {
-  gchar       *query;
+  gchar *query;
   const gchar *needle;
   const gchar *p;
   const gchar *k = NULL;
-  gchar       *url_part;
-  gchar       *url = NULL;
-  gchar       *data;
-  gint         dest_size;
+  gchar *url_part;
+  gchar *url = NULL;
+  gchar *data;
+  gint dest_size;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
   g_return_val_if_fail (COVER_IS_THUMBNAILER (cover), NULL);
@@ -594,20 +597,20 @@ cover_thumbnailer_poster_url (CoverThumbnailer        *cover,
 
 static void
 cover_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                          GCancellable               *cancellable,
-                          TumblerFileInfo            *info)
+                          GCancellable *cancellable,
+                          TumblerFileInfo *info)
 {
-  CoverThumbnailer       *cover = COVER_THUMBNAILER (thumbnailer);
-  const gchar            *uri;
-  TumblerThumbnail       *thumbnail;
-  gchar                  *year;
-  gchar                  *title;
-  GdkPixbuf              *pixbuf = NULL;
-  gchar                  *poster_url;
-  GError                 *error = NULL;
-  TumblerImageData        data;
+  CoverThumbnailer *cover = COVER_THUMBNAILER (thumbnailer);
+  const gchar *uri;
+  TumblerThumbnail *thumbnail;
+  gchar *year;
+  gchar *title;
+  GdkPixbuf *pixbuf = NULL;
+  gchar *poster_url;
+  GError *error = NULL;
+  TumblerImageData data;
   TumblerThumbnailFlavor *flavor;
-  GFile                  *gfile;
+  GFile *gfile;
 
   /* do nothing if cancelled */
   if (g_cancellable_is_cancelled (cancellable))

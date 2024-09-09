@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -44,27 +44,34 @@ enum
 
 
 
-static void     xdg_cache_thumbnail_thumbnail_init  (TumblerThumbnailIface  *iface);
-static void     xdg_cache_thumbnail_finalize        (GObject                *object);
-static void     xdg_cache_thumbnail_get_property    (GObject                *object,
-                                                     guint                   prop_id,
-                                                     GValue                 *value,
-                                                     GParamSpec             *pspec);
-static void     xdg_cache_thumbnail_set_property    (GObject                *object,
-                                                     guint                   prop_id,
-                                                     const GValue           *value,
-                                                     GParamSpec             *pspec);
-static gboolean xdg_cache_thumbnail_load            (TumblerThumbnail       *thumbnail,
-                                                     GCancellable           *cancellable,
-                                                     GError                **error);
-static gboolean xdg_cache_thumbnail_needs_update    (TumblerThumbnail       *thumbnail,
-                                                     const gchar            *uri,
-                                                     gdouble                 mtime);
-static gboolean xdg_cache_thumbnail_save_image_data (TumblerThumbnail       *thumbnail,
-                                                     TumblerImageData       *data,
-                                                     gdouble                 mtime,
-                                                     GCancellable           *cancellable,
-                                                     GError                **error);
+static void
+xdg_cache_thumbnail_thumbnail_init (TumblerThumbnailIface *iface);
+static void
+xdg_cache_thumbnail_finalize (GObject *object);
+static void
+xdg_cache_thumbnail_get_property (GObject *object,
+                                  guint prop_id,
+                                  GValue *value,
+                                  GParamSpec *pspec);
+static void
+xdg_cache_thumbnail_set_property (GObject *object,
+                                  guint prop_id,
+                                  const GValue *value,
+                                  GParamSpec *pspec);
+static gboolean
+xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
+                          GCancellable *cancellable,
+                          GError **error);
+static gboolean
+xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
+                                  const gchar *uri,
+                                  gdouble mtime);
+static gboolean
+xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
+                                     TumblerImageData *data,
+                                     gdouble mtime,
+                                     GCancellable *cancellable,
+                                     GError **error);
 
 
 
@@ -73,10 +80,10 @@ struct _XDGCacheThumbnail
   GObject __parent__;
 
   TumblerThumbnailFlavor *flavor;
-  XDGCacheCache          *cache;
-  gchar                  *uri;
-  gchar                  *cached_uri;
-  gdouble                 cached_mtime;
+  XDGCacheCache *cache;
+  gchar *uri;
+  gchar *cached_uri;
+  gdouble cached_mtime;
 };
 
 
@@ -104,7 +111,7 @@ xdg_cache_thumbnail_class_init (XDGCacheThumbnailClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = xdg_cache_thumbnail_finalize; 
+  gobject_class->finalize = xdg_cache_thumbnail_finalize;
   gobject_class->get_property = xdg_cache_thumbnail_get_property;
   gobject_class->set_property = xdg_cache_thumbnail_set_property;
 
@@ -143,7 +150,7 @@ static void
 xdg_cache_thumbnail_finalize (GObject *object)
 {
   XDGCacheThumbnail *thumbnail = XDG_CACHE_THUMBNAIL (object);
-  
+
   g_free (thumbnail->uri);
   g_free (thumbnail->cached_uri);
 
@@ -155,9 +162,9 @@ xdg_cache_thumbnail_finalize (GObject *object)
 
 
 static void
-xdg_cache_thumbnail_get_property (GObject    *object,
-                                  guint       prop_id,
-                                  GValue     *value,
+xdg_cache_thumbnail_get_property (GObject *object,
+                                  guint prop_id,
+                                  GValue *value,
                                   GParamSpec *pspec)
 {
   XDGCacheThumbnail *thumbnail = XDG_CACHE_THUMBNAIL (object);
@@ -182,10 +189,10 @@ xdg_cache_thumbnail_get_property (GObject    *object,
 
 
 static void
-xdg_cache_thumbnail_set_property (GObject      *object,
-                                  guint         prop_id,
+xdg_cache_thumbnail_set_property (GObject *object,
+                                  guint prop_id,
                                   const GValue *value,
-                                  GParamSpec   *pspec)
+                                  GParamSpec *pspec)
 {
   XDGCacheThumbnail *thumbnail = XDG_CACHE_THUMBNAIL (object);
 
@@ -210,12 +217,12 @@ xdg_cache_thumbnail_set_property (GObject      *object,
 
 static gboolean
 xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
-                          GCancellable     *cancellable,
-                          GError          **error)
+                          GCancellable *cancellable,
+                          GError **error)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
-  GError            *err = NULL;
-  GFile             *file;
+  GError *err = NULL;
+  GFile *file;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -223,7 +230,7 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
   g_return_val_if_fail (cache_thumbnail->uri != NULL, FALSE);
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache_thumbnail->cache), FALSE);
 
-  file = xdg_cache_cache_get_file (cache_thumbnail->uri, 
+  file = xdg_cache_cache_get_file (cache_thumbnail->uri,
                                    cache_thumbnail->flavor);
 
   g_free (cache_thumbnail->cached_uri);
@@ -252,17 +259,17 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
 static gboolean
 has_valid_shared_thumbnail (const gchar *uri,
                             const gchar *size,
-                            gdouble      mtime)
+                            gdouble mtime)
 {
-  gchar       *thumbnail_path;
-  gboolean     found;
+  gchar *thumbnail_path;
+  gboolean found;
 
   thumbnail_path = xfce_create_shared_thumbnail_path (uri, size);
 
   if (thumbnail_path != NULL && g_file_test (thumbnail_path, G_FILE_TEST_EXISTS))
     {
-      gdouble        thumb_mtime;
-      gchar         *thumb_uri;
+      gdouble thumb_mtime;
+      gchar *thumb_uri;
 
       if (xdg_cache_cache_read_thumbnail_info (thumbnail_path, &thumb_uri, &thumb_mtime, NULL, NULL))
         found = mtime == thumb_mtime;
@@ -282,19 +289,19 @@ has_valid_shared_thumbnail (const gchar *uri,
 
 static gboolean
 xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
-                                  const gchar      *uri,
-                                  gdouble           mtime)
+                                  const gchar *uri,
+                                  gdouble mtime)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
-  gboolean           is_valid        = TRUE;
+  gboolean is_valid = TRUE;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (uri != NULL && *uri != '\0', FALSE);
 
   if (cache_thumbnail->cached_uri == NULL
-    || cache_thumbnail->cached_mtime == 0
-    || strcmp (cache_thumbnail->uri, uri) != 0
-    || cache_thumbnail->cached_mtime != mtime)
+      || cache_thumbnail->cached_mtime == 0
+      || strcmp (cache_thumbnail->uri, uri) != 0
+      || cache_thumbnail->cached_mtime != mtime)
     {
       is_valid = FALSE;
     }
@@ -313,24 +320,24 @@ xdg_cache_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 static gboolean
 xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
                                      TumblerImageData *data,
-                                     gdouble           mtime,
-                                     GCancellable     *cancellable,
-                                     GError          **error)
+                                     gdouble mtime,
+                                     GCancellable *cancellable,
+                                     GError **error)
 {
   XDGCacheThumbnail *cache_thumbnail = XDG_CACHE_THUMBNAIL (thumbnail);
   GFileOutputStream *stream;
-  GdkPixbuf         *dest_pixbuf;
-  GdkPixbuf         *src_pixbuf;
-  GError            *err = NULL;
-  GFile             *dest_file;
-  GFile             *flavor_dir;
-  GFile             *temp_file;
-  const gchar       *dest_path;
-  const gchar       *temp_path;
-  gchar             *mtime_str;
-  guint64            mtime_int = (guint64) mtime;
-  gint               width;
-  gint               height;
+  GdkPixbuf *dest_pixbuf;
+  GdkPixbuf *src_pixbuf;
+  GError *err = NULL;
+  GFile *dest_file;
+  GFile *flavor_dir;
+  GFile *temp_file;
+  const gchar *dest_path;
+  const gchar *temp_path;
+  gchar *mtime_str;
+  guint64 mtime_int = (guint64) mtime;
+  gint width;
+  gint height;
 
   g_return_val_if_fail (XDG_CACHE_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -355,14 +362,14 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
 
   /* generate a new pixbuf that is guranteed to follow the thumbnail spec */
   dest_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-  
+
   /* copy the thumbnail pixbuf into the destination pixbuf */
   gdk_pixbuf_copy_area (src_pixbuf, 0, 0, width, height, dest_pixbuf, 0, 0);
 
   /* determine the URI of the temporary file to write to */
   temp_file = xdg_cache_cache_get_temp_file (cache_thumbnail->uri,
                                              cache_thumbnail->flavor);
-  
+
   /* determine the flavor directory */
   flavor_dir = g_file_get_parent (temp_file);
 
@@ -396,7 +403,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
       if (saved)
         {
           /* saving succeeded, termine the final destination of the thumbnail */
-          dest_file = xdg_cache_cache_get_file (cache_thumbnail->uri, 
+          dest_file = xdg_cache_cache_get_file (cache_thumbnail->uri,
                                                 cache_thumbnail->flavor);
 
           /* determine temp and destination paths */

@@ -31,9 +31,12 @@
 
 
 
-static void   cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *cover_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
-static void   cover_thumbnailer_provider_finalize                  (GObject                         *object);
+static void
+cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
+static void
+cover_thumbnailer_provider_finalize (GObject *object);
 
 
 
@@ -110,11 +113,10 @@ cover_thumbnailer_provider_finalize (GObject *object)
 static GList *
 cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  CoverThumbnailer   *thumbnailer;
-  GList              *thumbnailers = NULL;
-  GStrv               uri_schemes;
-  static const gchar *mime_types[] =
-  {
+  CoverThumbnailer *thumbnailer;
+  GList *thumbnailers = NULL;
+  GStrv uri_schemes;
+  static const gchar *mime_types[] = {
     "video/divx",
     "video/jpeg",
     "video/mp4",

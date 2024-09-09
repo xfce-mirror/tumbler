@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -37,15 +37,18 @@ enum
 
 
 
-static void tumbler_thumbnail_flavor_finalize     (GObject      *object);
-static void tumbler_thumbnail_flavor_get_property (GObject      *object,
-                                                   guint         prop_id,
-                                                   GValue       *value,
-                                                   GParamSpec   *pspec);
-static void tumbler_thumbnail_flavor_set_property (GObject      *object,
-                                                   guint         prop_id,
-                                                   const GValue *value,
-                                                   GParamSpec   *pspec);
+static void
+tumbler_thumbnail_flavor_finalize (GObject *object);
+static void
+tumbler_thumbnail_flavor_get_property (GObject *object,
+                                       guint prop_id,
+                                       GValue *value,
+                                       GParamSpec *pspec);
+static void
+tumbler_thumbnail_flavor_set_property (GObject *object,
+                                       guint prop_id,
+                                       const GValue *value,
+                                       GParamSpec *pspec);
 
 
 
@@ -53,9 +56,9 @@ struct _TumblerThumbnailFlavor
 {
   GObject __parent__;
 
-  gchar  *name;
-  gint    width;
-  gint    height;
+  gchar *name;
+  gint width;
+  gint height;
 };
 
 
@@ -73,7 +76,7 @@ tumbler_thumbnail_flavor_class_init (TumblerThumbnailFlavorClass *klass)
   tumbler_thumbnail_flavor_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_thumbnail_flavor_finalize; 
+  gobject_class->finalize = tumbler_thumbnail_flavor_finalize;
   gobject_class->get_property = tumbler_thumbnail_flavor_get_property;
   gobject_class->set_property = tumbler_thumbnail_flavor_set_property;
 
@@ -82,24 +85,21 @@ tumbler_thumbnail_flavor_class_init (TumblerThumbnailFlavorClass *klass)
                                                         "name",
                                                         "name",
                                                         NULL,
-                                                        G_PARAM_READWRITE |
-                                                        G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_install_property (gobject_class, PROP_WIDTH,
                                    g_param_spec_int ("width",
                                                      "width",
                                                      "width",
                                                      -1, G_MAXINT, 0,
-                                                     G_PARAM_READWRITE |
-                                                     G_PARAM_CONSTRUCT_ONLY));
+                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   g_object_class_install_property (gobject_class, PROP_HEIGHT,
                                    g_param_spec_int ("height",
                                                      "height",
                                                      "height",
                                                      -1, G_MAXINT, 0,
-                                                     G_PARAM_READWRITE |
-                                                     G_PARAM_CONSTRUCT_ONLY));
+                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
 
@@ -124,9 +124,9 @@ tumbler_thumbnail_flavor_finalize (GObject *object)
 
 
 static void
-tumbler_thumbnail_flavor_get_property (GObject    *object,
-                                       guint       prop_id,
-                                       GValue     *value,
+tumbler_thumbnail_flavor_get_property (GObject *object,
+                                       guint prop_id,
+                                       GValue *value,
                                        GParamSpec *pspec)
 {
   TumblerThumbnailFlavor *flavor = TUMBLER_THUMBNAIL_FLAVOR (object);
@@ -151,10 +151,10 @@ tumbler_thumbnail_flavor_get_property (GObject    *object,
 
 
 static void
-tumbler_thumbnail_flavor_set_property (GObject      *object,
-                                       guint         prop_id,
+tumbler_thumbnail_flavor_set_property (GObject *object,
+                                       guint prop_id,
                                        const GValue *value,
-                                       GParamSpec   *pspec)
+                                       GParamSpec *pspec)
 {
   TumblerThumbnailFlavor *flavor = TUMBLER_THUMBNAIL_FLAVOR (object);
 
@@ -179,12 +179,12 @@ tumbler_thumbnail_flavor_set_property (GObject      *object,
 
 TumblerThumbnailFlavor *
 tumbler_thumbnail_flavor_new (const gchar *name,
-                              gint         width,
-                              gint         height)
+                              gint width,
+                              gint height)
 {
   g_return_val_if_fail (name != NULL && *name != '\0', NULL);
 
-  return g_object_new (TUMBLER_TYPE_THUMBNAIL_FLAVOR, "name", name, 
+  return g_object_new (TUMBLER_TYPE_THUMBNAIL_FLAVOR, "name", name,
                        "width", width, "height", height, NULL);
 }
 
@@ -237,11 +237,11 @@ tumbler_thumbnail_flavor_get_name (TumblerThumbnailFlavor *flavor)
 
 void
 tumbler_thumbnail_flavor_get_size (TumblerThumbnailFlavor *flavor,
-                                   gint                   *width,
-                                   gint                   *height)
+                                   gint *width,
+                                   gint *height)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor));
-  
+
   if (width != NULL)
     *width = flavor->width;
 

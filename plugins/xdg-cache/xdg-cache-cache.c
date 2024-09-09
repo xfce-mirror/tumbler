@@ -36,25 +36,34 @@
 
 
 
-static void              xdg_cache_cache_iface_init         (TumblerCacheIface      *iface);
-static void              xdg_cache_cache_finalize           (GObject                *object);
-static TumblerThumbnail *xdg_cache_cache_get_thumbnail      (TumblerCache           *cache,
-                                                             const gchar            *uri,
-                                                             TumblerThumbnailFlavor *flavor);
-static void              xdg_cache_cache_cleanup            (TumblerCache           *cache,
-                                                             const gchar *const     *base_uris,
-                                                             gdouble                 since);
-static void              xdg_cache_cache_delete             (TumblerCache           *cache,
-                                                             const gchar *const     *uris);
-static void              xdg_cache_cache_copy               (TumblerCache           *cache,
-                                                             const gchar *const     *from_uris,
-                                                             const gchar *const     *to_uris);
-static void              xdg_cache_cache_move               (TumblerCache           *cache,
-                                                             const gchar *const     *from_uris,
-                                                             const gchar *const     *to_uris);
-static gboolean          xdg_cache_cache_is_thumbnail       (TumblerCache           *cache,
-                                                             const gchar            *uri);
-static GList            *xdg_cache_cache_get_flavors        (TumblerCache           *cache);
+static void
+xdg_cache_cache_iface_init (TumblerCacheIface *iface);
+static void
+xdg_cache_cache_finalize (GObject *object);
+static TumblerThumbnail *
+xdg_cache_cache_get_thumbnail (TumblerCache *cache,
+                               const gchar *uri,
+                               TumblerThumbnailFlavor *flavor);
+static void
+xdg_cache_cache_cleanup (TumblerCache *cache,
+                         const gchar *const *base_uris,
+                         gdouble since);
+static void
+xdg_cache_cache_delete (TumblerCache *cache,
+                        const gchar *const *uris);
+static void
+xdg_cache_cache_copy (TumblerCache *cache,
+                      const gchar *const *from_uris,
+                      const gchar *const *to_uris);
+static void
+xdg_cache_cache_move (TumblerCache *cache,
+                      const gchar *const *from_uris,
+                      const gchar *const *to_uris);
+static gboolean
+xdg_cache_cache_is_thumbnail (TumblerCache *cache,
+                              const gchar *uri);
+static GList *
+xdg_cache_cache_get_flavors (TumblerCache *cache);
 
 
 
@@ -164,8 +173,8 @@ xdg_cache_cache_finalize (GObject *object)
 
 
 static TumblerThumbnail *
-xdg_cache_cache_get_thumbnail (TumblerCache           *cache,
-                               const gchar            *uri,
+xdg_cache_cache_get_thumbnail (TumblerCache *cache,
+                               const gchar *uri,
                                TumblerThumbnailFlavor *flavor)
 {
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), NULL);
@@ -181,23 +190,23 @@ xdg_cache_cache_get_thumbnail (TumblerCache           *cache,
 
 
 static void
-xdg_cache_cache_cleanup (TumblerCache       *cache,
+xdg_cache_cache_cleanup (TumblerCache *cache,
                          const gchar *const *base_uris,
-                         gdouble             since)
+                         gdouble since)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  const gchar   *file_basename;
-  gdouble        mtime;
-  GFile         *base_file;
-  GFile         *dummy_file;
-  GFile         *original_file;
-  GFile         *parent;
-  GList         *iter;
-  gchar         *dirname;
-  gchar         *filename;
-  gchar         *uri;
-  guint          n;
-  GDir          *dir;
+  const gchar *file_basename;
+  gdouble mtime;
+  GFile *base_file;
+  GFile *dummy_file;
+  GFile *original_file;
+  GFile *parent;
+  GList *iter;
+  gchar *dirname;
+  gchar *filename;
+  gchar *uri;
+  guint n;
+  GDir *dir;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
 
@@ -237,8 +246,8 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
                         }
                       else
                         {
-                           /* create a GFile for the original URI. we need this for
-                            * reliably checking the ancestor/descendant relationship */
+                          /* create a GFile for the original URI. we need this for
+                           * reliably checking the ancestor/descendant relationship */
                           original_file = g_file_new_for_uri (uri);
 
                           for (n = 0; base_uris != NULL && base_uris[n] != NULL; ++n)
@@ -254,7 +263,7 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
                                 }
 
                               /* releas the base file */
-                              g_object_unref(base_file);
+                              g_object_unref (base_file);
                             }
 
                           /* release the original file */
@@ -286,12 +295,12 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
 
               filename = (gchar *) g_file_peek_path (base_file);
               if (g_file_test (filename, G_FILE_TEST_IS_REGULAR))
-              {
-                g_unlink (filename);
-              }
+                {
+                  g_unlink (filename);
+                }
 
               /* releas the base file */
-              g_object_unref(base_file);
+              g_object_unref (base_file);
             }
         }
     }
@@ -300,13 +309,13 @@ xdg_cache_cache_cleanup (TumblerCache       *cache,
 
 
 static void
-xdg_cache_cache_delete (TumblerCache       *cache,
+xdg_cache_cache_delete (TumblerCache *cache,
                         const gchar *const *uris)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  GList         *iter;
-  GFile         *file;
-  gint           n;
+  GList *iter;
+  GFile *file;
+  gint n;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (uris != NULL);
@@ -325,19 +334,19 @@ xdg_cache_cache_delete (TumblerCache       *cache,
 
 
 static void
-xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
+xdg_cache_cache_copy_or_move_file (TumblerCache *cache,
                                    TumblerThumbnailFlavor *flavor,
-                                   gboolean                do_copy,
-                                   const gchar            *from_uri,
-                                   const gchar            *to_uri,
-                                   gdouble                 mtime)
+                                   gboolean do_copy,
+                                   const gchar *from_uri,
+                                   const gchar *to_uri,
+                                   gdouble mtime)
 {
-  GFile    *from_file;
-  GFile    *temp_file;
+  GFile *from_file;
+  GFile *temp_file;
   const gchar *temp_path;
   const gchar *dest_path;
-  gboolean  result;
-  GFile    *dest_file;
+  gboolean result;
+  GFile *dest_file;
 
   from_file = xdg_cache_cache_get_file (from_uri, flavor);
   temp_file = xdg_cache_cache_get_temp_file (to_uri, flavor);
@@ -386,27 +395,27 @@ xdg_cache_cache_copy_or_move_file (TumblerCache           *cache,
 
 
 static void
-xdg_cache_cache_copy_or_move (TumblerCache       *cache,
-                              gboolean            do_copy,
+xdg_cache_cache_copy_or_move (TumblerCache *cache,
+                              gboolean do_copy,
                               const gchar *const *from_uris,
                               const gchar *const *to_uris)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  GFileInfo     *info;
-  gdouble        mtime;
-  GFile         *dest_source_file;
-  GList         *iter;
-  guint          n;
-  GFile         *dummy_file;
-  GFile         *parent;
-  gchar         *dirname;
-  GDir          *dir;
-  const gchar   *file_basename;
-  gchar         *filename;
-  gchar         *uri;
-  GFile         *original_file;
-  GFile         *base_file;
-  gchar         *to_uri;
+  GFileInfo *info;
+  gdouble mtime;
+  GFile *dest_source_file;
+  GList *iter;
+  guint n;
+  GFile *dummy_file;
+  GFile *parent;
+  gchar *dirname;
+  GDir *dir;
+  const gchar *file_basename;
+  gchar *filename;
+  gchar *uri;
+  GFile *original_file;
+  GFile *base_file;
+  gchar *to_uri;
 
   g_return_if_fail (XDG_CACHE_IS_CACHE (cache));
   g_return_if_fail (from_uris != NULL);
@@ -414,13 +423,13 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
 
   for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      for (n = 0; n < g_strv_length ((gchar **)from_uris); ++n)
+      for (n = 0; n < g_strv_length ((gchar **) from_uris); ++n)
         {
           dest_source_file = g_file_new_for_uri (to_uris[n]);
           info = g_file_query_info (dest_source_file,
                                     G_FILE_ATTRIBUTE_STANDARD_TYPE
-                                      "," G_FILE_ATTRIBUTE_TIME_MODIFIED
-                                      "," G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC,
+                                    "," G_FILE_ATTRIBUTE_TIME_MODIFIED
+                                    "," G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC,
                                     G_FILE_QUERY_INFO_NONE, NULL, NULL);
 
           if (info == NULL)
@@ -457,7 +466,7 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
                           && uri != NULL)
                         {
                           /* create a GFile for the original URI. we need this for
-                          * reliably checking the ancestor/descendant relationship */
+                           * reliably checking the ancestor/descendant relationship */
                           original_file = g_file_new_for_uri (uri);
 
                           /* check if we have a thumbnail that is located in the moved/copied folder */
@@ -486,7 +495,7 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
                       file_basename = g_dir_read_name (dir);
                     }
 
-                 g_dir_close (dir);
+                  g_dir_close (dir);
                 }
 
               g_free (dirname);
@@ -495,8 +504,7 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
           else
             {
               mtime = g_file_info_get_attribute_uint64 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED)
-                      + 1e-6 * g_file_info_get_attribute_uint32 (info,
-                                                                 G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC);
+                      + 1e-6 * g_file_info_get_attribute_uint32 (info, G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC);
               xdg_cache_cache_copy_or_move_file (cache, iter->data, do_copy,
                                                  from_uris[n], to_uris[n],
                                                  mtime);
@@ -511,7 +519,7 @@ xdg_cache_cache_copy_or_move (TumblerCache       *cache,
 
 
 static void
-xdg_cache_cache_copy (TumblerCache       *cache,
+xdg_cache_cache_copy (TumblerCache *cache,
                       const gchar *const *from_uris,
                       const gchar *const *to_uris)
 {
@@ -520,9 +528,8 @@ xdg_cache_cache_copy (TumblerCache       *cache,
 
 
 
-
 static void
-xdg_cache_cache_move (TumblerCache       *cache,
+xdg_cache_cache_move (TumblerCache *cache,
                       const gchar *const *from_uris,
                       const gchar *const *to_uris)
 {
@@ -533,12 +540,12 @@ xdg_cache_cache_move (TumblerCache       *cache,
 
 static gboolean
 xdg_cache_cache_is_thumbnail (TumblerCache *cache,
-                              const gchar  *uri)
+                              const gchar *uri)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  gboolean       is_thumbnail = FALSE;
-  GFile         *file;
-  gchar         *uri_dir;
+  gboolean is_thumbnail = FALSE;
+  GFile *file;
+  gchar *uri_dir;
 
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
@@ -579,8 +586,8 @@ static GList *
 xdg_cache_cache_get_flavors (TumblerCache *cache)
 {
   XDGCacheCache *xdg_cache = XDG_CACHE_CACHE (cache);
-  GList         *flavors = NULL;
-  GList         *iter;
+  GList *flavors = NULL;
+  GList *iter;
 
   g_return_val_if_fail (XDG_CACHE_IS_CACHE (cache), NULL);
 
@@ -593,15 +600,15 @@ xdg_cache_cache_get_flavors (TumblerCache *cache)
 
 
 GFile *
-xdg_cache_cache_get_file (const gchar            *uri,
+xdg_cache_cache_get_file (const gchar *uri,
                           TumblerThumbnailFlavor *flavor)
 {
   const gchar *cachedir;
   const gchar *dirname;
-  GFile       *file;
-  gchar       *filename;
-  gchar       *md5_hash;
-  gchar       *path;
+  GFile *file;
+  gchar *filename;
+  gchar *md5_hash;
+  gchar *path;
 
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
@@ -625,16 +632,16 @@ xdg_cache_cache_get_file (const gchar            *uri,
 
 
 GFile *
-xdg_cache_cache_get_temp_file (const gchar            *uri,
+xdg_cache_cache_get_temp_file (const gchar *uri,
                                TumblerThumbnailFlavor *flavor)
 {
   const gchar *cachedir;
   const gchar *dirname;
-  gint64       current_time;
-  GFile       *file;
-  gchar       *filename;
-  gchar       *md5_hash;
-  gchar       *path;
+  gint64 current_time;
+  GFile *file;
+  gchar *filename;
+  gchar *md5_hash;
+  gchar *path;
 
   g_return_val_if_fail (uri != NULL && *uri != '\0', NULL);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL_FLAVOR (flavor), NULL);
@@ -664,20 +671,20 @@ xdg_cache_cache_get_temp_file (const gchar            *uri,
  * Check whether @uri is non-%NULL and @mtime is a valid time to determine
  * between the two. Will return %FALSE and set @error if the PNG was corrupt. */
 gboolean
-xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
-                                     gchar       **uri,
-                                     gdouble      *mtime,
+xdg_cache_cache_read_thumbnail_info (const gchar *filename,
+                                     gchar **uri,
+                                     gdouble *mtime,
                                      GCancellable *cancellable,
-                                     GError      **error)
+                                     GError **error)
 {
   png_structp png_ptr;
-  png_infop   info_ptr;
-  png_textp   text_ptr;
-  gboolean    has_uri;
-  gboolean    has_mtime;
-  FILE       *png;
-  gint        num_text;
-  gint        i;
+  png_infop info_ptr;
+  png_textp text_ptr;
+  gboolean has_uri;
+  gboolean has_mtime;
+  FILE *png;
+  gint num_text;
+  gint i;
 
   g_return_val_if_fail (filename != NULL, FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
@@ -767,16 +774,16 @@ xdg_cache_cache_read_thumbnail_info (const gchar  *filename,
 
 
 gboolean
-xdg_cache_cache_write_thumbnail_info (const gchar  *filename,
-                                      const gchar  *uri,
-                                      gdouble       mtime,
+xdg_cache_cache_write_thumbnail_info (const gchar *filename,
+                                      const gchar *uri,
+                                      gdouble mtime,
                                       GCancellable *cancellable,
-                                      GError      **error)
+                                      GError **error)
 {
   GdkPixbuf *pixbuf;
-  GError    *err = NULL;
-  gchar     *mtime_str;
-  guint64    mtime_int = (guint64) mtime;
+  GError *err = NULL;
+  gchar *mtime_str;
+  guint64 mtime_int = (guint64) mtime;
 
   g_return_val_if_fail (filename != NULL, FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);

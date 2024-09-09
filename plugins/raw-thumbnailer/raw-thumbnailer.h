@@ -29,7 +29,8 @@ G_BEGIN_DECLS
 #define RAW_TYPE_THUMBNAILER (raw_thumbnailer_get_type ())
 G_DECLARE_FINAL_TYPE (RawThumbnailer, raw_thumbnailer, RAW, THUMBNAILER, TumblerAbstractThumbnailer)
 
-void raw_thumbnailer_register (TumblerProviderPlugin *plugin);
+void
+raw_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

@@ -33,9 +33,10 @@
 #include <glib/gprintf.h>
 
 
-static void gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                      GCancellable               *cancellable,
-                                      TumblerFileInfo            *info);
+static void
+gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                          GCancellable *cancellable,
+                          TumblerFileInfo *info);
 
 
 
@@ -86,13 +87,13 @@ gepub_thumbnailer_init (GepubThumbnailer *thumbnailer)
 
 
 static GdkPixbuf *
-gepub_thumbnailer_create_from_mime (gchar             *mime_type,
-                                    GBytes            *content, 
-                                    TumblerThumbnail  *thumbnail,
-                                    GError           **error)
+gepub_thumbnailer_create_from_mime (gchar *mime_type,
+                                    GBytes *content,
+                                    TumblerThumbnail *thumbnail,
+                                    GError **error)
 {
   GdkPixbufLoader *loader;
-  GdkPixbuf       *pixbuf = NULL;
+  GdkPixbuf *pixbuf = NULL;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -116,19 +117,19 @@ gepub_thumbnailer_create_from_mime (gchar             *mime_type,
 
 static void
 gepub_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                          GCancellable               *cancellable,
-                          TumblerFileInfo            *info)
+                          GCancellable *cancellable,
+                          TumblerFileInfo *info)
 {
-  TumblerImageData  data;
+  TumblerImageData data;
   TumblerThumbnail *thumbnail;
-  const gchar      *uri;
-  GFile            *file;
-  GError           *error = NULL;
-  GdkPixbuf        *pixbuf = NULL;
-  GepubDoc         *doc;
-  gchar            *cover;
-  gchar            *cover_mime;
-  GBytes           *content;
+  const gchar *uri;
+  GFile *file;
+  GError *error = NULL;
+  GdkPixbuf *pixbuf = NULL;
+  GepubDoc *doc;
+  gchar *cover;
+  gchar *cover_mime;
+  GBytes *content;
 
   g_return_if_fail (GEPUB_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));

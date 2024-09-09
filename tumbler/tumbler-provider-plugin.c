@@ -9,11 +9,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -38,9 +38,12 @@ enum
 
 
 
-static void     tumbler_provider_plugin_finalize     (GObject                    *object);
-static gboolean tumbler_provider_plugin_load         (GTypeModule                *type_module);
-static void     tumbler_provider_plugin_unload       (GTypeModule                *type_module);
+static void
+tumbler_provider_plugin_finalize (GObject *object);
+static gboolean
+tumbler_provider_plugin_load (GTypeModule *type_module);
+static void
+tumbler_provider_plugin_unload (GTypeModule *type_module);
 
 
 
@@ -51,9 +54,9 @@ struct _TumblerProviderPlugin
   GModule *library;
 
   void (*initialize) (TumblerProviderPlugin *plugin);
-  void (*shutdown)   (void);
-  void (*get_types)  (const GType          **types,
-                      gint                  *n_types);
+  void (*shutdown) (void);
+  void (*get_types) (const GType **types,
+                     gint *n_types);
 };
 
 
@@ -66,10 +69,10 @@ static void
 tumbler_provider_plugin_class_init (TumblerProviderPluginClass *klass)
 {
   GTypeModuleClass *gtype_module_class;
-  GObjectClass     *gobject_class;
+  GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_provider_plugin_finalize; 
+  gobject_class->finalize = tumbler_provider_plugin_finalize;
 
   gtype_module_class = G_TYPE_MODULE_CLASS (klass);
   gtype_module_class->load = tumbler_provider_plugin_load;
@@ -102,7 +105,7 @@ static gboolean
 tumbler_provider_plugin_load (GTypeModule *type_module)
 {
   TumblerProviderPlugin *plugin = TUMBLER_PROVIDER_PLUGIN (type_module);
-  gchar                 *path;
+  gchar *path;
 
   /* load the module using the runtime link editor */
   path = g_build_filename (TUMBLER_PLUGIN_DIRECTORY, type_module->name, NULL);
@@ -113,8 +116,8 @@ tumbler_provider_plugin_load (GTypeModule *type_module)
   if (G_LIKELY (plugin->library != NULL))
     {
       /* verify that all required public symbols are present in the plugin */
-      if (g_module_symbol (plugin->library, "tumbler_plugin_initialize", 
-                            (gpointer) &plugin->initialize)
+      if (g_module_symbol (plugin->library, "tumbler_plugin_initialize",
+                           (gpointer) &plugin->initialize)
           && g_module_symbol (plugin->library, "tumbler_plugin_shutdown",
                               (gpointer) &plugin->shutdown)
           && g_module_symbol (plugin->library, "tumbler_plugin_get_types",
@@ -178,8 +181,8 @@ tumbler_provider_plugin_new (const gchar *filename)
 
 void
 tumbler_provider_plugin_get_types (const TumblerProviderPlugin *plugin,
-                                   const GType                **types,
-                                   gint                        *n_types)
+                                   const GType **types,
+                                   gint *n_types)
 {
   g_return_if_fail (TUMBLER_IS_PROVIDER_PLUGIN ((TumblerProviderPlugin *) plugin));
   g_return_if_fail (plugin->get_types != NULL);
