@@ -2,33 +2,32 @@
 /*-
  * Copyright (c) 2011 Jannis Pohlmann <jannis@xfce.org>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "tumbler-lifecycle-manager.h"
+#include "tumbler-utils.h"
+
+#include "tumbler/tumbler.h"
+
 #include <glib/gi18n.h>
-
-#include <tumbler/tumbler.h>
-
-#include <tumblerd/tumbler-lifecycle-manager.h>
-#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -45,7 +44,8 @@ enum
 
 
 
-static void tumbler_lifecycle_manager_finalize (GObject *object);
+static void
+tumbler_lifecycle_manager_finalize (GObject *object);
 
 
 
@@ -55,9 +55,9 @@ struct _TumblerLifecycleManager
 
   TUMBLER_MUTEX (lock);
 
-  guint   timeout_id;
-  guint   component_use_count;
-  guint   shutdown_emitted : 1;
+  guint timeout_id;
+  guint component_use_count;
+  guint shutdown_emitted : 1;
 };
 
 
@@ -79,7 +79,7 @@ tumbler_lifecycle_manager_class_init (TumblerLifecycleManagerClass *klass)
   tumbler_lifecycle_manager_parent_class = g_type_class_peek_parent (klass);
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_lifecycle_manager_finalize; 
+  gobject_class->finalize = tumbler_lifecycle_manager_finalize;
 
   lifecycle_manager_signals[SIGNAL_SHUTDOWN] =
     g_signal_new ("shutdown",
@@ -138,7 +138,7 @@ tumbler_lifecycle_manager_timeout (gpointer user_data)
   /* emit the shutdown signal */
   g_signal_emit (manager, lifecycle_manager_signals[SIGNAL_SHUTDOWN], 0);
 
-  /* set the shutdown emitted flag to force other threads not to 
+  /* set the shutdown emitted flag to force other threads not to
    * reschedule the timeout */
   manager->shutdown_emitted = TRUE;
 
@@ -171,9 +171,9 @@ tumbler_lifecycle_manager_start (TumblerLifecycleManager *manager)
       return;
     }
 
-  manager->timeout_id = 
-    g_timeout_add_seconds (SHUTDOWN_TIMEOUT_SECONDS, 
-                           tumbler_lifecycle_manager_timeout, 
+  manager->timeout_id =
+    g_timeout_add_seconds (SHUTDOWN_TIMEOUT_SECONDS,
+                           tumbler_lifecycle_manager_timeout,
                            manager);
 
   tumbler_mutex_unlock (manager->lock);
@@ -183,14 +183,14 @@ tumbler_lifecycle_manager_start (TumblerLifecycleManager *manager)
 
 gboolean
 tumbler_lifecycle_manager_keep_alive (TumblerLifecycleManager *manager,
-                                      GError                 **error)
+                                      GError **error)
 {
   g_return_val_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
 
   tumbler_mutex_lock (manager->lock);
 
-  /* if the shutdown signal has been emitted, there's nothing 
+  /* if the shutdown signal has been emitted, there's nothing
    * we can do to prevent a shutdown anymore */
   if (manager->shutdown_emitted)
     {
@@ -204,15 +204,15 @@ tumbler_lifecycle_manager_keep_alive (TumblerLifecycleManager *manager,
       return FALSE;
     }
 
-  /* if there is an existing timeout, drop it (we are going to 
+  /* if there is an existing timeout, drop it (we are going to
    * replace it with a new one) */
   if (manager->timeout_id > 0)
     g_source_remove (manager->timeout_id);
 
   /* reschedule the shutdown timeout */
-  manager->timeout_id = 
-    g_timeout_add_seconds (SHUTDOWN_TIMEOUT_SECONDS, 
-                           tumbler_lifecycle_manager_timeout, 
+  manager->timeout_id =
+    g_timeout_add_seconds (SHUTDOWN_TIMEOUT_SECONDS,
+                           tumbler_lifecycle_manager_timeout,
                            manager);
 
   tumbler_mutex_unlock (manager->lock);
@@ -230,7 +230,7 @@ tumbler_lifecycle_manager_increment_use_count (TumblerLifecycleManager *manager)
   tumbler_mutex_lock (manager->lock);
 
   manager->component_use_count += 1;
-  
+
   tumbler_mutex_unlock (manager->lock);
 }
 
@@ -242,10 +242,10 @@ tumbler_lifecycle_manager_decrement_use_count (TumblerLifecycleManager *manager)
   g_return_if_fail (TUMBLER_IS_LIFECYCLE_MANAGER (manager));
 
   tumbler_mutex_lock (manager->lock);
-  
+
   /* decrement the use count, make sure not to drop below zero */
   if (manager->component_use_count > 0)
     manager->component_use_count -= 1;
-  
+
   tumbler_mutex_unlock (manager->lock);
 }

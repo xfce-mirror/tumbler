@@ -21,14 +21,15 @@
 #ifndef __COVER_THUMBNAILER_H__
 #define __COVER_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS
 
 #define COVER_TYPE_THUMBNAILER (cover_thumbnailer_get_type ())
 G_DECLARE_FINAL_TYPE (CoverThumbnailer, cover_thumbnailer, COVER, THUMBNAILER, TumblerAbstractThumbnailer)
 
-void cover_thumbnailer_register (TumblerProviderPlugin *plugin);
+void
+cover_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

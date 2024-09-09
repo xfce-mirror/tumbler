@@ -9,20 +9,20 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <tumbler/tumbler-config.h>
+#include "tumbler-config.h"
 
 
 
@@ -48,9 +48,9 @@ const guint tumbler_micro_version = TUMBLER_MICRO_VERSION;
  *
  * Checks that the <systemitem class="library">tumbler</systemitem> library
  * in use is compatible with the given version. Generally you would pass in
- * the constants #TUMBLER_MAJOR_VERSION, #TUMBLER_MINOR_VERSION and 
- * #TUMBLER_MICRO_VERSION as the three arguments to this function; that 
- * produces a check that the library in use is compatible with the version 
+ * the constants #TUMBLER_MAJOR_VERSION, #TUMBLER_MINOR_VERSION and
+ * #TUMBLER_MICRO_VERSION as the three arguments to this function; that
+ * produces a check that the library in use is compatible with the version
  * of <systemitem class="library">tumbler</systemitem> the application was
  * compiled against.
  *

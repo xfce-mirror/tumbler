@@ -20,24 +20,23 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "cover-thumbnailer-provider.h"
+#include "cover-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <cover-thumbnailer/cover-thumbnailer-provider.h>
-#include <cover-thumbnailer/cover-thumbnailer.h>
 
 
 
-G_MODULE_EXPORT void tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
-G_MODULE_EXPORT void tumbler_plugin_shutdown   (void);
-G_MODULE_EXPORT void tumbler_plugin_get_types  (const GType          **types,
-                                                gint                  *n_types);
+G_MODULE_EXPORT void
+tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
+G_MODULE_EXPORT void
+tumbler_plugin_shutdown (void);
+G_MODULE_EXPORT void
+tumbler_plugin_get_types (const GType **types,
+                          gint *n_types);
 
 
 
@@ -82,7 +81,7 @@ tumbler_plugin_shutdown (void)
 
 void
 tumbler_plugin_get_types (const GType **types,
-                          gint         *n_types)
+                          gint *n_types)
 {
   *types = type_list;
   *n_types = G_N_ELEMENTS (type_list);

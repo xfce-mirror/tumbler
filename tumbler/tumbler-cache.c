@@ -9,25 +9,25 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <tumbler/tumbler-cache.h>
-#include <tumbler/tumbler-cache-plugin.h>
+#include "tumbler-cache-plugin.h"
+#include "tumbler-cache.h"
 
 
 
-G_DEFINE_INTERFACE(TumblerCache, tumbler_cache, G_TYPE_OBJECT)
+G_DEFINE_INTERFACE (TumblerCache, tumbler_cache, G_TYPE_OBJECT)
 
 
 
@@ -42,7 +42,7 @@ TumblerCache *
 tumbler_cache_get_default (void)
 {
   static TumblerCache *cache = NULL;
-  GTypeModule         *plugin;
+  GTypeModule *plugin;
 
   if (cache == NULL)
     {
@@ -59,15 +59,15 @@ tumbler_cache_get_default (void)
     {
       g_object_ref (cache);
     }
-     
+
   return cache;
 }
 
 
 
 TumblerThumbnail *
-tumbler_cache_get_thumbnail (TumblerCache           *cache,
-                             const gchar            *uri,
+tumbler_cache_get_thumbnail (TumblerCache *cache,
+                             const gchar *uri,
                              TumblerThumbnailFlavor *flavor)
 {
   g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
@@ -84,9 +84,9 @@ tumbler_cache_get_thumbnail (TumblerCache           *cache,
 
 
 void
-tumbler_cache_cleanup (TumblerCache       *cache,
+tumbler_cache_cleanup (TumblerCache *cache,
                        const gchar *const *base_uris,
-                       gdouble             since)
+                       gdouble since)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
   g_return_if_fail (TUMBLER_CACHE_GET_IFACE (cache)->cleanup != NULL);
@@ -97,7 +97,7 @@ tumbler_cache_cleanup (TumblerCache       *cache,
 
 
 void
-tumbler_cache_delete (TumblerCache       *cache,
+tumbler_cache_delete (TumblerCache *cache,
                       const gchar *const *uris)
 {
   g_return_if_fail (TUMBLER_IS_CACHE (cache));
@@ -110,7 +110,7 @@ tumbler_cache_delete (TumblerCache       *cache,
 
 
 void
-tumbler_cache_copy (TumblerCache       *cache,
+tumbler_cache_copy (TumblerCache *cache,
                     const gchar *const *from_uris,
                     const gchar *const *to_uris)
 {
@@ -125,7 +125,7 @@ tumbler_cache_copy (TumblerCache       *cache,
 
 
 void
-tumbler_cache_move (TumblerCache       *cache,
+tumbler_cache_move (TumblerCache *cache,
                     const gchar *const *from_uris,
                     const gchar *const *to_uris)
 {
@@ -141,7 +141,7 @@ tumbler_cache_move (TumblerCache       *cache,
 
 gboolean
 tumbler_cache_is_thumbnail (TumblerCache *cache,
-                            const gchar  *uri)
+                            const gchar *uri)
 {
   g_return_val_if_fail (TUMBLER_IS_CACHE (cache), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
@@ -165,11 +165,11 @@ tumbler_cache_get_flavors (TumblerCache *cache)
 
 TumblerThumbnailFlavor *
 tumbler_cache_get_flavor (TumblerCache *cache,
-                          const gchar  *name)
+                          const gchar *name)
 {
   TumblerThumbnailFlavor *flavor = NULL;
-  GList                  *flavors;
-  GList                  *iter;
+  GList *flavors;
+  GList *iter;
 
   g_return_val_if_fail (TUMBLER_IS_CACHE (cache), NULL);
   g_return_val_if_fail (name != NULL && *name != '\0', NULL);

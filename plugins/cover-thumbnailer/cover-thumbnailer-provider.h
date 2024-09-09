@@ -21,6 +21,8 @@
 #ifndef __COVER_THUMBNAILER_PROVIDER_H__
 #define __COVER_THUMBNAILER_PROVIDER_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS
@@ -28,7 +30,8 @@ G_BEGIN_DECLS
 #define COVER_TYPE_THUMBNAILER_PROVIDER (cover_thumbnailer_provider_get_type ())
 G_DECLARE_FINAL_TYPE (CoverThumbnailerProvider, cover_thumbnailer_provider, COVER, THUMBNAILER_PROVIDER, GObject)
 
-void cover_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void
+cover_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

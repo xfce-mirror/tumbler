@@ -22,33 +22,31 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
-
-#include <string.h>
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <gst/gst.h>
-#include <gst/tag/tag.h>
 
 #include "gst-thumbnailer.h"
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <gst/gst.h>
+#include <gst/tag/tag.h>
+#include <string.h>
 
 
-#define GUESS_BUFFER_SIZE           512
-#define BORING_IMAGE_VARIANCE       256.0    /* tweak this if necessary */
+
+#define GUESS_BUFFER_SIZE 512
+#define BORING_IMAGE_VARIANCE 256.0 /* tweak this if necessary */
 #define TUMBLER_GST_PLAY_FLAG_VIDEO (1 << 0) /* from GstPlayFlags */
 #define TUMBLER_GST_PLAY_FLAG_AUDIO (1 << 1) /* from GstPlayFlags */
 
 
 
-static void gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                    GCancellable               *cancellable,
-                                    TumblerFileInfo            *info);
+static void
+gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info);
 
 
 
@@ -101,8 +99,8 @@ gst_thumbnailer_init (GstThumbnailer *thumbnailer)
 static GdkPixbuf *
 gst_thumbnailer_buffer_to_pixbuf (GstBuffer *buffer)
 {
-  GstMapInfo       info;
-  GdkPixbuf       *pixbuf = NULL;
+  GstMapInfo info;
+  GdkPixbuf *pixbuf = NULL;
   GdkPixbufLoader *loader;
 
   if (!gst_buffer_map (buffer, &info, GST_MAP_READ))
@@ -128,20 +126,20 @@ gst_thumbnailer_buffer_to_pixbuf (GstBuffer *buffer)
 
 
 static GdkPixbuf *
-gst_thumbnailer_cover_from_tags (GstTagList   *tags,
+gst_thumbnailer_cover_from_tags (GstTagList *tags,
                                  GCancellable *cancellable)
 {
-  GstSample          *cover = NULL;
-  guint               i;
-  GstCaps            *caps;
+  GstSample *cover = NULL;
+  guint i;
+  GstCaps *caps;
   const GstStructure *caps_struct;
-  gint                type = GST_TAG_IMAGE_TYPE_UNDEFINED;
-  GstBuffer          *buffer;
-  GdkPixbuf          *pixbuf = NULL;
+  gint type = GST_TAG_IMAGE_TYPE_UNDEFINED;
+  GstBuffer *buffer;
+  GdkPixbuf *pixbuf = NULL;
 
-  for (i = 0; ; i++)
+  for (i = 0;; i++)
     {
-      GstSample	*sample;
+      GstSample *sample;
 
       if (g_cancellable_is_cancelled (cancellable))
         break;
@@ -158,12 +156,12 @@ gst_thumbnailer_cover_from_tags (GstTagList   *tags,
                               &type);
 
       if (cover != NULL)
-	gst_sample_unref (cover);
+        gst_sample_unref (cover);
       cover = sample;
 
       /* prefer the from cover image if specified */
-     if (type == GST_TAG_IMAGE_TYPE_FRONT_COVER)
-	break;
+      if (type == GST_TAG_IMAGE_TYPE_FRONT_COVER)
+        break;
     }
 
   if (cover == NULL
@@ -187,12 +185,12 @@ gst_thumbnailer_cover_from_tags (GstTagList   *tags,
 
 
 static GdkPixbuf *
-gst_thumbnailer_cover_by_name (GstElement   *play,
-                               const gchar  *signal_name,
+gst_thumbnailer_cover_by_name (GstElement *play,
+                               const gchar *signal_name,
                                GCancellable *cancellable)
 {
   GstTagList *tags = NULL;
-  GdkPixbuf  *cover;
+  GdkPixbuf *cover;
 
   g_signal_emit_by_name (G_OBJECT (play), signal_name, 0, &tags);
 
@@ -209,7 +207,7 @@ gst_thumbnailer_cover_by_name (GstElement   *play,
 
 
 static GdkPixbuf *
-gst_thumbnailer_cover (GstElement   *play,
+gst_thumbnailer_cover (GstElement *play,
                        GCancellable *cancellable)
 {
   GdkPixbuf *cover;
@@ -234,8 +232,8 @@ gst_thumbnailer_has_video (GstElement *play)
 
 
 static void
-gst_thumbnailer_destroy_pixbuf (guchar   *pixbuf,
-                                gpointer  data)
+gst_thumbnailer_destroy_pixbuf (guchar *pixbuf,
+                                gpointer data)
 {
   gst_sample_unref (GST_SAMPLE (data));
 }
@@ -245,14 +243,14 @@ gst_thumbnailer_destroy_pixbuf (guchar   *pixbuf,
 static gboolean
 gst_thumbnailer_pixbuf_interesting (GdkPixbuf *pixbuf)
 {
-  gint    rowstride;
-  gint    height;
+  gint rowstride;
+  gint height;
   guchar *buffer;
-  gint    length;
-  gint    i;
-  gfloat  x_bar = 0.0f;
-  gfloat  variance = 0.0f;
-  gfloat  temp;
+  gint length;
+  gint i;
+  gfloat x_bar = 0.0f;
+  gfloat variance = 0.0f;
+  gfloat temp;
 
   rowstride = gdk_pixbuf_get_rowstride (pixbuf);
   height = gdk_pixbuf_get_height (pixbuf);
@@ -279,16 +277,16 @@ gst_thumbnailer_pixbuf_interesting (GdkPixbuf *pixbuf)
 
 static GdkPixbuf *
 gst_thumbnailer_capture_frame (GstElement *play,
-                               gint        width)
+                               gint width)
 {
-  GstCaps      *to_caps;
-  GstSample    *sample = NULL;
-  GdkPixbuf    *pixbuf = NULL;
+  GstCaps *to_caps;
+  GstSample *sample = NULL;
+  GdkPixbuf *pixbuf = NULL;
   GstStructure *s;
-  GstCaps      *sample_caps;
-  gint          outwidth = 0, outheight = 0;
-  GstMemory    *memory;
-  GstMapInfo    info;
+  GstCaps *sample_caps;
+  gint outwidth = 0, outheight = 0;
+  GstMemory *memory;
+  GstMapInfo info;
 
   /* desired output format (RGB24) */
   to_caps = gst_caps_new_simple ("video/x-raw",
@@ -351,15 +349,15 @@ gst_thumbnailer_capture_frame (GstElement *play,
 
 
 static GdkPixbuf *
-gst_thumbnailer_capture_interesting_frame (GstElement   *play,
-                                           gint64        duration,
-                                           gint          width,
+gst_thumbnailer_capture_interesting_frame (GstElement *play,
+                                           gint64 duration,
+                                           gint width,
                                            GCancellable *cancellable)
 {
-  GdkPixbuf     *pixbuf = NULL;
-  guint          n;
-  const gdouble  offsets[] = { 1.0 / 3.0, 2.0 / 3.0, 0.1, 0.9, 0.5 };
-  gint64         seek_time;
+  GdkPixbuf *pixbuf = NULL;
+  guint n;
+  const gdouble offsets[] = { 1.0 / 3.0, 2.0 / 3.0, 0.1, 0.9, 0.5 };
+  gint64 seek_time;
 
   /* video has no duration, capture 1st frame */
   if (duration == -1)
@@ -411,35 +409,35 @@ gst_thumbnailer_capture_interesting_frame (GstElement   *play,
 
 
 static GstBusSyncReply
-gst_thumbnailer_error_handler (GstBus     *bus,
+gst_thumbnailer_error_handler (GstBus *bus,
                                GstMessage *message,
-                               gpointer    user_data)
+                               gpointer user_data)
 {
   GCancellable *cancellable = user_data;
 
   switch (GST_MESSAGE_TYPE (message))
     {
-      case GST_MESSAGE_ERROR:
-      case GST_MESSAGE_EOS:
-        /* stop */
-        g_cancellable_cancel (cancellable);
-        return GST_BUS_DROP;
+    case GST_MESSAGE_ERROR:
+    case GST_MESSAGE_EOS:
+      /* stop */
+      g_cancellable_cancel (cancellable);
+      return GST_BUS_DROP;
 
-      default:
-        return GST_BUS_PASS;
+    default:
+      return GST_BUS_PASS;
     }
 }
 
 
 
 static gboolean
-gst_thumbnailer_play_start (GstElement   *play,
+gst_thumbnailer_play_start (GstElement *play,
                             GCancellable *cancellable)
 {
-  GstBus     *bus;
-  gboolean    terminate = FALSE;
+  GstBus *bus;
+  gboolean terminate = FALSE;
   GstMessage *message;
-  gboolean    async_received = FALSE;
+  gboolean async_received = FALSE;
 
   /* pause to prepare for seeking */
   gst_element_set_state (play, GST_STATE_PAUSED);
@@ -512,25 +510,25 @@ gst_thumbnailer_play_init (TumblerFileInfo *info)
 
 static void
 gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                        GCancellable               *cancellable,
-                        TumblerFileInfo            *info)
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info)
 {
-  GstElement             *play;
-  GdkPixbuf              *pixbuf = NULL;
-  gint64                  duration;
-  TumblerImageData        data;
-  GError                 *error = NULL;
-  TumblerThumbnail       *thumbnail;
-  gint                    width, height;
+  GstElement *play;
+  GdkPixbuf *pixbuf = NULL;
+  gint64 duration;
+  TumblerImageData data;
+  GError *error = NULL;
+  TumblerThumbnail *thumbnail;
+  gint width, height;
   TumblerThumbnailFlavor *flavor;
-  GdkPixbuf              *scaled;
-  const gchar            *uri;
-  GFile                  *file;
-  GFileInputStream       *stream;
-  guchar                  buffer[GUESS_BUFFER_SIZE];
-  gssize                  size;
-  gchar                  *guessed_type, *claimed_type;
-  gboolean                uncertain, equals;
+  GdkPixbuf *scaled;
+  const gchar *uri;
+  GFile *file;
+  GFileInputStream *stream;
+  guchar buffer[GUESS_BUFFER_SIZE];
+  gssize size;
+  gchar *guessed_type, *claimed_type;
+  gboolean uncertain, equals;
 
   /* check for early cancellation */
   if (g_cancellable_is_cancelled (cancellable))
@@ -541,13 +539,13 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* Check if is a sparse video file */
   if (tumbler_util_guess_is_sparse (info))
-  {
-    g_debug ("Video file '%s' is probably sparse, skipping", uri);
-    g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
-                           TUMBLER_ERROR_NO_CONTENT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
+    {
+      g_debug ("Video file '%s' is probably sparse, skipping", uri);
+      g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
+                             TUMBLER_ERROR_NO_CONTENT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 
-    return;
-  }
+      return;
+    }
 
   /* check if real mime type matches advertised mime type to avoid server-side request
    * forgery: see https://gitlab.xfce.org/xfce/tumbler/-/issues/65 */
@@ -581,7 +579,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
            && g_content_type_equals (guessed_type, claimed_type);
   g_free (guessed_type);
   g_free (claimed_type);
-  if (uncertain || ! equals)
+  if (uncertain || !equals)
     {
       g_signal_emit_by_name (thumbnailer, "error", info, TUMBLER_ERROR,
                              TUMBLER_ERROR_INVALID_FORMAT, TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
@@ -655,7 +653,7 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   else
     {
       /* there was an error, emit error signal */
-      if (! g_cancellable_set_error_if_cancelled (cancellable, &error))
+      if (!g_cancellable_set_error_if_cancelled (cancellable, &error))
         g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_NO_CONTENT,
                      TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
 

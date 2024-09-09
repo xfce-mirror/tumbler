@@ -20,14 +20,15 @@
 #ifndef __DESKTOP_THUMBNAILER_H__
 #define __DESKTOP_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS
 
 #define DESKTOP_TYPE_THUMBNAILER (desktop_thumbnailer_get_type ())
 G_DECLARE_FINAL_TYPE (DesktopThumbnailer, desktop_thumbnailer, DESKTOP, THUMBNAILER, TumblerAbstractThumbnailer)
 
-void desktop_thumbnailer_register (TumblerProviderPlugin *plugin);
+void
+desktop_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

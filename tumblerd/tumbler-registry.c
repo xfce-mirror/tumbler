@@ -20,40 +20,43 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-
-#include <tumbler/tumbler.h>
-#include <tumblerd/tumbler-registry.h>
-#include <tumblerd/tumbler-specialized-thumbnailer.h>
-#include <tumblerd/tumbler-utils.h>
+#include "tumbler-registry.h"
+#include "tumbler-specialized-thumbnailer.h"
+#include "tumbler-utils.h"
 
 
-static void                tumbler_registry_finalize                  (GObject            *object);
-static void                tumbler_registry_remove_thumbnailer        (const gchar        *key,
-                                                                       GList             **list,
-                                                                       TumblerThumbnailer *thumbnailer);
-static void                tumbler_registry_list_free                 (gpointer            data);
-static GList              *tumbler_registry_get_thumbnailers_internal (TumblerRegistry    *registry);
-static gint                tumbler_registry_compare                   (TumblerThumbnailer *a,
-                                                                       TumblerThumbnailer *b);
-static GList              *tumbler_registry_lookup                    (TumblerRegistry    *registry,
-                                                                       const gchar        *hash_key);
+static void
+tumbler_registry_finalize (GObject *object);
+static void
+tumbler_registry_remove_thumbnailer (const gchar *key,
+                                     GList **list,
+                                     TumblerThumbnailer *thumbnailer);
+static void
+tumbler_registry_list_free (gpointer data);
+static GList *
+tumbler_registry_get_thumbnailers_internal (TumblerRegistry *registry);
+static gint
+tumbler_registry_compare (TumblerThumbnailer *a,
+                          TumblerThumbnailer *b);
+static GList *
+tumbler_registry_lookup (TumblerRegistry *registry,
+                         const gchar *hash_key);
 
 
 
 struct _TumblerRegistry
 {
-  GObject       __parent__;
+  GObject __parent__;
 
-  GHashTable   *thumbnailers;
-  GHashTable   *preferred_thumbnailers;
+  GHashTable *thumbnailers;
+  GHashTable *preferred_thumbnailers;
   TUMBLER_MUTEX (mutex);
 
-  gchar       **uri_schemes;
-  gchar       **mime_types;
+  gchar **uri_schemes;
+  gchar **mime_types;
 };
 
 
@@ -115,8 +118,8 @@ tumbler_registry_finalize (GObject *object)
 
 
 static void
-tumbler_registry_remove_thumbnailer (const gchar        *key,
-                                     GList             **list,
+tumbler_registry_remove_thumbnailer (const gchar *key,
+                                     GList **list,
                                      TumblerThumbnailer *thumbnailer)
 {
   GList *lp;
@@ -140,11 +143,11 @@ tumbler_registry_compare (TumblerThumbnailer *a,
 {
   TumblerSpecializedThumbnailer *a_specialized;
   TumblerSpecializedThumbnailer *b_specialized;
-  gboolean                       insert_a_before_b = FALSE;
-  gboolean                       a_foreign;
-  gboolean                       b_foreign;
-  guint64                        a_modified;
-  guint64                        b_modified;
+  gboolean insert_a_before_b = FALSE;
+  gboolean a_foreign;
+  gboolean b_foreign;
+  guint64 a_modified;
+  guint64 b_modified;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (a), 0);
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (b), 0);
@@ -190,7 +193,8 @@ tumbler_registry_compare (TumblerThumbnailer *a,
 
 
 
-static void tumbler_registry_list_free (gpointer data)
+static void
+tumbler_registry_list_free (gpointer data)
 {
   GList **list = data;
 
@@ -205,9 +209,9 @@ static GList *
 tumbler_registry_get_thumbnailers_internal (TumblerRegistry *registry)
 {
   GList **list;
-  GList  *thumbnailers = NULL;
-  GList  *lists;
-  GList  *lp;
+  GList *thumbnailers = NULL;
+  GList *lists;
+  GList *lp;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
 
@@ -233,12 +237,12 @@ tumbler_registry_get_thumbnailers_internal (TumblerRegistry *registry)
 
 static GList *
 tumbler_registry_lookup (TumblerRegistry *registry,
-                         const gchar     *hash_key)
+                         const gchar *hash_key)
 {
   TumblerThumbnailer *thumbnailer = NULL;
-  GList             **list;
-  GList              *available = NULL;
-  GList              *lp;
+  GList **list;
+  GList *available = NULL;
+  GList *lp;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (hash_key != NULL, NULL);
@@ -269,7 +273,7 @@ static gint64
 tumbler_registry_get_file_size (GFile *gfile)
 {
   GFileInfo *file_info;
-  gint64     size = 0;
+  gint64 size = 0;
 
   g_return_val_if_fail (G_IS_FILE (gfile), 0);
 
@@ -297,7 +301,7 @@ tumbler_registry_new (void)
 
 gboolean
 tumbler_registry_load (TumblerRegistry *registry,
-                       GError         **error)
+                       GError **error)
 {
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
@@ -310,12 +314,12 @@ tumbler_registry_load (TumblerRegistry *registry,
 
 
 void
-tumbler_registry_add (TumblerRegistry    *registry,
+tumbler_registry_add (TumblerRegistry *registry,
                       TumblerThumbnailer *thumbnailer)
 {
   GList **list;
   gchar **hash_keys;
-  gint    n;
+  gint n;
 
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
@@ -364,7 +368,7 @@ tumbler_registry_add (TumblerRegistry    *registry,
 
 
 void
-tumbler_registry_remove (TumblerRegistry    *registry,
+tumbler_registry_remove (TumblerRegistry *registry,
                          TumblerThumbnailer *thumbnailer)
 {
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
@@ -404,19 +408,19 @@ tumbler_registry_get_thumbnailers (TumblerRegistry *registry)
 
 
 GList **
-tumbler_registry_get_thumbnailer_array (TumblerRegistry    *registry,
-                                        TumblerFileInfo   **infos,
-                                        guint               length)
+tumbler_registry_get_thumbnailer_array (TumblerRegistry *registry,
+                                        TumblerFileInfo **infos,
+                                        guint length)
 {
-  GList              **thumbnailers = NULL;
-  gchar               *hash_key;
-  gchar               *scheme;
-  guint                n;
-  GList               *list, *lp;
-  GFile               *gfile;
-  gint64               file_size;
-  gint64               max_file_size;
-  const gchar         *uri;
+  GList **thumbnailers = NULL;
+  gchar *hash_key;
+  gchar *scheme;
+  guint n;
+  GList *list, *lp;
+  GFile *gfile;
+  gint64 file_size;
+  gint64 max_file_size;
+  const gchar *uri;
 
   g_return_val_if_fail (TUMBLER_IS_REGISTRY (registry), NULL);
   g_return_val_if_fail (infos != NULL, NULL);
@@ -502,16 +506,16 @@ void
 tumbler_registry_update_supported (TumblerRegistry *registry)
 {
   GHashTableIter iter;
-  GHashTable    *unique_pairs;
-  GPtrArray     *used_strings;
-  GList         *thumbnailers;
-  GList         *lp;
-  const gchar  **pair;
-  gchar         *pair_string;
-  gchar        **mime_types;
-  gchar        **uri_schemes;
-  gint           n;
-  gint           u;
+  GHashTable *unique_pairs;
+  GPtrArray *used_strings;
+  GList *thumbnailers;
+  GList *lp;
+  const gchar **pair;
+  gchar *pair_string;
+  gchar **mime_types;
+  gchar **uri_schemes;
+  gint n;
+  gint u;
 
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));
 
@@ -604,8 +608,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   tumbler_mutex_lock (registry->mutex);
 
   /* allocate a string array for the URI scheme / MIME type pairs */
-  registry->uri_schemes = g_new0 (gchar *, n+1);
-  registry->mime_types = g_new0 (gchar *, n+1);
+  registry->uri_schemes = g_new0 (gchar *, n + 1);
+  registry->mime_types = g_new0 (gchar *, n + 1);
 
   /* insert all unique URI scheme / MIME type pairs into string arrays */
   n = 0;
@@ -635,7 +639,7 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
 
 
 void
-tumbler_registry_get_supported (TumblerRegistry     *registry,
+tumbler_registry_get_supported (TumblerRegistry *registry,
                                 const gchar *const **uri_schemes,
                                 const gchar *const **mime_types)
 {
@@ -644,10 +648,10 @@ tumbler_registry_get_supported (TumblerRegistry     *registry,
   tumbler_mutex_lock (registry->mutex);
 
   if (uri_schemes != NULL)
-    *uri_schemes = (const gchar *const *)registry->uri_schemes;
+    *uri_schemes = (const gchar *const *) registry->uri_schemes;
 
   if (mime_types != NULL)
-    *mime_types = (const gchar *const *)registry->mime_types;
+    *mime_types = (const gchar *const *) registry->mime_types;
 
   tumbler_mutex_unlock (registry->mutex);
 }
@@ -656,7 +660,7 @@ tumbler_registry_get_supported (TumblerRegistry     *registry,
 
 TumblerThumbnailer *
 tumbler_registry_get_preferred (TumblerRegistry *registry,
-                                const gchar     *hash_key)
+                                const gchar *hash_key)
 {
   TumblerThumbnailer *thumbnailer = NULL;
 
@@ -673,8 +677,8 @@ tumbler_registry_get_preferred (TumblerRegistry *registry,
 
 
 void
-tumbler_registry_set_preferred (TumblerRegistry    *registry,
-                                const gchar        *hash_key,
+tumbler_registry_set_preferred (TumblerRegistry *registry,
+                                const gchar *hash_key,
                                 TumblerThumbnailer *thumbnailer)
 {
   g_return_if_fail (TUMBLER_IS_REGISTRY (registry));

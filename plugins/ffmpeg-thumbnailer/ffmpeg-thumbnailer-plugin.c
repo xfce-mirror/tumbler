@@ -10,34 +10,33 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "ffmpeg-thumbnailer-provider.h"
+#include "ffmpeg-thumbnailer.h"
+
 #include <glib/gi18n.h>
-#include <glib-object.h>
-
-#include <tumbler/tumbler.h>
-
-#include <ffmpeg-thumbnailer/ffmpeg-thumbnailer-provider.h>
-#include <ffmpeg-thumbnailer/ffmpeg-thumbnailer.h>
 
 
 
-G_MODULE_EXPORT void tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
-G_MODULE_EXPORT void tumbler_plugin_shutdown   (void);
-G_MODULE_EXPORT void tumbler_plugin_get_types  (const GType          **types,
-                                                gint                  *n_types);
+G_MODULE_EXPORT void
+tumbler_plugin_initialize (TumblerProviderPlugin *plugin);
+G_MODULE_EXPORT void
+tumbler_plugin_shutdown (void);
+G_MODULE_EXPORT void
+tumbler_plugin_get_types (const GType **types,
+                          gint *n_types);
 
 
 
@@ -81,7 +80,7 @@ tumbler_plugin_shutdown (void)
 
 void
 tumbler_plugin_get_types (const GType **types,
-                          gint         *n_types)
+                          gint *n_types)
 {
   *types = type_list;
   *n_types = G_N_ELEMENTS (type_list);

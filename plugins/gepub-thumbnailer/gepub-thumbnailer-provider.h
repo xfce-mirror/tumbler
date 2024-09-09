@@ -10,17 +10,19 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifndef __GEPUB_THUMBNAILER_PROVIDER_H__
 #define __GEPUB_THUMBNAILER_PROVIDER_H__
+
+#include "tumbler/tumbler.h"
 
 #include <glib-object.h>
 
@@ -29,7 +31,8 @@ G_BEGIN_DECLS;
 #define GEPUB_TYPE_THUMBNAILER_PROVIDER (gepub_thumbnailer_provider_get_type ())
 G_DECLARE_FINAL_TYPE (GepubThumbnailerProvider, gepub_thumbnailer_provider, GEPUB, THUMBNAILER_PROVIDER, GObject)
 
-void gepub_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void
+gepub_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

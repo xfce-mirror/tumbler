@@ -19,23 +19,19 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-util.h"
+
+#include <gio/gio.h>
+#include <libxfce4util/libxfce4util.h>
+#include <math.h>
+#include <sys/stat.h>
 
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif
-
-#include <math.h>
-
-#include <glib.h>
-#include <gio/gio.h>
-
-#include <sys/stat.h>
-
-#include <tumbler/tumbler-util.h>
-
-#include <libxfce4util/libxfce4util.h>
 
 /* Float block size used in the stat struct */
 #define TUMBLER_STAT_BLKSIZE 512.
@@ -71,7 +67,7 @@ tumbler_util_dump_strv (const gchar *log_domain,
 
   g_return_if_fail (label != NULL && strv != NULL);
 
-  if (! tumbler_util_is_debug_logging_enabled (log_domain))
+  if (!tumbler_util_is_debug_logging_enabled (log_domain))
     return;
 
   string = g_string_new (label);
@@ -99,7 +95,7 @@ tumbler_util_dump_strvs_side_by_side (const gchar *log_domain,
 
   g_return_if_fail (label_1 != NULL && label_2 != NULL && strv_1 != NULL && strv_2 != NULL);
 
-  if (! tumbler_util_is_debug_logging_enabled (log_domain))
+  if (!tumbler_util_is_debug_logging_enabled (log_domain))
     return;
 
   if (g_strv_length ((GStrv) strv_1) != g_strv_length ((GStrv) strv_2))
@@ -159,11 +155,11 @@ gchar **
 tumbler_util_get_supported_uri_schemes (void)
 {
   const gchar *const *vfs_schemes;
-  gchar             **uri_schemes;
-  guint               length;
-  guint               n = 0;
-  guint               i;
-  GVfs               *vfs;
+  gchar **uri_schemes;
+  guint length;
+  guint n = 0;
+  guint i;
+  GVfs *vfs;
 
   /* determine the URI schemes supported by GIO */
   vfs = g_vfs_get_default ();
@@ -183,12 +179,12 @@ tumbler_util_get_supported_uri_schemes (void)
       for (i = 0; vfs_schemes[i] != NULL; ++i)
         {
           /* skip unneeded schemes */
-          if (strcmp ("file", vfs_schemes[i]) != 0         /* always first scheme */
-              && strcmp ("computer", vfs_schemes[i]) != 0  /* only devices here */
+          if (strcmp ("file", vfs_schemes[i]) != 0 /* always first scheme */
+              && strcmp ("computer", vfs_schemes[i]) != 0 /* only devices here */
               && strcmp ("localtest", vfs_schemes[i]) != 0 /* test fs */
-              && strcmp ("http", vfs_schemes[i]) != 0      /* not a fs you can browse */
-              && strcmp ("cdda", vfs_schemes[i]) != 0      /* audio cds */
-              && strcmp ("network", vfs_schemes[i]) != 0)  /* only to list remotes, not files */
+              && strcmp ("http", vfs_schemes[i]) != 0 /* not a fs you can browse */
+              && strcmp ("cdda", vfs_schemes[i]) != 0 /* audio cds */
+              && strcmp ("network", vfs_schemes[i]) != 0) /* only to list remotes, not files */
             uri_schemes[n++] = g_strdup (vfs_schemes[i]);
         }
     }
@@ -202,10 +198,10 @@ tumbler_util_get_supported_uri_schemes (void)
 static gchar *
 tumbler_util_get_settings_filename (void)
 {
-  gchar               *path;
-  const gchar          filename[] = "tumbler" G_DIR_SEPARATOR_S "tumbler.rc";
-  const gchar * const *dirs;
-  guint                n;
+  gchar *path;
+  const gchar filename[] = "tumbler" G_DIR_SEPARATOR_S "tumbler.rc";
+  const gchar *const *dirs;
+  guint n;
 
   /* check user directory */
   path = g_build_filename (g_get_user_config_dir (), filename, NULL);
@@ -235,8 +231,8 @@ GKeyFile *
 tumbler_util_get_settings (void)
 {
   GKeyFile *settings;
-  GError   *err = NULL;
-  gchar    *filename;
+  GError *err = NULL;
+  gchar *filename;
 
   settings = g_key_file_new ();
   filename = tumbler_util_get_settings_filename ();
@@ -259,8 +255,8 @@ GSList *
 tumbler_util_locations_from_strv (gchar **array)
 {
   GSList *locations = NULL;
-  guint   n;
-  gchar  *path;
+  guint n;
+  gchar *path;
 
   if (array == NULL)
     return NULL;
@@ -304,7 +300,7 @@ tumbler_util_get_thumbnailer_dirs (void)
       dirname = g_build_filename (data_dirs[n], "thumbnailers", NULL);
       path = g_file_new_for_path (dirname);
 
-      if (! g_hash_table_lookup (single_path, path))
+      if (!g_hash_table_lookup (single_path, path))
         {
           g_hash_table_insert (single_path, path, path);
           dirs = g_list_prepend (dirs, path);
@@ -324,7 +320,8 @@ tumbler_util_get_thumbnailer_dirs (void)
 
 
 
-gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info)
+gboolean
+tumbler_util_guess_is_sparse (TumblerFileInfo *info)
 {
   gchar *filename;
   struct stat sb;
@@ -334,21 +331,21 @@ gboolean  tumbler_util_guess_is_sparse (TumblerFileInfo *info)
 
   filename = g_filename_from_uri (tumbler_file_info_get_uri (info), NULL, NULL);
 
-  if (G_LIKELY(filename))
-  {
-    stat (filename, &sb);
-
-    g_free (filename);
-
-    /* Test sparse files on regular ones */
-    if (S_ISREG (sb.st_mode))
+  if (G_LIKELY (filename))
     {
-      if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
-      {
-        ret_val = TRUE;
-      }
+      stat (filename, &sb);
+
+      g_free (filename);
+
+      /* Test sparse files on regular ones */
+      if (S_ISREG (sb.st_mode))
+        {
+          if (((TUMBLER_STAT_BLKSIZE * sb.st_blocks) / sb.st_size) < 0.8)
+            {
+              ret_val = TRUE;
+            }
+        }
     }
-  }
 
   return ret_val;
 }
@@ -388,7 +385,7 @@ tumbler_util_size_prepared (GdkPixbufLoader *loader,
       /* adjust the other axis */
       if (hratio > wratio)
         dest_width = rint (source_width / hratio);
-     else
+      else
         dest_height = rint (source_height / wratio);
     }
 
@@ -408,7 +405,7 @@ tumbler_util_scale_pixbuf (GdkPixbuf *source,
   g_return_val_if_fail (GDK_IS_PIXBUF (source), NULL);
 
   /* determine the source pixbuf dimensions */
-  source_width  = gdk_pixbuf_get_width (source);
+  source_width = gdk_pixbuf_get_width (source);
   source_height = gdk_pixbuf_get_height (source);
 
   /* return the same pixbuf if no scaling is required */

@@ -10,35 +10,35 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "font-thumbnailer.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 
-#include <font-thumbnailer/font-thumbnailer.h>
 
 
-
-static void font_thumbnailer_finalize (GObject                    *object);
-static void font_thumbnailer_create   (TumblerAbstractThumbnailer *thumbnailer,
-                                       GCancellable               *cancellable,
-                                       TumblerFileInfo            *info);
+static void
+font_thumbnailer_finalize (GObject *object);
+static void
+font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                         GCancellable *cancellable,
+                         TumblerFileInfo *info);
 
 
 
@@ -47,12 +47,12 @@ struct _FontThumbnailer
   TumblerAbstractThumbnailer __parent__;
 
   FT_Library library;
-  FT_Error   library_error;
+  FT_Error library_error;
 };
 
 
 
-G_DEFINE_DYNAMIC_TYPE (FontThumbnailer, 
+G_DEFINE_DYNAMIC_TYPE (FontThumbnailer,
                        font_thumbnailer,
                        TUMBLER_TYPE_ABSTRACT_THUMBNAILER);
 
@@ -70,7 +70,7 @@ static void
 font_thumbnailer_class_init (FontThumbnailerClass *klass)
 {
   TumblerAbstractThumbnailerClass *abstractthumbnailer_class;
-  GObjectClass                    *gobject_class;
+  GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
   gobject_class->finalize = font_thumbnailer_finalize;
@@ -96,7 +96,7 @@ font_thumbnailer_init (FontThumbnailer *thumbnailer)
 }
 
 
-static void 
+static void
 font_thumbnailer_finalize (GObject *object)
 {
   FontThumbnailer *thumbnailer = FONT_THUMBNAILER (object);
@@ -113,7 +113,9 @@ static const gchar *
 ft_strerror (FT_Error error)
 {
 #undef __FTERRORS_H__
-#define FT_ERRORDEF(e,v,s) case e: return s;
+#define FT_ERRORDEF(e, v, s) \
+  case e: \
+    return s;
 #define FT_ERROR_START_LIST
 #define FT_ERROR_END_LIST
   switch (error)
@@ -126,25 +128,24 @@ ft_strerror (FT_Error error)
 
 
 
-
 static FT_Error
 render_glyph (GdkPixbuf *pixbuf,
-              FT_Face    face,
-              FT_UInt    glyph,
-              gint      *pen_x,
-              gint      *pen_y)
+              FT_Face face,
+              FT_UInt glyph,
+              gint *pen_x,
+              gint *pen_y)
 {
   FT_GlyphSlot slot = face->glyph;
-  FT_Error     error;
-  guchar      *pixels;
-  guchar       pixel;
-  gint         rowstride;
-  gint         height;
-  gint         width;
-  gint         off_x;
-  gint         off_y;
-  gint         off;
-  gint         i, j;
+  FT_Error error;
+  guchar *pixels;
+  guchar pixel;
+  gint rowstride;
+  gint height;
+  gint width;
+  gint off_x;
+  gint off_y;
+  gint off;
+  gint i, j;
 
   /* load the glyph */
   error = FT_Load_Glyph (face, glyph, FT_LOAD_DEFAULT);
@@ -206,22 +207,22 @@ render_glyph (GdkPixbuf *pixbuf,
 
 static GdkPixbuf *
 trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
-                       gint       dest_width,
-                       gint       dest_height)
+                       gint dest_width,
+                       gint dest_height)
 {
   GdkPixbuf *subpixbuf;
   GdkPixbuf *scaled;
-  gboolean   seen_pixel;
-  guchar    *pixels;
-  gint       rowstride;
-  gint       height;
-  gint       width;
-  gint       i, j;
-  gint       trim_left;
-  gint       trim_right;
-  gint       trim_top;
-  gint       trim_bottom;
-  gint       offset;
+  gboolean seen_pixel;
+  guchar *pixels;
+  gint rowstride;
+  gint height;
+  gint width;
+  gint i, j;
+  gint trim_left;
+  gint trim_right;
+  gint trim_top;
+  gint trim_bottom;
+  gint offset;
 
   pixels = gdk_pixbuf_get_pixels (pixbuf);
   width = gdk_pixbuf_get_width (pixbuf);
@@ -234,13 +235,11 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
       for (j = 0; j < height; ++j)
         {
           offset = j * rowstride + 3 * i;
-          seen_pixel = (pixels[offset + 0] != 0xff ||
-                        pixels[offset + 1] != 0xff ||
-                        pixels[offset + 2] != 0xff);
+          seen_pixel = (pixels[offset + 0] != 0xff || pixels[offset + 1] != 0xff || pixels[offset + 2] != 0xff);
           if (seen_pixel)
             break;
         }
-      
+
       if (seen_pixel)
         break;
     }
@@ -254,13 +253,11 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
       for (j = 0; j < height; ++j)
         {
           offset = j * rowstride + 3 * i;
-          seen_pixel = (pixels[offset + 0] != 0xff ||
-                        pixels[offset+1] != 0xff ||
-                        pixels[offset+2] != 0xff);
+          seen_pixel = (pixels[offset + 0] != 0xff || pixels[offset + 1] != 0xff || pixels[offset + 2] != 0xff);
           if (seen_pixel)
             break;
         }
-      
+
       if (seen_pixel)
         break;
     }
@@ -274,13 +271,11 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
       for (i = 0; i < width; ++i)
         {
           offset = j * rowstride + 3 * i;
-          seen_pixel = (pixels[offset + 0] != 0xff ||
-                        pixels[offset + 1] != 0xff ||
-                        pixels[offset + 2] != 0xff);
+          seen_pixel = (pixels[offset + 0] != 0xff || pixels[offset + 1] != 0xff || pixels[offset + 2] != 0xff);
           if (seen_pixel)
             break;
         }
-      
+
       if (seen_pixel)
         break;
     }
@@ -294,13 +289,11 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
       for (i = 0; i < width; ++i)
         {
           offset = j * rowstride + 3 * i;
-          seen_pixel = (pixels[offset + 0] != 0xff ||
-                        pixels[offset + 1] != 0xff ||
-                        pixels[offset + 2] != 0xff);
+          seen_pixel = (pixels[offset + 0] != 0xff || pixels[offset + 1] != 0xff || pixels[offset + 2] != 0xff);
           if (seen_pixel)
             break;
         }
-      
+
       if (seen_pixel)
         break;
     }
@@ -309,37 +302,37 @@ trim_and_scale_pixbuf (GdkPixbuf *pixbuf,
   trim_bottom = MIN (trim_bottom + 8, height - 1);
 
   /* determine the trimmed subpixbuf */
-  subpixbuf = gdk_pixbuf_new_subpixbuf (pixbuf, trim_left, trim_top, 
-                                        trim_right - trim_left, 
+  subpixbuf = gdk_pixbuf_new_subpixbuf (pixbuf, trim_left, trim_top,
+                                        trim_right - trim_left,
                                         trim_bottom - trim_top);
 
   /* check if we still need to scale down */
-  if (gdk_pixbuf_get_width (subpixbuf) > dest_width 
+  if (gdk_pixbuf_get_width (subpixbuf) > dest_width
       || gdk_pixbuf_get_height (subpixbuf) > dest_height)
     {
       scaled = tumbler_util_scale_pixbuf (subpixbuf, dest_width, dest_height);
       g_object_unref (G_OBJECT (subpixbuf));
       subpixbuf = scaled;
     }
-  
+
   return subpixbuf;
 }
 
 
 
 static GdkPixbuf *
-generate_pixbuf (FT_Face                 face,
+generate_pixbuf (FT_Face face,
                  TumblerThumbnailFlavor *flavor,
-                 FT_Error               *error)
+                 FT_Error *error)
 {
   GdkPixbuf *pixbuf = NULL;
   GdkPixbuf *result = NULL;
-  FT_UInt    glyph1;
-  FT_UInt    glyph2;
-  gint       width;
-  gint       height;
-  gint       pen_x;
-  gint       pen_y;
+  FT_UInt glyph1;
+  FT_UInt glyph2;
+  gint width;
+  gint height;
+  gint pen_x;
+  gint pen_y;
 
   /* determine the desired size for this flavor */
   tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
@@ -356,7 +349,7 @@ generate_pixbuf (FT_Face                 face,
   glyph2 = FT_Get_Char_Index (face, 'a');
   if (G_UNLIKELY (glyph2 == 0))
     glyph2 = MIN (97, face->num_glyphs - 1);
-  
+
   /* allocate the pixbuf to render the glyphs to */
   pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, width * 3, (height * 3) / 2);
   gdk_pixbuf_fill (pixbuf, 0xffffffff);
@@ -386,30 +379,30 @@ generate_pixbuf (FT_Face                 face,
 
 static void
 font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                         GCancellable               *cancellable,
-                         TumblerFileInfo            *info)
+                         GCancellable *cancellable,
+                         TumblerFileInfo *info)
 {
   TumblerThumbnailFlavor *flavor;
-  TumblerImageData        data;
-  TumblerThumbnail       *thumbnail;
-  FontThumbnailer        *font_thumbnailer = FONT_THUMBNAILER (thumbnailer);
-  const gchar            *uri;
-  GdkPixbuf              *pixbuf;
-  FT_Error                ft_error;
-  FT_Face                 face;
-  GError                 *error = NULL;
-  GFile                  *file;
-  gchar                  *error_msg;
-  gchar                  *font_data;
-  gsize                   length;
-  gint                    n;
+  TumblerImageData data;
+  TumblerThumbnail *thumbnail;
+  FontThumbnailer *font_thumbnailer = FONT_THUMBNAILER (thumbnailer);
+  const gchar *uri;
+  GdkPixbuf *pixbuf;
+  FT_Error ft_error;
+  FT_Face face;
+  GError *error = NULL;
+  GFile *file;
+  gchar *error_msg;
+  gchar *font_data;
+  gsize length;
+  gint n;
 
   g_return_if_fail (FONT_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
-  if (g_cancellable_is_cancelled (cancellable)) 
+  if (g_cancellable_is_cancelled (cancellable))
     return;
 
   uri = tumbler_file_info_get_uri (info);
@@ -432,7 +425,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (!g_file_load_contents (file, cancellable, &font_data, &length, NULL, &error))
     {
       /* there was an error, emit error signal */
-      error_msg = g_strdup_printf (_("Could not load file contents: %s"), 
+      error_msg = g_strdup_printf (_("Could not load file contents: %s"),
                                    error->message);
       g_signal_emit_by_name (thumbnailer, "error", info,
                              error->domain, error->code, error_msg);
@@ -447,7 +440,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (file);
 
   /* try to open the font file */
-  ft_error = FT_New_Memory_Face (font_thumbnailer->library, (const FT_Byte *)font_data, 
+  ft_error = FT_New_Memory_Face (font_thumbnailer->library, (const FT_Byte *) font_data,
                                  length, 0, &face);
   if (G_UNLIKELY (ft_error != 0))
     {
@@ -468,7 +461,7 @@ font_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   for (n = 0; n < face->num_charmaps; ++n)
     {
       /* check for a desired character map */
-      if (face->charmaps[n]->encoding == ft_encoding_latin_1 
+      if (face->charmaps[n]->encoding == ft_encoding_latin_1
           || face->charmaps[n]->encoding == ft_encoding_unicode
           || face->charmaps[n]->encoding == ft_encoding_apple_roman)
         {

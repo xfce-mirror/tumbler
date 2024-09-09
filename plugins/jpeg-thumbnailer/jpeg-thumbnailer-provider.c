@@ -9,31 +9,30 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "jpeg-thumbnailer-provider.h"
+#include "jpeg-thumbnailer.h"
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include <tumbler/tumbler.h>
-
-#include <jpeg-thumbnailer/jpeg-thumbnailer-provider.h>
-#include <jpeg-thumbnailer/jpeg-thumbnailer.h>
 
 
-
-static void   jpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *jpeg_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+jpeg_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+jpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -94,16 +93,16 @@ static GList *
 jpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
   JPEGThumbnailer *thumbnailer;
-  const gchar     *mime_types[] = { "image/jpeg", NULL };
-  GList           *thumbnailers = NULL;
-  GStrv            uri_schemes;
+  const gchar *mime_types[] = { "image/jpeg", NULL };
+  GList *thumbnailers = NULL;
+  GStrv uri_schemes;
 
   /* determine which URI schemes are supported by GIO */
   uri_schemes = tumbler_util_get_supported_uri_schemes ();
 
   /* create the pixbuf thumbnailer */
   thumbnailer = g_object_new (JPEG_TYPE_THUMBNAILER,
-                              "uri-schemes", uri_schemes, "mime-types", mime_types, 
+                              "uri-schemes", uri_schemes, "mime-types", mime_types,
                               NULL);
 
   tumbler_util_dump_strv (G_LOG_DOMAIN, "Supported URI schemes",

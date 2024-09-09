@@ -9,16 +9,16 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
-#if !defined (_TUMBLER_INSIDE_TUMBLER_H) && !defined (TUMBLER_COMPILATION)
+#if !defined(_TUMBLER_INSIDE_TUMBLER_H) && !defined(TUMBLER_COMPILATION)
 #error "Only <tumbler/tumbler.h> may be included directly. This file might disappear or change contents."
 #endif
 
@@ -36,7 +36,7 @@ G_BEGIN_DECLS
  */
 
 #define TUMBLER_ERROR_DOMAIN "Tumbler"
-#define TUMBLER_ERROR        (g_quark_from_static_string (TUMBLER_ERROR_DOMAIN))
+#define TUMBLER_ERROR (g_quark_from_static_string (TUMBLER_ERROR_DOMAIN))
 
 #define TUMBLER_ERROR_MESSAGE_CREATION_FAILED _("Thumbnail could not be inferred from file contents")
 #define TUMBLER_ERROR_MESSAGE_LOCAL_ONLY _("Only local files are supported")

@@ -20,21 +20,20 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "odf-thumbnailer-provider.h"
+#include "odf-thumbnailer.h"
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
-#include <tumbler/tumbler.h>
-
-#include <odf-thumbnailer/odf-thumbnailer-provider.h>
-#include <odf-thumbnailer/odf-thumbnailer.h>
 
 
-
-static void   odf_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *odf_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+odf_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+odf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -94,8 +93,7 @@ odf_thumbnailer_provider_init (OdfThumbnailerProvider *provider)
 static GList *
 odf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  static const gchar *mime_types[] =
-  {
+  static const gchar *mime_types[] = {
     "application/vnd.ms-powerpoint",
     "application/vnd.openxmlformats-officedocument.presentationml.presentation",
     "application/vnd.ms-excel",
@@ -128,9 +126,9 @@ odf_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
     "image/openraster",
     NULL
   };
-  OdfThumbnailer    *thumbnailer;
-  GList             *thumbnailers = NULL;
-  GStrv              uri_schemes;
+  OdfThumbnailer *thumbnailer;
+  GList *thumbnailers = NULL;
+  GStrv uri_schemes;
 
   /* determine the URI schemes supported by GIO */
   uri_schemes = tumbler_util_get_supported_uri_schemes ();

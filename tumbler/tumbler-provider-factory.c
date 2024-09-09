@@ -9,28 +9,26 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "tumbler-provider-factory.h"
+#include "tumbler-provider-plugin.h"
+#include "tumbler-util.h"
 
 #ifdef HAVE_STRING_H
 #include <string.h>
 #endif
-
-#include <glib.h>
-
-#include <tumbler/tumbler-provider-factory.h>
-#include <tumbler/tumbler-provider-plugin.h>
-#include <tumbler/tumbler-util.h>
 
 
 
@@ -38,8 +36,10 @@ typedef struct _TumblerProviderInfo TumblerProviderInfo;
 
 
 
-static void   tumbler_provider_factory_finalize     (GObject                     *object);
-static GList *tumbler_provider_factory_load_plugins (TumblerProviderFactory      *factory);
+static void
+tumbler_provider_factory_finalize (GObject *object);
+static GList *
+tumbler_provider_factory_load_plugins (TumblerProviderFactory *factory);
 
 
 
@@ -53,7 +53,7 @@ struct _TumblerProviderFactory
 struct _TumblerProviderInfo
 {
   GObject *provider;
-  GType    type;
+  GType type;
 };
 
 
@@ -76,7 +76,7 @@ tumbler_provider_factory_class_init (TumblerProviderFactoryClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_provider_factory_finalize; 
+  gobject_class->finalize = tumbler_provider_factory_finalize;
 }
 
 
@@ -93,8 +93,8 @@ static void
 tumbler_provider_factory_finalize (GObject *object)
 {
   TumblerProviderFactory *factory = TUMBLER_PROVIDER_FACTORY (object);
-  TumblerProviderInfo    *info;
-  guint                   n;
+  TumblerProviderInfo *info;
+  guint n;
 
   /* release all cached provider infos */
   for (n = 0; n < factory->provider_infos->len; ++n)
@@ -104,7 +104,7 @@ tumbler_provider_factory_finalize (GObject *object)
       /* free cached provider objects */
       if (info != NULL && info->provider != NULL)
         g_object_unref (info->provider);
-      
+
       /* free cached provider info */
       g_slice_free (TumblerProviderInfo, factory->provider_infos->pdata[n]);
     }
@@ -119,13 +119,13 @@ tumbler_provider_factory_finalize (GObject *object)
 
 static void
 tumbler_provider_factory_add_types (TumblerProviderFactory *factory,
-                                    TumblerProviderPlugin  *plugin)
+                                    TumblerProviderPlugin *plugin)
 {
   TumblerProviderInfo *provider_info;
-  const GType         *types;
-  guint                idx;
-  gint                 n_types;
-  gint                 n;
+  const GType *types;
+  guint idx;
+  gint n_types;
+  gint n;
 
   /* collect all the types provided by the plugin */
   tumbler_provider_plugin_get_types (plugin, &types, &n_types);
@@ -155,10 +155,10 @@ static GList *
 tumbler_provider_factory_load_plugins (TumblerProviderFactory *factory)
 {
   TumblerProviderPlugin *plugin;
-  const gchar           *basename;
-  GList                 *lp;
-  GList                 *plugins = NULL;
-  GDir                  *dir;
+  const gchar *basename;
+  GList *lp;
+  GList *plugins = NULL;
+  GDir *dir;
 
   g_return_val_if_fail (TUMBLER_IS_PROVIDER_FACTORY (factory), NULL);
 
@@ -167,8 +167,8 @@ tumbler_provider_factory_load_plugins (TumblerProviderFactory *factory)
   if (dir != NULL)
     {
       /* iterate over all files in the plugin directory */
-      for (basename = g_dir_read_name (dir); 
-           basename != NULL; 
+      for (basename = g_dir_read_name (dir);
+           basename != NULL;
            basename = g_dir_read_name (dir))
         {
           /* check if this is a valid plugin file */
@@ -189,8 +189,7 @@ tumbler_provider_factory_load_plugins (TumblerProviderFactory *factory)
                 {
                   /* allocate a new plugin and add it to our list */
                   plugin = tumbler_provider_plugin_new (basename);
-                  tumbler_provider_plugins = g_list_prepend (tumbler_provider_plugins, 
-                                                             plugin);
+                  tumbler_provider_plugins = g_list_prepend (tumbler_provider_plugins, plugin);
                 }
 
               /* try to load the plugin */
@@ -199,13 +198,8 @@ tumbler_provider_factory_load_plugins (TumblerProviderFactory *factory)
                   /* add the plugin to our list */
                   plugins = g_list_prepend (plugins, plugin);
 
-                  /* we only add types to our cache the first time a module is loaded */
-                  /*
-                  if (lp == NULL)
-                    {*/
-                      /* add the types provided by the plugin */
-                      tumbler_provider_factory_add_types (factory, plugin);
-                   /* }*/
+                  /* add the types provided by the plugin */
+                  tumbler_provider_factory_add_types (factory, plugin);
                 }
             }
         }
@@ -245,17 +239,17 @@ tumbler_provider_factory_get_default (void)
 
 GList *
 tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
-                                        GType                   type)
+                                        GType type)
 {
   TumblerProviderInfo *info;
-  GList               *lp;
-  GList               *plugins;
-  GList               *providers = NULL;
-  guint                n;
-  const gchar         *type_name;
-  gchar               *name;
-  gboolean             disabled;
-  GKeyFile            *rc;
+  GList *lp;
+  GList *plugins;
+  GList *providers = NULL;
+  guint n;
+  const gchar *type_name;
+  gchar *name;
+  gboolean disabled;
+  GKeyFile *rc;
 
   G_LOCK (factory_lock);
 

@@ -9,21 +9,21 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <tumbler/tumbler-cache.h>
-#include <tumbler/tumbler-thumbnail.h>
+#include "tumbler-cache.h"
+#include "tumbler-thumbnail.h"
 
 
 
@@ -39,32 +39,29 @@ tumbler_thumbnail_default_init (TumblerThumbnailIface *klass)
                                                             "cache",
                                                             "cache",
                                                             TUMBLER_TYPE_CACHE,
-                                                            G_PARAM_READWRITE |
-                                                            G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_string ("uri",
                                                             "uri",
                                                             "uri",
                                                             NULL,
-                                                            G_PARAM_READWRITE |
-                                                            G_PARAM_CONSTRUCT_ONLY));
-  
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+
   g_object_interface_install_property (klass,
                                        g_param_spec_object ("flavor",
                                                             "flavor",
                                                             "flavor",
                                                             TUMBLER_TYPE_THUMBNAIL_FLAVOR,
-                                                            G_PARAM_READWRITE |
-                                                            G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
 
 
 gboolean
 tumbler_thumbnail_load (TumblerThumbnail *thumbnail,
-                        GCancellable     *cancellable,
-                        GError          **error)
+                        GCancellable *cancellable,
+                        GError **error)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
@@ -78,8 +75,8 @@ tumbler_thumbnail_load (TumblerThumbnail *thumbnail,
 
 gboolean
 tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
-                                const gchar      *uri,
-                                gdouble           mtime)
+                                const gchar *uri,
+                                gdouble mtime)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (uri != NULL, FALSE);
@@ -93,17 +90,17 @@ tumbler_thumbnail_needs_update (TumblerThumbnail *thumbnail,
 gboolean
 tumbler_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
                                    TumblerImageData *data,
-                                   gdouble           mtime,
-                                   GCancellable     *cancellable,
-                                   GError          **error)
+                                   gdouble mtime,
+                                   GCancellable *cancellable,
+                                   GError **error)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable), FALSE);
   g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
   g_return_val_if_fail (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_image_data != NULL, FALSE);
 
-  return (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_image_data) (thumbnail, data, 
-                                                                     mtime, cancellable, 
+  return (TUMBLER_THUMBNAIL_GET_IFACE (thumbnail)->save_image_data) (thumbnail, data,
+                                                                     mtime, cancellable,
                                                                      error);
 }
 
@@ -111,10 +108,10 @@ tumbler_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
 
 gboolean
 tumbler_thumbnail_save_file (TumblerThumbnail *thumbnail,
-                             GFile            *file,
-                             gdouble           mtime,
-                             GCancellable     *cancellable,
-                             GError          **error)
+                             GFile *file,
+                             gdouble mtime,
+                             GCancellable *cancellable,
+                             GError **error)
 {
   g_return_val_if_fail (TUMBLER_IS_THUMBNAIL (thumbnail), FALSE);
   g_return_val_if_fail (G_IS_FILE (file), FALSE);

@@ -19,24 +19,24 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
+#include "cover-thumbnailer-provider.h"
+#include "cover-thumbnailer.h"
+
+#include <curl/curl.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <glib/gi18n.h>
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <tumbler/tumbler.h>
-#include <curl/curl.h>
-
-#include <cover-thumbnailer/cover-thumbnailer-provider.h>
-#include <cover-thumbnailer/cover-thumbnailer.h>
 
 
-
-static void   cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *cover_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
-static void   cover_thumbnailer_provider_finalize                  (GObject                         *object);
+static void
+cover_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
+static void
+cover_thumbnailer_provider_finalize (GObject *object);
 
 
 
@@ -113,11 +113,10 @@ cover_thumbnailer_provider_finalize (GObject *object)
 static GList *
 cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  CoverThumbnailer   *thumbnailer;
-  GList              *thumbnailers = NULL;
-  GStrv               uri_schemes;
-  static const gchar *mime_types[] =
-  {
+  CoverThumbnailer *thumbnailer;
+  GList *thumbnailers = NULL;
+  GStrv uri_schemes;
+  static const gchar *mime_types[] = {
     "video/divx",
     "video/jpeg",
     "video/mp4",

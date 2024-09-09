@@ -19,11 +19,11 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <tumbler/tumbler-thumbnailer.h>
-#include <tumbler/tumbler.h>
+#include "tumbler-thumbnailer.h"
+#include "tumbler.h"
 
 
 
@@ -51,22 +51,19 @@ tumbler_thumbnailer_default_init (TumblerThumbnailerIface *klass)
                                        g_param_spec_pointer ("mime-types",
                                                              "mime-types",
                                                              "mime-types",
-                                                             G_PARAM_CONSTRUCT_ONLY |
-                                                             G_PARAM_READWRITE));
+                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("uri-schemes",
                                                              "uri-schemes",
                                                              "uri-schemes",
-                                                             G_PARAM_CONSTRUCT_ONLY |
-                                                             G_PARAM_READWRITE));
+                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("hash-keys",
                                                              "hash-keys",
                                                              "hash-keys",
-                                                             G_PARAM_CONSTRUCT_ONLY |
-                                                             G_PARAM_READWRITE));
+                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_int ("priority",
@@ -136,9 +133,9 @@ tumbler_thumbnailer_default_init (TumblerThumbnailerIface *klass)
 
 
 void
-tumbler_thumbnailer_create (TumblerThumbnailer     *thumbnailer,
-                            GCancellable           *cancellable,
-                            TumblerFileInfo        *info)
+tumbler_thumbnailer_create (TumblerThumbnailer *thumbnailer,
+                            GCancellable *cancellable,
+                            TumblerFileInfo *info)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
@@ -218,11 +215,11 @@ tumbler_thumbnailer_get_max_file_size (TumblerThumbnailer *thumbnailer)
 
 gboolean
 tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
-                                       GFile              *file)
+                                       GFile *file)
 {
-  GSList   *locations, *excludes, *lp, *ep;
-  gboolean  supported = FALSE;
-  gboolean  excluded  = FALSE;
+  GSList *locations, *excludes, *lp, *ep;
+  gboolean supported = FALSE;
+  gboolean excluded = FALSE;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), FALSE);
   g_return_val_if_fail (G_IS_FILE (file), FALSE);
@@ -230,11 +227,11 @@ tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
   /* check first if file is excluded */
   g_object_get (thumbnailer, "excludes", &excludes, NULL);
   if (excludes != NULL)
-  {
-    for (ep = excludes; !excluded && ep != NULL; ep = ep->next)
-      if (g_file_has_prefix (file, G_FILE (ep->data)))
-        excluded = TRUE;
-  }
+    {
+      for (ep = excludes; !excluded && ep != NULL; ep = ep->next)
+        if (g_file_has_prefix (file, G_FILE (ep->data)))
+          excluded = TRUE;
+    }
 
   /* Path is excluded */
   if (excluded)
@@ -259,11 +256,11 @@ tumbler_thumbnailer_supports_location (TumblerThumbnailer *thumbnailer,
 
 gboolean
 tumbler_thumbnailer_supports_hash_key (TumblerThumbnailer *thumbnailer,
-                                       const gchar        *hash_key)
+                                       const gchar *hash_key)
 {
   gboolean supported = FALSE;
-  gchar  **hash_keys;
-  guint    n;
+  gchar **hash_keys;
+  guint n;
 
   g_return_val_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer), FALSE);
   g_return_val_if_fail (hash_key != NULL && *hash_key != '\0', FALSE);

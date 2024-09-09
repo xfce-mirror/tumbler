@@ -20,29 +20,28 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
-#include <sys/types.h>
+
+#include "raw-thumbnailer.h"
+
 #include <fcntl.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <libopenraw-gnome/gdkpixbuf.h>
 #include <memory.h>
 #include <setjmp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 #include <unistd.h>
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <libopenraw-gnome/gdkpixbuf.h>
-
-#include "raw-thumbnailer.h"
-
-static void raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                    GCancellable               *cancellable,
-                                    TumblerFileInfo            *info);
+static void
+raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info);
 
 
 
@@ -94,20 +93,20 @@ raw_thumbnailer_init (RawThumbnailer *thumbnailer)
 
 static void
 raw_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                        GCancellable               *cancellable,
-                        TumblerFileInfo            *info)
+                        GCancellable *cancellable,
+                        TumblerFileInfo *info)
 {
   TumblerThumbnailFlavor *flavor;
-  TumblerImageData        data;
-  TumblerThumbnail       *thumbnail;
-  const gchar            *uri;
-  const gchar            *path;
-  GdkPixbuf              *pixbuf = NULL;
-  GError                 *error = NULL;
-  GFile                  *file;
-  gint                    height;
-  gint                    width;
-  GdkPixbuf              *scaled;
+  TumblerImageData data;
+  TumblerThumbnail *thumbnail;
+  const gchar *uri;
+  const gchar *path;
+  GdkPixbuf *pixbuf = NULL;
+  GError *error = NULL;
+  GFile *file;
+  gint height;
+  gint width;
+  GdkPixbuf *scaled;
 
   g_return_if_fail (RAW_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));

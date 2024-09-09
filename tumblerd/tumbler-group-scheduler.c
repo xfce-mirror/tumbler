@@ -4,34 +4,33 @@
  * Copyright (c) 2009 Nokia,
  *   written by Philip Van Hoof <philip@codeminded.be>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
+#include "tumbler-group-scheduler.h"
+#include "tumbler-utils.h"
+
+#include "tumbler/tumbler.h"
+
 #include <float.h>
-
-#include <glib.h>
 #include <glib/gi18n.h>
-
-#include <tumbler/tumbler.h>
-#include <tumblerd/tumbler-group-scheduler.h>
-#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -48,37 +47,49 @@ typedef struct _UriError UriError;
 
 
 
-static void tumbler_group_scheduler_iface_init        (TumblerSchedulerIface     *iface);
-static void tumbler_group_scheduler_finalize          (GObject                   *object);
-static void tumbler_group_scheduler_get_property      (GObject                   *object,
-                                                       guint                      prop_id,
-                                                       GValue                    *value,
-                                                       GParamSpec                *pspec);
-static void tumbler_group_scheduler_set_property      (GObject                   *object,
-                                                       guint                      prop_id,
-                                                       const GValue              *value,
-                                                       GParamSpec                *pspec);
-static void tumbler_group_scheduler_push              (TumblerScheduler          *scheduler,
-                                                       TumblerSchedulerRequest   *request);
-static void tumbler_group_scheduler_dequeue           (TumblerScheduler          *scheduler,
-                                                       guint32                    handle);
-static void tumbler_group_scheduler_cancel_by_mount   (TumblerScheduler          *scheduler,
-                                                       GMount                    *mount);
-static void tumbler_group_scheduler_finish_request    (TumblerGroupScheduler     *scheduler,
-                                                       TumblerSchedulerRequest   *request);
-static void tumbler_group_scheduler_dequeue_request   (TumblerSchedulerRequest   *request,
-                                                       gpointer                   user_data);
-static void tumbler_group_scheduler_thread            (gpointer                   data,
-                                                       gpointer                   user_data);
-static void tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
-                                                       TumblerFileInfo           *failed_info,
-                                                       GQuark                     error_domain,
-                                                       gint                       error_code,
-                                                       const gchar               *message,
-                                                       TumblerSchedulerRequest   *request);
-static void tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
-                                                       TumblerFileInfo           *info,
-                                                       TumblerSchedulerRequest   *request);
+static void
+tumbler_group_scheduler_iface_init (TumblerSchedulerIface *iface);
+static void
+tumbler_group_scheduler_finalize (GObject *object);
+static void
+tumbler_group_scheduler_get_property (GObject *object,
+                                      guint prop_id,
+                                      GValue *value,
+                                      GParamSpec *pspec);
+static void
+tumbler_group_scheduler_set_property (GObject *object,
+                                      guint prop_id,
+                                      const GValue *value,
+                                      GParamSpec *pspec);
+static void
+tumbler_group_scheduler_push (TumblerScheduler *scheduler,
+                              TumblerSchedulerRequest *request);
+static void
+tumbler_group_scheduler_dequeue (TumblerScheduler *scheduler,
+                                 guint32 handle);
+static void
+tumbler_group_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
+                                         GMount *mount);
+static void
+tumbler_group_scheduler_finish_request (TumblerGroupScheduler *scheduler,
+                                        TumblerSchedulerRequest *request);
+static void
+tumbler_group_scheduler_dequeue_request (TumblerSchedulerRequest *request,
+                                         gpointer user_data);
+static void
+tumbler_group_scheduler_thread (gpointer data,
+                                gpointer user_data);
+static void
+tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
+                                           TumblerFileInfo *failed_info,
+                                           GQuark error_domain,
+                                           gint error_code,
+                                           const gchar *message,
+                                           TumblerSchedulerRequest *request);
+static void
+tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer *thumbnailer,
+                                           TumblerFileInfo *info,
+                                           TumblerSchedulerRequest *request);
 
 
 
@@ -88,21 +99,20 @@ struct _TumblerGroupScheduler
 
   GThreadPool *pool;
   TUMBLER_MUTEX (mutex);
-  GList       *requests;
-  guint        group;
-  gboolean     prioritized;
+  GList *requests;
+  guint group;
+  gboolean prioritized;
 
-  gchar       *name;
+  gchar *name;
 };
 
 struct _UriError
 {
-  guint  error_code;
+  guint error_code;
   GQuark error_domain;
   gchar *message;
   gchar *failed_uri;
 };
-
 
 
 
@@ -124,12 +134,11 @@ tumbler_group_scheduler_class_init (TumblerGroupSchedulerClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_group_scheduler_finalize; 
+  gobject_class->finalize = tumbler_group_scheduler_finalize;
   gobject_class->get_property = tumbler_group_scheduler_get_property;
   gobject_class->set_property = tumbler_group_scheduler_set_property;
 
   g_object_class_override_property (gobject_class, PROP_NAME, "name");
-
 }
 
 
@@ -151,15 +160,14 @@ tumbler_group_scheduler_init (TumblerGroupScheduler *scheduler)
 
   /* Note that unless we convert this boolean to a TLS (thread-local), that
    * we can only do this 'prioritized' flag with a thread-pool that is set to
-   * exclusive: because then the one thread keeps running until the pool is 
+   * exclusive: because then the one thread keeps running until the pool is
    * freed. */
 
   scheduler->prioritized = FALSE;
 
   /* allocate a pool with a number of threads depending on the system */
-  scheduler->pool = g_thread_pool_new (tumbler_group_scheduler_thread, 
+  scheduler->pool = g_thread_pool_new (tumbler_group_scheduler_thread,
                                        scheduler, g_get_num_processors (), TRUE, NULL);
-
 }
 
 
@@ -187,9 +195,9 @@ tumbler_group_scheduler_finalize (GObject *object)
 
 
 static void
-tumbler_group_scheduler_get_property (GObject    *object,
-                                      guint       prop_id,
-                                      GValue     *value,
+tumbler_group_scheduler_get_property (GObject *object,
+                                      guint prop_id,
+                                      GValue *value,
                                       GParamSpec *pspec)
 {
   TumblerGroupScheduler *scheduler = TUMBLER_GROUP_SCHEDULER (object);
@@ -208,10 +216,10 @@ tumbler_group_scheduler_get_property (GObject    *object,
 
 
 static void
-tumbler_group_scheduler_set_property (GObject      *object,
-                                      guint         prop_id,
+tumbler_group_scheduler_set_property (GObject *object,
+                                      guint prop_id,
                                       const GValue *value,
-                                      GParamSpec   *pspec)
+                                      GParamSpec *pspec)
 {
   TumblerGroupScheduler *scheduler = TUMBLER_GROUP_SCHEDULER (object);
 
@@ -229,17 +237,16 @@ tumbler_group_scheduler_set_property (GObject      *object,
 
 
 static void
-tumbler_group_scheduler_push (TumblerScheduler        *scheduler,
+tumbler_group_scheduler_push (TumblerScheduler *scheduler,
                               TumblerSchedulerRequest *request)
 {
-  TumblerGroupScheduler *group_scheduler = 
-    TUMBLER_GROUP_SCHEDULER (scheduler);
+  TumblerGroupScheduler *group_scheduler = TUMBLER_GROUP_SCHEDULER (scheduler);
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
   tumbler_mutex_lock (group_scheduler->mutex);
-  
+
   /* gain ownership over the requests (sets request->scheduler) */
   tumbler_scheduler_take_request (scheduler, request);
 
@@ -256,10 +263,9 @@ tumbler_group_scheduler_push (TumblerScheduler        *scheduler,
 
 static void
 tumbler_group_scheduler_dequeue (TumblerScheduler *scheduler,
-                                 guint32           handle)
+                                 guint32 handle)
 {
-  TumblerGroupScheduler *group_scheduler = 
-    TUMBLER_GROUP_SCHEDULER (scheduler);
+  TumblerGroupScheduler *group_scheduler = TUMBLER_GROUP_SCHEDULER (scheduler);
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (handle != 0);
@@ -267,8 +273,8 @@ tumbler_group_scheduler_dequeue (TumblerScheduler *scheduler,
   tumbler_mutex_lock (group_scheduler->mutex);
 
   /* dequeue all requests (usually only one) with this handle */
-  g_list_foreach (group_scheduler->requests, 
-                  (GFunc) tumbler_group_scheduler_dequeue_request, 
+  g_list_foreach (group_scheduler->requests,
+                  (GFunc) tumbler_group_scheduler_dequeue_request,
                   GUINT_TO_POINTER (handle));
 
   tumbler_mutex_unlock (group_scheduler->mutex);
@@ -278,14 +284,14 @@ tumbler_group_scheduler_dequeue (TumblerScheduler *scheduler,
 
 static void
 tumbler_group_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
-                                        GMount           *mount)
+                                         GMount *mount)
 {
   TumblerSchedulerRequest *request;
-  TumblerGroupScheduler   *group_scheduler = TUMBLER_GROUP_SCHEDULER (scheduler);
-  GFile                   *mount_point;
-  GFile                   *file;
-  GList                   *iter;
-  guint                    n;
+  TumblerGroupScheduler *group_scheduler = TUMBLER_GROUP_SCHEDULER (scheduler);
+  GFile *mount_point;
+  GFile *file;
+  GList *iter;
+  guint n;
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (G_IS_MOUNT (mount));
@@ -325,7 +331,7 @@ tumbler_group_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
 
 static void
 tumbler_group_scheduler_finish_request (TumblerGroupScheduler *scheduler,
-                                        TumblerSchedulerRequest   *request)
+                                        TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
@@ -344,7 +350,7 @@ tumbler_group_scheduler_finish_request (TumblerGroupScheduler *scheduler,
 
 static void
 tumbler_group_scheduler_dequeue_request (TumblerSchedulerRequest *request,
-                                         gpointer                 user_data)
+                                         gpointer user_data)
 {
   guint handle = GPOINTER_TO_UINT (user_data);
   guint n;
@@ -353,21 +359,21 @@ tumbler_group_scheduler_dequeue_request (TumblerSchedulerRequest *request,
   g_return_if_fail (handle != 0);
 
   /* mark the request as dequeued if the handles match */
-  if (request->handle == handle) 
+  if (request->handle == handle)
     {
       request->dequeued = TRUE;
 
       /* try cancel all thumbnails that are part of the request */
       for (n = 0; n < request->length; ++n)
         g_cancellable_cancel (request->cancellables[n]);
-  }
+    }
 }
 
 
 
 static UriError *
-uri_error_new (gint         code,
-               GQuark       domain,
+uri_error_new (gint code,
+               GQuark domain,
                const gchar *uri,
                const gchar *message)
 {
@@ -402,35 +408,34 @@ tumbler_group_scheduler_thread (gpointer data,
                                 gpointer user_data)
 {
   TumblerSchedulerRequest *request = data;
-  TumblerGroupScheduler   *scheduler = user_data;
-  const gchar            **uris;
-  const gchar            **failed_uris;
-  const gchar            **success_uris;
-  UriError                *uri_error;
-  gboolean                 uri_needs_update;
-  GString                 *message;
-  GError                  *error = NULL;
-  GList                   *iter;
-  GList                   *cached_uris = NULL;
-  GList                   *missing_uris = NULL;
-  GList                   *lp, *lq;
-  guint                    n;
-  gint                     error_code = 0;
-  GQuark                   error_domain = 0;
+  TumblerGroupScheduler *scheduler = user_data;
+  const gchar **uris;
+  const gchar **failed_uris;
+  const gchar **success_uris;
+  UriError *uri_error;
+  gboolean uri_needs_update;
+  GString *message;
+  GError *error = NULL;
+  GList *iter;
+  GList *cached_uris = NULL;
+  GList *missing_uris = NULL;
+  GList *lp, *lq;
+  guint n;
+  gint error_code = 0;
+  GQuark error_domain = 0;
 
   g_return_if_fail (TUMBLER_IS_GROUP_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
   /* Set I/O priority for the exclusive ThreadPool's thread */
-  if (!scheduler->prioritized) 
+  if (!scheduler->prioritized)
     {
       tumbler_scheduler_thread_use_lower_priority ();
       scheduler->prioritized = TRUE;
     }
 
   /* notify others that we're starting to process this request */
-  g_signal_emit_by_name (request->scheduler, "started", request->handle, 
-                         request->origin);
+  g_signal_emit_by_name (request->scheduler, "started", request->handle, request->origin);
 
   /* finish the request if it was dequeued */
   tumbler_mutex_lock (scheduler->mutex);
@@ -513,15 +518,14 @@ tumbler_group_scheduler_thread (gpointer data,
       uris[n] = NULL;
 
       /* notify others that the cached thumbnails are ready */
-      g_signal_emit_by_name (scheduler, "ready", request->handle, uris, 
-                             request->origin);
+      g_signal_emit_by_name (scheduler, "ready", request->handle, uris, request->origin);
 
       /* free string array and cached list */
       g_list_free (cached_uris);
       g_free (uris);
     }
 
-  /* initialize lists for grouping failed URIs and URIs for which 
+  /* initialize lists for grouping failed URIs and URIs for which
    * thumbnails are ready */
   request->uri_errors = NULL;
   request->ready_uris = NULL;
@@ -565,7 +569,7 @@ tumbler_group_scheduler_thread (gpointer data,
 
   tumbler_mutex_lock (scheduler->mutex);
 
-  /* We emit all the errors and ready signals together in order to 
+  /* We emit all the errors and ready signals together in order to
    * reduce the overall D-Bus traffic */
 
   /* check if we have any failed URIs */
@@ -577,7 +581,7 @@ tumbler_group_scheduler_thread (gpointer data,
       /* allocate the grouped error message */
       message = g_string_new ("");
 
-      for (iter = request->uri_errors, n = 0; iter != NULL; iter = iter->next, ++n) 
+      for (iter = request->uri_errors, n = 0; iter != NULL; iter = iter->next, ++n)
         {
           uri_error = iter->data;
 
@@ -606,7 +610,7 @@ tumbler_group_scheduler_thread (gpointer data,
       failed_uris[n] = NULL;
 
       /* forward the error signal */
-      g_signal_emit_by_name (request->scheduler, "error", request->handle, 
+      g_signal_emit_by_name (request->scheduler, "error", request->handle,
                              failed_uris, error_domain, error_code, message->str,
                              request->origin);
 
@@ -634,7 +638,7 @@ tumbler_group_scheduler_thread (gpointer data,
       success_uris[n] = NULL;
 
       /* emit a grouped ready signal */
-      g_signal_emit_by_name (request->scheduler, "ready", request->handle, 
+      g_signal_emit_by_name (request->scheduler, "ready", request->handle,
                              success_uris, request->origin);
 
       /* free the success URI array. Its contents are owned by the ready URI list */
@@ -654,10 +658,10 @@ tumbler_group_scheduler_thread (gpointer data,
 
 static void
 tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
-                                           TumblerFileInfo    *failed_info,
-                                           GQuark              error_domain,
-                                           gint                error_code,
-                                           const gchar        *message,
+                                           TumblerFileInfo *failed_info,
+                                           GQuark error_domain,
+                                           gint error_code,
+                                           const gchar *message,
                                            TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
@@ -682,7 +686,7 @@ tumbler_group_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
 
 static void
 tumbler_group_scheduler_thumbnailer_ready (TumblerThumbnailer *thumbnailer,
-                                           TumblerFileInfo    *info,
+                                           TumblerFileInfo *info,
                                            TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));

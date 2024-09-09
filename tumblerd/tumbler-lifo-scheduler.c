@@ -1,37 +1,36 @@
 /* vi:set et ai sw=2 sts=2 ts=2: */
 /*-
  * Copyright (c) 2009 Jannis Pohlmann <jannis@xfce.org>
- * Copyright (c) 2009 Nokia, 
+ * Copyright (c) 2009 Nokia,
  *   written by Philip Van Hoof <philip@codeminded.be>
  *
- * This program is free software; you can redistribute it and/or 
+ * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of 
+ * published by the Free Software Foundation; either version 2 of
  * the License, or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public 
- * License along with this program; if not, write to the Free 
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
+#include "tumbler-lifo-scheduler.h"
+#include "tumbler-utils.h"
+
+#include "tumbler/tumbler.h"
+
 #include <float.h>
-
-#include <glib.h>
 #include <glib/gi18n.h>
-
-#include <tumbler/tumbler.h>
-#include <tumblerd/tumbler-lifo-scheduler.h>
-#include <tumblerd/tumbler-utils.h>
 
 
 
@@ -44,37 +43,49 @@ enum
 
 
 
-static void tumbler_lifo_scheduler_iface_init        (TumblerSchedulerIface     *iface);
-static void tumbler_lifo_scheduler_finalize          (GObject                   *object);
-static void tumbler_lifo_scheduler_get_property      (GObject                   *object,
-                                                      guint                      prop_id,
-                                                      GValue                    *value,
-                                                      GParamSpec                *pspec);
-static void tumbler_lifo_scheduler_set_property      (GObject                   *object,
-                                                      guint                      prop_id,
-                                                      const GValue              *value,
-                                                      GParamSpec                *pspec);
-static void tumbler_lifo_scheduler_push              (TumblerScheduler          *scheduler,
-                                                      TumblerSchedulerRequest   *request);
-static void tumbler_lifo_scheduler_dequeue           (TumblerScheduler          *scheduler,
-                                                      guint32                    handle);
-static void tumbler_lifo_scheduler_cancel_by_mount   (TumblerScheduler          *scheduler,
-                                                      GMount                    *mount);
-static void tumbler_lifo_scheduler_finish_request    (TumblerLifoScheduler *scheduler,
-                                                      TumblerSchedulerRequest   *request);
-static void tumbler_lifo_scheduler_dequeue_request   (TumblerSchedulerRequest   *request,
-                                                      gpointer                   user_data);
-static void tumbler_lifo_scheduler_thread            (gpointer                   data,
-                                                      gpointer                   user_data);
-static void tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer        *thumbnailer,
-                                                      TumblerFileInfo           *failed_info,
-                                                      GQuark                     error_domain,
-                                                      gint                       error_code,
-                                                      const gchar               *message,
-                                                      TumblerSchedulerRequest   *request);
-static void tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer        *thumbnailer,
-                                                      TumblerFileInfo           *info,
-                                                      TumblerSchedulerRequest   *request);
+static void
+tumbler_lifo_scheduler_iface_init (TumblerSchedulerIface *iface);
+static void
+tumbler_lifo_scheduler_finalize (GObject *object);
+static void
+tumbler_lifo_scheduler_get_property (GObject *object,
+                                     guint prop_id,
+                                     GValue *value,
+                                     GParamSpec *pspec);
+static void
+tumbler_lifo_scheduler_set_property (GObject *object,
+                                     guint prop_id,
+                                     const GValue *value,
+                                     GParamSpec *pspec);
+static void
+tumbler_lifo_scheduler_push (TumblerScheduler *scheduler,
+                             TumblerSchedulerRequest *request);
+static void
+tumbler_lifo_scheduler_dequeue (TumblerScheduler *scheduler,
+                                guint32 handle);
+static void
+tumbler_lifo_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
+                                        GMount *mount);
+static void
+tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler *scheduler,
+                                       TumblerSchedulerRequest *request);
+static void
+tumbler_lifo_scheduler_dequeue_request (TumblerSchedulerRequest *request,
+                                        gpointer user_data);
+static void
+tumbler_lifo_scheduler_thread (gpointer data,
+                               gpointer user_data);
+static void
+tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
+                                          TumblerFileInfo *failed_info,
+                                          GQuark error_domain,
+                                          gint error_code,
+                                          const gchar *message,
+                                          TumblerSchedulerRequest *request);
+static void
+tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer *thumbnailer,
+                                          TumblerFileInfo *info,
+                                          TumblerSchedulerRequest *request);
 
 
 
@@ -84,9 +95,9 @@ struct _TumblerLifoScheduler
 
   GThreadPool *pool;
   TUMBLER_MUTEX (mutex);
-  GList       *requests;
+  GList *requests;
 
-  gchar       *name;
+  gchar *name;
 };
 
 
@@ -108,13 +119,12 @@ tumbler_lifo_scheduler_class_init (TumblerLifoSchedulerClass *klass)
   GObjectClass *gobject_class;
 
   gobject_class = G_OBJECT_CLASS (klass);
-  gobject_class->finalize = tumbler_lifo_scheduler_finalize; 
+  gobject_class->finalize = tumbler_lifo_scheduler_finalize;
 
   gobject_class->get_property = tumbler_lifo_scheduler_get_property;
   gobject_class->set_property = tumbler_lifo_scheduler_set_property;
 
   g_object_class_override_property (gobject_class, PROP_NAME, "name");
-
 }
 
 static void
@@ -137,7 +147,7 @@ tumbler_lifo_scheduler_init (TumblerLifoScheduler *scheduler)
                                        scheduler, g_get_num_processors (), TRUE, NULL);
 
   /* make the thread a LIFO */
-  g_thread_pool_set_sort_function (scheduler->pool, 
+  g_thread_pool_set_sort_function (scheduler->pool,
                                    tumbler_scheduler_request_compare, NULL);
 }
 
@@ -166,9 +176,9 @@ tumbler_lifo_scheduler_finalize (GObject *object)
 
 
 static void
-tumbler_lifo_scheduler_get_property (GObject    *object,
-                                     guint       prop_id,
-                                     GValue     *value,
+tumbler_lifo_scheduler_get_property (GObject *object,
+                                     guint prop_id,
+                                     GValue *value,
                                      GParamSpec *pspec)
 {
   TumblerLifoScheduler *scheduler = TUMBLER_LIFO_SCHEDULER (object);
@@ -187,10 +197,10 @@ tumbler_lifo_scheduler_get_property (GObject    *object,
 
 
 static void
-tumbler_lifo_scheduler_set_property (GObject      *object,
-                                     guint         prop_id,
+tumbler_lifo_scheduler_set_property (GObject *object,
+                                     guint prop_id,
                                      const GValue *value,
-                                     GParamSpec   *pspec)
+                                     GParamSpec *pspec)
 {
   TumblerLifoScheduler *scheduler = TUMBLER_LIFO_SCHEDULER (object);
 
@@ -208,7 +218,7 @@ tumbler_lifo_scheduler_set_property (GObject      *object,
 
 
 static void
-tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
+tumbler_lifo_scheduler_push (TumblerScheduler *scheduler,
                              TumblerSchedulerRequest *request)
 {
   TumblerLifoScheduler *lifo_scheduler = TUMBLER_LIFO_SCHEDULER (scheduler);
@@ -217,7 +227,7 @@ tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
   g_return_if_fail (request != NULL);
 
   tumbler_mutex_lock (lifo_scheduler->mutex);
-  
+
   /* gain ownership over the requests (sets request->scheduler) */
   tumbler_scheduler_take_request (scheduler, request);
 
@@ -234,7 +244,7 @@ tumbler_lifo_scheduler_push (TumblerScheduler        *scheduler,
 
 static void
 tumbler_lifo_scheduler_dequeue (TumblerScheduler *scheduler,
-                                guint32           handle)
+                                guint32 handle)
 {
   TumblerLifoScheduler *lifo_scheduler = TUMBLER_LIFO_SCHEDULER (scheduler);
 
@@ -244,8 +254,8 @@ tumbler_lifo_scheduler_dequeue (TumblerScheduler *scheduler,
   tumbler_mutex_lock (lifo_scheduler->mutex);
 
   /* dequeue all requests (usually only one) with this handle */
-  g_list_foreach (lifo_scheduler->requests, 
-                  (GFunc) tumbler_lifo_scheduler_dequeue_request, 
+  g_list_foreach (lifo_scheduler->requests,
+                  (GFunc) tumbler_lifo_scheduler_dequeue_request,
                   GUINT_TO_POINTER (handle));
 
   tumbler_mutex_unlock (lifo_scheduler->mutex);
@@ -255,14 +265,14 @@ tumbler_lifo_scheduler_dequeue (TumblerScheduler *scheduler,
 
 static void
 tumbler_lifo_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
-                                        GMount           *mount)
+                                        GMount *mount)
 {
   TumblerSchedulerRequest *request;
-  TumblerLifoScheduler    *lifo_scheduler = TUMBLER_LIFO_SCHEDULER (scheduler);
-  GFile                   *mount_point;
-  GFile                   *file;
-  GList                   *iter;
-  guint                    n;
+  TumblerLifoScheduler *lifo_scheduler = TUMBLER_LIFO_SCHEDULER (scheduler);
+  GFile *mount_point;
+  GFile *file;
+  GList *iter;
+  guint n;
 
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (G_IS_MOUNT (mount));
@@ -301,14 +311,14 @@ tumbler_lifo_scheduler_cancel_by_mount (TumblerScheduler *scheduler,
 
 
 static void
-tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler    *scheduler,
+tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler *scheduler,
                                        TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
 
   /* emit a finished signal for this request */
-  g_signal_emit_by_name (scheduler, "finished", request->handle, 
+  g_signal_emit_by_name (scheduler, "finished", request->handle,
                          request->origin);
 
   /* remove the request from the list */
@@ -322,7 +332,7 @@ tumbler_lifo_scheduler_finish_request (TumblerLifoScheduler    *scheduler,
 
 static void
 tumbler_lifo_scheduler_dequeue_request (TumblerSchedulerRequest *request,
-                                        gpointer                 user_data)
+                                        gpointer user_data)
 {
   guint handle = GPOINTER_TO_UINT (user_data);
   guint n;
@@ -331,14 +341,14 @@ tumbler_lifo_scheduler_dequeue_request (TumblerSchedulerRequest *request,
   g_return_if_fail (handle != 0);
 
   /* mark the request as dequeued if the handles match */
-  if (request->handle == handle) 
+  if (request->handle == handle)
     {
       request->dequeued = TRUE;
 
       /* cancel all thumbnails that are part of the request */
       for (n = 0; n < request->length; ++n)
         g_cancellable_cancel (request->cancellables[n]);
-  }
+    }
 }
 
 
@@ -348,14 +358,14 @@ tumbler_lifo_scheduler_thread (gpointer data,
                                gpointer user_data)
 {
   TumblerSchedulerRequest *request = data;
-  TumblerLifoScheduler    *scheduler = user_data;
-  const gchar            **uris;
-  gboolean                 uri_needs_update;
-  GError                  *error = NULL;
-  GList                   *cached_uris = NULL;
-  GList                   *missing_uris = NULL;
-  GList                   *lp, *lq;
-  guint                    n;
+  TumblerLifoScheduler *scheduler = user_data;
+  const gchar **uris;
+  gboolean uri_needs_update;
+  GError *error = NULL;
+  GList *cached_uris = NULL;
+  GList *missing_uris = NULL;
+  GList *lp, *lq;
+  guint n;
 
   g_return_if_fail (TUMBLER_IS_LIFO_SCHEDULER (scheduler));
   g_return_if_fail (request != NULL);
@@ -507,11 +517,11 @@ tumbler_lifo_scheduler_thread (gpointer data,
 
 
 static void
-tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
-                                          TumblerFileInfo         *failed_info,
-                                          GQuark                   error_domain,
-                                          gint                     error_code,
-                                          const gchar             *message,
+tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer *thumbnailer,
+                                          TumblerFileInfo *failed_info,
+                                          GQuark error_domain,
+                                          gint error_code,
+                                          const gchar *message,
                                           TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));
@@ -535,8 +545,8 @@ tumbler_lifo_scheduler_thumbnailer_error (TumblerThumbnailer      *thumbnailer,
 
 
 static void
-tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer      *thumbnailer,
-                                          TumblerFileInfo         *info,
+tumbler_lifo_scheduler_thumbnailer_ready (TumblerThumbnailer *thumbnailer,
+                                          TumblerFileInfo *info,
                                           TumblerSchedulerRequest *request)
 {
   g_return_if_fail (TUMBLER_IS_THUMBNAILER (thumbnailer));

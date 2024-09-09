@@ -10,11 +10,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  *
@@ -23,8 +23,15 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
+
+#include "jpeg-thumbnailer.h"
+
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
+#include <jpeglib.h>
 
 #ifdef HAVE_SYS_MMAN_H
 #include <sys/mman.h>
@@ -35,7 +42,6 @@
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
 #endif
-
 #ifdef HAVE_FCNTL_H
 #include <fcntl.h>
 #endif
@@ -58,23 +64,17 @@
 #include <unistd.h>
 #endif
 
-#include <jpeglib.h>
-
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-
-#include <jpeg-thumbnailer/jpeg-thumbnailer.h>
 
 
-
-static void fatal_error_handler     (j_common_ptr                cinfo) G_GNUC_NORETURN;
-static void tvtj_free               (guchar                     *pixels,
-                                     gpointer                    data);
-static void jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                     GCancellable               *cancellable,
-                                     TumblerFileInfo            *info);
+static void
+fatal_error_handler (j_common_ptr cinfo) G_GNUC_NORETURN;
+static void
+tvtj_free (guchar *pixels,
+           gpointer data);
+static void
+jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                         GCancellable *cancellable,
+                         TumblerFileInfo *info);
 
 
 
@@ -85,7 +85,7 @@ struct _JPEGThumbnailer
 
 
 
-G_DEFINE_DYNAMIC_TYPE (JPEGThumbnailer, 
+G_DEFINE_DYNAMIC_TYPE (JPEGThumbnailer,
                        jpeg_thumbnailer,
                        TUMBLER_TYPE_ABSTRACT_THUMBNAILER);
 
@@ -134,7 +134,7 @@ tvtj_noop (void)
 typedef struct
 {
   struct jpeg_error_mgr mgr;
-  jmp_buf               setjmp_buffer;
+  jmp_buf setjmp_buffer;
 } TvtjErrorHandler;
 
 
@@ -149,8 +149,8 @@ fatal_error_handler (j_common_ptr cinfo)
 
 
 static void
-tvtj_free (guchar   *pixels,
-           gpointer  data)
+tvtj_free (guchar *pixels,
+           gpointer data)
 {
   g_free (pixels);
 }
@@ -165,8 +165,7 @@ tvtj_fill_input_buffer (j_decompress_ptr cinfo)
   /* return a fake EOI marker so we will eventually terminate */
   if (G_LIKELY (source->bytes_in_buffer == 0))
     {
-      static const JOCTET FAKE_EOI[2] =
-      {
+      static const JOCTET FAKE_EOI[2] = {
         (JOCTET) 0xff,
         (JOCTET) JPEG_EOI,
       };
@@ -182,7 +181,7 @@ tvtj_fill_input_buffer (j_decompress_ptr cinfo)
 
 static void
 tvtj_skip_input_data (j_decompress_ptr cinfo,
-                      glong            num_bytes)
+                      glong num_bytes)
 {
   struct jpeg_source_mgr *source = cinfo->src;
 
@@ -216,10 +215,10 @@ tvtj_denom (gint width,
 
 static inline void
 tvtj_convert_cmyk_to_rgb (j_decompress_ptr cinfo,
-                          guchar          *line)
+                          guchar *line)
 {
   guchar *p;
-  gint    c, k, m, n, y;
+  gint c, k, m, n, y;
 
   g_return_if_fail (cinfo != NULL);
   g_return_if_fail (cinfo->output_components == 4);
@@ -251,20 +250,20 @@ tvtj_convert_cmyk_to_rgb (j_decompress_ptr cinfo,
 
 
 
-static GdkPixbuf*
+static GdkPixbuf *
 tvtj_jpeg_load (const JOCTET *content,
-                gsize         length,
-                gint          size)
+                gsize length,
+                gint size)
 {
   struct jpeg_decompress_struct cinfo;
-  struct jpeg_source_mgr        source;
-  TvtjErrorHandler              handler;
-  guchar                       *lines[1];
-  guchar                       *buffer = NULL;
-  guchar                       *pixels = NULL;
-  guchar                       *p;
-  gint                          out_num_components;
-  guint                         n;
+  struct jpeg_source_mgr source;
+  TvtjErrorHandler handler;
+  guchar *lines[1];
+  guchar *buffer = NULL;
+  guchar *pixels = NULL;
+  guchar *p;
+  gint out_num_components;
+  guint n;
 
   /* setup JPEG error handling */
   cinfo.err = jpeg_std_error (&handler.mgr);
@@ -327,7 +326,7 @@ tvtj_jpeg_load (const JOCTET *content,
     }
 
   /* process the JPEG data */
-  for (p = pixels; cinfo.output_scanline < cinfo.output_height; )
+  for (p = pixels; cinfo.output_scanline < cinfo.output_height;)
     {
       jpeg_read_scanlines (&cinfo, lines, 1);
 
@@ -377,33 +376,33 @@ error:
 typedef struct
 {
   const guchar *data_ptr;
-  guint         data_len;
+  guint data_len;
 
-  guint         thumb_compression;
+  guint thumb_compression;
 
   struct /* thumbnail JPEG */
   {
-    guint     length;
-    guint     offset;
-    guint     orientation;
+    guint length;
+    guint offset;
+    guint orientation;
   } thumb_jpeg;
   struct /* thumbnail TIFF */
   {
-    guint     length;
-    guint     offset;
-    guint     interp;
-    guint     height;
-    guint     width;
+    guint length;
+    guint offset;
+    guint interp;
+    guint height;
+    guint width;
   } thumb_tiff;
 
-  gboolean      big_endian;
+  gboolean big_endian;
 } TvtjExif;
 
 
 
 static guint
 tvtj_exif_get_ushort (const TvtjExif *exif,
-                      const guchar   *data)
+                      const guchar *data)
 {
   if (G_UNLIKELY (exif->big_endian))
     return ((data[0] << 8) | data[1]);
@@ -415,7 +414,7 @@ tvtj_exif_get_ushort (const TvtjExif *exif,
 
 static guint
 tvtj_exif_get_ulong (const TvtjExif *exif,
-                     const guchar   *data)
+                     const guchar *data)
 {
   if (G_UNLIKELY (exif->big_endian))
     return ((data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3]);
@@ -426,17 +425,17 @@ tvtj_exif_get_ulong (const TvtjExif *exif,
 
 
 static void
-tvtj_exif_parse_ifd (TvtjExif     *exif,
+tvtj_exif_parse_ifd (TvtjExif *exif,
                      const guchar *ifd_ptr,
-                     guint         ifd_len,
-                     GSList       *ifd_previous_list)
+                     guint ifd_len,
+                     GSList *ifd_previous_list)
 {
   const guchar *subifd_ptr;
-  GSList        ifd_list;
-  guint         subifd_off;
-  guint         value;
-  guint         tag;
-  guint         n;
+  GSList ifd_list;
+  guint subifd_off;
+  guint value;
+  guint tag;
+  guint n;
 
   /* make sure we have a valid IFD here */
   if (G_UNLIKELY (ifd_len < 2))
@@ -547,7 +546,7 @@ tvtj_exif_parse_ifd (TvtjExif     *exif,
 
 static GdkPixbuf *
 tvtj_rotate_pixbuf (GdkPixbuf *src,
-                    guint      orientation)
+                    guint orientation)
 {
   GdkPixbuf *dest = NULL;
   GdkPixbuf *temp;
@@ -603,14 +602,14 @@ tvtj_rotate_pixbuf (GdkPixbuf *src,
 
 
 
-static GdkPixbuf*
+static GdkPixbuf *
 tvtj_exif_extract_thumbnail (const guchar *data,
-                             guint         length,
-                             gint          size,
-                             guint        *exif_orientation)
+                             guint length,
+                             gint size,
+                             guint *exif_orientation)
 {
-  TvtjExif   exif;
-  guint      offset;
+  TvtjExif exif;
+  guint offset;
   GdkPixbuf *thumb = NULL;
   GdkPixbuf *rotated;
 
@@ -679,16 +678,16 @@ tvtj_exif_extract_thumbnail (const guchar *data,
             }
         }
 
-     *exif_orientation = exif.thumb_jpeg.orientation;
+      *exif_orientation = exif.thumb_jpeg.orientation;
 
-     if (thumb != NULL
-         && exif.thumb_jpeg.orientation > 1)
-       {
-         /* rotate thumbnail */
-         rotated = tvtj_rotate_pixbuf (thumb, exif.thumb_jpeg.orientation);
-         g_object_unref (thumb);
-         thumb = rotated;
-       }
+      if (thumb != NULL
+          && exif.thumb_jpeg.orientation > 1)
+        {
+          /* rotate thumbnail */
+          rotated = tvtj_rotate_pixbuf (thumb, exif.thumb_jpeg.orientation);
+          g_object_unref (thumb);
+          thumb = rotated;
+        }
     }
 
   return thumb;
@@ -696,12 +695,12 @@ tvtj_exif_extract_thumbnail (const guchar *data,
 
 
 
-static GdkPixbuf*
+static GdkPixbuf *
 tvtj_jpeg_load_thumbnail (const JOCTET *content,
-                          gsize         length,
-                          gint          width,
-                          gint          height,
-                          guint        *exif_orientation)
+                          gsize length,
+                          gint width,
+                          gint height,
+                          guint *exif_orientation)
 {
   GdkPixbuf *pixbuf = NULL;
   guint marker_len;
@@ -712,7 +711,7 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
   if (G_LIKELY (length >= 2 && content[0] == 0xff && content[1] == 0xd8))
     {
       /* search for an EXIF marker */
-      for (length -= 2, n = 2; n < length; )
+      for (length -= 2, n = 2; n < length;)
         {
           /* check for valid marker start */
           if (G_UNLIKELY (content[n++] != 0xff))
@@ -766,32 +765,32 @@ tvtj_jpeg_load_thumbnail (const JOCTET *content,
 
 static void
 jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                         GCancellable               *cancellable,
-                         TumblerFileInfo            *info)
+                         GCancellable *cancellable,
+                         TumblerFileInfo *info)
 {
   TumblerThumbnailFlavor *flavor;
-  TumblerImageData        data;
-  TumblerThumbnail       *thumbnail;
-  struct stat             statb;
-  const gchar            *uri;
-  GdkPixbuf              *pixbuf = NULL;
-  GdkPixbuf              *scaled;
-  gboolean                streaming_needed = TRUE;
-  JOCTET                 *content;
-  GError                 *error = NULL;
-  GFile                  *file;
-  gsize                   length;
-  gint                    fd;
-  gint                    height;
-  gint                    width;
-  gint                    size;
+  TumblerImageData data;
+  TumblerThumbnail *thumbnail;
+  struct stat statb;
+  const gchar *uri;
+  GdkPixbuf *pixbuf = NULL;
+  GdkPixbuf *scaled;
+  gboolean streaming_needed = TRUE;
+  JOCTET *content;
+  GError *error = NULL;
+  GFile *file;
+  gsize length;
+  gint fd;
+  gint height;
+  gint width;
+  gint size;
 
   g_return_if_fail (JPEG_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
   g_return_if_fail (TUMBLER_IS_FILE_INFO (info));
 
   /* do nothing if cancelled */
-  if (g_cancellable_is_cancelled (cancellable)) 
+  if (g_cancellable_is_cancelled (cancellable))
     return;
 
   uri = tumbler_file_info_get_uri (info);
@@ -820,7 +819,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
           if (G_LIKELY (fstat (fd, &statb) == 0 && statb.st_size > 0))
             {
               /* try to mmap the file */
-              content = (JOCTET *) mmap (NULL, statb.st_size, PROT_READ, 
+              content = (JOCTET *) mmap (NULL, statb.st_size, PROT_READ,
                                          MAP_SHARED, fd, 0);
 
               /* verify whether the mmap was successful */
@@ -836,7 +835,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                       /* fall back to loading and scaling the image itself */
                       pixbuf = tvtj_jpeg_load (content, statb.st_size, size);
 
-                      if (G_UNLIKELY(pixbuf == NULL))
+                      if (G_UNLIKELY (pixbuf == NULL))
                         {
                           g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
                                        TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
@@ -869,7 +868,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   if (streaming_needed)
     {
-      g_file_load_contents (file, cancellable, (gchar **)&content, &length, 
+      g_file_load_contents (file, cancellable, (gchar **) &content, &length,
                             NULL, &error);
 
       if (error == NULL)
@@ -880,7 +879,7 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
           if (pixbuf == NULL)
             {
               pixbuf = tvtj_jpeg_load (content, length, size);
-              if (G_UNLIKELY(pixbuf == NULL))
+              if (G_UNLIKELY (pixbuf == NULL))
                 {
                   g_set_error (&error, TUMBLER_ERROR, TUMBLER_ERROR_INVALID_FORMAT,
                                TUMBLER_ERROR_MESSAGE_CREATION_FAILED);
@@ -913,8 +912,8 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       data.rowstride = gdk_pixbuf_get_rowstride (pixbuf);
       data.colorspace = (TumblerColorspace) gdk_pixbuf_get_colorspace (pixbuf);
 
-      tumbler_thumbnail_save_image_data (thumbnail, &data, 
-                                         tumbler_file_info_get_mtime (info), 
+      tumbler_thumbnail_save_image_data (thumbnail, &data,
+                                         tumbler_file_info_get_mtime (info),
                                          NULL, &error);
 
       g_object_unref (pixbuf);

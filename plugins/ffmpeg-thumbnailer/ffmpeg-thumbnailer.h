@@ -10,11 +10,11 @@
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Library General Public License for more details.
  *
- * You should have received a copy of the GNU Library General 
- * Public License along with this library; if not, write to the 
+ * You should have received a copy of the GNU Library General
+ * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
@@ -22,14 +22,15 @@
 #ifndef __FFMPEG_THUMBNAILER_H__
 #define __FFMPEG_THUMBNAILER_H__
 
-#include <tumbler/tumbler.h>
+#include "tumbler/tumbler.h"
 
 G_BEGIN_DECLS;
 
 #define FFMPEG_TYPE_THUMBNAILER (ffmpeg_thumbnailer_get_type ())
 G_DECLARE_FINAL_TYPE (FfmpegThumbnailer, ffmpeg_thumbnailer, FFMPEG, THUMBNAILER, TumblerAbstractThumbnailer)
 
-void ffmpeg_thumbnailer_register (TumblerProviderPlugin *plugin);
+void
+ffmpeg_thumbnailer_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS;
 

@@ -19,15 +19,14 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include "pixbuf-thumbnailer.h"
 
-#include <pixbuf-thumbnailer/pixbuf-thumbnailer.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 
 
 
@@ -45,9 +44,10 @@
 
 
 
-static void pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                       GCancellable               *cancellable,
-                                       TumblerFileInfo            *info);
+static void
+pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                           GCancellable *cancellable,
+                           TumblerFileInfo *info);
 
 
 
@@ -98,20 +98,20 @@ pixbuf_thumbnailer_init (PixbufThumbnailer *thumbnailer)
 
 
 static GdkPixbuf *
-pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
-                                    TumblerThumbnail  *thumbnail,
-                                    const gchar       *mime_type,
-                                    GCancellable      *cancellable,
-                                    GError           **error)
+pixbuf_thumbnailer_new_from_stream (GInputStream *stream,
+                                    TumblerThumbnail *thumbnail,
+                                    const gchar *mime_type,
+                                    GCancellable *cancellable,
+                                    GError **error)
 {
   GdkPixbufLoader *loader;
   GdkPixbufAnimation *animation;
   GdkPixbufAnimationIter *iter;
-  gssize           n_read;
-  GdkPixbuf       *pixbuf = NULL;
-  guchar          *buffer;
-  GError          *err = NULL;
-  gboolean         has_frame;
+  gssize n_read;
+  GdkPixbuf *pixbuf = NULL;
+  guchar *buffer;
+  GError *err = NULL;
+  gboolean has_frame;
 
   g_return_val_if_fail (G_IS_INPUT_STREAM (stream), NULL);
   g_return_val_if_fail (error == NULL || *error == NULL, NULL);
@@ -132,7 +132,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
                                     cancellable, &err);
 
       /* read error (< 0), read finished (== 0) or write error */
-      if (n_read <= 0 || ! gdk_pixbuf_loader_write (loader, buffer, n_read, &err))
+      if (n_read <= 0 || !gdk_pixbuf_loader_write (loader, buffer, n_read, &err))
         break;
 
       /* we only need the first frame to generate a thumbnail in case of an animation */
@@ -140,7 +140,7 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
       if (animation != NULL)
         {
           iter = gdk_pixbuf_animation_get_iter (animation, NULL);
-          has_frame = ! gdk_pixbuf_animation_iter_on_currently_loading_frame (iter);
+          has_frame = !gdk_pixbuf_animation_iter_on_currently_loading_frame (iter);
           g_object_unref (iter);
 
           if (has_frame)
@@ -180,17 +180,16 @@ pixbuf_thumbnailer_new_from_stream (GInputStream      *stream,
 
 static void
 pixbuf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                           GCancellable               *cancellable,
-                           TumblerFileInfo            *info)
+                           GCancellable *cancellable,
+                           TumblerFileInfo *info)
 {
-
   GFileInputStream *stream;
-  TumblerImageData  data;
+  TumblerImageData data;
   TumblerThumbnail *thumbnail;
-  const gchar      *uri;
-  GdkPixbuf        *pixbuf;
-  GError           *error = NULL;
-  GFile            *file;
+  const gchar *uri;
+  GdkPixbuf *pixbuf;
+  GError *error = NULL;
+  GFile *file;
 
   g_return_if_fail (PIXBUF_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));

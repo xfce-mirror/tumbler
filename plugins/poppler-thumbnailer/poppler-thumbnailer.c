@@ -19,23 +19,22 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
-#include <glib.h>
-#include <glib/gi18n.h>
-#include <glib-object.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
+#include "poppler-thumbnailer.h"
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <glib-object.h>
+#include <glib/gi18n.h>
 #include <poppler.h>
 
-#include <poppler-thumbnailer/poppler-thumbnailer.h>
 
 
-
-static void poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                                        GCancellable               *cancellable,
-                                        TumblerFileInfo            *info);
+static void
+poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
+                            GCancellable *cancellable,
+                            TumblerFileInfo *info);
 
 
 
@@ -94,18 +93,18 @@ poppler_thumbnailer_pixbuf_from_surface (cairo_surface_t *surface)
                                       cairo_image_surface_get_width (surface),
                                       cairo_image_surface_get_height (surface));
 #else
-  GdkPixbuf       *pixbuf;
+  GdkPixbuf *pixbuf;
   cairo_surface_t *image;
-  cairo_t         *cr;
-  gboolean         has_alpha;
-  gint             width, height;
-  cairo_format_t   surface_format;
-  gint             pixbuf_n_channels;
-  gint             pixbuf_rowstride;
-  guchar          *pixbuf_pixels;
-  gint             x, y;
-  guchar          *p;
-  guchar           tmp;
+  cairo_t *cr;
+  gboolean has_alpha;
+  gint width, height;
+  cairo_format_t surface_format;
+  gint pixbuf_n_channels;
+  gint pixbuf_rowstride;
+  guchar *pixbuf_pixels;
+  gint x, y;
+  guchar *p;
+  guchar tmp;
 
   width = cairo_image_surface_get_width (surface);
   height = cairo_image_surface_get_height (surface);
@@ -165,9 +164,9 @@ static GdkPixbuf *
 poppler_thumbnailer_pixbuf_from_page (PopplerPage *page)
 {
   cairo_surface_t *surface;
-  cairo_t         *cr;
-  GdkPixbuf       *pixbuf;
-  gdouble          width, height;
+  cairo_t *cr;
+  GdkPixbuf *pixbuf;
+  gdouble width, height;
 
   /* get the page size */
   poppler_page_get_size (page, &width, &height);
@@ -198,7 +197,7 @@ poppler_thumbnailer_pixbuf_from_page (PopplerPage *page)
 static void
 poppler_thumbnailer_free (gpointer data)
 {
-#if ! POPPLER_CHECK_VERSION (0, 82, 0)
+#if !POPPLER_CHECK_VERSION(0, 82, 0)
   g_free (data);
 #endif
 }
@@ -207,26 +206,26 @@ poppler_thumbnailer_free (gpointer data)
 
 static void
 poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
-                            GCancellable               *cancellable,
-                            TumblerFileInfo            *info)
+                            GCancellable *cancellable,
+                            TumblerFileInfo *info)
 {
   TumblerThumbnailFlavor *flavor;
-  TumblerImageData        data;
-  TumblerThumbnail       *thumbnail;
-  PopplerDocument        *document;
-  PopplerPage            *page;
-  const gchar            *uri;
-  cairo_surface_t        *surface;
-  GdkPixbuf              *source_pixbuf;
-  GdkPixbuf              *pixbuf;
-  GError                 *error = NULL;
-  GFile                  *file;
-#if POPPLER_CHECK_VERSION (0, 82, 0)
-  GBytes                 *bytes;
+  TumblerImageData data;
+  TumblerThumbnail *thumbnail;
+  PopplerDocument *document;
+  PopplerPage *page;
+  const gchar *uri;
+  cairo_surface_t *surface;
+  GdkPixbuf *source_pixbuf;
+  GdkPixbuf *pixbuf;
+  GError *error = NULL;
+  GFile *file;
+#if POPPLER_CHECK_VERSION(0, 82, 0)
+  GBytes *bytes;
 #endif
-  gchar                  *contents = NULL;
-  gsize                   length;
-  gint                    width, height;
+  gchar *contents = NULL;
+  gsize length;
+  gint width, height;
 
   g_return_if_fail (POPPLER_IS_THUMBNAILER (thumbnailer));
   g_return_if_fail (cancellable == NULL || G_IS_CANCELLABLE (cancellable));
@@ -262,7 +261,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       g_object_unref (file);
 
       /* try to create a poppler document based on the file contents */
-#if POPPLER_CHECK_VERSION (0, 82, 0)
+#if POPPLER_CHECK_VERSION(0, 82, 0)
       bytes = g_bytes_new_take (contents, length);
       document = poppler_document_new_from_bytes (bytes, NULL, &error);
       g_bytes_unref (bytes);

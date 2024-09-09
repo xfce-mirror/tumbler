@@ -21,6 +21,8 @@
 #ifndef __RAW_THUMBNAILER_PROVIDER_H__
 #define __RAW_THUMBNAILER_PROVIDER_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS
@@ -28,7 +30,8 @@ G_BEGIN_DECLS
 #define RAW_TYPE_THUMBNAILER_PROVIDER (raw_thumbnailer_provider_get_type ())
 G_DECLARE_FINAL_TYPE (RawThumbnailerProvider, raw_thumbnailer_provider, RAW, THUMBNAILER_PROVIDER, GObject)
 
-void raw_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void
+raw_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

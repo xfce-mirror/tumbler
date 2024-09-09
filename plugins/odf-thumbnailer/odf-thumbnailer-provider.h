@@ -21,6 +21,8 @@
 #ifndef __ODF_THUMBNAILER_PROVIDER_H__
 #define __ODF_THUMBNAILER_PROVIDER_H__
 
+#include "tumbler/tumbler.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS
@@ -28,7 +30,8 @@ G_BEGIN_DECLS
 #define ODF_TYPE_THUMBNAILER_PROVIDER (odf_thumbnailer_provider_get_type ())
 G_DECLARE_FINAL_TYPE (OdfThumbnailerProvider, odf_thumbnailer_provider, ODF, THUMBNAILER_PROVIDER, GObject)
 
-void odf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
+void
+odf_thumbnailer_provider_register (TumblerProviderPlugin *plugin);
 
 G_END_DECLS
 

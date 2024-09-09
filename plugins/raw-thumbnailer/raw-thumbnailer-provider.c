@@ -19,20 +19,18 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
-
-#include <glib.h>
-
-#include <tumbler/tumbler.h>
 
 #include "raw-thumbnailer-provider.h"
 #include "raw-thumbnailer.h"
 
 
 
-static void   raw_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
-static GList *raw_thumbnailer_provider_get_thumbnailers          (TumblerThumbnailerProvider      *provider);
+static void
+raw_thumbnailer_provider_thumbnailer_provider_init (TumblerThumbnailerProviderIface *iface);
+static GList *
+raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider);
 
 
 
@@ -92,11 +90,10 @@ raw_thumbnailer_provider_init (RawThumbnailerProvider *provider)
 static GList *
 raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
 {
-  RawThumbnailer     *thumbnailer;
-  GList              *thumbnailers = NULL;
+  RawThumbnailer *thumbnailer;
+  GList *thumbnailers = NULL;
   static const gchar *uri_schemes[] = { "file", NULL };
-  const gchar        *mime_types[] =
-  {
+  const gchar *mime_types[] = {
     "image/x-adobe-dng",
     "image/x-canon-cr2",
     "image/x-canon-crw",
