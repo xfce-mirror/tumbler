@@ -26,7 +26,7 @@ m4_define([tumbler_version_api_major], [1])
 XDT_VERSION_INIT([4.19.1], [git])
 
 dnl minimum required versions
-m4_define([glib_min_version], [2.66.0])
+m4_define([glib_min_version], [2.72.0])
 m4_define([libxfce4util_min_version], [4.17.1])
 
 dnl ***************************
