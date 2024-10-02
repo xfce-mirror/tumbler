@@ -671,7 +671,7 @@ tvtj_exif_extract_thumbnail (const guchar *data,
               && exif.thumb_tiff.height * exif.thumb_tiff.width == exif.thumb_tiff.length)
             {
               /* plain RGB data, just what we need for a GdkPixbuf */
-              thumb = gdk_pixbuf_new_from_data (g_memdup (data + exif.thumb_tiff.offset, exif.thumb_tiff.length),
+              thumb = gdk_pixbuf_new_from_data (g_memdup2 (data + exif.thumb_tiff.offset, exif.thumb_tiff.length),
                                                 GDK_COLORSPACE_RGB, FALSE, 8, exif.thumb_tiff.width,
                                                 exif.thumb_tiff.height, exif.thumb_tiff.width,
                                                 tvtj_free, NULL);
