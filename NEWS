@@ -1,3 +1,21 @@
+4.19.2 (2024-11-01)
+======
+- build: Bump requirements for Xfce 4.20
+- Apply .clang-format file
+- Sort includes
+- tumbler: Add missing include guards
+- clang-format: Add file
+- plugins: Do not use g_file_is_native() to check for a valid path
+- gepub-thumbnailer: Emit error signal if file location is unsupported
+- gepub-thumbnailer: Fix create_from_mime()
+- gcc-analyzer: Fix -Wanalyzer-fd-leak
+- scan-build: Add false positive file
+- build: Use AM_DISTCHECK_CONFIGURE_FLAGS
+- xdg-cache: Fix and optimize xdg_cache_cache_is_thumbnail()
+- Do not use g_log_set_always_fatal()
+- Translation Updates:
+  Polish
+
 4.19.1 (2024-02-05)
 ======
 - Update copyright year
