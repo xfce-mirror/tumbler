@@ -1605,6 +1605,7 @@ tumbler_manager_directory_changed (TumblerManager *manager,
               tumbler_mutex_unlock (manager->mutex);
             }
         }
+      g_free (base_name);
     }
   else
     {
@@ -1670,6 +1671,7 @@ tumbler_manager_directory_changed (TumblerManager *manager,
                   tumbler_mutex_unlock (manager->mutex);
                 }
             }
+          g_free (base_name);
         }
       else
         {
