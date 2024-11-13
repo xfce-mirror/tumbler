@@ -281,9 +281,6 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
               /* close the handle used to reading from the directory */
               g_dir_close (dir);
             }
-
-          /* free the thumbnail flavor directory filename */
-          g_free (dirname);
         }
       /* According to the spec, mtime since can be 0 to ignore the threshold and
        * only cleanup based on the URI prefix array. */
@@ -303,6 +300,9 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
               g_object_unref (base_file);
             }
         }
+
+      /* free the thumbnail flavor directory filename */
+      g_free (dirname);
     }
 }
 
