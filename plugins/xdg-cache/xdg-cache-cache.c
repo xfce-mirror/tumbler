@@ -213,15 +213,15 @@ xdg_cache_cache_cleanup (TumblerCache *cache,
   /* iterate over all flavors */
   for (iter = xdg_cache->flavors; iter != NULL; iter = iter->next)
     {
-      /* compute the flavor directory filename */
-      dummy_file = xdg_cache_cache_get_file ("foo", iter->data);
-      parent = g_file_get_parent (dummy_file);
-      dirname = g_file_get_path (parent);
-      g_object_unref (parent);
-      g_object_unref (dummy_file);
-
       if (since != 0)
         {
+          /* compute the flavor directory filename */
+          dummy_file = xdg_cache_cache_get_file ("foo", iter->data);
+          parent = g_file_get_parent (dummy_file);
+          dirname = g_file_get_path (parent);
+          g_object_unref (parent);
+          g_object_unref (dummy_file);
+
           /* attempt to open the directory for reading */
           dir = g_dir_open (dirname, 0, NULL);
           if (dir != NULL)
