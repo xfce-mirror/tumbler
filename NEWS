@@ -1,3 +1,10 @@
+4.19.3 (2024-12-01)
+======
+- xdg-cache: Fix string leak in xdg_cache_cache_cleanup
+- tumblerd: Fix string leaks in tumbler_manager_directory_changed
+- Translation Updates:
+  Czech, Latvian, Telugu
+
 4.19.2 (2024-11-01)
 ======
 - build: Bump requirements for Xfce 4.20
