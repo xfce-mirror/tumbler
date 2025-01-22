@@ -24,6 +24,7 @@
 
 #include "tumbler-abstract-thumbnailer.h"
 #include "tumbler-thumbnailer.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -308,3 +309,6 @@ tumbler_abstract_thumbnailer_create (TumblerThumbnailer *thumbnailer,
 
   TUMBLER_ABSTRACT_THUMBNAILER_GET_CLASS (thumbnailer)->create (TUMBLER_ABSTRACT_THUMBNAILER (thumbnailer), cancellable, info);
 }
+
+#define __TUMBLER_ABSTRACT_THUMBNAILER_C__
+#include "tumbler-visibility.c"
