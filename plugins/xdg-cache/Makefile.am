@@ -69,3 +69,7 @@ install-data-local:
 		test -x tumbler-xdg-cache.so || \
 		ln -sf tumbler-xdg-cache.so tumbler-cache-plugin.so )
 endif
+
+EXTRA_DIST = \
+	meson.build \
+	$(NULL)
