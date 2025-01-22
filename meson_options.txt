@@ -1,0 +1,104 @@
+option(
+  'gtk-doc',
+  type: 'boolean',
+  value: false,
+  description: 'Build gtk-doc HTML',
+)
+
+option(
+  'visibility',
+  type: 'boolean',
+  value: true,
+  description: 'Build with GNU symbol visibility',
+)
+
+option(
+  'service-name-prefix',
+  type: 'string',
+  value: '',
+  description: 'Alternative prefix to org.freedesktop.thumbnails for Tumbler services',
+)
+
+option(
+  'cover-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Cover thumbnailer plugin',
+)
+
+option(
+  'desktop-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Desktop thumbnailer plugin for loading thumbnailers *.thumbnailer files',
+)
+
+option(
+  'ffmpeg-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'FFmpeg thumbnailer plugin',
+)
+
+option(
+  'font-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Font thumbnailer plugin',
+)
+
+option(
+  'gepub-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Gepub thumbnailer plugin',
+)
+
+option(
+  'gst-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'GStreamer thumbnailer plugin',
+)
+
+option(
+  'jpeg-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'JPEG thumbnailer plugin',
+)
+
+option(
+  'odf-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Open Document Format thumbnailer plugin',
+)
+
+option(
+  'pixbuf-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Pixbuf thumbnailer plugin',
+)
+
+option(
+  'poppler-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Poppler thumbnailer plugin',
+)
+
+option(
+  'raw-thumbnailer',
+  type: 'feature',
+  value: 'auto',
+  description: 'Raw thumbnailer plugin',
+)
+
+option(
+  'xdg-cache',
+  type: 'feature',
+  value: 'auto',
+  description: 'XDG cache plugin',
+)

@@ -74,7 +74,6 @@ libtumbler_1_la_CFLAGS =						\
 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"				\
 	-DG_LOG_DOMAIN=\"tumbler\"					\
 	-DTUMBLER_COMPILATION						\
-	-DTUMBLER_VERSION_API=\"$(TUMBLER_VERSION_API)\"		\
 	-DTUMBLER_PLUGIN_DIRECTORY=\"$(libdir)/tumbler-$(TUMBLER_VERSION_API)/plugins\" \
 	-I$(top_srcdir)							\
 	$(GDK_PIXBUF_CFLAGS)						\
@@ -104,6 +103,7 @@ EXTRA_DIST =								\
 	tumbler-config.h.in						\
 	tumbler-marshal.list \
 	tumbler.symbols \
+	meson.build \
 	$(NULL)
 
 pkgconfigdir = $(libdir)/pkgconfig
