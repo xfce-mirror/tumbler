@@ -24,6 +24,7 @@
 
 #include "tumbler-cache-plugin.h"
 #include "tumbler-cache.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -184,3 +185,6 @@ tumbler_cache_get_flavor (TumblerCache *cache,
 
   return flavor;
 }
+
+#define __TUMBLER_CACHE_C__
+#include "tumbler-visibility.c"

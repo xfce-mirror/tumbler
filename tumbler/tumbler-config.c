@@ -23,6 +23,7 @@
 #endif
 
 #include "tumbler-config.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -78,3 +79,6 @@ tumbler_check_version (guint required_major,
 {
   return NULL;
 }
+
+#define __TUMBLER_CONFIG_C__
+#include "tumbler-visibility.c"

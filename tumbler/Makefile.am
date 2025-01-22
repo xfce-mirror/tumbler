@@ -23,6 +23,8 @@ lib_LTLIBRARIES =							\
 libtumbler_built_sources =						\
 	tumbler-marshal.c \
 	tumbler-marshal.h \
+	tumbler-visibility.c \
+	tumbler-visibility.h \
 	$(NULL)
 
 libtumbler_headers =							\
@@ -100,7 +102,9 @@ libtumbler_1_la_LIBADD =						\
 
 EXTRA_DIST =								\
 	tumbler-config.h.in						\
-	tumbler-marshal.list
+	tumbler-marshal.list \
+	tumbler.symbols \
+	$(NULL)
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = tumbler-1.pc
@@ -141,6 +145,12 @@ tumbler-marshal.c: tumbler-marshal.list Makefile
 	  && cp xgen-emc tumbler-marshal.c \
 	  && rm -f xgen-emc \
 	)
+
+tumbler-visibility.h: tumbler.symbols Makefile
+	$(AM_V_GEN) $(XDT_GEN_VISIBILITY) --kind=header $< $@
+
+tumbler-visibility.c: tumbler.symbols Makefile
+	$(AM_V_GEN) $(XDT_GEN_VISIBILITY) --kind=source $< $@
 
 # Required for gtk-doc and make distcheck
 dist-hook: all

@@ -54,6 +54,8 @@ commit-msg
 tumbler-config.h
 gtk-doc.make
 gtk-doc.m4
+tumbler/tumbler-visibility.c
+tumbler/tumbler-visibility.h
 tumblerd/tumblerd
 *-dbus-bindings.h
 docs/reference/tumbler/xml/

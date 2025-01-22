@@ -23,6 +23,7 @@
 #endif
 
 #include "tumbler-enum-types.h"
+#include "tumbler-visibility.h"
 
 #include <glib/gi18n.h>
 
@@ -74,3 +75,6 @@ tumbler_colorspace_get_type (void)
 
   return type;
 }
+
+#define __TUMBLER_ENUM_TYPES_C__
+#include "tumbler-visibility.c"

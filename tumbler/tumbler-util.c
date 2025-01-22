@@ -23,6 +23,7 @@
 #endif
 
 #include "tumbler-util.h"
+#include "tumbler-visibility.h"
 
 #include <gio/gio.h>
 #include <libxfce4util/libxfce4util.h>
@@ -435,3 +436,6 @@ tumbler_util_object_ref (gconstpointer src,
 {
   return g_object_ref ((gpointer) src);
 }
+
+#define __TUMBLER_UTIL_C__
+#include "tumbler-visibility.c"

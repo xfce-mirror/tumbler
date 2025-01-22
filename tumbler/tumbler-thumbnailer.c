@@ -25,6 +25,7 @@
 #include "tumbler-marshal.h"
 #include "tumbler-thumbnailer.h"
 #include "tumbler.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -311,3 +312,6 @@ tumbler_thumbnailer_array_free (GList **thumbnailers,
 
   g_free (thumbnailers);
 }
+
+#define __TUMBLER_THUMBNAILER_C__
+#include "tumbler-visibility.c"
