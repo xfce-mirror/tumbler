@@ -168,6 +168,7 @@ EXTRA_DIST =								\
 	tumbler.rc							\
 	$(dbus_xml_in_files) \
 	tumbler-marshal.list \
+	meson.build \
 	$(NULL)
 
 DISTCLEANFILES =							\

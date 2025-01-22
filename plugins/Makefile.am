@@ -30,3 +30,7 @@ SUBDIRS =								\
 	desktop-thumbnailer						\
 	gepub-thumbnailer                                               \
 	xdg-cache
+
+EXTRA_DIST = \
+	meson.build \
+	$(NULL)

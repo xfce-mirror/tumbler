@@ -94,7 +94,9 @@ include $(top_srcdir)/gtk-doc.make
 
 # Other files to distribute
 EXTRA_DIST +=								\
-	version.xml.in
+	version.xml.in \
+	meson.build \
+	$(NULL)
 
 # Required for make distcheck
 dist-hook: all
