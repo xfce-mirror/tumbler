@@ -20,12 +20,10 @@
 lib_LTLIBRARIES =							\
 	libtumbler-1.la
 
-libtumbler_built_public_sources =					\
-	tumbler-marshal.h
-
 libtumbler_built_sources =						\
-	$(libtumbler_built_public_sources)				\
-	tumbler-marshal.c
+	tumbler-marshal.c \
+	tumbler-marshal.h \
+	$(NULL)
 
 libtumbler_headers =							\
 	tumbler-abstract-thumbnailer.h					\
@@ -35,7 +33,6 @@ libtumbler_headers =							\
 	tumbler-enum-types.h						\
 	tumbler-error.h							\
 	tumbler-file-info.h						\
-	tumbler-marshal.h						\
 	tumbler-provider-factory.h					\
 	tumbler-provider-plugin.h					\
 	tumbler-thumbnailer-provider.h					\
@@ -46,13 +43,13 @@ libtumbler_headers =							\
 	tumbler.h
 
 libtumbler_sources =							\
+	$(libtumbler_built_sources) \
 	tumbler-abstract-thumbnailer.c					\
 	tumbler-cache.c							\
 	tumbler-cache-plugin.c						\
 	tumbler-config.c						\
 	tumbler-enum-types.c						\
 	tumbler-file-info.c						\
-	tumbler-marshal.c						\
 	tumbler-provider-factory.c					\
 	tumbler-provider-plugin.c					\
 	tumbler-thumbnailer-provider.c					\
