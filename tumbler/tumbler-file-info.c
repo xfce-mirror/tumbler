@@ -26,6 +26,7 @@
 #include "tumbler-error.h"
 #include "tumbler-file-info.h"
 #include "tumbler-thumbnail-flavor.h"
+#include "tumbler-visibility.h"
 
 #include <glib/gi18n.h>
 
@@ -441,3 +442,6 @@ tumbler_file_info_array_free (TumblerFileInfo **infos)
 
   g_free (infos);
 }
+
+#define __TUMBLER_FILE_INFO_C__
+#include "tumbler-visibility.c"

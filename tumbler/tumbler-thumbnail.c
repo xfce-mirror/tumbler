@@ -24,6 +24,7 @@
 
 #include "tumbler-cache.h"
 #include "tumbler-thumbnail.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -135,3 +136,6 @@ tumbler_thumbnail_get_flavor (TumblerThumbnail *thumbnail)
   g_object_get (thumbnail, "flavor", &flavor, NULL);
   return flavor;
 }
+
+#define __TUMBLER_THUMBNAIL_C__
+#include "tumbler-visibility.c"

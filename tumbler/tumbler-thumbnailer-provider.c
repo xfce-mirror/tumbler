@@ -23,6 +23,7 @@
 #endif
 
 #include "tumbler-thumbnailer-provider.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -45,3 +46,6 @@ tumbler_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provi
 
   return (TUMBLER_THUMBNAILER_PROVIDER_GET_IFACE (provider)->get_thumbnailers) (provider);
 }
+
+#define __TUMBLER_THUMBNAILER_PROVIDER_C__
+#include "tumbler-visibility.c"

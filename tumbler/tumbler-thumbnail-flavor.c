@@ -23,6 +23,7 @@
 #endif
 
 #include "tumbler-thumbnail-flavor.h"
+#include "tumbler-visibility.h"
 
 
 
@@ -248,3 +249,6 @@ tumbler_thumbnail_flavor_get_size (TumblerThumbnailFlavor *flavor,
   if (height != NULL)
     *height = flavor->height;
 }
+
+#define __TUMBLER_THUMBNAIL_FLAVOR_C__
+#include "tumbler-visibility.c"
