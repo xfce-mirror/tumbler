@@ -22,6 +22,7 @@
 #include "config.h"
 #endif
 
+#include "tumbler-marshal.h"
 #include "tumbler-scheduler.h"
 
 #ifdef HAVE_UNISTD_H
