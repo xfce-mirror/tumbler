@@ -29,7 +29,10 @@ tumblerd_built_sources =						\
 	tumbler-service-gdbus.c					        \
 	tumbler-service-gdbus.h                                         \
 	tumbler-cache-service-gdbus.h                                   \
-	tumbler-cache-service-gdbus.c
+	tumbler-cache-service-gdbus.c \
+	tumbler-marshal.c \
+	tumbler-marshal.h \
+	$(NULL)
 
 
 tumblerd_SOURCES =							\
@@ -122,6 +125,35 @@ tumblerd.service: tumblerd.service.in
 	$(SED) -e "s,\@TUMBLER_SERVICE_NAME_PREFIX\@,$(TUMBLER_SERVICE_NAME_PREFIX),g" \
 	       -e "s,\@TUMBLER_SERVICE_PATH_PREFIX\@,$(TUMBLER_SERVICE_PATH_PREFIX),g" < $< > $@
 
+tumbler-marshal.h: stamp-tumbler-marshal.h
+	@true
+
+stamp-tumbler-marshal.h: tumbler-marshal.list Makefile
+	$(AM_V_GEN) ( \
+	  cd $(top_builddir)/tumblerd \
+	  && echo "#ifndef __TUMBLER_MARSHAL_H__" > xgen-emh \
+	  && echo "#define __TUMBLER_MARSHAL_H__" >> xgen-emh \
+	  && ( glib-genmarshal \
+	  	--prefix=tumbler_marshal \
+	  	--header $(srcdir)/tumbler-marshal.list ) >> xgen-emh \
+	  && echo "#endif /* !__TUMBLER_MARSHAL_H__ */" >> xgen-emh \
+	  && ( cmp -s xgen-emh tumbler-marshal.h \
+	  	|| cp xgen-emh tumbler-marshal.h ) \
+	  && rm -f xgen-emh \
+	  && echo timestamp > $(@F) \
+	)
+
+tumbler-marshal.c: tumbler-marshal.list Makefile
+	$(AM_V_GEN) ( \
+	  cd $(top_builddir)/tumblerd \
+	  && echo "#include \"tumbler-marshal.h\"" > xgen-emc \
+	  && ( glib-genmarshal \
+	  	--prefix=tumbler_marshal \
+	  	--body $(srcdir)/tumbler-marshal.list ) >> xgen-emc \
+	  && cp xgen-emc tumbler-marshal.c \
+	  && rm -f xgen-emc \
+	)
+
 confdir = $(sysconfdir)/xdg/tumbler
 conf_DATA = \
 	tumbler.rc
@@ -134,11 +166,15 @@ EXTRA_DIST =								\
 	$(systemd_user_in_files)					\
 	$(service_in_files)						\
 	tumbler.rc							\
-	$(dbus_xml_in_files)
+	$(dbus_xml_in_files) \
+	tumbler-marshal.list \
+	$(NULL)
 
 DISTCLEANFILES =							\
 	$(tumblerd_built_sources) \
-	$(dbus_xml_files)
+	$(dbus_xml_files) \
+	stamp-tumbler-marshal.h \
+	$(NULL)
 
 BUILT_SOURCES =								\
 	$(tumblerd_built_sources)

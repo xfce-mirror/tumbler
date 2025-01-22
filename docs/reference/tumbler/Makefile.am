@@ -47,6 +47,11 @@ FIXXREF_OPTIONS=
 HFILE_GLOB=$(top_srcdir)/tumbler/*.h
 CFILE_GLOB=$(top_srcdir)/tumbler/*.c
 
+ # Header files to ignore when scanning
+IGNORE_HFILES = \
+	tumbler-marshal.h \
+	$(NULL)
+ 
 # Extra files to add when scanning (relative to $srcdir)
 EXTRA_HFILES=
 

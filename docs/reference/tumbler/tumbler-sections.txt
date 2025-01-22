@@ -110,14 +110,6 @@ tumbler_file_info_get_type
 </SECTION>
 
 <SECTION>
-<FILE>tumbler-marshal</FILE>
-tumbler_marshal_VOID__OBJECT_UINT_INT_STRING
-tumbler_marshal_VOID__UINT_BOXED_UINT_INT_STRING_STRING
-tumbler_marshal_VOID__UINT_BOXED_STRING
-tumbler_marshal_VOID__UINT_STRING
-</SECTION>
-
-<SECTION>
 <FILE>tumbler-provider-factory</FILE>
 <TITLE>TumblerProviderFactory</TITLE>
 TumblerProviderFactory
@@ -220,4 +212,3 @@ tumbler_util_size_prepared
 tumbler_util_scale_pixbuf
 tumbler_util_object_ref
 </SECTION>
-
