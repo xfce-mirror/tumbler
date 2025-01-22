@@ -42,5 +42,12 @@ ChangeLog: Makefile
 
 dist-hook: ChangeLog
 
+EXTRA_DIST = \
+	meson.build \
+	meson_options.txt \
+	po/meson.build \
+	xfce-revision.h.in \
+	$(NULL)
+
 AM_DISTCHECK_CONFIGURE_FLAGS =						\
 	--enable-gtk-doc
