@@ -24,6 +24,7 @@
 
 #include "tumbler-cache-plugin.h"
 #include "tumbler-error.h"
+#include "tumbler-visibility.h"
 
 #include <glib/gi18n.h>
 #include <gmodule.h>
@@ -202,3 +203,6 @@ tumbler_cache_plugin_get_cache (TumblerCachePlugin *plugin)
   g_return_val_if_fail (TUMBLER_IS_CACHE_PLUGIN (plugin), NULL);
   return (*plugin->get_cache) ();
 }
+
+#define __TUMBLER_CACHE_PLUGIN_C__
+#include "tumbler-visibility.c"

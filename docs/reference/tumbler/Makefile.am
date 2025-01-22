@@ -50,6 +50,7 @@ CFILE_GLOB=$(top_srcdir)/tumbler/*.c
  # Header files to ignore when scanning
 IGNORE_HFILES = \
 	tumbler-marshal.h \
+	tumbler-visibility.h \
 	$(NULL)
  
 # Extra files to add when scanning (relative to $srcdir)

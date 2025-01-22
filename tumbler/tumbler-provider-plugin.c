@@ -24,6 +24,7 @@
 
 #include "tumbler-error.h"
 #include "tumbler-provider-plugin.h"
+#include "tumbler-visibility.h"
 
 #include <glib/gi18n.h>
 #include <gmodule.h>
@@ -191,3 +192,6 @@ tumbler_provider_plugin_get_types (const TumblerProviderPlugin *plugin,
 
   (*plugin->get_types) (types, n_types);
 }
+
+#define __TUMBLER_PROVIDER_PLUGIN_C__
+#include "tumbler-visibility.c"

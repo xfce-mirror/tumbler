@@ -25,6 +25,7 @@
 #include "tumbler-provider-factory.h"
 #include "tumbler-provider-plugin.h"
 #include "tumbler-util.h"
+#include "tumbler-visibility.h"
 
 #ifdef HAVE_STRING_H
 #include <string.h>
@@ -301,3 +302,6 @@ tumbler_provider_factory_get_providers (TumblerProviderFactory *factory,
 
   return providers;
 }
+
+#define __TUMBLER_PROVIDER_FACTORY_C__
+#include "tumbler-visibility.c"
