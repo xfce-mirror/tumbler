@@ -31,11 +31,6 @@
 #include <libffmpegthumbnailer/videothumbnailerc.h>
 
 
-#define TUMBLER_FFMPEG_CHECK_VERSION(major, minor, micro) \
-  (TUMBLER_FFMPEG_MAJOR_VERSION > (major) \
-   || (TUMBLER_FFMPEG_MAJOR_VERSION == (major) && TUMBLER_FFMPEG_MINOR_VERSION > (minor)) \
-   || (TUMBLER_FFMPEG_MAJOR_VERSION == (major) && TUMBLER_FFMPEG_MINOR_VERSION == (minor) && TUMBLER_FFMPEG_MICRO_VERSION >= (micro)))
-
 static void
 ffmpeg_thumbnailer_finalize (GObject *object);
 static void
@@ -165,11 +160,7 @@ ffmpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (flavor);
 
   /* prepare the video thumbnailer */
-#if TUMBLER_FFMPEG_CHECK_VERSION(2, 2, 1)
   video_thumbnailer_set_size (ffmpeg_thumbnailer->video, dest_width, dest_height);
-#else
-  ffmpeg_thumbnailer->video->thumbnail_size = MAX (dest_width, dest_height);
-#endif
   v_data = video_thumbnailer_create_image_data ();
 
   /* get the local absolute path to the source file */
