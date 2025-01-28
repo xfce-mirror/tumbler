@@ -96,6 +96,7 @@ include $(top_srcdir)/gtk-doc.make
 EXTRA_DIST +=								\
 	version.xml.in \
 	meson.build \
+	gtkdocentities.ent.in \
 	$(NULL)
 
 # Required for make distcheck
