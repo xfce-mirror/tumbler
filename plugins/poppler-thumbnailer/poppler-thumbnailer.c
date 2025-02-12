@@ -216,7 +216,7 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   PopplerPage *page;
   const gchar *uri;
   cairo_surface_t *surface;
-  GdkPixbuf *source_pixbuf;
+  GdkPixbuf *source_pixbuf = NULL;
   GdkPixbuf *pixbuf;
   GError *error = NULL;
   GFile *file;
@@ -309,15 +309,23 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
   /* generate a pixbuf for the thumbnail */
   flavor = tumbler_thumbnail_get_flavor (thumbnail);
+  tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
 
   /* try to extract the embedded thumbnail */
   surface = poppler_page_get_thumbnail (page);
   if (surface != NULL)
     {
-      source_pixbuf = poppler_thumbnailer_pixbuf_from_surface (surface);
+      /* only use embedded thumbnail if it is large enough */
+      gint embedded_height = cairo_image_surface_get_height (surface);
+      gint embedded_width = cairo_image_surface_get_width (surface);
+      if (embedded_height >= height && embedded_width >= width)
+        {
+          source_pixbuf = poppler_thumbnailer_pixbuf_from_surface (surface);
+        }
       cairo_surface_destroy (surface);
     }
-  else
+
+  if (source_pixbuf == NULL)
     {
       /* fall back to rendering the page ourselves */
       source_pixbuf = poppler_thumbnailer_pixbuf_from_page (page);
@@ -328,7 +336,6 @@ poppler_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (document);
 
   /* generate the final pixbuf (involves rescaling etc.) */
-  tumbler_thumbnail_flavor_get_size (flavor, &width, &height);
   pixbuf = tumbler_util_scale_pixbuf (source_pixbuf, width, height);
   g_object_unref (flavor);
 
