@@ -317,7 +317,7 @@ ioprio_set (int which, int who, int ioprio_val)
 void
 tumbler_scheduler_thread_use_lower_priority (void)
 {
-#if defined(HAVE_sched_getparam) && defined(HAVE_sched_setscheduler)
+#if defined(HAVE_SCHED_GETPARAM) && defined(HAVE_SCHED_SETSCHEDULER)
   struct sched_param sp;
 #endif
   int ioprio;
@@ -328,7 +328,7 @@ tumbler_scheduler_thread_use_lower_priority (void)
 
   ioprio_set (IOPRIO_WHO_PROCESS, 0, ioprio | ioclass);
 
-#if defined(HAVE_sched_getparam) && defined(HAVE_sched_setscheduler)
+#if defined(HAVE_SCHED_GETPARAM) && defined(HAVE_SCHED_SETSCHEDULER)
   if (sched_getparam (0, &sp) == 0)
     sched_setscheduler (0, SCHED_IDLE, &sp);
 #endif

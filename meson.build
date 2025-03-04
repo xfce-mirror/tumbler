@@ -161,6 +161,16 @@ if cc.has_function('mmap')
   feature_cflags += '-DHAVE_MMAP=1'
 endif
 
+functions = [
+  'sched_getparam',
+  'sched_setscheduler',
+]
+foreach function : functions
+  if cc.has_function(function)
+    feature_cflags += '-DHAVE_@0@=1'.format(function.to_upper())
+  endif
+endforeach
+
 headers = [
   'fcntl.h',
   'linux/sched.h',
