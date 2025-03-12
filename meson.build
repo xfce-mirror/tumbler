@@ -157,11 +157,8 @@ if has_bind_textdomain_codeset
   feature_cflags += '-DHAVE_BIND_TEXTDOMAIN_CODESET=1'
 endif
 
-if cc.has_function('mmap')
-  feature_cflags += '-DHAVE_MMAP=1'
-endif
-
 functions = [
+  'mmap',
   'sched_getparam',
   'sched_setscheduler',
 ]
