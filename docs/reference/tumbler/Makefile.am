@@ -92,11 +92,18 @@ GTKDOC_LIBS =								\
 
 include $(top_srcdir)/gtk-doc.make
 
+$(top_builddir)/docs/reference/$(DOC_MODULE)-docs.xml: $(DOC_MODULE)-docs.xml.in
+	$(AM_V_GEN) $(SED) -e "s,\@COPYRIGHT_YEAR\@,@COPYRIGHT_YEAR@,g" $< >$@
+
 # Other files to distribute
 EXTRA_DIST +=								\
 	version.xml.in \
 	meson.build \
 	gtkdocentities.ent.in \
+	$(NULL)
+
+DISTCLEANFILES = \
+	$(DOC_MODULE)-docs.xml \
 	$(NULL)
 
 # Required for make distcheck

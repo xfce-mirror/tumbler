@@ -23,6 +23,7 @@ dnl *** Version information ***
 dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
+m4_define([copyright_year], [2025])
 XDT_VERSION_INIT([4.20.0], [git])
 
 dnl minimum required versions
@@ -32,11 +33,14 @@ m4_define([libxfce4util_min_version], [4.17.1])
 dnl ***************************
 dnl *** Initialize autoconf ***
 dnl ***************************
-AC_COPYRIGHT([Copyright (c) 2009-2024 The Xfce development team. All rights reserved.
+AC_COPYRIGHT([Copyright (c) 2009-copyright_year() The Xfce development team. All rights reserved.
   Written for Xfce by Jannis Pohlmann <jannis@xfce.org>.])
 AC_INIT([tumbler], [xdt_version], [https://gitlab.xfce.org/xfce/tumbler])
 AC_PREREQ([2.69])
 AC_REVISION([xdt_version_build])
+COPYRIGHT_YEAR=copyright_year()
+AC_DEFINE_UNQUOTED([COPYRIGHT_YEAR], ["$COPYRIGHT_YEAR"], [Copyright year])
+AC_SUBST([COPYRIGHT_YEAR])
 
 dnl ***************************
 dnl *** Initialize automake ***

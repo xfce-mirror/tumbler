@@ -20,6 +20,15 @@ if get_option('gtk-doc')
     })
   )
 
+  configure_file(
+    configuration: configuration_data({
+      'COPYRIGHT_YEAR': copyright_year,
+    }),
+    input: 'tumbler-docs.xml.in',
+    output: 'tumbler-docs.xml',
+    install: false,
+  )
+
   gnome.gtkdoc(
     tumbler_doc_name,
     src_dir: 'tumbler',
@@ -27,7 +36,7 @@ if get_option('gtk-doc')
       'tumbler-visibility.h',
       'tumbler-marshal.h',
     ],
-    main_xml: 'tumbler-docs.xml',
+    main_xml: meson.project_build_root() / 'docs' / 'reference' / 'tumbler' / 'tumbler-docs.xml',
     dependencies: tumbler_dep,
     gobject_typesfile: 'tumbler.types',
     install: true,
