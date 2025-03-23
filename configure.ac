@@ -24,7 +24,7 @@ dnl ***************************
 m4_define([tumbler_verinfo], [0:0:0])
 m4_define([tumbler_version_api_major], [1])
 m4_define([copyright_year], [2025])
-XDT_VERSION_INIT([4.20.0], [git])
+XDT_VERSION_INIT([4.21.0])
 
 dnl minimum required versions
 m4_define([glib_min_version], [2.72.0])

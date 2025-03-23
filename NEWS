@@ -1,3 +1,20 @@
+4.21.0 (2025-03-23)
+======
+- build: Automate copyright year management
+- meson-build: Function check cleanup
+- build: Fix function checks
+- poppler-thumbnailer: Only use embedded thumbnail if resolution 
+suffices
+- meson-build: Use SPDX license expression
+- meson-build: Update debug/optimization flag management
+- autotools-build: Add missing gtkdocentities.ent.in to EXTRA_DIST
+- Add meson build
+- ffmpeg-thumbnailer: Bump ffmpeg version and drop CHECK_VERSION
+- Set up GNU symbol visibility
+- tumbler: Don't install tumbler-marshal.h
+- Translation Updates:
+  Albanian, Romanian, Slovak
+
 4.20.0 (2024-12-15)
 ======
 
