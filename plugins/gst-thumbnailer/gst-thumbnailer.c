@@ -573,10 +573,14 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
       return;
     }
 
+  /* g_content_type_is_a() below handles "aliases" like application/x-matroska for video/x-matroska
+   * see https://gitlab.gnome.org/GNOME/glib/-/issues/3679 */
   guessed_type = g_content_type_guess (NULL, buffer, size, &uncertain);
   claimed_type = g_content_type_from_mime_type (tumbler_file_info_get_mime_type (info));
   equals = guessed_type != NULL && claimed_type != NULL
-           && g_content_type_equals (guessed_type, claimed_type);
+           && (g_content_type_equals (guessed_type, claimed_type)
+               || g_content_type_is_a (guessed_type, claimed_type)
+               || g_content_type_is_a (claimed_type, guessed_type));
   g_free (guessed_type);
   g_free (claimed_type);
   if (uncertain || !equals)
