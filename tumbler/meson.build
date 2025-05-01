@@ -56,14 +56,12 @@ tumbler_sources += gnome.genmarshal(
   install_header: false,
 )
 
-tumbler_sources += custom_target(
-  'tumbler-visibility.h',
+tumbler_sources += configure_file(
   input: 'tumbler.symbols',
   output: 'tumbler-visibility.h',
   command: [xdt_gen_visibility, '--kind=header', '@INPUT@', '@OUTPUT@'],
 )
-tumbler_sources += custom_target(
-  'tumbler-visibility.c',
+tumbler_sources += configure_file(
   input: 'tumbler.symbols',
   output: 'tumbler-visibility.c',
   command: [xdt_gen_visibility, '--kind=source', '@INPUT@', '@OUTPUT@'],
