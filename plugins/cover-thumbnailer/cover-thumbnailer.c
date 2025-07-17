@@ -21,10 +21,6 @@
  * written by Federico Mena-Quintero <federico@novell.com>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "cover-thumbnailer.h"
 
 #include <curl/curl.h>

@@ -21,10 +21,6 @@
  * made suitable for Tumbler by Nick Schermer.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "gst-thumbnailer.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>

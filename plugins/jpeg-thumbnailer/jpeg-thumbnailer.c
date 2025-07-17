@@ -22,10 +22,6 @@
  * for libgnomeui.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "jpeg-thumbnailer.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>

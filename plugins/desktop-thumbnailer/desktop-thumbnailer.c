@@ -18,10 +18,6 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "desktop-thumbnailer.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
