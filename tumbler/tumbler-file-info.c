@@ -18,10 +18,6 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "tumbler-cache.h"
 #include "tumbler-error.h"
 #include "tumbler-file-info.h"

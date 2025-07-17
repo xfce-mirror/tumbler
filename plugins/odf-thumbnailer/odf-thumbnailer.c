@@ -22,10 +22,6 @@
  * written by Federico Mena-Quintero <federico@novell.com>.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include "odf-thumbnailer.h"
 
 #include <gdk-pixbuf/gdk-pixbuf.h>
