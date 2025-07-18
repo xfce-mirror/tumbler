@@ -35,17 +35,17 @@ See [NEWS](https://gitlab.xfce.org/xfce/tumbler/-/blob/master/NEWS) for details 
 From source: 
 
     % cd tumbler
-    % ./autogen.sh
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 From release tarball:
 
-    % tar xf tumbler-<version>.tar.bz2
+    % tar xf tumbler-<version>.tar.xz
     % cd tumbler-<version>
-    % ./configure
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 ### Reporting Bugs
 
