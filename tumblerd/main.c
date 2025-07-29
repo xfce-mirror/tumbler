@@ -102,13 +102,9 @@ main (int argc,
     g_warning ("Couldn't change nice value of process.");
 #endif
 
-#if GLIB_CHECK_VERSION(2, 68, 0)
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   /* to avoid overlap between stderr and stdout, e.g. when third party APIs write to
    * stderr, or if debugging macros writing to stderr are used in addition to g_debug() */
   g_log_writer_default_set_use_stderr (TRUE);
-  G_GNUC_END_IGNORE_DEPRECATIONS
-#endif
 
   /* initialize translations */
   xfce_textdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
