@@ -30,7 +30,7 @@ dependency_versions = {
   'gstreamer': '>= 1.0.0',
   'libjpeg': '>= 2.0.0',
   'libgsf': '>= 1.14.9',
-  'poppler-glib': '>= 0.12.0',
+  'poppler-glib': '>= 0.82.0',
   'libopenraw': '>= 0.1.0',
   'libpng': '>= 1.6.0',
 }

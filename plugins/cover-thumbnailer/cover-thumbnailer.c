@@ -222,10 +222,7 @@ cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
   /* curl_easy_setopt (curl_handle, CURLOPT_VERBOSE, TRUE); */
   curl_easy_setopt (curl_handle, CURLOPT_URL, url);
   curl_easy_setopt (curl_handle, CURLOPT_USERAGENT, PACKAGE_NAME "/" PACKAGE_VERSION);
-
-#if LIBCURL_VERSION_NUM >= 0x071900 /* available since 7.25.0 */
   curl_easy_setopt (curl_handle, CURLOPT_TCP_KEEPALIVE, TRUE);
-#endif
 
   /* cancellable check */
   curl_easy_setopt (curl_handle, CURLOPT_XFERINFOFUNCTION, cover_thumbnailer_check_progress);
