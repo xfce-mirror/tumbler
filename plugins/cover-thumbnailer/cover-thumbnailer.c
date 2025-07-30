@@ -413,7 +413,7 @@ cover_thumbnailer_get_title (CoverThumbnailer *cover,
   basename = g_file_get_basename (gfile);
 
   /* check if the title looks like a serie */
-  is_series = g_regex_match (cover->series_regex, basename, 0, NULL);
+  is_series = g_regex_match (cover->series_regex, basename, 0, &match_info);
 
   /* if this is not a serie, look for other filename crap */
   if (is_series
