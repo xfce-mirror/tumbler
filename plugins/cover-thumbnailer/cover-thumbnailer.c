@@ -190,10 +190,10 @@ cover_thumbnailer_load_contents_write (gpointer data,
 
 static gint
 cover_thumbnailer_check_progress (gpointer user_data,
-                                  gdouble dltotal,
-                                  gdouble dlnow,
-                                  gdouble ultotal,
-                                  gdouble ulnow)
+                                  curl_off_t dltotal,
+                                  curl_off_t dlnow,
+                                  curl_off_t ultotal,
+                                  curl_off_t ulnow)
 {
   GCancellable *cancellable = G_CANCELLABLE (user_data);
 
@@ -222,12 +222,12 @@ cover_thumbnailer_load_prepare (CoverThumbnailer *cover,
   /* curl_easy_setopt (curl_handle, CURLOPT_VERBOSE, TRUE); */
   curl_easy_setopt (curl_handle, CURLOPT_URL, url);
   curl_easy_setopt (curl_handle, CURLOPT_USERAGENT, PACKAGE_NAME "/" PACKAGE_VERSION);
-  curl_easy_setopt (curl_handle, CURLOPT_TCP_KEEPALIVE, TRUE);
+  curl_easy_setopt (curl_handle, CURLOPT_TCP_KEEPALIVE, 1L /* TRUE */);
 
   /* cancellable check */
   curl_easy_setopt (curl_handle, CURLOPT_XFERINFOFUNCTION, cover_thumbnailer_check_progress);
   curl_easy_setopt (curl_handle, CURLOPT_PROGRESSDATA, cancellable);
-  curl_easy_setopt (curl_handle, CURLOPT_NOPROGRESS, FALSE);
+  curl_easy_setopt (curl_handle, CURLOPT_NOPROGRESS, 0L /* FALSE */);
 
   return curl_handle;
 }
