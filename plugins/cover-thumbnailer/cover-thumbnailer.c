@@ -43,7 +43,7 @@
 
 #define OMDBAPI_QUERY_URL "http://www.omdbapi.com/?t="
 
-#define TMDB_BASE_URL "http://cf2.imgobject.com/t/p/"
+#define TMDB_BASE_URL "http://image.tmdb.org/t/p/"
 #define TMDB_QUERY_URL "http://api.themoviedb.org/3/search/movie?api_key="
 
 
