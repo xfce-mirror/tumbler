@@ -815,6 +815,7 @@ tumbler_service_queue_cb (TumblerExportedService *skeleton,
     {
       /* let the scheduler take it from here */
       tumbler_scheduler_push (scheduler, scheduler_request);
+      g_object_unref (flavor);
     }
 
   /* free the thumbnailer array */
