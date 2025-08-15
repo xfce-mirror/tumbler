@@ -151,6 +151,7 @@ xdg_cache_thumbnail_finalize (GObject *object)
   g_free (thumbnail->cached_uri);
 
   g_object_unref (thumbnail->cache);
+  g_object_unref (thumbnail->flavor);
 
   (*G_OBJECT_CLASS (xdg_cache_thumbnail_parent_class)->finalize) (object);
 }
