@@ -1,137 +1,137 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the tumbler.master package.
 # 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-19 00:47+0100\n"
-"PO-Revision-Date: 2021-12-18 23:47+0000\n"
-"Last-Translator: Xfce Bot <transifex@xfce.org>\n"
-"Language-Team: Uyghur (http://www.transifex.com/xfce/tumbler/language/ug/)\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2023-05-30 00:47+0200\n"
+"PO-Revision-Date: 2013-07-02 20:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Uyghur (http://app.transifex.com/xfce/tumbler/language/ug/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ug\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:438
+#: tumblerd/tumbler-specialized-thumbnailer.c:433
 msgid "Failed to call the specialized thumbnailer: timeout"
 msgstr "ئالاھىدە كىچىك سۈرەت ياسىغۇچنى چاقىرىش مەغلۇپ بولدى: ۋاقىت ئېشىپ كەتتى"
 
-#: ../tumblerd/tumbler-specialized-thumbnailer.c:447
+#: tumblerd/tumbler-specialized-thumbnailer.c:443
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
 msgstr "ئالاھىدە كىچىك سۈرەت ياسىغۇچ چاقىرىش مەغلۇپ بولدى: %s"
 
-#: ../tumbler/tumbler-enum-types.c:49
+#: tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
 msgstr "ئىناۋەتسىز فورمات"
 
-#: ../tumbler/tumbler-enum-types.c:50
+#: tumbler/tumbler-enum-types.c:50
 msgid "PNG"
 msgstr "PNG"
 
-#: ../tumbler/tumbler-enum-types.c:71
+#: tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
 msgstr "RGB رەڭ بوشلۇقى"
 
-#: ../tumbler/tumbler-error.h:41
+#: tumbler/tumbler-error.h:41
 msgid "Thumbnail could not be inferred from file contents"
 msgstr "كىچىك سۈرەتنى ھۆججەت مەزمۇنىدىن كەلتۈرۈپ چىقارغىلى بولمىدى"
 
-#: ../tumbler/tumbler-error.h:42
+#: tumbler/tumbler-error.h:42
 msgid "Only local files are supported"
-msgstr "يەرلىك ھۆججەتنىلا قوللايدۇ."
+msgstr "يەرلىك ھۆججەتنىلا قوللايدۇ"
 
-#: ../tumbler/tumbler-error.h:43
+#: tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
+msgstr "بۇزۇلغان كىچىك سۈرەت PNG: «%s»"
 
-#: ../tumbler/tumbler-error.h:44
+#: tumbler/tumbler-error.h:44
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
 msgstr "كىچىك سۈرەتنى «%s» غا ساقلىغىلى بولمىدى."
 
-#: ../tumbler/tumbler-error.h:45
+#: tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
 msgstr "«%s» نىڭ ئۆزى كىچىك سۈرەت ھۆججىتىدۇر"
 
-#: ../tumbler/tumbler-error.h:46
+#: tumbler/tumbler-error.h:46
 #, c-format
 msgid "No thumbnailer available for \"%s\""
 msgstr "«%s» نىڭ كىچىك سۈرەت ياسىغۇچىنى ئىشلەتكىلى بولمايدۇ"
 
-#: ../tumbler/tumbler-error.h:47
+#: tumbler/tumbler-error.h:47
 msgid "The thumbnailer service is shutting down"
 msgstr "كىچىك سۈرەت ياسىغۇچ مۇلازىمىتى توختىتىلىۋاتىدۇ"
 
-#: ../tumbler/tumbler-error.h:48
+#: tumbler/tumbler-error.h:48
 msgid "Unsupported thumbnail flavor requested"
 msgstr "ئىشلەتكىلى بولمايدىغان كىچىك سۈرەت flavor ئىلتىماس قىلىندى"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:394
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:344
 #, c-format
 msgid "Failed to load the poster image \"%s\""
 msgstr "poster سۈرىتى «%s» نى ئوقۇش مەغلۇپ بولدى"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:430
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:380
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
 msgstr "مېتا سانلىق-مەلۇماتنى «%s» دىن ئوقۇش مەغلۇپ بولدى"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:626
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:578
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
 msgstr "API ئاچقۇچى ئىناۋەتسىز، سىز ئاچقۇچنىڭ توغرا بولۇشىغا كاپالەتلىك قىلىشىڭىز كېرەك. كىنو ساندىنى(DB) نىڭ ئارقا ئۇچى ئىناۋەتسىز قىلىنىدۇ."
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:634
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:586
 msgid "No poster key found in metadata"
 msgstr "مېتا سانلىق-مەلۇماتى ئىچىدە poster ئاچقۇچى يوق"
 
-#: ../plugins/cover-thumbnailer/cover-thumbnailer.c:689
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:647
 msgid "Movie title is too short"
 msgstr "كىنونىڭ ماۋزۇسى بەك قىسقا"
 
 #. there was an error in the freetype initialization, abort
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:463
+#: plugins/font-thumbnailer/font-thumbnailer.c:422
 #, c-format
 msgid "Could not initialize freetype: %s"
 msgstr "ئەركىن تىپ(freetype) نى دەسلەپلەشتۈرگىلى بولمىدى: %s"
 
 #. there was an error, emit error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:475
+#: plugins/font-thumbnailer/font-thumbnailer.c:435
 #, c-format
 msgid "Could not load file contents: %s"
 msgstr "ھۆججەت مەزمۇنى ئوقۇغىلى بولمىدى: %s"
 
 #. the font file could not be loaded, emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:494
+#: plugins/font-thumbnailer/font-thumbnailer.c:455
 #, c-format
 msgid "Could not open font file: %s"
 msgstr "فونت ھۆججىتىنى ئاچقىلى بولمىدى: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:518
+#: plugins/font-thumbnailer/font-thumbnailer.c:480
 #, c-format
 msgid "Could not set the character map: %s"
 msgstr "ھەرپ خەرىتىسىنى(character map) تەڭشىگىلى بولمىدى: %s"
 
 #. emit an error signal
-#: ../plugins/font-thumbnailer/font-thumbnailer.c:545
+#: plugins/font-thumbnailer/font-thumbnailer.c:508
 #, c-format
 msgid "Could not render glyphs: %s"
 msgstr "glyphs نى سىزغىلى بولمىدى: %s"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:337
+#: plugins/poppler-thumbnailer/poppler-thumbnailer.c:289
 msgid "The document is empty"
 msgstr "پۈتۈك قۇرۇق ئىكەن"
 
-#: ../plugins/poppler-thumbnailer/poppler-thumbnailer.c:349
+#: plugins/poppler-thumbnailer/poppler-thumbnailer.c:302
 msgid "First page of the document could not be read"
 msgstr "پۈتۈكنىڭ تۇنجى بېتىنى ئوقۇغىلى بولمىدى"
