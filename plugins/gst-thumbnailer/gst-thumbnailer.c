@@ -664,4 +664,5 @@ gst_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
 
 
   g_object_unref (thumbnail);
+  g_object_unref (flavor);
 }
