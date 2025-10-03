@@ -86,6 +86,15 @@ gepub_thumbnailer_init (GepubThumbnailer *thumbnailer)
 
 
 
+static void
+area_prepared (GdkPixbufLoader *loader,
+               GdkPixbuf **pixbuf)
+{
+  *pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
+}
+
+
+
 static GdkPixbuf *
 gepub_thumbnailer_create_from_mime (gchar *mime_type,
                                     GBytes *content,
@@ -103,10 +112,11 @@ gepub_thumbnailer_create_from_mime (gchar *mime_type,
     {
       g_signal_connect (loader, "size-prepared",
                         G_CALLBACK (tumbler_util_size_prepared), thumbnail);
+      g_signal_connect (loader, "area-prepared", G_CALLBACK (area_prepared), &pixbuf);
       if (gdk_pixbuf_loader_write_bytes (loader, content, error))
-        pixbuf = g_object_ref (gdk_pixbuf_loader_get_pixbuf (loader));
-
-      gdk_pixbuf_loader_close (loader, NULL);
+        gdk_pixbuf_loader_close (loader, error);
+      else
+        gdk_pixbuf_loader_close (loader, NULL);
       g_object_unref (loader);
     }
 
