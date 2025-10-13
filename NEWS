@@ -1,3 +1,19 @@
+4.20.1 (2025-10-13)
+======
+- Update Copyright year
+- gepub-thumbnailer: Get pixbuf in "area-prepared" signal handler
+- gst-thumbnailer: Fix TumblerThumbnailFlavor leak
+- ffmpeg-thumbnailer: Update mime type list from upstream desktop file
+- xdg-cache: Fix TumblerThumbnailFlavor leaks
+- cover-thumbnailer: Capture regex matchinfo for series episodes
+- cover-thumbnailer: Update the base URL for TMDB
+- cover-thumbnailer: Use correct parameter types with curl
+- poppler-thumbnailer: Only use embedded thumbnail if resolution 
+suffices
+- gst-thumbnailer: Make mime type checking more flexible
+- Translation Updates:
+  Albanian, Romanian, Slovak
+
 4.20.0 (2024-12-15)
 ======
 
