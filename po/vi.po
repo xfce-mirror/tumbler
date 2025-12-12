@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the tumbler.master package.
+# 
+# Translators:
+# Loc Huynh <https://github.com/hthienloc>, 2025
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2023-05-30 00:47+0200\n"
+"PO-Revision-Date: 2013-07-02 20:39+0000\n"
+"Last-Translator: Loc Huynh <https://github.com/hthienloc>, 2025\n"
+"Language-Team: Vietnamese (http://app.transifex.com/xfce/tumbler/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: tumblerd/tumbler-specialized-thumbnailer.c:433
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "Không thể gọi trình tạo ảnh thu nhỏ chuyên biệt: hết thời gian chờ"
+
+#: tumblerd/tumbler-specialized-thumbnailer.c:443
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "Không thể gọi trình tạo ảnh thu nhỏ chuyên biệt: %s"
+
+#: tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "Định dạng không hợp lệ"
+
+#: tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "Không gian màu RGB"
+
+#: tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "Không thể suy ra ảnh thu nhỏ từ nội dung tệp"
+
+#: tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "Chỉ hỗ trợ tệp cục bộ"
+
+#: tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr "Ảnh thu nhỏ PNG bị hỏng: '%s'"
+
+#: tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "Không thể lưu ảnh thu nhỏ vào \"%s\""
+
+#: tumbler/tumbler-error.h:45
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "Tệp \"%s\" chính là một ảnh thu nhỏ"
+
+#: tumbler/tumbler-error.h:46
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "Không có trình tạo ảnh thu nhỏ cho \"%s\""
+
+#: tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "Dịch vụ tạo ảnh thu nhỏ đang tắt"
+
+#: tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "Yêu cầu kiểu ảnh thu nhỏ không được hỗ trợ"
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:344
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "Không thể tải ảnh poster \"%s\""
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:380
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "Không thể tải metadata từ \"%s\""
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:578
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "Khóa API không hợp lệ, bạn phải được cấp một khóa hợp lệ. Backend Movie DB sẽ bị vô hiệu hóa."
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:586
+msgid "No poster key found in metadata"
+msgstr "Không tìm thấy khóa poster trong metadata"
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:647
+msgid "Movie title is too short"
+msgstr "Tiêu đề phim quá ngắn"
+
+#. there was an error in the freetype initialization, abort
+#: plugins/font-thumbnailer/font-thumbnailer.c:422
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "Không thể khởi tạo freetype: %s"
+
+#. there was an error, emit error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:435
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "Không thể tải nội dung tệp: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:455
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "Không thể mở tệp phông chữ: %s"
+
+#. emit an error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:480
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "Không thể đặt bảng ánh xạ ký tự: %s"
+
+#. emit an error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:508
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "Không thể hiển thị glyphs: %s"
+
+#: plugins/poppler-thumbnailer/poppler-thumbnailer.c:289
+msgid "The document is empty"
+msgstr "Tài liệu trống rỗng"
+
+#: plugins/poppler-thumbnailer/poppler-thumbnailer.c:302
+msgid "First page of the document could not be read"
+msgstr "Không thể đọc trang đầu tiên của tài liệu"
