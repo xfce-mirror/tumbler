@@ -280,6 +280,13 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
   if (G_LIKELY (tmpfile))
     {
+      /*
+       * We won't use this because it refers to a file descriptor that may become invalid
+       * if the external process replaces the temporary file when saving the thumbnail.
+       * See https://gitlab.xfce.org/xfce/tumbler/-/issues/107
+       */
+      g_object_unref (stream);
+
       tmpfilepath = g_file_peek_path (tmpfile);
 
       size = MIN (width, height);
@@ -316,8 +323,7 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
           if (G_LIKELY (res))
             {
-              source = gdk_pixbuf_new_from_stream (g_io_stream_get_input_stream (G_IO_STREAM (stream)),
-                                                   cancellable, error);
+              source = gdk_pixbuf_new_from_file (tmpfilepath, error);
               if (source != NULL)
                 {
                   pixbuf = tumbler_util_scale_pixbuf (source, width, height);
@@ -333,7 +339,6 @@ desktop_thumbnailer_load_thumbnail (DesktopThumbnailer *thumbnailer,
 
       g_file_delete (tmpfile, NULL, NULL);
       g_object_unref (tmpfile);
-      g_object_unref (stream);
       g_free (exec);
     }
 
