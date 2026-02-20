@@ -185,7 +185,10 @@ tumbler_cache_plugin_get_default (void)
       g_object_add_weak_pointer (G_OBJECT (plugin), (gpointer) &plugin);
 
       if (!g_type_module_use (G_TYPE_MODULE (plugin)))
-        return NULL;
+        {
+          g_object_unref (plugin);
+          return NULL;
+        }
     }
 
   return G_TYPE_MODULE (plugin);

@@ -530,7 +530,12 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
 
   /* abort if there are no thumbnailers */
   if (thumbnailers == NULL)
-    return;
+    {
+      /* we need NULL-terminated arrays for the _get_supported() dbus call anyway */
+      registry->uri_schemes = g_new0 (gchar *, 1);
+      registry->mime_types = g_new0 (gchar *, 1);
+      return;
+    }
 
   /* clear visited flag of all thumbnailers */
   for (lp = thumbnailers; lp != NULL; lp = lp->next)
