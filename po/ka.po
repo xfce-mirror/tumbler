@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the tumbler.master package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Tumbler\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2023-05-30 00:47+0200\n"
+"PO-Revision-Date: 2013-07-02 20:39+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Georgian (http://app.transifex.com/xfce/tumbler/language/ka/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: tumblerd/tumbler-specialized-thumbnailer.c:433
+msgid "Failed to call the specialized thumbnailer: timeout"
+msgstr "სპეციალიზებული მინიატურების შემქმნელის გამოძახება ჩავარდა: მოლოდინის დრო ამოიწურა"
+
+#: tumblerd/tumbler-specialized-thumbnailer.c:443
+#, c-format
+msgid "Failed to call the specialized thumbnailer: %s"
+msgstr "სპეციალიზებული მინიატურების შემქმნელის გამოძახება ჩავარდა: %s"
+
+#: tumbler/tumbler-enum-types.c:49
+msgid "Invalid format"
+msgstr "არასწორი ფორმატი"
+
+#: tumbler/tumbler-enum-types.c:50
+msgid "PNG"
+msgstr "PNG"
+
+#: tumbler/tumbler-enum-types.c:71
+msgid "RGB Colorspace"
+msgstr "RGB ფერთა სივრცე"
+
+#: tumbler/tumbler-error.h:41
+msgid "Thumbnail could not be inferred from file contents"
+msgstr "ფაილის შემცველობიდან მინიატურის შექმნა შეუძლებელია"
+
+#: tumbler/tumbler-error.h:42
+msgid "Only local files are supported"
+msgstr "მხარდაჭერილია, მხოლოდ, ლოკალური ფაილები"
+
+#: tumbler/tumbler-error.h:43
+#, c-format
+msgid "Corrupt thumbnail PNG: '%s'"
+msgstr "PNG-ის დაზიანებული მინიატურა: '%s'"
+
+#: tumbler/tumbler-error.h:44
+#, c-format
+msgid "Could not save thumbnail to \"%s\""
+msgstr "მინიატურის '%s'-ში შენახვა ჩავარდა"
+
+#: tumbler/tumbler-error.h:45
+#, c-format
+msgid "The file \"%s\" is a thumbnail itself"
+msgstr "ფაილი '%s' თვითონაა მინიატურა"
+
+#: tumbler/tumbler-error.h:46
+#, c-format
+msgid "No thumbnailer available for \"%s\""
+msgstr "'%s'-ისთვის მინიატურის შექმნის პროგრამა ხელმისაწვდომი არაა"
+
+#: tumbler/tumbler-error.h:47
+msgid "The thumbnailer service is shutting down"
+msgstr "მინიატურების სერვისი ითიშება"
+
+#: tumbler/tumbler-error.h:48
+msgid "Unsupported thumbnail flavor requested"
+msgstr "მოთხოვნილია მხარდაუჭერელი მინიატურის ტიპი"
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:344
+#, c-format
+msgid "Failed to load the poster image \"%s\""
+msgstr "პოსტერის გამოსახულების '%s' ჩატვირთვა ჩავარდა"
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:380
+#, c-format
+msgid "Failed to load the metadata from \"%s\""
+msgstr "'%s'-დან მეტამონაცემების ჩატვირთვა ჩავარდა"
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:578
+msgid ""
+"Invalid API key, you must be granted a valid key. The Movie DB backend will "
+"be disabled."
+msgstr "არასწორი API-ის გასაღები. სწორი გასაღების ქონა აუცილებელია. ფილმების მონაცემთა ბაზის უკანაბოლო გაითიშება."
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:586
+msgid "No poster key found in metadata"
+msgstr "მეტამონაცემებში პოსტერის გასაღები აღმოჩენილი არაა"
+
+#: plugins/cover-thumbnailer/cover-thumbnailer.c:647
+msgid "Movie title is too short"
+msgstr "ფილმის სახელი მეტისმეტად მოკლეა"
+
+#. there was an error in the freetype initialization, abort
+#: plugins/font-thumbnailer/font-thumbnailer.c:422
+#, c-format
+msgid "Could not initialize freetype: %s"
+msgstr "freetype-ის ინიციალიზაცია შეუძლებელია: %s"
+
+#. there was an error, emit error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:435
+#, c-format
+msgid "Could not load file contents: %s"
+msgstr "ფაილის შემცველობის ჩატვირთვა შეუძლებელია: %s"
+
+#. the font file could not be loaded, emit an error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:455
+#, c-format
+msgid "Could not open font file: %s"
+msgstr "ფონტის ფაილის გახსნა შეუძლებელია: %s"
+
+#. emit an error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:480
+#, c-format
+msgid "Could not set the character map: %s"
+msgstr "სიმბოლოების რუკის დაყენება შეუძლებელია: %s"
+
+#. emit an error signal
+#: plugins/font-thumbnailer/font-thumbnailer.c:508
+#, c-format
+msgid "Could not render glyphs: %s"
+msgstr "გლიფების რენდერის შეცდომა: %s"
+
+#: plugins/poppler-thumbnailer/poppler-thumbnailer.c:289
+msgid "The document is empty"
+msgstr "დოკუმენტი ცარიელია"
+
+#: plugins/poppler-thumbnailer/poppler-thumbnailer.c:302
+msgid "First page of the document could not be read"
+msgstr "დოკუმენტის პირველი გვერდის წაკითხვა შეუძლებელია"
