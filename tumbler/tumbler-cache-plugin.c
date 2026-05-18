@@ -88,6 +88,7 @@ tumbler_cache_plugin_init (TumblerCachePlugin *plugin)
 static void
 tumbler_cache_plugin_constructed (GObject *object)
 {
+  (*G_OBJECT_CLASS (tumbler_cache_plugin_parent_class)->constructed) (object);
 }
 
 
