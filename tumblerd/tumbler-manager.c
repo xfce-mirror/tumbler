@@ -238,6 +238,8 @@ tumbler_manager_constructed (GObject *object)
       g_signal_connect (manager->skeleton, "handle-register",
                         G_CALLBACK (tumbler_manager_register_cb), manager);
     }
+
+  (*G_OBJECT_CLASS (tumbler_manager_parent_class)->constructed) (object);
 }
 
 static void
