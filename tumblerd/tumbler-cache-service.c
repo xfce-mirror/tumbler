@@ -153,7 +153,7 @@ struct _CleanupRequest
 
 
 
-G_DEFINE_TYPE (TumblerCacheService, tumbler_cache_service, TUMBLER_TYPE_COMPONENT);
+G_DEFINE_FINAL_TYPE (TumblerCacheService, tumbler_cache_service, TUMBLER_TYPE_COMPONENT);
 
 
 

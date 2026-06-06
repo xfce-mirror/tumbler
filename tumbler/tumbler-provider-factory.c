@@ -63,7 +63,7 @@ G_LOCK_DEFINE_STATIC (factory_lock);
 
 
 
-G_DEFINE_TYPE (TumblerProviderFactory, tumbler_provider_factory, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (TumblerProviderFactory, tumbler_provider_factory, G_TYPE_OBJECT);
 
 
 

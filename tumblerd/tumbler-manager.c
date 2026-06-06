@@ -157,7 +157,7 @@ struct _ThumbnailerInfo
 
 
 
-G_DEFINE_TYPE (TumblerManager, tumbler_manager, TUMBLER_TYPE_COMPONENT);
+G_DEFINE_FINAL_TYPE (TumblerManager, tumbler_manager, TUMBLER_TYPE_COMPONENT);
 
 
 

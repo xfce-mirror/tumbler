@@ -57,7 +57,7 @@ struct _TumblerRegistry
 
 
 
-G_DEFINE_TYPE (TumblerRegistry, tumbler_registry, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (TumblerRegistry, tumbler_registry, G_TYPE_OBJECT);
 
 
 

@@ -155,7 +155,7 @@ struct _SchedulerIdleInfo
 
 
 
-G_DEFINE_TYPE (TumblerService, tumbler_service, TUMBLER_TYPE_COMPONENT);
+G_DEFINE_FINAL_TYPE (TumblerService, tumbler_service, TUMBLER_TYPE_COMPONENT);
 
 
 

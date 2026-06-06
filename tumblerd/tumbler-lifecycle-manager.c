@@ -62,7 +62,7 @@ static guint lifecycle_manager_signals[LAST_SIGNAL];
 
 
 
-G_DEFINE_TYPE (TumblerLifecycleManager, tumbler_lifecycle_manager, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (TumblerLifecycleManager, tumbler_lifecycle_manager, G_TYPE_OBJECT)
 
 
 

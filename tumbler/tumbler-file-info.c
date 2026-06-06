@@ -69,7 +69,7 @@ struct _TumblerFileInfo
 
 
 
-G_DEFINE_TYPE (TumblerFileInfo, tumbler_file_info, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (TumblerFileInfo, tumbler_file_info, G_TYPE_OBJECT);
 
 
 

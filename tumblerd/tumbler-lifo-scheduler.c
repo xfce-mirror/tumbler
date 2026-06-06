@@ -102,11 +102,11 @@ G_LOCK_DEFINE (plugin_access_lock);
 
 
 
-G_DEFINE_TYPE_WITH_CODE (TumblerLifoScheduler,
-                         tumbler_lifo_scheduler,
-                         G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
-                                                tumbler_lifo_scheduler_iface_init));
+G_DEFINE_FINAL_TYPE_WITH_CODE (TumblerLifoScheduler,
+                               tumbler_lifo_scheduler,
+                               G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
+                                                      tumbler_lifo_scheduler_iface_init));
 
 
 static void

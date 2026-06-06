@@ -98,11 +98,11 @@ struct _SpecializedInfo
 
 
 
-G_DEFINE_TYPE_WITH_CODE (TumblerSpecializedThumbnailer, 
-                         tumbler_specialized_thumbnailer,
-                         TUMBLER_TYPE_ABSTRACT_THUMBNAILER,
-                         G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_THUMBNAILER,
-                                                tumbler_specialized_thumbnailer_iface_init));
+G_DEFINE_FINAL_TYPE_WITH_CODE (TumblerSpecializedThumbnailer,
+                               tumbler_specialized_thumbnailer,
+                               TUMBLER_TYPE_ABSTRACT_THUMBNAILER,
+                               G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_THUMBNAILER,
+                                                      tumbler_specialized_thumbnailer_iface_init));
 
 
 

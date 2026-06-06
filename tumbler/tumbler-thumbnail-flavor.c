@@ -60,7 +60,7 @@ struct _TumblerThumbnailFlavor
 
 
 
-G_DEFINE_TYPE (TumblerThumbnailFlavor, tumbler_thumbnail_flavor, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (TumblerThumbnailFlavor, tumbler_thumbnail_flavor, G_TYPE_OBJECT)
 
 
 

@@ -116,11 +116,11 @@ G_LOCK_DEFINE (group_access_lock);
 
 
 
-G_DEFINE_TYPE_WITH_CODE (TumblerGroupScheduler,
-                         tumbler_group_scheduler,
-                         G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
-                                                tumbler_group_scheduler_iface_init));
+G_DEFINE_FINAL_TYPE_WITH_CODE (TumblerGroupScheduler,
+                               tumbler_group_scheduler,
+                               G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (TUMBLER_TYPE_SCHEDULER,
+                                                      tumbler_group_scheduler_iface_init));
 
 
 

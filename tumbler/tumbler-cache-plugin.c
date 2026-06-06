@@ -53,7 +53,7 @@ struct _TumblerCachePlugin
 
 
 
-G_DEFINE_TYPE (TumblerCachePlugin, tumbler_cache_plugin, G_TYPE_TYPE_MODULE);
+G_DEFINE_FINAL_TYPE (TumblerCachePlugin, tumbler_cache_plugin, G_TYPE_TYPE_MODULE);
 
 
 
