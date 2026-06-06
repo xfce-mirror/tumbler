@@ -36,7 +36,7 @@
 GType
 tumbler_thumbnail_format_get_type (void)
 {
-  GType type = G_TYPE_INVALID;
+  static GType type = G_TYPE_INVALID;
 
   if (G_UNLIKELY (type == G_TYPE_INVALID))
     {
@@ -57,7 +57,7 @@ tumbler_thumbnail_format_get_type (void)
 GType
 tumbler_colorspace_get_type (void)
 {
-  GType type = G_TYPE_INVALID;
+  static GType type = G_TYPE_INVALID;
 
   if (G_UNLIKELY (type == G_TYPE_INVALID))
     {

@@ -274,7 +274,7 @@ cover_thumbnailer_load_perform (CoverThumbnailer *cover,
       if (rc == -1)
         break;
     }
-  while (still_running);
+  while (TRUE);
 
   /* get return value */
   msg = curl_multi_info_read (cover->curl_multi, &rc);
