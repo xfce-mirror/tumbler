@@ -221,6 +221,7 @@ gst_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
   if (!gst_init_check (0, NULL, &error))
     {
       g_warning ("Cannot initialize GStreamer, thumbnailer not loaded: %s", error->message);
+      g_error_free (error);
       return NULL;
     }
 
