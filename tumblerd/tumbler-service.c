@@ -707,7 +707,7 @@ tumbler_service_queue_cb (TumblerExportedService *skeleton,
                           const gchar *const *mime_hints,
                           const gchar *flavor_name,
                           const gchar *scheduler_name,
-                          guint32 handle_to_dequeue,
+                          guint handle_to_dequeue,
                           TumblerService *service)
 {
   TumblerSchedulerRequest *scheduler_request;
@@ -832,7 +832,7 @@ tumbler_service_queue_cb (TumblerExportedService *skeleton,
 static gboolean
 tumbler_service_dequeue_cb (TumblerExportedService *skeleton,
                             GDBusMethodInvocation *invocation,
-                            guint32 handle,
+                            guint handle,
                             TumblerService *service)
 {
   GList *iter;
