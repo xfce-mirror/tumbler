@@ -36,21 +36,21 @@ tumbler_thumbnail_default_init (TumblerThumbnailIface *klass)
                                                             "cache",
                                                             "cache",
                                                             TUMBLER_TYPE_CACHE,
-                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_string ("uri",
                                                             "uri",
                                                             "uri",
                                                             NULL,
-                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_object ("flavor",
                                                             "flavor",
                                                             "flavor",
                                                             TUMBLER_TYPE_THUMBNAIL_FLAVOR,
-                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 

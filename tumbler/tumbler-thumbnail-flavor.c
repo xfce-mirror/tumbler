@@ -82,21 +82,21 @@ tumbler_thumbnail_flavor_class_init (TumblerThumbnailFlavorClass *klass)
                                                         "name",
                                                         "name",
                                                         NULL,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class, PROP_WIDTH,
                                    g_param_spec_int ("width",
                                                      "width",
                                                      "width",
                                                      -1, G_MAXINT, 0,
-                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class, PROP_HEIGHT,
                                    g_param_spec_int ("height",
                                                      "height",
                                                      "height",
                                                      -1, G_MAXINT, 0,
-                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                     G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 

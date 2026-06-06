@@ -49,45 +49,45 @@ tumbler_thumbnailer_default_init (TumblerThumbnailerIface *klass)
                                        g_param_spec_pointer ("mime-types",
                                                              "mime-types",
                                                              "mime-types",
-                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("uri-schemes",
                                                              "uri-schemes",
                                                              "uri-schemes",
-                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("hash-keys",
                                                              "hash-keys",
                                                              "hash-keys",
-                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                             G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_int ("priority",
                                                          "priority",
                                                          "priority",
                                                          0, G_MAXINT, 0,
-                                                         G_PARAM_READWRITE));
+                                                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_int64 ("max-file-size",
                                                            "max-file-size",
                                                            "max-file-size",
                                                            0, G_MAXINT64, 0,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("locations",
                                                              "locations",
                                                              "locations",
-                                                             G_PARAM_READWRITE));
+                                                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_interface_install_property (klass,
                                        g_param_spec_pointer ("excludes",
                                                              "excludes",
                                                              "excludes",
-                                                             G_PARAM_READWRITE));
+                                                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   tumbler_thumbnailer_signals[SIGNAL_READY] =
     g_signal_new ("ready",

@@ -177,14 +177,14 @@ tumbler_manager_class_init (TumblerManagerClass *klass)
                                                         "connection",
                                                         "connection",
                                                         G_TYPE_DBUS_CONNECTION,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class, PROP_REGISTRY,
                                    g_param_spec_object ("registry",
                                                         "registry",
                                                         "registry",
                                                         TUMBLER_TYPE_REGISTRY,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 

@@ -94,28 +94,28 @@ tumbler_file_info_class_init (TumblerFileInfoClass *klass)
                                                         "mtime",
                                                         "mtime",
                                                         0, G_MAXDOUBLE, 0,
-                                                        G_PARAM_READABLE));
+                                                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class, PROP_URI,
                                    g_param_spec_string ("uri",
                                                         "uri",
                                                         "uri",
                                                         NULL,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class, PROP_MIME_TYPE,
                                    g_param_spec_string ("mime-type",
                                                         "mime-type",
                                                         "mime-type",
                                                         NULL,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class, PROP_FLAVOR,
                                    g_param_spec_object ("flavor",
                                                         "flavor",
                                                         "flavor",
                                                         TUMBLER_TYPE_THUMBNAIL_FLAVOR,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 

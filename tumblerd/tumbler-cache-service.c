@@ -173,7 +173,7 @@ tumbler_cache_service_class_init (TumblerCacheServiceClass *klass)
                                                         "connection",
                                                         "connection",
                                                         G_TYPE_DBUS_CONNECTION,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 

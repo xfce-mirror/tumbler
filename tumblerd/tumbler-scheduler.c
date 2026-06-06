@@ -84,7 +84,7 @@ tumbler_scheduler_default_init (TumblerSchedulerIface *klass)
                                                             "name",
                                                             "name",
                                                             NULL,
-                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
   tumbler_scheduler_signals[SIGNAL_ERROR] =
     g_signal_new ("error",

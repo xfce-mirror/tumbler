@@ -79,7 +79,7 @@ tumbler_component_class_init (TumblerComponentClass *klass)
                                                         "lifecycle-manager",
                                                         "lifecycle-manager",
                                                         TUMBLER_TYPE_LIFECYCLE_MANAGER,
-                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 }
 
 

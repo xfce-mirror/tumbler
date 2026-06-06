@@ -123,7 +123,7 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         "name",
                                                         "name",
                                                         NULL,
-                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_OBJECT_PATH,
@@ -131,7 +131,7 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         "object-path",
                                                         "object-path",
                                                         NULL,
-                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_CONNECTION,
@@ -139,7 +139,7 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         "connection",
                                                         "connection",
                                                         G_TYPE_DBUS_CONNECTION,
-                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_PROXY,
@@ -147,7 +147,7 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         "proxy",
                                                         "proxy",
                                                         G_TYPE_DBUS_PROXY,
-                                                        G_PARAM_READABLE));
+                                                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_FOREIGN,
@@ -155,7 +155,7 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                          "foreign",
                                                          "foreign",
                                                          FALSE,
-                                                         G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                         G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
   g_object_class_install_property (gobject_class,
                                    PROP_MODIFIED,
@@ -163,7 +163,7 @@ tumbler_specialized_thumbnailer_class_init (TumblerSpecializedThumbnailerClass *
                                                         "modified",
                                                         "modified",
                                                         0, G_MAXUINT64, 0,
-                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE));
+                                                        G_PARAM_CONSTRUCT_ONLY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 
