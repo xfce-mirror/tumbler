@@ -391,7 +391,7 @@ tumbler_specialized_thumbnailer_create (TumblerThumbnailer *thumbnailer,
   sinfo.thumbnailer = thumbnailer;
 
   handler_id = g_signal_connect (s->proxy, "g-signal",
-                                 G_CALLBACK (thumbnailer_proxy_g_signal_cb), &info);
+                                 G_CALLBACK (thumbnailer_proxy_g_signal_cb), &sinfo);
 
   result = g_dbus_proxy_call_sync (s->proxy,
                                    "Queue",

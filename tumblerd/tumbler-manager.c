@@ -644,8 +644,6 @@ tumbler_manager_load_overrides_file (TumblerManager *manager,
 {
   OverrideInfo *info;
   OverrideInfo *info2;
-  gboolean first = FALSE;
-  gboolean inserted = FALSE;
   GList *overrides;
   GList *lp;
   GList *op;
@@ -698,8 +696,8 @@ tumbler_manager_load_overrides_file (TumblerManager *manager,
         }
       else
         {
-          first = FALSE;
-          inserted = FALSE;
+          gboolean inserted = FALSE;
+          gboolean first = FALSE;
 
           /* find the right place in the list to insert the info and insert it
            * if the list is non-empty */
@@ -915,7 +913,6 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
   struct stat file_stat;
   GKeyFile *key_file;
   gboolean first = FALSE;
-  gboolean inserted = FALSE;
   GError *error = NULL;
   GFile *directory;
   GList **list;
@@ -1067,10 +1064,10 @@ tumbler_manager_load_thumbnailer (TumblerManager *manager,
     }
   else
     {
+      gboolean inserted = FALSE;
+
       /* free the basename */
       g_free (base_name);
-
-      inserted = FALSE;
 
       /* iterate over all infos in the current list */
       for (lp = *list; !inserted && lp != NULL; lp = lp->next)
