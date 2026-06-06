@@ -130,7 +130,7 @@ desktop_thumbnailer_get_from_desktop_file (GFile *file,
   /* return if disabled */
   if (g_key_file_get_boolean (rc, "X-Tumbler Settings", "Disabled", &error) && error == NULL)
     return NULL;
-  else if (error != NULL)
+  else
     g_clear_error (&error);
 
   /* try to load the settings */
