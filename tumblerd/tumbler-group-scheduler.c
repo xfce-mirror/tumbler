@@ -96,7 +96,6 @@ struct _TumblerGroupScheduler
   GThreadPool *pool;
   TUMBLER_MUTEX (mutex);
   GList *requests;
-  guint group;
   gboolean prioritized;
 
   gchar *name;
