@@ -461,7 +461,7 @@ tumbler_service_scheduler_error (TumblerScheduler *scheduler,
                                        g_quark_to_string (error_domain), error_code, message);
     }
 
-  g_debug ("Error signal for job %d: Code %d, message: %s",
+  g_debug ("Error signal for job %u: Code %d, message: %s",
            handle, info->error_code, info->message);
   tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", failed_uris);
 
@@ -515,7 +515,7 @@ tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
 
-  g_debug ("Finishing job %d\n", handle);
+  g_debug ("Finishing job %u\n", handle);
 
   info = g_slice_new0 (SchedulerIdleInfo);
 
@@ -575,7 +575,7 @@ tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
   g_return_if_fail (uris != NULL && uris[0] != NULL && *uris[0] != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
 
-  g_debug ("Ready signal for job %d", handle);
+  g_debug ("Ready signal for job %u", handle);
   tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", uris);
 
   info = g_slice_new0 (SchedulerIdleInfo);
@@ -632,7 +632,7 @@ tumbler_service_scheduler_started (TumblerScheduler *scheduler,
   g_return_if_fail (origin != NULL && *origin != '\0');
   g_return_if_fail (TUMBLER_IS_SERVICE (service));
 
-  g_debug ("Starting job %d", handle);
+  g_debug ("Starting job %u", handle);
 
   info = g_slice_new0 (SchedulerIdleInfo);
 
@@ -759,7 +759,7 @@ tumbler_service_queue_cb (TumblerExportedService *skeleton,
   /* get the request handle */
   handle = scheduler_request->handle;
 
-  g_debug ("Handling request %d", handle);
+  g_debug ("Handling request %u", handle);
   tumbler_util_dump_strvs_side_by_side (G_LOG_DOMAIN, "URIs", "Mime types", uris, mime_hints);
 
   /* iterate over all schedulers */
@@ -841,7 +841,7 @@ tumbler_service_dequeue_cb (TumblerExportedService *skeleton,
 
   if (handle != 0)
     {
-      g_debug ("Dequeuing files for job %d", handle);
+      g_debug ("Dequeuing files for job %u", handle);
 
       /* iterate over all available schedulers */
       for (iter = service->schedulers; iter != NULL; iter = iter->next)

@@ -363,7 +363,7 @@ tumbler_scheduler_thumberr_debuglog (TumblerThumbnailer *thumbnailer,
     {
       if (request->infos[n] == failed_info)
         {
-          g_debug ("Failed attempt for job %d, URI '%s': Code %d, message: %s",
+          g_debug ("Failed attempt for job %u, URI '%s': Code %d, message: %s",
                    request->handle, tumbler_file_info_get_uri (failed_info), error_code, text);
           break;
         }
