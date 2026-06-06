@@ -42,8 +42,6 @@ tumbler_specialized_thumbnailer_new_foreign (GDBusConnection *connection,
                                              const gchar *const *mime_type) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
 const gchar *
 tumbler_specialized_thumbnailer_get_name (TumblerSpecializedThumbnailer *thumbnailer);
-const gchar *
-tumbler_specialized_thumbnailer_get_object_path (TumblerSpecializedThumbnailer *thumbnailer);
 gboolean
 tumbler_specialized_thumbnailer_get_foreign (TumblerSpecializedThumbnailer *thumbnailer);
 guint64
