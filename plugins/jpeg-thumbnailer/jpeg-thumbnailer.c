@@ -766,7 +766,6 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   TumblerThumbnailFlavor *flavor;
   TumblerImageData data;
   TumblerThumbnail *thumbnail;
-  struct stat statb;
   const gchar *uri;
   GdkPixbuf *pixbuf = NULL;
   GdkPixbuf *scaled;
@@ -775,7 +774,6 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   GError *error = NULL;
   GFile *file;
   gsize length;
-  gint fd;
   gint height;
   gint width;
   gint size;
@@ -807,9 +805,11 @@ jpeg_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   if (g_file_peek_path (file) != NULL)
     {
       /* try to open the file at the given path */
-      fd = open (g_file_peek_path (file), O_RDONLY);
+      gint fd = open (g_file_peek_path (file), O_RDONLY);
       if (G_LIKELY (fd >= 0))
         {
+          struct stat statb;
+
           /* determine the status of the file */
           if (G_LIKELY (fstat (fd, &statb) == 0 && statb.st_size > 0))
             {
