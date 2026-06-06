@@ -5,7 +5,7 @@
 # Translators:
 # Alois Nešpor <info@aloisnespor.info>, 2013
 # b537cbea55af75c3f49fe8b21c4cf8ea_f0ce149, 2023
-# Michal Várady <miko.vaji@gmail.com>, 2017,2024
+# Michal Várady <miko.vaji@gmail.com>, 2017,2024,2026
 # Pavel Borecki <pavel.borecki@gmail.com>, 2018
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-05-30 00:47+0200\n"
 "PO-Revision-Date: 2013-07-02 20:39+0000\n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2017,2024\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2017,2024,2026\n"
 "Language-Team: Czech (http://app.transifex.com/xfce/tumbler/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,12 +23,12 @@ msgstr ""
 
 #: tumblerd/tumbler-specialized-thumbnailer.c:433
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: překročen časový limit"
+msgstr "Volání specializovaného generátoru náhledů se nezdařilo: vypršel časový limit"
 
 #: tumblerd/tumbler-specialized-thumbnailer.c:443
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr "Volání specializovaného nástroje pro vytváření náhledů se nezdařilo: %s"
+msgstr "Volání specializovaného generátoru náhledů se nezdařilo: %s"
 
 #: tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -48,17 +48,17 @@ msgstr "Odvození náhledu z obsahu souboru se nezdařilo"
 
 #: tumbler/tumbler-error.h:42
 msgid "Only local files are supported"
-msgstr "Podporovány jsou pouze soubory, nacházející se přímo v počítači"
+msgstr "Podporovány jsou pouze místní soubory"
 
 #: tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr "Poškozený náhled PNG: '%s'"
+msgstr "Poškozený náhled PNG: „%s“"
 
 #: tumbler/tumbler-error.h:44
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Nedaří se uložit náhled do „%s“"
+msgstr "Nelze uložit náhled do „%s“"
 
 #: tumbler/tumbler-error.h:45
 #, c-format
@@ -68,7 +68,7 @@ msgstr "Soubor „%s“ je už náhledem"
 #: tumbler/tumbler-error.h:46
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Pro položku „%s“ není k dispozici žádný nástroj pro vytváření náhledů"
+msgstr "Pro „%s“ není k dispozici žádný generátor náhledů"
 
 #: tumbler/tumbler-error.h:47
 msgid "The thumbnailer service is shutting down"
@@ -76,7 +76,7 @@ msgstr "Služba náhledů se vypíná"
 
 #: tumbler/tumbler-error.h:48
 msgid "Unsupported thumbnail flavor requested"
-msgstr "Byla vyžádána nepodporovaná metoda náhledu"
+msgstr "Byla vyžádána nepodporovaná varianta náhledu"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:344
 #, c-format
@@ -86,51 +86,51 @@ msgstr "Načtení plakátu z umístění „%s“ se nezdařilo"
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:380
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr "Načtení metadat z umístění %s se nezdařilo"
+msgstr "Načtení metadat z umístění „%s“ se nezdařilo"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:578
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr "Neplatný klíč rozhraní API, je třeba obdržet platný klíč. Podpůrná vrstva pro službu Movie DB bude vypnuta."
+msgstr "Neplatný klíč API, je nutné získat platný klíč. Podpůrná vrstva Movie DB bude vypnuta."
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:586
 msgid "No poster key found in metadata"
-msgstr "V metadatech nebyl nalezen klíč miniatury"
+msgstr "V metadatech nebyl nalezen klíč plakátu"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:647
 msgid "Movie title is too short"
-msgstr "Titulek filmu je příliš krátký"
+msgstr "Název filmu je příliš krátký"
 
 #. there was an error in the freetype initialization, abort
 #: plugins/font-thumbnailer/font-thumbnailer.c:422
 #, c-format
 msgid "Could not initialize freetype: %s"
-msgstr "Nedaří se inicializovat modul freetype: %s"
+msgstr "Nelze inicializovat knihovnu FreeType: %s"
 
 #. there was an error, emit error signal
 #: plugins/font-thumbnailer/font-thumbnailer.c:435
 #, c-format
 msgid "Could not load file contents: %s"
-msgstr "Nedaří se načíst obsah souboru: %s"
+msgstr "Nelze načíst obsah souboru: %s"
 
 #. the font file could not be loaded, emit an error signal
 #: plugins/font-thumbnailer/font-thumbnailer.c:455
 #, c-format
 msgid "Could not open font file: %s"
-msgstr "Nedaří se otevřít soubor s písmem: %s"
+msgstr "Nelze otevřít soubor s písmem: %s"
 
 #. emit an error signal
 #: plugins/font-thumbnailer/font-thumbnailer.c:480
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Nedaří se nastavit mapu znaků: %s"
+msgstr "Nelze nastavit mapu znaků: %s"
 
 #. emit an error signal
 #: plugins/font-thumbnailer/font-thumbnailer.c:508
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Nedaří se vykreslit piktogramy: %s"
+msgstr "Nelze vykreslit glyfy: %s"
 
 #: plugins/poppler-thumbnailer/poppler-thumbnailer.c:289
 msgid "The document is empty"
@@ -138,4 +138,4 @@ msgstr "Dokument je prázdný"
 
 #: plugins/poppler-thumbnailer/poppler-thumbnailer.c:302
 msgid "First page of the document could not be read"
-msgstr "Nedaří se načíst první stranu dokumentu"
+msgstr "Nelze načíst první stranu dokumentu"
