@@ -267,11 +267,7 @@ tumbler_file_info_load (TumblerFileInfo *info,
 
   /* make sure to clear the thumbnail before we load the info, just in
    * case someone decides to load it twice */
-  if (info->thumbnail != NULL)
-    {
-      g_object_unref (info->thumbnail);
-      info->thumbnail = NULL;
-    }
+  g_clear_object (&info->thumbnail);
 
   /* query the default cache implementation */
   cache = tumbler_cache_get_default ();
@@ -303,11 +299,7 @@ tumbler_file_info_load (TumblerFileInfo *info,
       g_propagate_error (error, err);
 
       /* release the thumbnail info */
-      if (info->thumbnail != NULL)
-        {
-          g_object_unref (info->thumbnail);
-          info->thumbnail = NULL;
-        }
+      g_clear_object (&info->thumbnail);
 
       return FALSE;
     }

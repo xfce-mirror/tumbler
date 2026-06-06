@@ -230,8 +230,7 @@ xdg_cache_thumbnail_load (TumblerThumbnail *thumbnail,
   file = xdg_cache_cache_get_file (cache_thumbnail->uri,
                                    cache_thumbnail->flavor);
 
-  g_free (cache_thumbnail->cached_uri);
-  cache_thumbnail->cached_uri = NULL;
+  g_clear_pointer (&cache_thumbnail->cached_uri, g_free);
   cache_thumbnail->cached_mtime = 0;
 
   xdg_cache_cache_read_thumbnail_info (g_file_peek_path (file),

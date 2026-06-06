@@ -572,8 +572,7 @@ cover_thumbnailer_poster_url (CoverThumbnailer *cover,
                           _("Invalid API key, you must be granted a valid "
                             "key. The Movie DB backend will be disabled."));
 
-              g_free (cover->api_key);
-              cover->api_key = NULL;
+              g_clear_pointer (&cover->api_key, g_free);
             }
 
           g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,

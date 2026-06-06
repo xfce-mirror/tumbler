@@ -346,8 +346,7 @@ tvtj_jpeg_load (const JOCTET *content,
     }
 
   /* release the grayscale buffer */
-  g_free (buffer);
-  buffer = NULL;
+  g_clear_pointer (&buffer, g_free);
 
   /* finish the JPEG decompression */
   jpeg_finish_decompress (&cinfo);

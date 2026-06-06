@@ -395,8 +395,7 @@ gst_thumbnailer_capture_interesting_frame (GstElement *play,
         break;
 
       /* continue looking for something better */
-      g_object_unref (pixbuf);
-      pixbuf = NULL;
+      g_clear_object (&pixbuf);
     }
 
   return pixbuf;
