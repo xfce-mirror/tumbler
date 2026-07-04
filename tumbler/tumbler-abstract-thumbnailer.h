@@ -61,7 +61,7 @@ struct _TumblerAbstractThumbnailer
 };
 
 GType
-tumbler_abstract_thumbnailer_get_type (void) G_GNUC_CONST;
+tumbler_abstract_thumbnailer_get_type (void);
 
 G_END_DECLS;
 
