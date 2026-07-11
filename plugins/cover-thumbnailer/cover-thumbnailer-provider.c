@@ -128,6 +128,7 @@ cover_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provide
     "video/x-ms-wmv",
     "video/x-msvideo",
     "application/vnd.rn-realmedia",
+    "video/matroska",
     "video/x-matroska",
     "video/ogg",
     NULL
