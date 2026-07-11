@@ -114,7 +114,9 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
     "video/x-flic",
     "video/x-flv",
     "video/x-javafx",
+    "video/matroska",
     "video/x-matroska",
+    "video/matroska-3d",
     "video/x-matroska-3d",
     "video/x-mjpeg",
     "video/x-mng",
@@ -126,6 +128,7 @@ ffmpeg_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provid
     "application/mxf",
     "application/vnd.ms-asf",
     "application/vnd.rn-realmedia",
+    "application/matroska",
     "application/x-matroska",
     "application/ogg",
     NULL
