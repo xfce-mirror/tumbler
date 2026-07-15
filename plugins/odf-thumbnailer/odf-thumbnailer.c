@@ -275,6 +275,8 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   file = g_file_new_for_uri (uri);
   g_debug ("Handling URI '%s'", uri);
 
+  gsf_init ();
+
   if (g_file_peek_path (file) != NULL)
     {
       /* try to mmap the file */
@@ -291,6 +293,7 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
                                  error->domain, error->code, error->message);
           g_error_free (error);
           g_object_unref (file);
+          gsf_shutdown ();
           return;
         }
     }
@@ -353,4 +356,5 @@ odf_thumbnailer_create (TumblerAbstractThumbnailer *thumbnailer,
   g_object_unref (file);
   g_object_unref (input);
   g_object_unref (thumbnail);
+  gsf_shutdown ();
 }
