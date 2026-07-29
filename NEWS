@@ -1,3 +1,12 @@
+4.20.2 (2026-07-29)
+======
+- Update copyright year
+- Support new matroska mime types
+- Remove G_GNUC_CONST
+- Add missing chain up to parent class
+- Handle cases where there are no plugins gracefully
+- desktop-thumbnailer: Don't use GIOStream to get thumbnail pixbuf
+
 4.20.1 (2025-10-13)
 ======
 - Update Copyright year
