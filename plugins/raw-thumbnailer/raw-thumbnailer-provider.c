@@ -95,6 +95,7 @@ raw_thumbnailer_provider_get_thumbnailers (TumblerThumbnailerProvider *provider)
   static const gchar *uri_schemes[] = { "file", NULL };
   const gchar *mime_types[] = {
     "image/x-adobe-dng",
+    "image/x-canon-cr3",
     "image/x-canon-cr2",
     "image/x-canon-crw",
     "image/x-epson-erf",
