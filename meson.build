@@ -19,20 +19,20 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 dependency_versions = {
-  'gdk-pixbuf': '>= 2.42.8',
-  'glib': '>= 2.72.0',
-  'libxfce4util': '>= 4.17.1',
+  'gdk-pixbuf': '>= 2.42.10',
+  'glib': '>= 2.80.0',
+  'xfce4': '>= 4.20.0',
 
-  'curl': '>= 7.32.0',
+  'curl': '>= 8.5.0',
   'ffmpeg': '>= 2.2.2',
-  'freetype': '>= 2.0.0',
-  'libgepub': '>= 0.6.0',
-  'gstreamer': '>= 1.0.0',
-  'libjpeg': '>= 2.0.0',
-  'libgsf': '>= 1.14.9',
-  'poppler-glib': '>= 0.82.0',
-  'libopenraw': '>= 0.1.0',
-  'libpng': '>= 1.6.0',
+  'freetype': '>= 2.13.2',
+  'libgepub': '>= 0.7.1',
+  'gstreamer': '>= 1.24.2',
+  'libjpeg': '>= 2.1.5',
+  'libgsf': '>= 1.14.51',
+  'poppler-glib': '>= 24.02.0',
+  'libopenraw': '>= 0.1.2',
+  'libpng': '>= 1.6.43',
 }
 
 gdk_pixbuf = dependency('gdk-pixbuf-2.0', version: dependency_versions['gdk-pixbuf'])
@@ -41,7 +41,7 @@ gio = dependency('gio-2.0', version: dependency_versions['glib'])
 gio_unix = dependency('gio-unix-2.0', version: dependency_versions['glib'])
 gmodule = dependency('gmodule-2.0', version: dependency_versions['glib'])
 gthread = dependency('gthread-2.0', version: dependency_versions['glib'])
-libxfce4util = dependency('libxfce4util-1.0', version: dependency_versions['libxfce4util'])
+libxfce4util = dependency('libxfce4util-1.0', version: dependency_versions['xfce4'])
 libm = cc.find_library('m', required: true)
 
 xdt_gen_visibility = find_program('xdt-gen-visibility', required: true)
@@ -70,9 +70,6 @@ thumbnailer_deps += {'font': deps}
 enable_thumbnailer += {'font': deps[-1].found()}
 
 gepub = dependency('libgepub-0.7', version: dependency_versions['libgepub'], required: false)
-if not gepub.found()
-  gepub = dependency('libgepub-0.6', version: dependency_versions['libgepub'], required: get_option('gepub-thumbnailer'))
-endif
 deps = base_deps + gepub
 thumbnailer_deps += {'gepub': deps}
 enable_thumbnailer += {'gepub': deps[-1].found()}
