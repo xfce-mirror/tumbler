@@ -73,12 +73,10 @@ tumbler_deps = [
   gio,
   gmodule,
   gthread,
+  libintl,
   libxfce4util,
   libm,
 ]
-if need_libintl
-  tumbler_deps += libintl
-endif
 
 tumbler_so_version = '0'
 tumbler_version = '@0@.0.0'.format(tumbler_so_version)
