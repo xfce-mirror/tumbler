@@ -434,8 +434,7 @@ xdg_cache_thumbnail_save_image_data (TumblerThumbnail *thumbnail,
     }
   else
     {
-      g_free (cache_thumbnail->cached_uri);
-      cache_thumbnail->cached_uri = g_strdup (cache_thumbnail->uri);
+      g_set_str (&cache_thumbnail->cached_uri, cache_thumbnail->uri);
       cache_thumbnail->cached_mtime = mtime;
       return TRUE;
     }
