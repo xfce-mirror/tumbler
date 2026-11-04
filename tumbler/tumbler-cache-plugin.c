@@ -139,8 +139,7 @@ tumbler_cache_plugin_load (GTypeModule *type_module)
       else
         {
           g_warning (TUMBLER_WARNING_PLUGIN_LACKS_SYMBOLS, type_module->name);
-          g_module_close (plugin->library);
-          plugin->library = NULL;
+          g_clear_pointer (&plugin->library, g_module_close);
           return FALSE;
         }
     }
@@ -162,8 +161,7 @@ tumbler_cache_plugin_unload (GTypeModule *type_module)
   (*plugin->shutdown) ();
 
   /* unload the plugin from memory */
-  g_module_close (plugin->library);
-  plugin->library = NULL;
+  g_clear_pointer (&plugin->library, g_module_close);
 
   /* reset plugin state */
   plugin->initialize = NULL;

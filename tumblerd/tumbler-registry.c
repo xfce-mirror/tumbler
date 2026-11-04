@@ -518,10 +518,8 @@ tumbler_registry_update_supported (TumblerRegistry *registry)
   tumbler_mutex_lock (registry->mutex);
 
   /* free the old cache */
-  g_strfreev (registry->uri_schemes);
-  registry->uri_schemes = NULL;
-  g_strfreev (registry->mime_types);
-  registry->mime_types = NULL;
+  g_clear_pointer (&registry->uri_schemes, g_strfreev);
+  g_clear_pointer (&registry->mime_types, g_strfreev);
 
   /* get a list of all active thumbnailers */
   thumbnailers = tumbler_registry_get_thumbnailers_internal (registry);

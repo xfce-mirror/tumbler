@@ -417,8 +417,7 @@ cover_thumbnailer_get_title (CoverThumbnailer *cover,
           && start_pos > 0)
         basename[start_pos] = '\0';
     }
-  g_match_info_free (match_info);
-  match_info = NULL;
+  g_clear_pointer (&match_info, g_match_info_free);
 
   /* for non-series, look for a year in the title */
   if (!is_series
@@ -443,8 +442,7 @@ cover_thumbnailer_get_title (CoverThumbnailer *cover,
             }
         }
     }
-  g_match_info_free (match_info);
-  match_info = NULL;
+  g_clear_pointer (&match_info, g_match_info_free);
 
   /* append the possible title part of the filename */
   title = g_string_sized_new (strlen (basename));
