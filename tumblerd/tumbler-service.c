@@ -377,19 +377,19 @@ tumbler_service_set_property (GObject *object,
 
 
 
-static gboolean
+static void
 tumbler_service_error_idle (gpointer user_data)
 {
   TumblerCache *cache;
   SchedulerIdleInfo *info = user_data;
   GVariant *signal_variant;
 
-  g_return_val_if_fail (info != NULL, FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
-  g_return_val_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0', FALSE);
-  g_return_val_if_fail (info->message != NULL && *info->message != '\0', FALSE);
-  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
+  g_return_if_fail (info != NULL);
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler));
+  g_return_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0');
+  g_return_if_fail (info->message != NULL && *info->message != '\0');
+  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
+  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
 
   /* cache cleanup: any previous thumbnail is now invalid */
   cache = tumbler_cache_get_default ();
@@ -413,8 +413,6 @@ tumbler_service_error_idle (gpointer user_data)
                                  NULL);
 
   scheduler_idle_info_free (info);
-
-  return FALSE;
 }
 
 
@@ -465,20 +463,20 @@ tumbler_service_scheduler_error (TumblerScheduler *scheduler,
            handle, info->error_code, info->message);
   tumbler_util_dump_strv (G_LOG_DOMAIN, "URIs", failed_uris);
 
-  g_idle_add (tumbler_service_error_idle, info);
+  g_idle_add_once (tumbler_service_error_idle, info);
 }
 
 
 
-static gboolean
+static void
 tumbler_service_finished_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
   GVariant *signal_variant;
 
-  g_return_val_if_fail (info != NULL, FALSE);
-  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
+  g_return_if_fail (info != NULL);
+  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
+  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
 
   signal_variant = g_variant_new ("(u)",
                                   info->handle);
@@ -497,8 +495,6 @@ tumbler_service_finished_idle (gpointer user_data)
   tumbler_component_decrement_use_count (TUMBLER_COMPONENT (info->service));
 
   scheduler_idle_info_free (info);
-
-  return FALSE;
 }
 
 
@@ -524,22 +520,22 @@ tumbler_service_scheduler_finished (TumblerScheduler *scheduler,
   info->origin = g_strdup (origin);
   info->service = g_object_ref (service);
 
-  g_idle_add (tumbler_service_finished_idle, info);
+  g_idle_add_once (tumbler_service_finished_idle, info);
 }
 
 
 
-static gboolean
+static void
 tumbler_service_ready_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
   GVariant *signal_variant;
 
-  g_return_val_if_fail (info != NULL, FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
-  g_return_val_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0', FALSE);
-  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
+  g_return_if_fail (info != NULL);
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler));
+  g_return_if_fail (info->uris != NULL && info->uris[0] != NULL && *info->uris[0] != '\0');
+  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
+  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
 
   signal_variant = g_variant_new ("(u^as)",
                                   info->handle,
@@ -555,8 +551,6 @@ tumbler_service_ready_idle (gpointer user_data)
                                  NULL);
 
   scheduler_idle_info_free (info);
-
-  return FALSE;
 }
 
 
@@ -586,21 +580,21 @@ tumbler_service_scheduler_ready (TumblerScheduler *scheduler,
   info->origin = g_strdup (origin);
   info->service = g_object_ref (service);
 
-  g_idle_add (tumbler_service_ready_idle, info);
+  g_idle_add_once (tumbler_service_ready_idle, info);
 }
 
 
 
-static gboolean
+static void
 tumbler_service_started_idle (gpointer user_data)
 {
   SchedulerIdleInfo *info = user_data;
   GVariant *signal_variant;
 
-  g_return_val_if_fail (info != NULL, FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler), FALSE);
-  g_return_val_if_fail (info->origin != NULL && *info->origin != '\0', FALSE);
-  g_return_val_if_fail (TUMBLER_IS_SERVICE (info->service), FALSE);
+  g_return_if_fail (info != NULL);
+  g_return_if_fail (TUMBLER_IS_SCHEDULER (info->scheduler));
+  g_return_if_fail (info->origin != NULL && *info->origin != '\0');
+  g_return_if_fail (TUMBLER_IS_SERVICE (info->service));
 
   signal_variant = g_variant_new ("(u)", info->handle);
 
@@ -614,8 +608,6 @@ tumbler_service_started_idle (gpointer user_data)
                                  NULL);
 
   scheduler_idle_info_free (info);
-
-  return FALSE;
 }
 
 
@@ -641,7 +633,7 @@ tumbler_service_scheduler_started (TumblerScheduler *scheduler,
   info->origin = g_strdup (origin);
   info->service = g_object_ref (service);
 
-  g_idle_add (tumbler_service_started_idle, info);
+  g_idle_add_once (tumbler_service_started_idle, info);
 }
 
 
