@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Rihards Priedītis <rprieditis@gmail.com>, 2009
+# Rihards Priedītis <rprieditis@gmail.com>, 2009,2026
 msgid ""
 msgstr ""
 "Project-Id-Version: Tumbler\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2023-05-30 00:47+0200\n"
 "PO-Revision-Date: 2013-07-02 20:39+0000\n"
-"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>, 2009\n"
+"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>, 2009,2026\n"
 "Language-Team: Latvian (http://app.transifex.com/xfce/tumbler/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,12 +21,12 @@ msgstr ""
 
 #: tumblerd/tumbler-specialized-thumbnailer.c:433
 msgid "Failed to call the specialized thumbnailer: timeout"
-msgstr ""
+msgstr "Neizdevās izsaukt specializēto sīktēlu veidotāju: noildze"
 
 #: tumblerd/tumbler-specialized-thumbnailer.c:443
 #, c-format
 msgid "Failed to call the specialized thumbnailer: %s"
-msgstr ""
+msgstr "Neizdevās izsaukt specializēto sīktēlu veidotāju: %s"
 
 #: tumbler/tumbler-enum-types.c:49
 msgid "Invalid format"
@@ -37,67 +38,67 @@ msgstr "PNG"
 
 #: tumbler/tumbler-enum-types.c:71
 msgid "RGB Colorspace"
-msgstr ""
+msgstr "RGB krāsu telpa"
 
 #: tumbler/tumbler-error.h:41
 msgid "Thumbnail could not be inferred from file contents"
-msgstr ""
+msgstr "No faila satura neizdevās iegūt sīktēlu"
 
 #: tumbler/tumbler-error.h:42
 msgid "Only local files are supported"
-msgstr ""
+msgstr "Tiek atbalstīti tikai lokāli faili"
 
 #: tumbler/tumbler-error.h:43
 #, c-format
 msgid "Corrupt thumbnail PNG: '%s'"
-msgstr ""
+msgstr "Bojāts sīktēla PNG: „%s”"
 
 #: tumbler/tumbler-error.h:44
 #, c-format
 msgid "Could not save thumbnail to \"%s\""
-msgstr "Nevarēja saglabāt siktēlu \"%s\""
+msgstr "Neizdevās saglabāt sīktēlu „%s”"
 
 #: tumbler/tumbler-error.h:45
 #, c-format
 msgid "The file \"%s\" is a thumbnail itself"
-msgstr "Fails \"%s\" jau pats ir sīktēls"
+msgstr "Fails „%s” pats ir sīktēls"
 
 #: tumbler/tumbler-error.h:46
 #, c-format
 msgid "No thumbnailer available for \"%s\""
-msgstr "Neviens sīktēlotājs nav pieejams priekš \"%s\""
+msgstr "Failam „%s” nav pieejama sīktēlu veidotāja"
 
 #: tumbler/tumbler-error.h:47
 msgid "The thumbnailer service is shutting down"
-msgstr ""
+msgstr "Sīktēlu pakalpojums tiek izslēgts"
 
 #: tumbler/tumbler-error.h:48
 msgid "Unsupported thumbnail flavor requested"
-msgstr ""
+msgstr "Pieprasīts neatbalstīts sīktēla veids"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:344
 #, c-format
 msgid "Failed to load the poster image \"%s\""
-msgstr ""
+msgstr "Neizdevās ielādēt plakāta attēlu „%s”"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:380
 #, c-format
 msgid "Failed to load the metadata from \"%s\""
-msgstr ""
+msgstr "Neizdevās ielādēt metadatus no „%s”"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:578
 msgid ""
 "Invalid API key, you must be granted a valid key. The Movie DB backend will "
 "be disabled."
-msgstr ""
+msgstr "Nederīga API atslēga, jums jāsaņem derīga atslēga. The Movie DB aizmugursistēma tiks atspējota."
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:586
 msgid "No poster key found in metadata"
-msgstr ""
+msgstr "Metadatos nav atrasta plakāta atslēga"
 
 #: plugins/cover-thumbnailer/cover-thumbnailer.c:647
 msgid "Movie title is too short"
-msgstr ""
+msgstr "Filmas nosaukums ir pārāk īss"
 
 #. there was an error in the freetype initialization, abort
 #: plugins/font-thumbnailer/font-thumbnailer.c:422
@@ -121,18 +122,18 @@ msgstr "Neizdevās atvērt fonta failu: %s"
 #: plugins/font-thumbnailer/font-thumbnailer.c:480
 #, c-format
 msgid "Could not set the character map: %s"
-msgstr "Neizdevās uzstādīt rakstzīmju karti: %s"
+msgstr "Neizdevās iestatīt rakstzīmju karti: %s"
 
 #. emit an error signal
 #: plugins/font-thumbnailer/font-thumbnailer.c:508
 #, c-format
 msgid "Could not render glyphs: %s"
-msgstr "Neizdevās vizualizēt glyphs: %s"
+msgstr "Neizdevās renderēt glifus: %s"
 
 #: plugins/poppler-thumbnailer/poppler-thumbnailer.c:289
 msgid "The document is empty"
-msgstr ""
+msgstr "Dokuments ir tukšs"
 
 #: plugins/poppler-thumbnailer/poppler-thumbnailer.c:302
 msgid "First page of the document could not be read"
-msgstr ""
+msgstr "Neizdevās nolasīt dokumenta pirmo lappusi"
